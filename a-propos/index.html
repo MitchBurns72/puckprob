@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Comment PuckProb calcule ses probabilités LNH | PuckProb</title>
+<meta name="description" content="La méthode derrière les probabilités de PuckProb : joueurs, matchs, trophées et Coupe Stanley.">
+<link rel="canonical" href="https://puckprob.ca/a-propos/">
+<meta name="theme-color" content="#0A2342">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PuckProb">
+<meta property="og:locale" content="fr_CA">
+<meta property="og:title" content="Comment PuckProb calcule ses probabilités LNH | PuckProb">
+<meta property="og:description" content="La méthode derrière les probabilités de PuckProb : joueurs, matchs, trophées et Coupe Stanley.">
+<meta property="og:url" content="https://puckprob.ca/a-propos/">
+<meta property="og:image" content="https://puckprob.ca/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="../favicon-64.png">
+<link rel="apple-touch-icon" href="../icone-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="../site.css">
+</head>
+<body>
+<header class="bug"><div class="in">
+<a href="../" aria-label="PuckProb, accueil"><img src="../logo.png" alt="PuckProb" width="204" height="34"></a>
+<nav aria-label="Menu"><a href="../">Ce soir</a><a href="../trophees/">Trophées</a><a href="../coupe-stanley/">Coupe Stanley</a><a href="../equipes/">Équipes</a><a href="../bilan/">Bilan</a><a href="../a-propos/" aria-current="page">À propos</a></nav>
+</div></header>
+<main class="wrap">
+<h1>Comment c'est calculé</h1>
+<p>PuckProb donne, chaque soir de match, la probabilité que chaque joueur obtienne un tir, un but, une passe ou un point,
+la probabilité de chaque équipe de gagner, et les chances aux trophées et à la Coupe Stanley. Que des pourcentages.</p>
+<h2>Les joueurs</h2>
+<p>Pour chaque joueur : son rythme de tirs, de buts et de passes (pondéré vers ses matchs récents et ramené vers la moyenne
+quand l'échantillon est petit), son temps de glace attendu, son unité d'avantage numérique, l'adversaire (défensive, gardien partant),
+le domicile, les matchs en deux soirs consécutifs et les statistiques avancées de MoneyPuck. Plusieurs modèles sont comparés
+en continu ; celui qui prédit le mieux chaque catégorie, vérifié sur les matchs passés, est celui qu'on publie.</p>
+<h2>Les matchs</h2>
+<p>Les buts attendus de chaque équipe viennent de la forme récente, de l'attaque et de la défensive des deux équipes
+et des gardiens. La probabilité de victoire inclut la prolongation et les tirs de barrage.</p>
+<h2>Les trophées et la Coupe</h2>
+<p>Le reste de la saison est simulé des milliers de fois. Pour les trophées votés (Hart, Norris, Vezina, Calder, Selke, etc.),
+on a appris ce que les votants récompensent à partir des gagnants des saisons passées, à pareille date.</p>
+<h2>Vérifié, tous les soirs</h2>
+<p>Chaque probabilité est comparée au résultat réel. Tout est sur la page <a href="../bilan/">Bilan</a>.</p>
+<h2>Sources</h2>
+<p>Données publiques de la LNH, statistiques avancées de <a href="https://moneypuck.com" rel="noopener">MoneyPuck.com</a>,
+alignements de <a href="https://www.dailyfaceoff.com" rel="noopener">DailyFaceoff</a>. Site indépendant, non affilié à la LNH
+ni à ses équipes. Aucune photo ni aucun logo officiel n'est utilisé.</p>
+</main>
+<footer class="wrap">
+<p><b>PuckProb</b> calcule des probabilités à partir des données publiques de la LNH, des statistiques avancées de
+<a href="https://moneypuck.com" rel="noopener">MoneyPuck.com</a> et des alignements de
+<a href="https://www.dailyfaceoff.com" rel="noopener">DailyFaceoff</a>. Site indépendant, non affilié à la LNH ni à ses équipes.
+Une probabilité n'est pas une certitude : le hockey reste le hockey.</p>
+<nav aria-label="Pied de page"><a href="../">Ce soir</a><a href="../trophees/">Trophées</a><a href="../coupe-stanley/">Coupe Stanley</a><a href="../equipes/">Équipes</a><a href="../bilan/">Bilan</a><a href="../a-propos/" aria-current="page">À propos</a></nav>
+</footer>
+</body>
+</html>
