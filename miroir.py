@@ -22,7 +22,7 @@ SOURCE = "https://mitchburns72.github.io/Tirs-nhl/public/"
 LIVE = "https://mitchburns72.github.io/Tirs-nhl/live.json"   # scores en direct (copié à chaque passage)
 ICI = Path(__file__).resolve().parent
 # Ce qui appartient au dépôt lui-même : jamais écrasé ni effacé par le miroir
-PROTEGES = {"miroir.py", "README.md", "CNAME", "live.json"}
+PROTEGES = {"miroir.py", "README.md", "CNAME", "live.json", ".nojekyll"}
 DOSSIERS_PROTEGES = {".git", ".github"}
 MIN_FICHIERS = 30   # une liste plus courte que ça = calcul brisé, on ne touche à rien
 
@@ -49,6 +49,9 @@ def chemin_sur(rel):
     p = Path(rel)
     if p.is_absolute() or ".." in p.parts or not p.parts:
         return None
+    # Fichiers cachés (.nojekyll, etc.) : GitHub Pages ne les sert pas chez Tirs-nhl, on les gère ici
+    if any(x.startswith(".") for x in p.parts):
+        return None
     if p.parts[0] in DOSSIERS_PROTEGES or rel in PROTEGES:
         return None
     return ICI / p
@@ -64,11 +67,13 @@ def main():
     for rel, empreinte in fichiers.items():
         dest = chemin_sur(rel)
         if dest is None:
-            print("  ignoré (chemin refusé) :", rel)
             continue
         if dest.exists() and sha(dest.read_bytes()) == empreinte:
             continue
-        b = lire(SOURCE + rel)
+        try:
+            b = lire(SOURCE + rel)
+        except Exception as ex:  # noqa: BLE001
+            sys.exit(f"Impossible de lire {rel} ({ex}) : rien n'est modifié.")
         if sha(b) != empreinte:
             sys.exit(f"Empreinte fausse pour {rel} (calcul en cours de publication?) : rien n'est modifié, on réessaiera.")
         nouveaux[dest] = b
@@ -76,13 +81,14 @@ def main():
     for dest, b in nouveaux.items():
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_bytes(b)
+    (ICI / ".nojekyll").write_text("")   # sert les fichiers tels quels, sans passer par Jekyll
     (ICI / "manifeste.json").write_bytes(json.dumps(man, ensure_ascii=False, indent=0).encode())
     # 3. Effacer ce qui n'existe plus à la source
     gardes = {Path(r).as_posix() for r in fichiers} | {"manifeste.json"} | PROTEGES
     effaces = 0
     for p in sorted(ICI.rglob("*"), reverse=True):
         rel = p.relative_to(ICI).as_posix()
-        if p.relative_to(ICI).parts[0] in DOSSIERS_PROTEGES:
+        if p.relative_to(ICI).parts[0] in DOSSIERS_PROTEGES or p.name.startswith("."):
             continue
         if p.is_file() and rel not in gardes:
             p.unlink()
