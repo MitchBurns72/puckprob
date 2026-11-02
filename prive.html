@@ -3045,8 +3045,8 @@ document.addEventListener("click", (e) => {
 document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaires(); });
 
 // ---- Enforcers : le joueur qui fait le plus peur (src/physique.py) ------------------------------------------
-// Score = combats par 82 matchs (poids 1) + « effet peur » : l'adversaire frappe-t-il moins quand il est sur la glace
-// (poids 0,8) + ses propres mises en échec par 60 min (poids 0,5). La LNH ne note pas qui gagne un combat.
+// Score = moitié combats par 82 matchs, moitié « effet peur » : l'adversaire frappe-t-il moins quand il est sur la glace ?
+// Ses propres mises en échec ne comptent pas. La LNH ne note pas qui gagne un combat.
 let ENF = null, ENF_ch = false;
 const pcS = (v) => { if (v == null) return "–"; const r = Math.round(v * 100); return (r > 0 ? "+" : r < 0 ? "−" : "") + Math.abs(r) + (EN ? "%" : " %"); };
 async function enforcers(){
@@ -3059,23 +3059,24 @@ async function enforcers(){
     catch (e) { ENF = null; ENF_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les enforcers arrivent quand le jeu-par-jeu de la saison est récolté (quelques calculs).", "Enforcers arrive once the season's play-by-play is collected (a few updates).")}</div></div>`; return; }
   }
   const tete = `<div class="cp-tete"><h2>${L("Top 10 des enforcers", "Top 10 enforcers")}</h2><p>${L(
-    "Le joueur qui fait le plus peur à l'autre équipe : il se bat, il frappe, et quand il saute sur la glace, l'adversaire frappe moins. Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
-    "The player the other team fears most: he fights, he hits, and when he jumps on the ice, the opponent hits less. Current and last season combined. Tap a player for the details.")}</p></div>`;
+    "Le joueur qui fait le plus peur à l'autre équipe : moitié ses combats, moitié l'effet peur (quand il saute sur la glace, l'adversaire frappe moins). Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
+    "The player the other team fears most: half his fights, half the fear effect (when he jumps on the ice, the opponent hits less). Current and last season combined. Tap a player for the details.")}</p></div>`;
   const lignes = ENF.top.slice(0, 10).map((x) => `<button class="wi-l enf-j" data-id="${x.id}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}</span>
     <span class="nm">${x.n}<small>${x.eq} · ${x.pos === "D" ? L("Déf.", "D") : L("Avant", "F")} · ${x.pj} ${L("matchs", "games")}</small></span>
     <span class="v">${x.comb} <small>${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}</small><small>${L("Peur", "Fear")} ${pcS(x.peur)}</small></span></button>`).join("");
   const W = ENF.poids || {};
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Trois morceaux, chacun comparé à toute la ligue (écart à la moyenne) : <b>combats</b> par 82 matchs (poids ${W.combats}), <b>effet peur</b> (poids ${W.peur}) et <b>mises en échec données</b> par 60 minutes (poids ${W.frappes}).</p>
+    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Deux morceaux, moitié-moitié, chacun comparé à toute la ligue (écart à la moyenne) : <b>combats</b> par 82 matchs et <b>effet peur</b>. Ses propres mises en échec ne comptent pas : un enforcer, c'est celui qu'on n'ose pas frapper.</p>
      <p><b>Effet peur.</b> Les mises en échec de l'adversaire par 60 minutes quand il est sur la glace, comparées à quand il est au banc. −20 % = l'autre équipe frappe 20 % moins quand il est là. C'est un indice, pas une preuve : ses coéquipiers et qui a la rondelle jouent aussi.</p>
-     <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats. Pour être dans le classement : au moins un combat, ou un rythme de mises en échec dans le quart supérieur de la ligue. Minimum 20 matchs.</p>`,
-    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Three parts, each compared with the whole league (distance from average): <b>fights</b> per 82 games (weight ${W.combats}), <b>fear effect</b> (weight ${W.peur}) and <b>hits thrown</b> per 60 minutes (weight ${W.frappes}).</p>
+     <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats. Minimum 20 matchs et 30 minutes de chaque bord (sur la glace et au banc).</p>`,
+    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Two parts, half and half, each compared with the whole league (distance from average): <b>fights</b> per 82 games and the <b>fear effect</b>. His own hits don't count: an enforcer is the guy nobody dares to hit.</p>
      <p><b>Fear effect.</b> The opponent's hits per 60 minutes while he's on the ice, compared with while he's on the bench. −20% = the other team hits 20% less when he's out there. It's a hint, not proof: his linemates and who has the puck matter too.</p>
-     <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights. To make the list: at least one fight, or a hit rate in the league's top quarter. 20 games minimum.</p>`)}</details>`;
+     <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights. 20 games minimum and 30 minutes each way (on the ice and on the bench).</p>`)}</details>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
 }
 function enfCarte(id){
   const x = ENF?.top?.find(j => j.id === id); if (!x) return;
+  const sg2 = (v) => v == null ? "–" : (v >= 0 ? "+" : "−") + n1(Math.abs(v));
   const peur = x.adv ? L(`L'adversaire frappe ${n1(x.adv[0])} fois par 60 minutes quand il est sur la glace, ${n1(x.adv[1])} quand il est au banc : ${pcS(x.peur)}.`,
     `The opponent hits ${n1(x.adv[0])} times per 60 minutes while he's on the ice, ${n1(x.adv[1])} while he's on the bench: ${pcS(x.peur)}.`) : L("Pas assez de minutes pour mesurer l'effet peur.", "Not enough minutes to measure the fear effect.");
   const m = $("#wi-modal");
@@ -3085,7 +3086,7 @@ function enfCarte(id){
       <p><b>${L("Combats", "Fights")}.</b> ${x.comb} ${L("en", "in")} ${x.pj} ${L("matchs", "games")} (${n1(x.comb82)} ${L("sur 82", "per 82")}).</p>
       <p><b>${L("Mises en échec", "Hits")}.</b> ${x.fr} ${L("données", "thrown")}, ${n1(x.fr60)} ${L("par 60 minutes", "per 60 minutes")} (${n1(x.toi)} ${L("min par match", "min per game")}).</p>
       <p><b>${L("Effet peur", "Fear effect")}.</b> ${peur}</p>
-      <p><b>Score.</b> ${n1(x.score)} (${L("écarts à la moyenne de la ligue, pondérés", "weighted distances from league average")}).</p>
+      <p><b>Score.</b> ${n1(x.score)} = ${L("moitié combats", "half fights")} (${sg2(x.z?.[0])}) + ${L("moitié peur", "half fear")} (${sg2(x.z?.[1])}), ${L("en écarts à la moyenne de la ligue", "in distances from league average")}.</p>
     </div></div>`;
   m.hidden = false;
 }
