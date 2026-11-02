@@ -1,0 +1,36 @@
+name: Live
+
+# Scores en direct : aux 5 min de midi à 2 h du matin (heure de l'Est). Écrit live.json à la racine du site.
+# Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl. Les soirs sans match finissent en 10 s.
+on:
+  schedule:
+    - cron: "*/5 16-23 * * *"
+    - cron: "*/5 0-5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Stats live des matchs en cours
+        run: python live_code/live.py
+        env:
+          LIVE_SORTIE: live.json
+      - name: Committer si ça a bougé
+        run: |
+          git config user.name "puckprob-bot"
+          git config user.email "puckprob-bot@users.noreply.github.com"
+          git add live.json
+          git diff --cached --quiet || (git commit -q -m "Live $(date -u +%H:%MZ)" && git pull --rebase -q && git push)
