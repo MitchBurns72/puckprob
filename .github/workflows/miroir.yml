@@ -1,33 +1,12 @@
-name: Miroir du site
+name: Miroir (désactivé)
 
-# Copie le site calculé dans Tirs-nhl (docs/public/) aux 20 minutes.
-# Rien ne change = rien n'est commité (ça roule en 15 secondes).
+# Désactivé le 2 nov. 2026 (V2.00) : le site est maintenant publié directement par le calcul de Tirs-nhl.
+# Ce fichier remplace l'ancien miroir pour qu'il ne roule plus aux 20 minutes.
 on:
-  schedule:
-    - cron: "*/20 * * * *"
   workflow_dispatch: {}
 
-permissions:
-  contents: write
-
-concurrency:
-  group: miroir
-  cancel-in-progress: false
-
 jobs:
-  miroir:
+  rien:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Copier le site
-        run: python miroir.py
-      - name: Committer si ça a bougé
-        run: |
-          git config user.name "puckprob-bot"
-          git config user.email "puckprob-bot@users.noreply.github.com"
-          git add -A
-          git diff --cached --quiet || (git commit -q -m "Site $(date -u +%Y-%m-%dT%H:%MZ)" && git push)
+      - run: echo "Miroir désactivé : le site est publié par le calcul de Tirs-nhl."
