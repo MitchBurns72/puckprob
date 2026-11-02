@@ -17,9 +17,10 @@
 <meta property="og:url" content="https://puckprob.ca/">
 <meta property="og:image" content="https://puckprob.ca/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "PuckProb", "url": "https://puckprob.ca/", "inLanguage": "en-CA"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "PuckProb", "alternateName": ["Puck Prob", "puckprob.ca"], "url": "https://puckprob.ca/", "inLanguage": "en-CA"}, {"@type": "Organization", "name": "PuckProb", "url": "https://puckprob.ca/", "logo": "https://puckprob.ca/icone-512.png", "email": "contact@puckprob.ca"}]}</script>
 <meta name="theme-color" content="#0A2342">
-<link rel="icon" type="image/png" href="favicon-64.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="icone-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -106,6 +107,36 @@ header.bug:has(.bug-d) .logo-site{width:min(230px,52vw)}
 header.bug .lang{color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);border-radius:4px;font:italic 800 17px/1 var(--f-display);padding:8px 10px;flex:none;margin-left:auto}
 nav.menu{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--bande2);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(8px,env(safe-area-inset-left,0px))}
 nav.menu::-webkit-scrollbar{display:none}
+/* What if : liste + dos de carte de hockey */
+#wi-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
+.wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
+.wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
+.wi-l .nm small,.wi-l .v small{display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px}
+.wi-l .v{font:italic 800 26px/.9 var(--f-display);text-align:right}
+.wi-l .v small{font-style:normal}
+.wi-modal{position:fixed;inset:0;z-index:60;background:rgba(5,12,24,.72);display:flex;align-items:center;justify-content:center;padding:14px}
+.wi-modal[hidden]{display:none}
+.wi-carte{background:#F4E7C5;color:#2A1C0C;width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:10px;border:4px solid var(--eq);box-shadow:0 18px 50px rgba(0,0,0,.5);animation:wi-pop .25s ease-out}
+@keyframes wi-pop{from{transform:scale(.85) rotateY(70deg);opacity:0}to{transform:none;opacity:1}}
+.wi-carte header{background:var(--eq);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.wi-carte header b{font:italic 800 26px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.wi-carte header span{display:block;font:600 13px var(--f-body);opacity:.9;margin-top:4px}
+.wi-carte header button{background:rgba(255,255,255,.18);border:0;color:#fff;font:800 20px/1 var(--f-body);width:34px;height:34px;border-radius:50%;cursor:pointer;flex:none}
+.wi-carte .wi-res{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}
+.wi-carte .wi-res div{border:2px solid #2A1C0C;border-radius:6px;padding:8px;text-align:center}
+.wi-carte .wi-res b{display:block;font:italic 800 24px/1 var(--f-display)}
+.wi-carte .wi-res span{font:600 11px var(--f-body);text-transform:uppercase;letter-spacing:.04em}
+.wi-carte table{width:100%;border-collapse:collapse;font:500 11.5px/1.25 ui-monospace,Menlo,Consolas,monospace;margin:8px 0 0}
+.wi-carte th{font:800 10.5px var(--f-body);text-transform:uppercase;border-bottom:2px solid #2A1C0C;padding:5px 3px;text-align:right}
+.wi-carte th.g{text-align:center;border-bottom:1px solid #2A1C0C}
+.wi-carte td{padding:4px 3px;text-align:right;border-bottom:1px dotted rgba(42,28,12,.35);white-space:nowrap}
+.wi-carte td:first-child,.wi-carte th:first-child,.wi-carte td:nth-child(2),.wi-carte th:nth-child(2){text-align:left}
+.wi-carte .wi-w{background:rgba(211,32,43,.08)}
+.wi-carte tr.et .wi-w{font-weight:800;color:#9E1620}
+.wi-carte tfoot td{font-weight:800;border-top:2px solid #2A1C0C;border-bottom:0}
+.wi-carte .wi-tbl{overflow-x:auto;padding:0 6px}
+.wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#5A4630}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
 nav.menu a[aria-current]::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:3px;background:var(--led)}
@@ -509,6 +540,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp-resume span{font-size:11.5px;color:var(--muted)}
 </style>
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
+<script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -527,6 +559,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-matchs" aria-selected="false" aria-controls="p-matchs">Matchs</button>
     <button role="tab" id="t-suivi" aria-selected="false" aria-controls="p-suivi">Suivi</button>
     <button role="tab" id="t-coupe" aria-selected="false" aria-controls="p-coupe">Trophées</button>
+    <button role="tab" id="t-whatif" aria-selected="false" aria-controls="p-whatif">What if</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -588,6 +621,19 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     </div></div>
     <div id="coupe"></div>
   </section>
+
+  <!-- What if : carrières comme si personne n'avait manqué de match (docs/whatif.json, chargé au 1er clic) -->
+  <section id="p-whatif" role="tabpanel" aria-labelledby="t-whatif" hidden>
+    <div class="ctrls"><div class="row" id="f-wi">
+      <button class="chip big" data-v="pts" aria-pressed="true">Top 100 points</button>
+      <button class="chip big" data-v="b" aria-pressed="false">Top 100 buts</button>
+      <button class="chip big" data-v="act" aria-pressed="false">Joueurs actuels</button>
+    </div><div class="row">
+      <input id="wi-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
+    </div></div>
+    <div id="whatif"></div>
+  </section>
+  <div id="wi-modal" class="wi-modal" hidden></div>
 
   <section id="p-bets" role="tabpanel" aria-labelledby="t-bets" hidden>
     <div class="ctrls">
@@ -705,7 +751,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">70%</span><span class="rp-barre"><i style="width:87.4%"></i></span></td></tr><tr><td><a href="players/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM @ NYR</span></td>
 <td class="rp-n"><span class="rp-p">69%</span><span class="rp-barre"><i style="width:86.1%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN @ WSH</span></td>
 <td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA vs OTT</span></td>
-<td class="rp-n"><span class="rp-p">70%</span><span class="rp-barre"><i style="width:99.0%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ WSH</span></td>
+<td class="rp-n"><span class="rp-p">69%</span><span class="rp-barre"><i style="width:97.2%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ WSH</span></td>
 <td class="rp-n"><span class="rp-p">63%</span><span class="rp-barre"><i style="width:89.3%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN @ WSH</span></td>
 <td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:78.2%"></i></span></td></tr><tr><td><a href="players/dylan-guenther/">Dylan Guenther</a><br><span class="rp-note">UTA @ PHI</span></td>
 <td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:77.5%"></i></span></td></tr><tr><td><a href="players/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM @ NYR</span></td>
@@ -714,7 +760,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">54%</span><span class="rp-barre"><i style="width:76.5%"></i></span></td></tr><tr><td><a href="players/jakob-chychrun/">Jakob Chychrun</a><br><span class="rp-note">WSH vs MIN</span></td>
 <td class="rp-n"><span class="rp-p">54%</span><span class="rp-barre"><i style="width:75.6%"></i></span></td></tr><tr><td><a href="players/pavel-dorofeyev/">Pavel Dorofeyev</a><br><span class="rp-note">NYR vs EDM</span></td>
 <td class="rp-n"><span class="rp-p">54%</span><span class="rp-barre"><i style="width:75.6%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>20%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7.5%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.2%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>76%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>75%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>75%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>44%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/pyotr-kochetkov/">Pyotr Kochetkov</a></span><b>30%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>30%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>46%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>39%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>20%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7.5%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.2%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>77%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>40%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>75%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>76%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>45%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>38%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>38%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>45%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>39%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -901,6 +947,15 @@ Object.assign(TR, {
   "Les gagnants, à pareille date": "The winners, on the same date", "Les champions, à pareille date": "The champions, on the same date",
   "Saison": "Season", "Gagnant": "Winner", "Son rang": "His rank", "Meneur": "Leader", "Premier": "Leader", "% donné": "% given",
   "Champion": "Champion", "Class.": "Stand.", "Favori": "Favorite", "victoires": "wins", "% arrêts": "save %", "moy.": "GAA",
+  "pts/match": "pts/game", "Pas le même gagnant que le Hart ?": "Not the same winner as the Hart?",
+  "chance que le Ted-Lindsay aille à un autre joueur que le gagnant du Hart": "chance the Ted Lindsay goes to someone other than the Hart winner",
+  "saisons où c'est arrivé depuis 2009-10": "seasons where it happened since 2009-10", "Si ce n'est pas le gagnant du Hart, qui ?": "If it's not the Hart winner, who?",
+  "Pourquoi ça diffère : les journalistes (Hart) récompensent la valeur pour l'équipe, les buts, et parfois un gardien. Les joueurs (Lindsay) prennent le meilleur producteur : chaque fois, leur gagnant était 1er en points ou en points par match.":
+    "Why they differ: writers (Hart) reward value to the team, goals, and sometimes a goalie. Players (Lindsay) pick the best producer: every time, their winner was 1st in points or in points per game.",
+  "Top 100 points": "Top 100 points", "Top 100 buts": "Top 100 goals", "Joueurs actuels": "Current players",
+  "Chercher un joueur": "Search a player", "Chargement des carrières…": "Loading careers…", "Le What if arrive au prochain calcul.": "What if arrives with the next update.",
+  "Aucun joueur trouvé.": "No player found.", "points réels": "real points", "points what if": "what if points", "rang réel": "real rank",
+  "rang what if": "what if rank", "Réel": "Real", "Éq.": "Team", "Total": "Total", "Fermer": "Close",
   "projeté": "projected", "min de pénalité": "penalty minutes", "mises au jeu": "faceoffs", "son équipe gagne": "his team wins",
   "réputation :": "reputation:", "déjà gagné": "already won", "% de Coupe jour après jour": "Cup % day by day", "Classer par": "Sort by",
   "Gagnant à pareille date": "Winner on the same date",
@@ -954,7 +1009,7 @@ for (const [re, rep] of [
   [`^ensuite : (.+) · victoire ${T3} (\\d+) %$`, "next: $1 · $2 win $3%"], [`^Duels directs \\((\\d+)\\) :$`, "Head-to-head ($1):"],
   [`^, (\\d+) BP / (\\d+) BC$`, ", $1 GF / $2 GA"], [`^(\\d+) % du temps entre$`, "$1% of the time between"],
   [`^(\\d+) pts en (\\d+) matchs, projeté (\\d+)$`, "$1 pts in $2 games, projected $3"],
-  [`^pts \\((\\d+) B, (\\d+) A\\)$`, "pts ($1 G, $2 A)"], [`^(\\d+)e ronde$`, "Round $1"], [`^(\\d+)e$`, "$1th"],
+  [`^pts \\((\\d+) B, (\\d+) A\\)$`, "pts ($1 G, $2 A)"], [`^(\\d+)e ronde$`, "Round $1"], [`^1er$`, "1st"], [`^(\\d+)e$`, (m, d) => d + (/1[123]$/.test(d) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" })[d.slice(-1)] || "th")],
   [`^Classer par (.+)$`, (m, x) => "Sort by " + (TR[x] || x)], [`^${T3} à ${T3}$`, "$1 at $2"], [`^(\\d+) buts accordés en (\\d+) matchs, projeté (\\d+)$`, "$1 goals against in $2 games, projected $3"],
   [`^(\\d+) % des points projetés, attendu (\\d+) % avant la saison$`, "$1% of projected points, expected $2% before the season"],
   [`^projeté (\\d+) pts$`, "projected $1 pts"], [`^projeté (\\d+) victoires$`, "projected $1 wins"], [`^projeté (\\d+) buts$`, "projected $1 goals"],
@@ -980,11 +1035,22 @@ for (const [re, rep] of [
 ]) TR_RE.push([new RegExp(re), rep]);
 // Les poids des votes (« 85 % points, 15 % succès de l'équipe »)
 TR_RE.push([/ : estimé/g, ": estimated"]);
+TR_RE.push([/^([A-Z]{3}) · (\d+) pts · (\d+) matchs$/, "$1 · $2 pts · $3 games"]);
+// What if
+TR_RE.push([/^([A-Z]{2,3})( · (?:Avant|Déf\.))?( · actif)? · (\d+) saisons?$/, (m, eq, p, act, n) => `${eq}${p ? (p.includes("Déf") ? " · D" : " · F") : ""}${act ? " · active" : ""} · ${n} season${n > 1 ? "s" : ""}`],
+  [/^(buts|pts) · réel ([\d,  ]+) \((\d+)(?:e|er)\)$/, (m, k, v, r) => `${k === "buts" ? "goals" : "pts"} · real ${v} (${r}${/1[123]$/.test(r) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" })[r.slice(-1)] || "th"})`],
+  [/^(Défenseur|Attaquant) · (\d+) saisons? · (actif|retraité)$/, (m, p, n, a) => `${p === "Défenseur" ? "Defenseman" : "Forward"} · ${n} season${n > 1 ? "s" : ""} · ${a === "actif" ? "active" : "retired"}`],
+  [/^Les carrières comme si chaque joueur n'avait manqué aucun match : .* Une saison de moins de (\d+) matchs reste réelle\. .*$/,
+    "Careers as if every player never missed a game: his pace each season, stretched over the full schedule of the era (70 games in the 1960s, 80 in the 1980s, 82 today). A season with fewer than $1 games stays real. The rank on the left is the all-time rank if nobody had missed a game; the real rank is in parentheses. Tap a player to see the back of his card."],
+  [/^([\d,  ]+) patineurs, (\d+) saisons de la LNH \(données publiques de la LNH\)\.(.*) Les gardiens ne sont pas inclus\.$/,
+    (m, j, n, inc) => `${j} skaters, ${n} NHL seasons (NHL public data).${inc ? " Older seasons are still loading: the all-time ranking will be complete within a few updates." : ""} Goalies aren't included.`],
+  [/^En rouge : les saisons étirées .* Une saison de moins de (\d+) matchs reste réelle\.( \* Saison en cours.*)?$/,
+    (m, k, c) => `In red: stretched seasons (missed games replaced by his pace that season). A season with fewer than ${k} games stays real.${c ? " * Current season: his current pace over 82 games." : ""}`]);
 // Trio / paire dans le bloc « du soir » (« 2e trio · PP1 », « 1re paire · aucune unité »)
 TR_RE.push([/\b1er trio\b/g, "1st line"], [/\b2e trio\b/g, "2nd line"], [/\b3e trio\b/g, "3rd line"], [/\b4e trio\b/g, "4th line"],
            [/\b1re paire\b/g, "1st pair"], [/\b2e paire\b/g, "2nd pair"], [/\b3e paire\b/g, "3rd pair"], [/aucune unité/g, "no PP unit"]);
 function trPoids(w){
-  return w.replace(/ %/g, "%").replace("succès de l'équipe", "team success").replace("temps de glace", "ice time")
+  return w.replace(/ %/g, "%").replace("points par match", "points per game").replace("succès de l'équipe", "team success").replace("temps de glace", "ice time")
     .replace("peu de pénalités", "few penalties").replace("% d'arrêts", "save %").replace("victoires", "wins").replace("matchs joués", "games played")
     .replace("mises au jeu", "faceoffs").replace("réputation (Selke et places de finaliste des 6 dernières saisons)", "reputation (Selkes and finalist spots in the last 6 seasons)")
     .replace("équipe qui gagne", "winning team").replace("bonus défenseur", "defenseman bonus").replace("points", "points");
@@ -2621,12 +2687,17 @@ function statTroph(t, x){
   const pts = `<span><b>${x.pts}</b> pts (${x.b} B, ${x.a} A)</span>`, pj = `<span>projeté <b>${Math.round(x.proj)}</b> pts</span>`;
   if (t === "selke") return `${pts}<span>mises au jeu <b>${x.fo != null ? Math.round(x.fo * 100) + " %" : "–"}</b></span><span>+/- <b>${x.pm > 0 ? "+" : ""}${x.pm ?? "–"}</b></span>${x.rep_g || x.rep_f ? `<span>réputation : <b>${[x.rep_g ? `${x.rep_g} Selke` : "", x.rep_f ? `finaliste ${x.rep_f} fois` : ""].filter(Boolean).join(", ")}</b> (6 dernières saisons)</span>` : x.deja ? "<span><b>déjà gagné</b> (3 dernières saisons)</span>" : ""}${x.eqp != null ? `<span>son équipe gagne <b>${Math.round(x.eqp * 100)} %</b></span>` : ""}${pj}`;
   if (t === "byng") return `${pts}<span><b>${x.pim ?? 0}</b> min de pénalité</span>${pj}`;
+  if (t === "lindsay") return `${pts}<span><b>${x.pj ? (x.pts / x.pj).toFixed(2).replace(".", EN ? "." : ",") : "–"}</b> pts/match</span><span>son équipe gagne <b>${x.eqp != null ? Math.round(x.eqp * 100) + " %" : "–"}</b></span>${pj}`;
   if (t === "hart" || t === "lindsay") return `${pts}<span>son équipe gagne <b>${x.eqp != null ? Math.round(x.eqp * 100) + " %" : "–"}</b></span>${pj}`;
   return `${pts}${x.toi ? `<span><b>${x.toi.toFixed(1)}</b> min/match</span>` : ""}${pj}`;
 }
 function poidsTroph(t, P){
   const pc = (x) => Math.round(x * 100) + " %";
   if (t === "norris") return `${pc(P.w)} points, ${pc(1 - P.w)} temps de glace`;
+  // Lindsay : points, points par match et équipe, chaque poids en part du total
+  if (t === "lindsay" && P.v != null){ const L = [["points", P.w], ["points par match", P.v], ["succès de l'équipe", P.u]];
+    const tot = L.reduce((a, [, w]) => a + (w || 0), 0) || 1;
+    return L.filter(([, w]) => w).map(([n, w]) => `${Math.round(w / tot * 100)} % ${n}`).join(", "); }
   if (t === "hart" || t === "lindsay") return `${pc(P.w)} points, ${pc(1 - P.w)} succès de l'équipe`;
   if (t === "byng") return `${pc(P.w)} points, ${pc(1 - P.w)} peu de pénalités`;
   // Version publique : chaque poids en part du total (en %), plus parlant qu'un coefficient
@@ -2679,6 +2750,24 @@ function noteVeille(V){
   if (PUBLIC || !V) return "";
   return `<p class="aide">Écarts depuis le calcul du ${new Date(V.jour + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long" })}, avec le même algo des deux côtés : ils viennent seulement des matchs joués depuis.</p>${V.recalcul ? `<p class="note-veille">L'algo a changé depuis hier : les % d'hier ont été recalculés avec l'algo d'aujourd'hui, pour que l'écart affiché vienne des matchs et non du changement.</p>` : ""}`;
 }
+// Ted-Lindsay vs Hart : % que les deux votes ne choisissent pas le même joueur, et si oui, à qui va le Lindsay.
+// Calculé dans les mêmes fins de saison simulées (voir trophees.simuler) : les deux votes regardent la même saison.
+function duoHTML(U){
+  if (!U || !U.top?.length) return "";
+  const H = U.hist || {}, mx = Math.max(...U.top.map(x => x.p), 0.01);
+  const lignes = U.top.map((x, i) => `<div class="cp" style="--eq:${coul(x.eq)}">
+      <span class="rgn">${i + 1}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
+      <span class="nm">${x.nom}<small>${x.eq} · ${x.pts} pts · ${x.pj} matchs</small></span>
+      <span class="pc">${pc1(x.p)}<small>%</small></span>
+      <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span></div>`).join("");
+  const rows = (H.saisons || []).slice().reverse().map(x => `<tr><td>${x.s.slice(0, 4)}-${x.s.slice(6)}</td><td>${x.hart}</td><td>${x.lindsay}</td></tr>`).join("");
+  return `<div class="card cp-test duo"><h2>Pas le même gagnant que le Hart ?</h2>
+    <div class="cp-resume"><div><b>${pc1(U.p_diff)}${EN ? "%" : " %"}</b><span>chance que le Ted-Lindsay aille à un autre joueur que le gagnant du Hart</span></div>
+      <div><b>${H.diff ?? "–"}/${H.n ?? "–"}</b><span>saisons où c'est arrivé depuis 2009-10</span></div></div>
+    <p class="aide">Si ce n'est pas le gagnant du Hart, qui ?</p><div class="cp-liste">${lignes}</div>
+    <p class="aide">Pourquoi ça diffère : les journalistes (Hart) récompensent la valeur pour l'équipe, les buts, et parfois un gardien. Les joueurs (Lindsay) prennent le meilleur producteur : chaque fois, leur gagnant était 1er en points ou en points par match.</p>
+    ${rows ? `<div class="tbl"><table class="serre"><thead><tr><th>Saison</th><th>Hart</th><th>Ted-Lindsay</th></tr></thead><tbody>${rows}</tbody></table></div>` : ""}</div>`;
+}
 function trophHTML(t){
   const el = $("#coupe"), B = D.trophees?.trophees?.[t], I = TROPH[t];
   if (!B){ el.innerHTML = `<div class="card"><div class="vide">Le ${I.nom} arrive au prochain calcul.</div></div>`; return; }
@@ -2713,8 +2802,69 @@ function trophHTML(t){
     : t === "rocket" ? `${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de buts de chaque joueur (mélangé avec sa saison passée), ses matchs restants et la part de hasard. Le plus de buts gagne.`
     : `C'est un vote : on ne le simule pas, on apprend ce que les votants récompensent. Score appris sur les gagnants depuis 2009-10 (${P.n || "?"} saisons) : ${poidsTroph(t, P)}. Puis ${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées.${t === "hart" ? " Les gardiens ne sont pas dans la liste : 2 des 17 derniers Hart (Price 2015, Hellebuyck 2025) ne pouvaient pas être prévus par ce score." : ""}`;
   el.innerHTML = `<div class="cp-tete"><h2>${I.nom}</h2><p>${I.desc[0].toUpperCase() + I.desc.slice(1)}. ${comment}</p></div>
-    ${noteVeille(B.veille)}<div class="cp-liste">${lignes}</div>${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du trophée ${I.nom}`}</a>` : ""}${test}`;
+    ${noteVeille(B.veille)}<div class="cp-liste">${lignes}</div>${t === "lindsay" ? duoHTML(B.duo) : ""}${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du trophée ${I.nom}`}</a>` : ""}${test}`;
 }
+// ---- What if : la carrière comme si le joueur n'avait manqué aucun match ----------------------------------
+// Chaque saison : son rythme (par match) étiré sur le calendrier complet de l'époque (70, 80, 82 matchs...).
+// Une saison de moins de 10 matchs reste réelle (un call-up de 2 matchs ne dit rien). Calcul : src/whatif.py.
+let WI = null, WI_ch = false;
+const rangFr = (r) => r === 1 ? "1er" : r + "e";
+async function whatif(){
+  const el = $("#whatif");
+  if (!WI){
+    if (WI_ch) return;
+    WI_ch = true;
+    el.innerHTML = `<div class="card"><div class="vide">Chargement des carrières…</div></div>`;
+    try { WI = await (await fetch("whatif.json?v=" + (D?.date || Date.now()))).json(); }
+    catch (e) { WI_ch = false; el.innerHTML = `<div class="card"><div class="vide">Le What if arrive au prochain calcul.</div></div>`; return; }
+  }
+  const mode = S.wi || "pts", q = nrm($("#wi-q").value);
+  const J = WI.joueurs, k = mode === "b" ? 1 : 3;
+  let ids;
+  if (q.length >= 2) ids = Object.keys(J).filter(i => nrm(J[i].n).includes(q)).sort((a, b) => J[b].w[3] - J[a].w[3]).slice(0, 60);
+  else if (mode === "act") ids = Object.keys(J).filter(i => J[i].act).sort((a, b) => J[b].w[3] - J[a].w[3]).slice(0, 100);
+  else ids = mode === "b" ? WI.top_b : WI.top_pts;
+  const kk = q.length >= 2 || mode === "act" ? 3 : k;
+  const n = (x) => (x || 0).toLocaleString(LANG);
+  const pos = (p) => p === "D" ? "Déf." : p ? "Avant" : "";
+  const lignes = ids.map((i) => { const x = J[i], rg = kk === 1 ? x.rg[3] : x.rg[1], reel = kk === 1 ? x.rg[2] : x.rg[0];
+    return `<button class="wi-l" data-id="${i}" style="--eq:${coul(x.eq)}"><span class="rg">${rg}</span>
+      <span class="nm">${x.n}<small>${[x.eq, pos(x.pos), x.act ? "actif" : "", `${x.s.length} saison${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ")}</small></span>
+      <span class="v">${n(x.w[kk])}<small>${kk === 1 ? "buts" : "pts"} · réel ${n(x.r[kk])} (${rangFr(reel)})</small></span></button>`; }).join("");
+  const tete = `<div class="cp-tete"><h2>What if</h2><p>Les carrières comme si chaque joueur n'avait manqué aucun match : son rythme de chaque saison, étiré sur le calendrier complet de l'époque (70 matchs dans les années 1960, 80 dans les années 1980, 82 aujourd'hui). Une saison de moins de ${WI.min_pj} matchs reste réelle. Le rang à gauche est le rang de tous les temps si personne n'avait manqué de match ; le rang réel est entre parenthèses. Touche un joueur pour voir le dos de sa carte.</p></div>`;
+  const pied = `<p class="aide">${n(WI.n_joueurs)} patineurs, ${WI.n_saisons} saisons de la LNH (données publiques de la LNH).${WI.complet === false ? " Les vieilles saisons se chargent encore : le classement de tous les temps sera complet dans quelques calculs." : ""} Les gardiens ne sont pas inclus.</p>`;
+  el.innerHTML = tete + (lignes || `<div class="card"><div class="vide">Aucun joueur trouvé.</div></div>`) + pied;
+  traduire(el);
+}
+function wiCarte(id){
+  const x = WI?.joueurs?.[id]; if (!x) return;
+  const n = (v) => (v || 0).toLocaleString(LANG), sz = (s) => `${s.slice(2, 4)}-${s.slice(6)}`;
+  const lignes = x.s.map(r => { const [s, eq, pj, b, a, p, wpj, wb, wa, wp] = r, et = wpj !== pj;
+    return `<tr class="${et ? "et" : ""}"><td>${sz(s)}${s === WI.saison ? "*" : ""}</td><td>${eq.replace(/,/g, "/")}</td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td>
+      <td class="wi-w">${wpj}</td><td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td></tr>`; }).join("");
+  const m = $("#wi-modal");
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eq)}">
+    <header><div><b>${x.n}</b><span>${x.pos === "D" ? "Défenseur" : "Attaquant"} · ${x.s.length} saison${x.s.length > 1 ? "s" : ""} · ${x.act ? "actif" : "retraité"}</span></div><button type="button" class="wi-x" aria-label="Fermer">×</button></header>
+    <div class="wi-res"><div><b>${n(x.r[3])}</b><span>points réels</span></div><div><b>${n(x.w[3])}</b><span>points what if</span></div>
+      <div><b>${rangFr(x.rg[0])}</b><span>rang réel</span></div><div><b>${rangFr(x.rg[1])}</b><span>rang what if</span></div></div>
+    <div class="wi-tbl"><table><thead><tr><th></th><th></th><th class="g" colspan="4">Réel</th><th class="g wi-w" colspan="4">What if</th></tr>
+      <tr><th>Saison</th><th>Éq.</th><th>PJ</th><th>B</th><th>A</th><th>PTS</th><th class="wi-w">PJ</th><th class="wi-w">B</th><th class="wi-w">A</th><th class="wi-w">PTS</th></tr></thead>
+      <tbody>${lignes}</tbody>
+      <tfoot><tr><td>Total</td><td></td><td>${n(x.r[0])}</td><td>${n(x.r[1])}</td><td>${n(x.r[2])}</td><td>${n(x.r[3])}</td><td class="wi-w">${n(x.w[0])}</td><td class="wi-w">${n(x.w[1])}</td><td class="wi-w">${n(x.w[2])}</td><td class="wi-w">${n(x.w[3])}</td></tr></tfoot></table></div>
+    <p>En rouge : les saisons étirées (matchs manqués remplacés par son rythme de la saison). Une saison de moins de ${WI.min_pj} matchs reste réelle.${x.s.some(r => r[0] === WI.saison) ? " * Saison en cours : son rythme actuel sur 82 matchs." : ""}</p></div>`;
+  m.hidden = false;
+  traduire(m);
+}
+document.addEventListener("click", (e) => {
+  const l = e.target.closest?.(".wi-l"); if (l){ wiCarte(l.dataset.id); return; }
+  const m = $("#wi-modal");
+  if (m && !m.hidden && (e.target === m || e.target.closest?.(".wi-x"))) m.hidden = true;
+  const c = e.target.closest?.("#f-wi .chip");
+  if (c){ S.wi = c.dataset.v; document.querySelectorAll("#f-wi .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#wi-q").value = ""; whatif(); }
+});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#wi-modal")) $("#wi-modal").hidden = true; });
+document.addEventListener("input", (e) => { if (e.target.id === "wi-q") whatif(); });
+
 // Classement final simulé : % de chances de finir à chaque rang de son association.
 // Équipes triées par rang moyen (la somme rang × probabilité), la meilleure en haut.
 function classementHTML(){
@@ -2783,7 +2933,8 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "coupe", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
+    for (const id of ["joueurs", "matchs", "suivi", "coupe", "whatif", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
+    if (b.id === "t-whatif") whatif();
   }));
 }
 
@@ -2801,8 +2952,8 @@ function nettoyerPublic(){
   document.querySelectorAll(".f-ver").forEach(e => { const l = e.previousElementSibling; if (l && l.classList.contains("lbl")) l.remove(); e.remove(); });
   S.tri = "p";
   // Le menu du site, juste sous l'en-tête : le même que dans les pages texte
-  const menu = EN ? [["", "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [CH.b, "Track record"], [CH.a, "About"]]
-                  : [["", "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [CH.b, "Bilan"], [CH.a, "À propos"]];
+  const menu = EN ? [["", "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], ["#what-if", "What if"], [CH.b, "Track record"], [CH.a, "About"]]
+                  : [["", "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], ["#what-if", "What if"], [CH.b, "Bilan"], [CH.a, "À propos"]];
   const tete = document.querySelector("header.bug");
   tete?.insertAdjacentHTML("afterend",
     `<nav class="menu" aria-label="${EN ? "Site menu" : "Menu du site"}">${menu.map(([h, n]) => `<a href="${h || "./"}"${h ? "" : ' aria-current="page"'}>${n}</a>`).join("")}</nav>`);
@@ -2870,6 +3021,9 @@ async function init(){
   };
   btn.addEventListener("click", () => allumer(btn.getAttribute("aria-pressed") !== "true"));
   allumer(store.get("live") === "1");
+  const ouvrirHash = () => { if (/^#(what-?if|et-si)$/i.test(location.hash)){ $("#t-whatif").click(); $("#p-whatif").scrollIntoView({ block: "start" }); } };
+  window.addEventListener("hashchange", ouvrirHash);
+  ouvrirHash();
 }
 init();
 </script>

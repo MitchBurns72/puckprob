@@ -81,6 +81,36 @@ header.bug:has(.bug-d) .logo-site{width:min(230px,52vw)}
 header.bug .lang{color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);border-radius:4px;font:italic 800 17px/1 var(--f-display);padding:8px 10px;flex:none;margin-left:auto}
 nav.menu{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--bande2);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(8px,env(safe-area-inset-left,0px))}
 nav.menu::-webkit-scrollbar{display:none}
+/* What if : liste + dos de carte de hockey */
+#wi-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
+.wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
+.wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
+.wi-l .nm small,.wi-l .v small{display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px}
+.wi-l .v{font:italic 800 26px/.9 var(--f-display);text-align:right}
+.wi-l .v small{font-style:normal}
+.wi-modal{position:fixed;inset:0;z-index:60;background:rgba(5,12,24,.72);display:flex;align-items:center;justify-content:center;padding:14px}
+.wi-modal[hidden]{display:none}
+.wi-carte{background:#F4E7C5;color:#2A1C0C;width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:10px;border:4px solid var(--eq);box-shadow:0 18px 50px rgba(0,0,0,.5);animation:wi-pop .25s ease-out}
+@keyframes wi-pop{from{transform:scale(.85) rotateY(70deg);opacity:0}to{transform:none;opacity:1}}
+.wi-carte header{background:var(--eq);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.wi-carte header b{font:italic 800 26px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.wi-carte header span{display:block;font:600 13px var(--f-body);opacity:.9;margin-top:4px}
+.wi-carte header button{background:rgba(255,255,255,.18);border:0;color:#fff;font:800 20px/1 var(--f-body);width:34px;height:34px;border-radius:50%;cursor:pointer;flex:none}
+.wi-carte .wi-res{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}
+.wi-carte .wi-res div{border:2px solid #2A1C0C;border-radius:6px;padding:8px;text-align:center}
+.wi-carte .wi-res b{display:block;font:italic 800 24px/1 var(--f-display)}
+.wi-carte .wi-res span{font:600 11px var(--f-body);text-transform:uppercase;letter-spacing:.04em}
+.wi-carte table{width:100%;border-collapse:collapse;font:500 11.5px/1.25 ui-monospace,Menlo,Consolas,monospace;margin:8px 0 0}
+.wi-carte th{font:800 10.5px var(--f-body);text-transform:uppercase;border-bottom:2px solid #2A1C0C;padding:5px 3px;text-align:right}
+.wi-carte th.g{text-align:center;border-bottom:1px solid #2A1C0C}
+.wi-carte td{padding:4px 3px;text-align:right;border-bottom:1px dotted rgba(42,28,12,.35);white-space:nowrap}
+.wi-carte td:first-child,.wi-carte th:first-child,.wi-carte td:nth-child(2),.wi-carte th:nth-child(2){text-align:left}
+.wi-carte .wi-w{background:rgba(211,32,43,.08)}
+.wi-carte tr.et .wi-w{font-weight:800;color:#9E1620}
+.wi-carte tfoot td{font-weight:800;border-top:2px solid #2A1C0C;border-bottom:0}
+.wi-carte .wi-tbl{overflow-x:auto;padding:0 6px}
+.wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#5A4630}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
 nav.menu a[aria-current]::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:3px;background:var(--led)}
