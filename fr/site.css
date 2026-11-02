@@ -111,6 +111,10 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-carte tfoot td{font-weight:800;border-top:2px solid #2A1C0C;border-bottom:0}
 .wi-carte .wi-tbl{overflow-x:auto;padding:0 6px}
 .wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#5A4630}
+.wi-carte table.wi-car{width:auto;min-width:100%;margin:10px 0 2px;font-size:13px}
+.wi-carte table.wi-car td:first-child{font:800 12px var(--f-body);text-transform:uppercase}
+.wi-regles{padding:12px 14px;margin-top:10px}.wi-regles summary{font:800 15px var(--f-display);text-transform:uppercase;cursor:pointer}
+.wi-regles p{font-size:13px;line-height:1.45}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
 nav.menu a[aria-current]::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:3px;background:var(--led)}
@@ -549,6 +553,13 @@ main{display:block}
 .grille a img{width:26px;height:26px;flex:none}
 .texte p{margin:8px 0;max-width:68ch;line-height:1.55}
 .texte h2{margin:22px 0 6px}
+.tuiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 4px}
+.tuiles a{display:block;background:linear-gradient(135deg,#0A2342,#13345E);color:#fff;text-decoration:none;border-radius:8px;
+  padding:14px 12px;border-left:5px solid var(--led);box-shadow:var(--ombre);min-height:84px}
+.tuiles a:nth-child(2n){border-left-color:var(--goal)}
+.tuiles b{display:block;font:italic 800 22px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
+.tuiles span{display:block;font:500 13px/1.3 var(--f-body);color:#C9D6E6;margin-top:6px}
+@media (min-width:700px){.tuiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .lien-plus{display:inline-block;margin:10px 0 4px;font:italic 800 16px/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em;
   color:#fff;background:var(--goal);padding:10px 22px 10px 14px;clip-path:var(--biais);text-decoration:none}
 .pied{margin:28px 0 0;padding-top:14px;border-top:1px solid var(--line)}
