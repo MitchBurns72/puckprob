@@ -5,7 +5,7 @@
 <base href="../">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Probabilités LNH du soir : buts, points, tirs | PuckProb</title>
-<meta name="description" content="Probabilités de chaque joueur de la LNH ce soir (buts, passes, points, tirs), chances de victoire de chaque match, favoris des trophées et de la Coupe Stanley. Mis à jour chaque jour, vérifié après chaque match.">
+<meta name="description" content="Probabilités de chaque joueur de la LNH ce soir (buts, passes, points, tirs), probs de victoire de chaque match, favoris des trophées et de la Coupe Stanley. Mis à jour chaque jour, vérifié après chaque match.">
 <link rel="canonical" href="https://puckprob.ca/fr/ce-soir/">
 <link rel="alternate" hreflang="fr" href="https://puckprob.ca/fr/ce-soir/">
 <link rel="alternate" hreflang="en" href="https://puckprob.ca/tonight/">
@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="PuckProb">
 <meta property="og:locale" content="fr_CA">
 <meta property="og:title" content="Probabilités LNH du soir : buts, points, tirs | PuckProb">
-<meta property="og:description" content="Probabilités de chaque joueur de la LNH ce soir (buts, passes, points, tirs), chances de victoire de chaque match, favoris des trophées et de la Coupe Stanley. Mis à jour chaque jour, vérifié après chaque match.">
+<meta property="og:description" content="Probabilités de chaque joueur de la LNH ce soir (buts, passes, points, tirs), probs de victoire de chaque match, favoris des trophées et de la Coupe Stanley. Mis à jour chaque jour, vérifié après chaque match.">
 <meta property="og:url" content="https://puckprob.ca/fr/ce-soir/">
 <meta property="og:image" content="https://puckprob.ca/fr/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -107,8 +107,21 @@ header.bug:has(.bug-d) .logo-site{width:min(230px,52vw)}
 header.bug .lang{color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);border-radius:4px;font:italic 800 17px/1 var(--f-display);padding:8px 10px;flex:none;margin-left:auto}
 nav.menu{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--bande2);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(8px,env(safe-area-inset-left,0px))}
 nav.menu::-webkit-scrollbar{display:none}
+/* Ticker « À surveiller ce soir » : défile en boucle (contenu doublé), pause au doigt ou à la souris */
+.ticker{display:flex;align-items:stretch;background:#061629;color:#fff;overflow:hidden;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));border-bottom:2px solid var(--led)}
+.ticker .tk-lbl{flex:none;display:flex;align-items:center;padding:0 10px;background:var(--led);color:#061629;font:italic 800 13px/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em;z-index:1}
+.ticker .tk-vue{flex:1;overflow:hidden;position:relative}
+.ticker .tk-piste{display:inline-flex;white-space:nowrap;animation:tk-defile var(--tk-duree,60s) linear infinite;will-change:transform}
+.ticker:hover .tk-piste,.ticker.pause .tk-piste{animation-play-state:paused}
+.ticker .tk-it{display:inline-flex;align-items:center;gap:7px;padding:8px 18px 8px 0;font:600 13.5px/1 var(--f-body)}
+.ticker .tk-it::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--eq,#6B7C8C);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.ticker .tk-tag{font:italic 800 11px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;border-radius:3px;background:#21456F}
+.ticker .tk-tag.serie{background:#C8102E}.ticker .tk-tag.blesse{background:#6B7C8C}.ticker .tk-tag.jalon{background:#B8860B}
+.ticker .tk-tag.prob{background:var(--led);color:#061629}.ticker .tk-tag.seche{background:#5B3A8E}.ticker .tk-tag.equipe{background:#1F6F43}
+@keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}}
 /* What if : liste + dos de carte de hockey */
-#wi-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 .wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
@@ -141,6 +154,8 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-carte table.wi-car td:first-child{font:800 12px var(--f-body);text-transform:uppercase}
 .wi-regles{padding:12px 14px;margin-top:10px}.wi-regles summary{font:800 15px var(--f-display);text-transform:uppercase;cursor:pointer}
 .wi-regles p{font-size:13px;line-height:1.45}
+.sal-rap{padding:6px 16px 14px}.sal-rap p{font:500 14px/1.5 var(--f-body);color:#2A1C0C;margin:10px 0}
+.wi-carte tr.sal-j{cursor:pointer}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
 nav.menu a[aria-current]::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:3px;background:var(--led)}
@@ -564,6 +579,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-suivi" aria-selected="false" aria-controls="p-suivi">Suivi</button>
     <button role="tab" id="t-coupe" aria-selected="false" aria-controls="p-coupe">Trophées</button>
     <button role="tab" id="t-whatif" aria-selected="false" aria-controls="p-whatif">What if</button>
+    <button role="tab" id="t-salaires" aria-selected="false" aria-controls="p-salaires">Salaires</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -633,6 +649,13 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
       <input id="wi-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
     </div></div>
     <div id="whatif"></div>
+  </section>
+  <!-- Salaires mérités (docs/salaires.json, chargé au 1er clic) -->
+  <section id="p-salaires" role="tabpanel" aria-labelledby="t-salaires" hidden>
+    <div class="ctrls"><div class="row" id="f-sal"></div><div class="row">
+      <input id="sal-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
+    </div></div>
+    <div id="salaires"></div>
   </section>
   <div id="wi-modal" class="wi-modal" hidden></div>
 
@@ -761,7 +784,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">54 %</span><span class="rp-barre"><i style="width:76.5%"></i></span></td></tr><tr><td><a href="joueurs/jakob-chychrun/">Jakob Chychrun</a><br><span class="rp-note">WSH vs MIN</span></td>
 <td class="rp-n"><span class="rp-p">54 %</span><span class="rp-barre"><i style="width:75.6%"></i></span></td></tr><tr><td><a href="joueurs/pavel-dorofeyev/">Pavel Dorofeyev</a><br><span class="rp-note">NYR vs EDM</span></td>
 <td class="rp-n"><span class="rp-p">54 %</span><span class="rp-barre"><i style="width:75.6%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>20 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7,5 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,5 %</b></li><li><a class="rp-eq" href="equipes/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>41 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>52 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>38 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>38 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>48 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>40 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>20 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7,5 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,5 %</b></li><li><a class="rp-eq" href="equipes/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>41 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>52 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>38 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>38 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>49 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>39 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -925,8 +948,8 @@ Object.assign(TR, {
     "The calculation starts from his rate per 60 minutes (pulled toward the average when he has played little), expected ice time, the opponent, the goalie, the power play, his own tendencies and MoneyPuck's advanced stats. With tonight's lineup (DailyFaceoff), we adjust his line, his power-play unit and the starting goalie.",
   "Plusieurs modèles sont comparés chaque semaine sur les vrais résultats ; on publie celui qui prédit le mieux chaque catégorie. Touche « Pourquoi ce % » pour voir chaque facteur en + ou − %. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint).":
     "Several models are compared every week against real results; we publish the one that predicts each category best. Tap “Why this %” to see each factor as + or − %. The small bars = his last 10 games (colored: threshold reached).",
-  "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les chances de +5,5 ou +6,5 buts en découlent.":
-    "Win = chance of winning, overtime and shootout included. Expected goals = the average number of goals projected for each team; the over 5.5 and 6.5 goal odds follow from it.",
+  "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les probs de +5,5 ou +6,5 buts en découlent.":
+    "Win = chance of winning, overtime and shootout included. Expected goals = the average number of goals projected for each team; the over 5.5 and 6.5 goal probs follow from it.",
   "Le calcul combine la forme récente, l'attaque et la défensive des deux équipes, les gardiens et les matchs en deux soirs de suite. Avec l'alignement, chaque joueur est calculé un par un puis additionné.":
     "The calculation combines recent form, both teams' offense and defense, the goalies and back-to-backs. With the lineup, each player is computed one by one and then added up.",
   "On rejoue le reste de la saison 10 000 fois. Le % = la part des simulations où le joueur ou l'équipe gagne.":
@@ -953,7 +976,7 @@ Object.assign(TR, {
   "saisons où c'est arrivé depuis 2009-10": "seasons where it happened since 2009-10", "Si ce n'est pas le gagnant du Hart, qui ?": "If it's not the Hart winner, who?",
   "Pourquoi ça diffère : les journalistes (Hart) récompensent la valeur pour l'équipe, les buts, et parfois un gardien. Les joueurs (Lindsay) prennent le meilleur producteur : chaque fois, leur gagnant était 1er en points ou en points par match.":
     "Why they differ: writers (Hart) reward value to the team, goals, and sometimes a goalie. Players (Lindsay) pick the best producer: every time, their winner was 1st in points or in points per game.",
-  "Top 100 points": "Top 100 points", "Top 100 buts": "Top 100 goals", "Joueurs actuels": "Current players",
+  "Salaires": "Salaries", "Top 100 points": "Top 100 points", "Top 100 buts": "Top 100 goals", "Joueurs actuels": "Current players",
   "Chercher un joueur": "Search a player", "Chargement des carrières…": "Loading careers…", "Le What if arrive au prochain calcul.": "What if arrives with the next update.",
   "Aucun joueur trouvé.": "No player found.", "points réels": "real points", "points what if": "what if points", "rang réel": "real rank",
   "rang what if": "what if rank", "Réel": "Real", "Éq.": "Team", "Total": "Total", "Fermer": "Close",
@@ -2795,6 +2818,23 @@ function trophHTML(t){
   el.innerHTML = `<div class="cp-tete"><h2>${I.nom}</h2><p>${I.desc[0].toUpperCase() + I.desc.slice(1)}. ${comment}</p></div>
     ${noteVeille(B.veille)}<div class="cp-liste">${lignes}</div>${t === "lindsay" ? duoHTML(B.duo) : ""}${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du trophée ${I.nom}`}</a>` : ""}${test}`;
 }
+// ---- Ticker « À surveiller ce soir » (src/ticker.py) : seulement les matchs du soir, change chaque jour ----
+const TK_TAG = { serie: ["Série", "Streak"], seche: ["Sécheresse", "Drought"], blesse: ["Absent", "Out"], jalon: ["Jalon", "Milestone"],
+                 equipe: ["Équipe", "Team"], prob: ["Prob", "Prob"] };
+function ticker(){
+  const T = D?.ticker || [];
+  document.querySelector(".ticker")?.remove();
+  if (!T.length) return;
+  const L2 = (fr, en) => EN ? en : fr;
+  const items = T.map(x => `<span class="tk-it" style="--eq:${coul(x.eq)}"><span class="tk-tag ${x.tag}">${L2(...(TK_TAG[x.tag] || ["", ""]))}</span>${EN ? x.en : x.fr}</span>`).join("");
+  const html = `<div class="ticker" role="marquee" aria-label="${L2("À surveiller ce soir", "Tonight's storylines")}"><span class="tk-lbl">${L2("Ce soir", "Tonight")}</span>
+    <div class="tk-vue"><div class="tk-piste" style="--tk-duree:${Math.max(30, T.length * 7)}s">${items}${items}</div></div></div>`;
+  const apres = document.querySelector("nav.menu") || document.querySelector("header.bug");
+  apres?.insertAdjacentHTML("afterend", html);
+  // Toucher le ticker le met en pause (un 2e toucher le repart) : pratique pour lire sur un cell
+  document.querySelector(".ticker")?.addEventListener("click", (e) => e.currentTarget.classList.toggle("pause"));
+}
+
 // ---- What if : référence de tous les temps (ère d'aujourd'hui, 82 matchs) --------------------------------
 // Calcul dans src/whatif.py : chaque saison ramenée au niveau offensif des 20 dernières saisons (ratio buts et
 // ratio passes séparés, par match-joueur), puis à 82 matchs. Gardiens : 62 matchs (25+ joués) ou 24.
@@ -2867,16 +2907,17 @@ function wiLigne(mode, t, i, x){
 function wiRegles(){
   const R = WI.regles || {}, B = WI.base || {}, G = R.g || [62, 24, 25, 5];
   const txt = L(
-    `<p><b>L'ère.</b> Pour chaque saison : les buts de toute la ligue divisés par tous les matchs joués par les patineurs (buts par match-joueur). Même chose pour les passes. Ratio = moyenne des ${R.n_base} dernières saisons ÷ la saison. Par match-joueur, ça corrige aussi la taille des alignements : dans les années 1940, moins de patineurs habillés, donc les vedettes jouaient plus. Les passes ont leur propre ratio parce qu'on en accordait plus ou moins selon l'époque (${B.ppb} passe par but aujourd'hui). Le +/- prend le ratio des buts.</p>
+    `<p><b>L'ère.</b> Pour chaque saison : les buts de toute la ligue divisés par tous les matchs joués par les patineurs (buts par match-joueur). Même chose pour les passes. Ratio = moyenne des ${R.n_base} dernières saisons ÷ la saison. Par match-joueur, ça corrige aussi la taille des alignements : dans les années 1940, moins de patineurs habillés, donc les vedettes jouaient plus. Les passes ont leur propre ratio parce qu'on en accordait plus ou moins selon l'époque (${B.ppb} passe par but aujourd'hui). Le +/- prend le ratio des buts. Dans le tableau, +12 % veut dire qu'un but de cette saison-là vaut 12 % de plus qu'un but d'aujourd'hui (on en marquait moins).</p>
      <p><b>Les matchs.</b> Chaque saison ramenée à ${R.matchs} matchs (son rythme par match). Sous ${R.min_pj} matchs : pas d'étirement, seulement l'ère. Points par match : les points ajustés à l'ère divisés par ses vrais matchs (au moins ${R.ppg_min} matchs en carrière pour le top).</p>
      <p><b>Les gardiens.</b> ${G[2]} matchs et plus : ramené à ${G[0]} matchs ; moins de ${G[2]} : ${G[1]} matchs (sous ${G[3]} : pas d'étirement). Victoires : avant 2005-06, les matchs nuls enlevaient des victoires possibles ; ratio = part des décisions gagnées (point 0) ÷ celle de la saison. % d'arrêts et moyenne : ramenés à la ligue (aujourd'hui : ${sv3(B.sv)} et ${bpg2(B.bpg)}). Top % d'arrêts et moyenne : au moins ${R.g_min_sv} matchs avec les tirs comptés.</p>`,
-    `<p><b>The era.</b> For each season: all league goals divided by all games played by skaters (goals per skater-game). Same for assists. Ratio = average of the last ${R.n_base} seasons ÷ that season. Per skater-game also corrects roster size: in the 1940s, fewer skaters dressed, so stars played more. Assists get their own ratio because more or fewer were awarded depending on the era (${B.ppb} assists per goal today). +/- uses the goals ratio.</p>
+    `<p><b>The era.</b> For each season: all league goals divided by all games played by skaters (goals per skater-game). Same for assists. Ratio = average of the last ${R.n_base} seasons ÷ that season. Per skater-game also corrects roster size: in the 1940s, fewer skaters dressed, so stars played more. Assists get their own ratio because more or fewer were awarded depending on the era (${B.ppb} assists per goal today). +/- uses the goals ratio. In the table, +12% means a goal that season is worth 12% more than a goal today (fewer were scored).</p>
      <p><b>Games.</b> Every season brought to ${R.matchs} games (his per-game pace). Under ${R.min_pj} games: no stretching, era only. Points per game: era-adjusted points divided by his real games (at least ${R.ppg_min} career games for the top).</p>
      <p><b>Goalies.</b> ${G[2]}+ games: brought to ${G[0]} games; fewer than ${G[2]}: ${G[1]} games (under ${G[3]}: no stretching). Wins: before 2005-06, ties took away possible wins; ratio = share of decisions won (zero point) ÷ that season's. Save % and GAA: brought to league level (today: ${sv3(B.sv)} and ${bpg2(B.bpg)}). Save % and GAA tops: at least ${R.g_min_sv} games with shots counted.</p>`);
-  const x2 = (v) => v == null ? "–" : "×" + v.toFixed(2).replace(".", EN ? "." : ",");
+  // Ratio en % : +12 % = la saison vaut 12 % de plus qu'aujourd'hui (moins de buts à l'époque)
+  const x2 = (v) => v == null ? "–" : (v >= 1 ? "+" : "−") + Math.abs(Math.round((v - 1) * 100)) + (EN ? "%" : " %");
   const rows = Object.keys(WI.fact).sort().reverse().map(s => { const f = WI.fact[s];
     return `<tr><td>${s.slice(0, 4)}-${s.slice(6)}</td><td>${x2(f[0])}</td><td>${x2(f[1])}</td><td>${bpg2(f[2])}</td><td>${x2(f[3])}</td><td>${sv3(f[4])}</td><td>${bpg2(f[5])}</td></tr>`; }).join("");
-  return txt + `<div class="tbl"><table class="serre"><thead><tr><th>${L("Saison", "Season")}</th><th>${L("× buts", "× goals")}</th><th>${L("× passes", "× assists")}</th><th>${L("Passes/but", "Assists/goal")}</th><th>${L("× vict.", "× wins")}</th><th>${L("% arrêts ligue", "League sv%")}</th><th>${L("Moy. ligue", "League GAA")}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  return txt + `<div class="tbl"><table class="serre"><thead><tr><th>${L("Saison", "Season")}</th><th>${L("Buts", "Goals")}</th><th>${L("Passes", "Assists")}</th><th>${L("Passes/but", "Assists/goal")}</th><th>${L("Vict.", "Wins")}</th><th>${L("% arrêts ligue", "League sv%")}</th><th>${L("Moy. ligue", "League GAA")}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 function wiCarte(t, id){
   const x = WI?.[t]?.[id]; if (!x) return;
@@ -2927,6 +2968,118 @@ document.addEventListener("click", (e) => {
 });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#wi-modal")) $("#wi-modal").hidden = true; });
 document.addEventListener("input", (e) => { if (e.target.id === "wi-q") whatif(); });
+
+// ---- Salaires mérités : apport de la saison -> salaire (src/salaires.py), rapport de dépisteur au clic ------
+let SAL = null, SAL_ch = false;
+const mD = (v) => v == null ? "–" : EN ? "$" + (v / 1e6).toFixed(1) + "M" : (v / 1e6).toFixed(1).replace(".", ",") + " M$";
+const n1 = (v) => v == null ? "–" : (Math.round(v * 10) / 10).toFixed(1).replace(".", EN ? "." : ",");
+const SAL_MODES = { top: ["Top 100", "Top 100"], att: ["Attaquants", "Forwards"], def: ["Défenseurs", "Defensemen"], gar: ["Gardiens", "Goalies"], eq: ["Équipes", "Teams"] };
+async function salaires(){
+  const el = $("#salaires");
+  if (!SAL){
+    if (SAL_ch) return;
+    SAL_ch = true;
+    el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`;
+    try { SAL = await (await fetch("salaires.json?v=" + (D?.date || Date.now()))).json(); if (!SAL.joueurs) throw 0; }
+    catch (e) { SAL = null; SAL_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les salaires arrivent au prochain calcul.", "Salaries arrive with the next update.")}</div></div>`; return; }
+    $("#f-sal").innerHTML = Object.entries(SAL_MODES).map(([k, n]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.sal || "top")}">${L(...n)}</button>`).join("");
+  }
+  const mode = S.sal || "top", q = nrm($("#sal-q").value), J = SAL.joueurs, R = SAL.regles;
+  const tete = `<div class="cp-tete"><h2>${L("Salaires mérités", "Deserved salaries")}</h2><p>${L(
+    `Ce que chaque joueur mériterait d'être payé selon son apport cette saison, pas son vrai contrat. Mis à jour chaque jour. Règles 2026-27 : plafond ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Touche un joueur pour son rapport de dépisteur.`,
+    `What each player would deserve to be paid based on his impact this season, not his real contract. Updated daily. 2026-27 rules: cap ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Tap a player for his scouting report.`)}</p></div>`;
+  let corps;
+  if (mode === "eq" && q.length < 2){
+    const mx = Math.max(...SAL.equipes.map(e => e.masse));
+    corps = SAL.equipes.map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}</span>
+      <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.top.map(k => J[k + "j"]?.n || J[k + "g"]?.n).filter(Boolean).join(", ")}</small></span>
+      <span class="v">${mD(e.masse)}<small>${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart))} ${L("vs plafond", "vs cap")}</small></span></button>`).join("");
+    corps = `<p class="aide">${L(`Masse salariale ajustée : la somme des salaires mérités de ses ${R.contrats} joueurs les plus utilisés cette saison. Au-dessus du plafond = ses joueurs valent plus que ce que la ligue permet de payer.`, `Adjusted payroll: the sum of the deserved salaries of its ${R.contrats} most-used players this season. Above the cap = its players are worth more than the league allows a team to pay.`)}</p>` + corps;
+  } else {
+    let L2 = Object.values(J).sort((a, b) => a.rg - b.rg);
+    if (q.length >= 2) L2 = L2.filter(x => nrm(x.n).includes(q)).slice(0, 60);
+    else if (mode === "att") L2 = L2.filter(x => x.t === "j" && x.pos !== "D").slice(0, 100);
+    else if (mode === "def") L2 = L2.filter(x => x.pos === "D").slice(0, 100);
+    else if (mode === "gar") L2 = L2.filter(x => x.t === "g").slice(0, 64);
+    else L2 = L2.slice(0, 100);
+    corps = L2.map((x) => salLigne(x)).join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
+  }
+  const F = SAL.fourchettes, dist = SAL.dist || [];
+  const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
+    `<p><b>L'apport</b> (en buts au-dessus d'un joueur de remplacement). Production : un but vaut 1 et se partage, ${R.v_but} au marqueur et le reste aux passeurs (≈ ${R.v_passe} par passe), pour ne pas compter chaque but deux fois. Jeu sur la glace : buts attendus pour moins contre quand il est sur la glace (MoneyPuck), comparés au reste de son équipe dans le même temps de jeu, divisés par 5 (sa part). On enlève ce qu'un joueur de remplacement aurait produit dans le même temps de glace (${n1(R.rep60[0])} chez les attaquants et ${n1(R.rep60[1])} chez les défenseurs, par 60 minutes). Gardiens : buts sauvés de plus qu'un gardien de remplacement, comptés à moitié (le marché les paie moins : leur rendement varie beaucoup d'une année à l'autre).</p>
+     <p><b>Le rythme.</b> Tôt en saison, son rythme est mélangé avec celui de l'an passé (comme ${R.k[0]} matchs de plus, ${R.k[1]} pour un gardien), puis ramené à 82 matchs.</p>
+     <p><b>Les dollars.</b> On classe tout le monde par apport. Le 1er reçoit le salaire du 1er contrat du marché, le 100e celui du 100e, et ainsi de suite (forme du marché actuel), puis on ajuste pour que la ligue dépense son vrai total. Ça garde des fourchettes réalistes : une poignée de supervedettes, beaucoup de joueurs près du minimum.</p>`,
+    `<p><b>Impact</b> (goals above a replacement player). Production: a goal is worth 1 and is shared, ${R.v_but} to the scorer and the rest to the passers (≈ ${R.v_passe} per assist), so no goal is counted twice. On-ice play: expected goals for minus against while he's on the ice (MoneyPuck), compared with the rest of his team in the same ice time, divided by 5 (his share). We subtract what a replacement player would have produced in the same ice time (${n1(R.rep60[0])} for forwards and ${n1(R.rep60[1])} for defensemen, per 60 minutes). Goalies: goals saved above a replacement goalie, counted at half value (the market pays them less: their results swing a lot from year to year).</p>
+     <p><b>Pace.</b> Early in the season, his pace is blended with last season's (like ${R.k[0]} extra games, ${R.k[1]} for a goalie), then brought to 82 games.</p>
+     <p><b>Dollars.</b> Everyone is ranked by impact. The 1st gets the salary of the market's 1st contract, the 100th that of the 100th, and so on (today's market shape), then it's adjusted so the league spends its real total. That keeps realistic brackets: a handful of superstars, lots of players near the minimum.</p>`)}
+    <table class="serre"><tbody>${F.map((f, i) => `<tr><td>${L(f[1], f[2])}</td><td>${f[0] ? mD(f[0]) + " +" : "–"}</td><td><b>${dist[i] ?? "–"}</b> ${L("joueurs", "players")}</td></tr>`).join("")}</tbody></table></details>`;
+  el.innerHTML = tete + corps + regles + `<p class="aide">${L("Stats avancées : MoneyPuck.com. Mis à jour le", "Advanced stats: MoneyPuck.com. Updated")} ${SAL.maj}.</p>`;
+}
+function salLigne(x){
+  const pos = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
+  const f = SAL.fourchettes[x.f];
+  return `<button class="wi-l sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}</span>
+    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small></span>
+    <span class="v">${mD(x.s)}<small>${L(f[1], f[2])}</small></span></button>`;
+}
+// Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
+function salRapport(k){
+  const x = SAL?.joueurs?.[k]; if (!x) return;
+  const R = SAL.regles, f = SAL.fourchettes[x.f], rg = rangFr(x.rg);
+  let txt;
+  if (x.t === "j"){
+    const [prod, repl, glace, apport, av] = x.c, net = prod - repl;
+    const profil = apport < 0 ? L("En difficulté : il coûte plus de buts qu'il en rapporte par rapport à un joueur de remplacement.", "Struggling: compared with a replacement player, he costs more goals than he brings.")
+      : glace > net && glace > 1 ? L("Profil défensif : son apport vient surtout du jeu sans la rondelle, son équipe domine les chances quand il est là.", "Defensive profile: his value comes mostly from play without the puck; his team dominates chances when he's out there.")
+      : glace > 1 && net > 3 ? L("Joueur complet : il produit et il fait pencher la glace du bon bord.", "Complete player: he produces and tilts the ice the right way.")
+      : glace < -1 ? L("Profil offensif : il produit, mais son équipe donne plus de chances qu'elle en crée quand il est sur la glace.", "Offensive profile: he produces, but his team gives up more chances than it creates when he's on the ice.")
+      : L("Profil de marqueur : son apport vient surtout de ses points.", "Scorer profile: his value comes mostly from his points.");
+    txt = L(
+      `<p><b>${x.n}</b> mériterait <b>${mD(x.s)}</b> cette saison : ${rg} de la ligue, catégorie « ${f[1]} ».</p>
+       <p><b>Production.</b> ${x.b} buts et ${x.a} passes en ${x.pj} matchs. Ça vaut ${n1(prod)} buts de crédit. Un joueur de remplacement en aurait produit ${n1(repl)} dans ses ${n1(x.toi)} minutes par match : il le dépasse de ${n1(net)}.</p>
+       <p><b>Sur la glace.</b> Avec lui, son équipe a ${n1(x.xg[0])} buts attendus pour et ${n1(x.xg[1])} contre. Comparé au reste de l'équipe, sa part vaut ${glace >= 0 ? "+" : ""}${n1(glace)} but${Math.abs(glace) >= 2 ? "s" : ""}.</p>
+       <p><b>Le rythme.</b> Total : ${n1(apport)} buts au-dessus du remplacement cette saison.${av ? ` L'an passé, il était à ${n1(av)} sur 82 matchs ; tant que la saison est jeune, les deux sont mélangés.` : " Pas assez de matchs l'an passé pour aider : c'est sa saison seulement."} Projection sur 82 matchs : ${n1(x.proj)} buts au-dessus du remplacement.</p>
+       <p><b>Verdict.</b> ${profil}</p>`,
+      `<p><b>${x.n}</b> would deserve <b>${mD(x.s)}</b> this season: ${rg} in the league, "${f[2]}" bracket.</p>
+       <p><b>Production.</b> ${x.b} goals and ${x.a} assists in ${x.pj} games. That's worth ${n1(prod)} goals of credit. A replacement player would have produced ${n1(repl)} in his ${n1(x.toi)} minutes per game: he beats that by ${n1(net)}.</p>
+       <p><b>On the ice.</b> With him out there, his team has ${n1(x.xg[0])} expected goals for and ${n1(x.xg[1])} against. Compared with the rest of the team, his share is worth ${glace >= 0 ? "+" : ""}${n1(glace)} goal${Math.abs(glace) >= 2 ? "s" : ""}.</p>
+       <p><b>Pace.</b> Total: ${n1(apport)} goals above replacement this season.${av ? ` Last season he was at ${n1(av)} over 82 games; while the season is young, both are blended.` : " Not enough games last season to help: this season only."} Projection over 82 games: ${n1(x.proj)} goals above replacement.</p>
+       <p><b>Verdict.</b> ${profil}</p>`);
+  } else {
+    const [apport, av] = x.c, sauves = apport / (R.gardien || 0.5);
+    txt = L(
+      `<p><b>${x.n}</b> mériterait <b>${mD(x.s)}</b> cette saison : ${rg} de la ligue, catégorie « ${f[1]} ».</p>
+       <p><b>Devant le filet.</b> % d'arrêts de ${sv3(x.sv)} sur ${x.sa} tirs en ${x.pj} matchs. Un gardien de remplacement est à ${sv3(x.sv_rep)}. Il a donc sauvé ${n1(sauves)} buts de plus, comptés à moitié pour le marché : ${n1(apport)}.</p>
+       <p><b>Le rythme.</b>${av ? ` L'an passé : ${n1(av)} sur une saison.` : ""} Projection selon sa part des matchs de son équipe : ${n1(x.proj)}.</p>
+       <p><b>Verdict.</b> ${apport > 3 ? "Un mur : il vole des matchs à son équipe adverse." : apport > 0 ? "Fiable : mieux qu'un remplaçant, sans plus." : "En difficulté : un gardien de remplacement ferait aussi bien ou mieux."}</p>`,
+      `<p><b>${x.n}</b> would deserve <b>${mD(x.s)}</b> this season: ${rg} in the league, "${f[2]}" bracket.</p>
+       <p><b>In net.</b> ${sv3(x.sv)} save % on ${x.sa} shots in ${x.pj} games. A replacement goalie sits at ${sv3(x.sv_rep)}. He saved ${n1(sauves)} more goals, counted at half value for the market: ${n1(apport)}.</p>
+       <p><b>Pace.</b>${av ? ` Last season: ${n1(av)} over a season.` : ""} Projection based on his share of his team's games: ${n1(x.proj)}.</p>
+       <p><b>Verdict.</b> ${apport > 3 ? "A wall: he steals games." : apport > 0 ? "Reliable: better than a backup, not much more." : "Struggling: a replacement goalie would do as well or better."}</p>`);
+  }
+  const m = $("#wi-modal");
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eq)}">
+    <header><div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${x.eq}</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <div class="sal-rap">${txt}</div></div>`;
+  m.hidden = false;
+}
+function salEquipe(t){
+  const L2 = Object.values(SAL.joueurs).filter(x => x.eq === t).sort((a, b) => b.pj * (b.toi || 30) - a.pj * (a.toi || 30)).slice(0, SAL.regles.contrats).sort((a, b) => b.s - a.s);
+  const e = SAL.equipes.find(x => x.t === t) || {};
+  const m = $("#wi-modal");
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" style="--eq:${coul(t)}">
+    <header><div><b>${NOMS_EQ[t] || t}</b><span>${L("Masse salariale ajustée", "Adjusted payroll")} : ${mD(e.masse)} (${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart || 0))} ${L("vs plafond", "vs cap")})</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <div class="wi-tbl"><table class="wi-car"><tbody>${L2.map(x => `<tr class="sal-j" data-k="${x.id + x.t}"><td>${x.n}</td><td>${x.pos}</td><td>${x.pj}</td><td class="wi-w"><b>${mD(x.s)}</b></td></tr>`).join("")}</tbody></table></div>
+    <p>${L("Touche un joueur pour son rapport.", "Tap a player for his report.")}</p></div>`;
+  m.hidden = false;
+}
+document.addEventListener("click", (e) => {
+  const j = e.target.closest?.(".sal-j"); if (j){ salRapport(j.dataset.k); return; }
+  const q = e.target.closest?.(".sal-eq"); if (q){ salEquipe(q.dataset.eq); return; }
+  const c = e.target.closest?.("#f-sal .chip");
+  if (c){ S.sal = c.dataset.v; document.querySelectorAll("#f-sal .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#sal-q").value = ""; salaires(); }
+});
+document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaires(); });
 
 // Classement final simulé : % de chances de finir à chaque rang de son association.
 // Équipes triées par rang moyen (la somme rang × probabilité), la meilleure en haut.
@@ -2996,8 +3149,9 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "coupe", "whatif", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
+    for (const id of ["joueurs", "matchs", "suivi", "coupe", "whatif", "salaires", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
     if (b.id === "t-whatif") whatif();
+    if (b.id === "t-salaires") salaires();
   }));
 }
 
@@ -3017,8 +3171,8 @@ function nettoyerPublic(){
   // Le menu du site, juste sous l'en-tête : le même que dans les pages texte
   // L'app vit dans tonight/ (fr/ce-soir/) avec <base href="../"> : les liens partent de la racine de la langue
   const SOIR = EN ? "tonight/" : "ce-soir/";
-  const menu = EN ? [[SOIR, "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [SOIR + "#what-if", "What if"], [CH.b, "Track record"], [CH.a, "About"]]
-                  : [[SOIR, "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [SOIR + "#what-if", "What if"], [CH.b, "Bilan"], [CH.a, "À propos"]];
+  const menu = EN ? [[SOIR, "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [SOIR + "#what-if", "What if"], [SOIR + "#salaries", "Salaries"], [CH.b, "Track record"], [CH.a, "About"]]
+                  : [[SOIR, "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [SOIR + "#what-if", "What if"], [SOIR + "#salaires", "Salaires"], [CH.b, "Bilan"], [CH.a, "À propos"]];
   const tete = document.querySelector("header.bug");
   tete?.insertAdjacentHTML("afterend",
     `<nav class="menu" aria-label="${EN ? "Site menu" : "Menu du site"}">${menu.map(([h, n]) => `<a href="${h}"${h === SOIR ? ' aria-current="page"' : ""}>${n}</a>`).join("")}</nav>`);
@@ -3038,7 +3192,7 @@ function nettoyerPublic(){
       "Le calcul part de son rythme par 60 minutes (ramené vers la moyenne quand il a peu joué), du temps de glace prévu, de l'adversaire, du gardien, de l'avantage numérique, de ses tendances à lui et des statistiques avancées de MoneyPuck. Avec l'alignement du soir (DailyFaceoff), on ajuste son trio, son unité d'avantage numérique et le gardien partant.",
       "Plusieurs modèles sont comparés chaque semaine sur les vrais résultats ; on publie celui qui prédit le mieux chaque catégorie. Touche « Pourquoi ce % » pour voir chaque facteur en + ou − %. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint)."]],
     "#p-matchs": ["Comment lire les matchs", [
-      "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les chances de +5,5 ou +6,5 buts en découlent.",
+      "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les probs de +5,5 ou +6,5 buts en découlent.",
       "Le calcul combine la forme récente, l'attaque et la défensive des deux équipes, les gardiens et les matchs en deux soirs de suite. Avec l'alignement, chaque joueur est calculé un par un puis additionné."]],
     "#p-coupe": ["Comment lire les trophées", [
       "On rejoue le reste de la saison 10 000 fois. Le % = la part des simulations où le joueur ou l'équipe gagne.",
@@ -3075,6 +3229,7 @@ async function init(){
   const g = new Date(D.genere);
   $("#maj").innerHTML = `${new Date(D.date + "T12:00").toLocaleDateString(LANG, { weekday: "long", day: "numeric", month: "long" })}<br>Calculé à ${g.toLocaleTimeString(LANG, { hour: "2-digit", minute: "2-digit" })}`;
   construireFiltres();
+  ticker();
   brancher();
   brancherBets();
   tout();
@@ -3089,7 +3244,10 @@ async function init(){
   };
   btn.addEventListener("click", () => allumer(btn.getAttribute("aria-pressed") !== "true"));
   allumer(store.get("live") === "1");
-  const ouvrirHash = () => { if (/^#(what-?if|et-si)$/i.test(location.hash)){ $("#t-whatif").click(); $("#p-whatif").scrollIntoView({ block: "start" }); } };
+  const ouvrirHash = () => {
+    if (/^#(what-?if|et-si)$/i.test(location.hash)){ $("#t-whatif").click(); $("#p-whatif").scrollIntoView({ block: "start" }); }
+    else if (/^#(salaries|salaires)$/i.test(location.hash)){ $("#t-salaires").click(); $("#p-salaires").scrollIntoView({ block: "start" }); }
+  };
   window.addEventListener("hashchange", ouvrirHash);
   ouvrirHash();
 }

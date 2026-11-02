@@ -81,8 +81,21 @@ header.bug:has(.bug-d) .logo-site{width:min(230px,52vw)}
 header.bug .lang{color:#fff;text-decoration:none;border:2px solid rgba(255,255,255,.35);border-radius:4px;font:italic 800 17px/1 var(--f-display);padding:8px 10px;flex:none;margin-left:auto}
 nav.menu{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--bande2);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:0 max(8px,env(safe-area-inset-left,0px))}
 nav.menu::-webkit-scrollbar{display:none}
+/* Ticker « À surveiller ce soir » : défile en boucle (contenu doublé), pause au doigt ou à la souris */
+.ticker{display:flex;align-items:stretch;background:#061629;color:#fff;overflow:hidden;margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));border-bottom:2px solid var(--led)}
+.ticker .tk-lbl{flex:none;display:flex;align-items:center;padding:0 10px;background:var(--led);color:#061629;font:italic 800 13px/1 var(--f-display);text-transform:uppercase;letter-spacing:.03em;z-index:1}
+.ticker .tk-vue{flex:1;overflow:hidden;position:relative}
+.ticker .tk-piste{display:inline-flex;white-space:nowrap;animation:tk-defile var(--tk-duree,60s) linear infinite;will-change:transform}
+.ticker:hover .tk-piste,.ticker.pause .tk-piste{animation-play-state:paused}
+.ticker .tk-it{display:inline-flex;align-items:center;gap:7px;padding:8px 18px 8px 0;font:600 13.5px/1 var(--f-body)}
+.ticker .tk-it::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--eq,#6B7C8C);box-shadow:0 0 0 2px rgba(255,255,255,.25)}
+.ticker .tk-tag{font:italic 800 11px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;border-radius:3px;background:#21456F}
+.ticker .tk-tag.serie{background:#C8102E}.ticker .tk-tag.blesse{background:#6B7C8C}.ticker .tk-tag.jalon{background:#B8860B}
+.ticker .tk-tag.prob{background:var(--led);color:#061629}.ticker .tk-tag.seche{background:#5B3A8E}.ticker .tk-tag.equipe{background:#1F6F43}
+@keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}}
 /* What if : liste + dos de carte de hockey */
-#wi-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 .wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
@@ -115,6 +128,8 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-carte table.wi-car td:first-child{font:800 12px var(--f-body);text-transform:uppercase}
 .wi-regles{padding:12px 14px;margin-top:10px}.wi-regles summary{font:800 15px var(--f-display);text-transform:uppercase;cursor:pointer}
 .wi-regles p{font-size:13px;line-height:1.45}
+.sal-rap{padding:6px 16px 14px}.sal-rap p{font:500 14px/1.5 var(--f-body);color:#2A1C0C;margin:10px 0}
+.wi-carte tr.sal-j{cursor:pointer}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
 nav.menu a[aria-current]::after{content:"";position:absolute;left:7px;right:7px;bottom:0;height:3px;background:var(--led)}
