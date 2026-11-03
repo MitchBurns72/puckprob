@@ -103,6 +103,12 @@ nav.menu::-webkit-scrollbar{display:none}
 .mvt.up,.ecart.up{color:var(--good)} .mvt.down,.ecart.down{color:var(--bad)}
 .ecart.bloc{display:block;margin:4px 0 0;text-align:right}
 .wi-l .v .bon{color:var(--good)} .wi-l .v .mauvais{color:var(--bad)}
+/* Filtre par équipe : une pastille par équipe ; toucher = seulement elle, retoucher = toutes */
+.eq-filtre{display:flex;gap:4px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
+.eq-filtre::-webkit-scrollbar{display:none}
+.peq{flex:none;min-width:36px;height:26px;padding:0 5px;border-radius:13px;border:0;background:var(--c);color:#fff;font:800 10px/1 var(--f-display);letter-spacing:.02em;cursor:pointer;opacity:.4}
+.eq-filtre:not(:has([aria-pressed="true"])) .peq{opacity:1}
+.peq[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--surface,#fff),0 0 0 4px var(--c)}
 .ecart{display:inline-block;font:700 12px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
