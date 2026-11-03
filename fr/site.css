@@ -102,17 +102,32 @@ nav.menu::-webkit-scrollbar{display:none}
 .mvt{display:block;font:700 10.5px/1 var(--f-body);font-style:normal;margin-top:3px;letter-spacing:0}
 .mvt.up,.ecart.up{color:var(--good)} .mvt.down,.ecart.down{color:var(--bad)}
 .ecart.bloc{display:block;margin:4px 0 0;text-align:right}
+.wi-l .v .bon{color:var(--good)} .wi-l .v .mauvais{color:var(--bad)}
 .ecart{display:inline-block;font:700 12px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
-.wi-rond{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--eq);color:#fff;font:800 16px/1 var(--f-display);text-shadow:0 1px 2px rgba(0,0,0,.35);box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
+/* Plaque du joueur : rectangle aux couleurs de son équipe, numéro + position (pas de photo sur le site public :
+   droits d'image de la LNH et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
+.plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--eq, var(--muted));color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.plaque b{font:800 16px/1 var(--f-display)}
+.plaque i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
+:is(.ph,.gface,.aface):has(>.plaque){border-radius:6px;overflow:visible;background:none}
+/* (plus précis que « .tr .ph » et « .photo .ph », qui arrivent plus bas et font des ronds) */
+.tr .ph:has(>.plaque){width:44px;height:50px;border-radius:6px;overflow:visible;background:none;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
+.photo .ph:has(>.plaque),.cp .ph:has(>.plaque){border-radius:8px;overflow:visible}
+:is(.gface,.aface):has(>.plaque){border-radius:5px;overflow:visible;background:none}
+.tr .ph .plaque b{font-size:20px} .tr .ph .plaque i{font-size:9.5px}
+:is(.gface,.aface) .plaque b{font-size:12px} :is(.gface,.aface) .plaque i{font-size:7px}
+.photo .ph .plaque b{font-size:22px} .photo .ph .plaque i{font-size:10px}
+.wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--eq);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
+.wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
-.wi-carte header .wi-rond{width:46px;height:46px;font-size:18px;box-shadow:0 0 0 2px #fff}
+.wi-carte header .wi-rond{width:46px;height:52px;box-shadow:0 0 0 2px #fff} .wi-carte header .wi-rond b{font-size:19px}
 .wi-carte .wi-eqs i{box-shadow:0 0 0 1px rgba(255,255,255,.6)}
-.wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:grid}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
+.wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:flex}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
 .wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
 .wi-l .nm small,.wi-l .v small{display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px}
 .wi-l .v{font:italic 800 26px/.9 var(--f-display);text-align:right}
@@ -579,8 +594,9 @@ main{display:block}
 .chiffres b{display:block;font:italic 800 28px/1 var(--f-display)}
 .chiffres span{font-size:11.5px;color:var(--muted)}
 .fiche-tete{display:flex;align-items:center;gap:14px}
-.fiche-tete .ph{width:64px;height:64px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 3px var(--eq)}
-.fiche-tete .rno{font-size:26px}
+.fiche-tete .ph{width:60px;height:68px;border-radius:8px;flex:none;box-shadow:0 0 0 2px #fff,0 0 0 4px var(--eq)}
+.fiche-tete .plaque{border-radius:8px} .fiche-tete .plaque b{font-size:26px} .fiche-tete .plaque i{font-size:11px}
+.ph.mini .plaque{border-radius:4px} .ph.mini .plaque b{font-size:11px}
 .grille{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
 .grille a{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;
   padding:9px 10px;text-decoration:none;color:var(--ink);font:700 15px/1.1 var(--f-body);box-shadow:var(--ombre)}
