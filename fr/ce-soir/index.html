@@ -124,6 +124,11 @@ nav.menu::-webkit-scrollbar{display:none}
 #wi-q,#sal-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
+/* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
+.mvt{display:block;font:700 10.5px/1 var(--f-body);font-style:normal;margin-top:3px;letter-spacing:0}
+.mvt.up,.ecart.up{color:var(--good)} .mvt.down,.ecart.down{color:var(--bad)}
+.ecart.bloc{display:block;margin:4px 0 0;text-align:right}
+.ecart{display:inline-block;font:700 12px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
 .wi-rond{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--eq);color:#fff;font:800 16px/1 var(--f-display);text-shadow:0 1px 2px rgba(0,0,0,.35);box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
@@ -178,6 +183,7 @@ table.cl thead th{font:800 12px/1 var(--f-display);color:var(--muted)}
 table.cl .cl-eq{position:sticky;left:0;z-index:1;background:var(--surface);text-align:left;white-space:nowrap;padding-right:8px;font:800 15px/1 var(--f-display);color:var(--ink);box-shadow:3px 0 0 var(--eq, transparent) inset}
 table.cl .cl-eq img{width:20px;height:20px;vertical-align:-5px;margin:0 5px 0 4px}
 table.cl .cl-eq small{display:block;font:500 10.5px var(--f-body);color:var(--muted);margin:2px 0 0 29px}
+table.cl .cl-eq .mvt{display:inline-block;margin:0 0 0 4px}
 table.cl .cl-coupe{box-shadow:inset -2px 0 0 var(--led)}
 table.cl .cl-s{padding-left:8px;font-size:12px}
 .guide-pub{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:10px 0 12px;font-size:13.5px;line-height:1.5}
@@ -787,15 +793,15 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">66 %</span><span class="rp-barre"><i style="width:82.2%"></i></span></td></tr><tr><td><a href="joueurs/mark-stone/">Mark Stone</a><br><span class="rp-note">VGK @ BOS</span></td>
 <td class="rp-n"><span class="rp-p">66 %</span><span class="rp-barre"><i style="width:82.0%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>Tirs 3+</h3><table><tbody><tr><td><a href="joueurs/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS vs CGY</span></td>
 <td class="rp-n"><span class="rp-p">78 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL @ CHI</span></td>
-<td class="rp-n"><span class="rp-p">72 %</span><span class="rp-barre"><i style="width:93.2%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA vs DET</span></td>
+<td class="rp-n"><span class="rp-p">72 %</span><span class="rp-barre"><i style="width:92.8%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA vs DET</span></td>
 <td class="rp-n"><span class="rp-p">62 %</span><span class="rp-barre"><i style="width:79.6%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs VGK</span></td>
 <td class="rp-n"><span class="rp-p">60 %</span><span class="rp-barre"><i style="width:77.8%"></i></span></td></tr><tr><td><a href="joueurs/alex-debrincat/">Alex DeBrincat</a><br><span class="rp-note">DET @ FLA</span></td>
-<td class="rp-n"><span class="rp-p">59 %</span><span class="rp-barre"><i style="width:75.8%"></i></span></td></tr><tr><td><a href="joueurs/connor-bedard/">Connor Bedard</a><br><span class="rp-note">CHI vs COL</span></td>
-<td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:70.7%"></i></span></td></tr><tr><td><a href="joueurs/jack-eichel/">Jack Eichel</a><br><span class="rp-note">VGK @ BOS</span></td>
-<td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:70.4%"></i></span></td></tr><tr><td><a href="joueurs/will-smith/">Will Smith</a><br><span class="rp-note">SJS vs CGY</span></td>
+<td class="rp-n"><span class="rp-p">59 %</span><span class="rp-barre"><i style="width:75.8%"></i></span></td></tr><tr><td><a href="joueurs/jack-eichel/">Jack Eichel</a><br><span class="rp-note">VGK @ BOS</span></td>
+<td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:70.4%"></i></span></td></tr><tr><td><a href="joueurs/connor-bedard/">Connor Bedard</a><br><span class="rp-note">CHI vs COL</span></td>
+<td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:70.1%"></i></span></td></tr><tr><td><a href="joueurs/will-smith/">Will Smith</a><br><span class="rp-note">SJS vs CGY</span></td>
 <td class="rp-n"><span class="rp-p">53 %</span><span class="rp-barre"><i style="width:68.0%"></i></span></td></tr><tr><td><a href="joueurs/viktor-arvidsson/">Viktor Arvidsson</a><br><span class="rp-note">DET @ FLA</span></td>
 <td class="rp-n"><span class="rp-p">50 %</span><span class="rp-barre"><i style="width:64.0%"></i></span></td></tr><tr><td><a href="joueurs/cale-makar/">Cale Makar</a><br><span class="rp-note">COL @ CHI</span></td>
-<td class="rp-n"><span class="rp-p">48 %</span><span class="rp-barre"><i style="width:61.8%"></i></span></td></tr></tbody></table></div></div>
+<td class="rp-n"><span class="rp-p">49 %</span><span class="rp-barre"><i style="width:62.6%"></i></span></td></tr></tbody></table></div></div>
 <div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7,6 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,9 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>41 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>52 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>38 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>37 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>49 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>40 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
@@ -2660,11 +2666,12 @@ function coupeHTML(){
   const k = S.ctri || "p_coupe", nomK = ETAPES.find(x => x[0] === k)[1];
   const eqs = C.equipes.filter(e => conf === "all" || e.conf === conf).slice().sort((a, b) => b[k] - a[k] || b.p_coupe - a.p_coupe);
   const mx = Math.max(...C.equipes.map(e => e[k]), 0.01);
+  const MV = mvtListe(eqs, e => e.t, e => e[k], e => e.d?.[k]);
   const lignes = eqs.map((e, i) => `<div class="cp" style="--eq:${coul(e.t)}">
-      <span class="rgn">${i + 1}</span>
+      <span class="rgn">${i + 1}${mvtHTML(MV[e.t])}</span>
       <img class="lg" src="${LOGO(e.t)}" alt="" loading="lazy">
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.pts} pts en ${e.pj} matchs, projeté ${Math.round(e.proj)}</small></span>
-      <span class="pc">${pc1(e[k])}<small>%</small><span class="pck">${nomK}</span></span>
+      <span class="pc">${pc1(e[k])}<small>%</small><span class="pck">${nomK}</span>${ecartPc(e.d?.[k])}</span>
       <span class="barre"><i style="width:${(e[k] / mx * 100).toFixed(1)}%"></i></span>
       <span class="etapes">
         ${ETAPES.filter(x => x[0] !== k).map(([c, n]) =>
@@ -2746,12 +2753,13 @@ function trophEqHTML(t){
   const L = E?.[t];
   if (!L || !L.length){ el.innerHTML = `<div class="card"><div class="vide">${I.nom} : arrive au prochain calcul.</div></div>`; return; }
   const mx = Math.max(...L.map(x => x.p), 0.01);
+  const MV = mvtListe(L, x => x.t, x => x.p, x => x.dp);
   const lignes = L.map((x, i) => `<div class="cp" style="--eq:${coul(x.t)}">
-      <span class="rgn">${i + 1}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
+      <span class="rgn">${i + 1}${mvtHTML(MV[x.t])}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
       <span class="nm">${NOMS_EQ[x.t] || x.t}<small>${t === "jennings" ? `${x.bc} buts accordés en ${x.pj} matchs, projeté ${x.proj}`
         : t === "adams" ? `${Math.round(x.pct * 100)} % des points projetés, attendu ${Math.round(x.attendu * 100)} % avant la saison`
         : `projeté ${Math.round(x.proj)} pts`}</small></span>
-      <span class="pc">${pc1(x.p)}<small>%</small></span>
+      <span class="pc">${pc1(x.p)}<small>%</small>${ecartPc(x.dp)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>${hierHTML(x.dp, x.raison)}</div>`).join("");
   const T = (E.tests?.[t] || []).filter(x => x.gagnant);
   let test = "";
@@ -2771,8 +2779,32 @@ function trophEqHTML(t){
   el.innerHTML = `<div class="cp-tete"><h2>${I.nom}</h2><p>${I.desc[0].toUpperCase() + I.desc.slice(1)}. ${comment}</p></div>${noteVeille(E.veille)}<div class="cp-liste">${lignes}</div>${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du ${I.nom}`}</a>` : ""}${test}`;
 }
 // « ▲ 2,3 » + la raison : l'écart vient seulement des matchs d'hier (l'algo est le même des deux côtés)
+// Écart avec hier : « +3 » vert si c'est mieux, « −2 » rouge si c'est pire. sens = -1 quand plus bas = mieux.
+function ecartHTML(v, fmt, sens = 1, seuil = 0){
+  if (v == null || isNaN(v) || Math.abs(v) <= seuil) return "";
+  return `<span class="ecart ${v * sens > 0 ? "up" : "down"}" title="${L("Depuis hier", "Since yesterday")}">${v > 0 ? "+" : "−"}${fmt(Math.abs(v))}</span>`;
+}
+// Places gagnées (▲2, vert) ou perdues (▼1, rouge) depuis hier ; dr > 0 = il monte
+function mvtHTML(dr){
+  if (!dr) return "";
+  return `<span class="mvt ${dr > 0 ? "up" : "down"}" title="${L("Places depuis hier", "Places since yesterday")}">${dr > 0 ? "▲" : "▼"}${Math.abs(dr)}</span>`;
+}
+// Rangs d'hier recalculés dans la liste affichée : valeur d'hier = valeur - écart. {clé: places gagnées}
+function mvtListe(L, cle, val, ecart, sens = 1){
+  const hier = L.filter(x => ecart(x) != null).map(x => [cle(x), val(x) - ecart(x)]).sort((a, b) => sens * (b[1] - a[1]));
+  if (!hier.length) return {};
+  const rgH = Object.fromEntries(hier.map(([k], i) => [k, i + 1])), out = {};
+  L.forEach((x, i) => { if (rgH[cle(x)]) out[cle(x)] = rgH[cle(x)] - (i + 1); });
+  return out;
+}
+// Écart en points de % sous le gros %, version publique (la version privée a déjà « ▲ 2,3 » + la raison)
+function ecartPc(dp){
+  if (!PUBLIC || dp == null) return "";
+  return ecartHTML(dp * 100, (v) => v.toFixed(1).replace(".", EN ? "." : ",") + (EN ? " pts" : " pt"), 1, 0.05).replace('class="ecart', 'class="ecart bloc');
+}
 function hierHTML(dp, raison){
-  if (PUBLIC || dp == null) return "";
+  if (dp == null) return "";
+  if (PUBLIC) return "";     // version publique : l'écart est sous le % (ecartPc), la raison sert au suivi privé
   const v = dp * 100, cls = v >= 0.2 ? "up" : v <= -0.2 ? "down" : "";
   const txt = Math.abs(v) < 0.05 ? "=" : `${v > 0 ? "▲" : "▼"} ${Math.abs(v).toFixed(1).replace(".", EN ? "." : ",")}`;
   return `<span class="hier"><span class="dp ${cls}" title="Écart en points de % depuis le calcul d'hier">${txt}</span>${raison || ""}</span>`;
@@ -2805,10 +2837,10 @@ function trophHTML(t){
   if (!B.dispo){ el.innerHTML = `<div class="card"><div class="vide">${B.msg}</div></div>`; return; }
   const mx = Math.max(...B.top.map(x => x.p), 0.01);
   const lignes = B.top.map((x, i) => `<div class="tr" style="--eq:${coul(x.eq)}">
-      <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}</span>
+      <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
       <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
-      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small></span>
+      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>
       <span class="stat">${statTroph(t, x)}</span>
       ${hierHTML(x.dp, x.raison)}
@@ -2921,14 +2953,31 @@ function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
 }
+// Valeur what if (en nombre) et rang what if, pour comparer avec hier (x.h = valeurs d'hier, seulement si ça a bougé)
+function wiNum(m, x){
+  if (m === "ppg") return [x.ppg?.[1], x.rg[9]];
+  if (m === "gv") return [x.w[1], x.rg[1]];
+  if (m === "gsv") return [x.sv[1], x.rg[3]];
+  if (m === "gbpg") return [x.bpg[1], x.rg[5]];
+  const M = WI_MODES[m]; return [x.w[M.k], x.rg[M.rg + 1]];
+}
+function wiHier(m, t, x){
+  if (!x.h) return ["", ""];
+  const hx = t === "g" ? { ...x, w: x.h[0], sv: [x.sv[0], x.h[1]], bpg: [x.bpg[0], x.h[2]], rg: x.h[3] }
+                       : { ...x, w: x.h[0], ppg: [x.ppg?.[0], x.h[1]], rg: x.h[2] };
+  const [v, r] = wiNum(m, x), [vh, rh] = wiNum(m, hx);
+  const fmt = m === "ppg" ? ppg2 : m === "gsv" ? sv3 : m === "gbpg" ? bpg2 : (v) => Math.round(v).toLocaleString(LANG);
+  const seuil = m === "ppg" || m === "gbpg" ? 0.005 : m === "gsv" ? 0.0005 : 0.5;
+  return [v != null && vh != null ? ecartHTML(v - vh, fmt, m === "gbpg" ? -1 : 1, seuil) : "", r && rh ? mvtHTML(rh - r) : ""];
+}
 function wiLigne(mode, t, i, x){
   if (!x) return "";
-  const [v, reel, rg, rgR] = wiValeur(mode, x), M = WI_MODES[mode];
+  const [v, reel, rg, rgR] = wiValeur(mode, x), M = WI_MODES[mode], [dv, dr] = wiHier(mode, t, x);
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const sous = [x.eqs?.[0]?.[0] || x.eq, pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${rg ?? "–"}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
-    <span class="v">${v}<small>${L(...M.u)} · ${L("réel", "real")} ${reel} (${rangFr(rgR)})</small></span></button>`;
+    <span class="v">${v}${dv}<small>${L(...M.u)} · ${L("réel", "real")} ${reel} (${rangFr(rgR)})</small></span></button>`;
 }
 function wiRegles(){
   const R = WI.regles || {}, B = WI.base || {}, G = R.g || [62, 24, 25, 5];
@@ -3017,9 +3066,9 @@ async function salaires(){
   let corps;
   if (mode === "eq" && q.length < 2){
     const mx = Math.max(...SAL.equipes.map(e => e.masse));
-    corps = SAL.equipes.map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}</span>
+    corps = SAL.equipes.map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}${mvtHTML(e.dr)}</span>
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.top.map(k => J[k + "j"]?.n || J[k + "g"]?.n).filter(Boolean).join(", ")}</small></span>
-      <span class="v">${mD(e.masse)}<small>${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart))} ${L("vs plafond", "vs cap")}</small></span></button>`).join("");
+      <span class="v">${mD(e.masse)}${ecartHTML(e.dm, mD, 1, 50000)}<small>${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart))} ${L("vs plafond", "vs cap")}</small></span></button>`).join("");
     corps = `<p class="aide">${L(`Masse salariale ajustée : la somme des salaires mérités de ses ${R.contrats} joueurs les plus utilisés cette saison. Au-dessus du plafond = ses joueurs valent plus que ce que la ligue permet de payer.`, `Adjusted payroll: the sum of the deserved salaries of its ${R.contrats} most-used players this season. Above the cap = its players are worth more than the league allows a team to pay.`)}</p>` + corps;
   } else {
     let L2 = Object.values(J).sort((a, b) => a.rg - b.rg);
@@ -3044,9 +3093,9 @@ async function salaires(){
 function salLigne(x){
   const pos = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const f = SAL.fourchettes[x.f];
-  return `<button class="wi-l sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}</span>
+  return `<button class="wi-l sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small></span>
-    <span class="v">${mD(x.s)}<small>${L(f[1], f[2])}</small></span></button>`;
+    <span class="v">${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small></span></button>`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
 function salRapport(k){
@@ -3134,9 +3183,9 @@ async function enforcers(){
   const tete = `<div class="cp-tete"><h2>${L("Top 10 des enforcers", "Top 10 enforcers")}</h2><p>${L(
     "Le joueur qui fait le plus peur à l'autre équipe : moitié ses combats, moitié l'effet peur (quand il saute sur la glace, l'adversaire frappe moins). Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
     "The player the other team fears most: half his fights, half the fear effect (when he jumps on the ice, the opponent hits less). Current and last season combined. Tap a player for the details.")}</p></div>`;
-  const lignes = ENF.top.slice(0, 10).map((x) => `<button class="wi-l enf-j" data-id="${x.id}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}</span>
+  const lignes = ENF.top.slice(0, 10).map((x) => `<button class="wi-l enf-j" data-id="${x.id}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>
     <span class="nm">${x.n}<small>${x.eq} · ${x.pos === "D" ? L("Déf.", "D") : L("Avant", "F")} · ${x.pj} ${L("matchs", "games")}</small></span>
-    <span class="v">${x.comb} <small>${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}</small><small>${L("Peur", "Fear")} ${pcS(x.peur)}</small></span></button>`).join("");
+    <span class="v">${x.comb}${ecartHTML(x.dc, (v) => v)} <small>${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}</small><small>${L("Peur", "Fear")} ${pcS(x.peur)}</small></span></button>`).join("");
   const W = ENF.poids || {};
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Deux morceaux, moitié-moitié, chacun comparé à toute la ligue (écart à la moyenne) : <b>combats</b> par 82 matchs et <b>effet peur</b>. Ses propres mises en échec ne comptent pas : un enforcer, c'est celui qu'on n'ose pas frapper.</p>
@@ -3190,7 +3239,9 @@ function classementHTML(){
     if (!eqs.length) return "";
     const n = Math.max(...eqs.map(e => e.rangs.length));
     const tete = `<tr><th class="cl-eq">Équipe</th>${Array.from({ length: n }, (_, k) => `<th class="${k === 7 ? "cl-coupe" : ""}">${k + 1}</th>`).join("")}<th class="cl-s">Séries</th></tr>`;
-    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="--eq:${coul(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}</small></th>
+    // Places depuis hier : le rang moyen d'hier (rang moyen - écart), plus bas = mieux
+    const MV = mvtListe(eqs, e => e.t, e => e.moy, e => e.d?.moy, -1);
+    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="--eq:${coul(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}${mvtHTML(MV[e.t])}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}${ecartHTML(e.d?.moy, (v) => v.toFixed(1).replace(".", EN ? "." : ","), -1, 0.05)}</small></th>
       ${Array.from({ length: n }, (_, k) => cellule(e.rangs[k] || 0).replace("<td", k === 7 ? '<td class="cl-coupe"' : "<td")).join("")}
       <td class="cl-s"><b>${pc1(e.p_series)}</b></td></tr>`).join("");
     return `<h2 style="margin:16px 0 8px">${NOM_CONF[c] || c}</h2><div class="cl-tbl"><table class="cl"><thead>${tete}</thead><tbody>${lignes}</tbody></table></div>`;
