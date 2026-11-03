@@ -3020,8 +3020,10 @@ async function salaires(){
 function salLigne(x){
   const pos = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const f = SAL.fourchettes[x.f];
-  return `<button class="wi-l sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>
-    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small></span>
+  const st = x.t === "g" ? `${L("% arrêts", "sv%")} ${sv3(x.sv)} · ${x.sa} ${L("tirs", "shots")}`
+    : `${x.b} ${L("B", "G")} · ${x.a} ${L("A", "A")} · ${x.b + x.a} PTS · ${n1(x.toi)} min`;
+  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>${wiRond(x)}
+    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small></span></button>`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
@@ -3070,8 +3072,9 @@ function salRapport(k){
        <p><b>Verdict.</b> ${apport > 3 ? "A wall: he steals games." : apport > 0 ? "Reliable: better than a backup, not much more." : "Struggling: a replacement goalie would do as well or better."}</p>`);
   }
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eq)}">
-    <header><div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${x.eq}</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+  const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
   m.hidden = false;
 }
@@ -3107,21 +3110,33 @@ async function enforcers(){
     try { ENF = await (await fetch("physique.json?v=" + (D?.date || Date.now()))).json(); if (!ENF.top) throw 0; }
     catch (e) { ENF = null; ENF_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les enforcers arrivent quand le jeu-par-jeu de la saison est récolté (quelques calculs).", "Enforcers arrive once the season's play-by-play is collected (a few updates).")}</div></div>`; return; }
   }
-  const tete = `<div class="cp-tete"><h2>${L("Top 10 des enforcers", "Top 10 enforcers")}</h2><p>${L(
-    "Le joueur qui fait le plus peur à l'autre équipe : moitié ses combats, moitié l'effet peur (quand il saute sur la glace, l'adversaire frappe moins). Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
-    "The player the other team fears most: half his fights, half the fear effect (when he jumps on the ice, the opponent hits less). Current and last season combined. Tap a player for the details.")}</p></div>`;
-  const lignes = ENF.top.slice(0, 10).map((x) => `<button class="wi-l enf-j" data-id="${x.id}" style="--eq:${coul(x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>
-    <span class="nm">${x.n}<small>${x.eq} · ${x.pos === "D" ? L("Déf.", "D") : L("Avant", "F")} · ${x.pj} ${L("matchs", "games")}</small></span>
-    <span class="v">${x.comb}${ecartHTML(x.dc, (v) => v)} <small>${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}</small><small>${L("Peur", "Fear")} ${pcS(x.peur)}</small></span></button>`).join("");
+  const tete = `<div class="cp-tete"><h2>${L("Top 50 des enforcers", "Top 50 enforcers")}</h2><p>${L(
+    "Le joueur qui fait le plus peur à l'autre équipe : ses combats, ses mises en échec (avoir mal, ça fait peur aussi), les pénalités qui font mal, et l'effet peur (quand il saute sur la glace, l'adversaire frappe moins). L'indice peur en % : la part des patineurs de la ligue qu'il dépasse. Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
+    "The player the other team fears most: his fights, his hits (getting hurt is scary too), the penalties that hurt, and the fear effect (when he jumps on the ice, the opponent hits less). The fear index in %: the share of the league's skaters he beats. Current and last season combined. Tap a player for the details.")}</p></div>`;
+  const lignes = ENF.top.map(enfLigne).join("");
   const W = ENF.poids || {};
+  const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Deux morceaux, moitié-moitié, chacun comparé à toute la ligue (écart à la moyenne) : <b>combats</b> par 82 matchs et <b>effet peur</b>. Ses propres mises en échec ne comptent pas : un enforcer, c'est celui qu'on n'ose pas frapper.</p>
-     <p><b>Effet peur</b> : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même. Ses mises en échec quand il affronte l'enforcer, contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement (en avantage ou en désavantage numérique, presque personne ne frappe, et un enforcer n'y joue pas : ça le faisait paraître plus frappé). Un 4e trio adverse est donc comparé à lui-même, pas à la ligue. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Chaque soir est ajusté à l'adversaire (certaines équipes frappent plus). Il faut au moins 5 matchs sans lui. −20 % = on frappe 20 % moins. C'est un indice, pas une preuve : qui a la rondelle joue aussi.</p>
-     <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats. Minimum 20 matchs.</p>`,
-    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Two parts, half and half, each compared with the whole league (distance from average): <b>fights</b> per 82 games and the <b>fear effect</b>. His own hits don't count: an enforcer is the guy nobody dares to hit.</p>
-     <p><b>Fear effect</b>: direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself. His hits when he faces the enforcer, against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only (on the power play or the penalty kill almost nobody hits, and an enforcer doesn't play there: it made him look like he got hit more). An opposing fourth-liner is compared with himself, not with the league. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Each night is adjusted for the opponent (some teams hit more). At least 5 games without him. −20% = 20% less hitting. It's a hint, not proof: who has the puck matters too.</p>
-     <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights. 20 games minimum.</p>`)}</details>`;
+    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Quatre morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>effet peur</b> (${pc0(W.peur)}) et <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
+     <p><b>Indice peur</b> : on classe tous les patineurs (20 matchs et plus) par score ; 97 % = il fait plus peur que 97 % d'entre eux.</p>
+     <p><b>Effet peur</b> : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il affronte l'enforcer contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. C'est un indice, pas une preuve : qui a la rondelle joue aussi.</p>
+     <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats.</p>`,
+    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Four parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>fear effect</b> (${pc0(W.peur)}) and <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
+     <p><b>Fear index</b>: every skater (20+ games) is ranked by score; 97% = he's scarier than 97% of them.</p>
+     <p><b>Fear effect</b>: direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces the enforcer against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. It's a hint, not proof: who has the puck matters too.</p>
+     <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
+}
+// L'indice peur en % (part des patineurs qu'il dépasse) : la marque de commerce, en gros à droite
+// Une décimale : en haut du classement, l'écart entre 99,8 % et 99,2 % compte
+const pcIdx = (v) => v == null ? "–" : (v * 100).toFixed(1).replace(".", EN ? "." : ",") + (EN ? "%" : " %");
+function enfLigne(x){
+  const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
+  const st = [`${x.comb} ${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}${ecartHTML(x.dc, (v) => v)}`,
+    `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("peur", "fear")} ${pcS(x.peur)}`].join(" · ");
+  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${x.rg}${mvtHTML(x.dr)}</span>${wiRond(x)}
+    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
+    <span class="v">${pcIdx(x.pct)}<small>${L("indice peur", "fear index")}${ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => v.toFixed(1).replace(".", EN ? "." : ",") + (EN ? "%" : " %"), 1, 0.05)}</small></span></button>`;
 }
 function enfCarte(id){
   const x = ENF?.top?.find(j => j.id === id); if (!x) return;
@@ -3133,15 +3148,23 @@ function enfCarte(id){
   const as = x.as ? L(`<b>Avec ou sans lui.</b> En ${x.as[0]} matchs avec lui et ${x.as[1]} sans lui, ajusté à l'adversaire de chaque soir, son équipe se fait frapper ${pcS(x.as[2])} quand il joue${pl(x.as[2])}.`,
     `<b>With or without him.</b> Over ${x.as[0]} games with him and ${x.as[1]} without, adjusted for each night's opponent, his team gets hit ${pcS(x.as[2])} when he plays${pl(x.as[2])}.`)
     : L("<b>Avec ou sans lui.</b> Il n'a pas manqué assez de matchs pour comparer (5 minimum).", "<b>With or without him.</b> He hasn't missed enough games to compare (5 minimum).");
+  const W = ENF.poids || {}, Z = x.z || {}, pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
+  const rangs = [
+    [L("Combats", "Fights"), `${x.comb} · ${n1(x.comb82)}/82`, "combats"],
+    [L("Mises en échec", "Hits"), `${n1(x.fr60)}/60`, "frappes"],
+    [L("Effet peur", "Fear"), pcS(x.peur), "peur"],
+    [L("Pén. qui font mal", "Painful pen."), `${x.pen ?? 0} · ${n1(x.pen82)}/82`, "penalites"]]
+    .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${sg2(Z[k])}</td></tr>`).join("");
+  const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eq)}">
-    <header><div><b>${x.n}</b><span>Enforcer ${L("n° ", "#")}${x.rg} · ${x.eq}</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>Enforcer ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
-      <p><b>${L("Combats", "Fights")}.</b> ${x.comb} ${L("en", "in")} ${x.pj} ${L("matchs", "games")} (${n1(x.comb82)} ${L("sur 82", "per 82")}).</p>
-      <p><b>${L("Mises en échec", "Hits")}.</b> ${x.fr} ${L("données", "thrown")}, ${n1(x.fr60)} ${L("par 60 minutes", "per 60 minutes")} (${n1(x.toi)} ${L("min par match", "min per game")}).</p>
+      <p><b>${L("Indice peur : ", "Fear index: ")}${pcIdx(x.pct)}.</b> ${L(`Il fait plus peur que ${pcIdx(x.pct)} des autres patineurs de la ligue (${ENF.n} en tout, 20 matchs et plus).`, `He's scarier than ${pcIdx(x.pct)} of the league's other skaters (${ENF.n} in all, 20+ games).`)}</p>
+      <div class="wi-tbl"><table class="wi-car"><thead><tr><th>${L("Morceau (poids)", "Part (weight)")}</th><th>${L("Lui", "Him")}</th><th>${L("vs ligue", "vs league")}</th></tr></thead><tbody>${rangs}</tbody></table></div>
+      <p>${L("« vs ligue » : écart à la moyenne de la ligue (0 = moyen, +2 = parmi les plus forts).", "\"vs league\": distance from league average (0 = average, +2 = among the strongest).")}</p>
       <p><b>${L("Effet peur : ", "Fear effect: ")}${pcS(x.peur)}.</b> ${L("La moyenne des deux mesures ci-dessous.", "The average of the two measures below.")}</p>
       <p>${mg}</p><p>${as}</p>
-      <p><b>Score.</b> ${n1(x.score)} = ${L("moitié combats", "half fights")} (${sg2(x.z?.[0])}) + ${L("moitié peur", "half fear")} (${sg2(x.z?.[1])}), ${L("en écarts à la moyenne de la ligue", "in distances from league average")}.</p>
     </div></div>`;
   m.hidden = false;
 }
