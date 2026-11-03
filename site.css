@@ -413,6 +413,9 @@ header.bug::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4p
 .bug-t{display:flex;flex-direction:column;gap:4px;min-width:0}
 header.bug h1{font:italic 800 34px/.9 var(--f-display);letter-spacing:.005em;text-transform:uppercase;color:#fff;text-wrap:balance;margin:0}
 header.bug .logo-site{display:block;width:min(290px,64vw);height:auto}
+/* Petite étiquette BETA collée au logo (site en rodage : les modèles s'ajustent, le Bilan se remplit) */
+header.bug .logo-l{display:flex;align-items:flex-start;gap:6px}
+header.bug .beta{flex:none;font:800 10px/1 var(--f-body);font-style:normal;letter-spacing:.08em;color:#0A2342;background:var(--led);padding:3px 5px;border-radius:3px;margin-top:3px}
 header.bug .maj{color:#B9C9DD;text-align:left;font-size:12.5px}
 header.bug .livebtn{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.35);border-radius:4px;font:italic 800 17px/1 var(--f-display);padding:8px 12px;flex:none}
 header.bug .livebtn[aria-pressed="true"]{border-color:var(--led);color:var(--led)}
