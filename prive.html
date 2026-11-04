@@ -2926,8 +2926,11 @@ async function whatif(){
 // Difficulté de l'ère : + = plus dur de produire qu'aujourd'hui (patineur : moins de buts ; gardien : plus de buts contre)
 const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.ere - 1 : x.ere - 1, v = Math.abs(Math.round(d * 100));
   return v === 0 ? L("comme aujourd'hui", "same as today") : d > 0 ? L(`${v} % plus dure`, `${v}% harder`) : L(`${v} % plus facile`, `${v}% easier`); };
+// Couleur d'un joueur : son équipe ACTUELLE s'il joue encore (Kreider = MTL, pas NYR où il a joué le plus) ;
+// un retraité garde l'équipe où il a joué le plus de matchs.
+const eqPrincipale = (x) => x.act === false ? (x.eqs?.[0]?.[0] || x.eq) : (x.eq || x.eqs?.[0]?.[0]);
 const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${coul(t)}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
-const wiRond = (x) => `<span class="wi-rond" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
+const wiRond = (x) => `<span class="wi-rond" style="--eq:${coul(eqPrincipale(x))}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
 function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
@@ -2973,8 +2976,8 @@ function wiLigne(mode, t, i, x, feq = ""){
     v = fmt(ve);
   }
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
-  const sous = [x.eqs?.[0]?.[0] || x.eq, pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
+  const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
     <span class="v">${v}${feq ? "" : dv}<small>${sousV}</small></span></button>`;
 }
@@ -3027,7 +3030,7 @@ function wiCarte(t, id){
              `What if = ${G[0]} games per season (${G[2]}+ played) or ${G[1]} (fewer than ${G[2]}), wins, save % and GAA brought to today's era. "–" = no shots or ice time counted that season.`);
   }
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe).", " * Traded during the season (last team).") : ""}</p></div>`;
@@ -3105,7 +3108,7 @@ function salLigne(x, mode = "top", i = null){
   const st = x.t === "g" ? `${L("% arrêts", "sv%")} ${sv3(x.sv)} · ${x.sa} ${L("tirs", "shots")}`
     : `${x.b} ${L("B", "G")} · ${x.a} ${L("A", "A")} · ${x.b + x.a} PTS · ${n1(x.toi)} min`;
   const contrat = !!SAL_CONTRATS[mode];
-  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${contrat ? i : x.rg}${contrat ? "" : mvtHTML(x.dr)}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? "" : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
       ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span><small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
@@ -3160,7 +3163,7 @@ function salRapport(k){
     `<p><b>His real contract.</b> ${mD(x.vrai)} against the cap. He deserves ${mDs(x.diff)} more: he returns ${rendTxt(x.rend)} of what he costs${x.rend >= 1.5 ? ", a bargain" : x.rend < 0.7 ? ", overpaid for what he brings this season" : ""}.</p>`);
   const m = $("#wi-modal");
   const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
   m.hidden = false;
@@ -3238,7 +3241,7 @@ function enfLigne(x, mode = "score"){
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const st = [`${x.comb} ${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}${ecartHTML(x.dc, (v) => v)}`,
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
-  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}"><span class="rg">${rg ?? "–"}${glob ? mvtHTML(x.dr) : ""}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${glob ? mvtHTML(x.dr) : ""}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small></span></button>`;
 }
@@ -3262,7 +3265,7 @@ function enfCarte(id){
     .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${pcIdx(x.r?.[k])}${x.rk?.[k] ? ` <small>(${rangFr(x.rk[k])})</small>` : ""}</td></tr>`).join("");
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eqs?.[0]?.[0] || x.eq)}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>Enforcer ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <p><b>${L("Indice peur : ", "Fear index: ")}${pcIdx(x.pct)}.</b> ${L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
