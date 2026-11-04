@@ -487,6 +487,9 @@ header.bug .livebtn[aria-pressed="true"] i{background:var(--led)}
 nav.tabs{background:var(--bande);border-bottom:0;margin:6px calc(-1 * max(16px,env(safe-area-inset-left,0px))) 14px;padding:0 max(10px,env(safe-area-inset-left,0px));gap:0}
 nav.tabs button{color:#9FB3CB;font:italic 800 19px/1 var(--f-display);padding:13px 4px 12px;border-bottom:0;margin:0;position:relative}
 nav.tabs button[aria-selected="true"]{color:#fff}
+/* Beaucoup d'onglets (version premium : + Bets) : une seule ligne, on glisse de côté au besoin */
+nav.tabs{overflow-x:auto;scrollbar-width:none} nav.tabs::-webkit-scrollbar{display:none}
+nav.tabs button{white-space:nowrap;flex:1 0 auto}
 nav.tabs button[aria-selected="true"]::after{content:"";position:absolute;left:14%;right:14%;bottom:0;height:5px;background:var(--goal);clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
 body::before{background:var(--bande)}
 
@@ -850,7 +853,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">63 %</span><span class="rp-barre"><i style="width:82.4%"></i></span></td></tr><tr><td><a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ PHI</span></td>
 <td class="rp-n"><span class="rp-p">63 %</span><span class="rp-barre"><i style="width:82.4%"></i></span></td></tr><tr><td><a href="joueurs/auston-matthews/">Auston Matthews</a><br><span class="rp-note">TOR vs UTA</span></td>
 <td class="rp-n"><span class="rp-p">61 %</span><span class="rp-barre"><i style="width:80.3%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7,8 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7,2 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>77 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>43 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>52 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>36 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>33 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>48 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>40 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>14 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>7,8 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7,2 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>77 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>43 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>75 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>52 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>36 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>33 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>48 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>40 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -910,6 +913,11 @@ const NOM_MARCHE = { tirs1: "Tirs 1+", tirs: "Tirs 2+", tirs3: "Tirs 3+", tirs4:
 const $ = (s) => document.querySelector(s);
 // Version publique (puckprob.ca) : seulement des probabilités. Même page, drapeau sur <html>.
 const PUBLIC = document.documentElement.dataset.public === "1";
+// Version PREMIUM (prive.html, idée de Mitch) : copie conforme du site public + les cotes des bookmakers, la valeur
+// vs la cote et l'onglet Bets. Même page, deux drapeaux : data-public="1" (le look) et data-prive="1" (les données
+// complètes chiffrées). COTES = on montre les cotes (ta vieille version privée, ou la version premium).
+const PREMIUM = PUBLIC && document.documentElement.dataset.prive === "1";
+const COTES = !PUBLIC || PREMIUM;
 // Version publique anglaise (puckprob.ca) : le texte affiché est traduit à la volée.
 // Pourquoi à la volée : le code reste le même que ta version (en français) ; un seul dictionnaire
 // (TR, plus quelques règles TR_RE pour le texte qui contient des chiffres) traduit tout ce qui
@@ -950,6 +958,9 @@ if (EN) new MutationObserver(ms => ms.forEach(m => {
 // Clé = texte exact affiché en français (sans les espaces autour) ; valeur = l'anglais.
 // Le texte qui contient des chiffres ou des noms d'équipe passe par les règles TR_RE plus bas.
 Object.assign(TR, {
+  // Version premium anglaise : les ajouts (cotes, valeur, bets)
+  "Valeur vs cote": "Value vs odds", "Copier mes bets": "Copy my bets", "Importer": "Import", "Importer ce texte": "Import this text",
+  "Ajouter depuis une capture Mise-o-jeu": "Add from a Mise-o-jeu screenshot", "Marché US sans marge": "US market, no margin",
   // Onglets, filtres, boutons
   "Joueurs": "Players", "Matchs": "Games", "Trophées": "Trophies", "Tirs": "Shots", "But": "Goal", "Passe": "Assist",
   "Points": "Points", "Au moins": "At least", "Tous": "All", "Avants": "Forwards", "Déf.": "Def.", "Trier": "Sort",
@@ -1542,7 +1553,7 @@ function liste(){
         <span>Buts attendus de ${j.team} : <b>${mult(det.f_equipe)}</b>${PUBLIC ? " vs la moyenne" : " la moyenne"}${pourquoi(det.f_equipe, "Plus son équipe devrait marquer, plus il a de chances d'obtenir une passe.", "Son équipe devrait marquer moins que d'habitude : moins de passes à distribuer.")}</span>${det.pp != null ? `
         <span>PP projeté : <b>${det.pp.toFixed(1)} min</b> (1 min PP = ${(1 + det.k_pp).toFixed(1)} min à 5 c. 5)</span>` : ""}`;
     // Versions qui mélangent avec le marché (v2.x) : le modèle seul vs les cotes US
-    if (j.pr.p0 != null && !PUBLIC) fx += `
+    if (j.pr.p0 != null && COTES) fx += `
         <span class="mix">Modèle seul : <b>${pct(j.pr.p0)} %</b></span>${j.pr.mkt != null ? `
         <span class="mix">Marché US (sans marge) : <b>${pct(j.pr.mkt)} %</b></span>
         <span class="mix">Mélange : <b>${Math.round(j.pr.w * 100)} % modèle / ${Math.round((1 - j.pr.w) * 100)} % marché</b> → ${pct(j.pr.p)} %</span>` : ""}`;
@@ -1568,7 +1579,7 @@ function liste(){
           <span class="l10" aria-label="10 derniers matchs">${barres}</span>
           <span class="l10txt">${serie.length ? `${hits}/${serie.length}` : ""}</span>
         </span>
-        <span class="cote">${res}${PUBLIC ? "" : `${us}${badgeEV(j.e, null, j.src)}
+        <span class="cote">${res}${!COTES ? "" : `${us}${badgeEV(j.e, null, j.src)}
           <input id="c-${j.pid}-${m}" data-k="${cle(j.pid, m)}" inputmode="decimal" placeholder="MOJ" aria-label="Cote Mise-o-jeu pour ${j.name}" value="${j.manuelle ?? ""}">
           ${offre({ type: "joueur", date: D.date, gameId: j.gameId, pid: j.pid, name: j.name, team: j.team, opp: j.opp,
                     home: j.home, marche: m, p: j.pr.p, cote: j.manuelle || j.estimee || j.auto, us: j.auto || null, version: v,
@@ -1774,8 +1785,8 @@ function matchs(){
       };
       const rangee = (cote_k, nom, prob, auto) => `<div class="trow">
           <span class="who">${nom} ${ligne}</span><b>${pct(prob)} %</b>
-          <span class="badges">${PUBLIC ? "" : `${usOk && auto ? `<span class="us">US ${auto.toFixed(2)}</span>` : ""}${badgeEV(ev(prob, cote(cote_k, auto)), null, src(cote_k))}`}${etat(cote_k)}</span>
-          ${PUBLIC ? "" : `<input id="m-${g.gameId}-${cote_k}" data-k="${cle("m", g.gameId, cote_k)}" inputmode="decimal" placeholder="MOJ"
+          <span class="badges">${!COTES ? "" : `${usOk && auto ? `<span class="us">US ${auto.toFixed(2)}</span>` : ""}${badgeEV(ev(prob, cote(cote_k, auto)), null, src(cote_k))}`}${etat(cote_k)}</span>
+          ${!COTES ? "" : `<input id="m-${g.gameId}-${cote_k}" data-k="${cle("m", g.gameId, cote_k)}" inputmode="decimal" placeholder="MOJ"
                  aria-label="Cote Mise-o-jeu ${nom.toLowerCase()} de ${ligne} buts" value="${lireCote(cle("m", g.gameId, cote_k)) ?? ""}">
           ${offre({ type: "match", date: D.date, gameId: g.gameId, k: cote_k, p: prob, cote: cote(cote_k, auto), version: v,
                     label: `${g.away} @ ${g.home} · ${nom} ${ligne} buts`, sous: heure(g.start) }, "+")}`}</div>`;
@@ -1798,15 +1809,15 @@ function matchs(){
       }
       return `<div class="trow">
           <span class="who">${nom}</span><b>${pct(prob)} %</b>
-          <span class="badges">${PUBLIC ? "" : `${us60 ? `<span class="us">US ${us60.toFixed(2)}</span>` : ""}${badgeEV(ev(prob, cm), null, moj ? "MOJ" : "US")}`}${etat}</span>
-          ${PUBLIC ? "" : `<input id="m-${g.gameId}-${k}" data-k="${cle("m", g.gameId, k)}" inputmode="decimal" placeholder="MOJ" aria-label="Cote Mise-o-jeu ${nom} en 60 minutes" value="${moj ?? ""}">
+          <span class="badges">${!COTES ? "" : `${us60 ? `<span class="us">US ${us60.toFixed(2)}</span>` : ""}${badgeEV(ev(prob, cm), null, moj ? "MOJ" : "US")}`}${etat}</span>
+          ${!COTES ? "" : `<input id="m-${g.gameId}-${k}" data-k="${cle("m", g.gameId, k)}" inputmode="decimal" placeholder="MOJ" aria-label="Cote Mise-o-jeu ${nom} en 60 minutes" value="${moj ?? ""}">
           ${offre({ type: "match", date: D.date, gameId: g.gameId, k, p: prob, cote: cm, version: v,
                     label: `${g.away} @ ${g.home} · ${k === "x3" ? "Nul après 60 min" : nom + " gagne en 60 min"}`, sous: `${heure(g.start)} · 3 issues, sans prolongation` }, "+")}`}</div>`;
     }).join("");
     const ligneTot = `<span class="lbl" style="margin-top:4px">Victoire en 60 min · 3 issues</span>${ligne60}
-      <span class="lbl" style="margin-top:4px">Total de buts${c.ligne != null && !PUBLIC ? ` · ligne US ${c.ligne}` : ""}</span>
+      <span class="lbl" style="margin-top:4px">Total de buts${c.ligne != null && COTES ? ` · ligne US ${c.ligne}` : ""}</span>
       ${ligneTotal("5.5")}${ligneTotal("6.5")}
-      ${!PUBLIC && c.ligne != null && !["5.5", "6.5"].includes(String(c.ligne)) ? `<div class="mcote"><span class="us">US ${c.ligne} · plus ${c.over?.toFixed(2)} / moins ${c.under?.toFixed(2)}</span></div>` : ""}`;
+      ${COTES && c.ligne != null && !["5.5", "6.5"].includes(String(c.ligne)) ? `<div class="mcote"><span class="us">US ${c.ligne} · plus ${c.over?.toFixed(2)} / moins ${c.under?.toFixed(2)}</span></div>` : ""}`;
     return `<div class="m ${cls}" style="--ca:${coul(g.away)};--ch:${coul(g.home)}">
       <div class="m-top"><span class="lbl">${heure(g.start)}${g.retro ? " · rétro" : ""}${g.b2b_away ? ` · ${g.away} B2B` : ""}${g.b2b_home ? ` · ${g.home} B2B` : ""}</span>${res}</div>
       <div class="duel">
@@ -1827,7 +1838,7 @@ function matchs(){
         <span>Duels directs (${g.h2h.gp}) : <b>${g.away} ${g.h2h.gf_away} – ${g.h2h.gf_home} ${g.home}</b></span>
       </div>
       <div class="mcotes">
-        ${PUBLIC ? ligneTot : `${c.p_home_marche ? `<div class="mcote"><span class="lbl">Marché US sans marge : ${g.away} ${pct(1 - c.p_home_marche)} % · ${g.home} ${pct(c.p_home_marche)} %</span></div>` : ""}
+        ${!COTES ? ligneTot : `${c.p_home_marche ? `<div class="mcote"><span class="lbl">Marché US sans marge : ${g.away} ${pct(1 - c.p_home_marche)} % · ${g.home} ${pct(c.p_home_marche)} %</span></div>` : ""}
         <div class="mcote"><span class="who">${g.away}</span>${c.away ? `<span class="us">US ${c.away.toFixed(2)}</span>` : ""}${badgeEV(ev(pa, cA), null, srcA)}
           <input id="m-${g.gameId}-a" data-k="${cle("m", g.gameId, "a")}" inputmode="decimal" placeholder="MOJ" aria-label="Cote Mise-o-jeu ${g.away}" value="${lireCote(cle("m", g.gameId, "a")) ?? ""}">
           ${offre({ type: "match", date: D.date, gameId: g.gameId, k: "a", p: pa, cote: cA, version: v,
@@ -3468,13 +3479,19 @@ document.addEventListener("toggle", (e) => {
 function nettoyerPublic(){
   if (!PUBLIC) return;
   // Les onglets Suivi et Bets disparaissent ; leurs sections restent cachées (le code s'y attend)
-  document.querySelectorAll('#f-tri [data-v="ev"]').forEach(e => e.remove());
-  for (const s of ["#t-suivi", "#t-bets", "#p-suivi", "#p-bets"]) { const e = $(s); if (e){ e.hidden = true; e.dataset.cache = "1"; } }
+  // Premium : on garde le tri par valeur (vs la cote) et l'onglet Bets ; le Suivi reste caché
+  if (!PREMIUM) document.querySelectorAll('#f-tri [data-v="ev"]').forEach(e => e.remove());
+  for (const s of PREMIUM ? ["#t-suivi", "#p-suivi"] : ["#t-suivi", "#t-bets", "#p-suivi", "#p-bets"]) { const e = $(s); if (e){ e.hidden = true; e.dataset.cache = "1"; } }
+  if (PREMIUM){
+    const b = document.querySelector("header.bug .beta");
+    if (b){ b.textContent = "PREMIUM"; b.title = EN ? "Premium: odds and value" : "Version premium : cotes et valeur"; }
+  }
   document.querySelectorAll(".f-ver").forEach(e => { const l = e.previousElementSibling; if (l && l.classList.contains("lbl")) l.remove(); e.remove(); });
   S.tri = "p";
   // Le menu du site, juste sous l'en-tête : le même que dans les pages texte
   // L'app vit dans tonight/ (fr/ce-soir/) avec <base href="../"> : les liens partent de la racine de la langue
-  const SOIR = EN ? "tonight/" : "ce-soir/";
+  // Premium (prive.html, <base href="fr/">) : « Ce soir » et les onglets restent dans la page premium
+  const SOIR = PREMIUM ? (EN ? "/prive-en.html" : "/prive.html") : EN ? "tonight/" : "ce-soir/";
   const menu = EN ? [[SOIR, "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [SOIR + "#what-if", "What if"], [SOIR + "#salaries", "Salaries"], [SOIR + "#enforcers", "Enforcers"], [CH.b, "Track record"], [CH.a, "About"]]
                   : [[SOIR, "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [SOIR + "#what-if", "What if"], [SOIR + "#salaires", "Salaires"], [SOIR + "#enforcers", "Enforcers"], [CH.b, "Bilan"], [CH.a, "À propos"]];
   const tete = document.querySelector("header.bug");
@@ -3489,6 +3506,9 @@ function nettoyerPublic(){
   const logo = document.querySelector("header.bug .logo-site");
   if (logo && !logo.closest("a")) logo.outerHTML = `<a href="./" aria-label="${EN ? "PuckProb home" : "Accueil PuckProb"}">${logo.outerHTML}</a>`;
   const live = $("#live");
+  // Premium : le bouton de langue passe d'une version premium à l'autre
+  if (PREMIUM) droite.innerHTML = EN ? `<a class="lang" href="/prive.html" hreflang="fr" lang="fr" aria-label="Version française">FR</a>`
+                                     : `<a class="lang" href="/prive-en.html" hreflang="en" lang="en" aria-label="English version">EN</a>`;
   if (tete && live){ tete.appendChild(droite); droite.appendChild(live); }
   const guides = {
     "#p-joueurs": ["Comment lire les joueurs", [
@@ -3525,7 +3545,7 @@ function demanderMdp(erreur){
   return new Promise((ok) => {
     const d = document.createElement("div");
     d.className = "wi-modal";
-    d.innerHTML = `<form class="wi-carte" style="--eq:#0A2342;max-width:360px"><header><div><b>Version privée</b><span>Mot de passe (DATA_PASS)</span></div></header>
+    d.innerHTML = `<form class="wi-carte" style="--eq:#0A2342;max-width:360px"><header><div><b>${PREMIUM ? "PuckProb Premium" : "Version privée"}</b><span>Mot de passe (DATA_PASS)</span></div></header>
       <div style="padding:14px"><input type="password" autocomplete="current-password" style="width:100%;font:500 16px var(--f-body);padding:10px;border-radius:6px;border:1px solid #999" autofocus>
       ${erreur ? `<p style="color:#9E1620;margin:8px 0 0">Mauvais mot de passe.</p>` : ""}
       <button style="margin-top:10px;width:100%;padding:10px;font:800 16px var(--f-display);background:#D3202B;color:#fff;border:0;border-radius:6px">Ouvrir</button></div></form>`;
@@ -3534,7 +3554,8 @@ function demanderMdp(erreur){
   });
 }
 async function chargerChiffre(){
-  const P = await (await fetch("prive/data.enc?v=" + Date.now())).json();
+  // Chemin absolu : la page premium a <base href="fr/"> (copie de l'app française), le fichier est à la racine
+  const P = await (await fetch((PREMIUM ? "/" : "") + "prive/data.enc?v=" + Date.now())).json();
   let mdp = store.get("prive-mdp"), erreur = false;
   for (;;){
     if (!mdp) mdp = await demanderMdp(erreur);

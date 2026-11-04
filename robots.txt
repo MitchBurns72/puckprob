@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /prive.html
+Disallow: /prive-en.html
 Disallow: /prive/
 Sitemap: https://puckprob.ca/sitemap.xml
