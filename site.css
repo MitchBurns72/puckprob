@@ -117,7 +117,10 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-btn{display:block;width:100%;padding:12px;margin:0 0 12px;border:0;border-radius:8px;background:var(--goal);color:#fff;font:italic 800 19px/1 var(--f-display);text-transform:uppercase;cursor:pointer}
 .sv{margin:0 0 14px} .sv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .sv-col h3{font:italic 800 14px/1 var(--f-display);text-transform:uppercase;margin:0 0 6px}
-.sv-r{display:grid;grid-template-columns:18px 34px 1fr 30px;gap:4px;align-items:center;font:600 12.5px/1 var(--f-body);padding:3px 0;border-bottom:1px solid var(--line)}
+.sv-r{display:grid;grid-template-columns:18px 38px 26px 1fr 30px 74px;gap:6px;align-items:center;font:600 12.5px/1 var(--f-body);padding:4px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.sv-r.sv-h{font:700 10px/1 var(--f-body);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-bottom-width:2px}
+.sv-r .f{color:var(--ink)} .sv-r .bp{text-align:right;color:var(--muted);font-size:11.5px} .sv-r .bp b{color:var(--ink)}
+@media (max-width:700px){.sv-cols{grid-template-columns:1fr}}
 .sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
 .sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
 .sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
@@ -601,6 +604,13 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp-resume div{display:flex;flex-direction:column;gap:2px}
 .cp-resume b{font:italic 800 26px/1 var(--f-display)}
 .cp-resume span{font-size:11.5px;color:var(--muted)}
+/* ---- Partager : boutons ---- */
+.pt-btn{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:6px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:#fff;font:800 12px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
+.pt-mini{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:700 11px/1 var(--f-body);cursor:pointer;white-space:nowrap}
+.pt-top{display:flex;justify-content:flex-end;margin:0 0 8px}
+.wi-carte header{position:relative}
+.wi-carte header .pt-btn{flex:none;margin:0 40px 0 auto;padding:8px;border-radius:50%} .wi-carte header .pt-btn span{display:none}
+.pt-attente{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:70;background:#0A2342;color:#fff;padding:9px 14px;border-radius:18px;font:700 13px var(--f-body);box-shadow:0 6px 20px rgba(0,0,0,.35)}
 /* ---- Version ordinateur (écran de 1100 px et plus) : plus large, listes sur deux colonnes, fiches en panneau à droite.
    Rien ne change sur cell ni sur tablette en portrait. ---- */
 @media (min-width:1100px){
