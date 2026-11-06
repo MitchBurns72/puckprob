@@ -140,7 +140,10 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-btn{display:block;width:100%;padding:12px;margin:0 0 12px;border:0;border-radius:8px;background:var(--goal);color:#fff;font:italic 800 19px/1 var(--f-display);text-transform:uppercase;cursor:pointer}
 .sv{margin:0 0 14px} .sv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .sv-col h3{font:italic 800 14px/1 var(--f-display);text-transform:uppercase;margin:0 0 6px}
-.sv-r{display:grid;grid-template-columns:18px 34px 1fr 30px;gap:4px;align-items:center;font:600 12.5px/1 var(--f-body);padding:3px 0;border-bottom:1px solid var(--line)}
+.sv-r{display:grid;grid-template-columns:18px 38px 26px 1fr 30px 74px;gap:6px;align-items:center;font:600 12.5px/1 var(--f-body);padding:4px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.sv-r.sv-h{font:700 10px/1 var(--f-body);color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border-bottom-width:2px}
+.sv-r .f{color:var(--ink)} .sv-r .bp{text-align:right;color:var(--muted);font-size:11.5px} .sv-r .bp b{color:var(--ink)}
+@media (max-width:700px){.sv-cols{grid-template-columns:1fr}}
 .sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
 .sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
 .sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
@@ -624,6 +627,13 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp-resume div{display:flex;flex-direction:column;gap:2px}
 .cp-resume b{font:italic 800 26px/1 var(--f-display)}
 .cp-resume span{font-size:11.5px;color:var(--muted)}
+/* ---- Partager : boutons ---- */
+.pt-btn{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:6px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:#fff;font:800 12px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
+.pt-mini{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:700 11px/1 var(--f-body);cursor:pointer;white-space:nowrap}
+.pt-top{display:flex;justify-content:flex-end;margin:0 0 8px}
+.wi-carte header{position:relative}
+.wi-carte header .pt-btn{flex:none;margin:0 40px 0 auto;padding:8px;border-radius:50%} .wi-carte header .pt-btn span{display:none}
+.pt-attente{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:70;background:#0A2342;color:#fff;padding:9px 14px;border-radius:18px;font:700 13px var(--f-body);box-shadow:0 6px 20px rgba(0,0,0,.35)}
 /* ---- Version ordinateur (écran de 1100 px et plus) : plus large, listes sur deux colonnes, fiches en panneau à droite.
    Rien ne change sur cell ni sur tablette en portrait. ---- */
 @media (min-width:1100px){
@@ -862,7 +872,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">30%</span><span class="rp-barre"><i style="width:61.2%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>1+ point</h3><table><tbody><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">89%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">88%</span><span class="rp-barre"><i style="width:98.9%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">84%</span><span class="rp-barre"><i style="width:94.5%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">84%</span><span class="rp-barre"><i style="width:94.4%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">81%</span><span class="rp-barre"><i style="width:90.7%"></i></span></td></tr><tr><td><a href="players/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS @ MIN</span></td>
 <td class="rp-n"><span class="rp-p">73%</span><span class="rp-barre"><i style="width:81.8%"></i></span></td></tr><tr><td><a href="players/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:75.1%"></i></span></td></tr><tr><td><a href="players/zach-benson/">Zach Benson</a><br><span class="rp-note">BUF vs CBJ</span></td>
@@ -870,17 +880,17 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.8%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.7%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.6%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">75%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA @ CGY</span></td>
-<td class="rp-n"><span class="rp-p">75%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.6%"></i></span></td></tr><tr><td><a href="players/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.2%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:94.6%"></i></span></td></tr><tr><td><a href="players/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS @ MIN</span></td>
-<td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:89.7%"></i></span></td></tr><tr><td><a href="players/zach-werenski/">Zach Werenski</a><br><span class="rp-note">CBJ @ BUF</span></td>
+<td class="rp-n"><span class="rp-p">74%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA @ CGY</span></td>
+<td class="rp-n"><span class="rp-p">74%</span><span class="rp-barre"><i style="width:99.9%"></i></span></td></tr><tr><td><a href="players/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF vs CBJ</span></td>
+<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.8%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.8%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">70%</span><span class="rp-barre"><i style="width:94.8%"></i></span></td></tr><tr><td><a href="players/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS @ MIN</span></td>
+<td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:90.2%"></i></span></td></tr><tr><td><a href="players/zach-werenski/">Zach Werenski</a><br><span class="rp-note">CBJ @ BUF</span></td>
 <td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:75.5%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.4%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.4%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">53%</span><span class="rp-barre"><i style="width:70.5%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.6%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>34%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>56%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>44%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>56%</b></li></ul></div>
+<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.7%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.7%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
+<td class="rp-n"><span class="rp-p">53%</span><span class="rp-barre"><i style="width:70.9%"></i></span></td></tr></tbody></table></div></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.6%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>34%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>56%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>45%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>45%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>56%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -1543,7 +1553,9 @@ function liste(){
 
   const [un, plusieurs, att] = MOT[m];
   const bandeau = v !== D.principale ? `<div class="bandeau">Tu regardes <b>${v}</b>, une version en essai. La principale (la plus fiable à date) est <b>${D.principale}</b>.</div>` : "";
-  $("#liste").innerHTML = bandeau + js.map((j, i) => {
+  ptReg("top", { lib: ptMarche(m), sous: ptDate(), top: js.slice(0, 5).map(j => ({ nom: j.name, no: j.no, pos: POS_C(j.pos), coul: coul(j.team),
+    gros: pct(j.pr.p) + "%", sous: `${j.team} ${j.home ? "vs" : "@"} ${j.opp}` })) });
+  $("#liste").innerHTML = bandeau + `<div class="pt-top">${btnPartage("top", "pt-mini").replace(L("Partager", "Share"), L("Partager le top 5", "Share the top 5"))}</div>` + js.map((j, i) => {
     const serie = STAT[m] === "pts" ? (j.l10_goals || []).map((b, i) => b + ((j.l10_assists || [])[i] || 0)) : (j[L10[STAT[m]]] || []);
     const hits = serie.filter(x => x >= SEUIL[m]).length;
     const echelle = estTirs(m) ? 4 : 8;
@@ -1592,7 +1604,7 @@ function liste(){
     const res = st.badge;
 
     const us = j.auto ? `<span class="us" title="Cote médiane des bookies US">US ${j.auto.toFixed(2)}${j.estimee ? ` · MOJ ≈ ${j.estimee.toFixed(2)}` : ""}</span>` : "";
-    return `<div class="j ${st.cls}" style="--eq:${coul(j.team)};--logo:url(${LOGO(j.team)})">
+    return `<div class="j ${st.cls}" data-c="${j.team}" style="--eq:${coul(j.team)};--logo:url(${LOGO(j.team)})">
       ${photo(j, i + 1)}
       <div style="min-width:0">
         <div class="nom">${PUBLIC && j.slug ? `<a class="fiche" href="${CH.j}${j.slug}/">${j.name}</a>` : j.name}</div>
@@ -1607,7 +1619,8 @@ function liste(){
           <span class="l10" aria-label="10 derniers matchs">${barres}</span>
           <span class="l10txt">${serie.length ? `${hits}/${serie.length}` : ""}</span>
         </span>
-        <span class="cote">${res}${!COTES ? "" : `${us}${badgeEV(j.e, null, j.src)}
+        <span class="cote">${btnPartage(ptReg("j" + j.pid + m, { nom: j.name, no: j.no, pos: POS_C(j.pos), coul: coul(j.team), gros: pct(j.pr.p) + "%",
+          lib: ptMarche(m) + L(" ce soir", " tonight"), sous: `${j.team} ${j.home ? "vs" : "@"} ${j.opp} · ${ptDate()}` }), "pt-mini")}${res}${!COTES ? "" : `${us}${badgeEV(j.e, null, j.src)}
           <input id="c-${j.pid}-${m}" data-k="${cle(j.pid, m)}" inputmode="decimal" placeholder="MOJ" aria-label="Cote Mise-o-jeu pour ${j.name}" value="${j.manuelle ?? ""}">
           ${offre({ type: "joueur", date: D.date, gameId: j.gameId, pid: j.pid, name: j.name, team: j.team, opp: j.opp,
                     home: j.home, marche: m, p: j.pr.p, cote: j.manuelle || j.estimee || j.auto, us: j.auto || null, version: v,
@@ -2901,6 +2914,9 @@ function trophEqHTML(t){
 // Filtre par équipe (What if, Salaires, Enforcers) : une rangée de pastilles. S[cle] = l'équipe choisie ("" = toutes).
 function filtreEqHTML(cle, equipes){
   const actif = S[cle] || "";
+  // « Mon club » (club.js) : sa pastille en premier
+  const mc = window.ppClub?.() || "";
+  if (mc && equipes.includes(mc)) equipes = [mc, ...equipes.filter(t => t !== mc)];
   return `<div class="eq-filtre" role="group" aria-label="${L("Filtrer par équipe", "Filter by team")}">${equipes.map(t =>
     `<button type="button" class="peq" data-fe="${cle}" data-t="${t}" aria-pressed="${t === actif}" style="--c:${coul(t)}" title="${NOMS_EQ[t] || t}">${t}</button>`).join("")}</div>`;
 }
@@ -3008,7 +3024,7 @@ function ticker(){
   document.querySelector(".ticker")?.remove();
   if (!T.length) return;
   const L2 = (fr, en) => EN ? en : fr;
-  const items = T.map(x => `<span class="tk-it" style="--eq:${coul(x.eq)}"><span class="tk-tag ${x.tag}">${L2(...(TK_TAG[x.tag] || ["", ""]))}</span>${EN ? x.en : x.fr}</span>`).join("");
+  const items = T.map(x => `<span class="tk-it" data-c="${x.eq || ""}" style="--eq:${coul(x.eq)}"><span class="tk-tag ${x.tag}">${L2(...(TK_TAG[x.tag] || ["", ""]))}</span>${EN ? x.en : x.fr}</span>`).join("");
   const html = `<div class="ticker" role="marquee" aria-label="${L2("À surveiller ce soir", "Tonight's storylines")}"><span class="tk-lbl">${L2("Ce soir", "Tonight")}</span>
     <div class="tk-vue"><div class="tk-piste" style="--tk-duree:${Math.max(30, T.length * 7)}s">${items}${items}</div></div></div>`;
   const apres = document.querySelector("nav.menu") || document.querySelector("header.bug");
@@ -3140,7 +3156,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   }
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
     <span class="v">${v}${dv}<small>${sousV}</small></span></button>`;
 }
@@ -3197,6 +3213,9 @@ function wiCarte(t, id){
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe).", " * Traded during the season (last team).") : ""}</p></div>`;
+  ptCarte(m, x, t === "j" ? nW(x.w[3]) : nW(x.w[1]), t === "j" ? L("points What if en carrière", "What if career points") : L("victoires What if en carrière", "What if career wins"),
+    t === "j" ? L(`Réels : ${nW(x.r[3])} · n° ${x.rg[5]} de tous les temps`, `Real: ${nW(x.r[3])} · #${x.rg[5]} all-time`)
+              : L(`Réelles : ${nW(x.r[1])} · n° ${x.rg[1]} de tous les temps`, `Real: ${nW(x.r[1])} · #${x.rg[1]} all-time`));
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -3207,6 +3226,117 @@ document.addEventListener("click", (e) => {
   if (c){ S.wi = c.dataset.v; document.querySelectorAll("#f-wi .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#wi-q").value = ""; whatif(); }
 });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#wi-modal")) $("#wi-modal").hidden = true; });
+// ---- Partager : une image prête pour Facebook, Messenger, Reddit, les forums (1080 x 1350, le format des fils
+// d'actualité). La plaque du joueur, son chiffre en gros, puckprob.ca en bas : chaque image qui circule, c'est de la pub.
+// Sur cell : le menu de partage du téléphone (avec l'image). Sinon : l'image se télécharge.
+const PT = {};
+const ptReg = (k, info) => { PT[k] = info; return k; };
+const ptTxt = (s) => String(s ?? "").replace(/<[^>]+>/g, "").replace(/&nbsp;/g, " ").trim();
+const ICO_PT = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M18 15.5a3 3 0 0 0-2.3 1.1l-6.6-3.3a3 3 0 0 0 0-2.6l6.6-3.3A3 3 0 1 0 15 5.5c0 .3 0 .5.1.8L8.5 9.6a3 3 0 1 0 0 4.8l6.6 3.3a3 3 0 1 0 2.9-2.2z"/></svg>';
+const btnPartage = (k, cls = "pt-btn") => `<button type="button" class="${cls}" data-pt="${k}" aria-label="${L("Partager en image", "Share as an image")}">${ICO_PT}<span>${L("Partager", "Share")}</span></button>`;
+const MARCHE_PT = { tirs1: ["1 tir ou plus", "1+ shot"], tirs: ["2 tirs ou plus", "2+ shots"], tirs3: ["3 tirs ou plus", "3+ shots"], tirs4: ["4 tirs ou plus", "4+ shots"],
+  buts: ["Marque un but", "Scores a goal"], buts2: ["2 buts ou plus", "2+ goals"], buts3: ["Tour du chapeau", "Hat trick"],
+  passes: ["1 passe ou plus", "1+ assist"], passes2: ["2 passes ou plus", "2+ assists"], pts1: ["1 point ou plus", "1+ point"], pts2: ["2 points ou plus", "2+ points"] };
+const ptMarche = (m) => L(...(MARCHE_PT[m] || [NOM_MARCHE[m] || m, NOM_MARCHE[m] || m]));
+const ptDate = () => D?.date ? new Date(D.date + "T12:00").toLocaleDateString(EN ? "en-CA" : "fr-CA", { day: "numeric", month: "long" }) : "";
+// Le bouton dans l'en-tête d'une fiche (What if, Salaires, Enforcers, Projections)
+function ptCarte(m, x, gros, lib, sous){
+  const eq = eqPrincipale(x);
+  ptReg("carte", { nom: x.n, no: x.no, pos: POS_C(x.pos || (x.sv ? "G" : "")), coul: coul(eq), gros: ptTxt(gros), lib, sous: ptTxt(sous) });
+  m.querySelector(".wi-carte header .wi-x")?.insertAdjacentHTML("beforebegin", btnPartage("carte"));
+}
+async function ptPolices(){
+  try { await Promise.all(["italic 800 100px 'Barlow Condensed'", "800 100px 'Barlow Condensed'", "700 50px 'Barlow Condensed'", "600 40px Barlow", "500 30px Barlow"].map(f => document.fonts.load(f))); } catch (e) { /* police de secours */ }
+}
+function ptLogo(){
+  const el = document.querySelector("img.logo-site");
+  return new Promise((ok) => { if (!el) return ok(null); const i = new Image(); i.onload = () => ok(i); i.onerror = () => ok(null); i.src = el.currentSrc || el.src; });
+}
+// Texte qui rentre dans la largeur : on baisse la taille jusqu'à ce que ça fitte
+function ptFit(g, txt, maxW, police, taille, min = 24){
+  let s = taille;
+  do { g.font = police.replace("{t}", s); if (g.measureText(txt).width <= maxW) break; s -= 4; } while (s > min);
+  return s;
+}
+function ptRond(g, x, y, w, h, r){ g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
+function ptPlaque(g, cx, y, cote, couleur, no, pos){
+  ptRond(g, cx - cote / 2, y, cote, cote, cote * 0.1); g.fillStyle = couleur; g.fill();
+  g.lineWidth = Math.max(4, cote / 30); g.strokeStyle = "#fff"; g.stroke();
+  g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "alphabetic";
+  const n = no != null && no !== "" ? String(no) : "";
+  g.font = `800 ${Math.round(cote * (n.length > 2 ? 0.42 : 0.56))}px 'Barlow Condensed'`;
+  g.fillText(n, cx, y + cote * (pos ? 0.62 : 0.7));
+  if (pos){ g.font = `700 ${Math.round(cote * 0.16)}px Barlow`; g.fillText(pos, cx, y + cote * 0.86); }
+}
+async function ptDessiner(info){
+  await ptPolices();
+  const logo = await ptLogo();
+  const W = 1080, H = 1350, c = document.createElement("canvas"), g = c.getContext("2d");
+  c.width = W; c.height = H;
+  const fond = g.createLinearGradient(0, 0, 0, H); fond.addColorStop(0, "#0A2342"); fond.addColorStop(1, "#04101F");
+  g.fillStyle = fond; g.fillRect(0, 0, W, H);
+  const coulP = info.coul || "#C8102E";
+  // Bande diagonale aux couleurs de l'équipe + liseré en haut
+  g.save(); g.globalAlpha = 0.18; g.fillStyle = coulP; g.beginPath(); g.moveTo(0, 520); g.lineTo(W, 300); g.lineTo(W, 760); g.lineTo(0, 980); g.closePath(); g.fill(); g.restore();
+  g.fillStyle = coulP; g.fillRect(0, 0, W, 16);
+  if (logo){ const lw = 560, lh = lw * logo.naturalHeight / logo.naturalWidth; g.drawImage(logo, (W - lw) / 2, 56, lw, lh); }
+  else { g.fillStyle = "#fff"; g.textAlign = "center"; g.font = "italic 800 90px 'Barlow Condensed'"; g.fillText("PUCKPROB", W / 2, 140); }
+  g.textAlign = "center";
+  if (info.top){
+    // Top 5 du soir
+    g.fillStyle = "#fff"; ptFit(g, L("TOP 5 CE SOIR", "TOP 5 TONIGHT"), W - 120, "italic 800 {t}px 'Barlow Condensed'", 96); g.fillText(L("TOP 5 CE SOIR", "TOP 5 TONIGHT"), W / 2, 290);
+    const st = (info.lib + (info.sous ? " · " + info.sous : "")).toUpperCase();
+    g.fillStyle = "#F5B700"; ptFit(g, st, W - 120, "700 {t}px 'Barlow Condensed'", 56); g.fillText(st, W / 2, 356);
+    info.top.forEach((r, i) => {
+      const y = 410 + i * 162;
+      g.save(); g.globalAlpha = 0.08; g.fillStyle = "#fff"; ptRond(g, 50, y, W - 100, 146, 14); g.fill(); g.restore();
+      g.fillStyle = r.coul; g.fillRect(50, y, 10, 146);
+      g.textAlign = "left"; g.fillStyle = "#AFC3D9"; g.font = "italic 800 60px 'Barlow Condensed'"; g.fillText(String(i + 1), 86, y + 96);
+      ptPlaque(g, 210, y + 18, 110, r.coul, r.no, r.pos);
+      g.textAlign = "left"; g.fillStyle = "#fff"; ptFit(g, r.nom.toUpperCase(), 520, "italic 800 {t}px 'Barlow Condensed'", 54, 30); g.fillText(r.nom.toUpperCase(), 290, y + 74);
+      g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(r.sous, 290, y + 118);
+      g.textAlign = "right"; g.fillStyle = "#F5B700"; g.font = "italic 800 88px 'Barlow Condensed'"; g.fillText(r.gros, W - 80, y + 104);
+    });
+  } else {
+    ptPlaque(g, W / 2, 210, 230, coulP, info.no, info.pos);
+    const nom = String(info.nom || "").toUpperCase();
+    g.fillStyle = "#fff"; ptFit(g, nom, W - 120, "italic 800 {t}px 'Barlow Condensed'", 112, 40); g.fillText(nom, W / 2, 568);
+    g.fillStyle = "#F5B700"; ptFit(g, info.gros, W - 120, "italic 800 {t}px 'Barlow Condensed'", 260, 80); g.fillText(info.gros, W / 2, 860);
+    g.fillStyle = "#fff"; const lib = String(info.lib || "").toUpperCase(); ptFit(g, lib, W - 120, "700 {t}px 'Barlow Condensed'", 64, 30); g.fillText(lib, W / 2, 950);
+    g.fillStyle = "#C9D6E3"; ptFit(g, info.sous || "", W - 140, "500 {t}px Barlow", 38, 22); g.fillText(info.sous || "", W / 2, 1018);
+  }
+  // Pied : l'adresse du site
+  g.fillStyle = "rgba(255,255,255,.07)"; g.fillRect(0, H - 120, W, 120);
+  g.fillStyle = coulP; g.fillRect(0, H - 120, W, 6);
+  g.textAlign = "left"; g.fillStyle = "#fff"; g.font = "italic 800 62px 'Barlow Condensed'"; g.fillText("puckprob.ca", 56, H - 40);
+  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Probabilités LNH, chaque soir", "NHL probabilities, every night"), W - 56, H - 50);
+  return c;
+}
+async function partager(k){
+  const info = PT[k]; if (!info) return;
+  const att = document.createElement("div"); att.className = "pt-attente"; att.textContent = L("Image en préparation…", "Preparing the image…");
+  document.body.appendChild(att);
+  try {
+    const c = await ptDessiner(info);
+    const blob = await new Promise((ok) => c.toBlob(ok, "image/png"));
+    const nomF = "puckprob-" + (info.top ? "top5" : nrm(info.nom).replace(/ /g, "-")) + ".png";
+    const fichier = new File([blob], nomF, { type: "image/png" });
+    const texte = (info.top ? L("Top 5 ce soir : ", "Top 5 tonight: ") + info.lib : `${info.nom} : ${info.gros} ${info.lib}`) + " · https://puckprob.ca";
+    if (navigator.canShare?.({ files: [fichier] })){
+      try { await navigator.share({ files: [fichier], text: texte, title: "PuckProb" }); return; }
+      catch (e) { if (e.name === "AbortError") return; }
+    }
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = nomF;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 8000);
+    att.textContent = L("Image téléchargée", "Image downloaded"); await new Promise(r => setTimeout(r, 1400));
+  } finally { att.remove(); }
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.("[data-pt]"); if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  partager(b.dataset.pt);
+}, true);
+
 // Glisser dans une fiche (cell / tablette) : à gauche = joueur suivant de la liste, à droite = joueur précédent,
 // vers le bas = fermer (quand la fiche est en haut de son défilement). La fiche suit le doigt ; en bas de 90 px elle revient.
 // Sur ordinateur : flèches gauche / droite. La liste, c'est celle d'où la fiche a été ouverte (même ordre, mêmes filtres).
@@ -3326,7 +3456,7 @@ async function salaires(){
   let corps;
   if (mode === "eq" && q.length < 2){
     const mx = Math.max(...SAL.equipes.map(e => e.masse));
-    corps = SAL.equipes.filter(e => !feq || e.t === feq).map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}${mvtHTML(e.dr)}</span>
+    corps = SAL.equipes.filter(e => !feq || e.t === feq).map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" data-c="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}${mvtHTML(e.dr)}</span>
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.top.map(k => J[k + "j"]?.n || J[k + "g"]?.n).filter(Boolean).join(", ")}</small></span>
       <span class="v">${mD(e.masse)}${ecartHTML(e.dm, mD, 1, 50000)}<small>${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart))} ${L("vs plafond", "vs cap")}</small></span></button>`).join("");
     corps = `<p class="aide">${L(`Masse salariale ajustée : la somme des salaires mérités de ses ${R.contrats} joueurs les plus utilisés cette saison. Au-dessus du plafond = ses joueurs valent plus que ce que la ligue permet de payer.`, `Adjusted payroll: the sum of the deserved salaries of its ${R.contrats} most-used players this season. Above the cap = its players are worth more than the league allows a team to pay.`)}</p>` + corps;
@@ -3365,7 +3495,7 @@ function salLigne(x, mode = "top", i = null){
   const st = x.t === "g" ? `${L("% arrêts", "sv%")} ${sv3(x.sv)} · ${x.sa} ${L("tirs", "shots")}`
     : `${x.b} ${L("B", "G")} · ${x.a} ${L("A", "A")} · ${x.b + x.a} PTS · ${n1(x.toi)} min`;
   const contrat = !!SAL_CONTRATS[mode];
-  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
       ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
@@ -3423,6 +3553,7 @@ function salRapport(k){
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
+  ptCarte(m, x, mD(x.s), L("salaire mérité", "deserved salary"), x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
   m.hidden = false;
 }
 function salEquipe(t){
@@ -3500,7 +3631,7 @@ function enfLigne(x, mode = "score"){
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const st = [`${x.comb} ${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}${ecartHTML(x.dc, (v) => v)}`,
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
-  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small></span></button>`;
 }
@@ -3543,6 +3674,7 @@ function enfCarte(id){
         `Measured: ${pcS(x.peur_m)} (the average of the two measures below). Pulled toward 0 by sample size: ${pcS(x.peur_c)}. Then counted at ${Math.round((x.resp || 0) * 100)}% based on his physical reputation (fights, hits, painful penalties): respect is earned.`)}</p>
       <p>${mg}</p><p>${as}</p>
     </div></div>`;
+  ptCarte(m, x, pcIdx(x.pct), L("indice de peur", "fear index"), `Enforcer ${L("n° ", "#")}${x.rg} · ${x.pj} ${L("matchs", "games")}`);
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -3593,7 +3725,7 @@ function prjLigne(x, mode){
   if (!x) return "";
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F"), c = x.c;
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
-  return `<button class="wi-l wi-r prj-j" data-id="${x.id}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small></span></button>`;
 }
@@ -3648,6 +3780,7 @@ function prjCarte(id){
       <p><b>${L("Les matchs qui restent.", "Games left.")}</b> ${L(`${x.restants} à son équipe ; il devrait en jouer environ ${x.mj} (sa présence cette saison, tirée vers ${Math.round((x.pp ?? 0.9) * 100)} %, sa présence passée).`, `${x.restants} for his team; he should play about ${x.mj} of them (this season's attendance, pulled toward ${Math.round((x.pp ?? 0.9) * 100)}%, his past attendance).`)}</p>
       <p>${L("« Rythme /82 » : sa saison actuelle étirée sur 82 matchs, sans rien mélanger. « Passé /82 » : ses deux saisons d'avant, sur 82 matchs.", "\"Pace /82\": his current season stretched over 82 games, unblended. \"Past /82\": his previous two seasons, over 82 games.")}</p>
     </div></div>`;
+  ptCarte(m, x, `${x.proj.pts} pts`, L("projetés en fin de saison", "projected by season's end"), `${x.proj.b} ${L("buts", "goals")} · ${x.proj.a} ${L("passes", "assists")} · ${x.c.pts} ${L("pts à date", "pts so far")}`);
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -3698,7 +3831,15 @@ function simSaison(vite){
   const C = D.coupe, V = C.sim_vis, el = $("#sv"); if (!el) return;
   clearTimeout(SV_T);
   const gauss = () => Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random());
-  const E = {}; for (const e of C.equipes) E[e.t] = { t: e.t, pts: e.pts, pj: e.pj, rw: e.rw || 0, div: e.div, conf: e.conf, f: e.elo + gauss() * V.sigma };
+  // Fiche de départ = le vrai classement (victoires, défaites, défaites en prolongation, buts pour, buts contre)
+  const E = {}; for (const e of C.equipes){ const [v, d, dp, bp, bc] = e.fiche || [];
+    E[e.t] = { t: e.t, pts: e.pts, pj: e.pj, rw: e.rw || 0, div: e.div, conf: e.conf, f: e.elo + gauss() * V.sigma,
+               v: v ?? 0, d: d ?? 0, dp: dp ?? 0, bp: bp ?? 0, bc: bc ?? 0 }; }
+  // Pointage d'un match : le perdant marque autour de 2 (loi de Poisson), l'écart suit celui de la LNH (1 but : 45 %,
+  // 2 : 27 % avec les filets déserts, 3 : 15 %...). En prolongation ou en tirs de barrage : égalité, puis +1 au gagnant.
+  const poisson = (lam) => { let k = 0, p = 1; const L0 = Math.exp(-lam); do { k++; p *= Math.random(); } while (p > L0); return k - 1; };
+  const ECARTS = [[1, .45], [2, .27], [3, .15], [4, .08], [5, .05]];
+  const ecart = () => { let r = Math.random(); for (const [m, p] of ECARTS){ if ((r -= p) < 0) return m; } return 1; };
   const pV = (h, a) => 1 / (1 + 10 ** (-(E[h].f + V.hfa - E[a].f) / 400));
   const jours = []; for (const [d, h, a] of V.reste){ if (!E[h] || !E[a]) continue; if (!jours.length || jours.at(-1)[0] !== d) jours.push([d, []]); jours.at(-1)[1].push([h, a]); }
   const cle = (t) => [E[t].pts, E[t].rw];
@@ -3713,8 +3854,11 @@ function simSaison(vite){
   const dessiner = (d) => {
     const cols = ["E", "W"].map(c => {
       const q = qualif(c), dedans = new Set([...Object.values(q.tops).flat(), ...q.wc]);
-      return `<div class="sv-col"><h3>${c === "E" ? L("Est", "East") : L("Ouest", "West")}</h3>${tri(Object.keys(E).filter(t => E[t].conf === c)).map((t, i) =>
-        `<div class="sv-r${dedans.has(t) ? " in" : ""}"><span>${i + 1}</span><span class="t" style="--eq:${coul(t)}">${t}</span><span>${E[t].pj} ${L("m", "g")}</span><span class="p">${E[t].pts}</span></div>`).join("")}</div>`;
+      return `<div class="sv-col"><h3>${c === "E" ? L("Est", "East") : L("Ouest", "West")}</h3>
+        <div class="sv-r sv-h"><span>#</span><span></span><span>${L("PJ", "GP")}</span><span>${L("V-D-DP", "W-L-OTL")}</span><span class="p">PTS</span><span class="bp">${L("BP-BC", "GF-GA")}</span></div>${tri(Object.keys(E).filter(t => E[t].conf === c)).map((t, i) =>
+        `<div class="sv-r${dedans.has(t) ? " in" : ""}"><span>${i + 1}</span><span class="t" style="--eq:${coul(t)}">${t}</span><span>${E[t].pj}</span>
+          <span class="f">${E[t].v}-${E[t].d}-${E[t].dp}</span><span class="p">${E[t].pts}</span>
+          <span class="bp">${E[t].bp}-${E[t].bc} <b>${E[t].bp - E[t].bc > 0 ? "+" : ""}${E[t].bp - E[t].bc}</b></span></div>`).join("")}</div>`;
     }).join("");
     el.innerHTML = `<p class="sv-date">${d ? new Date(d + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : ""}</p><div class="sv-cols">${cols}</div><div id="sv-po"></div>`;
   };
@@ -3745,8 +3889,11 @@ function simSaison(vite){
     for (let k = 0; k < n && i < jours.length; k++, i++){
       for (const [h, a] of jours[i][1]){
         const gH = Math.random() < pV(h, a), [g, p] = gH ? [h, a] : [a, h];
-        E[g].pts += 2; E[h].pj++; E[a].pj++;
-        Math.random() < V.p_ot ? E[p].pts++ : E[g].rw++;
+        E[g].pts += 2; E[h].pj++; E[a].pj++; E[g].v++;
+        let bg, bpp;
+        if (Math.random() < V.p_ot){ E[p].pts++; E[p].dp++; bpp = poisson(2.4); bg = bpp + 1; }
+        else { E[g].rw++; E[p].d++; bpp = poisson(2.1); bg = bpp + ecart(); }
+        E[g].bp += bg; E[g].bc += bpp; E[p].bp += bpp; E[p].bc += bg;
       }
     }
     dessiner(jours[Math.min(i, jours.length) - 1]?.[0]);
@@ -3949,5 +4096,6 @@ async function init(){
 }
 init();
 </script>
+<script src="club.js" defer></script>
 </body>
 </html>
