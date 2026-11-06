@@ -601,6 +601,25 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp-resume div{display:flex;flex-direction:column;gap:2px}
 .cp-resume b{font:italic 800 26px/1 var(--f-display)}
 .cp-resume span{font-size:11.5px;color:var(--muted)}
+/* ---- Version ordinateur (écran de 1100 px et plus) : plus large, listes sur deux colonnes, fiches en panneau à droite.
+   Rien ne change sur cell ni sur tablette en portrait. ---- */
+@media (min-width:1100px){
+  .wrap{max-width:1240px}
+  nav.menu{justify-content:center}
+  #whatif,#salaires,#enf,#prj,#matchs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px;align-items:start}
+  #whatif>:not(.wi-l),#salaires>:not(.wi-l),#enf>:not(.wi-l),#prj>:not(.wi-l),#matchs>:not(.m){grid-column:1/-1}
+  #liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:0}
+  #liste>:not(.j){grid-column:1/-1}
+  #liste>.j:nth-of-type(even){border-left:1px solid var(--line)}
+  .cp-liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cp-liste>*:nth-child(even){box-shadow:-1px 0 0 var(--line)}
+  .cp-tete{min-height:0}
+  .card.texte{max-width:900px}
+  /* Les fiches s'ouvrent en panneau à droite, la liste reste visible à gauche */
+  .wi-modal{justify-content:flex-end;align-items:stretch;padding:0}
+  .wi-carte{width:600px;max-width:46vw;max-height:none;height:100vh;border-radius:0;border-width:0 0 0 6px;animation:wi-panneau .22s ease-out}
+  @keyframes wi-panneau{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
+}
 
 /* « Ça bouge » (accueil) : une ligne par section, la couleur de l'équipe à gauche, une flèche vers la section */
 .mv-bloc{margin:14px 0}
