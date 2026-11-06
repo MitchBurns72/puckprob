@@ -122,9 +122,36 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 /* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
-.mvt{display:block;font:700 10.5px/1 var(--f-body);font-style:normal;margin-top:3px;letter-spacing:0}
-.mvt.up,.ecart.up{color:var(--good)} .mvt.down,.ecart.down{color:var(--bad)}
-.ecart.bloc{display:block;margin:4px 0 0;text-align:right}
+/* Les écarts ressortent : petites pastilles teintées (vert = mieux, rouge = pire) */
+.mvt{display:inline-block;font:800 10.5px/1 var(--f-body);font-style:normal;margin-top:4px;letter-spacing:0;padding:2px 4px;border-radius:8px}
+.mvt.up,.ecart.up{color:var(--good);background:rgba(31,157,85,.15)} .mvt.down,.ecart.down{color:var(--bad);background:rgba(211,32,43,.13)}
+.ecart.bloc{display:table;margin:4px 0 0 auto}
+/* La Coupe en graphiques */
+.cg summary{font:italic 800 18px/1 var(--f-display);text-transform:uppercase;cursor:pointer}
+.cg-tarte{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin:10px 0 4px}
+.cg-svg{width:150px;height:150px;color:var(--ink)} .cg-leg{display:grid;gap:4px}
+.cg-l{font:500 13px/1.2 var(--f-body)} .cg-l i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cg-h{font:italic 800 16px/1 var(--f-display);text-transform:uppercase;margin:12px 0 6px}
+.cg-e{display:grid;grid-template-columns:44px 1fr 48px;gap:8px;align-items:center;margin:4px 0}
+.cg-t{font:800 12px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:10px;text-align:center;padding:4px 0}
+.cg-b{display:grid;gap:2px} .cg-b i{display:block;height:5px;border-radius:3px;min-width:2px}
+.cg-e b{font:800 14px/1 var(--f-display);text-align:right}
+/* Simulation visuelle de la fin de saison */
+.sv-btn{display:block;width:100%;padding:12px;margin:0 0 12px;border:0;border-radius:8px;background:var(--goal);color:#fff;font:italic 800 19px/1 var(--f-display);text-transform:uppercase;cursor:pointer}
+.sv{margin:0 0 14px} .sv-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sv-col h3{font:italic 800 14px/1 var(--f-display);text-transform:uppercase;margin:0 0 6px}
+.sv-r{display:grid;grid-template-columns:18px 34px 1fr 30px;gap:4px;align-items:center;font:600 12.5px/1 var(--f-body);padding:3px 0;border-bottom:1px solid var(--line)}
+.sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
+.sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
+.sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
+.sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
+.sv-champ{font:italic 800 22px/1.1 var(--f-display);text-transform:uppercase;text-align:center;margin:12px 0 4px;padding:12px;border-radius:8px;color:#fff;background:var(--eq)}
+/* Graphique de la saison dans la fiche Projections */
+.prj-gk{gap:6px;margin:0 0 6px} .prj-gk .chip{padding:5px 9px;font-size:13px}
+.prj-svg{width:100%;height:auto;display:block;color:var(--ink)}
+.prj-leg{font:500 12px/1.5 var(--f-body);color:var(--muted);margin:4px 0 10px}
+.prj-leg span{display:inline-block;width:18px;height:0;border-top:3px solid var(--c);vertical-align:middle;margin-right:6px}
+.prj-leg span.pt{border-top:2px dashed var(--ink)}
 .wi-l .v .bon{color:var(--good)} .wi-l .v .mauvais{color:var(--bad)}
 /* Filtre par équipe : une pastille par équipe ; toucher = seulement elle, retoucher = toutes */
 .eq-filtre{display:flex;gap:4px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
@@ -132,7 +159,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .peq{flex:none;min-width:36px;height:26px;padding:0 5px;border-radius:13px;border:0;background:var(--c);color:#fff;font:800 10px/1 var(--f-display);letter-spacing:.02em;cursor:pointer;opacity:.4}
 .eq-filtre:not(:has([aria-pressed="true"])) .peq{opacity:1}
 .peq[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--surface,#fff),0 0 0 4px var(--c)}
-.ecart{display:inline-block;font:700 12px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
+.ecart{padding:2px 6px;border-radius:10px;display:inline-block;font:800 12px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
 /* Plaque du joueur : rectangle aux couleurs de son équipe, numéro + position (pas de photo sur le site public :
@@ -858,7 +885,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">62%</span><span class="rp-barre"><i style="width:81.5%"></i></span></td></tr><tr><td><a href="players/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs ANA</span></td>
 <td class="rp-n"><span class="rp-p">62%</span><span class="rp-barre"><i style="width:81.3%"></i></span></td></tr><tr><td><a href="players/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS @ PIT</span></td>
 <td class="rp-n"><span class="rp-p">60%</span><span class="rp-barre"><i style="width:78.5%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>20%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.3%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.8%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.8%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>77%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>35%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>75%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>75%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>55%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>62%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>46%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>42%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>43%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>20%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.2%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.9%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.7%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>69%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>38%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>66%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>73%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>44%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>45%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>35%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>37%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -2765,8 +2792,38 @@ function coupeHTML(){
     `<button class="chip" data-ctri="${c}" aria-pressed="${c === k}">${n}</button>`).join("")}</div>`;
   el.innerHTML = `<div class="cp-tete"><h2>Coupe Stanley</h2>
       <p>${C.n_sim.toLocaleString(LANG)} fins de saison simulées à partir d'aujourd'hui (${C.restants} matchs restants), puis les séries au vrai format. La force de chaque équipe (Elo) est recalculée match par match depuis 2008 (${(C.n_matchs || 0).toLocaleString(LANG)} matchs), avec les réglages qui prédisaient le mieux chaque match avant qu'il soit joué.</p></div>
-    ${noteVeille(C.veille)}${onglets}<div class="cp-liste">${lignes}</div>${PUBLIC ? `<a class="lien-plus" href="${CH.c}">${EN ? "Stanley Cup page" : "Page de la Coupe Stanley"}</a>` : ""}${test}
+    ${noteVeille(C.veille)}${onglets}${coupeGraphs(eqs, k, nomK)}<div class="cp-liste">${lignes}</div>${PUBLIC ? `<a class="lien-plus" href="${CH.c}">${EN ? "Stanley Cup page" : "Page de la Coupe Stanley"}</a>` : ""}${test}
     <p class="aide" style="margin-top:10px">Mis à jour le ${C.date}. Réglages Elo : vitesse ${P.K}, avantage de la glace ${P.hfa}, écart de buts ${P.mov}, retour vers la moyenne l'été ${Math.round((P.reg || 0) * 100)} %.</p>`;
+}
+
+// ---- La Coupe en graphiques : une tarte par étape (celle choisie) + l'escalier de chaque équipe ---------------
+// La tarte : la part de chaque équipe dans les places de l'étape (16 en séries, 8 en 2e ronde, 4, 2, 1 pour la Coupe) ;
+// l'étiquette donne sa vraie chance. L'escalier : une barre par étape qui rapetisse, de « séries » jusqu'à « Coupe ».
+const PLACES = { p_series: 16, p_r2: 8, p_finale_conf: 4, p_finale: 2, p_coupe: 1 };
+function coupeGraphs(eqs, k, nomK){
+  if (!eqs.length) return "";
+  const conf = S.conf || "all", places = PLACES[k] / (conf === "all" ? 1 : 2);
+  const top = eqs.slice(0, 8), reste = Math.max(0, places - top.reduce((a, e) => a + e[k], 0));
+  const parts = top.map(e => [e.t, e[k] / places, coul(e.t), e[k]]).concat(reste > 0.001 ? [[L("Autres", "Others"), reste / places, "#9AA8B6", null]] : []);
+  const R = 62, r = 36, cx = 80, cy = 80;
+  let a0 = -Math.PI / 2;
+  const arcs = parts.map(([t, f, c]) => {
+    const a1 = a0 + f * 2 * Math.PI, gr = f > 0.5 ? 1 : 0, P = (a, rr) => `${(cx + rr * Math.cos(a)).toFixed(1)},${(cy + rr * Math.sin(a)).toFixed(1)}`;
+    const d = f >= 0.999 ? `M${cx - R},${cy}A${R},${R} 0 1 1 ${cx + R},${cy}A${R},${R} 0 1 1 ${cx - R},${cy}Z` : `M${P(a0, R)}A${R},${R} 0 ${gr} 1 ${P(a1, R)}L${P(a1, r)}A${r},${r} 0 ${gr} 0 ${P(a0, r)}Z`;
+    a0 = a1;
+    return `<path d="${d}" fill="${c}" stroke="var(--card)" stroke-width="1.5"><title>${t}</title></path>`;
+  }).join("");
+  const leg = parts.map(([t, , c, p]) => `<span class="cg-l"><i style="background:${c}"></i>${t}${p != null ? ` <b>${pc1(p)}${EN ? "%" : " %"}</b>` : ""}</span>`).join("");
+  const ETP = [["p_series", L("Séries", "Playoffs")], ["p_r2", L("2e ronde", "Round 2")], ["p_finale_conf", L("Fin. conf.", "Conf. final")], ["p_finale", L("Finale", "Final")], ["p_coupe", L("Coupe", "Cup")]];
+  const escalier = eqs.slice(0, 12).map(e => `<div class="cg-e"><span class="cg-t" style="--eq:${coul(e.t)}">${e.t}</span><span class="cg-b">${
+    ETP.map(([kk]) => `<i style="width:${(e[kk] * 100).toFixed(1)}%;background:${coul(e.t)};opacity:${({ p_series: .28, p_r2: .42, p_finale_conf: .58, p_finale: .78, p_coupe: 1 })[kk]}"></i>`).join("")}</span><b>${pc1(e.p_coupe)}${EN ? "%" : " %"}</b></div>`).join("");
+  return `<details class="card cg" ${S.cg ? "open" : ""} ontoggle="S.cg=this.open"><summary>${L("La Coupe en graphiques", "The Cup in charts")}</summary>
+    <div class="cg-tarte"><svg viewBox="0 0 160 160" class="cg-svg" role="img" aria-label="${nomK}">${arcs}<text x="80" y="76" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">${L("chances", "chances")}</text><text x="80" y="92" text-anchor="middle" font-size="14" font-weight="800" fill="currentColor">${nomK}</text></svg><div class="cg-leg">${leg}</div></div>
+    <p class="aide">${L("La tarte : l'étape choisie plus haut (touche Séries, 2e ronde, Finale...). Chaque morceau = la part de l'équipe dans les places de cette étape ; le % = sa vraie chance.", "The pie: the stage picked above (tap Playoffs, Round 2, Final...). Each slice = the team's share of that stage's spots; the % = its real chance.")}</p>
+    <h3 class="cg-h">${L("L'escalier : de chaque étape jusqu'à la Coupe", "The staircase: every stage up to the Cup")}</h3>
+    <div class="cg-esc">${escalier}</div>
+    <p class="aide">${L("Chaque barre de couleur est une étape, de la plus pâle (séries) à la plus foncée (Coupe) ; plus elle est longue, plus c'est probable. Le % à droite : la Coupe.", "Each colored bar is a stage, from the palest (playoffs) to the darkest (Cup); the longer, the likelier. The % on the right: the Cup.")}</p>
+  </details>`;
 }
 
 // ---- Trophées : Art Ross, Norris, Vezina, Calder ------------------------------------
@@ -2949,7 +3006,7 @@ function trophHTML(t){
 }
 // ---- Ticker « À surveiller ce soir » (src/ticker.py) : seulement les matchs du soir, change chaque jour ----
 const TK_TAG = { serie: ["Série", "Streak"], seche: ["Sécheresse", "Drought"], blesse: ["Absent", "Out"], jalon: ["Jalon", "Milestone"],
-                 equipe: ["Équipe", "Team"], prob: ["Prob", "Prob"] };
+                 equipe: ["Équipe", "Team"], prob: ["Prob", "Prob"], mouvement: ["Ça bouge", "Mover"] };
 function ticker(){
   const T = D?.ticker || [];
   document.querySelector(".ticker")?.remove();
@@ -3163,8 +3220,9 @@ const n1 = (v) => v == null ? "–" : (Math.round(v * 10) / 10).toFixed(1).repla
 const SAL_MODES = { top: ["Top 100", "Top 100"], att: ["Attaquants", "Forwards"], def: ["Défenseurs", "Defensemen"], gar: ["Gardiens", "Goalies"], eq: ["Équipes", "Teams"] };
 // Avec les vrais contrats (contrats.json) : mérité - vrai, et rendement (mérité ÷ vrai). Boutons cachés sans contrats.
 const SAL_CONTRATS = { affaire: ["Bonnes affaires", "Bargains"], trop: ["Trop payés", "Overpaid"], rend: ["Rendement", "Return"] };
-// Rendement en « × son salaire » (×2,5 = il vaut 2,5 fois son contrat). Un % comme 1050 % ne voulait rien dire.
-const rendTxt = (r) => r == null ? "–" : "×" + r.toFixed(r >= 10 ? 0 : 1).replace(".", EN ? "." : ",");
+// Rendement en % (la façon du site) : mérité ÷ vrai contrat. 270 % = il vaut 2,7 fois ce qu'il coûte.
+// Classé seulement pour les contrats de 2 M$ et plus : les recrues à 0,9 M$ donnaient des 1000 % qui écrasaient tout.
+const rendTxt = (r) => r == null ? "–" : Math.round(r * 100) + (EN ? "%" : " %");
 const REND_MIN = 2e6;
 let SAL_MV = {};          // places gagnées depuis hier dans le tri contrat affiché     // classement Rendement : contrats de 2 M$ et plus (sinon c'est juste le palmarès des recrues)
 const mDs = (v) => v == null ? "–" : (v >= 0 ? "+" : "−") + mD(Math.abs(v));
@@ -3229,7 +3287,7 @@ function salLigne(x, mode = "top", i = null){
   return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
-      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => v.toFixed(1).replace(".", EN ? "." : ",") : mD, mode === "trop" ? 1 : 1, mode === "rend" ? 0.05 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
+      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
       : `<span class="v">${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small></span></button>`}`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
@@ -3277,8 +3335,8 @@ function salRapport(k){
        <p><b>Pace.</b>${av ? ` Last season: ${n1(av)} over a season.` : ""} Projection based on his share of his team's games: ${n1(x.proj)}.</p>
        <p><b>Verdict.</b> ${apport > 3 ? "A wall: he steals games." : apport > 0 ? "Reliable: better than a backup, not much more." : "Struggling: a replacement goalie would do as well or better."}</p>`);
   }
-  if (x.vrai) txt += L(`<p><b>Son vrai contrat.</b> ${mD(x.vrai)} sur le plafond. Il mérite ${mDs(x.diff)} de plus : il vaut ${rendTxt(x.rend)} son contrat${x.rend >= 1.5 ? ", une aubaine" : x.rend < 0.7 ? ", trop payé pour ce qu'il apporte cette saison" : ""}.</p>`,
-    `<p><b>His real contract.</b> ${mD(x.vrai)} against the cap. He deserves ${mDs(x.diff)} more: he's worth ${rendTxt(x.rend)} his contract${x.rend >= 1.5 ? ", a bargain" : x.rend < 0.7 ? ", overpaid for what he brings this season" : ""}.</p>`);
+  if (x.vrai) txt += L(`<p><b>Son vrai contrat.</b> ${mD(x.vrai)} sur le plafond. Il mérite ${mDs(x.diff)} de plus : il vaut ${rendTxt(x.rend)} de son contrat${x.rend >= 1.5 ? ", une aubaine" : x.rend < 0.7 ? ", trop payé pour ce qu'il apporte cette saison" : ""}.</p>`,
+    `<p><b>His real contract.</b> ${mD(x.vrai)} against the cap. He deserves ${mDs(x.diff)} more: he's worth ${rendTxt(x.rend)} of his contract${x.rend >= 1.5 ? ", a bargain" : x.rend < 0.7 ? ", overpaid for what he brings this season" : ""}.</p>`);
   const m = $("#wi-modal");
   const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
@@ -3310,7 +3368,7 @@ document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaire
 let ENF = null, ENF_ch = false;
 // Les 5 classements : l'indice peur (le mélange) et chacun des 4 morceaux, chacun avec sa cote sur 100
 const ENF_MODES = { score: ["Indice peur", "Fear index"], combats: ["Combats", "Fights"], frappes: ["Mises en échec", "Hits"],
-  penalites: ["Pénalités qui font mal", "Painful penalties"], chaos: ["Chaos", "Chaos"] };
+  penalites: ["Pénalités qui font mal", "Painful penalties"], chaos: ["Chaos", "Chaos"], badass: ["Badass", "Badass"] };
 const pcS = (v) => { if (v == null) return "–"; const r = Math.round(v * 100); return (r > 0 ? "+" : r < 0 ? "−" : "") + Math.abs(r) + (EN ? "%" : " %"); };
 async function enforcers(){
   const el = $("#enf");
@@ -3336,15 +3394,17 @@ async function enforcers(){
   const W = ENF.poids || {};
   const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Quatre morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}) et <b>chaos</b> (${pc0(W.chaos)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
+    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badass</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
      <p><b>Les 5 classements</b> : l'indice peur (le mélange des quatre) ou un seul morceau ; chaque morceau a aussi sa cote sur 100, le n° 1 de la catégorie à 100 %.</p>
      <p><b>Indice peur</b> : une cote sur 100. Son score divisé par celui du n° 1 : le n° 1 est à 100 %, un joueur à +8 quand le n° 1 est à +10 est à 80 %. 0 % = le patineur moyen de la ligue (20 matchs et plus).</p>
+     <p><b>Badass</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la LNH, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
      <p><b>Chaos</b> : quand il est sur la glace, est-ce que ça brasse plus, toutes équipes confondues ? Combats, mises en échec, pénalités et mêlées (des pénalités aux deux équipes au même moment) avec lui sur la glace, contre ce qu'on attendrait au rythme de quand il est au banc, dans les mêmes matchs. Chaque écart est tiré vers 0 quand l'échantillon est petit.</p>
      <p><b>Effet peur</b> (affiché dans la fiche, plus dans le score : trop bruité, il récompensait des joueurs offensifs) : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il affronte l'enforcer contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. Ensuite, deux garde-fous : chaque mesure est tirée vers 0 quand l'échantillon est petit, et l'effet peur ne compte qu'en proportion de sa réputation physique. Un défenseur offensif que l'adversaire frappe peu parce que son équipe a la rondelle ne fait pas peur pour autant : sans réputation physique, son effet peur compte pour 0.</p>
      <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats.</p>`,
-    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Four parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}) and <b>chaos</b> (${pc0(W.chaos)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
+    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badass</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
      <p><b>The 5 rankings</b>: the fear index (the blend of all four) or a single part; each part also has its rating out of 100, the category's #1 at 100%.</p>
      <p><b>Fear index</b>: a rating out of 100. His score divided by the #1's: the #1 is at 100%, a player at +8 when the #1 is at +10 is at 80%. 0% = the league's average skater (20+ games).</p>
+     <p><b>Badass</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from NHL bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
      <p><b>Chaos</b>: when he's on the ice, does it get rowdier, both teams combined? Fights, hits, penalties and scrums (penalties to both teams at the same moment) with him on the ice, against what we'd expect at the pace of when he's on the bench, in the same games. Each difference is pulled toward 0 when the sample is small.</p>
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces the enforcer against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
      <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
@@ -3379,7 +3439,8 @@ function enfCarte(id){
     [L("Combats", "Fights"), `${x.comb} · ${n1(x.comb82)}/82`, "combats"],
     [L("Mises en échec", "Hits"), `${n1(x.fr60)}/60`, "frappes"],
     [L("Pén. qui font mal", "Painful pen."), `${x.pen ?? 0} · ${n1(x.pen82)}/82`, "penalites"],
-    ["Chaos", pcS(x.chaos), "chaos"]]
+    ["Chaos", pcS(x.chaos), "chaos"],
+    ["Badass", `${x.padv > 0 ? "+" : ""}${n1(x.padv || 0)} lb`, "badass"]]
     .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${pcIdx(x.r?.[k])}${x.rk?.[k] ? ` <small>(${rangFr(x.rk[k])})</small>` : ""}</td></tr>`).join("");
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
@@ -3389,6 +3450,9 @@ function enfCarte(id){
       <p><b>${L("Indice peur : ", "Fear index: ")}${pcIdx(x.pct)}.</b> ${L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
       <div class="wi-tbl"><table class="wi-car"><thead><tr><th>${L("Morceau (poids)", "Part (weight)")}</th><th>${L("Lui", "Him")}</th><th>${L("Cote", "Rating")}</th></tr></thead><tbody>${rangs}</tbody></table></div>
       <p>${L("Cote : sur 100 dans chaque catégorie, le n° 1 de la catégorie à 100 %, le patineur moyen à 0 %. Entre parenthèses : son rang dans la ligue.", "Rating: out of 100 in each category, the category's #1 at 100%, the average skater at 0%. In brackets: his league rank.")}</p>
+      <p><b>Badass.</b> ${L(
+        `${x.nf ? `En ${x.nf} combat${x.nf > 1 ? "s" : ""}, ses adversaires pesaient en moyenne ${x.padv > 0 ? "+" : ""}${n1(x.padv)} lb par rapport à lui${x.poids ? ` (${x.poids} lb)` : ""}` : "Aucun combat contre un adversaire dont on connaît le poids"}. Il encaisse ${n1(x.recu60)} mises en échec et bloque ${n1(x.blocs60)} tirs par 60 minutes.`,
+        `${x.nf ? `In ${x.nf} fight${x.nf > 1 ? "s" : ""}, his opponents weighed on average ${x.padv > 0 ? "+" : ""}${n1(x.padv)} lb compared with him${x.poids ? ` (${x.poids} lb)` : ""}` : "No fight against an opponent of known weight"}. He takes ${n1(x.recu60)} hits and blocks ${n1(x.blocs60)} shots per 60 minutes.`)}</p>
       <p><b>Chaos : ${pcS(x.chaos)}.</b> ${L("Quand il est sur la glace, toutes équipes confondues, contre ce qu'on attendrait au rythme de quand il est au banc :", "While he's on the ice, both teams, against what we'd expect at the pace of when he's on the bench:")}</p>
       <div class="wi-tbl"><table class="wi-car"><thead><tr><th></th><th>${L("Avec lui", "With him")}</th><th>${L("Attendu", "Expected")}</th></tr></thead><tbody>${
         [L("Combats", "Fights"), L("Mises en échec", "Hits"), L("Pénalités", "Penalties"), L("Mêlées", "Scrums")].map((n, k) => `<tr><td>${n}</td><td>${x.ch?.[k]?.[0] ?? "–"}</td><td class="wi-w">${x.ch?.[k]?.[1] != null ? n1(x.ch[k][1]) : "–"}</td></tr>`).join("")}</tbody></table></div>
@@ -3431,14 +3495,14 @@ async function projections(){
     "Où chaque joueur va finir la saison. Son rythme de cette saison mélangé avec ses deux saisons d'avant : un départ en feu ne fait pas 130 points, et plus la saison avance, plus c'est sa saison qui parle. Touche un joueur pour le calcul.",
     "Where each player will finish the season. His pace this season blended with his previous two seasons: a hot start doesn't make 130 points, and the further the season goes, the more his own season speaks. Tap a player for the math.")}</p></div>`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p><b>Le rythme mélangé.</b> Par match : (ce qu'il a cette saison + ${PRJ.k[0]} matchs fantômes à son rythme des deux saisons d'avant) ÷ (ses matchs + ${PRJ.k[0]}). La saison dernière compte double dans son passé. Après 10 matchs, sa saison pèse environ 30 % ; après 60 matchs, environ 70 %.</p>
+    `<p><b>Le rythme mélangé.</b> Par match : (ce qu'il a cette saison + ${PRJ.k[0]} matchs fantômes à son rythme des deux saisons d'avant) ÷ (ses matchs + ${PRJ.k[0]}). La saison dernière compte ${PRJ.poids_derniere || 3} fois plus que l'avant-dernière. Après 10 matchs, sa saison pèse environ 30 % ; après 60 matchs, environ 70 %.</p>
      <p><b>Une recrue</b> (moins de 20 matchs dans les deux saisons d'avant) : tirée vers la moyenne des joueurs de son poste qui jouent autant que lui, comme ${PRJ.k[1]} matchs fantômes.</p>
-     <p><b>Les matchs qui restent.</b> Ceux de son équipe, multipliés par sa présence jusqu'ici (tirée vers 90 %) : un 13e attaquant qui a joué 3 matchs sur 14 n'est pas projeté comme un joueur de tous les soirs.</p>
+     <p><b>Les matchs qui restent.</b> Ceux de son équipe, multipliés par sa présence : celle de cette saison, tirée vers sa présence des deux saisons d'avant (20 matchs fantômes ; 90 % pour une recrue). Un 13e attaquant qui a joué 3 matchs sur 14 n'est pas projeté comme un joueur de tous les soirs, et un gars de fer absent quelques matchs ne perd pas le tiers de sa saison.</p>
      <p><b>Pourquoi pas juste son rythme?</b> Les départs en feu redescendent presque toujours (chance au tir, petit échantillon). Et la ligue ne ralentit pas vraiment en mars : sur nos trois dernières saisons, les buts par match restent entre 5,8 et 6,3 du début à la fin.</p>
      <p><b>▲▼ et +/−</b> : les places et la projection depuis hier.</p>`,
-    `<p><b>Blended pace.</b> Per game: (what he has this season + ${PRJ.k[0]} ghost games at his pace from the previous two seasons) ÷ (his games + ${PRJ.k[0]}). Last season counts double in his past. After 10 games his season weighs about 30%; after 60 games, about 70%.</p>
+    `<p><b>Blended pace.</b> Per game: (what he has this season + ${PRJ.k[0]} ghost games at his pace from the previous two seasons) ÷ (his games + ${PRJ.k[0]}). Last season counts ${PRJ.poids_derniere || 3} times more than the one before. After 10 games his season weighs about 30%; after 60 games, about 70%.</p>
      <p><b>A rookie</b> (under 20 games in the previous two seasons): pulled toward the average of players at his position with similar ice time, as ${PRJ.k[1]} ghost games.</p>
-     <p><b>Games left.</b> His team's, times his attendance so far (pulled toward 90%): a 13th forward who played 3 of 14 games isn't projected like an every-night player.</p>
+     <p><b>Games left.</b> His team's, times his attendance: this season's, pulled toward his attendance over the previous two seasons (20 ghost games; 90% for a rookie). A 13th forward who played 3 of 14 games isn't projected like an every-night player, and an iron man who misses a few games doesn't lose a third of his season.</p>
      <p><b>Why not just his pace?</b> Hot starts almost always cool off (shooting luck, small sample). And the league doesn't really slow down in March: over our last three seasons, goals per game stay between 5.8 and 6.3 from start to finish.</p>
      <p><b>▲▼ and +/−</b>: places and projection since yesterday.</p>`)}</details>`;
   const lignes = ids.map(id => prjLigne(PRJ.joueurs[id], mode)).join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
@@ -3452,27 +3516,63 @@ function prjLigne(x, mode){
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small></span></button>`;
 }
+// Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
+// ce soir-là (même recette : rythme mélangé avec son passé, matchs qui restent x sa présence). x = ses matchs, y = la stat.
+function prjSerie(x, k){
+  const pr = { b: x.pr?.[0] || 0, a: x.pr?.[1] || 0, pim: x.pr?.[2] || 0 }, K = x.kp || 0, M = PRJ.matchs || 82;
+  pr.pts = pr.b + pr.a;
+  let c = { b: 0, a: 0, pim: 0 };
+  return (x.g || []).map((g, i) => {
+    c = { b: c.b + g[0], a: c.a + g[1], pim: c.pim + g[2] };
+    const cum = k === "pts" ? c.b + c.a : c[k], n = i + 1, tg = g[3];
+    const KP = PRJ.kpres || 20, pres = Math.min(1, (n + KP * (x.pp ?? 0.9)) / (tg + KP)), reste = Math.max(0, M - tg);
+    return [cum, cum + (cum + K * pr[k]) / (n + K) * reste * pres];
+  });
+}
+function prjGraph(x, k){
+  const S2 = prjSerie(x, k);
+  if (S2.length < 2) return `<p class="aide">${L("Le graphique arrive après quelques matchs.", "The chart shows up after a few games.")}</p>`;
+  const W = 320, H = 170, g0 = 34, d0 = 8, h0 = 10, b0 = 24;
+  const ymax = Math.max(...S2.map(p => Math.max(p[0], p[1])), 1) * 1.08, n = S2.length;
+  const X = (i) => g0 + (n === 1 ? 0 : i / (n - 1)) * (W - g0 - d0), Y = (v) => h0 + (1 - v / ymax) * (H - h0 - b0);
+  const ligne = (j) => S2.map((p, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(p[j]).toFixed(1)}`).join("");
+  const c = coul(eqPrincipale(x)), fin = S2[n - 1];
+  const ticks = [0, ymax / 2 / 1.08, ymax / 1.08].map(v => Math.round(v));
+  return `<svg viewBox="0 0 ${W} ${H}" class="prj-svg" role="img" aria-label="${L("Réalité et projection après chaque match", "Reality and projection after each game")}">
+    ${ticks.map(v => `<line x1="${g0}" x2="${W - d0}" y1="${Y(v)}" y2="${Y(v)}" stroke="currentColor" stroke-opacity=".12"/><text x="${g0 - 5}" y="${Y(v) + 3.5}" text-anchor="end" font-size="10" fill="currentColor" opacity=".6">${v}</text>`).join("")}
+    <text x="${g0}" y="${H - 6}" font-size="10" fill="currentColor" opacity=".6">${L("match", "game")} 1</text>
+    <text x="${W - d0}" y="${H - 6}" text-anchor="end" font-size="10" fill="currentColor" opacity=".6">${L("match", "game")} ${n}</text>
+    <path d="${ligne(1)}" fill="none" stroke="${c}" stroke-width="2.6" stroke-linejoin="round"/>
+    <path d="${ligne(0)}" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3" stroke-linejoin="round"/>
+    <circle cx="${X(n - 1)}" cy="${Y(fin[1])}" r="3.5" fill="${c}"/><text x="${X(n - 1) - 6}" y="${Y(fin[1]) - 7}" text-anchor="end" font-size="11" font-weight="800" fill="${c}">${Math.round(fin[1])}</text>
+  </svg>
+  <p class="prj-leg"><span style="--c:${c}"></span>${L("Projection de fin de saison, après chaque match", "End-of-season projection, after each game")}<br><span class="pt"></span>${L("Réalité : ce qu'il avait après chaque match", "Reality: what he had after each game")}</p>`;
+}
 function prjCarte(id){
   const x = PRJ?.joueurs?.[id]; if (!x) return;
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const lib = { b: L("Buts", "Goals"), a: L("Passes", "Assists"), pts: "Points", pim: PIM() };
   const rangs = ["pts", "b", "a", "pim"].map(k => `<tr><td>${lib[k]}</td><td>${x.c[k]}</td><td>${n1(x.rythme[k])}</td><td>${x.passe ? n1(x.passe[k]) : "–"}</td><td class="wi-w">${x.proj[k]}${ecartHTML(x.dp?.[k], (v) => v)} <small>(${rangFr(x.rg[k])})</small></td></tr>`).join("");
-  const passe = x.src === "passe" ? L(`Ses deux saisons d'avant : ${x.passe.pj} matchs (la plus récente compte double).`, `His previous two seasons: ${x.passe.pj} games (the most recent counts double).`)
+  const passe = x.src === "passe" ? L(`Ses deux saisons d'avant : ${x.passe.pj} matchs (la plus récente compte ${PRJ.poids_derniere || 3} fois plus).`, `His previous two seasons: ${x.passe.pj} games (the most recent counts ${PRJ.poids_derniere || 3} times more).`)
     : x.src === "poste" ? L("Pas assez de matchs avant cette saison : il est comparé à la moyenne des joueurs de son poste qui jouent autant que lui.", "Not enough games before this season: he's compared with the average player at his position with similar ice time.")
     : L("Aucun point de comparaison : c'est son rythme seul.", "No comparison point: it's his pace alone.");
   const m = $("#wi-modal");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Projection", "Projection")} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
+      <div class="row prj-gk">${Object.entries(PRJ_MODES).map(([k, n]) => `<button class="chip" data-gk="${k}" data-id="${x.id}" aria-pressed="${k === (S.prj || "pts")}">${k === "pim" ? PIM() : L(...n)}</button>`).join("")}</div>
+      <div class="prj-g">${prjGraph(x, S.prj || "pts")}</div>
       <div class="wi-tbl"><table class="wi-car"><thead><tr><th></th><th>${L("Ajd", "Now")}</th><th>${L("Rythme /82", "Pace /82")}</th><th>${L("Passé /82", "Past /82")}</th><th>${L("Projeté", "Proj.")}</th></tr></thead><tbody>${rangs}</tbody></table></div>
       <p><b>${L("Le mélange.", "The blend.")}</b> ${L(`Sa saison compte pour ${Math.round(x.w * 100)} %, son passé pour ${100 - Math.round(x.w * 100)} %.`, `His season counts for ${Math.round(x.w * 100)}%, his past for ${100 - Math.round(x.w * 100)}%.`)} ${passe}</p>
-      <p><b>${L("Les matchs qui restent.", "Games left.")}</b> ${L(`${x.restants} à son équipe ; il devrait en jouer environ ${x.mj} (sa présence jusqu'ici).`, `${x.restants} for his team; he should play about ${x.mj} of them (his attendance so far).`)}</p>
+      <p><b>${L("Les matchs qui restent.", "Games left.")}</b> ${L(`${x.restants} à son équipe ; il devrait en jouer environ ${x.mj} (sa présence cette saison, tirée vers ${Math.round((x.pp ?? 0.9) * 100)} %, sa présence passée).`, `${x.restants} for his team; he should play about ${x.mj} of them (this season's attendance, pulled toward ${Math.round((x.pp ?? 0.9) * 100)}%, his past attendance).`)}</p>
       <p>${L("« Rythme /82 » : sa saison actuelle étirée sur 82 matchs, sans rien mélanger. « Passé /82 » : ses deux saisons d'avant, sur 82 matchs.", "\"Pace /82\": his current season stretched over 82 games, unblended. \"Past /82\": his previous two seasons, over 82 games.")}</p>
     </div></div>`;
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
   const j = e.target.closest?.(".prj-j"); if (j){ prjCarte(j.dataset.id); return; }
+  const gk = e.target.closest?.(".prj-gk .chip");
+  if (gk){ document.querySelectorAll(".prj-gk .chip").forEach(b => b.setAttribute("aria-pressed", b === gk)); $(".prj-g").innerHTML = prjGraph(PRJ.joueurs[gk.dataset.id], gk.dataset.gk); return; }
   const c = e.target.closest?.("#f-prj .chip");
   if (c){ S.prj = c.dataset.v; document.querySelectorAll("#f-prj .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); projections(); }
 });
@@ -3503,8 +3603,77 @@ function classementHTML(){
       <td class="cl-s"><b>${pc1(e.p_series)}</b></td></tr>`).join("");
     return `<h2 style="margin:16px 0 8px">${NOM_CONF[c] || c}</h2><div class="cl-tbl"><table class="cl"><thead>${tete}</thead><tbody>${lignes}</tbody></table></div>`;
   }).join("");
-  el.innerHTML = `<div class="cp-tete"><h2>Classement final</h2><p>Les chances de chaque équipe de finir à chaque rang de son association, sur ${C.n_sim.toLocaleString(LANG)} fins de saison simulées. Les équipes sont classées par rang moyen (le petit chiffre sous le nom). La ligne après le 8e rang est un repère : les séries passent par les divisions, la vraie qualification est dans la colonne Séries.</p></div>${blocs}`;
+  el.innerHTML = `<div class="cp-tete"><h2>Classement final</h2><p>Les chances de chaque équipe de finir à chaque rang de son association, sur ${C.n_sim.toLocaleString(LANG)} fins de saison simulées. Les équipes sont classées par rang moyen (le petit chiffre sous le nom). La ligne après le 8e rang est un repère : les séries passent par les divisions, la vraie qualification est dans la colonne Séries.</p></div>${simBouton()}${blocs}`;
 }
+// ---- « Simuler la fin de saison » : UNE saison jouée devant toi, match par match (même recette que les 10 000
+// simulations : Elo + incertitude de la force, avantage de la glace, 23 % de prolongations), puis les séries au vrai
+// format jusqu'au champion. Chaque clic donne une autre saison : c'est une possibilité, pas une prédiction.
+function simBouton(){
+  if (!D.coupe?.sim_vis?.reste) return "";
+  return `<button type="button" class="sv-btn" id="sv-go">${L("Simuler la fin de saison", "Simulate the rest of the season")}</button><div class="sv" id="sv"></div>`;
+}
+let SV_T = null;
+function simSaison(vite){
+  const C = D.coupe, V = C.sim_vis, el = $("#sv"); if (!el) return;
+  clearTimeout(SV_T);
+  const gauss = () => Math.sqrt(-2 * Math.log(Math.random() || 1e-9)) * Math.cos(2 * Math.PI * Math.random());
+  const E = {}; for (const e of C.equipes) E[e.t] = { t: e.t, pts: e.pts, pj: e.pj, rw: e.rw || 0, div: e.div, conf: e.conf, f: e.elo + gauss() * V.sigma };
+  const pV = (h, a) => 1 / (1 + 10 ** (-(E[h].f + V.hfa - E[a].f) / 400));
+  const jours = []; for (const [d, h, a] of V.reste){ if (!E[h] || !E[a]) continue; if (!jours.length || jours.at(-1)[0] !== d) jours.push([d, []]); jours.at(-1)[1].push([h, a]); }
+  const cle = (t) => [E[t].pts, E[t].rw];
+  const tri = (L2) => L2.slice().sort((x, y) => E[y].pts - E[x].pts || E[y].rw - E[x].rw);
+  // Qui fait les séries (vrai format : 3 premiers de chaque division + 2 meilleurs as par association)
+  const qualif = (conf) => {
+    const eqc = Object.keys(E).filter(t => E[t].conf === conf), divs = [...new Set(eqc.map(t => E[t].div))];
+    const tops = Object.fromEntries(divs.map(d => [d, tri(eqc.filter(t => E[t].div === d)).slice(0, 3)]));
+    const reste = tri(eqc.filter(t => !divs.some(d => tops[d].includes(t)))), wc = reste.slice(0, 2);
+    return { divs: divs.sort((a, b) => (E[tops[b][0]].pts - E[tops[a][0]].pts)), tops, wc };
+  };
+  const dessiner = (d) => {
+    const cols = ["E", "W"].map(c => {
+      const q = qualif(c), dedans = new Set([...Object.values(q.tops).flat(), ...q.wc]);
+      return `<div class="sv-col"><h3>${c === "E" ? L("Est", "East") : L("Ouest", "West")}</h3>${tri(Object.keys(E).filter(t => E[t].conf === c)).map((t, i) =>
+        `<div class="sv-r${dedans.has(t) ? " in" : ""}"><span>${i + 1}</span><span class="t" style="--eq:${coul(t)}">${t}</span><span>${E[t].pj} ${L("m", "g")}</span><span class="p">${E[t].pts}</span></div>`).join("")}</div>`;
+    }).join("");
+    el.innerHTML = `<p class="sv-date">${d ? new Date(d + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : ""}</p><div class="sv-cols">${cols}</div><div id="sv-po"></div>`;
+  };
+  const serie = (a, b) => {          // a = avantage de la glace ; matchs 1, 2, 5, 7 chez a
+    let wa = 0, wb = 0;
+    for (let i = 0; i < 7 && wa < 4 && wb < 4; i++){ const chezA = [0, 1, 4, 6].includes(i), p = chezA ? pV(a, b) : 1 - pV(b, a); Math.random() < p ? wa++ : wb++; }
+    return wa === 4 ? [a, b, wa, wb] : [b, a, wb, wa];
+  };
+  const duel = (a, b) => (E[a].pts > E[b].pts || (E[a].pts === E[b].pts && E[a].rw >= E[b].rw)) ? serie(a, b) : serie(b, a);
+  const series = () => {
+    const txt = [], champs = [];
+    const ronde = (nom, paires) => { const g = paires.map(([a, b]) => duel(a, b)); txt.push(`<b>${nom}</b> : ${g.map(([w, l, x, y]) => `${w} ${L("bat", "beats")} ${l} ${x}-${y}`).join(" · ")}`); return g.map(r => r[0]); };
+    for (const c of ["E", "W"]){
+      const q = qualif(c), [d1, d2] = q.divs;
+      if (!d1 || !d2 || q.wc.length < 2) continue;
+      const w1 = ronde(`${c === "E" ? L("Est", "East") : L("Ouest", "West")}, ${L("1re ronde", "round 1")}`, [[q.tops[d1][0], q.wc[1]], [q.tops[d1][1], q.tops[d1][2]], [q.tops[d2][0], q.wc[0]], [q.tops[d2][1], q.tops[d2][2]]]);
+      const w2 = ronde(L("2e ronde", "Round 2"), [[w1[0], w1[1]], [w1[2], w1[3]]]);
+      champs.push(ronde(L("Finale d'association", "Conference final"), [[w2[0], w2[1]]])[0]);
+    }
+    let champ = null;
+    if (champs.length === 2) champ = ronde(L("Finale de la Coupe Stanley", "Stanley Cup Final"), [[champs[0], champs[1]]])[0];
+    $("#sv-po").innerHTML = `<div class="sv-po">${txt.join("<br>")}</div>${champ ? `<div class="sv-champ" style="--eq:${coul(champ)}">${L("Champion", "Champion")} : ${NOMS_EQ?.[champ] || champ}</div>` : ""}
+      <p class="aide">${L("Une seule saison possible parmi des milliers. Pour les vraies chances de chaque équipe, regarde les % plus bas et l'onglet Coupe. Touche le bouton pour rejouer.", "Just one possible season out of thousands. For each team's real chances, see the % below and the Cup tab. Tap the button to replay.")}</p>`;
+  };
+  let i = 0;
+  const pas = () => {
+    const n = vite ? jours.length : Math.max(1, Math.round(jours.length / 70));   // ~70 images, environ 7 secondes
+    for (let k = 0; k < n && i < jours.length; k++, i++){
+      for (const [h, a] of jours[i][1]){
+        const gH = Math.random() < pV(h, a), [g, p] = gH ? [h, a] : [a, h];
+        E[g].pts += 2; E[h].pj++; E[a].pj++;
+        Math.random() < V.p_ot ? E[p].pts++ : E[g].rw++;
+      }
+    }
+    dessiner(jours[Math.min(i, jours.length) - 1]?.[0]);
+    if (i < jours.length) SV_T = setTimeout(pas, 100); else series();
+  };
+  pas();
+}
+document.addEventListener("click", (e) => { if (e.target.closest?.("#sv-go")){ $("#sv-go").textContent = L("Rejouer une autre saison", "Play another season"); simSaison(false); } });
 function trophees(){
   const v = S.troph || "coupe";
   $("#f-conf").hidden = v !== "coupe" && v !== "classement";
