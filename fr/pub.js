@@ -58,12 +58,12 @@
   // Style de la bannière (mêmes couleurs que le site, en bas de l'écran)
   const st = document.createElement("style");
   st.textContent = `#temoins{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px max(12px,env(safe-area-inset-left,0px)) max(12px,env(safe-area-inset-bottom,0px))}
-  #temoins .tm-box{max-width:720px;margin:0 auto;background:#0A2342;color:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.45);border-top:3px solid #FFB81C;font:14px/1.45 "Barlow",system-ui,sans-serif}
+  #temoins .tm-box{max-width:720px;margin:0 auto;background:var(--bande,#0A2342);color:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 8px 30px rgba(0,0,0,.45);border-top:3px solid var(--led,#FFB81C);font:14px/1.45 "Barlow",system-ui,sans-serif}
   #temoins b{font:italic 800 17px/1 "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.03em}
-  #temoins p{margin:6px 0 10px;color:#D5E0EC} #temoins a{color:#FFB81C}
+  #temoins p{margin:6px 0 10px;color:#D5E0EC} #temoins a{color:var(--led,#FFB81C)}
   #temoins .tm-b{display:flex;gap:8px;justify-content:flex-end}
   #temoins button{font:italic 800 16px/1 "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;padding:10px 16px;border-radius:4px;border:2px solid rgba(255,255,255,.4);background:transparent;color:#fff;cursor:pointer}
-  #temoins button.tm-oui{background:#D3202B;border-color:#D3202B}
+  #temoins button.tm-oui{background:var(--goal,#D3202B);border-color:var(--goal,#D3202B)}
   .lien-temoins{background:none;border:0;padding:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit}`;
   document.head.appendChild(st);
 
