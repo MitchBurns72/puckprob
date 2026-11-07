@@ -26,29 +26,58 @@
   const nomEq = (t) => (DATA?.eq?.[t]?.n || [t, t])[FR ? 1 : 0];
   const coulEq = (t) => DATA?.eq?.[t]?.c || "#6B7C8C";
 
-  // ---- Thème du site : il suit « Mon club » (idée de Mitch). Fond de nuit, en-tête et barre d'onglets dans la couleur
-  // foncée de l'équipe, ses bandes en diagonale (comme un bas de chandail), ses couleurs pour les accents.
-  // Sans club : le thème neutre PuckProb (marine, rouge, ambre). Gardé sur l'appareil pour s'afficher tout de suite.
-  const NEUTRE = { b1: "#0A2342", acc: "#D3202B", led: "#FFB81C", sa: "#FFB81C", sw: "#FFFFFF" };
+  // ---- Thème du site : il suit « Mon club » (idée de Mitch). Règle : les 3 couleurs du club, pas d'autres.
+  //   D = sa couleur foncée (fond, en-tête, onglets ; les fonds de la page et des cartes = des ombres de D),
+  //   A = sa couleur vive (boutons choisis, soulignés, liens, chiffres en évidence),
+  //   B = sa 3e couleur (bandeau « Ce soir », pastilles du ticker, avertissements).
+  // Le texte reste blanc / un pâle de D. Seuls le vert et le rouge des hausses/baisses restent (ils veulent dire quelque chose).
+  // Sans club : le thème neutre PuckProb (marine, rouge, ambre), inchangé. Gardé sur l'appareil pour s'afficher tout de suite.
+  const NEUTRE = { b1: "#0A2342", acc: "#D3202B", led: "#FFB81C", sa: "#FFB81C", sw: "#FFFFFF", neutre: 1 };
+  const blanc = (x) => /^#fff(fff)?$/i.test(x || "");
   const themeDe = (t) => {
     const p = DATA?.eq?.[t]?.pal; if (!p) return NEUTRE;
-    const blanc = (x) => /^#fff(fff)?$/i.test(x || "");
-    const acc = !blanc(p.texte) ? p.texte : !blanc(p.contour) ? p.contour : "#D3202B";
-    const led = acc === p.texte ? (!blanc(p.contour) ? p.contour : "#FFFFFF") : p.texte;
-    return { b1: p.fond, acc, led, sa: acc, sw: acc === p.contour ? "#FFFFFF" : (!blanc(p.contour) ? p.contour : "#FFFFFF") };
+    const acc = !blanc(p.texte) ? p.texte : !blanc(p.contour) ? p.contour : "#FFFFFF";
+    const led = acc === p.texte ? p.contour : p.texte;            // l'autre des deux (peut être le blanc du club)
+    return { b1: p.fond, acc, led, sa: acc, sw: led };
   };
-  const cssTheme = (t) => `
-:root,:root[data-theme]{--bg:#0B1220;--surface:#121B2D;--surface2:#17223A;--card:#121B2D;--ink:#EAF1F8;--muted:#93A4B8;--line:#ffffff1c;--chip:#1A2740;
-  --bande:${t.b1};--bande2:color-mix(in srgb,${t.b1} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
-  --us:#BCA5EC;--us-bg:#251E38;--warn:#F4C14C;--warn-bg:#33290F;--ice:#6CC0F5;--rayure:transparent;color-scheme:dark}
-body{background:#0B1220 radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${t.b1} 35%,transparent), transparent 60%) no-repeat fixed}
-header.bug{background:radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${t.b1} 80%,#fff) 0%, ${t.b1} 50%, color-mix(in srgb,${t.b1} 75%,#000) 100%);overflow:hidden}
+  const lumHex = (h) => { const c = (h || "#000000").replace("#", "").match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+  const contr = (a, b) => { const x = lumHex(a), y = lumHex(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
+  const ombre = (c, k) => "#" + c.replace("#", "").match(/../g).map(x => Math.round(parseInt(x, 16) * k).toString(16).padStart(2, "0")).join("");
+  // Le texte qui va sur une couleur du club : blanc ou sa couleur foncée, celui qui ressort le plus
+  const encre = (c, d) => contr(c, "#FFFFFF") >= contr(c, d) ? "#FFFFFF" : d;
+  const vars = (t) => {
+    if (t.neutre || t.b1 === NEUTRE.b1) return "--bg:#0B1220;--surface:#121B2D;--surface2:#17223A;--card:#121B2D;--chip:#1A2740;--ice:#6CC0F5;--muted:#93A4B8;--us:#BCA5EC;--us-bg:#251E38;--warn:#F4C14C;--warn-bg:#33290F;";
+    const D = t.b1, noir = lumHex(D) < 0.01;
+    // Les fonds : des ombres de D (du noir pur au D lui-même). Pour une équipe noire : des noirs.
+    const f = noir ? ["#000000", "#0D0D0D", "#141414", "#1C1C1C"] : [ombre(D, 0.38), ombre(D, 0.55), ombre(D, 0.68), ombre(D, 0.82)];
+    // La couleur des liens / chiffres en évidence : A, sinon B, sinon le blanc — la première qui se lit sur les cartes
+    const ice = [t.acc, t.led, "#FFFFFF"].find(c => c && contr(c, f[1]) >= 4.2);
+    const warn = [t.led, t.acc, "#FFFFFF"].find(c => c && contr(c, f[1]) >= 4.2);
+    return `--bg:${f[0]};--surface:${f[1]};--surface2:${f[2]};--card:${f[1]};--chip:${f[3]};--ice:${ice};--muted:color-mix(in srgb,#fff 58%,${noir ? "#000" : D});`
+      + `--us:${ice};--us-bg:color-mix(in srgb,${ice} 16%,${f[1]});--warn:${warn};--warn-bg:color-mix(in srgb,${warn} 16%,${f[1]});`;
+  };
+  const cssTheme = (t) => {
+    const D = t.b1, eA = encre(t.acc, D), eB = encre(t.led, D);
+    const extra = t.neutre || D === NEUTRE.b1 ? "" : `
+.chip[aria-pressed="true"],.chip.big[aria-pressed="true"],.sv-btn,.lien-plus,.btn-main,.tag.reel{color:${eA}}
+.ticker .tk-lbl,.ticker .tk-tag.prob,header.bug .beta,.rk{color:${eB}}
+.ticker .tk-tag,.ticker .tk-tag.serie,.ticker .tk-tag.jalon,.ticker .tk-tag.equipe{background:${t.acc};color:${eA}}
+.ticker .tk-tag.blesse,.ticker .tk-tag.seche{background:${t.led};color:${eB}}
+.ticker .tk-it::before{background:${t.led}}`;
+    return `
+:root,:root[data-theme]{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
+  --bande:${D};--bande2:color-mix(in srgb,${D} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
+  --rayure:transparent;color-scheme:dark}
+body{background:var(--bg) radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${D} 60%,transparent), transparent 60%) no-repeat fixed}
+header.bug{background:radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${D} 80%,#fff) 0%, ${D} 50%, color-mix(in srgb,${D} 75%,#000) 100%);overflow:hidden}
 header.bug::before{content:"";position:absolute;left:52%;width:70%;height:54px;bottom:-34px;transform:rotate(-24deg);transform-origin:left bottom;pointer-events:none;
-  background:linear-gradient(180deg,${t.sa} 0 27%,${t.b1} 27% 34%,${t.sw} 34% 66%,${t.b1} 66% 73%,${t.sa} 73% 100%);box-shadow:0 0 14px #0008}
+  background:linear-gradient(180deg,${t.sa} 0 27%,${D} 27% 34%,${t.sw} 34% 66%,${D} 66% 73%,${t.sa} 73% 100%);box-shadow:0 0 14px #0008}
 header.bug > *{position:relative;z-index:1}
+header.bug .lang,header.bug .livebtn{background:color-mix(in srgb,${D} 70%,#000);box-shadow:0 2px 8px #0006}
 header.bug::after{background:linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%)}
-nav.tabs,nav.menu{background:${t.b1}} nav.tabs button[aria-selected="true"]{color:#fff}
-.ticker{background:color-mix(in srgb,${t.b1} 70%,#000)}`;
+nav.tabs,nav.menu{background:${D}} nav.tabs button[aria-selected="true"]{color:#fff}
+.ticker{background:color-mix(in srgb,${D} 70%,#000)}${extra}`;
+  };
   const theme = (t) => {
     let st = document.getElementById("pp-theme");
     if (!st){ st = document.createElement("style"); st.id = "pp-theme"; document.head.appendChild(st); }
