@@ -26,6 +26,40 @@
   const nomEq = (t) => (DATA?.eq?.[t]?.n || [t, t])[FR ? 1 : 0];
   const coulEq = (t) => DATA?.eq?.[t]?.c || "#6B7C8C";
 
+  // ---- Thème du site : il suit « Mon club » (idée de Mitch). Fond de nuit, en-tête et barre d'onglets dans la couleur
+  // foncée de l'équipe, ses bandes en diagonale (comme un bas de chandail), ses couleurs pour les accents.
+  // Sans club : le thème neutre PuckProb (marine, rouge, ambre). Gardé sur l'appareil pour s'afficher tout de suite.
+  const NEUTRE = { b1: "#0A2342", acc: "#D3202B", led: "#FFB81C", sa: "#FFB81C", sw: "#FFFFFF" };
+  const themeDe = (t) => {
+    const p = DATA?.eq?.[t]?.pal; if (!p) return NEUTRE;
+    const blanc = (x) => /^#fff(fff)?$/i.test(x || "");
+    const acc = !blanc(p.texte) ? p.texte : !blanc(p.contour) ? p.contour : "#D3202B";
+    const led = acc === p.texte ? (!blanc(p.contour) ? p.contour : "#FFFFFF") : p.texte;
+    return { b1: p.fond, acc, led, sa: acc, sw: acc === p.contour ? "#FFFFFF" : (!blanc(p.contour) ? p.contour : "#FFFFFF") };
+  };
+  const cssTheme = (t) => `
+:root,:root[data-theme]{--bg:#0B1220;--surface:#121B2D;--surface2:#17223A;--card:#121B2D;--ink:#EAF1F8;--muted:#93A4B8;--line:#ffffff1c;--chip:#1A2740;
+  --bande:${t.b1};--bande2:color-mix(in srgb,${t.b1} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
+  --us:#BCA5EC;--us-bg:#251E38;--warn:#F4C14C;--warn-bg:#33290F;--ice:#6CC0F5;--rayure:transparent;color-scheme:dark}
+body{background:#0B1220 radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${t.b1} 35%,transparent), transparent 60%) no-repeat fixed}
+header.bug{background:radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${t.b1} 80%,#fff) 0%, ${t.b1} 50%, color-mix(in srgb,${t.b1} 75%,#000) 100%);overflow:hidden}
+header.bug::before{content:"";position:absolute;left:52%;width:70%;height:54px;bottom:-34px;transform:rotate(-24deg);transform-origin:left bottom;pointer-events:none;
+  background:linear-gradient(180deg,${t.sa} 0 27%,${t.b1} 27% 34%,${t.sw} 34% 66%,${t.b1} 66% 73%,${t.sa} 73% 100%);box-shadow:0 0 14px #0008}
+header.bug > *{position:relative;z-index:1}
+header.bug::after{background:linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%)}
+nav.tabs,nav.menu{background:${t.b1}} nav.tabs button[aria-selected="true"]{color:#fff}
+.ticker{background:color-mix(in srgb,${t.b1} 70%,#000)}`;
+  const theme = (t) => {
+    let st = document.getElementById("pp-theme");
+    if (!st){ st = document.createElement("style"); st.id = "pp-theme"; document.head.appendChild(st); }
+    st.textContent = cssTheme(t);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", t.b1);   // la barre du navigateur aussi
+    try { localStorage.setItem("pp_theme", JSON.stringify(t)); } catch (e) { /* tant pis */ }
+  };
+  // Tout de suite (avant de lire club.json) : le dernier thème gardé, sinon le neutre
+  try { theme(JSON.parse(localStorage.getItem("pp_theme") || "null") || NEUTRE); } catch (e) { theme(NEUTRE); }
+  const majTheme = () => { const c = club(); if (!c) return theme(NEUTRE); donnees().then(() => theme(themeDe(c))); };
+
   // ---- Style (une seule fois) ----
   const css = document.createElement("style");
   css.textContent = `
@@ -128,7 +162,7 @@
   function fixer(v){
     ecrire(v);
     document.querySelectorAll(".tk-piste").forEach(p => delete p.dataset.club);
-    appliquer(); bouton(); accueil();
+    appliquer(); bouton(); accueil(); majTheme();
     document.dispatchEvent(new CustomEvent("pp-club", { detail: club() }));
   }
 
@@ -172,7 +206,7 @@
 
   function demarrer(){
     if (club()) donnees().then(bouton); else bouton();
-    appliquer(); accueil();
+    appliquer(); accueil(); majTheme();
     // L'app redessine ses listes et son bandeau : on réapplique (le surlignage est en CSS, le bandeau se retrie)
     new MutationObserver(() => appliquer()).observe(document.body, { childList: true, subtree: true });
   }
