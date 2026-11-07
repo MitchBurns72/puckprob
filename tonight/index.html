@@ -23,7 +23,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="icone-180.png">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="fonts/fonts.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@400;500;600;700&family=Teko:wght@600;700&display=swap">
 <style>
 /* Mise en page : tableau de bord une colonne pensé pour le cell, style tableau indicateur d'aréna.
    Rouge = lumière de but (ce qui compte), bleu glace = info secondaire. */
@@ -148,7 +150,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-r .bp small{display:block;font-size:10.5px;margin-top:2px;color:var(--muted);font-weight:600} .sv-r .f{color:var(--ink)} .sv-r .sr{text-align:right;color:var(--muted)} .sv-r .sr.ok{color:var(--good);font-weight:800} .sv-r .sr.ko{color:var(--goal);font-weight:800} .sv-r .bp{text-align:right;color:var(--muted);font-size:11.5px} .sv-r .bp b{color:var(--ink)}
 @media (max-width:700px){.sv-cols{grid-template-columns:1fr}}
 .sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
-.sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
+.sv-r .t{font:800 10px/1 var(--f-display);color:var(--pt,#fff);background:var(--pf,var(--eq));box-shadow:inset 0 0 0 1.5px var(--pb,transparent);border-radius:8px;text-align:center;padding:3px 0}
 .sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
 .bk-aide{margin:0 0 4px} @media (min-width:1040px){.bk-aide{display:none}}
 .bk-wrap{overflow-x:auto;margin:0 0 12px;-webkit-overflow-scrolling:touch;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 0}
@@ -156,7 +158,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .bk svg{position:absolute;left:0;top:0;width:1000px;height:440px}
 .bk-s{position:absolute;display:flex;flex-direction:column;justify-content:center;gap:3px;background:var(--card,var(--surface));border:1px solid var(--line);border-radius:8px;padding:3px 6px;box-sizing:border-box}
 .bk-t{display:flex;justify-content:space-between;align-items:center;font:800 13px/1 var(--f-display);transition:opacity .3s}
-.bk-t i{font-style:normal;background:var(--eq,#6B7C8C);color:#fff;border-radius:6px;padding:3px 6px;min-width:38px;text-align:center}
+.bk-t i{font-style:normal;background:var(--pf,var(--eq,#6B7C8C));color:var(--pt,#fff);box-shadow:inset 0 0 0 2px var(--pb,transparent);border-radius:6px;padding:3px 6px;min-width:38px;text-align:center}
 .bk-t b{font:italic 800 18px/1 var(--f-display);color:var(--ink)} .bk-t.l{opacity:.35} .bk-t.w b{color:var(--good)}
 .bk-f{border:2px solid var(--goal)} .bk-f .bk-t{font-size:17px} .bk-f .bk-t b{font-size:26px} .bk-f .bk-t i{min-width:52px;padding:5px 8px}
 .bk-lab{position:absolute;top:2px;width:104px;font:700 10px/1.1 var(--f-body);color:var(--muted);text-transform:uppercase;text-align:center}
@@ -164,7 +166,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-g{margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
 .sv-svg{width:100%;height:auto;display:block;color:var(--muted)}
 .sv-leg{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
-.sv-ch{font:800 10.5px/1 var(--f-display);padding:5px 6px;min-width:34px;border-radius:6px;border:1.5px solid var(--eq);background:var(--eq);color:#fff;cursor:pointer}
+.sv-ch{font:800 10.5px/1 var(--f-display);padding:5px 6px;min-width:34px;border-radius:6px;border:1.5px solid var(--pb,var(--eq));background:var(--pf,var(--eq));color:var(--pt,#fff);cursor:pointer}
 .sv-ch[aria-pressed="false"]{background:transparent;color:var(--muted);border-color:var(--line)}
 .sv-ch.ctl{background:var(--chip);color:var(--ink);border-color:var(--line)}
 .sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
@@ -179,15 +181,15 @@ nav.menu::-webkit-scrollbar{display:none}
 /* Filtre par équipe : une pastille par équipe ; toucher = seulement elle, retoucher = toutes */
 .eq-filtre{display:flex;gap:4px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
 .eq-filtre::-webkit-scrollbar{display:none}
-.peq{flex:none;min-width:36px;height:26px;padding:0 5px;border-radius:13px;border:0;background:var(--c);color:#fff;font:800 10px/1 var(--f-display);letter-spacing:.02em;cursor:pointer;opacity:.4}
+.peq{flex:none;min-width:36px;height:26px;padding:0 5px;border-radius:13px;border:0;background:var(--c);color:var(--ct,#fff);box-shadow:inset 0 0 0 2px var(--cb,transparent);font:800 10px/1 var(--f-display);letter-spacing:.02em;cursor:pointer;opacity:.4}
 .eq-filtre:not(:has([aria-pressed="true"])) .peq{opacity:1}
-.peq[aria-pressed="true"]{opacity:1;box-shadow:0 0 0 2px var(--surface,#fff),0 0 0 4px var(--c)}
+.peq[aria-pressed="true"]{opacity:1;box-shadow:inset 0 0 0 2px var(--cb,transparent),0 0 0 2px var(--surface,#fff),0 0 0 4px var(--c)}
 .ecart{padding:3px 7px;border-radius:10px;display:inline-block;box-shadow:0 1px 3px rgba(0,0,0,.25);font:800 13px/1 var(--f-body);font-style:normal;margin-left:5px;vertical-align:middle;letter-spacing:0}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
 /* Plaque du joueur : rectangle aux couleurs de son équipe, numéro + position (pas de photo sur le site public :
    droits d'image de la LNH et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
-.plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--eq, var(--muted));color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--pf,var(--eq, var(--muted)));color:var(--pt,#fff);box-shadow:inset 0 0 0 2px var(--pb,transparent);text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .plaque b{font:800 16px/1 var(--f-display)}
 .plaque i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 :is(.ph,.gface,.aface):has(>.plaque){border-radius:6px;overflow:visible;background:none}
@@ -198,13 +200,13 @@ nav.menu::-webkit-scrollbar{display:none}
 .tr .ph .plaque b{font-size:20px} .tr .ph .plaque i{font-size:9.5px}
 :is(.gface,.aface) .plaque b{font-size:12px} :is(.gface,.aface) .plaque i{font-size:7px}
 .photo .ph .plaque b{font-size:22px} .photo .ph .plaque i{font-size:10px}
-.wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--eq);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.35);box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
+.wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--pf,var(--eq));color:var(--pt,#fff);text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 1px var(--pf,var(--eq))}
 .wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
-.wi-carte header .wi-rond{width:46px;height:52px;box-shadow:0 0 0 2px #fff} .wi-carte header .wi-rond b{font-size:19px}
+.wi-carte header .wi-rond{width:46px;height:52px;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 2px var(--pt,#fff)} .wi-carte header .wi-rond b{font-size:19px}
 .wi-carte .wi-eqs i{box-shadow:0 0 0 1px rgba(255,255,255,.6)}
 .wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:flex}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
 .wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
@@ -213,31 +215,35 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-l .v small{font-style:normal}
 .wi-modal{position:fixed;inset:0;z-index:60;background:rgba(5,12,24,.72);display:flex;align-items:center;justify-content:center;padding:14px}
 .wi-modal[hidden]{display:none}
-.wi-carte{background:#F4E7C5;color:#2A1C0C;width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:10px;border:4px solid var(--eq);box-shadow:0 18px 50px rgba(0,0,0,.5);animation:wi-pop .25s ease-out}
+.wi-carte{--ink:#EAF1F8;--muted:#A9B8C9;--line:#ffffff22;--surface:#0E1828;--card:#0E1828;--chip:#1B2A40;--good:#3DDC84;background:#0B1220;color:#DCE6F2;width:min(560px,100%);max-height:92vh;overflow:auto;border-radius:10px;border:3px solid var(--pf,var(--eq));box-shadow:0 0 0 2px var(--pb,transparent),0 18px 50px rgba(0,0,0,.6);animation:wi-pop .25s ease-out}
 @keyframes wi-pop{from{transform:scale(.85) rotateY(70deg);opacity:0}to{transform:none;opacity:1}}
-.wi-carte header{background:var(--eq);color:#fff;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.wi-carte header b{font:italic 800 26px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em}
-.wi-carte header span{display:block;font:600 13px var(--f-body);opacity:.9;margin-top:4px}
-.wi-carte header button{background:rgba(255,255,255,.18);border:0;color:#fff;font:800 20px/1 var(--f-body);width:34px;height:34px;border-radius:50%;cursor:pointer;flex:none}
+.wi-carte header{background:radial-gradient(120% 100% at 15% 0%, color-mix(in srgb,var(--pf,var(--eq)) 82%,#fff) 0%, var(--pf,var(--eq)) 55%, color-mix(in srgb,var(--pf,var(--eq)) 80%,#000) 100%);color:var(--pt,#fff);border-bottom:3px solid var(--pb,transparent);overflow:hidden;min-height:96px;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.wi-carte header b{font:700 30px/1 Teko,var(--f-display);text-transform:uppercase;letter-spacing:.02em;text-shadow:0 2px 8px rgba(0,0,0,.55)}
+/* Les bandes de l'équipe en diagonale (comme un bas de chandail) : la couleur du chiffre, la foncée, le contour au centre */
+.wi-carte header::before{content:"";position:absolute;left:46%;width:80%;height:46px;bottom:-30px;transform:rotate(-28deg);transform-origin:left bottom;pointer-events:none;
+  background:linear-gradient(180deg,var(--pt,#fff) 0 27%,var(--pf,var(--eq)) 27% 34%,var(--pw,#fff) 34% 66%,var(--pf,var(--eq)) 66% 73%,var(--pt,#fff) 73% 100%);box-shadow:0 0 14px rgba(0,0,0,.5)}
+.wi-carte header > *{position:relative;z-index:1}
+.wi-carte header span{display:block;font:600 13px var(--f-body);color:#fff;opacity:.88;margin-top:4px;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.wi-carte header button{background:rgba(0,0,0,.35);border:0;color:#fff;font:800 20px/1 var(--f-body);width:34px;height:34px;border-radius:50%;cursor:pointer;flex:none}
 .wi-carte .wi-res{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}
-.wi-carte .wi-res div{border:2px solid #2A1C0C;border-radius:6px;padding:8px;text-align:center}
-.wi-carte .wi-res b{display:block;font:italic 800 24px/1 var(--f-display)}
+.wi-carte .wi-res div{border:2px solid #ffffff2e;border-radius:6px;padding:8px;text-align:center}
+.wi-carte .wi-res b{display:block;font:700 30px/1 Teko,var(--f-display);color:var(--pv,#fff)}
 .wi-carte .wi-res span{font:600 11px var(--f-body);text-transform:uppercase;letter-spacing:.04em}
 .wi-carte table{width:100%;border-collapse:collapse;font:500 11.5px/1.25 ui-monospace,Menlo,Consolas,monospace;margin:8px 0 0}
-.wi-carte th{font:800 10.5px var(--f-body);text-transform:uppercase;border-bottom:2px solid #2A1C0C;padding:5px 3px;text-align:right}
-.wi-carte th.g{text-align:center;border-bottom:1px solid #2A1C0C}
-.wi-carte td{padding:4px 3px;text-align:right;border-bottom:1px dotted rgba(42,28,12,.35);white-space:nowrap}
+.wi-carte th{font:800 10.5px var(--f-body);text-transform:uppercase;color:#AFC0D2;border-bottom:2px solid #ffffff40;padding:5px 3px;text-align:right}
+.wi-carte th.g{text-align:center;border-bottom:1px solid #ffffff30}
+.wi-carte td{padding:4px 3px;text-align:right;border-bottom:1px dotted #ffffff1f;white-space:nowrap}
 .wi-carte td:first-child,.wi-carte th:first-child,.wi-carte td:nth-child(2),.wi-carte th:nth-child(2){text-align:left}
-.wi-carte .wi-w{background:rgba(211,32,43,.08)}
-.wi-carte tr.et .wi-w{font-weight:800;color:#9E1620}
-.wi-carte tfoot td{font-weight:800;border-top:2px solid #2A1C0C;border-bottom:0}
+.wi-carte .wi-w{background:color-mix(in srgb,var(--pv,#fff) 7%,transparent)}
+.wi-carte tr.et .wi-w{font-weight:800;color:#FF7A82}
+.wi-carte tfoot td{font-weight:800;border-top:2px solid #ffffff40;border-bottom:0;color:var(--pv,#fff)}
 .wi-carte .wi-tbl{overflow-x:auto;padding:0 6px}
-.wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#5A4630}
+.wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#A9B8C9}
 .wi-carte table.wi-car{width:auto;min-width:100%;margin:10px 0 2px;font-size:13px}
 .wi-carte table.wi-car td:first-child{font:800 12px var(--f-body);text-transform:uppercase}
 .wi-regles{padding:12px 14px;margin-top:10px}.wi-regles summary{font:800 15px var(--f-display);text-transform:uppercase;cursor:pointer}
 .wi-regles p{font-size:13px;line-height:1.45}
-.sal-rap{padding:6px 16px 14px}.sal-rap p{font:500 14px/1.5 var(--f-body);color:#2A1C0C;margin:10px 0}
+.sal-rap{padding:6px 16px 14px}.sal-rap p{font:500 14px/1.5 var(--f-body);color:#DCE6F2;margin:10px 0}
 .wi-carte tr.sal-j{cursor:pointer}
 nav.menu a{flex:none;color:#9FB3CB;text-decoration:none;font:italic 800 15px/1 var(--f-display);text-transform:uppercase;letter-spacing:.02em;padding:11px 7px 10px;position:relative}
 nav.menu a[aria-current]{color:#fff}
@@ -467,7 +473,7 @@ table.serre{font-size:11.5px} table.serre th,table.serre td{padding:5px 3px} tab
 .gcr-note{display:block;margin-top:3px;padding:0;border:0;background:none;color:var(--muted);font:500 11.5px/1.35 var(--f-body);text-align:left;cursor:pointer}
 .gcr-note b{color:var(--ink);font-weight:800}
 .gz{display:inline-block;vertical-align:middle;width:90px;height:7px;border-radius:4px;background:var(--chip);margin-left:6px;overflow:hidden} .gz b{display:block;height:100%;background:var(--eq,var(--good))}
-.gcr-gros{margin:0 0 6px} .gcr-gros b{font:italic 800 46px/1 var(--f-display);color:var(--eq)}
+.gcr-gros{margin:0 0 6px} .gcr-gros b{font:700 52px/1 Teko,var(--f-display);color:var(--pv,var(--eq))}
 .gface,.aface{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--chip);display:block}
 .gface img,.aface img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
 .statut{font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--warn-bg);color:var(--warn)}
@@ -898,65 +904,65 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .resume-public .rp-liste li:last-child{border-bottom:0}.resume-public .rp-liste b{font:800 18px/1 var(--f-display);white-space:nowrap}</style><section class="resume-public" aria-labelledby="resume-titre">
 <h2 id="resume-titre">At a glance: Saturday, November 7, 2026</h2>
 <div class="rp-carte tbl"><table><thead><tr><th>Game</th><th class="rp-n">Away</th><th class="rp-n">Home</th>
-<th class="rp-n">Expected goals</th></tr></thead><tbody><tr><td><a class="rp-eq" href="teams/fla/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23C8102E%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EFLA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> FLA</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/wsh/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23C8102E%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EWSH%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> WSH</a></td>
+<th class="rp-n">Expected goals</th></tr></thead><tbody><tr><td><a class="rp-eq" href="teams/fla/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B9975B%22%20text-anchor%3D%22middle%22%3EFLA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> FLA</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/wsh/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EWSH%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> WSH</a></td>
 <td class="rp-n"><span class="rp-p">59%</span><br><span class="rp-note">FLA</span></td>
 <td class="rp-n"><span class="rp-p">41%</span><br><span class="rp-note">WSH</span></td>
-<td class="rp-n">6.3</td></tr><tr><td><a class="rp-eq" href="teams/stl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002F87%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ESTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> STL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/nsh/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FFB81C%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ENSH%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NSH</a></td>
+<td class="rp-n">6.3</td></tr><tr><td><a class="rp-eq" href="teams/stl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002F87%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FCB514%22%20text-anchor%3D%22middle%22%3ESTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> STL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/nsh/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFB81C%22%20text-anchor%3D%22middle%22%3ENSH%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NSH</a></td>
 <td class="rp-n"><span class="rp-p">47%</span><br><span class="rp-note">STL</span></td>
 <td class="rp-n"><span class="rp-p">53%</span><br><span class="rp-note">NSH</span></td>
-<td class="rp-n">6.1</td></tr><tr><td><a class="rp-eq" href="teams/nyr/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%230038A8%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ENYR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NYR</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/sea/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2368A2B9%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ESEA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> SEA</a></td>
+<td class="rp-n">6.1</td></tr><tr><td><a class="rp-eq" href="teams/nyr/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%230038A8%22%20stroke%3D%22%23CE1126%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ENYR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NYR</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/sea/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23001628%22%20stroke%3D%22%23355464%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%2399D9D9%22%20text-anchor%3D%22middle%22%3ESEA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> SEA</a></td>
 <td class="rp-n"><span class="rp-p">52%</span><br><span class="rp-note">NYR</span></td>
 <td class="rp-n"><span class="rp-p">48%</span><br><span class="rp-note">SEA</span></td>
-<td class="rp-n">5.7</td></tr><tr><td><a class="rp-eq" href="teams/mtl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23AF1E2D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MTL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/tor/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300205B%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETOR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TOR</a></td>
+<td class="rp-n">5.7</td></tr><tr><td><a class="rp-eq" href="teams/mtl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23192168%22%20stroke%3D%22%23AF1E2D%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EMTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MTL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/tor/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300205B%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETOR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TOR</a></td>
 <td class="rp-n"><span class="rp-p">53%</span><br><span class="rp-note">MTL</span></td>
 <td class="rp-n"><span class="rp-p">47%</span><br><span class="rp-note">TOR</span></td>
-<td class="rp-n">6.7</td></tr><tr><td><a class="rp-eq" href="teams/uta/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236CACE4%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EUTA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> UTA</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/ott/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23C52032%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EOTT%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> OTT</a></td>
+<td class="rp-n">6.7</td></tr><tr><td><a class="rp-eq" href="teams/uta/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23010101%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%236CACE4%22%20text-anchor%3D%22middle%22%3EUTA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> UTA</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/ott/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23C2912C%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23C52032%22%20text-anchor%3D%22middle%22%3EOTT%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> OTT</a></td>
 <td class="rp-n"><span class="rp-p">51%</span><br><span class="rp-note">UTA</span></td>
 <td class="rp-n"><span class="rp-p">49%</span><br><span class="rp-note">OTT</span></td>
-<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/njd/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ENJD%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NJD</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/nyi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300539B%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ENYI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NYI</a></td>
+<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/njd/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ENJD%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NJD</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/nyi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300539B%22%20stroke%3D%22%23F47D30%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ENYI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NYI</a></td>
 <td class="rp-n"><span class="rp-p">51%</span><br><span class="rp-note">NJD</span></td>
 <td class="rp-n"><span class="rp-p">49%</span><br><span class="rp-note">NYI</span></td>
-<td class="rp-n">5.8</td></tr><tr><td><a class="rp-eq" href="teams/chi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CF0A2C%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECHI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CHI</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CAR</a></td>
+<td class="rp-n">5.8</td></tr><tr><td><a class="rp-eq" href="teams/chi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23FF671B%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CF0A2C%22%20text-anchor%3D%22middle%22%3ECHI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CHI</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CAR</a></td>
 <td class="rp-n"><span class="rp-p">23%</span><br><span class="rp-note">CHI</span></td>
 <td class="rp-n"><span class="rp-p">77%</span><br><span class="rp-note">CAR</span></td>
-<td class="rp-n">6.4</td></tr><tr><td><a class="rp-eq" href="teams/sjs/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006D75%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ESJS%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> SJS</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DAL</a></td>
+<td class="rp-n">6.4</td></tr><tr><td><a class="rp-eq" href="teams/sjs/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006D75%22%20stroke%3D%22%23EA7200%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23000000%22%20text-anchor%3D%22middle%22%3ESJS%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> SJS</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%238F8F8C%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DAL</a></td>
 <td class="rp-n"><span class="rp-p">24%</span><br><span class="rp-note">SJS</span></td>
 <td class="rp-n"><span class="rp-p">76%</span><br><span class="rp-note">DAL</span></td>
-<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TBL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MIN</a></td>
-<td class="rp-n"><span class="rp-p">54%</span><br><span class="rp-note">TBL</span></td>
-<td class="rp-n"><span class="rp-p">46%</span><br><span class="rp-note">MIN</span></td>
-<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/det/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDET%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DET</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> COL</a></td>
+<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TBL</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MIN</a></td>
+<td class="rp-n"><span class="rp-p">53%</span><br><span class="rp-note">TBL</span></td>
+<td class="rp-n"><span class="rp-p">47%</span><br><span class="rp-note">MIN</span></td>
+<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/det/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EDET%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DET</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> COL</a></td>
 <td class="rp-n"><span class="rp-p">50%</span><br><span class="rp-note">DET</span></td>
 <td class="rp-n"><span class="rp-p">50%</span><br><span class="rp-note">COL</span></td>
-<td class="rp-n">6.3</td></tr><tr><td><a class="rp-eq" href="teams/pit/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FCB514%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EPIT%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> PIT</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/lak/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23A2AAAD%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ELAK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> LAK</a></td>
+<td class="rp-n">6.3</td></tr><tr><td><a class="rp-eq" href="teams/pit/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23CFC493%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FCB514%22%20text-anchor%3D%22middle%22%3EPIT%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> PIT</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/lak/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ELAK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> LAK</a></td>
 <td class="rp-n"><span class="rp-p">48%</span><br><span class="rp-note">PIT</span></td>
 <td class="rp-n"><span class="rp-p">52%</span><br><span class="rp-note">LAK</span></td>
-<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/van/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300205B%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EVAN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> VAN</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> EDM</a></td>
+<td class="rp-n">6.2</td></tr><tr><td><a class="rp-eq" href="teams/van/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300205B%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%2300843D%22%20text-anchor%3D%22middle%22%3EVAN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> VAN</a> <span class="rp-note">@</span> <a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> EDM</a></td>
 <td class="rp-n"><span class="rp-p">43%</span><br><span class="rp-note">VAN</span></td>
 <td class="rp-n"><span class="rp-p">57%</span><br><span class="rp-note">EDM</span></td>
 <td class="rp-n">7.2</td></tr></tbody></table></div>
 <p class="rp-note">Probability of winning the game (overtime and shootout included).</p>
 <div class="rp-duo"><div class="rp-carte tbl"><h3>Goal</h3><table><tbody><tr><td><a href="players/leon-draisaitl/">Leon Draisaitl</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">45%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">45%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs TBL</span></td>
+<td class="rp-n"><span class="rp-p">43%</span><span class="rp-barre"><i style="width:94.7%"></i></span></td></tr><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">43%</span><span class="rp-barre"><i style="width:94.5%"></i></span></td></tr><tr><td><a href="players/sam-reinhart/">Sam Reinhart</a><br><span class="rp-note">FLA @ WSH</span></td>
-<td class="rp-n"><span class="rp-p">43%</span><span class="rp-barre"><i style="width:94.3%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs TBL</span></td>
-<td class="rp-n"><span class="rp-p">43%</span><span class="rp-barre"><i style="width:93.8%"></i></span></td></tr><tr><td><a href="players/steven-stamkos/">Steven Stamkos</a><br><span class="rp-note">NSH vs STL</span></td>
+<td class="rp-n"><span class="rp-p">43%</span><span class="rp-barre"><i style="width:94.3%"></i></span></td></tr><tr><td><a href="players/steven-stamkos/">Steven Stamkos</a><br><span class="rp-note">NSH vs STL</span></td>
 <td class="rp-n"><span class="rp-p">41%</span><span class="rp-barre"><i style="width:90.3%"></i></span></td></tr><tr><td><a href="players/william-nylander/">William Nylander</a><br><span class="rp-note">TOR vs MTL</span></td>
 <td class="rp-n"><span class="rp-p">41%</span><span class="rp-barre"><i style="width:89.4%"></i></span></td></tr><tr><td><a href="players/sebastian-aho/">Sebastian Aho</a><br><span class="rp-note">CAR vs CHI</span></td>
 <td class="rp-n"><span class="rp-p">40%</span><span class="rp-barre"><i style="width:89.0%"></i></span></td></tr><tr><td><a href="players/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD @ NYI</span></td>
 <td class="rp-n"><span class="rp-p">40%</span><span class="rp-barre"><i style="width:88.5%"></i></span></td></tr><tr><td><a href="players/wyatt-johnston/">Wyatt Johnston</a><br><span class="rp-note">DAL vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">40%</span><span class="rp-barre"><i style="width:87.4%"></i></span></td></tr><tr><td><a href="players/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL vs DET</span></td>
-<td class="rp-n"><span class="rp-p">40%</span><span class="rp-barre"><i style="width:87.2%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>1+ point</h3><table><tbody><tr><td><a href="players/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">85%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/nikita-kucherov/">Nikita Kucherov</a><br><span class="rp-note">TBL @ MIN</span></td>
-<td class="rp-n"><span class="rp-p">83%</span><span class="rp-barre"><i style="width:98.0%"></i></span></td></tr><tr><td><a href="players/leon-draisaitl/">Leon Draisaitl</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">83%</span><span class="rp-barre"><i style="width:97.6%"></i></span></td></tr><tr><td><a href="players/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL vs DET</span></td>
-<td class="rp-n"><span class="rp-p">82%</span><span class="rp-barre"><i style="width:96.7%"></i></span></td></tr><tr><td><a href="players/mikko-rantanen/">Mikko Rantanen</a><br><span class="rp-note">DAL vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">81%</span><span class="rp-barre"><i style="width:95.3%"></i></span></td></tr><tr><td><a href="players/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs PIT</span></td>
-<td class="rp-n"><span class="rp-p">80%</span><span class="rp-barre"><i style="width:94.6%"></i></span></td></tr><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:93.4%"></i></span></td></tr><tr><td><a href="players/nick-suzuki/">Nick Suzuki</a><br><span class="rp-note">MTL @ TOR</span></td>
-<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:93.0%"></i></span></td></tr><tr><td><a href="players/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:92.9%"></i></span></td></tr><tr><td><a href="players/sam-reinhart/">Sam Reinhart</a><br><span class="rp-note">FLA @ WSH</span></td>
-<td class="rp-n"><span class="rp-p">78%</span><span class="rp-barre"><i style="width:91.9%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">40%</span><span class="rp-barre"><i style="width:87.2%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>1+ point</h3><table><tbody><tr><td><a href="players/nikita-kucherov/">Nikita Kucherov</a><br><span class="rp-note">TBL @ MIN</span></td>
+<td class="rp-n"><span class="rp-p">85%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM vs VAN</span></td>
+<td class="rp-n"><span class="rp-p">85%</span><span class="rp-barre"><i style="width:99.5%"></i></span></td></tr><tr><td><a href="players/leon-draisaitl/">Leon Draisaitl</a><br><span class="rp-note">EDM vs VAN</span></td>
+<td class="rp-n"><span class="rp-p">83%</span><span class="rp-barre"><i style="width:97.2%"></i></span></td></tr><tr><td><a href="players/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL vs DET</span></td>
+<td class="rp-n"><span class="rp-p">82%</span><span class="rp-barre"><i style="width:96.2%"></i></span></td></tr><tr><td><a href="players/mikko-rantanen/">Mikko Rantanen</a><br><span class="rp-note">DAL vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">81%</span><span class="rp-barre"><i style="width:95.0%"></i></span></td></tr><tr><td><a href="players/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs PIT</span></td>
+<td class="rp-n"><span class="rp-p">80%</span><span class="rp-barre"><i style="width:94.1%"></i></span></td></tr><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:93.2%"></i></span></td></tr><tr><td><a href="players/jake-guentzel/">Jake Guentzel</a><br><span class="rp-note">TBL @ MIN</span></td>
+<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:92.7%"></i></span></td></tr><tr><td><a href="players/nick-suzuki/">Nick Suzuki</a><br><span class="rp-note">MTL @ TOR</span></td>
+<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:92.6%"></i></span></td></tr><tr><td><a href="players/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs VAN</span></td>
+<td class="rp-n"><span class="rp-p">79%</span><span class="rp-barre"><i style="width:92.5%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">76%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM vs VAN</span></td>
 <td class="rp-n"><span class="rp-p">73%</span><span class="rp-barre"><i style="width:96.6%"></i></span></td></tr><tr><td><a href="players/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD @ NYI</span></td>
 <td class="rp-n"><span class="rp-p">73%</span><span class="rp-barre"><i style="width:96.3%"></i></span></td></tr><tr><td><a href="players/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL vs DET</span></td>
@@ -967,7 +973,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">68%</span><span class="rp-barre"><i style="width:90.7%"></i></span></td></tr><tr><td><a href="players/cole-caufield/">Cole Caufield</a><br><span class="rp-note">MTL @ TOR</span></td>
 <td class="rp-n"><span class="rp-p">68%</span><span class="rp-barre"><i style="width:89.9%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs TBL</span></td>
 <td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:88.5%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.7%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.7%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>53%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>70%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>46%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>53%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.7%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.7%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>53%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>70%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>46%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>54%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -1286,14 +1292,49 @@ const COULEUR = { ANA: "#F47A38", BOS: "#FFB81C", BUF: "#003087", CGY: "#C8102E"
   KCS: "#004B87", MMR: "#7A1F2B", SEN: "#B5121B", SLE: "#B5121B", PIR: "#333333", TSP: "#00843D", TAN: "#00205B",
   DCG: "#CE1126", DFL: "#CE1126", HAM: "#B8860B", QUA: "#F47A38", QBD: "#0050A0", MWN: "#C8102E" };
 const coul = (t) => COULEUR[t] || "#6B7C8C";
+// Les vraies couleurs des équipes (guides de marque de la LNH) et la règle des pastilles et des fiches (idée de Mitch) :
+// fond = la couleur foncée de l'équipe (sa 1re ou 2e couleur si elle est foncée, sinon la plus foncée, souvent le noir),
+// chiffre = la couleur suivante qui ressort assez (contraste 3:1), sinon le blanc ; contour = la 3e couleur, sinon le blanc ;
+// fond des fiches = un crème de la couleur du chiffre. Même règle que src/couleurs.py (les pages du site) : garder pareil.
+const PALETTES = { ANA: ["#F47A38", "#B9975B", "#C1C6C8", "#000000"], BOS: ["#FFB81C", "#000000", "#FFFFFF"], BUF: ["#003087", "#FFB81C", "#A2AAAD", "#C8102E"], CGY: ["#C8102E", "#F1BE48", "#111111", "#FFFFFF"], CAR: ["#CE1126", "#000000", "#A2AAAD", "#FFFFFF"], CHI: ["#CF0A2C", "#000000", "#FF671B", "#00833E", "#FFD100"], COL: ["#6F263D", "#236192", "#A2AAAD", "#000000"], CBJ: ["#002654", "#CE1126", "#A4A9AD", "#FFFFFF"], DAL: ["#006847", "#8F8F8C", "#111111", "#FFFFFF"], DET: ["#CE1126", "#FFFFFF"], EDM: ["#041E42", "#FF4C00", "#FFFFFF"], FLA: ["#041E42", "#C8102E", "#B9975B"], LAK: ["#111111", "#A2AAAD", "#FFFFFF"], MIN: ["#154734", "#A6192E", "#EAAA00", "#DDCBA4"], MTL: ["#AF1E2D", "#192168", "#FFFFFF"], NSH: ["#FFB81C", "#041E42", "#FFFFFF"], NJD: ["#CE1126", "#000000", "#FFFFFF"], NYI: ["#00539B", "#F47D30", "#FFFFFF"], NYR: ["#0038A8", "#CE1126", "#FFFFFF"], OTT: ["#C52032", "#000000", "#C2912C", "#FFFFFF"], PHI: ["#F74902", "#000000", "#FFFFFF"], PIT: ["#000000", "#FCB514", "#CFC493", "#FFFFFF"], SJS: ["#006D75", "#EA7200", "#000000", "#FFFFFF"], SEA: ["#001628", "#99D9D9", "#355464", "#68A2B9", "#E9072B"], STL: ["#002F87", "#FCB514", "#041E42", "#FFFFFF"], TBL: ["#002868", "#FFFFFF"], TOR: ["#00205B", "#FFFFFF"], UTA: ["#6CACE4", "#010101", "#FFFFFF"], VAN: ["#00205B", "#00843D", "#041C2C", "#FFFFFF"], VGK: ["#B4975A", "#333F42", "#C8102E", "#000000"], WSH: ["#041E42", "#C8102E", "#FFFFFF"], WPG: ["#041E42", "#004C97", "#AC162C", "#7B303E", "#8E9090"] };
+const PAL = {};
+function palette(t){
+  if (PAL[t]) return PAL[t];
+  const lum = (h) => { const c = [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255).map(x => x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
+  const chrom = (h) => { const c = [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255); return Math.max(...c) > 0.08 && (Math.max(...c) - Math.min(...c)) / Math.max(...c) > 0.3; };
+  const contr = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((u, v) => v - u); return (x + 0.05) / (y + 0.05); };
+  const P = PALETTES[t];
+  if (!P) return (PAL[t] = { f: coul(t), t: "#FFFFFF", c: "#FFFFFF", k: "#F4E7C5", v: "#DCE6F2", w: "#FFFFFF" });
+  const foncees = P.slice(0, 2).filter(c => chrom(c) && lum(c) < 0.13);
+  const f = (foncees.length ? foncees : P).reduce((a, b) => lum(b) < lum(a) ? b : a);
+  const reste = P.filter(c => c !== f);
+  const tx = reste.find(c => contr(c, f) >= 3) || "#FFFFFF";
+  const ct = reste.find(c => c !== tx && contr(c, f) >= 1.6) || "#FFFFFF";
+  // Le crème des fiches : la couleur du chiffre (ou du contour, ou du fond) mélangée à 86 % de blanc
+  const base = tx !== "#FFFFFF" ? tx : ct !== "#FFFFFF" ? ct : f;
+  const k = "#" + [1, 3, 5].map(i => Math.round(parseInt(base.slice(i, i + 2), 16) * 0.14 + 255 * 0.86).toString(16).padStart(2, "0")).join("");
+  // Néon : la couleur principale, éclaircie juste assez pour ressortir sur le fond foncé des fiches (#0B1220)
+  let v = coul(t), m = 0;
+  const pale = (h, a) => "#" + [1, 3, 5].map(i => Math.round(parseInt(h.slice(i, i + 2), 16) * (1 - a) + 255 * a).toString(16).padStart(2, "0")).join("");
+  while (contr(v, "#0B1220") < 3.6 && m < 0.9){ m += 0.05; v = pale(coul(t), m); }
+  return (PAL[t] = { f, t: tx, c: ct, k, v, w: ct !== tx ? ct : "#FFFFFF" });
+}
+// Les variables CSS d'une équipe : --eq (sa couleur principale, pour les lignes), --pf / --pt / --pb (pastille), --pc (fiche)
+const eqV = (t) => { const p = palette(t); return `--eq:${coul(t)};--pf:${p.f};--pt:${p.t};--pb:${p.c};--pc:${p.k};--pv:${p.v};--pw:${p.w}`; };
+// Images à partager : la palette d'après la couleur principale (seulement quand elle est à une seule équipe)
+let PAL_DE_COUL = null;
+const palDeCoul = (c) => {
+  if (!PAL_DE_COUL){ PAL_DE_COUL = {}; for (const [t, x] of Object.entries(COULEUR)) PAL_DE_COUL[x] = PAL_DE_COUL[x] === undefined ? t : null; }
+  return PAL_DE_COUL[c] && PALETTES[PAL_DE_COUL[c]] ? palette(PAL_DE_COUL[c]) : null;
+};
 // Logos officiels : version « dark » sur fond sombre (contours pâles), « light » sinon
 const sombre = () => { const th = document.documentElement.dataset.theme;
   return th === "dark" || (th !== "light" && matchMedia("(prefers-color-scheme: dark)").matches); };
 const LOGO = (t) => PUBLIC ? pastille(t) : `https://assets.nhle.com/logos/nhl/svg/${t}_${sombre() ? "dark" : "light"}.svg`;
 // Pastille maison (version publique) : cercle à la couleur de l'équipe + abréviation, en SVG
 function pastille(t){
-  const c = (COULEUR && COULEUR[t]) || "#6B7C8C";
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="${c}" stroke="#fff" stroke-width="6"/><text x="50" y="61" font-size="31" font-family="Arial Narrow,Arial,sans-serif" font-weight="700" fill="#fff" text-anchor="middle">${t || ""}</text></svg>`;
+  const p = palette(t), c = p.f;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="${c}" stroke="${p.c}" stroke-width="7"/><text x="50" y="61" font-size="31" font-family="Arial Narrow,Arial,sans-serif" font-weight="700" fill="${p.t}" text-anchor="middle">${t || ""}</text></svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 // Si une version « dark » manque, on retombe sur la « light »
@@ -1688,7 +1729,7 @@ function liste(){
     const res = st.badge;
 
     const us = j.auto ? `<span class="us" title="Cote médiane des bookies US">US ${j.auto.toFixed(2)}${j.estimee ? ` · MOJ ≈ ${j.estimee.toFixed(2)}` : ""}</span>` : "";
-    return `<div class="j ${st.cls}" data-c="${j.team}" style="--eq:${coul(j.team)};--logo:url(${LOGO(j.team)})">
+    return `<div class="j ${st.cls}" data-c="${j.team}" style="${eqV(j.team)};--logo:url(${LOGO(j.team)})">
       ${photo(j, i + 1)}
       <div style="min-width:0">
         <div class="nom">${PUBLIC && j.slug ? `<a class="fiche" href="${CH.j}${j.slug}/">${j.name}</a>` : j.name}</div>
@@ -1822,12 +1863,12 @@ function blocAlignement(g){
     const x = A?.gardiens?.[t];
     if (!x) return `<div class="gard"><span class="gface vide"></span><span><b>${t}</b> gardien pas encore annoncé</span></div>`;
     const conf = /confirm/i.test(x.statut || "");
-    return `<div class="gard"><span class="gface" style="--eq:${coul(t)}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, "G") : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
+    return `<div class="gard"><span class="gface" style="${eqV(t)}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, "G") : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
       <span><b>${x.nom}</b> <small>${t} · ${x.fiche || ""} · ${x.sv ? "arrêts " + x.sv.replace(/^0/, "") : ""}</small>${gcrNote(t, x.nom)}</span>
       <span class="statut ${conf ? "ok" : ""}">${conf ? "Confirmé" : x.statut === "Likely" ? "Probable" : (x.statut || "Pas confirmé")}</span></div>`;
   };
   const ligneJ = (x) => `<div class="aj ${x.inj ? "bless" : ""}">
-      <span class="aface" style="--eq:${coul(x.j?.team || "")}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, x.j?.pos || x.pos) : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
+      <span class="aface" style="${eqV(x.j?.team || "")}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, x.j?.pos || x.pos) : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
       <span class="anom">${x.no != null ? `<small>#${x.no}</small> ` : ""}${x.nom}${x.gtd ? ' <span class="tag warn">Décision tardive</span>' : ""}</span>
       <span class="ap" title="But">${x.p?.b ? pct(x.p.b.p) + "%" : "–"}</span>
       <span class="ap" title="Passe">${x.p?.a ? pct(x.p.a.p) + "%" : "–"}</span>
@@ -2860,7 +2901,7 @@ function coupeHTML(){
   const eqs = C.equipes.filter(e => conf === "all" || e.conf === conf).slice().sort((a, b) => b[k] - a[k] || b.p_coupe - a.p_coupe);
   const mx = Math.max(...C.equipes.map(e => e[k]), 0.01);
   const MV = mvtListe(eqs, e => e.t, e => e[k], e => e.d?.[k]);
-  const lignes = eqs.map((e, i) => `<div class="cp" style="--eq:${coul(e.t)}">
+  const lignes = eqs.map((e, i) => `<div class="cp" style="${eqV(e.t)}">
       <span class="rgn">${i + 1}${mvtHTML(MV[e.t])}</span>
       <img class="lg" src="${LOGO(e.t)}" alt="" loading="lazy">
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.pts} pts en ${e.pj} matchs, projeté ${Math.round(e.proj)}</small></span>
@@ -2927,7 +2968,7 @@ function coupeGraphs(eqs, k, nomK){
   }).join("");
   const leg = parts.map(([t, , c, p]) => `<span class="cg-l"><i style="background:${c}"></i>${t}${p != null ? ` <b>${pc1(p)}${EN ? "%" : " %"}</b>` : ""}</span>`).join("");
   const ETP = [["p_series", L("Séries", "Playoffs")], ["p_r2", L("2e ronde", "Round 2")], ["p_finale_conf", L("Fin. conf.", "Conf. final")], ["p_finale", L("Finale", "Final")], ["p_coupe", L("Coupe", "Cup")]];
-  const escalier = eqs.slice(0, 12).map(e => `<div class="cg-e"><span class="cg-t" style="--eq:${coul(e.t)}">${e.t}</span><span class="cg-b">${
+  const escalier = eqs.slice(0, 12).map(e => `<div class="cg-e"><span class="cg-t" style="${eqV(e.t)}">${e.t}</span><span class="cg-b">${
     ETP.map(([kk]) => `<i style="width:${(e[kk] * 100).toFixed(1)}%;background:${coul(e.t)};opacity:${({ p_series: .28, p_r2: .42, p_finale_conf: .58, p_finale: .78, p_coupe: 1 })[kk]}"></i>`).join("")}</span><b>${pc1(e.p_coupe)}${EN ? "%" : " %"}</b></div>`).join("");
   return `<details class="card cg" ${S.cg ? "open" : ""} ontoggle="S.cg=this.open"><summary>${L("La Coupe en graphiques", "The Cup in charts")}</summary>
     <div class="cg-tarte"><svg viewBox="0 0 160 160" class="cg-svg" role="img" aria-label="${nomK}">${arcs}<text x="80" y="76" text-anchor="middle" font-size="11" fill="currentColor" opacity=".7">${L("chances", "chances")}</text><text x="80" y="92" text-anchor="middle" font-size="14" font-weight="800" fill="currentColor">${nomK}</text></svg><div class="cg-leg">${leg}</div></div>
@@ -2994,7 +3035,7 @@ function trophEqHTML(t){
   if (!L || !L.length){ el.innerHTML = `<div class="card"><div class="vide">${I.nom} : arrive au prochain calcul.</div></div>`; return; }
   const mx = Math.max(...L.map(x => x.p), 0.01);
   const MV = mvtListe(L, x => x.t, x => x.p, x => x.dp);
-  const lignes = L.map((x, i) => `<div class="cp" style="--eq:${coul(x.t)}">
+  const lignes = L.map((x, i) => `<div class="cp" style="${eqV(x.t)}">
       <span class="rgn">${i + 1}${mvtHTML(MV[x.t])}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
       <span class="nm">${NOMS_EQ[x.t] || x.t}<small>${t === "jennings" ? `${x.bc} buts accordés en ${x.pj} matchs, projeté ${x.proj}`
         : t === "adams" ? `${Math.round(x.pct * 100)} % des points projetés, attendu ${Math.round(x.attendu * 100)} % avant la saison`
@@ -3029,7 +3070,7 @@ function filtreEqHTML(cle, equipes){
   const mc = window.ppClub?.() || "";
   if (mc && equipes.includes(mc)) equipes = [mc, ...equipes.filter(t => t !== mc)];
   return `<div class="eq-filtre" role="group" aria-label="${L("Filtrer par équipe", "Filter by team")}">${equipes.map(t =>
-    `<button type="button" class="peq" data-fe="${cle}" data-t="${t}" aria-pressed="${t === actif}" style="--c:${coul(t)}" title="${NOMS_EQ[t] || t}">${t}</button>`).join("")}</div>`;
+    `<button type="button" class="peq" data-fe="${cle}" data-t="${t}" aria-pressed="${t === actif}" style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c}" title="${NOMS_EQ[t] || t}">${t}</button>`).join("")}</div>`;
 }
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
@@ -3078,7 +3119,7 @@ function noteVeille(V){
 function duoHTML(U){
   if (!U || !U.top?.length) return "";
   const H = U.hist || {}, mx = Math.max(...U.top.map(x => x.p), 0.01);
-  const lignes = U.top.map((x, i) => `<div class="cp" style="--eq:${coul(x.eq)}">
+  const lignes = U.top.map((x, i) => `<div class="cp" style="${eqV(x.eq)}">
       <span class="rgn">${i + 1}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
       <span class="nm">${x.nom}<small>${x.eq} · ${x.pts} pts · ${x.pj} matchs</small></span>
       <span class="pc">${pc1(x.p)}<small>%</small></span>
@@ -3096,7 +3137,7 @@ function trophHTML(t){
   if (!B){ el.innerHTML = `<div class="card"><div class="vide">Le ${I.nom} arrive au prochain calcul.</div></div>`; return; }
   if (!B.dispo){ el.innerHTML = `<div class="card"><div class="vide">${B.msg}</div></div>`; return; }
   const mx = Math.max(...B.top.map(x => x.p), 0.01);
-  const lignes = B.top.map((x, i) => `<div class="tr" style="--eq:${coul(x.eq)}">
+  const lignes = B.top.map((x, i) => `<div class="tr" style="${eqV(x.eq)}">
       <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom, x.pos) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
       <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
@@ -3141,7 +3182,7 @@ function ticker(){
   document.querySelector(".ticker")?.remove();
   if (!T.length) return;
   const L2 = (fr, en) => EN ? en : fr;
-  const items = T.map(x => `<span class="tk-it" data-c="${x.eq || ""}" style="--eq:${coul(x.eq)}"><span class="tk-tag ${x.tag}">${L2(...(TK_TAG[x.tag] || ["", ""]))}</span>${EN ? x.en : x.fr}</span>`).join("");
+  const items = T.map(x => `<span class="tk-it" data-c="${x.eq || ""}" style="${eqV(x.eq)}"><span class="tk-tag ${x.tag}">${L2(...(TK_TAG[x.tag] || ["", ""]))}</span>${EN ? x.en : x.fr}</span>`).join("");
   const html = `<div class="ticker" role="marquee" aria-label="${L2("À surveiller ce soir", "Tonight's storylines")}"><span class="tk-lbl">${L2("Ce soir", "Tonight")}</span>
     <div class="tk-vue"><div class="tk-piste" style="--tk-duree:${Math.max(30, T.length * 7)}s">${items}${items}</div></div></div>`;
   const apres = document.querySelector("nav.menu") || document.querySelector("header.bug");
@@ -3226,8 +3267,8 @@ const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.
 // Couleur d'un joueur : son équipe ACTUELLE s'il joue encore (Kreider = MTL, pas NYR où il a joué le plus) ;
 // un retraité garde l'équipe où il a joué le plus de matchs.
 const eqPrincipale = (x) => x.act === false ? (x.eqs?.[0]?.[0] || x.eq) : (x.eq || x.eqs?.[0]?.[0]);
-const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${coul(t)}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
-const wiRond = (x) => `<span class="wi-rond" style="--eq:${coul(eqPrincipale(x))}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
+const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
+const wiRond = (x) => `<span class="wi-rond" style="${eqV(eqPrincipale(x))}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
 function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
@@ -3274,7 +3315,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   }
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
     <span class="v">${v}${dv}<small>${sousV}</small></span></button>`;
 }
@@ -3327,7 +3368,7 @@ function wiCarte(t, id){
              `What if = ${G[0]} games per season (${G[2]}+ played) or ${G[1]} (fewer than ${G[2]}), wins, save % and GAA brought to today's era. "–" = no shots or ice time counted that season.`);
   }
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe).", " * Traded during the season (last team).") : ""}</p></div>`;
@@ -3401,9 +3442,10 @@ function ptFit(g, txt, maxW, police, taille, min = 24){
 }
 function ptRond(g, x, y, w, h, r){ g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 function ptPlaque(g, cx, y, cote, couleur, no, pos){
-  ptRond(g, cx - cote / 2, y, cote, cote, cote * 0.1); g.fillStyle = couleur; g.fill();
-  g.lineWidth = Math.max(4, cote / 30); g.strokeStyle = "#fff"; g.stroke();
-  g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "alphabetic";
+  const P = palDeCoul(couleur);
+  ptRond(g, cx - cote / 2, y, cote, cote, cote * 0.1); g.fillStyle = P ? P.f : couleur; g.fill();
+  g.lineWidth = Math.max(4, cote / 30); g.strokeStyle = P ? P.c : "#fff"; g.stroke();
+  g.fillStyle = P ? P.t : "#fff"; g.textAlign = "center"; g.textBaseline = "alphabetic";
   const n = no != null && no !== "" ? String(no) : "";
   g.font = `800 ${Math.round(cote * (n.length > 2 ? 0.42 : 0.56))}px 'Barlow Condensed'`;
   g.fillText(n, cx, y + cote * (pos ? 0.62 : 0.7));
@@ -3787,7 +3829,7 @@ async function salaires(){
   let corps;
   if (mode === "eq" && q.length < 2){
     const mx = Math.max(...SAL.equipes.map(e => e.masse));
-    corps = SAL.equipes.filter(e => !feq || e.t === feq).map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" data-c="${e.t}" style="--eq:${coul(e.t)}"><span class="rg">${i + 1}${mvtHTML(e.dr)}</span>
+    corps = SAL.equipes.filter(e => !feq || e.t === feq).map((e, i) => `<button class="wi-l sal-eq" data-eq="${e.t}" data-c="${e.t}" style="${eqV(e.t)}"><span class="rg">${i + 1}${mvtHTML(e.dr)}</span>
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.top.map(k => J[k + "j"]?.n || J[k + "g"]?.n).filter(Boolean).join(", ")}</small></span>
       <span class="v">${mD(e.masse)}${ecartHTML(e.dm, mD, 1, 50000)}<small>${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart))} ${L("vs plafond", "vs cap")}</small></span></button>`).join("");
     corps = `<p class="aide">${L(`Masse salariale ajustée : la somme des salaires mérités de ses ${R.contrats} joueurs les plus utilisés cette saison. Au-dessus du plafond = ses joueurs valent plus que ce que la ligue permet de payer.`, `Adjusted payroll: the sum of the deserved salaries of its ${R.contrats} most-used players this season. Above the cap = its players are worth more than the league allows a team to pay.`)}</p>` + corps;
@@ -3827,7 +3869,7 @@ function salLigne(x, mode = "top", i = null){
   const st = x.t === "g" ? `${L("% arrêts", "sv%")} ${sv3(x.sv)} · ${x.sa} ${L("tirs", "shots")}`
     : `${x.b} ${L("B", "G")} · ${x.a} ${L("A", "A")} · ${x.b + x.a} PTS · ${n1(x.toi)} min`;
   const contrat = !!SAL_CONTRATS[mode];
-  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
       ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
@@ -3882,7 +3924,7 @@ function salRapport(k){
     `<p><b>His real contract.</b> ${mD(x.vrai)} against the cap. He deserves ${mDs(x.diff)} more: he's worth ${rendTxt(x.rend)} of his contract${x.rend >= 1.5 ? ", a bargain" : x.rend < 0.7 ? ", overpaid for what he brings this season" : ""}.</p>`);
   const m = $("#wi-modal");
   const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
   ptCarte(m, x, mD(x.s), L("salaire mérité", "deserved salary"), x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
@@ -3892,7 +3934,7 @@ function salEquipe(t){
   const L2 = Object.values(SAL.joueurs).filter(x => x.eq === t).sort((a, b) => b.pj * (b.toi || 30) - a.pj * (a.toi || 30)).slice(0, SAL.regles.contrats).sort((a, b) => b.s - a.s);
   const e = SAL.equipes.find(x => x.t === t) || {};
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" style="--eq:${coul(t)}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" style="${eqV(t)}">
     <header><div><b>${NOMS_EQ[t] || t}</b><span>${L("Masse salariale ajustée", "Adjusted payroll")} : ${mD(e.masse)} (${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart || 0))} ${L("vs plafond", "vs cap")})</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl"><table class="wi-car"><tbody>${L2.map(x => `<tr class="sal-j" data-k="${x.id + x.t}"><td>${x.n}</td><td>${x.pos}</td><td>${x.pj}</td><td class="wi-w"><b>${mD(x.s)}</b></td></tr>`).join("")}</tbody></table></div>
     <p>${L("Touche un joueur pour son rapport.", "Tap a player for his report.")}</p></div>`;
@@ -3964,7 +4006,7 @@ function enfLigne(x, mode = "score"){
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const st = [`${x.comb} ${L(x.comb > 1 ? "combats" : "combat", x.comb === 1 ? "fight" : "fights")}${ecartHTML(x.dc, (v) => v)}`,
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
-  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small></span></button>`;
 }
@@ -3989,7 +4031,7 @@ function enfCarte(id){
     .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${pcIdx(x.r?.[k])}${x.rk?.[k] ? ` <small>(${rangFr(x.rk[k])})</small>` : ""}</td></tr>`).join("");
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>Enforcer ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <p><b>${L("Indice peur : ", "Fear index: ")}${pcIdx(x.pct)}.</b> ${L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
@@ -4059,7 +4101,7 @@ function prjLigne(x, mode){
   if (!x) return "";
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F"), c = x.c;
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
-  return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="--eq:${coul(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small></span></button>`;
 }
@@ -4104,7 +4146,7 @@ function prjCarte(id){
     : x.src === "poste" ? L("Pas assez de matchs avant cette saison : il est comparé à la moyenne des joueurs de son poste qui jouent autant que lui.", "Not enough games before this season: he's compared with the average player at his position with similar ice time.")
     : L("Aucun point de comparaison : c'est son rythme seul.", "No comparison point: it's his pace alone.");
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(eqPrincipale(x))}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Projection", "Projection")} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <div class="row prj-gk">${Object.entries(PRJ_MODES).map(([k, n]) => `<button class="chip" data-gk="${k}" data-id="${x.id}" aria-pressed="${k === (S.prj || "pts")}">${k === "pim" ? PIM() : L(...n)}</button>`).join("")}</div>
@@ -4132,7 +4174,7 @@ const duoBase = () => DUO?.base === "xg" ? "xG" : L("tirs cadrés", "shots on go
 const pts1 = (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1).replace(".", EN ? "." : ",");
 const pc0 = (v) => v == null ? "–" : Math.round(v * 100) + (EN ? "%" : " %");
 const duoNoms = (x) => x.j.map(j => j[1].split(" ").slice(-1)[0]).join(" + ");
-const duoPlaques = (x) => `<span class="duo-pl">${x.j.map(j => `<span class="wi-rond" style="--eq:${coul(x.eq)}">${plaqueIn(j[2], j[1], j[3])}</span>`).join("")}</span>`;
+const duoPlaques = (x) => `<span class="duo-pl">${x.j.map(j => `<span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(j[2], j[1], j[3])}</span>`).join("")}</span>`;
 // Paires de D : les duos où les deux sont des défenseurs, reclassés entre eux (rang par chimie, sans ▲▼ :
 // les écarts d'hier sont calculés sur le classement de tous les duos)
 const estPaireD = (x) => x.j.length === 2 && x.j.every(j => j[3] === "D");
@@ -4214,7 +4256,7 @@ async function gcrOnglet(){
   const lignes = liste.map((x, i) => {
     const [val, lib] = gcrVal(x, tri);
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
-    return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="--eq:${coul(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${tri === "gcr" ? mvtHTML(x.dr) : ""}</span><span class="wi-rond" style="--eq:${coul(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
+    return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${tri === "gcr" ? mvtHTML(x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
       <span class="v">${val}<small>${lib}</small></span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
@@ -4226,8 +4268,8 @@ function gcrCarte(id){
   const barre = (z) => `<i class="gz"><b style="width:${Math.max(4, Math.min(100, 50 + (z || 0) * 16.7)).toFixed(0)}%"></b></i>`;
   const autres = GCR.gardiens.filter(g => g.eq === x.eq && g.id !== x.id).map(g => g.n);
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="--eq:${coul(x.eq)}">
-    <header><div class="wi-hd"><span class="wi-rond" style="--eq:${coul(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span><div><b>${x.n}</b><span>GCR ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${x.pj} ${L("matchs", "games")} · ${x.min} min${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}">
+    <header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span><div><b>${x.n}</b><span>GCR ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${x.pj} ${L("matchs", "games")} · ${x.min} min${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt">
       <p class="gcr-gros"><b>${x.gcr}</b> GCR</p>
       <p><b>${L("Il arrête plus que prévu", "Saves above expected")} (${Math.round((P.gsax || 0) * 100)} %)</b> ${barre(x.z?.gsax)}<br>${L(`${sgn(x.gsax, 1)} buts sauvés de plus que prévu (${sgn(x.gsax60 * 60 / 60, 3)} par 60 min, ajusté). % d'arrêts ${sv3(x.sv)}, attendu ${sv3(x.xsv)}.`, `${sgn(x.gsax, 1)} goals saved above expected (${sgn(x.gsax60, 3)} per 60 min, adjusted). Save % ${sv3(x.sv)}, expected ${sv3(x.xsv)}.`)}</p>
@@ -4287,7 +4329,7 @@ function duosUnites(el, mode, tri, q, feq){
   const lignes = liste.map((x, i) => {
     const [val, lib] = uniteVal(x, U, tri);
     const st = `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga} · ${duoBase()} ${duoBase() === "xG" ? `${n1u(x.xf)}-${n1u(x.xa)}` : `${x.sf}-${x.sa}`}`;
-    return `<button class="wi-l wi-r duo-j unite-j" data-id="${x.id}" data-c="${x.eq}" style="--eq:${coul(x.eq)}"><span class="rg">${tri === "ch" ? x.rg : i + 1}</span>
+    return `<button class="wi-l wi-r duo-j unite-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "ch" ? x.rg : i + 1}</span>
       <span class="nm"><span class="u-pl">${duoPlaques(x)}</span>${x.j.map(j => j[1].split(" ").slice(-1)[0]).join(", ")}<small>${x.eq} · ${L(...SIT_NOM[sit])}</small><span class="wi-st">${st}</span></span>
       <span class="v">${val}<small>${lib}</small></span></button>`; }).join("") || `<div class="card"><div class="vide">${vide}</div></div>`;
   el.innerHTML = tete + lignes + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs_v9 ?? 0} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
@@ -4298,7 +4340,7 @@ function uniteCarte(id){
   const taux = U.genre === "taux", b = DUO.base === "xg";
   const m = $("#wi-modal");
   const ligne = (n, v) => `<tr><td>${n}</td><td>${v}</td></tr>`;
-  m.innerHTML = `<div class="wi-carte u" role="dialog" aria-modal="true" aria-label="${L("Unité", "Unit")}" style="--eq:${coul(x.eq)}">
+  m.innerHTML = `<div class="wi-carte u" role="dialog" aria-modal="true" aria-label="${L("Unité", "Unit")}" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${duoPlaques(x)}<div><b>${x.j.map(j => j[1].split(" ").slice(-1)[0]).join(", ")}</b><span>${L(...SIT_NOM[sit])} ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${Math.round(x.min)} min ${L("ensemble", "together")}</span></div></div>
       <button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt"><p>${x.j.map(j => `${j[1]} (${POS_C(j[3])})`).join(", ")}.</p>
@@ -4320,7 +4362,7 @@ function duoLigne(x, rg){
     : tri === "min" ? [Math.round(x.min), L("min ensemble", "min together")]
     : tri === "gf" ? [x.gf, L("buts ensemble", "goals together")]
     : [pts1(x.ch), L("chimie", "chemistry")];
-  return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="--eq:${coul(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
+  return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
     <span class="nm">${duoNoms(x)}<small>${x.eq} · ${x.j.map(j => j[1]).join(", ")}</small><span class="wi-st">${st}</span></span>
     <span class="v">${val}<small>${lib}</small></span></button>`;
 }
@@ -4332,7 +4374,7 @@ function duoCarte(id){
   const table = `<table><thead><tr><th></th><th>Min</th><th>${L("Buts", "Goals")}</th><th>${L("Tirs", "Shots")}</th>${b ? "<th>xG</th>" : ""}<th>${L("Part", "Share")}</th></tr></thead><tbody>
     ${ligne(L("Ensemble", "Together"), x, "et")}${x.j.map((j, k) => ligne(`${j[1].split(" ").slice(-1)[0]} ${L("sans", "without")} ${x.j.length > 2 ? L("les autres", "the others") : x.j[1 - k][1].split(" ").slice(-1)[0]}`, x.sans[k])).join("")}</tbody></table>`;
   const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${duoNoms(x)}" style="--eq:${coul(x.eq)}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${duoNoms(x)}" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${duoPlaques(x)}<div><b>${duoNoms(x)}</b><span>${mode === "trios" ? L("Trio", "Line") : mode === "paires" ? L("Paire de D", "D pair") : "Duo"} ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${Math.round(x.min)} min ${L("ensemble à 5 c. 5", "together at 5-on-5")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt">
       <p><b>${L("Chimie : ", "Chemistry: ")}${pts1(x.ch)}.</b> ${L(
@@ -4375,7 +4417,7 @@ function classementHTML(){
     const tete = `<tr><th class="cl-eq">Équipe</th>${Array.from({ length: n }, (_, k) => `<th class="${k === 7 ? "cl-coupe" : ""}">${k + 1}</th>`).join("")}<th class="cl-s">Séries</th></tr>`;
     // Places depuis hier : le rang moyen d'hier (rang moyen - écart), plus bas = mieux
     const MV = mvtListe(eqs, e => e.t, e => e.moy, e => e.d?.moy, -1);
-    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="--eq:${coul(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}${mvtHTML(MV[e.t])}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}${ecartHTML(e.d?.moy, (v) => v.toFixed(1).replace(".", EN ? "." : ","), -1, 0.05)}</small></th>
+    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="${eqV(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}${mvtHTML(MV[e.t])}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}${ecartHTML(e.d?.moy, (v) => v.toFixed(1).replace(".", EN ? "." : ","), -1, 0.05)}</small></th>
       ${Array.from({ length: n }, (_, k) => cellule(e.rangs[k] || 0).replace("<td", k === 7 ? '<td class="cl-coupe"' : "<td")).join("")}
       <td class="cl-s"><b>${pc1(e.p_series)}</b></td></tr>`).join("");
     return `<h2 style="margin:16px 0 8px">${NOM_CONF[c] || c}</h2><div class="cl-tbl"><table class="cl"><thead>${tete}</thead><tbody>${lignes}</tbody></table></div>`;
@@ -4399,7 +4441,7 @@ function bkHTML(B, vu){
   const n = (x, t) => x.jeux.slice(0, vu.get(x) || 0).filter(y => y === t).length;
   const boite = (x, l, yc, w, h, montre, cls = "") => `<div class="bk-s${cls}" style="left:${l}px;top:${yc - h / 2}px;width:${w}px;height:${h}px">${[x.a, x.b].map(t => {
       const ok = montre(t), f = fini(x);
-      return `<div class="bk-t${f && x.w === t ? " w" : ""}${f && x.w !== t ? " l" : ""}"><i style="--eq:${ok ? coul(t) : "#8896A6"}">${ok ? t : "—"}</i><b>${ok && montre(x.a) && montre(x.b) ? n(x, t) : ""}</b></div>`; }).join("")}</div>`;
+      return `<div class="bk-t${f && x.w === t ? " w" : ""}${f && x.w !== t ? " l" : ""}"><i style="${ok ? eqV(t) : "--eq:#8896A6"}">${ok ? t : "—"}</i><b>${ok && montre(x.a) && montre(x.b) ? n(x, t) : ""}</b></div>`; }).join("")}</div>`;
   let boites = "", traits = "";
   const lab = [L("1re ronde", "Round 1"), L("2e ronde", "Round 2"), L("Fin. d'assoc.", "Conf. final")];
   let etiq = ["W", "E"].map(c => BK[c].map((x, k) => `<span class="bk-lab" style="left:${x}px">${lab[k]}</span>`).join("")).join("")
@@ -4487,7 +4529,7 @@ function svLegende(){
   const eqs = Object.keys(SV_H.pts).sort((a, b) => (b === mc) - (a === mc) || a.localeCompare(b));
   el.innerHTML = `<button type="button" class="sv-ch ctl" data-svc="tout">${L("Tout cocher", "Select all")}</button><button type="button" class="sv-ch ctl" data-svc="aucune">${L("Tout décocher", "Unselect all")}</button>`
     + `<button type="button" class="sv-ch ctl" data-svc="E">${L("Est", "East")}</button><button type="button" class="sv-ch ctl" data-svc="W">${L("Ouest", "West")}</button>`
-    + eqs.map(t => `<button type="button" class="sv-ch" data-sv="${t}" aria-pressed="${SV_SEL.has(t)}" style="--eq:${coul(t)}">${t}</button>`).join("");
+    + eqs.map(t => `<button type="button" class="sv-ch" data-sv="${t}" aria-pressed="${SV_SEL.has(t)}" style="${eqV(t)}">${t}</button>`).join("");
 }
 function svGraph(){
   const g = $("#sv-svg"); if (!g || !SV_H) return;
@@ -4563,7 +4605,7 @@ function simSaison(vite, graine){
       const q = qualif(c), dedans = new Set([...Object.values(q.tops).flat(), ...q.wc]);
       return `<div class="sv-col"><h3>${c === "E" ? L("Est", "East") : L("Ouest", "West")}</h3>
         <div class="sv-r sv-h"><span>#</span><span></span><span>${L("PJ", "GP")}</span><span>${L("V-D-DP", "W-L-OTL")}</span><span class="p">PTS</span><span class="sr" title="${L("Plus longue série de victoires", "Longest winning streak")}">${L("SV", "LWS")}</span><span class="sr" title="${L("Plus longue série sans victoire", "Longest losing streak")}">${L("SD", "LLS")}</span><span class="bp">${L("BP-BC", "GF-GA")}<small>${L("BP/m · BC/m", "GF/G · GAA")}</small></span></div>${tri(Object.keys(E).filter(t => E[t].conf === c)).map((t, i) =>
-        `<div class="sv-r${dedans.has(t) ? " in" : ""}"><span>${i + 1}</span><span class="t" style="--eq:${coul(t)}">${t}</span><span>${E[t].pj}</span>
+        `<div class="sv-r${dedans.has(t) ? " in" : ""}"><span>${i + 1}</span><span class="t" style="${eqV(t)}">${t}</span><span>${E[t].pj}</span>
           <span class="f">${E[t].v}-${E[t].d}-${E[t].dp}</span><span class="p">${E[t].pts}</span>
           <span class="sr${E[t].mws === maxW ? " ok" : ""}">${E[t].mws}</span><span class="sr${E[t].mls === maxL ? " ko" : ""}">${E[t].mls}</span>
           <span class="bp">${E[t].bp}-${E[t].bc} <b>${E[t].bp - E[t].bc > 0 ? "+" : ""}${E[t].bp - E[t].bc}</b><small>${E[t].pj ? `${(E[t].bp / E[t].pj).toFixed(2)} · ${(E[t].bc / E[t].pj).toFixed(2)}`.replace(/\./g, EN ? "." : ",") : ""}</small></span></div>`).join("")}</div>`;
@@ -4623,7 +4665,7 @@ function simSaison(vite, graine){
     const txt = ["W", "E"].flatMap(c => B[c].map((r, k) => `<b>${c === "E" ? L("Est", "East") : L("Ouest", "West")}, ${nomR[k]}</b> : ${r.map(res).join(" · ")}`))
       .concat([`<b>${L("Finale de la Coupe Stanley", "Stanley Cup Final")}</b> : ${res(B.F)}`]);
     simImages(B, E, tri);
-    $("#sv-po").innerHTML = `<div class="sv-champ" style="--eq:${coul(champ)}">${L("Champion", "Champion")} : ${NOMS_EQ?.[champ] || champ}</div>
+    $("#sv-po").innerHTML = `<div class="sv-champ" style="${eqV(champ)}">${L("Champion", "Champion")} : ${NOMS_EQ?.[champ] || champ}</div>
       ${ptHaut("simTout", "Partager ma saison (3 images + le lien)", "Share my season (3 images + the link)")}
       <details class="sv-po"><summary>${L("Tous les résultats des séries", "Every playoff result")}</summary>${txt.join("<br>")}</details>
       <p class="aide">${L(`Finaliste : ${NOMS_EQ?.[fin_] || fin_}. Une seule saison possible parmi des milliers : pour les vraies chances de chaque équipe, regarde l'onglet Trophées (Coupe Stanley). Touche le bouton pour rejouer.`,
