@@ -29,7 +29,7 @@
   // ---- Style (une seule fois) ----
   const css = document.createElement("style");
   css.textContent = `
-.club-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:5px;margin:2px 0 0;padding:3px 9px 3px 4px;border-radius:14px;border:1.5px solid rgba(255,255,255,.5);
+.club-btn{display:inline-flex;align-self:flex-start;align-items:center;gap:5px;margin:2px 0 4px;padding:3px 9px 3px 4px;border-radius:14px;border:1.5px solid rgba(255,255,255,.5);
   background:rgba(255,255,255,.08);color:#fff;font:800 11.5px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
 .club-btn:not(:has(.club-pas)){padding-left:9px}
 .club-btn .club-pas{width:20px;height:20px;border-radius:50%;background:var(--c);display:inline-grid;place-items:center;font:800 8px/1 var(--f-body);color:#fff;box-shadow:0 0 0 1.5px #fff}

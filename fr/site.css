@@ -494,6 +494,8 @@ nav.tabs button[aria-selected="true"]{color:#fff}
 /* Beaucoup d'onglets (version premium : + Bets) : une seule ligne, on glisse de côté au besoin */
 nav.tabs{overflow-x:auto;scrollbar-width:none} nav.tabs::-webkit-scrollbar{display:none}
 nav.tabs button{white-space:nowrap;flex:1 0 auto}
+nav.tabs a.tab-lien{flex:1 0 auto;white-space:nowrap;color:#9FB3CB;opacity:.75;font:italic 800 19px/1 var(--f-display);text-transform:uppercase;text-decoration:none;padding:13px 10px 12px;text-align:center}
+nav.tabs a.tab-lien:first-of-type{border-left:1px solid rgba(255,255,255,.18)}
 nav.tabs button[aria-selected="true"]::after{content:"";position:absolute;left:14%;right:14%;bottom:0;height:5px;background:var(--goal);clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
 body::before{background:var(--bande)}
 
