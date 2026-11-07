@@ -484,8 +484,8 @@ details.aln summary{cursor:pointer;font-size:12.5px;color:var(--muted);font-weig
    Bandeau marine, coupes en biais comme les tableaux de pointage à l'écran, couleurs
    et logos des équipes. Le reste de la page reste calme : la couleur vient des équipes. */
 :root{--biais:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bande:#0E2A4D;--bande2:#173A66;--bg:#0A1626;--surface:#10213A;--surface2:#152A47;--chip:#183150;--line:#24406380}}
-:root[data-theme="dark"]{--bande:#0E2A4D;--bande2:#173A66;--bg:#0A1626;--surface:#10213A;--surface2:#152A47;--chip:#183150;--line:#24406380}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bande:#0E2A4D;--bande2:#173A66;--bg:#0A1626;--surface:#10213A;--surface2:#152A47;--chip:#183150;--line:#24406380;--chipon:#2E6BC4}}
+:root[data-theme="dark"]{--bande:#0E2A4D;--bande2:#173A66;--bg:#0A1626;--surface:#10213A;--surface2:#152A47;--chip:#183150;--line:#24406380;--chipon:#2E6BC4}
 body{background-image:none}
 header.bug{margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px))) 0;padding:max(14px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));
   background:linear-gradient(100deg,var(--bande) 0 62%,var(--bande2) 62% 100%);color:var(--sur-bande);align-items:center;flex-wrap:nowrap;position:relative}
@@ -530,7 +530,7 @@ body::before{background:var(--bande)}
 
 /* Puces : rectangles nets plutôt que pilules, l'actif en marine */
 .chip{border-radius:4px}
-.chip[aria-pressed="true"]{background:var(--bande);border-color:var(--bande);color:#fff;box-shadow:none}
+.chip[aria-pressed="true"]{background:var(--chipon,var(--bande));border-color:var(--chipon,var(--bande));color:#fff;box-shadow:none}
 .chip.big{font:italic 800 17px/1 var(--f-display);padding:9px 14px;clip-path:var(--biais);padding-right:20px;border:0;background:var(--chip)}
 .chip.big[aria-pressed="true"]{background:var(--goal);color:#fff}
 
@@ -638,7 +638,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 /* ---- Partager : boutons ---- */
 .pt-btn{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:6px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:#fff;font:800 12px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
 .pt-mini{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:700 11px/1 var(--f-body);cursor:pointer;white-space:nowrap}
-.pt-top{display:flex;justify-content:flex-end;margin:0 0 8px}
+.pt-top{display:flex;justify-content:flex-end;gap:6px;margin:0 0 8px}
 .wi-l.duo-j{grid-template-columns:26px auto minmax(0,1fr) auto}
 .duo-pl{display:flex;flex:none;gap:3px} .duo-pl .wi-rond{width:30px;height:38px} .duo-pl .wi-rond b{font-size:14px} .duo-pl .wi-rond i{font-size:7.5px}
 .wi-hd .duo-pl .wi-rond{width:34px;height:44px} .wi-carte header .wi-hd .duo-pl .wi-rond b{font-size:15px} .wi-carte header .wi-hd span.duo-pl.duo-pl.duo-pl{display:flex}
@@ -908,7 +908,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:74.4%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:74.2%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">53%</span><span class="rp-barre"><i style="width:70.9%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.7%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.4%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>24%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>59%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>53%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>46%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>57%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.7%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li><li><a class="rp-eq" href="teams/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Dallas</a><b>6.4%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>53%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>70%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>46%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>53%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -1575,7 +1575,9 @@ function liste(){
   const bandeau = v !== D.principale ? `<div class="bandeau">Tu regardes <b>${v}</b>, une version en essai. La principale (la plus fiable à date) est <b>${D.principale}</b>.</div>` : "";
   ptReg("top", { lib: ptMarche(m), sous: ptDate(), avis: AVIS_PT(), top: js.slice(0, 5).map(j => ({ nom: j.name, no: j.no, pos: POS_C(j.pos), coul: coul(j.team),
     gros: pct(j.pr.p) + "%", sous: `${j.team} ${j.home ? "vs" : "@"} ${j.opp}` })) });
-  $("#liste").innerHTML = bandeau + ptHaut("top", "Partager le top 5", "Share the top 5") + js.map((j, i) => {
+  ptReg("top20", { titre: L("Top 20 ce soir", "Top 20 tonight"), lib: ptMarche(m), sous: ptDate(), avis: AVIS_PT(), fichier: "top20", texte: L("Top 20 ce soir : ", "Top 20 tonight: ") + ptMarche(m),
+    liste: js.slice(0, 20).map((j, i) => ({ rg: i + 1, nom: j.name, no: j.no, pos: POS_C(j.pos), coul: coul(j.team), gros: pct(j.pr.p) + "%", sous: `${j.team} ${j.home ? "vs" : "@"} ${j.opp}` })) });
+  $("#liste").innerHTML = bandeau + ptHaut("top", "Partager le top 5", "Share the top 5").replace('</div>', ptHaut("top20", "Top 20", "Top 20").replace('<div class="pt-top">', "").replace("</div>", "") + "</div>") + js.map((j, i) => {
     const serie = STAT[m] === "pts" ? (j.l10_goals || []).map((b, i) => b + ((j.l10_assists || [])[i] || 0)) : (j[L10[STAT[m]]] || []);
     const hits = serie.filter(x => x >= SEUIL[m]).length;
     const echelle = estTirs(m) ? 4 : 8;
@@ -3057,11 +3059,13 @@ function trophHTML(t){
     texte: L(`Les favoris du trophée ${I.nom}`, `The ${I.nom} Trophy favorites`),
     top: B.top.slice(0, 5).map(x => ({ nom: x.nom, no: x.no, pos: x.pos ? POS_C(x.pos) : "", coul: coul(x.eq), gros: pcTxt(x.p),
       sous: `${x.eq} · ${t === "vezina" ? `${x.v} ${L("victoires", "wins")}` : t === "rocket" ? `${x.b} ${L("buts", "goals")}` : `${x.pts} pts`}` })) });
+  ptReg("troph20", { ...PT.troph, fichier: "trophee-" + t + "-top20", top: null,
+    liste: B.top.slice(0, 20).map((x, i) => ({ rg: i + 1, nom: x.nom, no: x.no, pos: x.pos ? POS_C(x.pos) : "", coul: coul(x.eq), gros: pcTxt(x.p), sous: x.eq })) });
   const comment = t === "art" ? `${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de chaque joueur (mélangé avec sa saison passée), ses matchs restants et la part de hasard. Le plus de points gagne.`
     : t === "rocket" ? `${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de buts de chaque joueur (mélangé avec sa saison passée), ses matchs restants et la part de hasard. Le plus de buts gagne.`
     : `C'est un vote : on ne le simule pas, on apprend ce que les votants récompensent. Score appris sur les gagnants depuis 2009-10 (${P.n || "?"} saisons) : ${poidsTroph(t, P)}. Puis ${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées.${t === "hart" ? " Les gardiens ne sont pas dans la liste : 2 des 17 derniers Hart (Price 2015, Hellebuyck 2025) ne pouvaient pas être prévus par ce score." : ""}`;
   el.innerHTML = `<div class="cp-tete"><h2>${I.nom}</h2><p>${I.desc[0].toUpperCase() + I.desc.slice(1)}. ${comment}</p></div>
-    ${noteVeille(B.veille)}${ptHaut("troph", "Partager le top 5", "Share the top 5")}<div class="cp-liste">${lignes}</div>${t === "lindsay" ? duoHTML(B.duo) : ""}${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du trophée ${I.nom}`}</a>` : ""}${test}`;
+    ${noteVeille(B.veille)}${ptHaut("troph", "Partager le top 5", "Share the top 5").replace("</div>", B.top.length > 5 ? ptHaut("troph20", "Top 20", "Top 20").replace('<div class="pt-top">', "") : "</div>")}<div class="cp-liste">${lignes}</div>${t === "lindsay" ? duoHTML(B.duo) : ""}${PUBLIC ? `<a class="lien-plus" href="${CH.t}${t}/">${EN ? "Full page" : `Page du trophée ${I.nom}`}</a>` : ""}${test}`;
 }
 // ---- Ticker « À surveiller ce soir » (src/ticker.py) : seulement les matchs du soir, change chaque jour ----
 const TK_TAG = { serie: ["Série", "Streak"], seche: ["Sécheresse", "Drought"], blesse: ["Absent", "Out"], jalon: ["Jalon", "Milestone"],
@@ -3148,6 +3152,7 @@ async function whatif(){
   const comment = `<details class="card wi-regles"><summary>${L("Comment c'est calculé (et les ratios année par année)", "How it's computed (and the ratios year by year)")}</summary>${wiRegles()}</details>`;
   const pied = `<p class="aide">${L(`${nW(WI.n_joueurs)} patineurs et ${nW(WI.n_gardiens)} gardiens, ${WI.n_saisons} saisons de la LNH (données publiques de la LNH).`, `${nW(WI.n_joueurs)} skaters and ${nW(WI.n_gardiens)} goalies, ${WI.n_saisons} NHL seasons (NHL public data).`)}${WI.complet === false ? L(" Les vieilles saisons se chargent encore : le classement sera complet dans quelques calculs.", " Older seasons are still loading: the ranking will be complete within a few updates.") : ""}</p>`;
   el.innerHTML = tete + (lignes.join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`) + comment + pied;
+  ptListeTab("p-whatif");
 }
 // Difficulté de l'ère : + = plus dur de produire qu'aujourd'hui (patineur : moins de buts ; gardien : plus de buts contre)
 const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.ere - 1 : x.ere - 1, v = Math.abs(Math.round(d * 100));
@@ -3287,6 +3292,23 @@ const MARCHE_PT = { tirs1: ["1 tir ou plus", "1+ shot"], tirs: ["2 tirs ou plus"
 const ptMarche = (m) => L(...(MARCHE_PT[m] || [NOM_MARCHE[m] || m, NOM_MARCHE[m] || m]));
 // Sur chaque image de probabilités du soir : on parle de chances, pas de conseils de pari (et 18+ comme au Québec)
 const pcTxt = (x) => pc1(x) + (EN ? "%" : " %");
+// « Partager le top 20 » des onglets What if, Salaires, Enforcers, Projections et Duos : on lit les 20 premières
+// lignes AFFICHÉES (donc avec le tri, le filtre et l'équipe choisis), le titre de la section et les filtres actifs.
+function ptListeTab(panel){
+  const p = document.getElementById(panel); if (!p) return;
+  const rows = [...p.querySelectorAll(".wi-l.wi-r")].slice(0, 20); if (rows.length < 3) return;
+  const txt = (el) => el ? [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(" ").trim() : "";
+  const k = "liste-" + panel;
+  const filtres = [...p.querySelectorAll('.ctrls .chip[aria-pressed="true"], .ctrls .peq[aria-pressed="true"]')].map(b => b.textContent.trim()).filter(Boolean);
+  const titre = p.querySelector(".cp-tete h2")?.textContent.trim() || "PuckProb";
+  ptReg(k, { titre, lib: filtres.join(" · ") || L("Le top 20", "The top 20"), sous: ptDate(), fichier: "top20-" + panel.replace("p-", ""),
+    texte: `${titre} : ${L("le top 20", "the top 20")}`,
+    liste: rows.map((r, i) => { const pl = r.querySelector(".wi-rond, .plaque"); const lib = r.querySelector(".v small")?.textContent.trim() || "";
+      return { rg: parseInt(txt(r.querySelector(".rg"))) || i + 1, nom: txt(r.querySelector(".nm")) || "?", no: pl?.querySelector("b")?.textContent || "",
+        pos: pl?.querySelector("i")?.textContent || "", coul: coul(r.dataset.c), sous: [r.dataset.c, lib.split(" · ")[0]].filter(Boolean).join(" · "),
+        gros: txt(r.querySelector(".v")) }; }) });
+  rows[0].insertAdjacentHTML("beforebegin", ptHaut(k, "Partager le top 20", "Share the top 20"));
+}
 // Bouton « Partager » au-dessus d'une liste (Coupe, trophées, classement) : même look que « Partager le top 5 »
 // (on remplace le texte du <span>, pas l'aria-label qui contient aussi « Partager »)
 const ptHaut = (k, fr, en) => `<div class="pt-top">${btnPartage(k, "pt-mini").replace(`<span>${L("Partager", "Share")}</span>`, `<span>${L(fr, en)}</span>`)}</div>`;
@@ -3361,6 +3383,23 @@ async function ptDessiner(info){
           g.fillText(v, x + cw - 8 - (r.vals.length - 1 - j) * 120, y + h * 0.76); });
       });
     });
+  } else if (info.liste){
+    // Top 20 : deux colonnes de 10 (rang, petite plaque, nom, équipe, le chiffre à droite)
+    const titre = String(info.titre || "").toUpperCase();
+    g.fillStyle = "#fff"; ptFit(g, titre, W - 120, "italic 800 {t}px 'Barlow Condensed'", 92, 40); g.fillText(titre, W / 2, 288);
+    const st = (info.lib + (info.sous ? " · " + info.sous : "")).toUpperCase();
+    g.fillStyle = "#F5B700"; ptFit(g, st, W - 120, "700 {t}px 'Barlow Condensed'", 50, 24); g.fillText(st, W / 2, 348);
+    const y0 = 392, bas = H - 140 - (info.avis ? 46 : 0), h = (bas - y0) / 10, cw = 480;
+    info.liste.slice(0, 20).forEach((r, i) => {
+      const x = 40 + Math.floor(i / 10) * (cw + 40), y = y0 + (i % 10) * h;
+      g.save(); g.globalAlpha = i % 2 ? 0.04 : 0.08; g.fillStyle = "#fff"; ptRond(g, x, y + 3, cw, h - 6, 10); g.fill(); g.restore();
+      g.fillStyle = r.coul; g.fillRect(x, y + 3, 6, h - 6);
+      g.textAlign = "left"; g.fillStyle = "#AFC3D9"; g.font = `italic 800 ${Math.round(h * 0.42)}px 'Barlow Condensed'`; g.fillText(String(r.rg ?? i + 1), x + 14, y + h * 0.64);
+      const cote = h * 0.66; ptPlaque(g, x + 82, y + (h - cote) / 2, cote, r.coul, r.no, r.pos);
+      g.textAlign = "left"; g.fillStyle = "#fff"; ptFit(g, String(r.nom).toUpperCase(), cw - 250, "italic 800 {t}px 'Barlow Condensed'", Math.round(h * 0.38), 16); g.fillText(String(r.nom).toUpperCase(), x + 130, y + h * 0.48);
+      g.fillStyle = "#AFC3D9"; ptFit(g, r.sous || "", cw - 250, "600 {t}px Barlow", Math.round(h * 0.24), 12); g.fillText(r.sous || "", x + 130, y + h * 0.8);
+      g.textAlign = "right"; g.fillStyle = "#F5B700"; ptFit(g, String(r.gros), 112, "italic 800 {t}px 'Barlow Condensed'", Math.round(h * 0.5), 18); g.fillText(String(r.gros), x + cw - 12, y + h * 0.66);
+    });
   } else if (info.top){
     // Top 5 (du soir, d'un trophée, de la Coupe...)
     const titre = String(info.titre || L("TOP 5 CE SOIR", "TOP 5 TONIGHT")).toUpperCase();
@@ -3421,7 +3460,7 @@ window.ppSocial = async (type, opt = {}) => {
   const pause = (ms) => new Promise(r => setTimeout(r, ms));
   const attendre = async (f, ms = 15000) => { for (let t = 0; t < ms; t += 200){ const v = f(); if (v) return v; await pause(200); } return null; };
   const hasard = opt.hasard ?? Math.random();
-  let k = null;
+  let k = null, choixId = null;
   if (type === "top"){
     const m = opt.marche || "tirs";
     S.famille = STAT[m]; CHOIX[S.famille] = m; S.match = "all"; S.pos = "all"; S.tri = "p";
@@ -3435,8 +3474,18 @@ window.ppSocial = async (type, opt = {}) => {
     $("#t-" + type)?.click();
     const lignes = await attendre(() => { const L0 = [...document.querySelectorAll(`#p-${type} .wi-l.wi-r`)]; return L0.length ? L0 : null; });
     if (!lignes) return null;
-    const top = lignes.slice(0, opt.top || 10);
-    top[Math.min(top.length - 1, Math.floor(hasard * top.length))].click();
+    // Jamais deux fois le même : social.py envoie les data-id déjà publiés (opt.exclure)
+    // (par le nom affiché : les numéros de ligne changent d'un jour à l'autre, pas les noms)
+    const nomDe = (r) => [...(r.querySelector(".nm")?.childNodes || [])].filter(n => n.nodeType === 3).map(n => n.textContent).join(" ").trim();
+    const exclure = new Set((opt.exclure || []).map(String));
+    const libres = lignes.filter(r => !exclure.has(nomDe(r)));
+    // Le top 10 d'abord ; s'ils sont tous déjà passés, on descend jusqu'au 30e
+    const top10 = libres.filter(r => lignes.indexOf(r) < (opt.top || 10));
+    const choisi = top10.length ? top10 : libres.slice(0, 30);
+    if (!choisi.length) return null;
+    const ligne = choisi[Math.min(choisi.length - 1, Math.floor(hasard * choisi.length))];
+    choixId = nomDe(ligne);
+    ligne.click();
     await attendre(() => PT.carte, 5000);
     document.querySelector("#wi-modal") && ($("#wi-modal").hidden = true);
     k = "carte";
@@ -3444,7 +3493,7 @@ window.ppSocial = async (type, opt = {}) => {
   const info = k && PT[k];
   if (!info) return null;
   const c = await ptDessiner(info);
-  return { type, image: c.toDataURL("image/jpeg", 0.92), info: JSON.parse(JSON.stringify(info)), date: D?.date || null };
+  return { type, id: choixId, image: c.toDataURL("image/jpeg", 0.92), info: JSON.parse(JSON.stringify(info)), date: D?.date || null };
 };
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.("[data-pt]"); if (!b) return;
@@ -3603,6 +3652,7 @@ async function salaires(){
      <p><b>Dollars.</b> Everyone is ranked by impact. The 1st gets the salary of the market's 1st contract, the 100th that of the 100th, and so on (today's market shape), then it's adjusted so the league spends its real total. That keeps realistic brackets: a handful of superstars, lots of players near the minimum.</p>`)}
     <table class="serre"><tbody>${F.map((f, i) => `<tr><td>${L(f[1], f[2])}</td><td>${f[0] ? mD(f[0]) + " +" : "–"}</td><td><b>${dist[i] ?? "–"}</b> ${L("joueurs", "players")}</td></tr>`).join("")}</tbody></table></details>`;
   el.innerHTML = tete + corps + regles + `<p class="aide">${L("Stats avancées : notre xG maison. Mis à jour le", "Advanced stats: our in-house xG. Updated")} ${SAL.maj}.</p>`;
+  ptListeTab("p-salaires");
 }
 function salLigne(x, mode = "top", i = null){
   const pos = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
@@ -3736,6 +3786,7 @@ async function enforcers(){
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces the enforcer against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
      <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
+  ptListeTab("p-enf");
 }
 // L'indice peur en % (part des patineurs qu'il dépasse) : la marque de commerce, en gros à droite
 // Cote sur 100 : son score ÷ celui du n° 1 (n° 1 = 100 %, 0 % = patineur moyen de la ligue)
@@ -3835,6 +3886,7 @@ async function projections(){
      <p><b>▲▼ and +/−</b>: places and projection since yesterday.</p>`)}</details>`;
   const lignes = ids.map(id => prjLigne(PRJ.joueurs[id], mode)).join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : feuilles de match de la LNH. Mis à jour le", "Source: NHL game sheets. Updated")} ${PRJ.maj}.</p>`;
+  ptListeTab("p-prj");
 }
 function prjLigne(x, mode){
   if (!x) return "";
@@ -3952,12 +4004,19 @@ async function duos(){
   const lignes = liste.map((x, i) => duoLigne(x, tri === "ch" ? x.rg : i + 1)).join("")
     || `<div class="card"><div class="vide">${L0.length ? L("Aucun duo trouvé.", "No duo found.") : L("Les duos se remplissent avec la récolte des matchs (version 8) : quelques calculs.", "Duos fill up as games are harvested (version 8): a few updates.")}</div></div>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
+  ptListeTab("p-duo");
 }
 function duoLigne(x, rg){
   const st = `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga} · ${duoBase()} ${pc0(x.pe)}`;
+  // Le gros chiffre suit le tri choisi (chimie, part ensemble, minutes, buts) et dit ce que c'est
+  const tri = S.duotri || "ch";
+  const [val, lib] = tri === "pe" ? [pc0(x.pe), L(`des ${duoBase()} ensemble`, `of ${duoBase()} together`)]
+    : tri === "min" ? [Math.round(x.min), L("min ensemble", "min together")]
+    : tri === "gf" ? [x.gf, L("buts ensemble", "goals together")]
+    : [pts1(x.ch), L("chimie", "chemistry")];
   return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="--eq:${coul(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
     <span class="nm">${duoNoms(x)}<small>${x.eq} · ${x.j.map(j => j[1]).join(", ")}</small><span class="wi-st">${st}</span></span>
-    <span class="v">${pts1(x.ch)}<small>${L("chimie", "chemistry")}</small></span></button>`;
+    <span class="v">${val}<small>${lib}</small></span></button>`;
 }
 function duoCarte(id){
   const mode = S.duo || "duos", x = duoListe(mode).find(d => d.id === id); if (!x) return;
