@@ -19,7 +19,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
 <link rel="apple-touch-icon" href="icone-180.png">
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
 /* Mise en page : tableau de bord une colonne pensé pour le cell, style tableau indicateur d'aréna.
@@ -1404,7 +1404,9 @@ function etatMatch(box){
 async function rafraichirLive(){
   let data = null;
   try {
-    const r = await fetch("live.json?v=" + Date.now());
+    // Site public : live.json est écrit à la racine du site par le job live. L'app française vit dans fr/ce-soir/
+    // avec <base href="../"> → un chemin relatif tombait sur /fr/live.json (404 : pas de pointages live en français).
+    const r = await fetch((PUBLIC ? "/" : "") + "live.json?v=" + Date.now());
     if (r.ok) data = await r.json();
   } catch (e) {}
   if (data?.date) ARCH[data.date] = { ...(ARCH[data.date] || {}), games: { ...(ARCH[data.date]?.games || {}), ...data.games } };
@@ -1573,7 +1575,10 @@ function liste(){
     const echelle = estTirs(m) ? 4 : 8;
     const barres = serie.map(x => `<i class="${x >= SEUIL[m] ? "ok" : ""}" style="height:${Math.min(22, 4 + x * echelle)}px"></i>`).join("");
     // Le détail des tirs est le même pour 1+, 2+, 3+ et 4+ (même courbe)
-    const det = estTirs(m) ? (j.pr.detail || pred(j, v, "tirs")?.detail) : j.pr.detail;
+    // Site public : on donne le résultat, pas la recette. Le détail public ne contient que toi/pp,
+    // donc on ne construit même pas le bloc « Pourquoi ce % » (sinon det.rate60.toFixed plante toute la liste).
+    const recette = !(PUBLIC && !PREMIUM);
+    const det = !recette ? null : estTirs(m) ? (j.pr.detail || pred(j, v, "tirs")?.detail) : j.pr.detail;
     let fx = "";
     if (det && estTirs(m)) fx = `
         ${PUBLIC ? `<p class="fx-intro">On part de son rythme de tirs, puis chaque facteur fait monter (+) ou baisser (−) ses chances par rapport à un match ordinaire. Le total devient une probabilité.</p>` : ""}<span>Tirs/60 : <b>${det.rate60.toFixed(1)}</b>${pourquoi(null, "", "", "Son rythme de tirs par 60 minutes, pondéré vers ses matchs récents et ramené vers la moyenne s'il a peu joué.")}</span>${det.r_sog != null ? `
@@ -1591,10 +1596,10 @@ function liste(){
         <span>Marqueur officiel de l'aréna : <b>${mult(det.f_rink)}</b>${pourquoi(det.f_rink, "Les marqueurs de cet aréna comptent plus de tirs que la moyenne.", "Les marqueurs de cet aréna comptent moins de tirs que la moyenne.")}</span>` : ""}${det.f_role != null ? `
         <span>Son rôle : <b>${mult(det.f_role)}</b>${pourquoi(det.f_role, "Les joueurs de son trio et de sa position tirent plus : ça compte quand ses propres données sont minces.", "Les joueurs de son trio et de sa position tirent moins : ça compte quand ses propres données sont minces.")}</span>` : ""}${det.f_phys != null ? `
         <span>Robustesse de ${j.opp} : <b>${mult(det.f_phys)}</b>${pourquoi(det.f_phys, `${j.opp} joue moins physique : plus d'espace.`, `${j.opp} joue physique : moins d'espace pour tirer.`)}</span>` : ""}`;
-    const detB = STAT[m] === "buts" ? (pred(j, v, "buts")?.detail || det) : null;
-    if (detB && m !== "buts") fx = `<span>Buts attendus : <b>${pred(j, v, m).lam.toFixed(2)}</b> (même calcul que « But », lu à ${SEUIL[m]}+)${pourquoi(null, "", "", `Avec cette moyenne de buts attendus, on calcule les chances d'en marquer ${SEUIL[m]} ou plus.`)}</span>`;
-    if (STAT[m] === "passes" && m !== "passes") fx = `<span>Passes attendues : <b>${pred(j, v, m).lam.toFixed(2)}</b> (lu à ${SEUIL[m]}+)</span>`;
-    if (STAT[m] === "pts") fx = `<span>Points attendus : <b>${pred(j, v, m).lam.toFixed(2)}</b> = buts attendus + passes attendues${pourquoi(null, "", "", "On additionne ses buts et ses passes attendus, puis on calcule les chances d'atteindre le seuil.")}</span>`;
+    const detB = recette && STAT[m] === "buts" ? (pred(j, v, "buts")?.detail || det) : null;
+    if (detB && m !== "buts" && pred(j, v, m)?.lam != null) fx = `<span>Buts attendus : <b>${pred(j, v, m).lam.toFixed(2)}</b> (même calcul que « But », lu à ${SEUIL[m]}+)${pourquoi(null, "", "", `Avec cette moyenne de buts attendus, on calcule les chances d'en marquer ${SEUIL[m]} ou plus.`)}</span>`;
+    if (recette && STAT[m] === "passes" && m !== "passes" && pred(j, v, m)?.lam != null) fx = `<span>Passes attendues : <b>${pred(j, v, m).lam.toFixed(2)}</b> (lu à ${SEUIL[m]}+)</span>`;
+    if (recette && STAT[m] === "pts" && pred(j, v, m)?.lam != null) fx = `<span>Points attendus : <b>${pred(j, v, m).lam.toFixed(2)}</b> = buts attendus + passes attendues${pourquoi(null, "", "", "On additionne ses buts et ses passes attendus, puis on calcule les chances d'atteindre le seuil.")}</span>`;
     if (det && m === "buts") fx = `
         ${pred(j, v, "tirs") ? `<span>Tirs attendus : <b>${pred(j, v, "tirs").lam.toFixed(1)}</b></span>` : ""}
         <span>% de ses tirs qui rentrent : <b>${(det.sh * 100).toFixed(1)} %</b>${pourquoi(null, "", "", "Son taux de réussite, ramené vers la moyenne : une séquence chanceuse ou malchanceuse finit toujours par s'équilibrer.")}</span>
@@ -2207,7 +2212,7 @@ async function chargerArchives(){
   const dates = [...new Set(actifs(lireBets()).filter(b => !b.final && b.date !== D.date).map(b => b.date))];
   await Promise.all(dates.filter(d => !ARCH[d]?.complet).map(async d => {
     try {
-      const r = await fetch(`live/${d}.json?v=${Date.now()}`);
+      const r = await fetch(`${PUBLIC ? "/" : ""}live/${d}.json?v=${Date.now()}`);
       if (r.ok) ARCH[d] = await r.json();
     } catch (e) {}
   }));
@@ -3833,11 +3838,11 @@ async function duos(){
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>À 5 contre 5 seulement.</b> C'est là que les trios et les paires jouent vraiment ensemble ; l'avantage numérique gonflerait ceux qui y jouent.</p>
      <p><b>La part.</b> ${duoBase()} pour ÷ (pour + contre) pendant qu'ils sont sur la glace. 50 % = autant pour que contre.</p>
-     <p><b>La chimie.</b> La part ensemble − la part de chacun SANS l'autre (moyenne). Ramenée vers 0 quand ils ont peu joué ensemble : × minutes ÷ (minutes + ${DUO.k}). Il faut ${DUO.min_duo} minutes ensemble pour un duo, ${DUO.min_trio} pour un trio, et 10 minutes de chacun sans l'autre.</p>
+     <p><b>La chimie.</b> La part ensemble − la part de chacun SANS l'autre (moyenne). Chaque part est d'abord ramenée vers 50 % selon ses minutes (× minutes ÷ (minutes + ${DUO.k})) : peu de temps ensemble ou peu de temps séparés, c'est encore de la chance. Il faut ${DUO.min_duo} minutes ensemble pour un duo, ${DUO.min_trio} pour un trio, et ${DUO.min_sans ?? 15} minutes de chacun sans l'autre.</p>
      <p><b>Dominent</b> : la part ensemble, peu importe s'ils font mieux séparés. <b>▲▼</b> : les places depuis hier.</p>`,
     `<p><b>5-on-5 only.</b> That's where lines and pairs really play together; the power play would inflate those who get it.</p>
      <p><b>The share.</b> ${duoBase()} for ÷ (for + against) while they're on the ice. 50% = as much for as against.</p>
-     <p><b>Chemistry.</b> The share together − each one's share WITHOUT the other (average). Pulled toward 0 when they've played little together: × minutes ÷ (minutes + ${DUO.k}). A duo needs ${DUO.min_duo} minutes together, a line ${DUO.min_trio}, and 10 minutes of each without the other.</p>
+     <p><b>Chemistry.</b> The share together − each one's share WITHOUT the other (average). Each share is first pulled toward 50% by its minutes (× minutes ÷ (minutes + ${DUO.k})): a little time together or a little time apart is still mostly luck. A duo needs ${DUO.min_duo} minutes together, a line ${DUO.min_trio}, and ${DUO.min_sans ?? 15} minutes of each without the other.</p>
      <p><b>Dominate</b>: the share together, whether or not they do better apart. <b>▲▼</b>: places since yesterday.</p>`)}</details>`;
   const lignes = liste.map((x, i) => duoLigne(x, tri === "ch" ? x.rg : i + 1)).join("")
     || `<div class="card"><div class="vide">${L0.length ? L("Aucun duo trouvé.", "No duo found.") : L("Les duos se remplissent avec la récolte des matchs (version 8) : quelques calculs.", "Duos fill up as games are harvested (version 8): a few updates.")}</div></div>`;
@@ -3861,8 +3866,8 @@ function duoCarte(id){
     <header><div class="wi-hd">${duoPlaques(x)}<div><b>${duoNoms(x)}</b><span>${mode === "trios" ? L("Trio", "Line") : "Duo"} ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${Math.round(x.min)} min ${L("ensemble à 5 c. 5", "together at 5-on-5")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt">
       <p><b>${L("Chimie : ", "Chemistry: ")}${pts1(x.ch)}.</b> ${L(
-        `Ensemble, ils ont ${pc0(x.pe)} des ${duoBase()} ; chacun sans l'autre, ${pc0(x.ps)} en moyenne. Écart brut : ${pts1((x.pe - x.ps) * 100)} points, ramené à ${pts1(x.ch)} pour ${Math.round(x.min)} minutes ensemble.`,
-        `Together, they get ${pc0(x.pe)} of the ${duoBase()}; each one without the other, ${pc0(x.ps)} on average. Raw gap: ${pts1((x.pe - x.ps) * 100)} points, pulled to ${pts1(x.ch)} for ${Math.round(x.min)} minutes together.`)}</p>
+        `Ensemble, ils ont ${pc0(x.pe)} des ${duoBase()} ; chacun sans l'autre, ${pc0(x.ps)} en moyenne. Écart brut : ${pts1((x.pe - x.ps) * 100)} points, ramené à ${pts1(x.ch)} une fois le hasard des petits échantillons enlevé (${Math.round(x.min)} minutes ensemble).`,
+        `Together, they get ${pc0(x.pe)} of the ${duoBase()}; each one without the other, ${pc0(x.ps)} on average. Raw gap: ${pts1((x.pe - x.ps) * 100)} points, pulled to ${pts1(x.ch)} once small-sample luck is taken out (${Math.round(x.min)} minutes together).`)}</p>
     </div>
     <div class="wi-tbl">${table}</div>
     <p>${L("Buts et tirs : pour-contre, à 5 contre 5. Part = pour ÷ (pour + contre).", "Goals and shots: for-against, at 5-on-5. Share = for ÷ (for + against).")}</p>
