@@ -58,6 +58,10 @@
   };
   const cssTheme = (t) => {
     const D = t.b1, eA = encre(t.acc, D), eB = encre(t.led, D);
+    // Un club choisi : sélecteur plus fort (#pp-z n'existe pas, il sert juste à gagner) que le mode sombre de l'app
+    // (:root:not([data-theme="light"]) dans @media prefers-color-scheme: dark), sinon les téléphones en mode sombre
+    // gardaient le bleu partout.
+    const sel = t.neutre || D === NEUTRE.b1 ? ":root,:root[data-theme]" : ":root:not(#pp-z)";
     const extra = t.neutre || D === NEUTRE.b1 ? "" : `
 .chip[aria-pressed="true"],.chip.big[aria-pressed="true"],.sv-btn,.lien-plus,.btn-main,.tag.reel{color:${eA}}
 .ticker .tk-lbl,.ticker .tk-tag.prob,header.bug .beta,.rk{color:${eB}}
@@ -65,7 +69,7 @@
 .ticker .tk-tag.blesse,.ticker .tk-tag.seche{background:${t.led};color:${eB}}
 .ticker .tk-it::before{background:${t.led}}`;
     return `
-:root,:root[data-theme]{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
+${sel}{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
   --bande:${D};--bande2:color-mix(in srgb,${D} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
   --rayure:transparent;color-scheme:dark}
 body{background:var(--bg) radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${D} 60%,transparent), transparent 60%) no-repeat fixed}
