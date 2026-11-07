@@ -119,9 +119,61 @@ def lire_gardiens(page_props):
     return out
 
 
+def _cle_nom(n):
+    return norm(n or "")
+
+
+def noms_lnh(roster):
+    """Roster de la LNH (api-web /roster/X/current) -> [(nom complet, nom de famille, numéro)]."""
+    out = []
+    for grp in ("forwards", "defensemen", "goalies"):
+        for p in (roster or {}).get(grp, []) or []:
+            pre = (p.get("firstName") or {}).get("default", "")
+            fam = (p.get("lastName") or {}).get("default", "")
+            if fam:
+                out.append((f"{pre} {fam}".strip(), fam, p.get("sweaterNumber")))
+    return out
+
+
+def nom_lnh(nom, no, lnh):
+    """Le nom DailyFaceoff -> le nom de la LNH (celui de nos données), sinon le même nom. Bug vu par Mitch : « Zack
+    Bolduc » (DFO) vs « Zachary Bolduc » (LNH) -> classé « pas dans l'alignement » alors qu'il jouait. Ordre :
+    nom exact ; même nom de famille (si deux, celui au même numéro) ; même numéro + même initiale du nom de famille."""
+    k = _cle_nom(nom)
+    if not k or not lnh:
+        return nom
+    for n, _f, _no in lnh:
+        if _cle_nom(n) == k:
+            return n
+    fam = k.split(" ")[-1]
+    pareils = [x for x in lnh if _cle_nom(x[1]).split(" ")[-1] == fam or _cle_nom(x[1]) == " ".join(k.split(" ")[1:])]
+    if len(pareils) == 1:
+        return pareils[0][0]
+    if len(pareils) > 1 and no is not None:
+        meme = [x for x in pareils if str(x[2]) == str(no)]
+        if len(meme) == 1:
+            return meme[0][0]
+    if no is not None:
+        meme = [x for x in lnh if str(x[2]) == str(no) and _cle_nom(x[1])[:1] == fam[:1]]
+        if len(meme) == 1:
+            return meme[0][0]
+    return nom
+
+
+def canoniser(eq, lnh):
+    """Renomme les joueurs d'un alignement d'équipe (joueurs + groupes) avec les noms de la LNH."""
+    if not lnh:
+        return eq
+    ren = {n: nom_lnh(n, (j or {}).get("no"), lnh) for n, j in eq.get("joueurs", {}).items()}
+    eq["joueurs"] = {ren[n]: j for n, j in eq["joueurs"].items()}
+    eq["groupes"] = {g: [ren.get(n, n) for n in l] for g, l in eq.get("groupes", {}).items()}
+    return eq
+
+
 def alignements_soir(equipes):
     """Trios + gardiens pour les équipes de ce soir. Une équipe qui plante n'empêche pas les autres."""
     out = {"maj": datetime.now(timezone.utc).isoformat(timespec="minutes"), "equipes": {}, "gardiens": {}}
+    lnh = {}
     for abbr in sorted(set(equipes)):
         slug = SLUG.get(abbr)
         if not slug:
@@ -133,11 +185,24 @@ def alignements_soir(equipes):
                 out["equipes"][abbr] = lire_trios(comb)
         except Exception as ex:  # noqa: BLE001
             print(f"  trios {abbr} : {str(ex)[:100]}")
+        # Les noms de DailyFaceoff ramenés aux noms de la LNH (Zack -> Zachary Bolduc...)
+        try:
+            import nhl_api
+            lnh[abbr] = noms_lnh(nhl_api.roster(abbr))
+            if abbr in out["equipes"]:
+                canoniser(out["equipes"][abbr], lnh[abbr])
+        except Exception as ex:  # noqa: BLE001
+            print(f"  roster {abbr} : {str(ex)[:100]}")
     try:
         nd = _next_data(_texte(DFO_GARDIENS))
         out["gardiens"] = lire_gardiens((nd or {}).get("props", {}).get("pageProps", {}) or {})
     except Exception as ex:  # noqa: BLE001
         print(f"  gardiens : {str(ex)[:100]}")
+    # Gardiens : nom de la LNH et numéro (pour la plaque)
+    for abbr, g in out["gardiens"].items():
+        L = lnh.get(abbr) or []
+        g["nom"] = nom_lnh(g.get("nom"), None, L)
+        g["no"] = next((no for n, _f, no in L if n == g["nom"]), None)
     return out
 
 
