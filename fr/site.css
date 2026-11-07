@@ -124,6 +124,12 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
 .sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
 .sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
+.sv-g{margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
+.sv-svg{width:100%;height:auto;display:block;color:var(--muted)}
+.sv-leg{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.sv-ch{font:800 10.5px/1 var(--f-display);padding:5px 6px;min-width:34px;border-radius:6px;border:1.5px solid var(--eq);background:var(--eq);color:#fff;cursor:pointer}
+.sv-ch[aria-pressed="false"]{background:transparent;color:var(--muted);border-color:var(--line)}
+.sv-ch.ctl{background:var(--chip);color:var(--ink);border-color:var(--line)}
 .sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
 .sv-champ{font:italic 800 22px/1.1 var(--f-display);text-transform:uppercase;text-align:center;margin:12px 0 4px;padding:12px;border-radius:8px;color:#fff;background:var(--eq)}
 /* Graphique de la saison dans la fiche Projections */

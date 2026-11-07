@@ -150,6 +150,12 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-r.in{background:color-mix(in srgb,var(--good) 10%,transparent)} .sv-r .p{font-weight:800;text-align:right}
 .sv-r .t{font:800 10px/1 var(--f-display);color:#fff;background:var(--eq);border-radius:8px;text-align:center;padding:3px 0}
 .sv-date{font:700 13px/1 var(--f-body);color:var(--muted);margin:0 0 8px}
+.sv-g{margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px}
+.sv-svg{width:100%;height:auto;display:block;color:var(--muted)}
+.sv-leg{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.sv-ch{font:800 10.5px/1 var(--f-display);padding:5px 6px;min-width:34px;border-radius:6px;border:1.5px solid var(--eq);background:var(--eq);color:#fff;cursor:pointer}
+.sv-ch[aria-pressed="false"]{background:transparent;color:var(--muted);border-color:var(--line)}
+.sv-ch.ctl{background:var(--chip);color:var(--ink);border-color:var(--line)}
 .sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
 .sv-champ{font:italic 800 22px/1.1 var(--f-display);text-transform:uppercase;text-align:center;margin:12px 0 4px;padding:12px;border-radius:8px;color:#fff;background:var(--eq)}
 /* Graphique de la saison dans la fiche Projections */
@@ -905,7 +911,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:74.4%"></i></span></td></tr><tr><td><a href="joueurs/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:74.2%"></i></span></td></tr><tr><td><a href="joueurs/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">53 %</span><span class="rp-barre"><i style="width:70.9%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,6 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,5 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,4 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>35 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>79 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>81 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>57 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>45 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>45 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>56 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,6 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,5 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,4 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>34 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>79 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>81 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>56 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>45 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>45 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>56 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -3692,7 +3698,7 @@ document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaire
 let ENF = null, ENF_ch = false;
 // Les 5 classements : l'indice peur (le mélange) et chacun des 4 morceaux, chacun avec sa cote sur 100
 const ENF_MODES = { score: ["Indice peur", "Fear index"], combats: ["Combats", "Fights"], frappes: ["Mises en échec", "Hits"],
-  penalites: ["Pénalités qui font mal", "Painful penalties"], chaos: ["Chaos", "Chaos"], badass: ["Badass", "Badass"] };
+  penalites: ["Pénalités qui font mal", "Painful penalties"], chaos: ["Chaos", "Chaos"], badass: ["Badassness", "Badassness"] };
 const pcS = (v) => { if (v == null) return "–"; const r = Math.round(v * 100); return (r > 0 ? "+" : r < 0 ? "−" : "") + Math.abs(r) + (EN ? "%" : " %"); };
 async function enforcers(){
   const el = $("#enf");
@@ -3718,17 +3724,17 @@ async function enforcers(){
   const W = ENF.poids || {};
   const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badass</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
+    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
      <p><b>Les 5 classements</b> : l'indice peur (le mélange des quatre) ou un seul morceau ; chaque morceau a aussi sa cote sur 100, le n° 1 de la catégorie à 100 %.</p>
      <p><b>Indice peur</b> : une cote sur 100. Son score divisé par celui du n° 1 : le n° 1 est à 100 %, un joueur à +8 quand le n° 1 est à +10 est à 80 %. 0 % = le patineur moyen de la ligue (20 matchs et plus).</p>
-     <p><b>Badass</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la LNH, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
+     <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la LNH, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
      <p><b>Chaos</b> : quand il est sur la glace, est-ce que ça brasse plus, toutes équipes confondues ? Combats, mises en échec, pénalités et mêlées (des pénalités aux deux équipes au même moment) avec lui sur la glace, contre ce qu'on attendrait au rythme de quand il est au banc, dans les mêmes matchs. Chaque écart est tiré vers 0 quand l'échantillon est petit.</p>
      <p><b>Effet peur</b> (affiché dans la fiche, plus dans le score : trop bruité, il récompensait des joueurs offensifs) : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il affronte l'enforcer contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. Ensuite, deux garde-fous : chaque mesure est tirée vers 0 quand l'échantillon est petit, et l'effet peur ne compte qu'en proportion de sa réputation physique. Un défenseur offensif que l'adversaire frappe peu parce que son équipe a la rondelle ne fait pas peur pour autant : sans réputation physique, son effet peur compte pour 0.</p>
      <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats.</p>`,
-    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badass</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
+    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
      <p><b>The 5 rankings</b>: the fear index (the blend of all four) or a single part; each part also has its rating out of 100, the category's #1 at 100%.</p>
      <p><b>Fear index</b>: a rating out of 100. His score divided by the #1's: the #1 is at 100%, a player at +8 when the #1 is at +10 is at 80%. 0% = the league's average skater (20+ games).</p>
-     <p><b>Badass</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from NHL bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
+     <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from NHL bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
      <p><b>Chaos</b>: when he's on the ice, does it get rowdier, both teams combined? Fights, hits, penalties and scrums (penalties to both teams at the same moment) with him on the ice, against what we'd expect at the pace of when he's on the bench, in the same games. Each difference is pulled toward 0 when the sample is small.</p>
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces the enforcer against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
      <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
@@ -3764,7 +3770,7 @@ function enfCarte(id){
     [L("Mises en échec", "Hits"), `${n1(x.fr60)}/60`, "frappes"],
     [L("Pén. qui font mal", "Painful pen."), `${x.pen ?? 0} · ${n1(x.pen82)}/82`, "penalites"],
     ["Chaos", pcS(x.chaos), "chaos"],
-    ["Badass", `${x.padv > 0 ? "+" : ""}${n1(x.padv || 0)} lb`, "badass"]]
+    ["Badassness", `${x.padv > 0 ? "+" : ""}${n1(x.padv || 0)} lb`, "badass"]]
     .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${pcIdx(x.r?.[k])}${x.rk?.[k] ? ` <small>(${rangFr(x.rk[k])})</small>` : ""}</td></tr>`).join("");
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
@@ -3774,7 +3780,7 @@ function enfCarte(id){
       <p><b>${L("Indice peur : ", "Fear index: ")}${pcIdx(x.pct)}.</b> ${L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
       <div class="wi-tbl"><table class="wi-car"><thead><tr><th>${L("Morceau (poids)", "Part (weight)")}</th><th>${L("Lui", "Him")}</th><th>${L("Cote", "Rating")}</th></tr></thead><tbody>${rangs}</tbody></table></div>
       <p>${L("Cote : sur 100 dans chaque catégorie, le n° 1 de la catégorie à 100 %, le patineur moyen à 0 %. Entre parenthèses : son rang dans la ligue.", "Rating: out of 100 in each category, the category's #1 at 100%, the average skater at 0%. In brackets: his league rank.")}</p>
-      <p><b>Badass.</b> ${x.recu60 == null ? L("En attente de la nouvelle récolte (prochain calcul complet).", "Waiting for the new harvest (next full calculation).") : L(
+      <p><b>Badassness.</b> ${x.recu60 == null ? L("En attente de la nouvelle récolte (prochain calcul complet).", "Waiting for the new harvest (next full calculation).") : L(
         `${x.nf ? `En ${x.nf} combat${x.nf > 1 ? "s" : ""}, ses adversaires pesaient en moyenne ${x.padv > 0 ? "+" : ""}${n1(x.padv)} lb par rapport à lui${x.poids ? ` (${x.poids} lb)` : ""}` : "Aucun combat contre un adversaire dont on connaît le poids"}. Il encaisse ${n1(x.recu60)} mises en échec et bloque ${n1(x.blocs60)} tirs par 60 minutes.`,
         `${x.nf ? `In ${x.nf} fight${x.nf > 1 ? "s" : ""}, his opponents weighed on average ${x.padv > 0 ? "+" : ""}${n1(x.padv)} lb compared with him${x.poids ? ` (${x.poids} lb)` : ""}` : "No fight against an opponent of known weight"}. He takes ${n1(x.recu60)} hits and blocks ${n1(x.blocs60)} shots per 60 minutes.`)}</p>
       <p><b>Chaos${L(" : ", ": ")}${pcS(x.chaos)}.</b> ${L("Quand il est sur la glace, toutes équipes confondues, contre ce qu'on attendrait au rythme de quand il est au banc :", "While he's on the ice, both teams, against what we'd expect at the pace of when he's on the bench:")}</p>
@@ -4017,6 +4023,46 @@ function simBouton(){
   return `<button type="button" class="sv-btn" id="sv-go">${L("Simuler la fin de saison", "Simulate the rest of the season")}</button><div class="sv" id="sv"></div>`;
 }
 let SV_T = null;
+// Le graphique « live » de la saison simulée : les points de chaque équipe, jour après jour, qui se dessinent pendant
+// la simulation. SV_SEL = les équipes cochées (toutes par défaut, gardé d'une simulation à l'autre).
+let SV_H = null, SV_SEL = null;
+function svLegende(){
+  const el = $("#sv-leg"); if (!el || !SV_H) return;
+  const mc = window.ppClub?.() || "";
+  const eqs = Object.keys(SV_H.pts).sort((a, b) => (b === mc) - (a === mc) || a.localeCompare(b));
+  el.innerHTML = `<button type="button" class="sv-ch ctl" data-svc="tout">${L("Toutes", "All")}</button><button type="button" class="sv-ch ctl" data-svc="aucune">${L("Aucune", "None")}</button>`
+    + `<button type="button" class="sv-ch ctl" data-svc="E">${L("Est", "East")}</button><button type="button" class="sv-ch ctl" data-svc="W">${L("Ouest", "West")}</button>`
+    + eqs.map(t => `<button type="button" class="sv-ch" data-sv="${t}" aria-pressed="${SV_SEL.has(t)}" style="--eq:${coul(t)}">${t}</button>`).join("");
+}
+function svGraph(){
+  const g = $("#sv-svg"); if (!g || !SV_H) return;
+  const W = 600, H = 320, pl = 30, pr = 36, pt = 10, pb = 22, mc = window.ppClub?.() || "";
+  const eqs = Object.keys(SV_H.pts).filter(t => SV_SEL.has(t));
+  const vals = (eqs.length ? eqs : Object.keys(SV_H.pts)).flatMap(t => SV_H.pts[t]);
+  const haut = Math.max(...vals, ...(eqs.length ? eqs : Object.keys(SV_H.pts)).map(t => SV_H.haut?.[t] || 0));
+  const ymin = Math.floor(Math.min(...vals) / 10) * 10, ymax = Math.max(ymin + 10, Math.ceil(haut / 10) * 10);
+  const X = (k) => pl + k / Math.max(1, SV_H.n) * (W - pl - pr), Y = (v) => pt + (1 - (v - ymin) / (ymax - ymin)) * (H - pt - pb);
+  const pasY = ymax - ymin > 60 ? 20 : 10;
+  let grille = "";
+  for (let v = ymin; v <= ymax; v += pasY) grille += `<line x1="${pl}" x2="${W - pr}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="currentColor" stroke-opacity=".18"/><text x="${pl - 4}" y="${(Y(v) + 3.5).toFixed(1)}" font-size="10" text-anchor="end" fill="currentColor">${v}</text>`;
+  const fin = SV_H.x.at(-1);
+  // Ton club par-dessus les autres, plus épais
+  const ordre = eqs.slice().sort((a, b) => (a === mc) - (b === mc));
+  const lignes = ordre.map(t => `<polyline points="${SV_H.pts[t].map((v, k) => `${X(SV_H.x[k]).toFixed(1)},${Y(v).toFixed(1)}`).join(" ")}" fill="none" stroke="${coul(t)}" stroke-width="${t === mc ? 3.2 : 1.7}" stroke-linejoin="round" stroke-linecap="round"><title>${t}</title></polyline>`).join("");
+  // Le nom au bout de la ligne quand il n'y en a pas trop (sinon ça devient illisible)
+  const etiq = eqs.length <= 10 ? eqs.map(t => `<text x="${(X(fin) + 3).toFixed(1)}" y="${(Y(SV_H.pts[t].at(-1)) + 3.5).toFixed(1)}" font-size="10" font-weight="800" fill="${coul(t)}">${t}</text>`).join("") : "";
+  g.innerHTML = `${grille}<line x1="${pl}" x2="${W - pr}" y1="${H - pb}" y2="${H - pb}" stroke="currentColor" stroke-opacity=".4"/>`
+    + `<text x="${pl}" y="${H - 6}" font-size="10" fill="currentColor">${L("Aujourd'hui", "Today")}</text><text x="${W - pr}" y="${H - 6}" font-size="10" text-anchor="end" fill="currentColor">${L("Fin de saison", "End of season")}</text>${lignes}${etiq}`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.("[data-sv],[data-svc]"); if (!b || !SV_H) return;
+  const toutes = Object.keys(SV_H.pts);
+  if (b.dataset.sv){ SV_SEL.has(b.dataset.sv) ? SV_SEL.delete(b.dataset.sv) : SV_SEL.add(b.dataset.sv); }
+  else if (b.dataset.svc === "tout") SV_SEL = new Set(toutes);
+  else if (b.dataset.svc === "aucune") SV_SEL = new Set();
+  else SV_SEL = new Set(toutes.filter(t => D.coupe.equipes.find(x => x.t === t)?.conf === b.dataset.svc));
+  svLegende(); svGraph();
+});
 function simSaison(vite){
   const C = D.coupe, V = C.sim_vis, el = $("#sv"); if (!el) return;
   clearTimeout(SV_T);
@@ -4032,6 +4078,13 @@ function simSaison(vite){
   const ecart = () => { let r = Math.random(); for (const [m, p] of ECARTS){ if ((r -= p) < 0) return m; } return 1; };
   const pV = (h, a) => 1 / (1 + 10 ** (-(E[h].f + V.hfa - E[a].f) / 400));
   const jours = []; for (const [d, h, a] of V.reste){ if (!E[h] || !E[a]) continue; if (!jours.length || jours.at(-1)[0] !== d) jours.push([d, []]); jours.at(-1)[1].push([h, a]); }
+  // haut : jusqu'où une équipe peut raisonnablement monter (~1,45 pt par match restant) : l'axe ne saute pas pendant la simulation
+  const reste = {}; for (const [, h, a] of V.reste){ reste[h] = (reste[h] || 0) + 1; reste[a] = (reste[a] || 0) + 1; }
+  SV_H = { n: jours.length, x: [0], pts: Object.fromEntries(Object.keys(E).map(t => [t, [E[t].pts]])),
+           haut: Object.fromEntries(Object.keys(E).map(t => [t, E[t].pts + 1.45 * (reste[t] || 0)])) };
+  if (!SV_SEL) SV_SEL = new Set(Object.keys(E));            // toutes cochées par défaut
+  el.innerHTML = `<div class="sv-g"><svg class="sv-svg" id="sv-svg" viewBox="0 0 600 320" role="img" aria-label="${L("Points de chaque équipe pendant la saison simulée", "Every team's points during the simulated season")}"></svg><div class="sv-leg" id="sv-leg"></div></div><div id="sv-tab"></div>`;
+  svLegende();
   const cle = (t) => [E[t].pts, E[t].rw];
   const tri = (L2) => L2.slice().sort((x, y) => E[y].pts - E[x].pts || E[y].rw - E[x].rw);
   // Qui fait les séries (vrai format : 3 premiers de chaque division + 2 meilleurs as par association)
@@ -4050,7 +4103,7 @@ function simSaison(vite){
           <span class="f">${E[t].v}-${E[t].d}-${E[t].dp}</span><span class="p">${E[t].pts}</span>
           <span class="bp">${E[t].bp}-${E[t].bc} <b>${E[t].bp - E[t].bc > 0 ? "+" : ""}${E[t].bp - E[t].bc}</b></span></div>`).join("")}</div>`;
     }).join("");
-    el.innerHTML = `<p class="sv-date">${d ? new Date(d + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : ""}</p><div class="sv-cols">${cols}</div><div id="sv-po"></div>`;
+    $("#sv-tab").innerHTML = `<p class="sv-date">${d ? new Date(d + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : ""}</p><div class="sv-cols">${cols}</div><div id="sv-po"></div>`;
   };
   const serie = (a, b) => {          // a = avantage de la glace ; matchs 1, 2, 5, 7 chez a
     let wa = 0, wb = 0;
@@ -4090,8 +4143,11 @@ function simSaison(vite){
         else { E[g].rw++; E[p].d++; bpp = poisson(2.1); bg = bpp + ecart(); }
         E[g].bp += bg; E[g].bc += bpp; E[p].bp += bpp; E[p].bc += bg;
       }
+      SV_H.x.push(i + 1);                                       // un point par jour dans le graphique
+      for (const t in SV_H.pts) SV_H.pts[t].push(E[t].pts);
     }
     dessiner(jours[Math.min(i, jours.length) - 1]?.[0]);
+    svGraph();
     if (i < jours.length) SV_T = setTimeout(pas, 100); else series();
   };
   pas();
