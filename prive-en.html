@@ -118,7 +118,7 @@ nav.menu::-webkit-scrollbar{display:none}
 @keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}}
 /* What if : liste + dos de carte de hockey */
-#wi-q,#sal-q,#enf-q,#prj-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q,#duo-q,#enf-q,#prj-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 /* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
@@ -631,16 +631,19 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .pt-btn{display:inline-flex;align-items:center;gap:5px;margin-left:auto;padding:6px 10px;border-radius:16px;border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.1);color:#fff;font:800 12px/1 var(--f-display);text-transform:uppercase;letter-spacing:.04em;cursor:pointer;white-space:nowrap}
 .pt-mini{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:700 11px/1 var(--f-body);cursor:pointer;white-space:nowrap}
 .pt-top{display:flex;justify-content:flex-end;margin:0 0 8px}
+.wi-l.duo-j{grid-template-columns:26px auto minmax(0,1fr) auto}
+.duo-pl{display:flex;flex:none;gap:3px} .duo-pl .wi-rond{width:30px;height:38px} .duo-pl .wi-rond b{font-size:14px} .duo-pl .wi-rond i{font-size:7.5px}
+.wi-hd .duo-pl .wi-rond{width:34px;height:44px} .wi-carte header .wi-hd .duo-pl .wi-rond b{font-size:15px} .wi-carte header .wi-hd span.duo-pl.duo-pl.duo-pl{display:flex}
 .wi-carte header{position:relative}
-.wi-carte header .pt-btn{flex:none;margin:0 40px 0 auto;padding:8px;border-radius:50%} .wi-carte header .pt-btn span{display:none}
+.wi-carte header .pt-btn{flex:none;margin:0 0 0 auto;padding:8px;border-radius:50%} .wi-carte header .pt-btn span{display:none}
 .pt-attente{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:70;background:#0A2342;color:#fff;padding:9px 14px;border-radius:18px;font:700 13px var(--f-body);box-shadow:0 6px 20px rgba(0,0,0,.35)}
 /* ---- Version ordinateur (écran de 1100 px et plus) : plus large, listes sur deux colonnes, fiches en panneau à droite.
    Rien ne change sur cell ni sur tablette en portrait. ---- */
 @media (min-width:1100px){
   .wrap{max-width:1240px}
   nav.menu{justify-content:center}
-  #whatif,#salaires,#enf,#prj,#matchs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px;align-items:start}
-  #whatif>:not(.wi-l),#salaires>:not(.wi-l),#enf>:not(.wi-l),#prj>:not(.wi-l),#matchs>:not(.m){grid-column:1/-1}
+  #whatif,#salaires,#enf,#prj,#duo,#matchs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:14px;align-items:start}
+  #whatif>:not(.wi-l),#salaires>:not(.wi-l),#enf>:not(.wi-l),#prj>:not(.wi-l),#duo>:not(.wi-l),#matchs>:not(.m){grid-column:1/-1}
   #liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:0}
   #liste>:not(.j){grid-column:1/-1}
   #liste>.j:nth-of-type(even){border-left:1px solid var(--line)}
@@ -678,6 +681,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-salaires" aria-selected="false" aria-controls="p-salaires">Salaires</button>
     <button role="tab" id="t-enf" aria-selected="false" aria-controls="p-enf">Enforcers</button>
     <button role="tab" id="t-prj" aria-selected="false" aria-controls="p-prj">Projections</button>
+    <button role="tab" id="t-duo" aria-selected="false" aria-controls="p-duo">Duos</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -768,6 +772,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
       <input id="prj-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
     </div><div id="fe-prj"></div></div>
     <div id="prj"></div>
+  </section>
+  <section id="p-duo" role="tabpanel" aria-labelledby="t-duo" hidden>
+    <div class="ctrls"><div class="row" id="f-duo"></div><div class="row" id="f-duo-tri"></div><div class="row">
+      <input id="duo-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
+    </div><div id="fe-duo"></div></div>
+    <div id="duo"></div>
   </section>
   <div id="wi-modal" class="wi-modal" hidden></div>
 
@@ -879,18 +889,18 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:73.1%"></i></span></td></tr><tr><td><a href="players/leo-carlsson/">Leo Carlsson</a><br><span class="rp-note">ANA @ CGY</span></td>
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.8%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
 <td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.7%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.6%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">74%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA @ CGY</span></td>
+<td class="rp-n"><span class="rp-p">65%</span><span class="rp-barre"><i style="width:72.6%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>3+ shots</h3><table><tbody><tr><td><a href="players/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA @ CGY</span></td>
+<td class="rp-n"><span class="rp-p">74%</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">74%</span><span class="rp-barre"><i style="width:99.9%"></i></span></td></tr><tr><td><a href="players/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.8%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:95.8%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">70%</span><span class="rp-barre"><i style="width:94.8%"></i></span></td></tr><tr><td><a href="players/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS @ MIN</span></td>
-<td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:90.2%"></i></span></td></tr><tr><td><a href="players/zach-werenski/">Zach Werenski</a><br><span class="rp-note">CBJ @ BUF</span></td>
-<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:75.5%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.7%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
-<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.7%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
-<td class="rp-n"><span class="rp-p">53%</span><span class="rp-barre"><i style="width:70.9%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.6%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>34%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>56%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>45%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>45%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>56%</b></li></ul></div>
+<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:96.2%"></i></span></td></tr><tr><td><a href="players/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">71%</span><span class="rp-barre"><i style="width:96.0%"></i></span></td></tr><tr><td><a href="players/joel-eriksson-ek/">Joel Eriksson Ek</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">70%</span><span class="rp-barre"><i style="width:94.2%"></i></span></td></tr><tr><td><a href="players/macklin-celebrini/">Macklin Celebrini</a><br><span class="rp-note">SJS @ MIN</span></td>
+<td class="rp-n"><span class="rp-p">67%</span><span class="rp-barre"><i style="width:90.3%"></i></span></td></tr><tr><td><a href="players/zach-werenski/">Zach Werenski</a><br><span class="rp-note">CBJ @ BUF</span></td>
+<td class="rp-n"><span class="rp-p">57%</span><span class="rp-barre"><i style="width:76.8%"></i></span></td></tr><tr><td><a href="players/quinn-hughes/">Quinn Hughes</a><br><span class="rp-note">MIN vs SJS</span></td>
+<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:74.8%"></i></span></td></tr><tr><td><a href="players/rasmus-dahlin/">Rasmus Dahlin</a><br><span class="rp-note">BUF vs CBJ</span></td>
+<td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:74.3%"></i></span></td></tr><tr><td><a href="players/jack-quinn/">Jack Quinn</a><br><span class="rp-note">BUF vs CBJ</span></td>
+<td class="rp-n"><span class="rp-p">53%</span><span class="rp-barre"><i style="width:71.0%"></i></span></td></tr></tbody></table></div></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.6%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.6%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23FF4C00%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.5%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>34%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>56%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>59%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>45%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>45%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>55%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -2923,7 +2933,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections() })[cle]?.();
+  ({ fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -3572,7 +3582,7 @@ document.addEventListener("click", (e) => {
   const c = e.target.closest?.("#f-sal .chip");
   if (c){ S.sal = c.dataset.v; document.querySelectorAll("#f-sal .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#sal-q").value = ""; salaires(); }
 });
-document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaires(); if (e.target.id === "enf-q") enforcers(); if (e.target.id === "prj-q") projections(); });
+document.addEventListener("input", (e) => { if (e.target.id === "sal-q") salaires(); if (e.target.id === "enf-q") enforcers(); if (e.target.id === "prj-q") projections(); if (e.target.id === "duo-q") duos(); });
 
 // ---- Enforcers : le joueur qui fait le plus peur (src/physique.py) ------------------------------------------
 // Score = moitié combats par 82 matchs, moitié « effet peur » : l'adversaire frappe-t-il moins quand il est sur la glace ?
@@ -3791,6 +3801,80 @@ document.addEventListener("click", (e) => {
   if (c){ S.prj = c.dataset.v; document.querySelectorAll("#f-prj .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); projections(); }
 });
 
+// ---- Duos et trios (src/duos.py) : les coéquipiers qui produisent plus ENSEMBLE que séparés, à 5 contre 5 ---------
+let DUO = null, DUO_ch = false;
+const DUO_TRIS = { ch: ["Chimie", "Chemistry"], pe: ["Dominent", "Dominate"], min: ["Le plus ensemble", "Most together"], gf: ["Buts ensemble", "Goals together"] };
+const duoBase = () => DUO?.base === "xg" ? "xG" : L("tirs cadrés", "shots on goal");
+const pts1 = (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(1).replace(".", EN ? "." : ",");
+const pc0 = (v) => v == null ? "–" : Math.round(v * 100) + (EN ? "%" : " %");
+const duoNoms = (x) => x.j.map(j => j[1].split(" ").slice(-1)[0]).join(" + ");
+const duoPlaques = (x) => `<span class="duo-pl">${x.j.map(j => `<span class="wi-rond" style="--eq:${coul(x.eq)}">${plaqueIn(j[2], j[1], j[3])}</span>`).join("")}</span>`;
+async function duos(){
+  const el = $("#duo");
+  if (!DUO){
+    if (DUO_ch) return;
+    DUO_ch = true;
+    el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`;
+    try { DUO = await (await fetch("duos.json?v=" + (D?.date || Date.now()))).json(); if (!DUO.duos) throw 0; }
+    catch (e) { DUO = null; DUO_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les duos arrivent au prochain calcul.", "Duos arrive with the next update.")}</div></div>`; return; }
+  }
+  const mode = S.duo || "duos", tri = S.duotri || "ch", q = nrm($("#duo-q").value), feq = S.fe_duo || "";
+  $("#f-duo").innerHTML = [["duos", L("Duos", "Duos")], ["trios", L("Trios", "Lines")]].map(([k, n]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === mode}">${n}</button>`).join("");
+  $("#f-duo-tri").innerHTML = `<span class="lbl">${L("Trier", "Sort")}</span>` + Object.entries(DUO_TRIS).map(([k, n]) => `<button class="chip" data-tri="${k}" aria-pressed="${k === tri}">${L(...n)}</button>`).join("");
+  const L0 = DUO[mode] || [];
+  $("#fe-duo").innerHTML = filtreEqHTML("fe_duo", [...new Set(L0.map(x => x.eq))].filter(Boolean).sort());
+  const cleTri = { ch: (x) => -x.ch, pe: (x) => -x.pe, min: (x) => -x.min, gf: (x) => -x.gf }[tri];
+  const liste = L0.filter(x => (!feq || x.eq === feq) && (q.length < 2 || x.j.some(j => nrm(j[1]).includes(q)))).sort((a, b) => cleTri(a) - cleTri(b)).slice(0, 60);
+  const tete = `<div class="cp-tete"><h2>${mode === "trios" ? L("Les trios", "The lines") : L("Les duos", "The duos")}</h2><p>${L(
+    `Les coéquipiers qui font mieux ENSEMBLE que séparés, à 5 contre 5. La chimie : la part des ${duoBase()} qui vont du bon bord quand ils sont sur la glace ensemble, moins la même part quand chacun joue sans l'autre. +8 = ils contrôlent 8 points de % de plus ensemble. Touche un ${mode === "trios" ? "trio" : "duo"} pour le détail.`,
+    `Teammates who do better TOGETHER than apart, at 5-on-5. Chemistry: the share of ${duoBase()} going the right way when they're on the ice together, minus that same share when each one plays without the other. +8 = they control 8 more percentage points together. Tap a ${mode === "trios" ? "line" : "duo"} for the details.`)}</p></div>`;
+  const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
+    `<p><b>À 5 contre 5 seulement.</b> C'est là que les trios et les paires jouent vraiment ensemble ; l'avantage numérique gonflerait ceux qui y jouent.</p>
+     <p><b>La part.</b> ${duoBase()} pour ÷ (pour + contre) pendant qu'ils sont sur la glace. 50 % = autant pour que contre.</p>
+     <p><b>La chimie.</b> La part ensemble − la part de chacun SANS l'autre (moyenne). Ramenée vers 0 quand ils ont peu joué ensemble : × minutes ÷ (minutes + ${DUO.k}). Il faut ${DUO.min_duo} minutes ensemble pour un duo, ${DUO.min_trio} pour un trio, et 10 minutes de chacun sans l'autre.</p>
+     <p><b>Dominent</b> : la part ensemble, peu importe s'ils font mieux séparés. <b>▲▼</b> : les places depuis hier.</p>`,
+    `<p><b>5-on-5 only.</b> That's where lines and pairs really play together; the power play would inflate those who get it.</p>
+     <p><b>The share.</b> ${duoBase()} for ÷ (for + against) while they're on the ice. 50% = as much for as against.</p>
+     <p><b>Chemistry.</b> The share together − each one's share WITHOUT the other (average). Pulled toward 0 when they've played little together: × minutes ÷ (minutes + ${DUO.k}). A duo needs ${DUO.min_duo} minutes together, a line ${DUO.min_trio}, and 10 minutes of each without the other.</p>
+     <p><b>Dominate</b>: the share together, whether or not they do better apart. <b>▲▼</b>: places since yesterday.</p>`)}</details>`;
+  const lignes = liste.map((x, i) => duoLigne(x, tri === "ch" ? x.rg : i + 1)).join("")
+    || `<div class="card"><div class="vide">${L0.length ? L("Aucun duo trouvé.", "No duo found.") : L("Les duos se remplissent avec la récolte des matchs (version 8) : quelques calculs.", "Duos fill up as games are harvested (version 8): a few updates.")}</div></div>`;
+  el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
+}
+function duoLigne(x, rg){
+  const st = `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga} · ${duoBase()} ${pc0(x.pe)}`;
+  return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="--eq:${coul(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
+    <span class="nm">${duoNoms(x)}<small>${x.eq} · ${x.j.map(j => j[1]).join(", ")}</small><span class="wi-st">${st}</span></span>
+    <span class="v">${pts1(x.ch)}<small>${L("chimie", "chemistry")}</small></span></button>`;
+}
+function duoCarte(id){
+  const mode = S.duo || "duos", x = (DUO?.[mode] || []).find(d => d.id === id); if (!x) return;
+  const b = DUO.base === "xg", F = b ? "xf" : "sf", A = b ? "xa" : "sa";
+  const part = (r) => r[F] + r[A] > 0 ? r[F] / (r[F] + r[A]) : null;
+  const ligne = (nom, r, cls = "") => `<tr class="${cls}"><td>${nom}</td><td>${Math.round(r.min)}</td><td>${r.gf}-${r.ga}</td><td>${r.sf}-${r.sa}</td>${b ? `<td>${r.xf.toFixed(1)}-${r.xa.toFixed(1)}</td>` : ""}<td>${pc0(part(r))}</td></tr>`;
+  const table = `<table><thead><tr><th></th><th>Min</th><th>${L("Buts", "Goals")}</th><th>${L("Tirs", "Shots")}</th>${b ? "<th>xG</th>" : ""}<th>${L("Part", "Share")}</th></tr></thead><tbody>
+    ${ligne(L("Ensemble", "Together"), x, "et")}${x.j.map((j, k) => ligne(`${j[1].split(" ").slice(-1)[0]} ${L("sans", "without")} ${x.j.length > 2 ? L("les autres", "the others") : x.j[1 - k][1].split(" ").slice(-1)[0]}`, x.sans[k])).join("")}</tbody></table>`;
+  const m = $("#wi-modal");
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${duoNoms(x)}" style="--eq:${coul(x.eq)}">
+    <header><div class="wi-hd">${duoPlaques(x)}<div><b>${duoNoms(x)}</b><span>${mode === "trios" ? L("Trio", "Line") : "Duo"} ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${Math.round(x.min)} min ${L("ensemble à 5 c. 5", "together at 5-on-5")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <div class="wi-txt">
+      <p><b>${L("Chimie : ", "Chemistry: ")}${pts1(x.ch)}.</b> ${L(
+        `Ensemble, ils ont ${pc0(x.pe)} des ${duoBase()} ; chacun sans l'autre, ${pc0(x.ps)} en moyenne. Écart brut : ${pts1((x.pe - x.ps) * 100)} points, ramené à ${pts1(x.ch)} pour ${Math.round(x.min)} minutes ensemble.`,
+        `Together, they get ${pc0(x.pe)} of the ${duoBase()}; each one without the other, ${pc0(x.ps)} on average. Raw gap: ${pts1((x.pe - x.ps) * 100)} points, pulled to ${pts1(x.ch)} for ${Math.round(x.min)} minutes together.`)}</p>
+    </div>
+    <div class="wi-tbl">${table}</div>
+    <p>${L("Buts et tirs : pour-contre, à 5 contre 5. Part = pour ÷ (pour + contre).", "Goals and shots: for-against, at 5-on-5. Share = for ÷ (for + against).")}</p>
+  </div>`;
+  ptCarte(m, { n: x.j.map(j => j[1]).join(" + "), no: x.j[0][2], pos: x.j[0][3], eq: x.eq }, pts1(x.ch), L("chimie", "chemistry"),
+    `${Math.round(x.min)} min ${L("ensemble", "together")} · ${duoBase()} ${pc0(x.pe)}`);
+  m.hidden = false;
+}
+document.addEventListener("click", (e) => {
+  const j = e.target.closest?.(".duo-j"); if (j){ duoCarte(j.dataset.id); return; }
+  const c = e.target.closest?.("#f-duo .chip"); if (c){ S.duo = c.dataset.v; duos(); return; }
+  const t2 = e.target.closest?.("#f-duo-tri .chip"); if (t2){ S.duotri = t2.dataset.tri; duos(); }
+});
+
 // Classement final simulé : % de chances de finir à chaque rang de son association.
 // Équipes triées par rang moyen (la somme rang × probabilité), la meilleure en haut.
 function classementHTML(){
@@ -3944,11 +4028,12 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "coupe", "whatif", "salaires", "enf", "prj", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
+    for (const id of ["joueurs", "matchs", "suivi", "coupe", "whatif", "salaires", "enf", "prj", "duo", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
     if (b.id === "t-prj") projections();
+    if (b.id === "t-duo") duos();
   }));
 }
 
@@ -3974,8 +4059,8 @@ function nettoyerPublic(){
   // L'app vit dans tonight/ (fr/ce-soir/) avec <base href="../"> : les liens partent de la racine de la langue
   // Premium (prive.html, <base href="fr/">) : « Ce soir » et les onglets restent dans la page premium
   const SOIR = PREMIUM ? (EN ? "/prive-en.html" : "/prive.html") : EN ? "tonight/" : "ce-soir/";
-  const menu = EN ? [[SOIR, "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [SOIR + "#what-if", "What if"], [SOIR + "#salaries", "Salaries"], [SOIR + "#enforcers", "Enforcers"], [SOIR + "#projections", "Projections"], [CH.b, "Track record"], [CH.a, "About"], [CH.n, "What's new"]]
-                  : [[SOIR, "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [SOIR + "#what-if", "What if"], [SOIR + "#salaires", "Salaires"], [SOIR + "#enforcers", "Enforcers"], [SOIR + "#projections", "Projections"], [CH.b, "Bilan"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"]];
+  const menu = EN ? [[SOIR, "Tonight"], [CH.t, "Trophies"], [CH.c, "Cup"], [CH.e, "Teams"], [SOIR + "#what-if", "What if"], [SOIR + "#salaries", "Salaries"], [SOIR + "#enforcers", "Enforcers"], [SOIR + "#projections", "Projections"], [SOIR + "#duos", "Duos"], [CH.b, "Track record"], [CH.a, "About"], [CH.n, "What's new"]]
+                  : [[SOIR, "Ce soir"], [CH.t, "Trophées"], [CH.c, "Coupe"], [CH.e, "Équipes"], [SOIR + "#what-if", "What if"], [SOIR + "#salaires", "Salaires"], [SOIR + "#enforcers", "Enforcers"], [SOIR + "#projections", "Projections"], [SOIR + "#duos", "Duos"], [CH.b, "Bilan"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"]];
   const tete = document.querySelector("header.bug");
   tete?.insertAdjacentHTML("afterend",
     `<nav class="menu" aria-label="${EN ? "Site menu" : "Menu du site"}">${menu.map(([h, n]) => `<a href="${h}"${h === SOIR ? ' aria-current="page"' : ""}>${n}</a>`).join("")}</nav>`);
@@ -4090,6 +4175,7 @@ async function init(){
     else if (/^#(salaries|salaires)$/i.test(location.hash)){ $("#t-salaires").click(); $("#p-salaires").scrollIntoView({ block: "start" }); }
     else if (/^#enforcers?$/i.test(location.hash)){ $("#t-enf").click(); $("#p-enf").scrollIntoView({ block: "start" }); }
     else if (/^#projections?$/i.test(location.hash)){ $("#t-prj").click(); $("#p-prj").scrollIntoView({ block: "start" }); }
+    else if (/^#(duos?|trios?)$/i.test(location.hash)){ $("#t-duo").click(); $("#p-duo").scrollIntoView({ block: "start" }); }
   };
   window.addEventListener("hashchange", ouvrirHash);
   ouvrirHash();
