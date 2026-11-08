@@ -482,6 +482,13 @@ table.serre{font-size:11.5px} table.serre th,table.serre td{padding:5px 3px} tab
 .gz{display:inline-block;vertical-align:middle;width:90px;height:7px;border-radius:4px;background:var(--chip);margin-left:6px;overflow:hidden} .gz b{display:block;height:100%;background:var(--eq,var(--good))}
 .gcr-gros{margin:0 0 6px} .gcr-gros b{font:700 52px/1 Teko,var(--f-display);color:var(--pv,var(--eq))}
 .ca-hero{padding:6px 16px 4px;border-bottom:1px solid var(--line)} .ca-hero .gcr-gros{margin:0} .ca-hero.ca-c{padding:0 0 8px;border:0}
+.ca-rang{margin:2px 0 0;font:700 14px/1.3 var(--f-body)} .ca-rang b{font-size:17px} .ca-rang .mvt{font-size:13px}
+/* Le popup publié tel quel sur Facebook / Instagram (social.py le photographie) : 1080 x 1350, la marque en bas */
+.pp-capture #wi-modal{display:block;padding:0;background:#0B1220;inset:0 auto auto 0;width:540px;height:675px}
+.pp-capture #wi-modal .wi-carte{position:relative;width:540px;height:675px;max-height:none;overflow:hidden;border-radius:0;animation:none;box-shadow:none}
+.pp-capture .wi-carte .wi-x,.pp-capture .wi-carte [data-pt],.pp-capture .ppn-bas,.pp-capture .ppn-chips{display:none!important}
+.pp-capture .wi-carte::after{content:"PUCKPROB.CA";position:absolute;left:0;right:0;bottom:0;height:64px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px;box-sizing:border-box;
+  font:italic 800 22px/1 var(--f-display);letter-spacing:.06em;color:#fff;background:linear-gradient(rgba(11,18,32,0),#0B1220 55%);z-index:5}
 .ca-sous{margin:2px 0 0;font:600 13px/1.35 var(--f-body);color:var(--muted)} .ca-hero .spk{text-align:left;margin:6px 0 2px} .ca-hero .spk svg{width:130px;height:30px}
 .gface,.aface{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--chip);display:block}
 .gface img,.aface img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
@@ -929,14 +936,14 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/cutter-gauthier/">Cutter Gauthier</a><br><span class="rp-note">ANA vs PIT</span></td>
 <td class="rp-n"><span class="rp-p">71 %</span><span class="rp-barre"><i style="width:97.4%"></i></span></td></tr><tr><td><a href="joueurs/kyle-connor/">Kyle Connor</a><br><span class="rp-note">WPG vs TBL</span></td>
 <td class="rp-n"><span class="rp-p">65 %</span><span class="rp-barre"><i style="width:89.1%"></i></span></td></tr><tr><td><a href="joueurs/timo-meier/">Timo Meier</a><br><span class="rp-note">NJD @ TOR</span></td>
-<td class="rp-n"><span class="rp-p">64 %</span><span class="rp-barre"><i style="width:87.7%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA @ BOS</span></td>
+<td class="rp-n"><span class="rp-p">64 %</span><span class="rp-barre"><i style="width:87.8%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA @ BOS</span></td>
 <td class="rp-n"><span class="rp-p">62 %</span><span class="rp-barre"><i style="width:85.4%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs FLA</span></td>
 <td class="rp-n"><span class="rp-p">61 %</span><span class="rp-barre"><i style="width:82.9%"></i></span></td></tr><tr><td><a href="joueurs/jake-guentzel/">Jake Guentzel</a><br><span class="rp-note">TBL @ WPG</span></td>
 <td class="rp-n"><span class="rp-p">58 %</span><span class="rp-barre"><i style="width:79.2%"></i></span></td></tr><tr><td><a href="joueurs/auston-matthews/">Auston Matthews</a><br><span class="rp-note">TOR vs NJD</span></td>
 <td class="rp-n"><span class="rp-p">57 %</span><span class="rp-barre"><i style="width:77.8%"></i></span></td></tr><tr><td><a href="joueurs/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF vs VGK</span></td>
 <td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:74.8%"></i></span></td></tr><tr><td><a href="joueurs/brandon-hagel/">Brandon Hagel</a><br><span class="rp-note">TBL @ WPG</span></td>
 <td class="rp-n"><span class="rp-p">55 %</span><span class="rp-barre"><i style="width:74.7%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,9 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,9 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,7 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/leon-draisaitl/">Leon Draisaitl</a></span><b>31 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>78 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>81 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>51 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>48 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>34 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>43 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>61 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,9 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,9 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,7 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/leon-draisaitl/">Leon Draisaitl</a></span><b>31 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>79 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>81 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>51 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>48 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>34 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>43 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>63 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -3097,7 +3104,8 @@ function trophEqHTML(t){
   const P = E.adams_params;
   ptReg("trophEq", { titre: I.nom, lib: EN ? TROPH_EN[t] : I.desc, sous: ptDate(), fichier: "trophee-" + t, texte: EN ? `The favorites: ${I.nom}` : `Les favoris : ${I.nom}`,      // ici, L = la liste (pas la fonction de langue)
     top: L.slice(0, 5).map(x => ({ nom: NOMS_EQ[x.t] || x.t, no: x.t, pos: "", coul: coul(x.t), gros: pc1(x.p) + (EN ? "%" : " %"),
-      sous: t === "jennings" ? `${x.bc} ${EN ? "goals against" : "buts accordés"}` : `${Math.round(x.proj ?? 0)} pts ${EN ? "projected" : "projetés"}` })) });
+      sous: (t === "jennings" ? `${x.bc} ${EN ? "goals against" : "buts accordés"}` : `${Math.round(x.proj ?? 0)} pts ${EN ? "projected" : "projetés"}`)
+        + (x.dp && Math.abs(x.dp) >= 0.001 ? ` · ${x.dp > 0 ? "+" : "−"}${pc1(Math.abs(x.dp))} ${EN ? "pt since yesterday" : "pt depuis hier"}` : "") })) });
   const comment = t === "presidents" ? `Tiré des ${D.coupe.n_sim.toLocaleString(LANG)} fins de saison de la Coupe : le % de fois que l'équipe finit première au classement général.`
     : t === "jennings" ? `${D.coupe.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de buts accordés de chaque équipe (ramené vers la moyenne en début de saison) sur ses matchs restants.`
     : `C'est un vote. Ce que les votants récompensent, appris sur les gagnants depuis 2009-10${P ? ` (${P.n} saisons)` : ""} : ${P ? `${Math.round(P.w * 100)} % la surprise (bilan vs ce qu'on attendait de l'équipe avant la saison), ${Math.round((1 - P.w) * 100)} % le succès` : "en calcul"}.`;
@@ -3203,12 +3211,17 @@ function trophHTML(t){
       <div class="tbl"><table class="serre"><thead><tr><th>Saison</th><th>Gagnant</th><th>Son rang</th><th>Meneur</th><th>% donné</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
   }
   const P = B.params || {};
+  // Le mouvement depuis hier sur les images publiées : places gagnées / perdues et l'écart de % (demande de Mitch)
+  const mvT = (x, i) => { const p = [], av = x.rang_av, rg = i + 1;
+    if (av && av !== rg) p.push(`${av > rg ? "▲" : "▼"}${Math.abs(av - rg)}`);
+    if (x.dp && Math.abs(x.dp) >= 0.001) p.push(`${x.dp > 0 ? "+" : "−"}${pc1(Math.abs(x.dp))} ${L("pt depuis hier", "pt since yesterday")}`);
+    return p.length ? " · " + p.join(" ") : ""; };
   ptReg("troph", { titre: (EN ? "" : "Trophée ") + I.nom + (EN ? " Trophy" : ""), lib: EN ? TROPH_EN[t] : I.desc, sous: ptDate(), fichier: "trophee-" + t,
     texte: L(`Les favoris du trophée ${I.nom}`, `The ${I.nom} Trophy favorites`),
     top: B.top.slice(0, 5).map(x => ({ nom: x.nom, no: x.no, pos: x.pos ? posLab(x.nom, x.pos) : "", coul: coul(x.eq), gros: pcTxt(x.p),
-      sous: `${x.eq} · ${t === "vezina" ? `${x.v} ${L("victoires", "wins")}` : t === "rocket" ? `${x.b} ${L("buts", "goals")}` : `${x.pts} pts`}` })) });
+      sous: `${x.eq} · ${t === "vezina" ? `${x.v} ${L("victoires", "wins")}` : t === "rocket" ? `${x.b} ${L("buts", "goals")}` : `${x.pts} pts`}${mvT(x, B.top.indexOf(x))}` })) });
   ptReg("troph20", { ...PT.troph, fichier: "trophee-" + t + "-top20", top: null,
-    liste: B.top.slice(0, 20).map((x, i) => ({ rg: i + 1, nom: x.nom, no: x.no, pos: x.pos ? posLab(x.nom, x.pos) : "", coul: coul(x.eq), gros: pcTxt(x.p), sous: x.eq })) });
+    liste: B.top.slice(0, 20).map((x, i) => ({ rg: i + 1, nom: x.nom, no: x.no, pos: x.pos ? posLab(x.nom, x.pos) : "", coul: coul(x.eq), gros: pcTxt(x.p), sous: x.eq + mvT(x, i) })) });
   const comment = t === "art" ? `${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de chaque joueur (mélangé avec sa saison passée), ses matchs restants et la part de hasard. Le plus de points gagne.`
     : t === "rocket" ? `${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées : le rythme de buts de chaque joueur (mélangé avec sa saison passée), ses matchs restants et la part de hasard. Le plus de buts gagne.`
     : `C'est un vote : on ne le simule pas, on apprend ce que les votants récompensent. Score appris sur les gagnants depuis 2009-10 (${P.n || "?"} saisons) : ${poidsTroph(t, P)}. Puis ${D.trophees.n_sim.toLocaleString(LANG)} fins de saison simulées.${t === "hart" ? " Les gardiens ne sont pas dans la liste : 2 des 17 derniers Hart (Price 2015, Hellebuyck 2025) ne pouvaient pas être prévus par ce score." : ""}`;
@@ -3468,15 +3481,22 @@ const ptDate = () => D?.date ? new Date(D.date + "T12:00").toLocaleDateString(EN
 // gros chiffre de la section, son rang en une ligne et la petite courbe jour après jour ; le bouton Partager en haut.
 function ptCarte(m, x, gros, lib, sous, h){
   const eq = eqPrincipale(x);
-  ptReg("carte", { nom: x.n, no: x.no, pos: posLab(x.n, x.pos || (x.sv ? "G" : "")), coul: coul(eq), gros: ptTxt(gros), lib, sous: ptTxt(sous) });
+  // Son rang dans la section et ses places gagnées ou perdues depuis hier (aussi dans la légende des posts)
+  const mo = S.prj || "pts";
+  const rgv = x.rg != null && !Array.isArray(x.rg) ? (typeof x.rg === "object" ? x.rg[mo] : x.rg) : null;
+  const drv = x.dr != null && !Array.isArray(x.dr) ? (typeof x.dr === "object" ? x.dr[mo] : x.dr) : null;
+  const depuis = drv ? `${drv > 0 ? "▲" : "▼"}${Math.abs(drv)} ${L(Math.abs(drv) > 1 ? "places depuis hier" : "place depuis hier", Math.abs(drv) > 1 ? "spots since yesterday" : "spot since yesterday")}` : (drv === 0 ? L("même rang qu'hier", "same rank as yesterday") : "");
+  const rangTxt = rgv ? `${L("Rang", "Rank")} ${rgv}${depuis ? ` (${depuis})` : ""}` : "";
+  ptReg("carte", { nom: x.n, no: x.no, pos: posLab(x.n, x.pos || (x.sv ? "G" : "")), coul: coul(eq), gros: ptTxt(gros), lib, sous: [ptTxt(sous), rangTxt].filter(Boolean).join(" · ") });
+  const rangHTML = rgv ? `<p class="ca-rang">${L("Rang", "Rank")} <b>${rgv}</b>${drv ? ` <span class="mvt ${drv > 0 ? "up" : "down"}">${drv > 0 ? "▲" : "▼"}${Math.abs(drv)}</span> ${L("depuis hier", "since yesterday")}` : drv === 0 ? ` · ${L("même rang qu'hier", "same as yesterday")}` : ""}</p>` : "";
   m.querySelector(".wi-carte header .wi-x")?.insertAdjacentHTML("beforebegin", btnPartage("carte"));
   let c = h ?? x.h;
   if (Array.isArray(c) && Array.isArray(c.find(v => v != null))) c = c.map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[S.prj || "pts"]]);
   const courbe = Array.isArray(c) ? spark(c) : "";
   const g = m.querySelector(".gcr-gros");
-  if (g){ if (courbe) g.insertAdjacentHTML("afterend", `<div class="ca-hero ca-c">${courbe}</div>`); return; }
+  if (g){ if (courbe || rangHTML) g.insertAdjacentHTML("afterend", `<div class="ca-hero ca-c">${rangHTML}${courbe}</div>`); return; }
   m.querySelector(".wi-carte header")?.insertAdjacentHTML("afterend",
-    `<div class="ca-hero"><p class="gcr-gros"><b>${ptTxt(gros)}</b> ${lib}</p>${sous ? `<p class="ca-sous">${ptTxt(sous)}</p>` : ""}${courbe}</div>`);
+    `<div class="ca-hero"><p class="gcr-gros"><b>${ptTxt(gros)}</b> ${lib}</p>${rangHTML}${sous ? `<p class="ca-sous">${ptTxt(sous)}</p>` : ""}${courbe}</div>`);
 }
 async function ptPolices(){
   try { await Promise.all(["italic 800 100px 'Barlow Condensed'", "800 100px 'Barlow Condensed'", "700 50px 'Barlow Condensed'", "600 40px Barlow", "500 30px Barlow"].map(f => document.fonts.load(f))); } catch (e) { /* police de secours */ }
@@ -3906,7 +3926,9 @@ window.ppSocial = async (type, opt = {}) => {
     choixId = nomDe(ligne);
     ligne.click();
     await attendre(() => PT.carte, 5000);
-    document.querySelector("#wi-modal") && ($("#wi-modal").hidden = true);
+    // opt.popup (social.py) : le popup reste ouvert, en format 1080 x 1350, pour être photographié tel quel
+    if (opt.popup && !opt.sans_image) document.documentElement.classList.add("pp-capture");
+    else document.querySelector("#wi-modal") && ($("#wi-modal").hidden = true);
     k = "carte";
   }
   const info = k && PT[k];
@@ -4558,7 +4580,7 @@ function gcrCarte(id){
     ${x.det?.length ? `<div class="wi-tbl"><table><thead><tr><th>${L("Mêmes joueurs, xG accordés / 60", "Same players, xG allowed / 60")}</th><th>${L("Lui", "Him")}</th><th>${L("L'autre", "Other")}</th></tr></thead><tbody>${
       x.det.map(d => `<tr><td>${d[1]}</td><td>${n2g(d[3])}</td><td>${n2g(d[4])}</td></tr>`).join("")}</tbody></table></div>` : ""}
   </div>`;
-  ptCarte(m, { n: x.n, no: x.no, pos: "G", eq: x.eq, h: x.h }, String(x.gcr), "Goalie Confidence Rating", `${x.eq} · GSAx ${sgn(x.gsax, 1)} · ${L("n° ", "#")}${x.rg}`);
+  ptCarte(m, { n: x.n, no: x.no, pos: "G", eq: x.eq, h: x.h, rg: x.rg, dr: x.dr }, String(x.gcr), "Goalie Confidence Rating", `${x.eq} · GSAx ${sgn(x.gsax, 1)} · ${L("n° ", "#")}${x.rg}`);
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -5275,8 +5297,8 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=20a7f185" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=20a7f185" defer></script>
+<script src="pub.js?v=fbf3632e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=fbf3632e" defer></script>
 <script src="nav.js?v=a60d97898e" defer></script>
 </body>
 </html>
