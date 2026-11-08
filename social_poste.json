@@ -1,0 +1,33 @@
+{
+ "2026-11-08-top-buts": {
+  "fb": "1508565075663838_122105485833537152",
+  "fb_com": "122105485833537152_1862609861425287",
+  "ig": "18148679797600987",
+  "ig_com": "18141225970731401",
+  "type": "top",
+  "opt": {
+   "marche": "buts",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · Marque un but",
+  "publie": true,
+  "quand": "2026-11-08T15:04-05:00"
+ },
+ "2026-11-08-match-2026020278": {
+  "fb": "1508565075663838_122105486223537152",
+  "fb_com": "122105486223537152_1834970147652140",
+  "ig": "18638868022028277",
+  "ig_com": "17894485386683047",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020278
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "VGK @ BUF",
+  "publie": true,
+  "quand": "2026-11-08T15:05-05:00"
+ }
+}
