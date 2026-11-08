@@ -90,5 +90,21 @@
   "titre": "PHI @ CGY",
   "publie": true,
   "quand": "2026-11-08T17:40-05:00"
+ },
+ "2026-11-08-top-tirs3": {
+  "fb": "1508565075663838_122105602659537152",
+  "fb_com": "122105602659537152_1708528647363003",
+  "ig": "18220224202347570",
+  "ig_com": "17890722372653148",
+  "type": "top",
+  "opt": {
+   "marche": "tirs3",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 3 tirs ou plus",
+  "publie": true,
+  "quand": "2026-11-08T18:15-05:00"
  }
 }
