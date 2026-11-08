@@ -95,7 +95,7 @@ nav.menu::-webkit-scrollbar{display:none}
 @keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}}
 /* What if : liste + dos de carte de hockey */
-#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q,#arb-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 /* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
@@ -142,6 +142,16 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-ch[aria-pressed="false"]{background:transparent;color:var(--muted);border-color:var(--line)}
 .sv-ch.ctl{background:var(--chip);color:var(--ink);border-color:var(--line)}
 .sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
+.dr-h{font:italic 800 20px/1.1 var(--f-display);text-transform:uppercase;margin:18px 0 6px}
+.dr{display:flex;flex-direction:column;gap:4px;margin:4px 0 8px}
+.dr-l{display:grid;grid-template-columns:28px 44px minmax(0,1fr) 34px;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--eq);border-radius:6px;padding:6px 8px}
+.dr-l .dr-n{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
+.dr-l .t{display:flex;flex-direction:column;align-items:center;gap:2px;font:800 11px/1 var(--f-display);color:var(--muted)}
+.dr-l .t img{width:28px;height:28px}
+.dr-l .dr-j{font:700 15px/1.15 var(--f-body);min-width:0}
+.dr-l .dr-j small{display:block;font:500 11.5px var(--f-body);color:var(--muted);margin-top:2px}
+.dr-l .dr-m b{font:800 12px/1 var(--f-display);padding:2px 4px;border-radius:4px}
+.dr-l .dr-m .up{background:var(--good-bg);color:var(--good)} .dr-l .dr-m .down{background:var(--bad-bg);color:var(--bad)}
 .sv-champ{font:italic 800 22px/1.1 var(--f-display);text-transform:uppercase;text-align:center;margin:12px 0 4px;padding:12px;border-radius:8px;color:#fff;background:var(--eq)}
 /* Graphique de la saison dans la fiche Projections */
 .prj-gk{gap:6px;margin:0 0 6px} .prj-gk .chip{padding:5px 9px;font-size:13px}
@@ -721,6 +731,10 @@ main{display:block}
 .grille a{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;
   padding:9px 10px;text-decoration:none;color:var(--ink);font:700 15px/1.1 var(--f-body);box-shadow:var(--ombre)}
 .grille a img{width:26px;height:26px;flex:none}
+.rg-liste{display:flex;flex-direction:column;gap:6px}
+.rg-l{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--eq,var(--line));border-radius:8px;padding:9px 12px;color:var(--ink);text-decoration:none}
+.rg-l .lib{font:700 15px/1.15 var(--f-body)}.rg-l .lib small{display:block;font:500 12px var(--f-body);color:var(--muted);margin-top:2px}
+.rg-l .rg-n{font:italic 800 26px/1 var(--f-display);text-align:right;white-space:nowrap}.rg-l .rg-n sup{font-size:13px}.rg-l .rg-n small{display:block;font:600 11px var(--f-body);font-style:normal;color:var(--muted)}
 .grille a .gn{flex:1;min-width:0}
 .grille a .gi{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
 .grille a .gi small{font:600 11px var(--f-body);color:var(--muted);white-space:nowrap}

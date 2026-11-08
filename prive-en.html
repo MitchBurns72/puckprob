@@ -120,7 +120,7 @@ nav.menu::-webkit-scrollbar{display:none}
 @keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}}
 /* What if : liste + dos de carte de hockey */
-#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q,#arb-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 /* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
@@ -167,6 +167,16 @@ nav.menu::-webkit-scrollbar{display:none}
 .sv-ch[aria-pressed="false"]{background:transparent;color:var(--muted);border-color:var(--line)}
 .sv-ch.ctl{background:var(--chip);color:var(--ink);border-color:var(--line)}
 .sv-po{margin:10px 0 0;font:500 13.5px/1.6 var(--f-body)} .sv-po b{font-weight:800}
+.dr-h{font:italic 800 20px/1.1 var(--f-display);text-transform:uppercase;margin:18px 0 6px}
+.dr{display:flex;flex-direction:column;gap:4px;margin:4px 0 8px}
+.dr-l{display:grid;grid-template-columns:28px 44px minmax(0,1fr) 34px;gap:8px;align-items:center;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--eq);border-radius:6px;padding:6px 8px}
+.dr-l .dr-n{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
+.dr-l .t{display:flex;flex-direction:column;align-items:center;gap:2px;font:800 11px/1 var(--f-display);color:var(--muted)}
+.dr-l .t img{width:28px;height:28px}
+.dr-l .dr-j{font:700 15px/1.15 var(--f-body);min-width:0}
+.dr-l .dr-j small{display:block;font:500 11.5px var(--f-body);color:var(--muted);margin-top:2px}
+.dr-l .dr-m b{font:800 12px/1 var(--f-display);padding:2px 4px;border-radius:4px}
+.dr-l .dr-m .up{background:var(--good-bg);color:var(--good)} .dr-l .dr-m .down{background:var(--bad-bg);color:var(--bad)}
 .sv-champ{font:italic 800 22px/1.1 var(--f-display);text-transform:uppercase;text-align:center;margin:12px 0 4px;padding:12px;border-radius:8px;color:#fff;background:var(--eq)}
 /* Graphique de la saison dans la fiche Projections */
 .prj-gk{gap:6px;margin:0 0 6px} .prj-gk .chip{padding:5px 9px;font-size:13px}
@@ -723,6 +733,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-prj" aria-selected="false" aria-controls="p-prj">Projections</button>
     <button role="tab" id="t-duo" aria-selected="false" aria-controls="p-duo">Duos</button>
     <button role="tab" id="t-gcr" aria-selected="false" aria-controls="p-gcr">GCR</button>
+    <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">Arbitres</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -828,6 +839,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
       <input id="gcr-q" type="search" placeholder="Chercher un gardien" aria-label="Chercher un gardien" autocomplete="off">
     </div><div id="fe-gcr"></div></div>
     <div id="gcr"></div>
+  </section>
+  <section id="p-arb" role="tabpanel" aria-labelledby="t-arb" hidden>
+    <div class="ctrls"><div class="row" id="f-arb-tri"></div><div class="row"><input id="arb-q" type="search" autocomplete="off"></div><div id="fe-arb"></div></div>
+    <div id="arb"></div>
   </section>
   <div id="wi-modal" class="wi-modal" hidden></div>
 
@@ -977,7 +992,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">63%</span><span class="rp-barre"><i style="width:87.3%"></i></span></td></tr><tr><td><a href="players/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs TBL</span></td>
 <td class="rp-n"><span class="rp-p">63%</span><span class="rp-barre"><i style="width:86.7%"></i></span></td></tr><tr><td><a href="players/brandon-hagel/">Brandon Hagel</a><br><span class="rp-note">TBL @ MIN</span></td>
 <td class="rp-n"><span class="rp-p">60%</span><span class="rp-barre"><i style="width:83.5%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.7%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.8%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6.7%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>82%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>39%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>54%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>68%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>37%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>54%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>20%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.9%</b></li><li><a class="rp-eq" href="teams/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>7.1%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.7%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>83%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/kirill-kaprizov/">Kirill Kaprizov</a></span><b>33%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>54%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>48%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>34%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>42%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>57%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -3157,7 +3172,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet() })[cle]?.();
+  ({ fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -3908,11 +3923,13 @@ window.ppSocial = async (type, opt = {}) => {
     const M = (opt.eq ? D.mouv10_eq : D.mouv10) || [];
     if (!M.length) return null;
     const estEq = (m) => ["coupe", "classement", "equipes"].includes(m.cat);
-    const noDe = (m) => estEq(m) ? m.eq : ((D.joueurs || []).find(j => j.name === m.nom)?.no ?? initiales(m.nom));
+    // La plaque : numéro (le GCR pour un gardien) et position (le rôle d'un gardien : SGS...)
+    const noDe = (m) => estEq(m) ? m.eq : (m.no ?? (GCR?.gardiens || []).find(g => g.n === m.nom)?.no ?? (D.joueurs || []).find(j => j.name === m.nom)?.no ?? initiales(m.nom));
+    const posDe = (m) => estEq(m) ? "" : posLab(m.nom, m.pos || ((GCR?.gardiens || []).some(g => g.n === m.nom) ? "G" : (D.joueurs || []).find(j => j.name === m.nom)?.pos || ""));
     k = ptReg("mouv", { titre: opt.eq ? L("Ça bouge · Équipes", "On the move · Teams") : L("Ça bouge · Joueurs", "On the move · Players"),
       lib: opt.eq ? L("Les 10 équipes qui ont le plus bougé depuis hier", "The 10 teams that moved the most since yesterday")
                   : L("Les 10 plus gros changements depuis hier", "The 10 biggest moves since yesterday"), sous: ptDate(),
-      liste: M.slice(0, 10).map((m, i) => ({ rg: i + 1, nom: estEq(m) ? nomEq(m.eq) : m.nom, no: noDe(m), pos: "", coul: coul(m.eq),
+      liste: M.slice(0, 10).map((m, i) => ({ rg: i + 1, nom: estEq(m) ? nomEq(m.eq) : m.nom, no: noDe(m), pos: posDe(m), coul: coul(m.eq),
         gros: L(m.val_fr, m.val_en), sous: L(m.ctx_fr, m.ctx_en), m })) });
   } else if (type === "coupe" || type === "classement"){
     S.troph = type === "coupe" ? "coupe" : "classement"; S.conf = "all"; S.ctri = "p_coupe"; trophees(); k = type === "coupe" ? "coupe5" : "classement";
@@ -4479,6 +4496,62 @@ function gcrVal(x, tri){
   if (tri === "coach") return [pc0(x.coach), L("du temps de son équipe", "of his team's time")];
   return [x.gcr, "GCR"];
 }
+// ---- Arbitres (src/arbitres.py) : les gars que les arbitres aiment pas, et leurs chouchous -----------------------
+let ARB = null, ARB_p = null;
+const chargerArb = () => ARB_p || (ARB_p = fetch("arbitres.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(a => (ARB = a)).catch(() => null));
+const ARB_TRIS = { bas: ["Pas aimés des arbitres", "Refs don't like"], haut: ["Chouchous", "Refs' favorites"], ob: ["Obtient le plus", "Draws the most"],
+                   pr: ["Prend le plus", "Takes the most"], avance: ["Quand son équipe mène", "When his team leads"], retard: ["Quand son équipe tire de l'arrière", "When his team trails"] };
+const n1a = (v) => v == null ? "–" : (Math.round(v * 10) / 10).toFixed(1).replace(".", EN ? "." : ",");
+const sg2 = (v) => v == null ? "–" : (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(2).replace(".", EN ? "." : ",");
+async function arbOnglet(){
+  const el = $("#arb");
+  if (!ARB){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerArb(); }
+  if (!ARB?.joueurs?.length){ el.innerHTML = `<div class="card"><div class="vide">${L("La section Arbitres se remplit avec la récolte des jeux-par-jeux : quelques calculs.", "The Refs section fills up as play-by-plays are harvested: a few updates.")}</div></div>`; return; }
+  const tri = S.arbtri || "bas", q = nrm($("#arb-q").value), feq = S.fe_arb || "";
+  $("#arb-q").placeholder = L("Chercher un joueur", "Search a player");
+  $("#f-arb-tri").innerHTML = `<span class="lbl">${L("Trier", "Sort")}</span>` + Object.entries(ARB_TRIS).map(([k, n]) => `<button class="chip" data-at="${k}" aria-pressed="${k === tri}">${L(...n)}</button>`).join("");
+  $("#fe-arb").innerHTML = filtreEqHTML("fe_arb", [...new Set(ARB.joueurs.map(x => x.eq))].filter(Boolean).sort());
+  const etat = (x, e) => x.etats?.[e]?.[4] ?? 0;
+  const cle = { bas: (x) => x.net, haut: (x) => -x.net, ob: (x) => -x.ob60, pr: (x) => -x.pr60, avance: (x) => etat(x, "avance"), retard: (x) => etat(x, "retard") }[tri];
+  const liste = ARB.joueurs.filter(x => (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q))).sort((a, b) => cle(a) - cle(b));
+  const val = (x) => tri === "ob" ? [n1a(x.ob60), L("obtenues / 60 min", "drawn / 60 min")] : tri === "pr" ? [n1a(x.pr60), L("prises / 60 min", "taken / 60 min")]
+    : tri === "avance" || tri === "retard" ? [sg2(etat(x, tri)), tri === "avance" ? L("quand son équipe mène", "when his team leads") : L("quand son équipe tire de l'arrière", "when his team trails")]
+    : [sg2(x.net), L("vs attendu, par heure", "vs expected, per hour")];
+  const lg = ARB.ligue60 || {};
+  const tete = `<div class="cp-tete"><h2>${L("Arbitres", "Refs")}</h2><p>${L(
+    "Les gars que les arbitres aiment pas, et leurs chouchous. Pour chaque joueur : les pénalités qu'il obtient et celles qu'il prend, comparées à un joueur pareil dans les mêmes situations (sa position, son temps de glace, et si son équipe menait, était à égalité ou tirait de l'arrière). Négatif : il prend plus et obtient moins que prévu. Touche un joueur pour le détail.",
+    "The players refs don't like, and their favorites. For each player: the penalties he draws and the ones he takes, compared with a similar player in the same situations (his position, his ice time, and whether his team was leading, tied or trailing). Negative: he takes more and draws less than expected. Tap a player for the details.")}</p></div>`;
+  const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
+    `<p><b>Ce qu'on compte.</b> Les mineures et les majeures du jeu-par-jeu de la LNH : qui est puni, et qui a obtenu la pénalité. Pas les combats, ni les inconduites, ni les pénalités de banc.</p>
+     <p><b>Ce qu'on attend.</b> Son temps de glace de chaque match, réparti selon le temps que son équipe a passé en avance, à égalité et en retard ce soir-là, fois le taux de la ligue pour sa position dans chaque état. Dans la LNH, l'équipe qui tire de l'arrière obtient ${n1a(lg.retard)} pénalité par 60 min de glace d'un joueur, contre ${n1a(lg.avance)} quand elle mène : on ne pénalise personne pour ça.</p>
+     <p><b>Le chiffre.</b> (obtenues − attendues) − (prises − attendues), par heure de glace, ramené vers 0 avec ${ARB.k_h} heures fictives : un gars qui a peu joué reste près de 0. La saison passée compte à moitié. Au moins ${ARB.min_min} minutes cette saison.</p>`,
+    `<p><b>What we count.</b> Minors and majors from the NHL play-by-play: who is penalized, and who drew the penalty. No fights, misconducts or bench minors.</p>
+     <p><b>What we expect.</b> His ice time in every game, split by the time his team spent leading, tied and trailing that night, times the league rate for his position in each state. In the NHL, the trailing team draws ${n1a(lg.retard)} penalties per 60 minutes of a player's ice time, vs ${n1a(lg.avance)} when it leads: nobody is punished for that.</p>
+     <p><b>The number.</b> (drawn − expected) − (taken − expected), per hour of ice time, pulled toward 0 with ${ARB.k_h} fictional hours: a player who hasn't played much stays near 0. Last season counts half. At least ${ARB.min_min} minutes this season.</p>`)}</details>`;
+  const lignes = liste.slice(0, 150).map((x, i) => { const [v, lib] = val(x);
+    return `<button class="wi-l wi-r arb-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${i + 1}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
+      <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} h</small><span class="wi-st">${L("obtient", "draws")} ${n1a(x.ob)} (${L("att.", "exp.")} ${n1a(x.ob_att)}) · ${L("prend", "takes")} ${n1a(x.pr)} (${L("att.", "exp.")} ${n1a(x.pr_att)})</span></span>
+      <span class="v"><span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${v}</span><small>${lib}</small></span></button>`; }).join("")
+    || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
+  el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la LNH.", "Source: NHL play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
+  ptListeTab("p-arb");
+}
+function arbCarte(id){
+  const x = ARB?.joueurs?.find(y => String(y.id) === String(id)); if (!x) return;
+  const E = [["avance", L("Son équipe mène", "His team leads")], ["egal", L("Égalité", "Tied")], ["retard", L("Son équipe tire de l'arrière", "His team trails")]];
+  const m = $("#wi-modal");
+  m.innerHTML = `<div class="wi-carte card" role="dialog" aria-label="${x.n}"><header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span><div><b>${x.n}</b><span>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} ${L("h de glace (saison passée à moitié)", "h of ice time (last season half)")}</span></div></div><button class="wi-x" type="button" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <p><b>${sg2(x.net)}</b> ${L("pénalité par heure vs un joueur pareil", "penalty per hour vs a similar player")} · ${L("rang", "rank")} ${x.rg}/${ARB.joueurs.length} ${L("(1 = celui que les arbitres aiment le moins)", "(1 = the one refs like least)")}</p>
+    <div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("Obtenues", "Drawn")}</th><th>${L("Attendu", "Exp.")}</th><th>${L("Prises", "Taken")}</th><th>${L("Attendu", "Exp.")}</th></tr></thead><tbody>
+    ${E.map(([k, n]) => { const v = x.etats?.[k] || []; return `<tr><td>${n}</td><td>${n1a(v[0])}</td><td>${n1a(v[1])}</td><td>${n1a(v[2])}</td><td>${n1a(v[3])}</td></tr>`; }).join("")}
+    <tr><td><b>Total</b></td><td><b>${n1a(x.ob)}</b></td><td>${n1a(x.ob_att)}</td><td><b>${n1a(x.pr)}</b></td><td>${n1a(x.pr_att)}</td></tr></tbody></table></div></div>`;
+  m.hidden = false;
+}
+document.addEventListener("click", (e) => {
+  const t = e.target.closest?.("#f-arb-tri .chip"); if (t){ S.arbtri = t.dataset.at; arbOnglet(); return; }
+  const j = e.target.closest?.(".arb-j"); if (j){ arbCarte(j.dataset.id); return; }
+});
+document.addEventListener("input", (e) => { if (e.target.id === "arb-q") arbOnglet(); });
 async function gcrOnglet(){
   const el = $("#gcr");
   if (!GCR){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerGcr(); }
@@ -4715,8 +4788,8 @@ function bkHTML(B, vu){
 }
 // Les 3 images de la saison simulée (graphique, séries, champions et records), faites au moment de partager
 let SV_FIN = null;
-function simImages(B, E, tri){
-  SV_FIN = { B, E: JSON.parse(JSON.stringify(E)), ordre: { W: tri(Object.keys(E).filter(t => E[t].conf === "W")), E: tri(Object.keys(E).filter(t => E[t].conf === "E")) }, graine: SV_GRAINE };
+function simImages(B, E, tri, R){
+  SV_FIN = { B, R, E: JSON.parse(JSON.stringify(E)), ordre: { W: tri(Object.keys(E).filter(t => E[t].conf === "W")), E: tri(Object.keys(E).filter(t => E[t].conf === "E")) }, graine: SV_GRAINE };
   ptReg("simTout", { multi: true, fichier: "pb-sim",
     texte: L(`Ma saison simulée sur PB SIM : ${NOMS_EQ?.[B.F.w] || B.F.w} gagne la Coupe Stanley. Rejoue-la : https://puckprob.ca/fr/ce-soir/#sim=${SV_GRAINE}`,
              `My simulated season on PB SIM: ${NOMS_EQ?.[B.F.w] || B.F.w} win the Stanley Cup. Replay it: https://puckprob.ca/tonight/#sim=${SV_GRAINE}`) });
@@ -4746,7 +4819,47 @@ function simInfos(){
       [L("Meilleure attaque", "Best offense"), `${att.t} · ${f2(att.bp / att.pj)} ${L("buts par match", "goals per game")}`],
       [L("Meilleure défensive", "Best defense"), `${def.t} · ${f2(def.bc / def.pj)} ${L("buts contre par match", "goals against per game")}`],
       ...fav.slice(0, 4).map(([n, x]) => [`${n} (${L("favori PuckProb", "PuckProb favorite")})`, `${x.nom} · ${pcTxt(x.p)}`])] } };
-  return [graph, bk, res];
+  const out = [graph, bk, res];
+  const dr = draftInfo(F.R, SV_DR);
+  if (dr) out.push(dr);
+  return out;
+}
+// ---- Le repêchage de PB SIM : la liste des espoirs (docs/draft.json, src/draft.py) et son affichage ----------------
+let SV_DR = null, DR_p = null;
+const chargerDraft = () => DR_p || (DR_p = fetch("draft.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).catch(() => null));
+function draftChoix(R, DR){
+  const L0 = DR?.liste || [];
+  return (R?.ordre || []).map((t, i) => ({ n: i + 1, t, j: L0[i] || null, av: R.rangs[t] || null }));
+}
+function draftInfo(R, DR){
+  if (!R || !DR?.liste?.length) return null;
+  const C = draftChoix(R, DR).slice(0, 16);
+  return { titre: L(`Repêchage ${DR.annee}`, `${DR.annee} Draft`), lib: L("La loterie de ma saison simulée", "My simulated season's lottery"), sous: ptDate(),
+    fichier: "pb-sim-repechage", liste: C.map(c => ({ rg: c.n, nom: c.j ? c.j.n : "?", no: c.t, pos: "", coul: coul(c.t),
+      gros: c.av && c.av > c.n ? `+${c.av - c.n}` : "", sous: [NOMS_EQ?.[c.t] || c.t, c.j?.pos, c.j?.club].filter(Boolean).join(" · ") })) };
+}
+function svDraft(R, DR){
+  const el = $("#sv-dr"); if (!el || !R) return;
+  if (!DR?.liste?.length){ el.innerHTML = ""; return; }
+  const C = draftChoix(R, DR);
+  const nomEq_ = (t) => NOMS_EQ?.[t] || t;
+  const loto = R.loto.map(x => x.t === x.gagnant
+    ? L(`<b>${x.choix === 1 ? "1er" : "2e"} choix</b> : ${nomEq_(x.t)} gagne la loterie (${x.rang === 1 ? "la pire fiche" : `${x.rang}e pire fiche`}${x.rang > x.choix ? `, monte de ${x.rang - x.choix}` : ""})`,
+        `<b>Pick #${x.choix}</b>: ${nomEq_(x.t)} win the lottery (${x.rang === 1 ? "worst record" : `${x.rang}${["st", "nd", "rd"][x.rang - 1] || "th"} worst record`}${x.rang > x.choix ? `, up ${x.rang - x.choix}` : ""})`)
+    : L(`<b>${x.choix === 1 ? "1er" : "2e"} choix</b> : ${nomEq_(x.gagnant)} sort du tirage, mais ne peut pas monter de plus de 10 rangs : le choix va à ${nomEq_(x.t)}`,
+        `<b>Pick #${x.choix}</b>: ${nomEq_(x.gagnant)} is drawn but can't move up more than 10 spots: the pick goes to ${nomEq_(x.t)}`)).join("<br>");
+  const ligne = (c) => `<div class="dr-l" style="${eqV(c.t)}"><span class="dr-n">${c.n}</span><span class="t"><img src="${LOGO(c.t)}" alt="" loading="lazy">${c.t}</span>
+    <span class="dr-j">${c.j ? `${c.j.n}<small>${[c.j.pos, c.j.club].filter(Boolean).join(" · ")}</small>` : "–"}</span>
+    <span class="dr-m">${c.av && c.av > c.n ? `<b class="up">+${c.av - c.n}</b>` : c.av && c.av < c.n ? `<b class="down">−${c.n - c.av}</b>` : ""}</span></div>`;
+  el.innerHTML = `<h3 class="dr-h">${L(`Repêchage ${DR.annee} : la loterie et le mock draft`, `${DR.annee} Draft: the lottery and the mock draft`)}</h3>
+    <p class="aide" style="margin:0 0 8px">${loto}</p>
+    <div class="dr">${C.slice(0, 16).map(ligne).join("")}</div>
+    <details class="sv-po"><summary>${L("Choix 17 à 32", "Picks 17 to 32")}</summary><div class="dr">${C.slice(16).map(ligne).join("")}</div></details>
+    <p class="aide">${DR.source === "centrale"
+      ? L("Les espoirs : le classement de la Centrale de recrutement de la LNH (Nord-Américains et internationaux fusionnés). Le 1er choix prend le 1er espoir, et ainsi de suite.",
+          "Prospects: NHL Central Scouting's rankings (North American and International lists merged). Pick #1 takes prospect #1, and so on.")
+      : L("Les espoirs : classement préliminaire (top 10 de The Hockey News, puis des joueurs cotés A par la Centrale de recrutement, dans un ordre à titre indicatif). La Centrale publie son classement en janvier : il prendra la place tout seul. Le 1er choix prend le 1er espoir, et ainsi de suite.",
+          "Prospects: preliminary ranking (The Hockey News top 10, then players rated A by NHL Central Scouting, in an indicative order). Central Scouting publishes its rankings in January: they will take over automatically. Pick #1 takes prospect #1, and so on.")}</p>`;
 }
 // ---- PB SIM : son propre onglet (entre Matchs et Trophées) -------------------------------------------------------
 function simOnglet(){
@@ -4905,19 +5018,51 @@ function simSaison(vite, graine){
     };
     SV_BK_T = setTimeout(etape, 500);
   };
-  // Après la Coupe : le champion, le résumé en texte, et les 3 images à partager (graphique, séries, champions et records)
+  // Le repêchage (demande de Mitch) : la loterie de la LNH sur les 16 équipes hors séries de CETTE saison simulée,
+  // puis l'ordre des choix 17 à 32. Même hasard à graine : le lien partagé rejoue la même loterie.
+  //  - Loterie : 2 tirages (1er et 2e choix), chances officielles selon le rang (18,5 %, 13,5 %, 11,5 %...).
+  //    Une équipe monte d'au plus 10 rangs : si elle ne peut pas, le choix va à la pire équipe qui reste.
+  //    Les choix 3 à 16 : les autres équipes hors séries, de la pire à la meilleure.
+  //  - 17 à 28 : éliminées dans les 2 premières rondes, par points (les champions de division après les autres) ;
+  //    29-30 : perdants des finales d'association ; 31 : finaliste ; 32 : champion.
+  const repechage = (B) => {
+    const dans = new Set(["W", "E"].flatMap(c => { const q = qualif(c); return [...Object.values(q.tops).flat(), ...q.wc]; }));
+    const pire = (L2) => L2.slice().sort((x, y) => E[x].pts - E[y].pts || E[x].rw - E[y].rw);
+    const hors = pire(Object.keys(E).filter(t => !dans.has(t)));
+    const CH = [185, 135, 115, 95, 85, 75, 65, 60, 50, 35, 30, 25, 20, 15, 5, 5];
+    const ch = (t) => CH[hors.indexOf(t)] || 0;
+    const tirer = (cands) => { let r = rand() * cands.reduce((s_, t) => s_ + ch(t), 0); for (const t of cands){ r -= ch(t); if (r < 0) return t; } return cands.at(-1); };
+    const ordre = [], loto = [];
+    for (const choix of [1, 2]){
+      const restants = hors.filter(t => !ordre.includes(t));
+      if (!restants.length) break;
+      const g = tirer(restants), rang = hors.indexOf(g) + 1;
+      const t = rang - choix <= 10 ? g : restants[0];
+      ordre.push(t); loto.push({ choix, gagnant: g, rang, t });
+    }
+    for (const t of hors) if (!ordre.includes(t)) ordre.push(t);
+    const perd = (x) => x.w === x.a ? x.b : x.a;
+    const elim = [...B.W[0], ...B.E[0], ...B.W[1], ...B.E[1]].map(perd);
+    const divW = new Set(["W", "E"].flatMap(c => { const q = qualif(c); return q.divs.map(d => q.tops[d][0]); }));
+    ordre.push(...pire(elim.filter(t => !divW.has(t))), ...pire(elim.filter(t => divW.has(t))), ...pire([B.W[2][0], B.E[2][0]].map(perd)), perd(B.F), B.F.w);
+    return { ordre, loto, rangs: Object.fromEntries(hors.map((t, i) => [t, i + 1])) };
+  };
+  // Après la Coupe : le champion, le résumé en texte, le repêchage et les 4 images à partager
   const finSeries = (B) => {
     const champ = B.F.w, fin_ = B.F.w === B.F.a ? B.F.b : B.F.a;
     const nomR = [L("1re ronde", "Round 1"), L("2e ronde", "Round 2"), L("Finale d'association", "Conference final")];
     const res = (x) => { const n = x.jeux.filter(t => t === x.w).length, l = x.jeux.length - n; return `${x.w} ${L("bat", "beats")} ${x.w === x.a ? x.b : x.a} ${n}-${l}`; };
     const txt = ["W", "E"].flatMap(c => B[c].map((r, k) => `<b>${c === "E" ? L("Est", "East") : L("Ouest", "West")}, ${nomR[k]}</b> : ${r.map(res).join(" · ")}`))
       .concat([`<b>${L("Finale de la Coupe Stanley", "Stanley Cup Final")}</b> : ${res(B.F)}`]);
-    simImages(B, E, tri);
+    const R = repechage(B);
+    simImages(B, E, tri, R);
     $("#sv-po").innerHTML = `<div class="sv-champ" style="${eqV(champ)}">${L("Champion", "Champion")} : ${NOMS_EQ?.[champ] || champ}</div>
-      ${ptHaut("simTout", "Partager ma saison (3 images + le lien)", "Share my season (3 images + the link)")}
+      ${ptHaut("simTout", "Partager ma saison (4 images + le lien)", "Share my season (4 images + the link)")}
+      <div id="sv-dr"></div>
       <details class="sv-po"><summary>${L("Tous les résultats des séries", "Every playoff result")}</summary>${txt.join("<br>")}</details>
       <p class="aide">${L(`Finaliste : ${NOMS_EQ?.[fin_] || fin_}. Une seule saison possible parmi des milliers : pour les vraies chances de chaque équipe, regarde l'onglet Trophées (Coupe Stanley). Touche le bouton pour rejouer.`,
                          `Runner-up: ${NOMS_EQ?.[fin_] || fin_}. Just one possible season out of thousands: for each team's real chances, see the Trophies tab (Stanley Cup). Tap the button to replay.`)}</p>`;
+    chargerDraft().then(DR => { SV_DR = DR; svDraft(R, DR); if (SV_FIN) SV_FIN.R = R; });
   };
   let i = 0;
   const pas = () => {
@@ -4985,13 +5130,14 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "bets"]) $("#p-" + id).hidden = b.id !== "t-" + id;
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
     if (b.id === "t-prj") projections();
     if (b.id === "t-duo") duos();
     if (b.id === "t-gcr") gcrOnglet();
+    if (b.id === "t-arb") arbOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -5142,6 +5288,11 @@ async function init(){
     else if (/^#(duos?|trios?)$/i.test(location.hash)){ $("#t-duo").click(); $("#p-duo").scrollIntoView({ block: "start" }); }
     else if (/^#(gcr|goalies?|gardiens?)$/i.test(location.hash)){ $("#t-gcr").click(); $("#p-gcr").scrollIntoView({ block: "start" }); }
     else if (/^#(matchs?|games?)$/i.test(location.hash)){ $("#t-matchs").click(); $("#p-matchs").scrollIntoView({ block: "start" }); }
+    else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
+    else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
+    else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
+    else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
+    else if (/^#(classement|standings)$/i.test(location.hash)){ $("#t-coupe").click(); S.troph = "classement"; trophees(); $("#p-coupe").scrollIntoView({ block: "start" }); }
     else if (/^#(pb-?)?sim(=\d+)?$/i.test(location.hash)){
       // #sim=123456 : la saison simulée partagée par quelqu'un (même graine = même saison, tant que les données du jour sont les mêmes)
       $("#t-sim").click(); $("#p-sim").scrollIntoView({ block: "start" });
@@ -5152,7 +5303,8 @@ async function init(){
   // L'adresse suit l'onglet choisi à la main (bug vu par Mitch : resté sur …#sim après un clic sur Joueurs, le lien
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
-                    "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr" };
+                    "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -5168,7 +5320,8 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=7e982da4" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=7e982da4" defer></script>
+<script src="pub.js?v=cef9c104" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=cef9c104" defer></script>
+<script src="nav.js?v=a60d97898e" defer></script>
 </body>
 </html>
