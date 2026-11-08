@@ -75,5 +75,20 @@
   "titre": "NJD @ TOR",
   "publie": true,
   "quand": "2026-11-08T17:00-05:00"
+ },
+ "2026-11-08-match-2026020281": {
+  "fb": "1508565075663838_122105578935537152",
+  "fb_com": "122105578935537152_1125209816893667",
+  "ig": "18162547972512912",
+  "ig_com": "18062422640552186",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020281
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "PHI @ CGY",
+  "publie": true,
+  "quand": "2026-11-08T17:40-05:00"
  }
 }
