@@ -106,5 +106,20 @@
   "titre": "Top 5 · 3 tirs ou plus",
   "publie": true,
   "quand": "2026-11-08T18:15-05:00"
+ },
+ "2026-11-08-match-2026020282": {
+  "fb": "1508565075663838_122105629809537152",
+  "fb_com": "122105629809537152_29215559611472199",
+  "ig": "17900542110396818",
+  "ig_com": "18082766891751541",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020282
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "PIT @ ANA",
+  "publie": true,
+  "quand": "2026-11-08T18:45-05:00"
  }
 }
