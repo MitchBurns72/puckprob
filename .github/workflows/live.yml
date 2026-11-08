@@ -1,13 +1,16 @@
 name: Live
 
-# Scores en direct : aux 5 min de midi à 2 h du matin (heure de l'Est). Écrit live.json à la racine du site.
-# Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl. Les soirs sans match finissent en 10 s.
-# Fil du soir (live_code/poster.py) : publie sur Facebook / Instagram les posts préparés par le calcul, chacun à son
-# heure (à partir de 14 h). Secrets du dépôt puckprob : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID.
+# Scores en direct + fil du soir (Facebook / Instagram). Écrit live.json et social_poste.json à la racine du site.
+# Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl.
+# Avant : un passage aux 5 min, mais GitHub en sautait presque tous (8 nov. 2026 : 1 passage en 3 heures, les posts
+# du soir restaient pris). Maintenant : UN passage qui reste allumé et boucle lui-même aux 5 min (scores, posts,
+# commit), jusqu'à 2 h du matin. Les relances aux heures servent de filet : si le passage n'a pas démarré ou a fini
+# son temps max (près de 6 h), la suivante prend le relais ; s'il tourne déjà, elle attend derrière (concurrency).
+# Secrets du dépôt puckprob : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID.
 on:
   schedule:
-    - cron: "*/5 16-23 * * *"
-    - cron: "*/5 0-5 * * *"
+    - cron: "3 17-23 * * *"
+    - cron: "3 0-5 * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -20,28 +23,35 @@ concurrency:
 jobs:
   live:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 355
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Stats live des matchs en cours
-        run: python live_code/live.py
+      - name: Boucle aux 5 minutes (scores en direct + fil du soir)
         env:
           LIVE_SORTIE: live.json
-      - name: Fil du soir (Facebook + Instagram)
-        continue-on-error: true
-        run: |
-          if [ -f live_code/poster.py ]; then python live_code/poster.py; fi
-        env:
           META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_IG_ID: ${{ secrets.META_IG_ID }}
-      - name: Committer si ça a bougé
         run: |
           git config user.name "puckprob-bot"
           git config user.email "puckprob-bot@users.noreply.github.com"
-          git add live.json
-          if [ -f social_poste.json ]; then git add social_poste.json; fi
-          git diff --cached --quiet || (git commit -q -m "Live $(date -u +%H:%MZ)" && git pull --rebase -q && git push)
+          fin=$(( $(date +%s) + 345 * 60 ))
+          while [ "$(date +%s)" -lt "$fin" ]; do
+            h=$((10#$(TZ=America/Toronto date +%H)))
+            # De 2 h à 11 h (heure de l'Est) : pas de match ni de post, on arrête
+            if [ "$h" -ge 2 ] && [ "$h" -lt 11 ]; then echo "fini pour la nuit"; break; fi
+            # Le calcul de Tirs-nhl pousse ici (site, fil du soir, code) : on prend la dernière version à chaque tour
+            git pull --rebase --autostash -q || echo "pull : raté, on continue"
+            python live_code/live.py || echo "live : erreur"
+            if [ -f live_code/poster.py ]; then python live_code/poster.py || echo "fil : erreur"; fi
+            git add live.json 2>/dev/null || true
+            if [ -f social_poste.json ]; then git add social_poste.json; fi
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Live $(date -u +%H:%MZ)"
+              for i in 1 2 3; do git pull --rebase --autostash -q && git push -q && break; sleep 7; done
+            fi
+            sleep $(( 300 - $(date +%s) % 300 ))
+          done
