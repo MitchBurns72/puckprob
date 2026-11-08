@@ -29,5 +29,20 @@
   "titre": "VGK @ BUF",
   "publie": true,
   "quand": "2026-11-08T15:05-05:00"
+ },
+ "2026-11-08-match-2026020280": {
+  "fb": "1508565075663838_122105533497537152",
+  "fb_com": "122105533497537152_29049061334748363",
+  "ig": "18115008329628815",
+  "ig_com": "18114758681095500",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020280
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "TBL @ WPG",
+  "publie": true,
+  "quand": "2026-11-08T16:30-05:00"
  }
 }
