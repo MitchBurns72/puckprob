@@ -456,6 +456,8 @@ table.serre{font-size:11.5px} table.serre th,table.serre td{padding:5px 3px} tab
 .gcr-note b{color:var(--ink);font-weight:800}
 .gz{display:inline-block;vertical-align:middle;width:90px;height:7px;border-radius:4px;background:var(--chip);margin-left:6px;overflow:hidden} .gz b{display:block;height:100%;background:var(--eq,var(--good))}
 .gcr-gros{margin:0 0 6px} .gcr-gros b{font:700 52px/1 Teko,var(--f-display);color:var(--pv,var(--eq))}
+.ca-hero{padding:6px 16px 4px;border-bottom:1px solid var(--line)} .ca-hero .gcr-gros{margin:0} .ca-hero.ca-c{padding:0 0 8px;border:0}
+.ca-sous{margin:2px 0 0;font:600 13px/1.35 var(--f-body);color:var(--muted)} .ca-hero .spk{text-align:left;margin:6px 0 2px} .ca-hero .spk svg{width:130px;height:30px}
 .gface,.aface{width:34px;height:34px;border-radius:50%;overflow:hidden;background:var(--chip);display:block}
 .gface img,.aface img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
 .statut{font-size:11px;font-weight:700;padding:2px 7px;border-radius:5px;background:var(--warn-bg);color:var(--warn)}
