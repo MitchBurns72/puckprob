@@ -626,6 +626,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp svg{width:74px;height:26px;display:block}
 .cp svg path{fill:none;stroke:var(--eq);stroke-width:2;vector-effect:non-scaling-stroke}
 .cp-test{margin-top:14px}
+/* Petite courbe jour après jour (comme celle de la Coupe), partout : trophées, classement, projections, salaires, Enforcers, GCR */
+.spk{display:block;margin-top:5px;line-height:0;text-align:right}
+.spk svg{width:74px;height:22px;display:inline-block;overflow:visible}
+.spk path{fill:none;stroke:var(--eq, var(--ice));stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.cl .spk{display:inline-block;margin:0 0 0 6px;vertical-align:middle}
+.cl .spk svg{width:44px;height:14px}
 .cp-test td .lgp{width:20px;height:20px;vertical-align:-5px;margin-right:4px}
 .cp-resume{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 8px}
 .cp-resume div{display:flex;flex-direction:column;gap:2px}
@@ -715,6 +721,11 @@ main{display:block}
 .grille a{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;
   padding:9px 10px;text-decoration:none;color:var(--ink);font:700 15px/1.1 var(--f-body);box-shadow:var(--ombre)}
 .grille a img{width:26px;height:26px;flex:none}
+.grille a .gn{flex:1;min-width:0}
+.grille a .gi{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none}
+.grille a .gi small{font:600 11px var(--f-body);color:var(--muted);white-space:nowrap}
+.grille a .gi .spk{margin:0}
+.grille a .gi .spk svg{width:52px;height:16px}
 .texte p{margin:8px 0;max-width:68ch;line-height:1.55}
 .texte h2{margin:22px 0 6px}
 .tuiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 4px}

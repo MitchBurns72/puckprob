@@ -651,6 +651,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp svg{width:74px;height:26px;display:block}
 .cp svg path{fill:none;stroke:var(--eq);stroke-width:2;vector-effect:non-scaling-stroke}
 .cp-test{margin-top:14px}
+/* Petite courbe jour après jour (comme celle de la Coupe), partout : trophées, classement, projections, salaires, Enforcers, GCR */
+.spk{display:block;margin-top:5px;line-height:0;text-align:right}
+.spk svg{width:74px;height:22px;display:inline-block;overflow:visible}
+.spk path{fill:none;stroke:var(--eq, var(--ice));stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+.cl .spk{display:inline-block;margin:0 0 0 6px;vertical-align:middle}
+.cl .spk svg{width:44px;height:14px}
 .cp-test td .lgp{width:20px;height:20px;vertical-align:-5px;margin-right:4px}
 .cp-resume{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 8px}
 .cp-resume div{display:flex;flex-direction:column;gap:2px}
@@ -962,16 +968,16 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">78 %</span><span class="rp-barre"><i style="width:92.1%"></i></span></td></tr><tr><td><a href="joueurs/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs VAN</span></td>
 <td class="rp-n"><span class="rp-p">78 %</span><span class="rp-barre"><i style="width:92.0%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>Tirs 3+</h3><table><tbody><tr><td><a href="joueurs/jason-robertson/">Jason Robertson</a><br><span class="rp-note">DAL vs SJS</span></td>
 <td class="rp-n"><span class="rp-p">72 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/leon-draisaitl/">Leon Draisaitl</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">69 %</span><span class="rp-barre"><i style="width:95.4%"></i></span></td></tr><tr><td><a href="joueurs/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">68 %</span><span class="rp-barre"><i style="width:93.6%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD @ NYI</span></td>
+<td class="rp-n"><span class="rp-p">69 %</span><span class="rp-barre"><i style="width:95.0%"></i></span></td></tr><tr><td><a href="joueurs/connor-mcdavid/">Connor McDavid</a><br><span class="rp-note">EDM vs VAN</span></td>
+<td class="rp-n"><span class="rp-p">67 %</span><span class="rp-barre"><i style="width:93.2%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD @ NYI</span></td>
 <td class="rp-n"><span class="rp-p">66 %</span><span class="rp-barre"><i style="width:91.8%"></i></span></td></tr><tr><td><a href="joueurs/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL vs DET</span></td>
-<td class="rp-n"><span class="rp-p">66 %</span><span class="rp-barre"><i style="width:90.9%"></i></span></td></tr><tr><td><a href="joueurs/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs VAN</span></td>
-<td class="rp-n"><span class="rp-p">64 %</span><span class="rp-barre"><i style="width:89.3%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA @ WSH</span></td>
+<td class="rp-n"><span class="rp-p">66 %</span><span class="rp-barre"><i style="width:90.9%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA @ WSH</span></td>
+<td class="rp-n"><span class="rp-p">64 %</span><span class="rp-barre"><i style="width:88.8%"></i></span></td></tr><tr><td><a href="joueurs/evan-bouchard/">Evan Bouchard</a><br><span class="rp-note">EDM vs VAN</span></td>
 <td class="rp-n"><span class="rp-p">64 %</span><span class="rp-barre"><i style="width:88.8%"></i></span></td></tr><tr><td><a href="joueurs/cole-caufield/">Cole Caufield</a><br><span class="rp-note">MTL @ TOR</span></td>
 <td class="rp-n"><span class="rp-p">63 %</span><span class="rp-barre"><i style="width:87.3%"></i></span></td></tr><tr><td><a href="joueurs/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN vs TBL</span></td>
 <td class="rp-n"><span class="rp-p">63 %</span><span class="rp-barre"><i style="width:86.7%"></i></span></td></tr><tr><td><a href="joueurs/brandon-hagel/">Brandon Hagel</a><br><span class="rp-note">TBL @ MIN</span></td>
 <td class="rp-n"><span class="rp-p">60 %</span><span class="rp-barre"><i style="width:83.5%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,8 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,8 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,7 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>78 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>80 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>54 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>70 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>36 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>44 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>53 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>12 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8,8 %</b></li><li><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Minnesota</a><b>6,8 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6,7 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>82 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a></span><b>37 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>78 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>80 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>53 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>68 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>35 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>45 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>53 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -1152,7 +1158,7 @@ Object.assign(TR, {
   "Pour les trophées votés (Hart, Norris, Vezina, Calder, Selke, Lady Byng, Ted-Lindsay, Jack Adams), on a appris ce que les votants récompensent à partir des gagnants des saisons passées. Exemple : au Selke, la réputation compte beaucoup. Sous chaque liste, on montre si ça aurait marché à pareille date les années d'avant.":
     "For voted awards (Hart, Norris, Vezina, Calder, Selke, Lady Byng, Ted Lindsay, Jack Adams), we learned what voters reward from past winners. Example: for the Selke, reputation matters a lot. Under each list, we show whether it would have worked on the same date in past years.",
   // Matchs
-  "Victoire": "Win", "Nul": "Tie", "Total de buts": "Total goals", "Total projeté": "Projected total", "Score le plus probable": "Most likely score",
+  "Victoire": "Win", "Nul": "Tie", "Total de buts": "Total goals", "Total projeté": "Projected total", "Score prédit": "Predicted score",
   "Tirs les plus probables": "Most likely shots", "Buts attendus": "Expected goals", "Alignements": "Lineups", "estimé": "estimated",
   "gardien pas encore annoncé": "goalie not announced yet", "Confirmé": "Confirmed", "Probable": "Likely", "Pas confirmé": "Not confirmed",
   "Blessés": "Injured", "Avantage numérique": "Power play", "Pas commencé": "Not started", "En cours": "In progress", "Final": "Final",
@@ -1225,7 +1231,7 @@ for (const [re, rep] of [
   [`^Calculé joueur par joueur : (\\d+) joueurs de l'alignement, dont (\\d+) sans prédiction \\(moyenne de leur position\\)\\.$`, "Computed player by player: $1 players in the lineup, $2 without a prediction (position average)."],
   [`^Alignements · (.+)$`, "Lineups · $1"], [`^(.+) : estimé$`, "$1: estimated"],
   [`^Victoire en 60 min · (\\d+) issues$`, "Win in 60 min · $1 outcomes"], [`^Plus de (.+)$`, "Over $1"], [`^Plus (.+)$`, "Over $1"], [`^Moins (.+)$`, "Under $1"],
-  [`^ensuite : (.+) · victoire ${T3} (\\d+) %$`, "next: $1 · $2 win $3%"], [`^Duels directs \\((\\d+)\\) :$`, "Head-to-head ($1):"],
+  [`^autres : (.+) · victoire ${T3} (\\d+) %$`, "others: $1 · $2 win $3%"], [`^Duels directs \\((\\d+)\\) :$`, "Head-to-head ($1):"],
   [`^, (\\d+) BP / (\\d+) BC$`, ", $1 GF / $2 GA"], [`^(\\d+) % du temps entre$`, "$1% of the time between"],
   [`^(\\d+) pts en (\\d+) matchs, projeté (\\d+)$`, "$1 pts in $2 games, projected $3"],
   [`^pts \\((\\d+) B, (\\d+) A\\)$`, "pts ($1 G, $2 A)"], [`^(\\d+)e ronde$`, "Round $1"], [`^1er$`, "1st"], [`^(\\d+)e$`, (m, d) => d + (/1[123]$/.test(d) ? "th" : ({ 1: "st", 2: "nd", 3: "rd" })[d.slice(-1)] || "th")],
@@ -1855,39 +1861,55 @@ function projeter(liste){
   const mode = pt.indexOf(Math.max(...pt));
   return { tirs: T, tirsMode: mode, tirsPlage: intervalle(pt, 0.8), buts: B, n: liste.filter(x => x.pos !== "G").length, manquants };
 }
-// Les scores FINAUX les plus probables (bug vu par Mitch : c'était toujours 3-3, une égalité, impossible au final).
-//  1. Les buts attendus de chaque équipe (la somme de ses joueurs) ; si le modèle du match donne un % de victoire,
-//     on garde le total mais on répartit les buts entre les deux pour que les chances de gagner collent à ce %.
-//  2. Égalité après 60 min : prolongation / fusillade, le gagnant a un but de plus (le local gagne à pVic %).
-//  3. Filet désert : une victoire par un but devient une victoire par deux dans environ 30 % des cas.
-const P_FILET = 0.30;
+// Les scores FINAUX les plus probables. Calé sur 14 000 vrais matchs (saisons 2015-16 à 2024-25) et testé sur 2 saisons
+// jamais vues (2023-24, 2024-25) : meilleur que l'ancien (Poisson + 30 % de filet désert) sur la justesse des % de chaque score.
+//  1. Le total de buts attendu (modèle des totaux) et le % de victoire du modèle : on cherche la fin de 3e période qui donne
+//     exactement ce total FINAL (le but de prolongation compris) et ce % de victoire.
+//  2. Fin de 3e : Poisson pour chaque équipe, puis corrigé par écart de buts avec ce que la vraie LNH fait (SC_W, de -6 à +6) :
+//     les égalités après 60 min arrivent ~30 % plus souvent que le hasard (on protège un point), les avances d'un but
+//     tiennent rarement jusqu'au bout (filet désert : ça finit souvent par 2 ou 3).
+//  3. Égalité : prolongation / fusillade, le gagnant a un but de plus (le local gagne à pVic %).
+//  4. Le score affiché : le plus probable, un peu tiré vers ce qui est SPÉCIAL à ce match (P x (P / fréquence LNH)^SC_K).
+//     Sans ça, c'est 3-2 presque tous les soirs : c'est vrai que c'est le score le plus fréquent de la LNH (14 %), mais
+//     les 3 premiers scores d'un match sont souvent à 1 point de % l'un de l'autre. Testé : même taux de bons scores exacts.
+const SC_W = [0.4781, 0.7046, 1.0105, 1.3739, 0.8138, 0.6046, 1.315, 0.662, 0.9446, 1.7338, 1.3759, 1.0777, 1.0738];
+// Fréquence de chaque score final dans la LNH, 2015-16 à 2024-25 : SC_BASE[buts visiteur][buts local]
+const SC_BASE = [[0.0,0.0101,0.0093,0.0191,0.0152,0.0066,0.0028,0.0015,0.0002,0.0001,0.0001],[0.007,0.0,0.0472,0.0334,0.0403,0.0203,0.0083,0.004,0.0011,0.0002,0.0003],[0.0081,0.0428,0.0,0.0716,0.0371,0.0416,0.0134,0.0043,0.0017,0.0006,0.0002],[0.015,0.0267,0.0671,0.0,0.0559,0.0199,0.0205,0.0051,0.0011,0.0007,0.0],[0.012,0.0376,0.0323,0.0524,0.0,0.0225,0.008,0.0052,0.0011,0.0003,0.0],[0.0039,0.0155,0.0299,0.0205,0.0237,0.0,0.0068,0.0016,0.0011,0.0002,0.0],[0.0019,0.0048,0.0091,0.0133,0.0057,0.0067,0.0,0.0013,0.0003,0.0,0.0],[0.0005,0.0017,0.0036,0.0036,0.0051,0.0012,0.0011,0.0,0.0004,0.0,0.0001],[0.0001,0.0004,0.0006,0.0011,0.0007,0.0008,0.0,0.0,0.0,0.0,0.0],[0.0,0.0001,0.0005,0.0,0.0002,0.0,0.0001,0.0,0.0001,0.0,0.0],[0.0,0.0001,0.0001,0.0,0.0001,0.0,0.0,0.0001,0.0,0.0,0.0]];
+const SC_K = 0.4;
 function scores(la, lh, pVic = null){
-  const brut = (la, lh) => {
-    const pa = poisson(la, 12), ph = poisson(lh, 12), M = {};
-    let vh = 0, eg = 0;
-    for (let a = 0; a <= 12; a++) for (let h = 0; h <= 12; h++){ const p = pa[a] * ph[h]; M[a + "-" + h] = p; if (h > a) vh += p; else if (h === a) eg += p; }
-    return { M, vh, eg };
+  const G = 13, T = la + lh, pv = pVic != null ? pVic : 0.54;
+  const mat = (Tr, r) => {
+    const pa = poisson(Tr * (1 - r), G - 1), ph = poisson(Tr * r, G - 1), F = [];
+    for (let a = 0; a <= G; a++) F.push(new Array(G + 1).fill(0));
+    let s = 0;
+    const R = [];
+    for (let a = 0; a < G; a++){ R.push([]); for (let h = 0; h < G; h++){ const p = pa[a] * ph[h] * SC_W[Math.max(-6, Math.min(6, h - a)) + 6]; R[a].push(p); s += p; } }
+    for (let a = 0; a < G; a++) for (let h = 0; h < G; h++){
+      const p = R[a][h] / s;
+      if (a === h){ F[a][h + 1] += p * pv; F[a + 1][h] += p * (1 - pv); } else F[a][h] += p;
+    }
+    return F;
   };
-  // 1. Répartition des buts calée sur le % de victoire du modèle (recherche par dichotomie sur la part du local)
-  let LA = la, LH = lh;
-  const T = la + lh, q0 = pVic != null ? pVic : null;
-  if (q0 != null && T > 0){
-    let lo = 0.2, hi = 0.8;
-    for (let i = 0; i < 30; i++){ const r = (lo + hi) / 2, x = brut(T * (1 - r), T * r); if (x.vh + q0 * x.eg < q0) lo = r; else hi = r; }
-    LH = T * (lo + hi) / 2; LA = T - LH;
+  const vDom = (F) => { let v = 0; for (let a = 0; a <= G; a++) for (let h = a + 1; h <= G; h++) v += F[a][h]; return v; };
+  const tot = (F) => { let t = 0; for (let a = 0; a <= G; a++) for (let h = 0; h <= G; h++) t += F[a][h] * (a + h); return t; };
+  let Tr = Math.max(1, T - 0.23), r = T > 0 ? lh / T : 0.5, F = null;
+  for (let it = 0; it < 4; it++){
+    if (pVic != null){
+      let lo = 0.2, hi = 0.8;
+      for (let i = 0; i < 22; i++){ r = (lo + hi) / 2; if (vDom(mat(Tr, r)) < pv) lo = r; else hi = r; }
+    }
+    F = mat(Tr, r); Tr = Math.max(0.5, Tr + T - tot(F));
   }
-  const { M, vh, eg } = brut(LA, LH), q = q0 != null ? q0 : 0.52, F = {};
-  const add = (a, h, p) => { const k = a + "-" + h; F[k] = (F[k] || 0) + p; };
-  for (const [k, p] of Object.entries(M)){
-    const [a, h] = k.split("-").map(Number);
-    if (a === h){ add(a, h + 1, p * q); add(a + 1, h, p * (1 - q)); }                       // 2. prolongation
-    else if (Math.abs(a - h) === 1){                                                         // 3. filet désert
-      const ga = a > h;
-      add(a, h, p * (1 - P_FILET)); add(ga ? a + 1 : a, ga ? h : h + 1, p * P_FILET);
-    } else add(a, h, p);
+  F = mat(Tr, r);
+  const cases = [];
+  for (let a = 0; a <= G; a++) for (let h = 0; h <= G; h++) if (F[a][h] > 0){
+    const b = (SC_BASE[a] && SC_BASE[a][h]) || 0;
+    cases.push({ a, h, p: F[a][h], k: F[a][h] * Math.pow(F[a][h] / (b + 1e-5), SC_K) });
   }
-  const cases = Object.entries(F).map(([k, p]) => { const [a, h] = k.split("-").map(Number); return { a, h, p }; }).sort((x, y) => y.p - x.p);
-  return { top: cases.slice(0, 3), victoireDom: vh + q * eg };
+  cases.sort((x, y) => y.p - x.p);
+  const choisi = cases.slice(0, 6).reduce((m, c) => c.k > m.k ? c : m, cases[0]);   // parmi les 6 plus probables : jamais un 8-7 farfelu
+  const top = [choisi, ...cases.filter(c => c !== choisi)].slice(0, 3);
+  return { top, victoireDom: vDom(F) };
 }
 
 const FERMES = new Set();   // alignements ouverts par défaut ; ceux que tu fermes restent fermés en live
@@ -1940,9 +1962,9 @@ function blocAlignement(g){
         <span class="plbl sous">80 % du temps entre</span><span class="ps">${fourchette(prA)}</span><span class="ps">${fourchette(prH)}</span>
         <span class="plbl">Buts attendus</span><b class="pv petit">${prA.buts.toFixed(1)}</b><b class="pv petit">${prH.buts.toFixed(1)}</b>
       </div>
-      <div class="pscore"><span class="plbl">Score le plus probable</span>
+      <div class="pscore"><span class="plbl">Score prédit</span>
         <b>${g.away} ${meilleur.a} – ${meilleur.h} ${g.home}</b> <small>${pct(meilleur.p)} %</small>
-        <span class="ps">ensuite : ${sc.top.slice(1).map(s => `${s.a}-${s.h} (${pct(s.p)} %)`).join(", ")} · victoire ${g.home} ${pct(sc.victoireDom)} %</span></div>
+        <span class="ps">autres : ${sc.top.slice(1).map(s => `${s.a}-${s.h} (${pct(s.p)} %)`).join(", ")} · victoire ${g.home} ${pct(sc.victoireDom)} %</span></div>
       <p class="aide">Calculé joueur par joueur${PUBLIC ? "" : ` avec ${D.principale}`} : ${prA.n + prH.n} joueurs de l'alignement${prA.manquants + prH.manquants ? `, dont ${prA.manquants + prH.manquants} sans prédiction (moyenne de leur position)` : ""}.</p>
     </div>
     <div class="gards">${gard(g.away)}${gard(g.home)}</div>
@@ -2938,6 +2960,19 @@ function courbe(vals){
   const d = v.map((x, i) => `${i ? "L" : "M"}${(i / n * 100).toFixed(1)},${(26 - x / mx * 24).toFixed(1)}`).join("");
   return `<svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg>`;
 }
+// La même courbe, pour n'importe quelle valeur : du plus bas au plus haut des derniers jours (pas depuis 0 : un salaire
+// de 2,0 M$ à 2,1 M$ doit se voir). inv : plus bas = mieux (un rang) -> la courbe monte quand ça s'améliore.
+function spark(vals, inv = false){
+  const v = (vals || []).map(x => x == null ? null : +x);
+  const ok = v.filter(x => x != null && !isNaN(x));
+  if (ok.length < 2) return "";
+  let lo = Math.min(...ok), hi = Math.max(...ok);
+  if (hi - lo < 1e-9){ lo -= 1; hi += 1; }
+  const n = v.length - 1, Y = (x) => { const r = (x - lo) / (hi - lo); return (2 + (inv ? r : 1 - r) * 22).toFixed(1); };
+  let d = "";
+  v.forEach((x, i) => { if (x == null || isNaN(x)) return; d += `${d ? "L" : "M"}${(i / n * 100).toFixed(1)},${Y(x)}`; });
+  return `<span class="spk" title="${L("Jour après jour", "Day by day")}"><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg></span>`;
+}
 function coupeHTML(){
   const C = D.coupe, el = $("#coupe");
   if (!C || !C.equipes){ el.innerHTML = `<div class="card"><div class="vide">Les % de la Coupe arrivent au prochain calcul (la première fois, il récolte toutes les saisons depuis 2008).</div></div>`; return; }
@@ -3087,7 +3122,7 @@ function trophEqHTML(t){
       <span class="nm">${NOMS_EQ[x.t] || x.t}<small>${t === "jennings" ? `${x.bc} buts accordés en ${x.pj} matchs, projeté ${x.proj}`
         : t === "adams" ? `${Math.round(x.pct * 100)} % des points projetés, attendu ${Math.round(x.attendu * 100)} % avant la saison`
         : `projeté ${Math.round(x.proj)} pts`}</small></span>
-      <span class="pc">${pc1(x.p)}<small>%</small>${ecartPc(x.dp)}</span>
+      <span class="pc">${pc1(x.p)}<small>%</small>${ecartPc(x.dp)}${spark(x.h)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>${hierHTML(x.dp, x.raison)}</div>`).join("");
   const T = (E.tests?.[t] || []).filter(x => x.gagnant);
   let test = "";
@@ -3188,7 +3223,7 @@ function trophHTML(t){
       <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom, x.pos) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
       <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
-      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}</span>
+      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}${spark(x.h)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>
       <span class="stat">${statTroph(t, x)}</span>
       ${hierHTML(x.dp, x.raison)}
@@ -3844,7 +3879,7 @@ function ppMatch(gameId){
   const gA = gtxt(g.away), gH = gtxt(g.home);
   // Le score final le plus probable (buts attendus du modèle des totaux, répartis selon le % de victoire)
   const sc = p.lam_away != null && p.lam_home != null ? scores(p.lam_away, p.lam_home, ph).top[0] : null;
-  const scTxt = sc ? L(`Score le plus probable : ${g.away} ${sc.a}-${sc.h} ${g.home} (${pct(sc.p)} %)`, `Most likely score: ${g.away} ${sc.a}-${sc.h} ${g.home} (${pct(sc.p)}%)`) : "";
+  const scTxt = sc ? L(`Score prédit : ${g.away} ${sc.a}-${sc.h} ${g.home} (${pct(sc.p)} %)`, `Predicted score: ${g.away} ${sc.a}-${sc.h} ${g.home} (${pct(sc.p)}%)`) : "";
   return ptReg("match", { duel: true, coul: coul(g.home), titre: `${g.away} @ ${g.home}`, sous: `${ptDate()} · ${heure}`, avis: AVIS_PT(), pa,
     total: [o55 != null ? L(`PLUS DE 5,5 BUTS ${pct(o55)} %`, `OVER 5.5 GOALS ${pct(o55)}%`) : "", o65 != null ? L(`6,5 : ${pct(o65)} %`, `6.5: ${pct(o65)}%`) : ""].filter(Boolean).join(" · "),
     score: scTxt,
@@ -3869,11 +3904,15 @@ window.ppSocial = async (type, opt = {}) => {
     k = ppMatch(opt.gameId); choixId = String(opt.gameId);
   } else if (type === "mouv"){
     // « Ça bouge » : les 10 plus gros changements depuis hier, toutes sections (le post de minuit et demi)
-    const M = D.mouv10 || [];
+    // opt.eq : le top 10 des ÉQUIPES (demande de Mitch) ; sinon celui des joueurs
+    const M = (opt.eq ? D.mouv10_eq : D.mouv10) || [];
     if (!M.length) return null;
-    const noDe = (m) => ["coupe", "classement"].includes(m.cat) ? m.eq : ((D.joueurs || []).find(j => j.name === m.nom)?.no ?? initiales(m.nom));
-    k = ptReg("mouv", { titre: L("Ça bouge", "On the move"), lib: L("Les 10 plus gros changements depuis hier", "The 10 biggest moves since yesterday"), sous: ptDate(),
-      liste: M.slice(0, 10).map((m, i) => ({ rg: i + 1, nom: ["coupe", "classement"].includes(m.cat) ? nomEq(m.eq) : m.nom, no: noDe(m), pos: "", coul: coul(m.eq),
+    const estEq = (m) => ["coupe", "classement", "equipes"].includes(m.cat);
+    const noDe = (m) => estEq(m) ? m.eq : ((D.joueurs || []).find(j => j.name === m.nom)?.no ?? initiales(m.nom));
+    k = ptReg("mouv", { titre: opt.eq ? L("Ça bouge · Équipes", "On the move · Teams") : L("Ça bouge · Joueurs", "On the move · Players"),
+      lib: opt.eq ? L("Les 10 équipes qui ont le plus bougé depuis hier", "The 10 teams that moved the most since yesterday")
+                  : L("Les 10 plus gros changements depuis hier", "The 10 biggest moves since yesterday"), sous: ptDate(),
+      liste: M.slice(0, 10).map((m, i) => ({ rg: i + 1, nom: estEq(m) ? nomEq(m.eq) : m.nom, no: noDe(m), pos: "", coul: coul(m.eq),
         gros: L(m.val_fr, m.val_en), sous: L(m.ctx_fr, m.ctx_en), m })) });
   } else if (type === "coupe" || type === "classement"){
     S.troph = type === "coupe" ? "coupe" : "classement"; S.conf = "all"; S.ctri = "p_coupe"; trophees(); k = type === "coupe" ? "coupe5" : "classement";
@@ -4079,8 +4118,8 @@ function salLigne(x, mode = "top", i = null){
   return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
-      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small></span></button>`
-      : `<span class="v">${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small></span></button>`}`;
+      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h)}</span></button>`
+      : `<span class="v">${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h)}</span></button>`}`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
 function salRapport(k){
@@ -4215,7 +4254,7 @@ function enfLigne(x, mode = "score"){
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
   return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small></span></button>`;
+    <span class="v">${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>${glob ? spark(x.h) : ""}</span></button>`;
 }
 function enfCarte(id){
   const x = ENF?.joueurs?.[id]; if (!x) return;
@@ -4310,7 +4349,7 @@ function prjLigne(x, mode){
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
   return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small></span></button>`;
+    <span class="v">${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
 }
 // Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
 // ce soir-là (même recette : rythme mélangé avec son passé, matchs qui restent x sa présence). x = ses matchs, y = la stat.
@@ -4467,7 +4506,7 @@ async function gcrOnglet(){
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
     return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${tri === "gcr" ? mvtHTML(x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
-      <span class="v">${val}<small>${lib}</small></span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
+      <span class="v">${val}<small>${lib}</small>${tri === "gcr" ? spark(x.h) : ""}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   el.innerHTML = tete + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
   ptListeTab("p-gcr");
 }
@@ -4626,7 +4665,7 @@ function classementHTML(){
     const tete = `<tr><th class="cl-eq">Équipe</th>${Array.from({ length: n }, (_, k) => `<th class="${k === 7 ? "cl-coupe" : ""}">${k + 1}</th>`).join("")}<th class="cl-s">Séries</th></tr>`;
     // Places depuis hier : le rang moyen d'hier (rang moyen - écart), plus bas = mieux
     const MV = mvtListe(eqs, e => e.t, e => e.moy, e => e.d?.moy, -1);
-    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="${eqV(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}${mvtHTML(MV[e.t])}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}${ecartHTML(e.d?.moy, (v) => v.toFixed(1).replace(".", EN ? "." : ","), -1, 0.05)}</small></th>
+    const lignes = eqs.map(e => `<tr><th class="cl-eq" style="${eqV(e.t)}"><img src="${LOGO(e.t)}" alt="" loading="lazy">${e.t}${mvtHTML(MV[e.t])}<small>${e.moy.toFixed(1).replace(".", EN ? "." : ",")}${ecartHTML(e.d?.moy, (v) => v.toFixed(1).replace(".", EN ? "." : ","), -1, 0.05)}${spark(e.hc, true)}</small></th>
       ${Array.from({ length: n }, (_, k) => cellule(e.rangs[k] || 0).replace("<td", k === 7 ? '<td class="cl-coupe"' : "<td")).join("")}
       <td class="cl-s"><b>${pc1(e.p_series)}</b></td></tr>`).join("");
     return `<h2 style="margin:16px 0 8px">${NOM_CONF[c] || c}</h2><div class="cl-tbl"><table class="cl"><thead>${tete}</thead><tbody>${lignes}</tbody></table></div>`;
@@ -5129,7 +5168,7 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=7ba0ab99" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=7ba0ab99" defer></script>
+<script src="pub.js?v=7e982da4" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=7e982da4" defer></script>
 </body>
 </html>
