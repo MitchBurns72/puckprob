@@ -2,6 +2,8 @@ name: Live
 
 # Scores en direct : aux 5 min de midi à 2 h du matin (heure de l'Est). Écrit live.json à la racine du site.
 # Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl. Les soirs sans match finissent en 10 s.
+# Fil du soir (live_code/poster.py) : publie sur Facebook / Instagram les posts préparés par le calcul, chacun à son
+# heure (à partir de 14 h). Secrets du dépôt puckprob : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID.
 on:
   schedule:
     - cron: "*/5 16-23 * * *"
@@ -18,7 +20,7 @@ concurrency:
 jobs:
   live:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,9 +30,18 @@ jobs:
         run: python live_code/live.py
         env:
           LIVE_SORTIE: live.json
+      - name: Fil du soir (Facebook + Instagram)
+        continue-on-error: true
+        run: |
+          if [ -f live_code/poster.py ]; then python live_code/poster.py; fi
+        env:
+          META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
+          META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
+          META_IG_ID: ${{ secrets.META_IG_ID }}
       - name: Committer si ça a bougé
         run: |
           git config user.name "puckprob-bot"
           git config user.email "puckprob-bot@users.noreply.github.com"
           git add live.json
+          if [ -f social_poste.json ]; then git add social_poste.json; fi
           git diff --cached --quiet || (git commit -q -m "Live $(date -u +%H:%MZ)" && git pull --rebase -q && git push)
