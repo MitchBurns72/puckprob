@@ -60,5 +60,20 @@
   "titre": "Top 5 · 1 passe ou plus",
   "publie": true,
   "quand": "2026-11-08T16:45-05:00"
+ },
+ "2026-11-08-match-2026020279": {
+  "fb": "1508565075663838_122105551167537152",
+  "fb_com": "122105551167537152_2715331715591035",
+  "ig": "18121109044964322",
+  "ig_com": "18008950691793957",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020279
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NJD @ TOR",
+  "publie": true,
+  "quand": "2026-11-08T17:00-05:00"
  }
 }
