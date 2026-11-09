@@ -71,8 +71,54 @@ def _commenter(objet, message, nom):
         return None
 
 
+def _attendre_ig(cid):
+    for _ in range(15):
+        st = _graph(str(cid), {"fields": "status_code"}, methode="GET").get("status_code")
+        if st in ("FINISHED", None):
+            return
+        if st == "ERROR":
+            raise RuntimeError("Instagram n'a pas pu lire une image")
+        time.sleep(3)
+
+
+def publier_plusieurs(it):
+    """2 photos et plus (l'image habituelle + le popup d'un joueur) : un post Facebook qui attache des photos pas
+    publiées, et un carrousel Instagram. Même recette que social.publier_plusieurs()."""
+    page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
+    ids = [_graph(f"{page}/photos", {"published": "false"}, fichier=(RACINE / f).read_bytes()).get("id") for f in it["images"]]
+    champs = {"message": it["texte"]}
+    for i, pid in enumerate(ids):
+        champs[f"attached_media[{i}]"] = json.dumps({"media_fbid": pid})
+    out = {"fb": _graph(f"{page}/feed", champs).get("id")}
+    print(f"  Facebook OK, {len(ids)} photos ({out['fb']})")
+    out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
+    if not ig:
+        return out
+    try:
+        pieces = []
+        for pid in ids:
+            imgs = _graph(str(pid), {"fields": "images"}, methode="GET").get("images") or []
+            src = max(imgs, key=lambda x: x.get("width", 0)).get("source") if imgs else None
+            if not src:
+                raise RuntimeError("pas d'adresse d'image sur une photo Facebook")
+            c = _graph(f"{ig}/media", {"image_url": src, "is_carousel_item": "true"})
+            _attendre_ig(c["id"])
+            pieces.append(c["id"])
+        c = _graph(f"{ig}/media", {"media_type": "CAROUSEL", "children": ",".join(pieces), "caption": it.get("texte_ig") or it["texte"]})
+        _attendre_ig(c["id"])
+        out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
+        print(f"  Instagram OK, carrousel de {len(pieces)} ({out['ig']})")
+        out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
+    except Exception as ex:  # noqa: BLE001
+        out["ig"] = f"erreur : {str(ex)[:200]}"
+        print(f"  Instagram {out['ig']}")
+    return out
+
+
 def publier(it):
     """Facebook (fichier), puis Instagram (adresse de la photo Facebook). Même recette que social.publier()."""
+    if it.get("images") and len(it["images"]) > 1:
+        return publier_plusieurs(it)
     page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
     jpeg = (RACINE / it["image"]).read_bytes()
     out = {}
