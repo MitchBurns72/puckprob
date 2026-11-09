@@ -152,5 +152,21 @@
   "titre": "NYR @ EDM",
   "publie": true,
   "quand": "2026-11-09T15:45-05:00"
+ },
+ "2026-11-09-top-passes": {
+  "fb": "1508565075663838_122106616899537152",
+  "fb_com": "122106616899537152_1140724918342787",
+  "ig": "17910542511331893",
+  "ig_com": "18185148112442304",
+  "type": "top",
+  "opt": {
+   "marche": "passes",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 1 passe ou plus",
+  "publie": true,
+  "quand": "2026-11-09T16:45-05:00"
  }
 }
