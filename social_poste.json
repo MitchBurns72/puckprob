@@ -121,5 +121,21 @@
   "titre": "PIT @ ANA",
   "publie": true,
   "quand": "2026-11-08T18:45-05:00"
+ },
+ "2026-11-09-top-buts": {
+  "fb": "1508565075663838_122106517671537152",
+  "fb_com": "122106517671537152_1464424219156488",
+  "ig": "18354468061254810",
+  "ig_com": "18123672403908696",
+  "type": "top",
+  "opt": {
+   "marche": "buts",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · Marque un but",
+  "publie": true,
+  "quand": "2026-11-09T14:45-05:00"
  }
 }
