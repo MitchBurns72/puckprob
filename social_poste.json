@@ -168,5 +168,20 @@
   "titre": "Top 5 · 1 passe ou plus",
   "publie": true,
   "quand": "2026-11-09T16:45-05:00"
+ },
+ "2026-11-09-match-2026020284": {
+  "fb": "1508565075663838_122106645885537152",
+  "fb_com": "122106645885537152_1604158267619121",
+  "ig": "18120030146004309",
+  "ig_com": "17941005852385612",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020284
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "PHI @ VAN",
+  "publie": true,
+  "quand": "2026-11-09T17:45-05:00"
  }
 }
