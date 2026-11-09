@@ -137,5 +137,20 @@
   "titre": "Top 5 · Marque un but",
   "publie": true,
   "quand": "2026-11-09T14:45-05:00"
+ },
+ "2026-11-09-match-2026020283": {
+  "fb": "1508565075663838_122106563181537152",
+  "fb_com": "122106563181537152_1923566425031012",
+  "ig": "17935113513409906",
+  "ig_com": "18112225019255919",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020283
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NYR @ EDM",
+  "publie": true,
+  "quand": "2026-11-09T15:45-05:00"
  }
 }
