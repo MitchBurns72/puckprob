@@ -183,5 +183,21 @@
   "titre": "PHI @ VAN",
   "publie": true,
   "quand": "2026-11-09T17:45-05:00"
+ },
+ "2026-11-09-top-tirs3": {
+  "fb": "1508565075663838_122106674685537152",
+  "fb_com": "122106674685537152_4349793258644633",
+  "ig": "18118463278815618",
+  "ig_com": "18138473041639316",
+  "type": "top",
+  "opt": {
+   "marche": "tirs3",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 3 tirs ou plus",
+  "publie": true,
+  "quand": "2026-11-09T18:30-05:00"
  }
 }
