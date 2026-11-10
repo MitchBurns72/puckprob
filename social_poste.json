@@ -306,5 +306,20 @@
   "titre": "NJD @ WPG",
   "publie": true,
   "quand": "2026-11-10T17:25-05:00"
+ },
+ "2026-11-10-match-2026020289": {
+  "fb": "1508565075663838_122107810857537152",
+  "fb_com": "122107810857537152_4674019512887607",
+  "ig": "18029875721699753",
+  "ig_com": "18159648910515317",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020289
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "FLA @ CBJ",
+  "publie": true,
+  "quand": "2026-11-10T17:45-05:00"
  }
 }
