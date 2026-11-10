@@ -1,30 +1,11 @@
 {
  "jour": "2026-11-10",
- "maj": "2026-11-10T15:40-05:00",
+ "maj": "2026-11-10T15:49-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-10-top-buts",
-   "quand": "2026-11-10T15:44-05:00",
-   "image": "social/fil/2026-11-10/top-buts.jpg",
-   "images": null,
-   "avant": null,
-   "texte": "Top 5 ce soir : Marque un but\n1. Kirill Kaprizov (MIN à MTL) 44%\n2. William Nylander (TOR vs COL) 41%\n3. Artemi Panarin (LAK vs NSH) 40%\n4. Jack Hughes (NJD à WPG) 40%\n5. Adrian Kempe (LAK vs NSH) 40%\n\nTop 5 tonight: Scores a goal\n1. Kirill Kaprizov (MIN at MTL) 44%\n2. William Nylander (TOR vs COL) 41%\n3. Artemi Panarin (LAK vs NSH) 40%\n4. Jack Hughes (NJD at WPG) 40%\n5. Adrian Kempe (LAK vs NSH) 40%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Top 5 ce soir : Marque un but\n1. Kirill Kaprizov (MIN à MTL) 44%\n2. William Nylander (TOR vs COL) 41%\n3. Artemi Panarin (LAK vs NSH) 40%\n4. Jack Hughes (NJD à WPG) 40%\n5. Adrian Kempe (LAK vs NSH) 40%\n\nTop 5 tonight: Scores a goal\n1. Kirill Kaprizov (MIN at MTL) 44%\n2. William Nylander (TOR vs COL) 41%\n3. Artemi Panarin (LAK vs NSH) 40%\n4. Jack Hughes (NJD at WPG) 40%\n5. Adrian Kempe (LAK vs NSH) 40%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "com": "Pourquoi Kirill Kaprizov en tête : 1er trio + PP1, 16 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Jacob Fowler (.923).\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Kirill Kaprizov is #1: 1st line + PP1, 16 goals in 19 games, 6 of his last 10 games, facing Jacob Fowler (.923).\nAll the details: https://puckprob.ca/tonight/",
-   "com_ig": "Pourquoi Kirill Kaprizov en tête : 1er trio + PP1, 16 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Jacob Fowler (.923).\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Kirill Kaprizov is #1: 1st line + PP1, 16 goals in 19 games, 6 of his last 10 games, facing Jacob Fowler (.923).",
-   "type": "top",
-   "opt": {
-    "marche": "buts",
-    "hasard": 0.5
-   },
-   "lien": "https://puckprob.ca/fr/ce-soir/",
-   "lien_en": "https://puckprob.ca/tonight/",
-   "titre": "Top 5 · Marque un but"
-  },
-  {
    "id": "2026-11-10-match-2026020286",
-   "quand": "2026-11-10T16:04-05:00",
+   "quand": "2026-11-10T15:53-05:00",
    "image": "social/fil/2026-11-10/match-2026020286.jpg",
    "images": null,
    "avant": "2026-11-10T19:00-05:00",
@@ -42,7 +23,7 @@
   },
   {
    "id": "2026-11-10-match-2026020287",
-   "quand": "2026-11-10T16:24-05:00",
+   "quand": "2026-11-10T16:15-05:00",
    "image": "social/fil/2026-11-10/match-2026020287.jpg",
    "images": null,
    "avant": "2026-11-10T19:00-05:00",
@@ -60,7 +41,7 @@
   },
   {
    "id": "2026-11-10-top-passes",
-   "quand": "2026-11-10T16:44-05:00",
+   "quand": "2026-11-10T16:36-05:00",
    "image": "social/fil/2026-11-10/top-passes.jpg",
    "images": null,
    "avant": null,
@@ -79,7 +60,7 @@
   },
   {
    "id": "2026-11-10-match-2026020288",
-   "quand": "2026-11-10T17:04-05:00",
+   "quand": "2026-11-10T16:57-05:00",
    "image": "social/fil/2026-11-10/match-2026020288.jpg",
    "images": null,
    "avant": "2026-11-10T19:00-05:00",
@@ -97,7 +78,7 @@
   },
   {
    "id": "2026-11-10-match-2026020291",
-   "quand": "2026-11-10T17:24-05:00",
+   "quand": "2026-11-10T17:19-05:00",
    "image": "social/fil/2026-11-10/match-2026020291.jpg",
    "images": null,
    "avant": "2026-11-10T19:00-05:00",
@@ -115,7 +96,7 @@
   },
   {
    "id": "2026-11-10-match-2026020289",
-   "quand": "2026-11-10T17:44-05:00",
+   "quand": "2026-11-10T17:40-05:00",
    "image": "social/fil/2026-11-10/match-2026020289.jpg",
    "images": null,
    "avant": "2026-11-10T19:30-05:00",
@@ -133,7 +114,7 @@
   },
   {
    "id": "2026-11-10-top-tirs3",
-   "quand": "2026-11-10T18:04-05:00",
+   "quand": "2026-11-10T18:02-05:00",
    "image": "social/fil/2026-11-10/top-tirs3.jpg",
    "images": null,
    "avant": null,
@@ -152,7 +133,7 @@
   },
   {
    "id": "2026-11-10-match-2026020290",
-   "quand": "2026-11-10T18:24-05:00",
+   "quand": "2026-11-10T18:23-05:00",
    "image": "social/fil/2026-11-10/match-2026020290.jpg",
    "images": null,
    "avant": "2026-11-10T20:00-05:00",
@@ -170,7 +151,7 @@
   },
   {
    "id": "2026-11-10-match-2026020292",
-   "quand": "2026-11-10T18:44-05:00",
+   "quand": "2026-11-10T18:45-05:00",
    "image": "social/fil/2026-11-10/match-2026020292.jpg",
    "images": null,
    "avant": "2026-11-10T22:00-05:00",
