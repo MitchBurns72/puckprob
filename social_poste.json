@@ -276,5 +276,20 @@
   "titre": "Top 5 · 1 passe ou plus",
   "publie": true,
   "quand": "2026-11-10T16:40-05:00"
+ },
+ "2026-11-10-match-2026020288": {
+  "fb": "1508565075663838_122107776579537152",
+  "fb_com": "122107776579537152_1669050661927591",
+  "ig": "18111051821256805",
+  "ig_com": "18159073903521256",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020288
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "WSH @ OTT",
+  "publie": true,
+  "quand": "2026-11-10T17:00-05:00"
  }
 }
