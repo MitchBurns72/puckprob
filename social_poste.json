@@ -321,5 +321,21 @@
   "titre": "FLA @ CBJ",
   "publie": true,
   "quand": "2026-11-10T17:45-05:00"
+ },
+ "2026-11-10-top-tirs3": {
+  "fb": "1508565075663838_122107831389537152",
+  "fb_com": "122107831389537152_1655024759650748",
+  "ig": "18121336844051713",
+  "ig_com": "18138847433507485",
+  "type": "top",
+  "opt": {
+   "marche": "tirs3",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 3 tirs ou plus",
+  "publie": true,
+  "quand": "2026-11-10T18:05-05:00"
  }
 }
