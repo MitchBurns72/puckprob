@@ -245,5 +245,20 @@
   "titre": "COL @ TOR",
   "publie": true,
   "quand": "2026-11-10T15:55-05:00"
+ },
+ "2026-11-10-match-2026020287": {
+  "fb": "1508565075663838_122107747851537152",
+  "fb_com": "122107747851537152_1150047150886169",
+  "ig": "18134548327705048",
+  "ig_com": "17917664151550054",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020287
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "MIN @ MTL",
+  "publie": true,
+  "quand": "2026-11-10T16:15-05:00"
  }
 }
