@@ -214,5 +214,21 @@
   "titre": "NYI @ SJS",
   "publie": true,
   "quand": "2026-11-09T19:35-05:00"
+ },
+ "2026-11-10-top-buts": {
+  "fb": "1508565075663838_122107729353537152",
+  "fb_com": "122107729353537152_4595216000724870",
+  "ig": "18573174796073292",
+  "ig_com": "18138483766634957",
+  "type": "top",
+  "opt": {
+   "marche": "buts",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · Marque un but",
+  "publie": true,
+  "quand": "2026-11-10T15:45-05:00"
  }
 }
