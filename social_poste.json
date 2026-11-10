@@ -230,5 +230,20 @@
   "titre": "Top 5 · Marque un but",
   "publie": true,
   "quand": "2026-11-10T15:45-05:00"
+ },
+ "2026-11-10-match-2026020286": {
+  "fb": "1508565075663838_122107734729537152",
+  "fb_com": "122107734729537152_1968210761231641",
+  "ig": "18101306663407297",
+  "ig_com": "18021623060937690",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020286
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "COL @ TOR",
+  "publie": true,
+  "quand": "2026-11-10T15:55-05:00"
  }
 }
