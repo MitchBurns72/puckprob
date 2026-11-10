@@ -291,5 +291,20 @@
   "titre": "WSH @ OTT",
   "publie": true,
   "quand": "2026-11-10T17:00-05:00"
+ },
+ "2026-11-10-match-2026020291": {
+  "fb": "1508565075663838_122107791045537152",
+  "fb_com": "122107791045537152_1685620562907597",
+  "ig": "17873655702643553",
+  "ig_com": "17989505769102199",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020291
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NJD @ WPG",
+  "publie": true,
+  "quand": "2026-11-10T17:25-05:00"
  }
 }
