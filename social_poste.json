@@ -199,5 +199,20 @@
   "titre": "Top 5 · 3 tirs ou plus",
   "publie": true,
   "quand": "2026-11-09T18:30-05:00"
+ },
+ "2026-11-09-match-2026020285": {
+  "fb": "1508565075663838_122106709419537152",
+  "fb_com": "122106709419537152_1446602324312001",
+  "ig": "18115417094150711",
+  "ig_com": "18190771279414563",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020285
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NYI @ SJS",
+  "publie": true,
+  "quand": "2026-11-09T19:35-05:00"
  }
 }
