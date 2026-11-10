@@ -337,5 +337,20 @@
   "titre": "Top 5 · 3 tirs ou plus",
   "publie": true,
   "quand": "2026-11-10T18:05-05:00"
+ },
+ "2026-11-10-match-2026020290": {
+  "fb": "1508565075663838_122107854771537152",
+  "fb_com": "122107854771537152_1684610219783447",
+  "ig": "18097516916145564",
+  "ig_com": "17916579606540465",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020290
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "DET @ STL",
+  "publie": true,
+  "quand": "2026-11-10T18:20-05:00"
  }
 }
