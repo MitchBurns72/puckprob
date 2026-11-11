@@ -59,6 +59,75 @@ def _graph(chemin, champs=None, fichier=None, methode="POST"):
         raise RuntimeError(f"Meta {ex.code} : {ex.read().decode('utf-8', 'replace')[:300]}") from None
 
 
+# ---------------------------------------------------------------------------------
+# La garde d'Instagram (11 nov. 2026 : Instagram a bloqué nos posts pour « spam soupçonné », erreur 4 / 2207051,
+# après une grosse journée : 16 posts, 2 commentaires automatiques sous chacun, des posts collés une minute
+# l'un après l'autre). Les règles, pour avoir l'air de ce qu'on est (un humain qui poste, pas un robot) :
+#   - pas de commentaire automatique sous les posts Instagram (Facebook les garde) ;
+#   - au plus IG_MAX_JOUR posts Instagram par jour et IG_ECART_MIN minutes entre deux ; les autres sortent sur
+#     Facebook seulement (le post n'est pas perdu) ;
+#   - Instagram bloque (2207051, ou « request limit ») : on arrête d'essayer IG_PAUSE_H heures ; réessayer pendant
+#     un blocage l'allonge.
+# Chaque côté a son fichier : le calcul de Tirs-nhl (data/social/ig_garde.json, ses posts du matin et de la nuit)
+# et le job live de puckprob (social/ig_garde.json, la file du soir et les stories).
+# ---------------------------------------------------------------------------------
+IG_MAX_JOUR, IG_ECART_MIN, IG_PAUSE_H = 8, 30, 24
+IG_COMMENTAIRE = False
+# L'état est gardé sous la clé « _ig » du fichier : ici social_poste.json (le job live le pousse déjà ; un fichier à part
+# serait perdu à chaque relance du job). Côté Tirs-nhl : data/social/ig_garde.json.
+MAINTENANT = None          # l'heure simulée des tests (main(maintenant)) ; sinon l'heure réelle
+
+
+def _json(f):
+    try:
+        return json.loads(Path(f).read_text(encoding="utf-8")) or {}
+    except (OSError, ValueError):
+        return {}
+
+
+def _ig_lire(f):
+    return _json(f).get("_ig") or {}
+
+
+def ig_ok(f=None, max_jour=None, ecart_min=None, story=False):
+    """-> (True, "") ou (False, la raison). Une story ne regarde que la pause (pas le quota ni l'écart).
+    f : le fichier d'état (par défaut social_poste.json du job live)."""
+    max_jour = IG_MAX_JOUR if max_jour is None else max_jour
+    ecart_min = IG_ECART_MIN if ecart_min is None else ecart_min
+    g, n = _ig_lire(f or POSTE), MAINTENANT or datetime.now(TZ)
+    if g.get("pause_jusqu") and n < datetime.fromisoformat(g["pause_jusqu"]):
+        return False, f"Instagram en pause jusqu'à {datetime.fromisoformat(g['pause_jusqu']).astimezone(TZ):%d/%m %H:%M} (blocage)"
+    if story:
+        return True, ""
+    if g.get("jour") == n.date().isoformat() and g.get("n", 0) >= max_jour:
+        return False, f"déjà {max_jour} posts Instagram aujourd'hui"
+    if g.get("dernier") and n - datetime.fromisoformat(g["dernier"]) < timedelta(minutes=ecart_min):
+        return False, f"moins de {ecart_min} min depuis le dernier post Instagram"
+    return True, ""
+
+
+def ig_noter(resultat, f=None, story=False):
+    """Après un essai sur Instagram : compte le post réussi, ou met Instagram en pause si Meta bloque."""
+    f = f or POSTE
+    g, n = _ig_lire(f), MAINTENANT or datetime.now(TZ)
+    r = str(resultat or "")
+    if r.startswith("erreur") and ("2207051" in r or "request limit" in r.lower() or "2207042" in r):
+        g["pause_jusqu"] = (n + timedelta(hours=IG_PAUSE_H)).isoformat(timespec="minutes")
+        print(f"  Instagram bloque nos posts : pause de {IG_PAUSE_H} h")
+    elif r and not r.startswith("erreur") and not story:
+        if g.get("jour") != n.date().isoformat():
+            g["jour"], g["n"] = n.date().isoformat(), 0
+        g["n"] = g.get("n", 0) + 1
+        g["dernier"] = n.isoformat(timespec="minutes")
+    try:
+        tout = _json(f)
+        tout["_ig"] = g
+        Path(f).parent.mkdir(parents=True, exist_ok=True)
+        Path(f).write_text(json.dumps(tout, ensure_ascii=False, indent=1), encoding="utf-8")
+    except OSError:
+        pass
+
+
 def _commenter(objet, message, nom):
     if not message:
         return None
@@ -96,7 +165,7 @@ def _rupload(url, donnees):
     return r
 
 
-def publier_story_video(chemin):
+def publier_story_video(chemin, f_ig=None):
     """Une story vidéo (src/story_match.py : les matchs 10 min avant, avec musique), Facebook et Instagram.
     Facebook : video_stories (start -> téléversement -> finish). Instagram : conteneur STORIES « resumable », la vidéo
     envoyée directement (pas besoin d'adresse publique), on attend que Meta l'ait traitée, puis media_publish.
@@ -113,7 +182,11 @@ def publier_story_video(chemin):
     except Exception as ex:  # noqa: BLE001
         out["fb"] = f"erreur : {str(ex)[:200]}"
         print(f"  story Facebook {out['fb']}")
-    if ig:
+    ok, raison = ig_ok(f_ig, story=True) if ig else (False, "")
+    if ig and not ok:
+        out["ig"] = f"sauté : {raison}"
+        print(f"  story Instagram {out['ig']}")
+    if ig and ok:
         try:
             c = _graph(f"{ig}/media", {"media_type": "STORIES", "upload_type": "resumable"})
             _rupload(c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{API}/{c['id']}", donnees)
@@ -130,6 +203,7 @@ def publier_story_video(chemin):
         except Exception as ex:  # noqa: BLE001
             out["ig"] = f"erreur : {str(ex)[:200]}"
             print(f"  story Instagram {out['ig']}")
+        ig_noter(out.get("ig"), f_ig, story=True)
     if all(str(v).startswith("erreur") for v in out.values()):
         raise RuntimeError(f"story ratée partout : {out}")
     return out
@@ -158,6 +232,11 @@ def publier_plusieurs(it):
     out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
     if not ig:
         return out
+    ok, raison = ig_ok()
+    if not ok:
+        out["ig"] = f"sauté : {raison}"
+        print(f"  Instagram {out['ig']}")
+        return out
     try:
         pieces = []
         for pid in ids:
@@ -172,10 +251,12 @@ def publier_plusieurs(it):
         _attendre_ig(c["id"])
         out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
         print(f"  Instagram OK, carrousel de {len(pieces)} ({out['ig']})")
-        out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
+        if IG_COMMENTAIRE:
+            out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
     except Exception as ex:  # noqa: BLE001
         out["ig"] = f"erreur : {str(ex)[:200]}"
         print(f"  Instagram {out['ig']}")
+    ig_noter(out.get("ig"))
     return out
 
 
@@ -192,6 +273,11 @@ def publier(it):
     out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
     if not ig:
         return out
+    ok, raison = ig_ok()
+    if not ok:
+        out["ig"] = f"sauté : {raison}"
+        print(f"  Instagram {out['ig']}")
+        return out
     try:
         imgs = _graph(str(r.get("id")), {"fields": "images"}, methode="GET").get("images") or []
         src = max(imgs, key=lambda x: x.get("width", 0)).get("source") if imgs else None
@@ -207,17 +293,31 @@ def publier(it):
             time.sleep(3)
         out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
         print(f"  Instagram OK ({out['ig']})")
-        out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
+        if IG_COMMENTAIRE:
+            out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
     except Exception as ex:  # noqa: BLE001
         out["ig"] = f"erreur : {str(ex)[:200]}"
         print(f"  Instagram {out['ig']}")
+    ig_noter(out.get("ig"))
     return out
+
+
+def _ecrire_poste(poste):
+    """Les GARDER derniers posts + l'état de la garde d'Instagram (« _ig », écrit sur le disque par ig_noter pendant
+    le passage : on le relit pour ne pas l'écraser avec la copie en mémoire)."""
+    ig = _ig_lire(POSTE) or poste.get("_ig")
+    garde = dict([kv for kv in poste.items() if kv[0] != "_ig"][-GARDER:])
+    if ig:
+        garde["_ig"] = ig
+    POSTE.write_text(json.dumps(garde, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 def main(maintenant=None):
     if not os.environ.get("META_PAGE_TOKEN") or not os.environ.get("META_PAGE_ID"):
         print("fil : pas de secrets Meta, rien à faire")
         return 0
+    global MAINTENANT
+    MAINTENANT = maintenant
     now = maintenant or datetime.now(TZ)
     jour = now.date().isoformat()
     F = _lire(RACINE / "social" / "fil" / f"{jour}.json", None)
@@ -256,10 +356,10 @@ def main(maintenant=None):
                                "lien_en": it.get("lien_en"), "titre": it.get("titre"), "publie": True,
                                "quand": datetime.now(TZ).isoformat(timespec="minutes")}
         n += 0 if it.get("story") else 1
-        POSTE.write_text(json.dumps(dict(list(poste.items())[-GARDER:]), ensure_ascii=False, indent=1), encoding="utf-8")
+        _ecrire_poste(poste)
         if n < MAX_PAR_PASSAGE:
             time.sleep(5)
-    POSTE.write_text(json.dumps(dict(list(poste.items())[-GARDER:]), ensure_ascii=False, indent=1), encoding="utf-8")
+    _ecrire_poste(poste)
     reste = [it for it in F["items"] if it["id"] not in poste]
     print(f"fil : {n} publié(s), {len(reste)} à venir" + (f" (prochain à {reste[0]['quand'][11:16]})" if reste else ""))
     return n
