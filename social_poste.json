@@ -352,5 +352,20 @@
   "titre": "DET @ STL",
   "publie": true,
   "quand": "2026-11-10T18:20-05:00"
+ },
+ "2026-11-10-match-2026020292": {
+  "fb": "1508565075663838_122107916901537152",
+  "fb_com": "122107916901537152_1429999365884336",
+  "ig": "17893085100683959",
+  "ig_com": "18135798787797125",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020292
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NSH @ LAK",
+  "publie": true,
+  "quand": "2026-11-10T20:05-05:00"
  }
 }
