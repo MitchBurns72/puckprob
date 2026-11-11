@@ -215,7 +215,8 @@ def story(it):
     import tempfile
     import story_match
     with tempfile.TemporaryDirectory() as tmp:
-        mp4 = story_match.video((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"][:10])
+        # La toune : choisie par le id de la story (chaque match a la sienne, en rotation entre les tounes déposées)
+        mp4 = story_match.video((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"])
         return publier_story_video(mp4)
 
 

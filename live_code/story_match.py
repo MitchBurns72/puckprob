@@ -183,11 +183,11 @@ def _wav(st):
     return b.getvalue()
 
 
-def musique(jour=None):
-    """Chemin d'un fichier audio pour la story : une toune déposée dans assets/musique/ (une différente chaque jour),
-    sinon notre riff (qui change un peu chaque jour)."""
-    jour = jour or datetime.now().date().isoformat()
-    graine = int(hashlib.sha1(jour.encode()).hexdigest()[:6], 16)
+def musique(cle=None):
+    """Chemin d'un fichier audio pour la story : une des tounes déposées dans assets/musique/, en rotation (cle = le id
+    de la story : chaque match tire la sienne, toujours la même pour un même match), sinon notre riff."""
+    cle = cle or datetime.now().date().isoformat()
+    graine = int(hashlib.sha1(cle.encode()).hexdigest()[:6], 16)
     tounes = sorted(p for d in DIRS_MUSIQUE if d.is_dir() for p in d.glob("*") if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".ogg"))
     if tounes:
         return tounes[graine % len(tounes)]
@@ -279,7 +279,8 @@ def video(jpeg_cadre, sortie, jour=None):
         vf = (f"scale=w='trunc(1080*(1+0.04*t/{DUREE})/2)*2':h='trunc(1920*(1+0.04*t/{DUREE})/2)*2':eval=frame,"
               "crop=1080:1920,format=yuv420p")
         cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-loop", "1", "-framerate", "30", "-i", str(img),
-               "-i", str(son), "-t", str(DUREE), "-vf", vf, "-r", "30",
+               "-i", str(son), "-map", "0:v", "-map", "1:a",      # (un .mp3 peut avoir une pochette : on ne la prend pas)
+               "-t", str(DUREE), "-vf", vf, "-r", "30",
                "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "20",
                "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
                "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
