@@ -397,6 +397,20 @@
   "publie": true,
   "quand": "2026-11-11T14:35-05:00"
  },
+ "2026-11-11-match-2026020294": {
+  "fb": "1508565075663838_122108816661537152",
+  "fb_com": "122108816661537152_29690823513858013",
+  "ig": "sauté : Instagram en pause jusqu'à 12/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020294
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NYR @ CGY",
+  "publie": true,
+  "quand": "2026-11-11T15:15-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-12T14:00-05:00"
  }
