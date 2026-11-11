@@ -723,6 +723,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ca-rang .cote{font-size:15px}
 .wi-cours{background:#FFB81C;color:#0B1220;border-radius:5px;padding:0 5px;font-size:11px}
 .eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
+.lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
+.rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
@@ -754,6 +758,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-gcr" aria-selected="false" aria-controls="p-gcr">GCR</button>
     <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">Arbitres</button>
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
+    <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Rumeurs</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -863,6 +868,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-arb" role="tabpanel" aria-labelledby="t-arb" hidden>
     <div class="ctrls"><div class="row" id="f-arb-tri"></div><div class="row"><input id="arb-q" type="search" autocomplete="off"></div><div id="fe-arb"></div></div>
     <div id="arb"></div>
+  </section>
+  <section id="p-rum" role="tabpanel" aria-labelledby="t-rum" hidden>
+    <div class="ctrls"><div id="fe-rum"></div></div>
+    <div id="rum"></div>
   </section>
   <section id="p-pwr" role="tabpanel" aria-labelledby="t-pwr" hidden>
     <div class="ctrls"><div class="row" id="f-pwr"></div></div>
@@ -1001,7 +1010,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">60%</span><span class="rp-barre"><i style="width:85.1%"></i></span></td></tr><tr><td><a href="players/adrian-kempe/">Adrian Kempe</a><br><span class="rp-note">LAK vs NSH</span></td>
 <td class="rp-n"><span class="rp-p">60%</span><span class="rp-barre"><i style="width:84.8%"></i></span></td></tr><tr><td><a href="players/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA @ CBJ</span></td>
 <td class="rp-n"><span class="rp-p">60%</span><span class="rp-barre"><i style="width:84.3%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.2%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.2%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7.0%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>40%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>45%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>43%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>38%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>43%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>46%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.2%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.2%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7.0%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>40%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>77%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>46%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>43%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>39%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>43%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>46%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -3007,7 +3016,7 @@ function coupeHTML(){
   const eqs = C.equipes.filter(e => conf === "all" || e.conf === conf).slice().sort((a, b) => b[k] - a[k] || b.p_coupe - a.p_coupe);
   const mx = Math.max(...C.equipes.map(e => e[k]), 0.01);
   const MV = mvtListe(eqs, e => e.t, e => e[k], e => e.d?.[k]);
-  const lignes = eqs.map((e, i) => `<div class="cp" style="${eqV(e.t)}">
+  const lignes = eqs.map((e, i) => `<div class="cp" data-c="${e.t}" style="${eqV(e.t)}">
       <span class="rgn">${i + 1}${mvtHTML(MV[e.t])}</span>
       <img class="lg" src="${LOGO(e.t)}" alt="" loading="lazy">
       <span class="nm">${NOMS_EQ[e.t] || e.t}<small>${e.pts} pts en ${e.pj} matchs, projeté ${Math.round(e.proj)}</small></span>
@@ -3144,7 +3153,7 @@ function trophEqHTML(t){
   if (!L || !L.length){ el.innerHTML = `<div class="card"><div class="vide">${I.nom} : arrive au prochain calcul.</div></div>`; return; }
   const mx = Math.max(...L.map(x => x.p), 0.01);
   const MV = mvtListe(L, x => x.t, x => x.p, x => x.dp);
-  const lignes = L.map((x, i) => `<div class="cp" style="${eqV(x.t)}">
+  const lignes = L.map((x, i) => `<div class="cp" data-c="${x.t}" style="${eqV(x.t)}">
       <span class="rgn">${i + 1}${mvtHTML(MV[x.t])}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
       <span class="nm">${trophEqNom(t, x)}<small>${trophEqQui(t, x) ? nomEq(x.t) + " · " : ""}${t === "jennings" ? `${x.bc} buts accordés en ${x.pj} matchs, projeté ${x.proj}`
         : t === "adams" ? `${Math.round(x.pct * 100)} % des points projetés, attendu ${Math.round(x.attendu * 100)} % avant la saison`
@@ -3185,7 +3194,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -3229,7 +3238,7 @@ function noteVeille(V){
 function duoHTML(U){
   if (!U || !U.top?.length) return "";
   const H = U.hist || {}, mx = Math.max(...U.top.map(x => x.p), 0.01);
-  const lignes = U.top.map((x, i) => `<div class="cp" style="${eqV(x.eq)}">
+  const lignes = U.top.map((x, i) => `<div class="cp" data-c="${x.eq}" style="${eqV(x.eq)}">
       <span class="rgn">${i + 1}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
       <span class="nm">${x.nom}<small>${x.eq} · ${x.pts} pts · ${x.pj} matchs</small></span>
       <span class="pc">${pc1(x.p)}<small>%</small></span>
@@ -3247,7 +3256,7 @@ function trophHTML(t){
   if (!B){ el.innerHTML = `<div class="card"><div class="vide">Le ${I.nom} arrive au prochain calcul.</div></div>`; return; }
   if (!B.dispo){ el.innerHTML = `<div class="card"><div class="vide">${B.msg}</div></div>`; return; }
   const mx = Math.max(...B.top.map(x => x.p), 0.01);
-  const lignes = B.top.map((x, i) => `<div class="tr" style="${eqV(x.eq)}">
+  const lignes = B.top.map((x, i) => `<div class="tr" data-c="${x.eq}" style="${eqV(x.eq)}">
       <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom, x.pos) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
       <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
@@ -3375,9 +3384,9 @@ async function whatif(){
     lignes = (WI.top[mode] || []).map(i => wiLigne(mode, M.j, i, WI[M.j][i])).filter(Boolean);
   }
   const R = WI.regles || {}, B = WI.base || {}, per = B.de ? `${B.de.slice(0, 4)}-${B.de.slice(6)} ${L("à", "to")} ${B.a.slice(0, 4)}-${B.a.slice(6)}` : "";
-  const tete = `<div class="cp-tete"><h2>What if</h2><p>${L(
-    `Une référence de tous les temps : chaque saison ramenée au niveau offensif d'aujourd'hui (point 0 = moyenne des ${R.n_base} dernières saisons, ${per}) et à ${R.matchs} matchs. Un 100 points en 1983, où les buts pleuvaient, vaut moins qu'un 100 points en 1999. Le rang à gauche est le rang de tous les temps ajusté ; le rang réel est entre parenthèses. Touche un joueur pour voir le dos de sa carte.`,
-    `An all-time reference: every season brought to today's scoring level (zero point = average of the last ${R.n_base} seasons, ${per}) and to ${R.matchs} games. A 100-point season in 1983, when goals were raining, is worth less than 100 points in 1999. The rank on the left is the adjusted all-time rank; the real rank is in parentheses. Tap a player to see the back of his card.`)}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Era-Adjusted", "What if")}<p>${L(
+    `Et si tous les joueurs de l'histoire avaient joué dans la même ligue, aujourd'hui ? Dans les années 80, il se marquait beaucoup plus de buts qu'aujourd'hui : 100 points en 1983, c'était plus facile que 100 points en 1999. Ici, chaque saison est ramenée au niveau de buts d'aujourd'hui (la moyenne des ${R.n_base} dernières saisons, ${per}) et à ${R.matchs} matchs, pour comparer les époques d'égal à égal. Le rang à gauche : son rang de tous les temps une fois ajusté. Entre parenthèses : son vrai rang. Touche un joueur pour voir le dos de sa carte, saison par saison.`,
+    `What if every player in history had played in the same league, today? In the 80s, many more goals were scored than today: 100 points in 1983 was easier than 100 points in 1999. Here, every season is brought to today's scoring level (the average of the last ${R.n_base} seasons, ${per}) and to ${R.matchs} games, to compare eras on equal footing. The rank on the left: his all-time rank once adjusted. In parentheses: his real rank. Tap a player to see the back of his card, season by season.`)}</p></div>${lireHTML(L("ses points (ou buts, passes...) de carrière une fois ramenés à l'ère d'aujourd'hui.", "his career points (or goals, assists...) once brought to today's era."), false)}`;
   const teteS = M.saisons ? `<div class="cp-tete"><h2>${L("Records : les plus grosses saisons", "Records: the biggest seasons")}</h2><p>${mode === "sr"
     ? L("Les meilleures saisons de points de l'histoire de la LNH, avec l'année. Les joueurs d'aujourd'hui y sont insérés au rythme de leur saison en cours, étiré sur 82 matchs (après 10 matchs) : on voit où ils s'en vont s'ils gardent le rythme.",
         "The best point seasons in NHL history, with the year. Today's players are slotted in at their current season's pace, stretched over 82 games (after 10 games): you see where they're headed if they keep it up.")
@@ -3473,7 +3482,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   const M = WI_MODES[mode], [dv, dr] = wiHier(mode, t, x);
   // Filtre d'équipe : le gros chiffre = avec cette équipe ; la carrière en petit
   const ve = feq ? wiAvecEq(mode, t, x, feq) : null;
-  let sousV = `${L(...M.u)} · ${L("réel", "real")} ${reel} (${rangFr(rgR)})`;
+  let sousV = `${L("réel", "real")} ${reel} (${rangFr(rgR)})`;
   if (ve != null){
     const fmt = mode === "ppg" ? ppg2 : mode === "pm" ? pmW : nW;
     sousV = `${L(...M.u)} ${L("avec", "with")} ${feq} · ${L("carrière", "career")} ${v}`;
@@ -3483,7 +3492,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
   return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
-    <span class="v">${coteHTML(rg, t === "g" ? WI.n_gardiens : WI.n_joueurs, false)}${v}${dv}<small>${sousV}</small></span></button>`;
+    <span class="v">${coteHTML(rg, t === "g" ? WI.n_gardiens : WI.n_joueurs, false)}${v}${AB(L(...M.u))}${dv}<small>${sousV}</small></span></button>`;
 }
 function wiRegles(){
   const R = WI.regles || {}, B = WI.base || {}, G = R.g || [62, 24, 25, 5];
@@ -4010,6 +4019,33 @@ function ppMatch(gameId){
     // Pour le commentaire (le pourquoi, en chiffres)
     x: { away: g.away, home: g.home, pa, ph, fa: f.away, fh: f.home, o55, total: p.total, h2h: g.h2h, b2bA: g.b2b_away, b2bH: g.b2b_home, gA, gH, scTxt } });
 }
+// Post sur mesure (demande de Mitch, 10 nov. 2026 : « Malkin dans What if parce qu'il a dépassé Ovy ») : le bout
+// du classement de la section où on voit tous les joueurs nommés, dessiné comme les tops. -> image + leurs rangs.
+window.ppSurMesure = async (opt = {}) => {
+  const type = opt.type, attendre = async (f, ms = 8000) => { const t0 = Date.now(); let v; while (!(v = f()) && Date.now() - t0 < ms) await new Promise(r => setTimeout(r, 120)); return v; };
+  if (opt.mode && type === "whatif"){ S.wi = opt.mode; }
+  $("#t-" + type)?.click();
+  if (type === "pwr"){ S.pwr = opt.mode || "j"; await pwrOnglet(); }
+  const rows = await attendre(() => { const L0 = [...document.querySelectorAll(`#p-${type} .wi-l.wi-r`)]; return L0.length ? L0 : null; });
+  if (!rows) return { manque: opt.noms || [] };
+  const txt = (el) => el ? [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(" ").trim() : "";
+  const idx = (opt.noms || []).map(n => rows.findIndex(r => nrm(txt(r.querySelector(".nm"))).includes(nrm(n))));
+  const manque = (opt.noms || []).filter((n, k) => idx[k] < 0);
+  if (manque.length || !idx.length) return { manque };
+  const a = Math.min(...idx), b = Math.max(...idx);
+  let garder = [];
+  if (b - a <= 9) for (let i = Math.max(0, a - 2); i <= Math.min(rows.length - 1, b + 2); i++) garder.push(i);
+  else garder = [...new Set(idx.flatMap(i => [i - 1, i, i + 1]))].filter(i => i >= 0 && i < rows.length).sort((u, w) => u - w);
+  const liste = garder.map(i => { const r = rows[i], pl = r.querySelector(".wi-rond, .plaque"), lib = r.querySelector(".v small")?.textContent.trim() || "";
+    return { rg: parseInt(txt(r.querySelector(".rg"))) || i + 1, nom: (idx.includes(i) ? "★ " : "") + (txt(r.querySelector(".nm")) || "?"), no: pl?.querySelector("b")?.textContent || "",
+      pos: pl?.querySelector("i")?.textContent || "", coul: coul(r.dataset.c), sous: [r.dataset.c, lib.split(" · ")[0]].filter(Boolean).join(" · "),
+      gros: txt(r.querySelector(".v")) }; });
+  const p = document.getElementById("p-" + type);
+  const titre = p?.querySelector(".cp-tete h2")?.textContent.trim() || "PuckProb";
+  const info = { titre, lib: opt.titre || L("Le classement", "The ranking"), sous: ptDate(), fichier: "sur-mesure", texte: titre, liste };
+  const c = await ptDessiner(info);
+  return { image: c.toDataURL("image/jpeg", 0.92), info, rangs: idx.map(i => liste.find(x => x.nom.startsWith("★ ") && rows[i] && x.rg === (parseInt(txt(rows[i].querySelector(".rg"))) || i + 1))) };
+};
 // PB SIM du mois (src/social.py, demande de Mitch : « une fois par mois ») : une saison jouée d'un coup avec une graine,
 // puis ses images (graphique, séries, champions, repêchage) en JPEG pour un post à plusieurs photos
 window.ppSim = async (opt = {}) => {
@@ -4077,8 +4113,11 @@ window.ppSocial = async (type, opt = {}) => {
     // Le top 10 d'abord ; s'ils sont tous déjà passés, on descend jusqu'au 30e
     const top10 = libres.filter(r => lignes.indexOf(r) < (opt.top || 10));
     const choisi = top10.length ? top10 : libres.slice(0, 30);
-    if (!choisi.length) return null;
-    const ligne = choisi[Math.min(choisi.length - 1, Math.floor(hasard * choisi.length))];
+    // Post sur mesure (src/sur_mesure.py) : le joueur nommé, pas un tirage
+    const voulu = opt.nom ? lignes.find(r => nrm(nomDe(r)).includes(nrm(opt.nom))) : null;
+    if (opt.nom && !voulu) return null;
+    if (!voulu && !choisi.length) return null;
+    const ligne = voulu || choisi[Math.min(choisi.length - 1, Math.floor(hasard * choisi.length))];
     choixId = nomDe(ligne);
     ligne.click();
     await attendre(() => PT.carte, 5000);
@@ -4217,9 +4256,9 @@ async function salaires(){
   }
   const mode = S.sal || "top", q = nrm($("#sal-q").value), J = SAL.joueurs, R = SAL.regles, feq = S.fe_sal || "";
   $("#fe-sal").innerHTML = filtreEqHTML("fe_sal", SAL.equipes.map(e => e.t).filter(Boolean).sort());
-  const tete = `<div class="cp-tete"><h2>${L("Salaires mérités", "Deserved salaries")}</h2><p>${L(
-    `Ce que chaque joueur mériterait d'être payé selon son apport cette saison, pas son vrai contrat. Mis à jour chaque jour. Règles 2026-27 : plafond ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Touche un joueur pour son rapport de dépisteur.`,
-    `What each player would deserve to be paid based on his impact this season, not his real contract. Updated daily. 2026-27 rules: cap ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Tap a player for his scouting report.`)}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Market Value", L("Salaires mérités", "Deserved salaries"))}<p>${L(
+    `Si on renégociait tous les contrats ce matin, selon ce que chaque joueur apporte CETTE saison, combien il vaudrait ? On compte ses points, mais aussi ce qui ne paraît pas au pointage : son équipe domine-t-elle quand il est sur la glace, gagne-t-il ses mises au jeu, bloque-t-il des tirs. Puis on le compare à un joueur de remplacement qu'on pourrait faire monter de la ligue américaine. Les dollars suivent les règles de la LNH 2026-27 : plafond ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Les onglets Bonnes affaires et Trop payés comparent avec son vrai contrat. Touche un joueur pour son rapport de dépisteur.`,
+    `If every contract were renegotiated this morning, based on what each player brings THIS season, what would he be worth? We count his points, but also what doesn't show on the scoresheet: does his team dominate when he's on the ice, does he win his faceoffs, does he block shots. Then we compare him with a replacement player you could call up from the AHL. The dollars follow the 2026-27 NHL rules: cap ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. The Bargains and Overpaid tabs compare with his real contract. Tap a player for his scouting report.`)}</p></div>${lireHTML(L("le salaire qu'il mériterait cette saison.", "the salary he'd deserve this season."), false)}`;
   let corps;
   if (mode === "eq" && q.length < 2){
     const mx = Math.max(...SAL.equipes.map(e => e.masse));
@@ -4268,7 +4307,7 @@ function salLigne(x, mode = "top", i = null){
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
       ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h)}</span></button>`
-      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h)}</span></button>`}`;
+      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}${AB("PBMV")}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h)}</span></button>`}`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
 function salRapport(k){
@@ -4322,7 +4361,7 @@ function salRapport(k){
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
-  ptCarte(m, x, mD(x.s), L("salaire mérité", "deserved salary"), x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
+  ptCarte(m, x, mD(x.s), "PBMV · " + L("salaire mérité", "deserved salary"), x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
   m.hidden = false;
 }
 function salEquipe(t){
@@ -4360,9 +4399,9 @@ async function enforcers(){
     try { ENF = await (await fetch("physique.json?v=" + (D?.date || Date.now()))).json(); if (!ENF.joueurs || !ENF.ordres) throw 0; }
     catch (e) { ENF = null; ENF_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les enforcers arrivent quand le jeu-par-jeu de la saison est récolté (quelques calculs).", "Enforcers arrive once the season's play-by-play is collected (a few updates).")}</div></div>`; return; }
   }
-  const tete = `<div class="cp-tete"><h2>${L("Top 50 des enforcers", "Top 50 enforcers")}</h2><p>${L(
-    "Le joueur qui fait le plus peur à l'autre équipe : ses combats, ses mises en échec (avoir mal, ça fait peur aussi), les pénalités qui font mal, et le chaos (quand il saute sur la glace, ça brasse). L'indice peur : une cote sur 100, le n° 1 à 100 %. Saison en cours et saison passée ensemble. Touche un joueur pour le détail.",
-    "The player the other team fears most: his fights, his hits (getting hurt is scary too), the penalties that hurt, and the chaos (when he jumps on the ice, things get rowdy). The fear index: a rating out of 100, the #1 at 100%. Current and last season combined. Tap a player for the details.")}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Intimidation Rating", L("Top 50 des enforcers", "Top 50 enforcers"))}<p>${L(
+    "Le gars que l'autre équipe surveille en sautant sur la glace. On regarde ses combats, ses mises en échec (manger une mise en échec, ça fait mal, et ça fait peur), les pénalités qui font mal (des coups qui laissent des traces), le chaos qu'il amène (les mêlées et les bousculades quand il est là) et le gabarit des gars qu'il affronte en combat. L'indice de peur est une note sur 100 : le plus craint de la ligue a 100, un joueur moyen a 0. La saison en cours et la saison passée comptent ensemble, pour qu'un seul gros soir ne fausse rien. Touche un joueur pour le détail de chaque morceau.",
+    "The guy the other team keeps an eye on when he jumps on the ice. We look at his fights, his hits (taking a hit hurts, and it's scary), the penalties that hurt (hits that leave marks), the chaos he brings (scrums and shoving when he's out there) and the size of the guys he fights. The fear index is a score out of 100: the most feared player in the league has 100, an average player has 0. The current and last season count together, so one big night doesn't skew anything. Tap a player for every piece in detail.")}</p></div>${lireHTML(L("son indice de peur, sur 100.", "his fear index, out of 100."))}`;
   if (!$("#f-enf").innerHTML) $("#f-enf").innerHTML = Object.entries(ENF_MODES).map(([k, n]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.enf || "score")}">${L(...n)}</button>`).join("");
   const mode = S.enf || "score", q = nrm($("#enf-q")?.value || ""), feq = S.fe_enf || "";
   $("#fe-enf").innerHTML = filtreEqHTML("fe_enf", [...new Set(Object.values(ENF.joueurs).map(x => x.eq))].filter(Boolean).sort());
@@ -4405,7 +4444,7 @@ function enfLigne(x, mode = "score"){
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
   return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${coteHTML(rg, Object.keys(ENF.joueurs).length, false)}${pcIdx(glob ? x.pct : x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>${glob ? spark(x.h) : ""}</span></button>`;
+    <span class="v">${coteHTML(rg, Object.keys(ENF.joueurs).length, false)}${glob ? (x.pct == null ? "–" : Math.round(x.pct * 100)) + AB("PBIR") : pcIdx(x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}${!glob ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>${glob ? spark(x.h) : ""}</span></button>`;
 }
 function enfCarte(id){
   const x = ENF?.joueurs?.[id]; if (!x) return;
@@ -4446,7 +4485,7 @@ function enfCarte(id){
         `Measured: ${pcS(x.peur_m)} (the average of the two measures below). Pulled toward 0 by sample size: ${pcS(x.peur_c)}. Then counted at ${Math.round((x.resp || 0) * 100)}% based on his physical reputation (fights, hits, painful penalties): respect is earned.`)}</p>
       <p>${mg}</p><p>${as}</p>
     </div></div>`;
-  ptCarte(m, x, pcIdx(x.pct), L("indice de peur", "fear index"), `Enforcer ${L("n° ", "#")}${x.rg} · ${x.pj} ${L("matchs", "games")}`);
+  ptCarte(m, x, String(Math.round((x.pct || 0) * 100)), "PBIR · " + L("indice de peur, sur 100", "fear index, out of 100"), `Enforcer ${L("n° ", "#")}${x.rg} · ${x.pj} ${L("matchs", "games")}`);
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -4476,9 +4515,9 @@ async function projections(){
   const ids = (q.length >= 2 || feq)
     ? Object.values(PRJ.joueurs).filter(x => (q.length < 2 || nrm(x.n).includes(q)) && (!feq || x.eq === feq)).sort((a, b) => a.rg[mode] - b.rg[mode]).slice(0, 60).map(x => x.id)
     : PRJ.ordres[mode];
-  const tete = `<div class="cp-tete"><h2>${L("Projections de fin de saison", "End-of-season projections")}</h2><p>${L(
-    "Où chaque joueur va finir la saison. Son rythme de cette saison mélangé avec ses deux saisons d'avant : un départ en feu ne fait pas 130 points, et plus la saison avance, plus c'est sa saison qui parle. Touche un joueur pour le calcul.",
-    "Where each player will finish the season. His pace this season blended with his previous two seasons: a hot start doesn't make 130 points, and the further the season goes, the more his own season speaks. Tap a player for the math.")}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Pace Projection", L("Projections de fin de saison", "End-of-season projections"))}<p>${L(
+    "Où chaque joueur va finir la saison, en buts, passes, points et minutes de pénalité. Un départ en feu ne fait presque jamais une saison de 130 points : la chance finit par se calmer. Alors on mélange son rythme de cette saison avec ce qu'il a fait les deux saisons d'avant. En octobre, son passé pèse plus ; plus la saison avance, plus c'est sa saison à lui qui parle. On tient aussi compte des matchs qu'il lui reste et de ceux qu'il manque d'habitude. Touche un joueur pour son graphique de la saison.",
+    "Where each player will finish the season, in goals, assists, points and penalty minutes. A hot start almost never turns into a 130-point season: luck eventually cools off. So we blend his pace this season with what he did the previous two seasons. In October his past weighs more; the further the season goes, the more his own season speaks. We also account for the games he has left and the ones he usually misses. Tap a player for his season chart.")}</p></div>${lireHTML(L("ce qu'il devrait avoir à la fin de la saison.", "what he should have at the end of the season."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>Le rythme mélangé.</b> Par match : (ce qu'il a cette saison + ${PRJ.k[0]} matchs fantômes à son rythme des deux saisons d'avant) ÷ (ses matchs + ${PRJ.k[0]}). La saison dernière compte ${PRJ.poids_derniere || 3} fois plus que l'avant-dernière. Après 10 matchs, sa saison pèse environ 30 % ; après 60 matchs, environ 70 %.</p>
      <p><b>Une recrue</b> (moins de 20 matchs dans les deux saisons d'avant) : tirée vers la moyenne des joueurs de son poste qui jouent autant que lui, comme ${PRJ.k[1]} matchs fantômes.</p>
@@ -4502,7 +4541,7 @@ function prjLigne(x, mode){
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
   return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${x.proj[mode]}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
+    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
 }
 // Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
 // ce soir-là (même recette : rythme mélangé avec son passé, matchs qui restent x sa présence). x = ses matchs, y = la stat.
@@ -4599,9 +4638,9 @@ async function duos(){
   $("#fe-duo").innerHTML = filtreEqHTML("fe_duo", [...new Set(L0.map(x => x.eq))].filter(Boolean).sort());
   const cleTri = { ch: (x) => -x.ch, pe: (x) => -x.pe, min: (x) => -x.min, gf: (x) => -x.gf }[tri];
   const liste = L0.filter(x => (!feq || x.eq === feq) && (q.length < 2 || x.j.some(j => nrm(j[1]).includes(q)))).sort((a, b) => cleTri(a) - cleTri(b)).slice(0, 60);
-  const tete = `<div class="cp-tete"><h2>${mode === "trios" ? L("Les trios", "The lines") : mode === "paires" ? L("Les paires de défenseurs", "The defense pairs") : L("Les duos", "The duos")}</h2><p>${L(
-    `Les coéquipiers qui font mieux ENSEMBLE que séparés, à 5 contre 5. La chimie : la part des ${duoBase()} qui vont du bon bord quand ils sont sur la glace ensemble, moins la même part quand chacun joue sans l'autre. +8 = ils contrôlent 8 points de % de plus ensemble. Touche un ${mode === "trios" ? "trio" : "duo"} pour le détail.`,
-    `Teammates who do better TOGETHER than apart, at 5-on-5. Chemistry: the share of ${duoBase()} going the right way when they're on the ice together, minus that same share when each one plays without the other. +8 = they control 8 more percentage points together. Tap a ${mode === "trios" ? "line" : "duo"} for the details.`)}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Chemistry Score", mode === "trios" ? L("Les trios", "The lines") : mode === "paires" ? L("Les paires de défenseurs", "The defense pairs") : L("Les duos", "The duos"))}<p>${L(
+    `Les coéquipiers qui sont meilleurs ENSEMBLE que chacun de leur bord, à 5 contre 5. Quand ils sont sur la glace en même temps, qui a la rondelle et les bonnes chances, eux ou l'adversaire ? On compare avec ce qui se passe quand chacun joue sans l'autre. Si ensemble ils contrôlent le jeu beaucoup plus que séparés, c'est de la chimie. +8 = ensemble, ils ont 8 points de % de plus du jeu de leur bord. Un duo qui a peu joué ensemble est gardé près de 0 tant qu'on n'en sait pas assez. Touche un ${mode === "trios" ? "trio" : "duo"} pour le détail.`,
+    `Teammates who are better TOGETHER than each on their own, at 5-on-5. When they're on the ice at the same time, who has the puck and the good chances, them or the opponent? We compare with what happens when each one plays without the other. If together they control the play much more than apart, that's chemistry. +8 = together, they have 8 more percentage points of the play on their side. A duo that hasn't played much together is kept near 0 until we know enough. Tap a ${mode === "trios" ? "line" : "duo"} for the details.`)}</p></div>${lireHTML(L("la chimie : combien ils sont meilleurs ensemble que séparés.", "chemistry: how much better they are together than apart."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>À 5 contre 5 seulement.</b> C'est là que les trios et les paires jouent vraiment ensemble ; l'avantage numérique gonflerait ceux qui y jouent.</p>
      <p><b>La part.</b> ${duoBase()} pour ÷ (pour + contre) pendant qu'ils sont sur la glace. 50 % = autant pour que contre.</p>
@@ -4632,7 +4671,7 @@ function gcrVal(x, tri){
   if (tri === "gsax") return [sgn(x.gsax, 1), L("buts sauvés de plus que prévu", "goals saved above expected")];
   if (tri === "conf") return [x.conf == null ? "–" : sgn(x.conf), L("xG/60 de moins devant lui", "fewer xG/60 in front of him")];
   if (tri === "coach") return [pc0(x.coach), L("du temps de son équipe", "of his team's time")];
-  return [x.gcr, "GCR"];
+  return [x.gcr, L("50 = gardien moyen", "50 = average goalie")];
 }
 // Le classement des équipes dans chaque section Stats (demande de Mitch, 8 nov. 2026) : un tableau repliable en haut
 // de la liste. rows = [{ t, v (pour trier), txt (affiché) }], le plus haut d'abord.
@@ -4646,6 +4685,47 @@ const parEq = (L0, eq, val, poids) => { const m = {}; for (const x of L0){ const
 const moyP = (a) => a.reduce((s, [v, w]) => s + v * w, 0) / (a.reduce((s, [, w]) => s + w, 0) || 1);
 const topMoy = (a, n) => { const t = a.map(([v]) => v).sort((x, y) => y - x).slice(0, n); return t.reduce((s, v) => s + v, 0) / (t.length || 1); };
 const topSom = (a, n) => a.map(([v]) => v).sort((x, y) => y - x).slice(0, n).reduce((s, v) => s + v, 0);
+// ---- Rumeurs (src/rumeurs.py) : les posts Threads populaires sur les rumeurs de la LNH -----------------------------
+let RUM = null, RUM_p = null;
+const chargerRum = () => RUM_p || (RUM_p = fetch("rumeurs.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(g => (RUM = g)).catch(() => null));
+const ilYa = (q) => { const m = Math.max(0, (Date.now() - new Date(q).getTime()) / 6e4); return m < 60 ? L(`il y a ${Math.round(m)} min`, `${Math.round(m)} min ago`) : m < 1440 ? L(`il y a ${Math.round(m / 60)} h`, `${Math.round(m / 60)} h ago`) : L(`il y a ${Math.round(m / 1440)} j`, `${Math.round(m / 1440)} d ago`); };
+const echapper = (t) => String(t || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+async function rumOnglet(){
+  const el = $("#rum");
+  if (!RUM){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerRum(); }
+  const tete = `<div class="cp-tete"><h2>${L("Rumeurs", "Rumors")}</h2><p>${L(
+    `Ce qui se dit sur Threads en ce moment : les posts les plus populaires des ${RUM?.jours || 7} derniers jours sur les échanges, les signatures et les rumeurs de la LNH. Ce sont des rumeurs, pas des nouvelles : PuckProb ne les confirme pas. Touche un post pour le lire au complet sur Threads.`,
+    `What people are saying on Threads right now: the most popular posts of the last ${RUM?.jours || 7} days about NHL trades, signings and rumors. These are rumors, not news: PuckProb doesn't confirm them. Tap a post to read it in full on Threads.`)}</p></div>`;
+  if (!RUM?.posts?.length){
+    el.innerHTML = tete + `<div class="card"><div class="vide">${RUM?.etat === "attente"
+      ? L("La section se remplit dès que Meta approuve la recherche sur Threads pour PuckProb. Ça s'en vient.", "The section fills up as soon as Meta approves Threads search for PuckProb. Coming soon.")
+      : L("Les rumeurs arrivent au prochain calcul.", "Rumors arrive with the next update.")}</div></div>`;
+    return;
+  }
+  const feq = S.fe_rum || "";
+  $("#fe-rum").innerHTML = filtreEqHTML("fe_rum", [...new Set(RUM.posts.flatMap(p => p.eqs || []))].sort());
+  const L0 = RUM.posts.filter(p => !feq || (p.eqs || []).includes(feq));
+  const cartes = L0.map(p => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}">
+      <div class="rum-h"><b>@${echapper(p.auteur)}</b><small>${p.quand ? ilYa(p.quand) : ""}${p.nouveau ? ` · <span class="wi-cours">${L("NOUVEAU", "NEW")}</span>` : ""}</small></div>
+      <p>${echapper(p.txt)}</p><div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<span>${L("Lire sur Threads", "Read on Threads")} →</span></div></a>`).join("")
+    || `<div class="card"><div class="vide">${L("Rien pour cette équipe cette semaine.", "Nothing for this team this week.")}</div></div>`;
+  el.innerHTML = tete + cartes + `<p class="aide">${L("Source : Threads (recherche publique). Mis à jour le", "Source: Threads (public search). Updated")} ${dateCourte(RUM.maj)}.</p>`;
+}
+
+// Les noms PB (choisis par Mitch le 10 nov. 2026, mêmes acronymes en français et en anglais) : le titre de la section,
+// l'ancien nom en petit dessous, et l'acronyme en petit à côté du chiffre pour les stats qu'on a inventées
+const AB = (t) => `<i class="ab">${t}</i>`;
+const titrePB = (pb, ancien) => `<h2>${pb}</h2><p class="st-pb">${ancien}</p>`;
+// « Comment lire cette page » : le même petit mode d'emploi en haut de chaque section Stats et Courses
+function lireHTML(gros, tableauEq = true){
+  return `<details class="card lire"><summary>${L("Comment lire cette page", "How to read this page")}</summary><ul>
+    <li><b>${L("Le gros chiffre", "The big number")}</b> : ${gros}</li>
+    <li><b>${L("La cote", "The grade")}</b> ${L("(A+ à D-)", "(A+ to D-)")} : ${L("où il se classe parmi tous les joueurs de la section. A+ = le top 1 %, A = le top 3 %, B = dans le premier tiers, C = dans la moyenne, D = dans le bas. Comme un bulletin.", "where he ranks among every player in the section. A+ = top 1%, A = top 3%, B = in the top third, C = around average, D = near the bottom. Like a report card.")}</li>
+    <li><b>▲ ▼</b> : ${L("les places gagnées ou perdues depuis hier.", "spots gained or lost since yesterday.")}</li>
+    <li><b>${L("La petite courbe", "The small curve")}</b> : ${L("son chiffre jour après jour, pour voir s'il monte ou s'il descend.", "his number day by day, to see whether he's rising or falling.")}</li>
+    <li><b>${L("Une équipe", "A team")}</b> : ${L("les pastilles d'équipe filtrent la liste.", "the team chips filter the list.")}${tableauEq ? L(" Le tableau « classement des équipes » compare les 32 clubs.", " The \"team ranking\" table compares all 32 clubs.") : ""}</li>
+    <li><b>${L("Toucher un joueur", "Tap a player")}</b> : ${L("sa fiche complète, avec le pourquoi en mots.", "his full card, with the why in words.")}</li></ul></details>`;
+}
 // ---- Power rankings de la semaine (src/power.py) : les 32 équipes et les 25 meilleurs patineurs --------------------
 let PWR = null, PWR_p = null;
 const chargerPwr = () => PWR_p || (PWR_p = fetch("power.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(g => (PWR = g)).catch(() => null));
@@ -4658,7 +4738,7 @@ async function pwrOnglet(){
   const mode = S.pwr || "eq";
   $("#f-pwr").innerHTML = [["eq", L("Équipes", "Teams")], ["j", L("Joueurs", "Players")]].map(([k, n]) => `<button class="chip big" data-pw="${k}" aria-pressed="${k === mode}">${n}</button>`).join("");
   const ref = PWR.ref ? L(`Les flèches : depuis le classement du ${dateCourte(PWR.ref)}.`, `Arrows: since the ${dateCourte(PWR.ref)} ranking.`) : L("Les flèches arrivent la semaine prochaine.", "Arrows show up next week.");
-  const tete = `<div class="cp-tete"><h2>${mode === "eq" ? L("Power rankings · Équipes", "Power rankings · Teams") : L("Power rankings · Joueurs", "Power rankings · Players")}</h2><p>${mode === "eq"
+  const tete = `<div class="cp-tete">${titrePB("PB Dominance Rating", mode === "eq" ? L("Power rankings · Équipes", "Power rankings · Teams") : L("Power rankings · Joueurs", "Power rankings · Players"))}<p>${mode === "eq"
     ? L("Qui est le plus fort en ce moment, pas juste qui a le plus de points. On regarde d'abord la force réelle de chaque club, qui monte quand il bat de bonnes équipes et baisse quand il perd contre des faibles, puis ses points et ses buts pour et contre. Mis à jour chaque jour, les flèches comparent avec le classement de la semaine passée.",
         "Who's the strongest right now, not just who has the most points. First the real strength of each club, which goes up when it beats good teams and down when it loses to weak ones, then its points and its goals for and against. Updated daily; the arrows compare with last week's ranking.")
     : L(`Les 25 patineurs les plus dominants en ce moment : ce qu'ils valent sur la saison, leur forme sur leurs ${PWR.n_forme} derniers matchs et où ils s'en vont d'ici la fin. Au moins ${PWR.min_pj} matchs joués.`,
@@ -4669,13 +4749,13 @@ async function pwrOnglet(){
     lignes = PWR.equipes.map(x => { const [v, d, p] = x.fiche || [0, 0, 0], diff = x.bp - x.bc;
       return `<div class="wi-l wi-r pwr-e" data-c="${x.t}" style="${eqV(x.t)}"><span class="rg">${x.rg}${pwrMv(x)}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
         <span class="nm">${nomEq(x.t)}<small>${v}-${d}-${p} · ${x.pts} pts ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("buts", "goals")} ${x.bp}-${x.bc} (${diff > 0 ? "+" : ""}${diff}) · ${L("projeté", "projected")} ${Math.round(x.proj)} pts · ${L("Coupe", "Cup")} ${pc1(x.p_coupe)} %</span></span>
-        <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
+        <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
   } else {
     Object.assign(COTE, { n: PWR.n_classes || 500, inv: false });
     lignes = PWR.joueurs.map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
       return `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
         <span class="nm">${x.n}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme", "form")} : ${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
-        <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
+        <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
   }
   el.innerHTML = tete + lignes + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(PWR.maj)}.</p>`;
   ptListeTab("p-pwr");
@@ -4704,9 +4784,9 @@ async function arbOnglet(){
     : tri === "avance" || tri === "retard" ? [sg2(etat(x, tri)), tri === "avance" ? L("quand son équipe mène", "when his team leads") : L("quand son équipe tire de l'arrière", "when his team trails")]
     : [sg2(x.net), L("vs attendu, par heure", "vs expected, per hour")];
   const lg = ARB.ligue60 || {};
-  const tete = `<div class="cp-tete"><h2>${L("Arbitres", "Refs")}</h2><p>${L(
-    "Les gars que les arbitres aiment pas, et leurs chouchous. Pour chaque joueur : les pénalités qu'il obtient et celles qu'il prend, comparées à un joueur pareil dans les mêmes situations (sa position, son temps de glace, et si son équipe menait, était à égalité ou tirait de l'arrière). Négatif : il prend plus et obtient moins que prévu. Touche un joueur pour le détail.",
-    "The players refs don't like, and their favorites. For each player: the penalties he draws and the ones he takes, compared with a similar player in the same situations (his position, his ice time, and whether his team was leading, tied or trailing). Negative: he takes more and draws less than expected. Tap a player for the details.")}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Ref Bias", L("Arbitres", "Refs"))}<p>${L(
+    "Les gars que les arbitres ont dans le collimateur, et leurs chouchous. Pour chaque joueur, on compte les pénalités qu'il se fait siffler et celles qu'il fait siffler contre l'autre équipe. Puis on compare avec un joueur pareil, à la même position, avec le même temps de glace et dans les mêmes situations : les arbitres sifflent plus facilement contre l'équipe qui mène, alors un gars qui joue souvent en avance n'est pas puni pour ça. Négatif = il se fait siffler plus et obtient moins que prévu : les arbitres l'aiment pas. Positif = un chouchou. Touche un joueur pour le détail.",
+    "The players the refs have their eye on, and their favorites. For each player, we count the penalties called on him and the ones he draws from the other team. Then we compare with a similar player, at the same position, with the same ice time and in the same situations: refs call penalties more easily against the team that's leading, so a guy who often plays with the lead isn't punished for it. Negative = he gets called more and draws less than expected: the refs don't like him. Positive = a favorite. Tap a player for the details.")}</p></div>${lireHTML(L("pénalités en sa faveur moins contre lui, par rapport à ce qui était attendu, par heure de jeu.", "penalties for him minus against him, compared with what was expected, per hour of play."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>Ce qu'on compte.</b> Les mineures et les majeures du jeu-par-jeu de la LNH : qui est puni, et qui a obtenu la pénalité. Pas les combats, ni les inconduites, ni les pénalités de banc.</p>
      <p><b>Ce qu'on attend.</b> Son temps de glace de chaque match, réparti selon le temps que son équipe a passé en avance, à égalité et en retard ce soir-là, fois le taux de la ligue pour sa position dans chaque état. Dans la LNH, l'équipe qui tire de l'arrière obtient ${n1a(lg.retard)} pénalité par 60 min de glace d'un joueur, contre ${n1a(lg.avance)} quand elle mène : on ne pénalise personne pour ça.</p>
@@ -4718,7 +4798,7 @@ async function arbOnglet(){
   const lignes = liste.slice(0, 150).map((x, i) => { const [v, lib] = val(x);
     return `<button class="wi-l wi-r arb-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${i + 1}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} h</small><span class="wi-st">${L("obtient", "draws")} ${n1a(x.ob)} (${L("att.", "exp.")} ${n1a(x.ob_att)}) · ${L("prend", "takes")} ${n1a(x.pr)} (${L("att.", "exp.")} ${n1a(x.pr_att)})</span></span>
-      <span class="v">${coteHTML(x.rg, ARB.joueurs.length, true)}<span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${v}</span><small>${lib}</small></span></button>`; }).join("")
+      <span class="v">${coteHTML(x.rg, ARB.joueurs.length, true)}<span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${v}</span>${["bas", "haut"].includes(tri) ? AB("PBRB") : ""}<small>${lib}</small></span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
   const eqA = Object.entries(parEq(ARB.joueurs, x => x.eq, x => x.net, x => x.h)).map(([t, a]) => ({ t, v: moyP(a), txt: sg2(moyP(a)) }));
   el.innerHTML = tete + eqClassementHTML(eqA, L("les mieux traités par les arbitres", "best treated by the refs")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la LNH.", "Source: NHL play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
@@ -4733,7 +4813,7 @@ function arbCarte(id){
     <div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("Obt.", "Drawn")}</th><th>${L("Att.", "Exp.")}</th><th>${L("Prises", "Taken")}</th><th>${L("Att.", "Exp.")}</th></tr></thead><tbody>
     ${E.map(([k, n]) => { const v = x.etats?.[k] || []; return `<tr><td>${n}</td><td>${n1a(v[0])}</td><td>${n1a(v[1])}</td><td>${n1a(v[2])}</td><td>${n1a(v[3])}</td></tr>`; }).join("")}
     <tr><td><b>Total</b></td><td><b>${n1a(x.ob)}</b></td><td>${n1a(x.ob_att)}</td><td><b>${n1a(x.pr)}</b></td><td>${n1a(x.pr_att)}</td></tr></tbody></table></div></div>`;
-  ptCarte(m, x, sg2(x.net), L("pénalité / heure vs attendu", "penalty / hour vs expected"),
+  ptCarte(m, x, sg2(x.net), "PBRB · " + L("pénalité / heure vs attendu", "penalty / hour vs expected"),
     `${L("Arbitres n° ", "Refs #")}${x.rg} ${L("sur", "of")} ${ARB.joueurs.length} ${L("(1 = le moins aimé)", "(1 = least liked)")} · ${x.eq}`);
   m.hidden = false;
 }
@@ -4752,9 +4832,9 @@ async function gcrOnglet(){
   const cle = { gcr: (x) => -x.gcr, gsax: (x) => -x.gsax, conf: (x) => -(x.conf ?? -99), coach: (x) => -(x.coach ?? 0) }[tri];
   const liste = GCR.gardiens.filter(x => (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q))).sort((a, b) => cle(a) - cle(b));
   const P = GCR.poids || {};
-  const tete = `<div class="cp-tete"><h2>Goalie Confidence Rating</h2><p>${L(
-    "Les gardiens en qui on a le plus confiance. Trois choses : il arrête plus de buts que prévu, son équipe joue en confiance devant lui (les mêmes joueurs accordent moins de chances dangereuses quand c'est lui dans le filet), et son coach lui fait confiance. 50 = gardien moyen. Touche un gardien pour le détail.",
-    "The goalies everyone trusts the most. Three things: he stops more goals than expected, his team plays with confidence in front of him (the same players allow fewer dangerous chances when he's in net), and his coach trusts him. 50 = average goalie. Tap a goalie for the details.")}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Goalie Confidence Rating", L("Gardiens", "Goalies"))}<p>${L(
+    "Les gardiens en qui on a le plus confiance. Trois choses comptent. Un : il arrête plus de buts que prévu, compte tenu de la qualité des tirs qu'il reçoit (un tir de la ligne bleue et un tir seul devant le filet, ce n'est pas pareil). Deux : son équipe joue en confiance devant lui ; les mêmes joueurs laissent moins de belles chances quand c'est lui dans le filet plutôt que l'autre gardien. Trois : son coach lui fait confiance et lui donne les matchs. 50 = un gardien moyen ; plus c'est haut, mieux c'est. Touche un gardien pour le détail.",
+    "The goalies everyone trusts the most. Three things count. One: he stops more goals than expected, given the quality of the shots he faces (a shot from the blue line and a shot alone in front of the net aren't the same). Two: his team plays with confidence in front of him; the same players allow fewer good chances when he's in net rather than the other goalie. Three: his coach trusts him and gives him the games. 50 = an average goalie; the higher, the better. Tap a goalie for the details.")}</p></div>${lireHTML(L("son GCR : 50 = un gardien moyen.", "his GCR: 50 = an average goalie."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>Il arrête plus que prévu (${Math.round((P.gsax || 0) * 100)} %).</b> Les buts attendus (notre xG) de tous les tirs qu'il a faits face, moins les buts qu'il a accordés : les buts « sauvés ». Par 60 minutes, ramené vers 0 quand il a peu joué (× minutes ÷ (minutes + ${GCR.k_gsax})).</p>
      <p><b>Confiance devant lui (${Math.round((P.conf || 0) * 100)} %).</b> À 5 contre 5, pour chaque joueur de son équipe : les xG accordés par 60 minutes quand il est dans le filet, comparés à quand c'est l'autre gardien. Mêmes joueurs, même système : ce qui change, c'est le gars dans le filet. Moyenne pondérée par le temps des deux bords, ramenée vers 0 avec peu de temps (${GCR.k_conf} min). Seul gardien de son équipe : rien à comparer, 0.</p>
@@ -4770,7 +4850,7 @@ async function gcrOnglet(){
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
     return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${tri === "gcr" ? mvtHTML(x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
-      <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${val}<small>${lib}</small>${tri === "gcr" ? spark(x.h) : ""}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
+      <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${val}${tri === "gcr" ? AB("PBGC") : ""}<small>${lib}</small>${tri === "gcr" ? spark(x.h) : ""}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => x.gcr, x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: Math.round(moyP(a)) }));
   el.innerHTML = tete + eqClassementHTML(eqG, L("le GCR de ses gardiens, selon leurs minutes", "its goalies' GCR, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
   ptListeTab("p-gcr");
@@ -4795,7 +4875,7 @@ function gcrCarte(id){
     ${x.det?.length ? `<div class="wi-tbl"><table><thead><tr><th>${L("Mêmes joueurs, xG accordés / 60", "Same players, xG allowed / 60")}</th><th>${L("Lui", "Him")}</th><th>${L("L'autre", "Other")}</th></tr></thead><tbody>${
       x.det.map(d => `<tr><td>${d[1]}</td><td>${n2g(d[3])}</td><td>${n2g(d[4])}</td></tr>`).join("")}</tbody></table></div>` : ""}
   </div>`;
-  ptCarte(m, { n: x.n, no: x.no, pos: "G", eq: x.eq, h: x.h, rg: x.rg, dr: x.dr }, String(x.gcr), "Goalie Confidence Rating", `${x.eq} · GSAx ${sgn(x.gsax, 1)} · ${L("n° ", "#")}${x.rg}`);
+  ptCarte(m, { n: x.n, no: x.no, pos: "G", eq: x.eq, h: x.h, rg: x.rg, dr: x.dr }, String(x.gcr), "PBGC · PB Goalie Confidence Rating", `${x.eq} · GSAx ${sgn(x.gsax, 1)} · ${L("n° ", "#")}${x.rg}`);
   m.hidden = false;
 }
 document.addEventListener("click", (e) => {
@@ -4877,7 +4957,7 @@ function duoLigne(x, rg){
     : [pts1(x.ch), L("chimie", "chemistry")];
   return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
     <span class="nm">${duoNoms(x)}<small>${x.eq} · ${x.j.map(j => j[1]).join(", ")}</small><span class="wi-st">${st}</span></span>
-    <span class="v">${tri === "ch" ? coteHTML(x.rg) : ""}${val}<small>${lib}</small></span></button>`;
+    <span class="v">${tri === "ch" ? coteHTML(x.rg) : ""}${val}${tri === "ch" ? AB("PBCS") : ""}<small>${lib}</small></span></button>`;
 }
 function duoCarte(id){
   const mode = S.duo || "duos", x = duoListe(mode).find(d => d.id === id); if (!x) return;
@@ -4897,7 +4977,7 @@ function duoCarte(id){
     <div class="wi-tbl">${table}</div>
     <p>${L("Buts et tirs : pour-contre, à 5 contre 5. Part = pour ÷ (pour + contre).", "Goals and shots: for-against, at 5-on-5. Share = for ÷ (for + against).")}</p>
   </div>`;
-  ptCarte(m, { n: x.j.map(j => j[1]).join(" + "), no: x.j[0][2], pos: x.j[0][3], eq: x.eq }, pts1(x.ch), L("chimie", "chemistry"),
+  ptCarte(m, { n: x.j.map(j => j[1]).join(" + "), no: x.j[0][2], pos: x.j[0][3], eq: x.eq, rg: x.rg, dr: x.dr, h: x.h }, pts1(x.ch), "PBCS · " + L("chimie", "chemistry"),
     `${Math.round(x.min)} min ${L("ensemble", "together")} · ${duoBase()} ${pc0(x.pe)}`);
   m.hidden = false;
 }
@@ -5328,7 +5408,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "rum", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -5337,6 +5417,7 @@ function brancher(){
     if (b.id === "t-gcr") gcrOnglet();
     if (b.id === "t-arb") arbOnglet();
     if (b.id === "t-pwr") pwrOnglet();
+    if (b.id === "t-rum") rumOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -5489,6 +5570,7 @@ async function init(){
     else if (/^#(matchs?|games?)$/i.test(location.hash)){ $("#t-matchs").click(); $("#p-matchs").scrollIntoView({ block: "start" }); }
     else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
+    else if (/^#(rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
     else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
     else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
@@ -5505,7 +5587,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#rumors" : "#rumeurs", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -5521,8 +5603,8 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=c1f92ee3" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=c1f92ee3" defer></script>
-<script src="nav.js?v=c0ad788ba3" defer></script>
+<script src="pub.js?v=948f40e5" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=948f40e5" defer></script>
+<script src="nav.js?v=3e95018bf0" defer></script>
 </body>
 </html>
