@@ -383,6 +383,20 @@
   "publie": true,
   "quand": "2026-11-11T14:00-05:00"
  },
+ "2026-11-11-match-2026020293": {
+  "fb": "1508565075663838_122108780859537152",
+  "fb_com": "122108780859537152_1448062054166645",
+  "ig": "sauté : Instagram en pause jusqu'à 12/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020293
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "TBL @ BUF",
+  "publie": true,
+  "quand": "2026-11-11T14:35-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-12T14:00-05:00"
  }
