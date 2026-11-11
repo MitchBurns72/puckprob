@@ -440,6 +440,20 @@
   "publie": true,
   "quand": "2026-11-11T16:25-05:00"
  },
+ "2026-11-11-match-2026020296": {
+  "fb": "1508565075663838_122108877609537152",
+  "fb_com": "122108877609537152_1699564318357214",
+  "ig": "sauté : Instagram en pause jusqu'à 12/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020296
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "UTA @ VGK",
+  "publie": true,
+  "quand": "2026-11-11T16:40-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-12T14:00-05:00"
  }
