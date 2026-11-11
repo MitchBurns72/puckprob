@@ -1,20 +1,28 @@
 name: Live
 
-# Scores en direct + fil du soir (Facebook / Instagram). Écrit live.json et social_poste.json à la racine du site.
+# Scores en direct + fil du soir (Facebook / Instagram) + l'HORLOGE qui part les calculs de Tirs-nhl.
 # Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl.
-# Avant : un passage aux 5 min, mais GitHub en sautait presque tous (8 nov. 2026 : 1 passage en 3 heures, les posts
-# du soir restaient pris). Maintenant : UN passage qui reste allumé et boucle lui-même aux 5 min (scores, posts,
-# commit), jusqu'à 2 h du matin. Les relances aux heures servent de filet : si le passage n'a pas démarré ou a fini
-# son temps max (près de 6 h), la suivante prend le relais ; s'il tourne déjà, elle attend derrière (concurrency).
-# Secrets du dépôt puckprob : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID.
+# GitHub saute ou retarde ses horaires automatiques (8-10 nov. 2026 : posts du soir pris, calcul de la nuit jamais
+# parti, midi sauté). Maintenant : UN passage qui reste allumé 24 h sur 24 et boucle lui-même aux 5 min :
+#   - scores en direct et posts du fil (de 11 h à 2 h, heure de l'Est) ;
+#   - l'horloge (live_code/horloge.py) part le calcul de Tirs-nhl à 0 h 37, 9 h 07, 11 h 37, 13 h 07 et 16 h 47.
+# Un passage dure au plus ~5 h 45 (limite de GitHub) : à la fin, il se relance lui-même (workflow_dispatch). Les
+# horaires aux heures restent comme filet : s'il tourne déjà, la relance attend derrière (concurrency).
+# Secrets du dépôt puckprob : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID, TIRS_DISPATCH (jeton limité à « Actions »
+# sur Tirs-nhl, pour partir ses calculs).
 on:
   schedule:
-    - cron: "3 17-23 * * *"
-    - cron: "3 0-5 * * *"
-  workflow_dispatch: {}
+    - cron: "3 * * * *"
+  workflow_dispatch:
+    inputs:
+      tester_horloge:
+        description: "Tester l'horloge : part un calcul de Tirs-nhl tout de suite"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: live
@@ -29,29 +37,45 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Boucle aux 5 minutes (scores en direct + fil du soir)
+      - name: Tester l'horloge (seulement si la case est cochée)
+        if: github.event.inputs.tester_horloge == 'true'
+        env:
+          TIRS_DISPATCH: ${{ secrets.TIRS_DISPATCH }}
+        run: python live_code/horloge.py --test
+      - name: Boucle aux 5 minutes (horloge, scores en direct, fil du soir)
         env:
           LIVE_SORTIE: live.json
           META_PAGE_TOKEN: ${{ secrets.META_PAGE_TOKEN }}
           META_PAGE_ID: ${{ secrets.META_PAGE_ID }}
           META_IG_ID: ${{ secrets.META_IG_ID }}
+          TIRS_DISPATCH: ${{ secrets.TIRS_DISPATCH }}
         run: |
           git config user.name "puckprob-bot"
           git config user.email "puckprob-bot@users.noreply.github.com"
-          fin=$(( $(date +%s) + 345 * 60 ))
+          fin=$(( $(date +%s) + 340 * 60 ))
           while [ "$(date +%s)" -lt "$fin" ]; do
             h=$((10#$(TZ=America/Toronto date +%H)))
-            # De 2 h à 11 h (heure de l'Est) : pas de match ni de post, on arrête
-            if [ "$h" -ge 2 ] && [ "$h" -lt 11 ]; then echo "fini pour la nuit"; break; fi
             # Le calcul de Tirs-nhl pousse ici (site, fil du soir, code) : on prend la dernière version à chaque tour
             git pull --rebase --autostash -q || echo "pull : raté, on continue"
-            python live_code/live.py || echo "live : erreur"
-            if [ -f live_code/poster.py ]; then python live_code/poster.py || echo "fil : erreur"; fi
-            git add live.json 2>/dev/null || true
-            if [ -f social_poste.json ]; then git add social_poste.json; fi
-            if ! git diff --cached --quiet; then
-              git commit -q -m "Live $(date -u +%H:%MZ)"
-              for i in 1 2 3; do git pull --rebase --autostash -q && git push -q && break; sleep 7; done
+            if [ -f live_code/horloge.py ]; then python live_code/horloge.py || echo "horloge : erreur"; fi
+            # De 2 h à 11 h (heure de l'Est) : pas de match ni de post, juste l'horloge
+            if [ "$h" -ge 11 ] || [ "$h" -lt 2 ]; then
+              python live_code/live.py || echo "live : erreur"
+              if [ -f live_code/poster.py ]; then python live_code/poster.py || echo "fil : erreur"; fi
+              git add live.json 2>/dev/null || true
+              if [ -f social_poste.json ]; then git add social_poste.json; fi
+              if ! git diff --cached --quiet; then
+                git commit -q -m "Live $(date -u +%H:%MZ)"
+                for i in 1 2 3; do git pull --rebase --autostash -q && git push -q && break; sleep 7; done
+              fi
             fi
             sleep $(( 300 - $(date +%s) % 300 ))
           done
+      - name: Se relancer (la boucle continue dans un nouveau passage)
+        if: success() || failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          curl -sS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/live.yml/dispatches" \
+            -d '{"ref":"main"}' && echo "relancé"
