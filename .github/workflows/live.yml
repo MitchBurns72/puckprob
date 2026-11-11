@@ -24,12 +24,27 @@ permissions:
   contents: write
   actions: write
 
-concurrency:
-  group: live
-  cancel-in-progress: false
-
 jobs:
+  # Le test de l'horloge : un petit job à part, qui roule tout de suite sans toucher à la boucle déjà en marche
+  test:
+    if: github.event.inputs.tester_horloge == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Tester l'horloge (part un calcul de Tirs-nhl tout de suite)
+        env:
+          TIRS_DISPATCH: ${{ secrets.TIRS_DISPATCH }}
+        run: python live_code/horloge.py --test
+
   live:
+    if: github.event.inputs.tester_horloge != 'true'
+    concurrency:
+      group: live
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 355
     steps:
@@ -37,11 +52,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Tester l'horloge (seulement si la case est cochée)
-        if: github.event.inputs.tester_horloge == 'true'
-        env:
-          TIRS_DISPATCH: ${{ secrets.TIRS_DISPATCH }}
-        run: python live_code/horloge.py --test
       - name: Boucle aux 5 minutes (horloge, scores en direct, fil du soir)
         env:
           LIVE_SORTIE: live.json
