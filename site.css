@@ -590,6 +590,38 @@ body::before{background:var(--bande)}
 .m .logo{width:46px;height:46px}
 .eq .ab{font:italic 800 32px/1 var(--f-display)}
 .eq .wp{font:italic 800 28px/1 var(--f-display)}
+/* Les matchs en cartes carrées (Mitch, 11 nov. 2026) : 2 par rangée sur cell, chaque équipe dans SA couleur (une de
+   ses couleurs officielles, distincte de l'autre équipe : couleursDuel), en relief comme le reste du site */
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:10px}
+.mc{display:flex;flex-direction:column;gap:6px;aspect-ratio:1/1;min-height:0;padding:9px 9px 8px;border-radius:14px;text-align:center;cursor:pointer;color:var(--ink);font:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.01)),linear-gradient(135deg,color-mix(in srgb,var(--fa) 22%,transparent),transparent 45%,transparent 55%,color-mix(in srgb,var(--fh) 22%,transparent)),var(--surface);
+  border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 5px 14px rgba(0,0,0,.3);transition:transform .12s}
+.mc:active{transform:scale(.97)}
+.mc-h{display:flex;justify-content:space-between;align-items:center;gap:4px;font:700 11px/1 var(--f-body);color:var(--muted)}
+.mc-h em{font-style:normal;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--chip);color:var(--ink);white-space:nowrap}
+.mc-h em.live{background:#E0353B;color:#fff} .mc.live{box-shadow:inset 0 0 0 2px #E0353B,0 5px 14px rgba(0,0,0,.3)}
+.mc-t{font:italic 800 21px/1 var(--f-display);text-transform:uppercase;letter-spacing:.01em;color:#fff}
+.mc-t small{font-size:14px;color:var(--muted)}
+.mc-duo{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;min-height:0}
+.mc-e{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:9px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 45%,rgba(0,0,0,.18)),var(--f);color:var(--t);
+  box-shadow:inset 0 0 0 2px var(--c),0 3px 8px rgba(0,0,0,.35);opacity:.9}
+.mc-e.fav{opacity:1;box-shadow:inset 0 0 0 2px var(--c),0 0 0 2px #fff,0 3px 10px rgba(0,0,0,.4)}
+.mc-e b{font:italic 800 15px/1 var(--f-display)} .mc-e big{font:italic 800 27px/1 var(--f-display)} .mc-e big small{font-size:15px}
+.mc-e i{font:800 8.5px/1 var(--f-body);font-style:normal;text-transform:uppercase;letter-spacing:.06em;opacity:.85}
+.mc-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:var(--chip)} .mc-bar span{display:block;height:100%}
+.mc-x,.mc-s{font:600 10.5px/1.2 var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-x b,.mc-s b{color:var(--ink)}
+/* Le popup d'un match : la carte à gauche, les deux choix à droite, le contenu dessous */
+.mpop .mpop-haut{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;padding:12px 12px 6px}
+.mpop .mc-pop{cursor:default;aspect-ratio:auto}.mpop .mc-pop .mc-duo{min-height:86px}
+.mpop-ch{display:flex;flex-direction:column;gap:8px}
+.mpop-ch button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;cursor:pointer;color:#fff;font:800 13.5px/1.1 var(--f-body);
+  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#14243D;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px rgba(0,0,0,.35)}
+.mpop-ch button i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),#FFB81C;color:#0B1220;border-color:#FFB81C}
+.mpop .mpop-corps{padding:4px 12px 14px}
+.mpop .mpop-corps .m{box-shadow:none}
+.mpop .mpop-corps .m .duel,.mpop .mpop-corps .m .wbar{display:none}
 .card,.projm,.guide{border-radius:6px}
 .card.main{border-color:var(--goal);box-shadow:inset 0 4px 0 var(--goal),var(--ombre)}
 h2{font:italic 800 24px/1 var(--f-display)}

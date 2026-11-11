@@ -615,6 +615,38 @@ body::before{background:var(--bande)}
 .m .logo{width:46px;height:46px}
 .eq .ab{font:italic 800 32px/1 var(--f-display)}
 .eq .wp{font:italic 800 28px/1 var(--f-display)}
+/* Les matchs en cartes carrées (Mitch, 11 nov. 2026) : 2 par rangée sur cell, chaque équipe dans SA couleur (une de
+   ses couleurs officielles, distincte de l'autre équipe : couleursDuel), en relief comme le reste du site */
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:10px}
+.mc{display:flex;flex-direction:column;gap:6px;aspect-ratio:1/1;min-height:0;padding:9px 9px 8px;border-radius:14px;text-align:center;cursor:pointer;color:var(--ink);font:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.01)),linear-gradient(135deg,color-mix(in srgb,var(--fa) 22%,transparent),transparent 45%,transparent 55%,color-mix(in srgb,var(--fh) 22%,transparent)),var(--surface);
+  border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 5px 14px rgba(0,0,0,.3);transition:transform .12s}
+.mc:active{transform:scale(.97)}
+.mc-h{display:flex;justify-content:space-between;align-items:center;gap:4px;font:700 11px/1 var(--f-body);color:var(--muted)}
+.mc-h em{font-style:normal;font-weight:800;padding:2px 5px;border-radius:5px;background:var(--chip);color:var(--ink);white-space:nowrap}
+.mc-h em.live{background:#E0353B;color:#fff} .mc.live{box-shadow:inset 0 0 0 2px #E0353B,0 5px 14px rgba(0,0,0,.3)}
+.mc-t{font:italic 800 21px/1 var(--f-display);text-transform:uppercase;letter-spacing:.01em;color:#fff}
+.mc-t small{font-size:14px;color:var(--muted)}
+.mc-duo{display:grid;grid-template-columns:1fr 1fr;gap:5px;flex:1;min-height:0}
+.mc-e{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:9px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0) 45%,rgba(0,0,0,.18)),var(--f);color:var(--t);
+  box-shadow:inset 0 0 0 2px var(--c),0 3px 8px rgba(0,0,0,.35);opacity:.9}
+.mc-e.fav{opacity:1;box-shadow:inset 0 0 0 2px var(--c),0 0 0 2px #fff,0 3px 10px rgba(0,0,0,.4)}
+.mc-e b{font:italic 800 15px/1 var(--f-display)} .mc-e big{font:italic 800 27px/1 var(--f-display)} .mc-e big small{font-size:15px}
+.mc-e i{font:800 8.5px/1 var(--f-body);font-style:normal;text-transform:uppercase;letter-spacing:.06em;opacity:.85}
+.mc-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:var(--chip)} .mc-bar span{display:block;height:100%}
+.mc-x,.mc-s{font:600 10.5px/1.2 var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mc-x b,.mc-s b{color:var(--ink)}
+/* Le popup d'un match : la carte à gauche, les deux choix à droite, le contenu dessous */
+.mpop .mpop-haut{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;padding:12px 12px 6px}
+.mpop .mc-pop{cursor:default;aspect-ratio:auto}.mpop .mc-pop .mc-duo{min-height:86px}
+.mpop-ch{display:flex;flex-direction:column;gap:8px}
+.mpop-ch button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;cursor:pointer;color:#fff;font:800 13.5px/1.1 var(--f-body);
+  background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#14243D;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px rgba(0,0,0,.35)}
+.mpop-ch button i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),#FFB81C;color:#0B1220;border-color:#FFB81C}
+.mpop .mpop-corps{padding:4px 12px 14px}
+.mpop .mpop-corps .m{box-shadow:none}
+.mpop .mpop-corps .m .duel,.mpop .mpop-corps .m .wbar{display:none}
 .card,.projm,.guide{border-radius:6px}
 .card.main{border-color:var(--goal);box-shadow:inset 0 4px 0 var(--goal),var(--ombre)}
 h2{font:italic 800 24px/1 var(--f-display)}
@@ -1019,9 +1051,9 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">62%</span><span class="rp-barre"><i style="width:79.8%"></i></span></td></tr><tr><td><a href="players/leon-draisaitl/">Leon Draisaitl</a><br><span class="rp-note">EDM vs PHI</span></td>
 <td class="rp-n"><span class="rp-p">58%</span><span class="rp-barre"><i style="width:75.2%"></i></span></td></tr><tr><td><a href="players/jack-eichel/">Jack Eichel</a><br><span class="rp-note">VGK vs UTA</span></td>
 <td class="rp-n"><span class="rp-p">57%</span><span class="rp-barre"><i style="width:72.8%"></i></span></td></tr><tr><td><a href="players/beckett-sennecke/">Beckett Sennecke</a><br><span class="rp-note">ANA vs NSH</span></td>
-<td class="rp-n"><span class="rp-p">57%</span><span class="rp-barre"><i style="width:72.8%"></i></span></td></tr><tr><td><a href="players/leo-carlsson/">Leo Carlsson</a><br><span class="rp-note">ANA vs NSH</span></td>
-<td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:71.1%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.3%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.2%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.8%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>39%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>46%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>55%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>61%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>45%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>49%</b></li></ul></div>
+<td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:72.6%"></i></span></td></tr><tr><td><a href="players/leo-carlsson/">Leo Carlsson</a><br><span class="rp-note">ANA vs NSH</span></td>
+<td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:71.0%"></i></span></td></tr></tbody></table></div></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.3%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.1%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.9%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>39%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>46%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>55%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>61%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>48%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -1193,6 +1225,8 @@ Object.assign(TR, {
     "Behind every %: our own machine-learning models, built on years of NHL data, the player's form, his role, the opponent and tonight's lineup (DailyFaceoff). You get the result; the recipe stays in the kitchen.",
   "Les modèles sont remis à l'épreuve chaque semaine sur les vrais résultats, et tout est vérifié dans le Bilan. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint).":
     "The models are put back to the test every week against real results, and everything is checked in the Track record. The small bars = his last 10 games (colored: threshold reached).",
+  "Une carte par match : les deux équipes dans leurs couleurs, la plus encadrée de blanc est la favorite. Touche une carte : « Alignement » montre les trios, les gardiens et le score prédit joueur par joueur ; « Probs » montre la victoire en 60 minutes, les totaux, la forme et les duels directs.":
+    "One card per game: both teams in their colors, the one framed in white is the favorite. Tap a card: \"Roster\" shows the lines, the goalies and the player-by-player predicted score; \"Probs\" shows the 60-minute win, the totals, recent form and head-to-head.",
   "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les probs de +5,5 ou +6,5 buts en découlent.":
     "Win = chance of winning, overtime and shootout included. Expected goals = the average number of goals projected for each team; the over 5.5 and 6.5 goal probs follow from it.",
   "Le calcul combine la forme récente, l'attaque et la défensive des deux équipes, les gardiens et les matchs en deux soirs de suite. Avec l'alignement, chaque joueur est calculé un par un puis additionné.":
@@ -2028,7 +2062,14 @@ function matchs(){
     $("#matchs").innerHTML = `<div class="liste"><div class="vide">Les prédictions de matchs commencent au prochain calcul.</div></div>`;
     return;
   }
-  $("#matchs").innerHTML = D.games.slice().sort((a, b) => a.start.localeCompare(b.start)).map(g => {
+  // Les matchs en cartes carrées alignées (demande de Mitch, 11 nov. 2026) : les deux équipes dans leur couleur, le %
+  // de victoire, les totaux, le score prédit. Toucher une carte : le popup, avec à droite « Alignement » et « Probs ».
+  $("#matchs").innerHTML = `<div class="mg">${D.games.slice().sort((a, b) => a.start.localeCompare(b.start)).map(g => carteMatch(g, v)).join("")}</div>`;
+  majPopMatch();
+}
+// Le détail d'un match (l'ancienne grande carte) : 60 min, totaux, forme, duels directs (et les cotes au premium).
+// sans = "align" : sans le bloc d'alignement (il a son propre bouton dans le popup)
+function detailMatch(g, v, sans){
     const p = g.preds[v];
     if (!p) return "";
     const ph = p.p_home, pa = 1 - ph;
@@ -2112,7 +2153,7 @@ function matchs(){
         <div class="eq d"><span class="ligne"><img class="logo" src="${LOGO(g.home)}" alt="" loading="lazy" onerror="this.remove()"><span class="ab">${g.home}</span></span><span class="wp ${ph >= pa ? "fav" : ""}">${pct(ph)} %</span><span class="xg">${p.lam_home.toFixed(1)} buts att.</span>${robHTML(g.phys?.home)}</div>
       </div>
       <div class="wbar" aria-hidden="true"><span class="a" style="width:${pct(pa)}%"></span><span class="h" style="width:${pct(ph)}%"></span></div>
-      ${blocAlignement(g)}
+      ${sans === "align" ? "" : blocAlignement(g)}
       <div class="kv3">
         <div><span class="lbl">Total projeté</span><b>${p.total.toFixed(1)}</b></div>
         <div><span class="lbl">Plus de 5.5</span><b>${pct(p.p_over["5.5"])} %</b></div>
@@ -2136,8 +2177,74 @@ function matchs(){
         ${ligneTot}`}
       </div>
     </div>`;
-  }).join("");
 }
+// ---- Les cartes des matchs et leur popup ---------------------------------------
+function etatMatch(g){
+  const L = LIVE?.games?.[g.gameId];
+  if (g.result) return { txt: L2t(`Final ${g.result.away}-${g.result.home}`, `Final ${g.result.away}-${g.result.home}`), cls: "fin" };
+  if (L) return FINIS.includes(L.state) ? { txt: `Final ${L.as}-${L.hs}`, cls: "fin" } : { txt: `${L.as}-${L.hs} · ${periode(L)}`, cls: "live" };
+  return null;
+}
+const L2t = (fr, en) => EN ? en : fr;
+function carteMatch(g, v){
+  const p = g.preds?.[v];
+  if (!p || p.p_home == null) return "";
+  const ph = p.p_home, pa = 1 - ph, C = couleursDuel(g.away, g.home);
+  const sc = p.lam_away != null && p.lam_home != null ? scores(p.lam_away, p.lam_home, ph).top[0] : null;
+  const et = etatMatch(g);
+  const hr = new Date(g.start).toLocaleTimeString(EN ? "en-CA" : "fr-CA", { hour: "numeric", minute: "2-digit", timeZone: "America/Toronto" });
+  const boite = (t, x, P, fav) => `<span class="mc-e${fav ? " fav" : ""}" style="--f:${P.f};--t:${P.t};--c:${P.c}"><b>${t}</b><big>${pct(x)}<small>%</small></big><i>${L2t("victoire", "win")}</i></span>`;
+  const o55 = p.p_over?.["5.5"], o65 = p.p_over?.["6.5"];
+  return `<button type="button" class="mc ${et?.cls || ""}" data-g="${g.gameId}" data-c="${g.home}" style="--fa:${C[0].f};--fh:${C[1].f}" aria-label="${g.away} @ ${g.home}">
+    <span class="mc-h"><span>${hr}${g.b2b_away || g.b2b_home ? " · B2B" : ""}</span>${et ? `<em class="${et.cls}">${et.txt}</em>` : ""}</span>
+    <span class="mc-t">${g.away} <small>@</small> ${g.home}</span>
+    <span class="mc-duo">${boite(g.away, pa, C[0], pa > ph)}${boite(g.home, ph, C[1], ph >= pa)}</span>
+    <span class="mc-bar"><span style="width:${pct(pa)}%;background:${C[0].f}"></span><span style="width:${pct(ph)}%;background:${C[1].f}"></span></span>
+    <span class="mc-x">${o55 != null ? L2t(`Plus de 5,5 : <b>${pct(o55)} %</b>`, `Over 5.5: <b>${pct(o55)}%</b>`) : ""}${o65 != null ? L2t(` · 6,5 : <b>${pct(o65)} %</b>`, ` · 6.5: <b>${pct(o65)}%</b>`) : ""}</span>
+    ${sc ? `<span class="mc-s">${L2t("Score prédit", "Predicted")} : <b>${g.away} ${sc.a}-${sc.h} ${g.home}</b></span>` : ""}
+  </button>`;
+}
+// Le popup d'un match : l'en-tête aux deux couleurs, les deux boutons à droite (Alignement / Probs), le contenu dessous
+let MPOP = null;              // { g: gameId, o: "probs" | "align" }
+function popMatchHTML(){
+  const g = (D.games || []).find(x => String(x.gameId) === String(MPOP?.g));
+  if (!g) return "";
+  const v = versionsDispo("p-matchs").some(x => x.id === S.ver) ? S.ver : D.principale;
+  const C = couleursDuel(g.away, g.home), carte = carteMatch(g, v).replace('<button type="button" class="mc', '<div class="mc mc-pop').replace(/<\/button>\s*$/, "</div>");
+  const o = MPOP.o;
+  const corps = o === "align" ? (blocAlignement(g) || `<p class="sh-info">${L2t("L'alignement arrive plus tard dans la journée.", "The lineup comes later in the day.")}</p>`)
+    : detailMatch(g, v, "align");
+  return `<div class="wi-carte mpop" role="dialog" aria-modal="true" aria-label="${g.away} @ ${g.home}" style="--pf:${C[1].f};--pt:${C[1].t};--pb:${C[0].f};--eq:${C[1].f}">
+    <header><div class="wi-hd"><div><b>${nomEq(g.away)} @ ${nomEq(g.home)}</b><span>${new Date(g.start).toLocaleDateString(EN ? "en-CA" : "fr-CA", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Toronto" })}</span></div></div><button type="button" class="wi-x" aria-label="${L2t("Fermer", "Close")}">×</button></header>
+    <div class="mpop-haut">${carte}<div class="mpop-ch">
+      <button type="button" data-mo="align" aria-pressed="${o === "align"}"><i>${ICO_ALIGN}</i>${L2t("Alignement", "Roster")}</button>
+      <button type="button" data-mo="probs" aria-pressed="${o === "probs"}"><i>${ICO_PROBS}</i>Probs</button></div></div>
+    <div class="mpop-corps">${corps}</div></div>`;
+}
+const ICO_ALIGN = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M3 19c0-3 2.5-5 5-5s5 2 5 5M11 19c0-3 2.5-5 5-5s5 2 5 5"/></svg>';
+const ICO_PROBS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19L19 5"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg>';
+function ouvrirMatch(id, o){
+  MPOP = { g: id, o: o || MPOP?.o || "probs" };
+  const m = $("#wi-modal");
+  m.innerHTML = popMatchHTML();
+  m.hidden = false;
+}
+// Les données changent (live, cote tapée) : le popup ouvert suit, sauf si on est en train d'écrire dedans
+function majPopMatch(){
+  const m = $("#wi-modal");
+  if (!MPOP || !m || m.hidden || !m.querySelector(".mpop")) return;
+  if (m.contains(document.activeElement) && document.activeElement.tagName === "INPUT") return;
+  const y = m.querySelector(".mpop")?.scrollTop || 0;
+  m.innerHTML = popMatchHTML();
+  m.querySelector(".mpop") && (m.querySelector(".mpop").scrollTop = y);
+}
+document.addEventListener("click", (e) => {
+  const c = e.target.closest?.("#matchs .mc[data-g]");
+  if (c){ ouvrirMatch(c.dataset.g); return; }
+  const b = e.target.closest?.(".mpop [data-mo]");
+  if (b && MPOP){ MPOP.o = b.dataset.mo; const m = $("#wi-modal"); m.innerHTML = popMatchHTML(); return; }
+  if (e.target === $("#wi-modal") || e.target.closest?.(".mpop .wi-x")) MPOP = null;
+});
 
 // ---- Suivi ---------------------------------------------------------------------
 function blocStats(v){
@@ -3356,7 +3463,10 @@ const WI_MODES = {
   // Les meilleures saisons de l'histoire (demande de Mitch, 10 nov. 2026) : le top des saisons de points, avec l'année,
   // et les joueurs d'aujourd'hui insérés au rythme de leur saison en cours (sur 82 matchs, après 10 matchs)
   sr:  { j: "j", saisons: true, nom: ["Records : saisons", "Records: seasons"], u: ["pts", "pts"] },
-  sw:  { j: "j", saisons: true, nom: ["Records : saisons what if", "Records: what if seasons"], u: ["pts", "pts"] } };
+  sw:  { j: "j", saisons: true, nom: ["Records : saisons what if", "Records: what if seasons"], u: ["pts", "pts"] },
+  // Les records des gardiens (demande de Mitch, 11 nov. 2026) : les saisons de victoires, réelles et what if
+  gsr: { j: "g", saisons: true, nom: ["Records gardiens", "Goalie records"], u: ["victoires", "wins"] },
+  gsw: { j: "g", saisons: true, nom: ["Records gardiens what if", "Goalie records what if"], u: ["victoires", "wins"] } };
 const sv3 = (x) => x == null ? "–" : x.toFixed(3).replace(/^0/, "");
 const ppg2 = (x) => x == null ? "–" : x.toFixed(2).replace(".", EN ? "." : ",");
 const bpg2 = (x) => x == null ? "–" : x.toFixed(2).replace(".", EN ? "." : ",");
@@ -3408,7 +3518,12 @@ async function whatif(){
   const tete = `<div class="cp-tete">${titrePB("PB Era-Adjusted", "What if")}<p>${L(
     `Et si tous les joueurs de l'histoire avaient joué dans la même ligue, aujourd'hui ? Dans les années 80, il se marquait beaucoup plus de buts qu'aujourd'hui : 100 points en 1983, c'était plus facile que 100 points en 1999. Ici, chaque saison est ramenée au niveau de buts d'aujourd'hui (la moyenne des ${R.n_base} dernières saisons, ${per}) et à ${R.matchs} matchs, pour comparer les époques d'égal à égal. Le rang à gauche : son rang de tous les temps une fois ajusté. Entre parenthèses : son vrai rang. Touche un joueur pour voir le dos de sa carte, saison par saison.`,
     `What if every player in history had played in the same league, today? In the 80s, many more goals were scored than today: 100 points in 1983 was easier than 100 points in 1999. Here, every season is brought to today's scoring level (the average of the last ${R.n_base} seasons, ${per}) and to ${R.matchs} games, to compare eras on equal footing. The rank on the left: his all-time rank once adjusted. In parentheses: his real rank. Tap a player to see the back of his card, season by season.`)}</p></div>${lireHTML(L("ses points (ou buts, passes...) de carrière une fois ramenés à l'ère d'aujourd'hui.", "his career points (or goals, assists...) once brought to today's era."), false)}`;
-  const teteS = M.saisons ? `<div class="cp-tete"><h2>${L("Records : les plus grosses saisons", "Records: the biggest seasons")}</h2><p>${mode === "sr"
+  const teteS = M.saisons && M.j === "g" ? `<div class="cp-tete"><h2>${L("Records des gardiens : les plus grosses saisons", "Goalie records: the biggest seasons")}</h2><p>${mode === "gsr"
+    ? L("Les saisons de gardien avec le plus de victoires de l'histoire de la LNH, avec l'année. Les gardiens d'aujourd'hui y sont insérés au rythme de leur saison en cours (après 10 matchs), étiré sur une saison complète de gardien no 1. Sous le nom : ses victoires, son % d'arrêts et sa moyenne cette saison-là.",
+        "The goalie seasons with the most wins in NHL history, with the year. Today's goalies are slotted in at their current season's pace (after 10 games), stretched over a full season for a no. 1 goalie. Under the name: his wins, save % and GAA that season.")
+    : L("Les mêmes saisons, ramenées à l'ère d'aujourd'hui et à une saison complète de gardien no 1 : les victoires d'un gardien des années 80, quand les buts pleuvaient, sont rajustées, comme son % d'arrêts.",
+        "The same seasons, brought to today's era and to a full season for a no. 1 goalie: the wins of an 80s goalie, when goals were raining, are adjusted, like his save %.")}</p></div>`
+    : M.saisons ? `<div class="cp-tete"><h2>${L("Records : les plus grosses saisons", "Records: the biggest seasons")}</h2><p>${mode === "sr"
     ? L("Les meilleures saisons de points de l'histoire de la LNH, avec l'année. Les joueurs d'aujourd'hui y sont insérés au rythme de leur saison en cours, étiré sur 82 matchs (après 10 matchs) : on voit où ils s'en vont s'ils gardent le rythme.",
         "The best point seasons in NHL history, with the year. Today's players are slotted in at their current season's pace, stretched over 82 games (after 10 games): you see where they're headed if they keep it up.")
     : L("Les mêmes saisons, ramenées au niveau offensif d'aujourd'hui et à 82 matchs : une saison de 1985, quand les buts pleuvaient, perd des points ; une saison de 2000, quand c'était serré, en gagne.",
@@ -3421,6 +3536,7 @@ async function whatif(){
 // Records : chaque saison de chaque patineur. sr = les vrais points (la saison en cours : son rythme sur 82 matchs),
 // sw = les points what if (ère d'aujourd'hui et 82 matchs). Une ligne = une saison ; touche-la pour la carte du joueur.
 function wiSaisons(mode, q, feq){
+  if (mode === "gsr" || mode === "gsw") return wiSaisonsG(mode, q, feq);
   const cur = String(WI.saison || ""), tous = [];
   for (const [i, x] of Object.entries(WI.j)){
     if (q.length >= 2 && !nrm(x.n).includes(q)) continue;
@@ -3444,6 +3560,34 @@ function wiSaisons(mode, q, feq){
     return `<button class="wi-l wi-r" data-t="j" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
       <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.b} ${L("B", "G")} · ${r.a} A · ${r.p} PTS</span></span>
       <span class="v">${coteHTML(k + 1)}${r.v}<small>${sous}</small></span></button>`;
+  });
+}
+// Records des gardiens : chaque saison de chaque gardien, classée aux victoires. gsr = les vraies (la saison en cours :
+// son rythme sur le nombre de matchs d'un gardien no 1 du What if, après 10 matchs) ; gsw = les victoires what if.
+// Une ligne de gardien : [saison, équipe, PJ, V, % arrêts, PJ what if, V what if, % what if, moyenne, moyenne what if]
+function wiSaisonsG(mode, q, feq){
+  const cur = String(WI.saison || ""), tous = [], n1 = (WI.regles?.g || [])[0] || 62;
+  for (const [i, x] of Object.entries(WI.g || {})){
+    if (q.length >= 2 && !nrm(x.n).includes(q)) continue;
+    for (const r of x.s || []){
+      const [s, eq, pj, v, sv, , vw, svw, mba] = r;
+      if (feq && eq !== feq) continue;
+      const enCours = s === cur;
+      if (enCours && pj < 10) continue;
+      const val = mode === "gsr" ? (enCours ? Math.round(v / pj * n1) : v) : (vw == null ? null : Math.round(vw));
+      if (val == null || pj == null) continue;
+      tous.push({ i, x, s, eq, pj, v, sv, svw, mba, val, enCours });
+    }
+  }
+  tous.sort((u, w) => w.val - u.val || (w.sv || 0) - (u.sv || 0));
+  Object.assign(COTE, { n: tous.length, inv: false });
+  const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
+  return tous.slice(0, 100).map((r, k) => {
+    const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("what if, rythme", "what if, pace"))
+      : (mode === "gsr" ? L("victoires", "wins") : L(`what if · réel ${r.v} V`, `what if · real ${r.v} W`));
+    return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
+      <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.v} ${L("V", "W")} · ${sv3(mode === "gsw" ? r.svw : r.sv)} · ${r.mba != null ? bpg2(r.mba) + " " + L("moy.", "GAA") : "–"}</span></span>
+      <span class="v">${coteHTML(k + 1)}${r.val}<small>${sous}</small></span></button>`;
   });
 }
 // Difficulté de l'ère : + = plus dur de produire qu'aujourd'hui (patineur : moins de buts ; gardien : plus de buts contre)
@@ -4519,7 +4663,10 @@ document.addEventListener("click", (e) => {
 // Son rythme de cette saison MÉLANGÉ avec ses deux saisons d'avant (25 matchs fantômes), x les matchs qu'il devrait
 // encore jouer. Un départ en feu ne fait plus 130 points ; plus la saison avance, plus c'est sa saison qui parle.
 let PRJ = null, PRJ_ch = false;
-const PRJ_MODES = { pts: ["Points", "Points"], b: ["Buts", "Goals"], a: ["Passes", "Assists"], pim: ["Minutes de pénalité", "Penalty minutes"] };
+const PRJ_MODES = { pts: ["Points", "Points"], b: ["Buts", "Goals"], a: ["Passes", "Assists"], pm: ["+/-", "+/-"], pim: ["Minutes de pénalité", "Penalty minutes"],
+                    // Les gardiens (demande de Mitch, 11 nov. 2026) : victoires, arrêts, moyenne
+                    v: ["Gardiens : victoires", "Goalies: wins"], ar: ["Gardiens : arrêts", "Goalies: saves"], mba: ["Gardiens : moyenne", "Goalies: GAA"] };
+const PRJ_G = new Set(["v", "ar", "mba"]);
 const PIM = () => L("PUN", "PIM");
 async function projections(){
   const el = $("#prj");
@@ -4530,9 +4677,10 @@ async function projections(){
     try { PRJ = await (await fetch("projections.json?v=" + (D?.date || Date.now()))).json(); if (!PRJ.joueurs) throw 0; }
     catch (e) { PRJ = null; PRJ_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("Les projections arrivent au prochain calcul.", "Projections arrive with the next update.")}</div></div>`; return; }
   }
-  if (!$("#f-prj").innerHTML) $("#f-prj").innerHTML = Object.entries(PRJ_MODES).map(([k, n]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.prj || "pts")}">${L(...n)}</button>`).join("");
+  if (!$("#f-prj").innerHTML) $("#f-prj").innerHTML = Object.entries(PRJ_MODES).filter(([k]) => PRJ_G.has(k) ? PRJ.gardiens?.length : PRJ.ordres?.[k]).map(([k, n]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.prj || "pts")}">${L(...n)}</button>`).join("");
   const mode = S.prj || "pts", q = nrm($("#prj-q").value), feq = S.fe_prj || "";
   $("#fe-prj").innerHTML = filtreEqHTML("fe_prj", [...new Set(Object.values(PRJ.joueurs).map(x => x.eq))].filter(Boolean).sort());
+  if (PRJ_G.has(mode) && PRJ.gardiens?.length) return projectionsG(el, mode, q, feq);
   const ids = (q.length >= 2 || feq)
     ? Object.values(PRJ.joueurs).filter(x => (q.length < 2 || nrm(x.n).includes(q)) && (!feq || x.eq === feq)).sort((a, b) => a.rg[mode] - b.rg[mode]).slice(0, 60).map(x => x.id)
     : PRJ.ordres[mode];
@@ -4556,13 +4704,32 @@ async function projections(){
   el.innerHTML = tete + eqClassementHTML(eqP, L(`${L(...PRJ_MODES[mode]).toLowerCase()} projetés, ses 12 meilleurs`, `projected ${L(...PRJ_MODES[mode]).toLowerCase()}, its top 12`)) + lignes + regles + `<p class="aide">${L("Source : feuilles de match de la LNH. Mis à jour le", "Source: NHL game sheets. Updated")} ${PRJ.maj}.</p>`;
   ptListeTab("p-prj");
 }
+// Les gardiens : victoires, arrêts et moyenne de fin de saison (src/projections.py, gardiens())
+function projectionsG(el, mode, q, feq){
+  const inv = mode === "mba";
+  const liste = PRJ.gardiens.filter(x => x.rg?.[mode] && (q.length < 2 || nrm(x.n).includes(q)) && (!feq || x.eq === feq)).sort((a, b) => a.rg[mode] - b.rg[mode]).slice(0, 60);
+  const n = PRJ.gardiens.filter(x => x.rg?.[mode]).length;
+  Object.assign(COTE, { n, inv: false });
+  const val = (x) => mode === "mba" ? bpg2(x.proj.mba) : x.proj[mode].toLocaleString(LANG);
+  const tete = `<div class="cp-tete">${titrePB("PB Pace Projection", L("Projections des gardiens", "Goalie projections"))}<p>${L(
+    "Où chaque gardien va finir la saison : ses victoires, ses arrêts et sa moyenne de buts accordés. On part de ses départs de cette saison. Pour ceux qui restent : les matchs de son équipe, fois sa part des départs, à son % de victoires et à son % d'arrêts. Chacun est mélangé avec ses deux saisons d'avant : quelques bons matchs en octobre ne font pas un Vézina. La moyenne : au moins 20 départs projetés pour être classé.",
+    "Where each goalie will finish the season: his wins, his saves and his goals-against average. We start from his starts this season. For the rest: his team's games, times his share of the starts, at his win % and save %. Each one is blended with his previous two seasons: a few good games in October don't make a Vezina. GAA: at least 20 projected starts to be ranked.")}</p></div>${lireHTML(L("ce qu'il devrait avoir à la fin de la saison.", "what he should have at the end of the season."))}`;
+  const lignes = liste.map(x => `<div class="wi-l wi-r" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${x.rg[mode]}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
+    <span class="nm">${x.n}<small>${x.eq} · ${L("environ", "about")} ${x.proj.dep} ${L("départs", "starts")} (${Math.round(x.part * 100)} % ${L("de ceux de son équipe", "of his team's")})</small><span class="wi-st">${L("en ce moment : ", "now: ")}${x.c.v} ${L("V", "W")} · ${x.c.ar} ${L("arrêts", "saves")} · ${bpg2(x.c.mba)} ${L("moy.", "GAA")} · ${sv3(x.c.sv)} ${L("en", "in")} ${x.c.dep} ${L("départs", "starts")}</span></span>
+    <span class="v">${coteHTML(x.rg[mode], n, false)}${val(x)}${AB({ v: L("V", "W"), ar: L("arrêts", "saves"), mba: L("moy.", "GAA") }[mode])}<small>${L(...PRJ_MODES[mode]).replace(/^[^:]+: ?/, "").toLowerCase()} · ${L("% arrêts projeté", "projected save %")} ${sv3(x.proj.sv)}</small></span></div>`).join("")
+    || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
+  const eqP = Object.entries(parEq(PRJ.gardiens, x => x.eq, x => mode === "mba" ? null : x.proj?.[mode])).map(([t, a]) => ({ t, v: topSom(a, 3), txt: Math.round(topSom(a, 3)).toLocaleString(LANG) }));
+  el.innerHTML = tete + (inv ? "" : eqClassementHTML(eqP, L(`${L(...PRJ_MODES[mode]).replace(/^[^:]+: ?/, "").toLowerCase()} projetés, ses gardiens`, `projected ${L(...PRJ_MODES[mode]).replace(/^[^:]+: ?/, "").toLowerCase()}, its goalies`)))
+    + lignes + `<p class="aide">${L("Source : feuilles de match de la LNH (le gardien partant de chaque match). Mis à jour le", "Source: NHL game sheets (each game's starting goalie). Updated")} ${PRJ.maj}.</p>`;
+  ptListeTab("p-prj");
+}
 function prjLigne(x, mode){
   if (!x) return "";
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F"), c = x.c;
-  const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
+  const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS${c.pm != null ? ` · ${pmW(c.pm)}` : ""} · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
   return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
+    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${mode === "pm" ? pmW(x.proj[mode]) : x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pm: "+/-", pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
 }
 // Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
 // ce soir-là (même recette : rythme mélangé avec son passé, matchs qui restent x sa présence). x = ses matchs, y = la stat.
@@ -4757,9 +4924,17 @@ async function pwrOnglet(){
   if (!PWR){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerPwr(); }
   if (!PWR?.equipes?.length){ el.innerHTML = `<div class="card"><div class="vide">${L("Les power rankings arrivent au prochain calcul.", "Power rankings arrive with the next update.")}</div></div>`; return; }
   const mode = S.pwr || "eq";
-  $("#f-pwr").innerHTML = [["eq", L("Équipes", "Teams")], ["j", L("Joueurs", "Players")]].map(([k, n]) => `<button class="chip big" data-pw="${k}" aria-pressed="${k === mode}">${n}</button>`).join("");
+  $("#f-pwr").innerHTML = [["eq", L("Équipes", "Teams")], ["j", L("Joueurs", "Players")], ["g", L("Gardiens", "Goalies")], ["r", L("Recrues", "Rookies")]]
+    .filter(([k]) => k === "eq" || k === "j" || (k === "g" ? PWR.gardiens?.length : PWR.recrues?.length)).map(([k, n]) => `<button class="chip big" data-pw="${k}" aria-pressed="${k === mode}">${n}</button>`).join("");
   const ref = PWR.ref ? L(`Les flèches : depuis le classement du ${dateCourte(PWR.ref)}.`, `Arrows: since the ${dateCourte(PWR.ref)} ranking.`) : L("Les flèches arrivent la semaine prochaine.", "Arrows show up next week.");
-  const tete = `<div class="cp-tete">${titrePB("PB Dominance Rating", mode === "eq" ? L("Power rankings · Équipes", "Power rankings · Teams") : L("Power rankings · Joueurs", "Power rankings · Players"))}<p>${mode === "eq"
+  const sousT = { eq: L("Power rankings · Équipes", "Power rankings · Teams"), j: L("Power rankings · Joueurs", "Power rankings · Players"),
+                  g: L("Power rankings · Gardiens", "Power rankings · Goalies"), r: L("Power rankings · Recrues", "Power rankings · Rookies") }[mode];
+  const tete = `<div class="cp-tete">${titrePB("PB Dominance Rating", sousT)}<p>${mode === "g"
+    ? L(`Les ${PWR.gardiens.length} gardiens les plus dominants en ce moment. D'abord la qualité de sa saison : notre cote de confiance (le PBGC : il arrête plus que prévu, son équipe joue en confiance devant lui, son coach le fait jouer). Puis sa forme : son % d'arrêts sur ses ${PWR.n_forme} derniers départs. Puis ses victoires. Au moins ${PWR.min_departs} départs.`,
+        `The ${PWR.gardiens.length} most dominant goalies right now. First the quality of his season: our confidence rating (PBGC: he stops more than expected, his team plays with confidence in front of him, his coach plays him). Then his form: his save % over his last ${PWR.n_forme} starts. Then his wins. At least ${PWR.min_departs} starts.`)
+    : mode === "r" ? L(`Les ${PWR.recrues.length} recrues les plus dominantes en ce moment, classées seulement entre recrues : ce qu'elles valent sur la saison, leur forme sur leurs ${PWR.n_forme} derniers matchs et où elles s'en vont. Recrue : au plus ${PWR.max_pj_recrue} matchs dans la LNH avant cette saison.`,
+        `The ${PWR.recrues.length} most dominant rookies right now, ranked only against rookies: what they're worth over the season, their form over their last ${PWR.n_forme} games and where they're headed. Rookie: at most ${PWR.max_pj_recrue} NHL games before this season.`)
+    : mode === "eq"
     ? L("Qui est le plus fort en ce moment, pas juste qui a le plus de points. On regarde d'abord la force réelle de chaque club, qui monte quand il bat de bonnes équipes et baisse quand il perd contre des faibles, puis ses points et ses buts pour et contre. Mis à jour chaque jour, les flèches comparent avec le classement de la semaine passée.",
         "Who's the strongest right now, not just who has the most points. First the real strength of each club, which goes up when it beats good teams and down when it loses to weak ones, then its points and its goals for and against. Updated daily; the arrows compare with last week's ranking.")
     : L(`Les 25 patineurs les plus dominants en ce moment : ce qu'ils valent sur la saison, leur forme sur leurs ${PWR.n_forme} derniers matchs et où ils s'en vont d'ici la fin. Au moins ${PWR.min_pj} matchs joués.`,
@@ -4771,11 +4946,17 @@ async function pwrOnglet(){
       return `<div class="wi-l wi-r pwr-e" data-c="${x.t}" style="${eqV(x.t)}"><span class="rg">${x.rg}${pwrMv(x)}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
         <span class="nm">${nomEq(x.t)}<small>${v}-${d}-${p} · ${x.pts} pts ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("buts", "goals")} ${x.bp}-${x.bc} (${diff > 0 ? "+" : ""}${diff}) · ${L("projeté", "projected")} ${Math.round(x.proj)} pts · ${L("Coupe", "Cup")} ${pc1(x.p_coupe)} %</span></span>
         <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
+  } else if (mode === "g"){
+    Object.assign(COTE, { n: PWR.n_gardiens || PWR.gardiens.length, inv: false });
+    lignes = PWR.gardiens.map(x => `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
+        <span class="nm">${x.n}<small>${x.eq} · ${x.v} ${L("V", "W")} ${L("en", "in")} ${x.pj} ${L("départs", "starts")} · ${sv3(x.sv)}${x.mba != null ? ` · ${bpg2(x.mba)} ${L("moy.", "GAA")}` : ""}</small><span class="wi-st">${L("forme : ", "form: ")}${sv3(x.sv5)} ${L("en", "in")} ${x.n5} ${L("départs", "starts")} (${x.v5} ${L("V", "W")})${x.gcr != null ? ` · PBGC ${x.gcr}` : ""}</span></span>
+        <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}</small></span></div>`).join("");
   } else {
-    Object.assign(COTE, { n: PWR.n_classes || 500, inv: false });
-    lignes = PWR.joueurs.map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
+    const LJ = mode === "r" ? PWR.recrues : PWR.joueurs;
+    Object.assign(COTE, { n: (mode === "r" ? PWR.n_recrues : PWR.n_classes) || 500, inv: false });
+    lignes = LJ.map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
       return `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
-        <span class="nm">${x.n}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme", "form")} : ${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
+        <span class="nm">${x.n}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme : ", "form: ")}${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
         <span class="v">${coteHTML(x.rg)}${x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}</small></span></div>`; }).join("");
   }
   el.innerHTML = tete + lignes + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(PWR.maj)}.</p>`;
@@ -5489,6 +5670,7 @@ function nettoyerPublic(){
       "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données LNH, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.",
       "Les modèles sont remis à l'épreuve chaque semaine sur les vrais résultats, et tout est vérifié dans le Bilan. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint)."]],
     "#p-matchs": ["Comment lire les matchs", [
+      "Une carte par match : les deux équipes dans leurs couleurs, la plus encadrée de blanc est la favorite. Touche une carte : « Alignement » montre les trios, les gardiens et le score prédit joueur par joueur ; « Probs » montre la victoire en 60 minutes, les totaux, la forme et les duels directs.",
       "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les probs de +5,5 ou +6,5 buts en découlent.",
       "Le calcul combine la forme récente, l'attaque et la défensive des deux équipes, les gardiens et les matchs en deux soirs de suite. Avec l'alignement, chaque joueur est calculé un par un puis additionné."]],
     "#p-coupe": ["Comment lire les trophées", [
@@ -5624,8 +5806,8 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=bcd24e20" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=bcd24e20" defer></script>
+<script src="pub.js?v=c8b3c027" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=c8b3c027" defer></script>
 <script src="nav.js?v=0350ae286a" defer></script>
 </body>
 </html>

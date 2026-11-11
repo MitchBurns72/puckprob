@@ -81,6 +81,70 @@ def _attendre_ig(cid):
         time.sleep(3)
 
 
+def _rupload(url, donnees):
+    """Envoie une vidéo d'un coup à l'adresse de téléversement de Meta (rupload.facebook.com)."""
+    req = urllib.request.Request(url, data=donnees, method="POST", headers={
+        "Authorization": f"OAuth {os.environ['META_PAGE_TOKEN']}", "offset": "0", "file_size": str(len(donnees)),
+        "Content-Type": "application/octet-stream"})
+    try:
+        with urllib.request.urlopen(req, timeout=300) as rep:
+            r = json.loads(rep.read().decode("utf-8") or "{}")
+    except urllib.error.HTTPError as ex:
+        raise RuntimeError(f"Meta {ex.code} (téléversement) : {ex.read().decode('utf-8', 'replace')[:300]}") from None
+    if r.get("success") is False:
+        raise RuntimeError(f"téléversement refusé : {str(r)[:200]}")
+    return r
+
+
+def publier_story_video(chemin):
+    """Une story vidéo (src/story_match.py : les matchs 10 min avant, avec musique), Facebook et Instagram.
+    Facebook : video_stories (start -> téléversement -> finish). Instagram : conteneur STORIES « resumable », la vidéo
+    envoyée directement (pas besoin d'adresse publique), on attend que Meta l'ait traitée, puis media_publish.
+    Chacune peut rater sans bloquer l'autre. -> {"fb": ..., "ig": ...}"""
+    page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
+    donnees = Path(chemin).read_bytes()
+    out = {}
+    try:
+        d = _graph(f"{page}/video_stories", {"upload_phase": "start"})
+        _rupload(d["upload_url"], donnees)
+        r = _graph(f"{page}/video_stories", {"upload_phase": "finish", "video_id": d["video_id"]})
+        out["fb"] = r.get("post_id") or "ok"
+        print(f"  story Facebook OK ({out['fb']})")
+    except Exception as ex:  # noqa: BLE001
+        out["fb"] = f"erreur : {str(ex)[:200]}"
+        print(f"  story Facebook {out['fb']}")
+    if ig:
+        try:
+            c = _graph(f"{ig}/media", {"media_type": "STORIES", "upload_type": "resumable"})
+            _rupload(c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{API}/{c['id']}", donnees)
+            # Une vidéo prend plus de temps qu'une photo à être traitée : jusqu'à 3 min
+            for _ in range(60):
+                st = _graph(str(c["id"]), {"fields": "status_code"}, methode="GET").get("status_code")
+                if st == "FINISHED":
+                    break
+                if st == "ERROR":
+                    raise RuntimeError("Instagram n'a pas pu lire la vidéo")
+                time.sleep(3)
+            out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
+            print(f"  story Instagram OK ({out['ig']})")
+        except Exception as ex:  # noqa: BLE001
+            out["ig"] = f"erreur : {str(ex)[:200]}"
+            print(f"  story Instagram {out['ig']}")
+    if all(str(v).startswith("erreur") for v in out.values()):
+        raise RuntimeError(f"story ratée partout : {out}")
+    return out
+
+
+def story(it):
+    """Un item « story » du fil : la vidéo est faite ici, au moment de publier, à partir du cadre poussé par le calcul
+    (live_code/story_match.py : le cadre + la musique rock -> .mp4, quelques secondes), puis publiée."""
+    import tempfile
+    import story_match
+    with tempfile.TemporaryDirectory() as tmp:
+        mp4 = story_match.video((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"][:10])
+        return publier_story_video(mp4)
+
+
 def publier_plusieurs(it):
     """2 photos et plus (l'image habituelle + le popup d'un joueur) : un post Facebook qui attache des photos pas
     publiées, et un carrousel Instagram. Même recette que social.publier_plusieurs()."""
@@ -166,22 +230,32 @@ def main(maintenant=None):
     poste = _lire(POSTE, {})
     dus = [it for it in F["items"] if it["id"] not in poste and datetime.fromisoformat(it["quand"]) <= now]
     n = 0
-    for it in sorted(dus, key=lambda x: x["quand"]):
-        if n >= MAX_PAR_PASSAGE:
+    # Les stories des matchs passent toutes (plusieurs matchs à 19 h = plusieurs stories à 18 h 50) : elles ne comptent
+    # pas dans MAX_PAR_PASSAGE, sinon les dernières seraient sautées à la mise au jeu
+    for it in sorted(dus, key=lambda x: (not x.get("story"), x["quand"])):
+        if n >= MAX_PAR_PASSAGE and not it.get("story"):
             break
         if it.get("avant") and now >= datetime.fromisoformat(it["avant"]) - timedelta(minutes=2):
             poste[it["id"]] = {"saute": "match commencé", "quand": now.isoformat(timespec="minutes")}
             print(f"fil : {it['id']} sauté (match commencé)")
             continue
         try:
-            out = publier(it)
+            out = story(it) if it.get("story") else publier(it)
         except Exception as ex:  # noqa: BLE001
+            if it.get("story"):                # une story ratée : notée, pas réessayée (elle ne bloque pas les posts)
+                poste[it["id"]] = {"erreur": str(ex)[:200], "type": "story", "quand": now.isoformat(timespec="minutes")}
+                print(f"fil : {it['id']} raté ({str(ex)[:200]})")
+                continue
             print(f"fil : {it['id']} raté ({str(ex)[:200]}) : on réessaie au prochain passage")
             break
-        poste[it["id"]] = {**out, "type": it.get("type"), "opt": it.get("opt"), "lien": it.get("lien"),
-                           "lien_en": it.get("lien_en"), "titre": it.get("titre"), "publie": True,
-                           "quand": datetime.now(TZ).isoformat(timespec="minutes")}
-        n += 1
+        if it.get("story"):                    # une story : pas sur la page des liens (pas de « lien »)
+            poste[it["id"]] = {**out, "type": "story", "titre": it.get("titre"), "publie": True,
+                               "quand": datetime.now(TZ).isoformat(timespec="minutes")}
+        else:
+            poste[it["id"]] = {**out, "type": it.get("type"), "opt": it.get("opt"), "lien": it.get("lien"),
+                               "lien_en": it.get("lien_en"), "titre": it.get("titre"), "publie": True,
+                               "quand": datetime.now(TZ).isoformat(timespec="minutes")}
+        n += 0 if it.get("story") else 1
         POSTE.write_text(json.dumps(dict(list(poste.items())[-GARDER:]), ensure_ascii=False, indent=1), encoding="utf-8")
         if n < MAX_PAR_PASSAGE:
             time.sleep(5)
