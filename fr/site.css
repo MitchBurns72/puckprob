@@ -693,6 +693,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cote{display:inline-block;font:800 13px/1 var(--f-body,system-ui);font-style:normal;padding:4px 6px;border-radius:7px;margin-right:7px;vertical-align:middle;letter-spacing:0}
 .cote.cA{background:#2bd17e;color:#06210f}.cote.cB{background:#38bdf8;color:#04202e}.cote.cC{background:#facc15;color:#2a2200}.cote.cD{background:#f87171;color:#2b0505}
 .ca-rang .cote{font-size:15px}
+.wi-cours{background:#FFB81C;color:#0B1220;border-radius:5px;padding:0 5px;font-size:11px}
+.eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
 
 /* « Ça bouge » (accueil) : une ligne par section, la couleur de l'équipe à gauche, une flèche vers la section */
 .mv-bloc{margin:14px 0}
