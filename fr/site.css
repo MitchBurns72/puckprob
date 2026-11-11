@@ -689,6 +689,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   @keyframes wi-panneau{from{transform:translateX(60px);opacity:0}to{transform:none;opacity:1}}
 }
 
+/* La cote A+ à D- (format C) */
+.cote{display:inline-block;font:800 13px/1 var(--f-body,system-ui);font-style:normal;padding:4px 6px;border-radius:7px;margin-right:7px;vertical-align:middle;letter-spacing:0}
+.cote.cA{background:#2bd17e;color:#06210f}.cote.cB{background:#38bdf8;color:#04202e}.cote.cC{background:#facc15;color:#2a2200}.cote.cD{background:#f87171;color:#2b0505}
+.ca-rang .cote{font-size:15px}
+
 /* « Ça bouge » (accueil) : une ligne par section, la couleur de l'équipe à gauche, une flèche vers la section */
 .mv-bloc{margin:14px 0}
 .mv-bloc h2{font:italic 800 24px/1 var(--f-display);text-transform:uppercase;margin:0 0 4px}
