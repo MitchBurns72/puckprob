@@ -267,24 +267,46 @@ def cadre(atelier, jpeg, debut):
 # =================================================================================
 # La vidéo
 # =================================================================================
+# La fin de chaque story (Mitch, 11 nov. 2026 : la « classique », en français et en anglais) : les FIN dernières
+# secondes passent en fondu au logo, au slogan et à puckprob.ca, comme une pub. Une image fixe 1080 x 1920 :
+# assets/story/fin.jpg dans Tirs-nhl ; le calcul la copie dans live_code/story_fin.jpg de puckprob.
+FIN, FONDU = 4.0, 0.6
+FICHIERS_FIN = [RACINE / "assets" / "story" / "fin.jpg", Path(__file__).resolve().parent / "story_fin.jpg"]
+
+
+def image_fin():
+    return next((f for f in FICHIERS_FIN if f.exists()), None)
+
+
 def video(jpeg_cadre, sortie, jour=None):
-    """Le cadre + la musique -> .mp4 (15 s, zoom lent). Retourne le chemin."""
+    """Le cadre (zoom lent) puis, les FIN dernières secondes, l'image de fin en fondu ; la musique dessous.
+    -> .mp4 de DUREE secondes. Sans image de fin : le cadre tout le long."""
     sortie = Path(sortie)
     sortie.parent.mkdir(parents=True, exist_ok=True)
+    fin = image_fin()
     with tempfile.TemporaryDirectory() as tmp:
         img = Path(tmp) / "cadre.jpg"
         img.write_bytes(jpeg_cadre)
         son = musique(jour)
         # Zoom de 0 à 4 % sur la durée (recalculé à chaque image), recoupé au centre en 1080 x 1920
-        vf = (f"scale=w='trunc(1080*(1+0.04*t/{DUREE})/2)*2':h='trunc(1920*(1+0.04*t/{DUREE})/2)*2':eval=frame,"
-              "crop=1080:1920,format=yuv420p")
-        cmd = [_ffmpeg(), "-y", "-loglevel", "error", "-loop", "1", "-framerate", "30", "-i", str(img),
-               "-i", str(son), "-map", "0:v", "-map", "1:a",      # (un .mp3 peut avoir une pochette : on ne la prend pas)
-               "-t", str(DUREE), "-vf", vf, "-r", "30",
-               "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "20",
-               "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
-               "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
-               "-af", f"afade=t=out:st={DUREE - 1.5}:d=1.5", "-shortest", "-movflags", "+faststart", str(sortie)]
+        zoom = (f"scale=w='trunc(1080*(1+0.04*t/{DUREE})/2)*2':h='trunc(1920*(1+0.04*t/{DUREE})/2)*2':eval=frame,"
+                "crop=1080:1920,format=yuv420p,setsar=1")
+        ent = [_ffmpeg(), "-y", "-loglevel", "error"]
+        fins = ["-r", "30", "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "20",
+                "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
+                "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
+                "-af", f"afade=t=out:st={DUREE - 1.5}:d=1.5", "-t", str(DUREE), "-movflags", "+faststart", str(sortie)]
+        if fin:
+            debut_fin = DUREE - FIN
+            cmd = ent + ["-loop", "1", "-framerate", "30", "-t", str(debut_fin + FONDU), "-i", str(img),
+                         "-loop", "1", "-framerate", "30", "-t", str(FIN), "-i", str(fin), "-i", str(son),
+                         "-filter_complex", f"[0:v]{zoom}[a];[1:v]scale=1080:1920,format=yuv420p,setsar=1[b];"
+                                            f"[a][b]xfade=transition=fade:duration={FONDU}:offset={debut_fin},format=yuv420p[v]",
+                         "-map", "[v]", "-map", "2:a"] + fins
+        else:
+            cmd = ent + ["-loop", "1", "-framerate", "30", "-i", str(img), "-i", str(son),
+                         "-map", "0:v", "-map", "1:a",      # (un .mp3 peut avoir une pochette : on ne la prend pas)
+                         "-vf", zoom] + fins
         subprocess.run(cmd, check=True, timeout=300)
     return sortie
 

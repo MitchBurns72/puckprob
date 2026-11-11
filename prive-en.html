@@ -124,6 +124,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .ticker .tk-x{font:500 12.5px/1.3 var(--f-body);color:#C9D6EE}
 .ticker .tk-tag{align-self:flex-start;width:max-content;font:800 10px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border-radius:5px;margin-bottom:2px;background:#9FB3CB;color:#0B1220}
 .ticker .tk-tag.blesse{background:#E0353B;color:#fff}.ticker .tk-tag.prob{background:#FFB81C}.ticker .tk-tag.serie{background:#2FBF71}
+.ticker .tk-tag.news{background:#FF8A3D}.ticker a.tk-it{text-decoration:none;color:inherit}.ticker a.tk-it .tk-x{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ticker .tk-tag.jalon{background:#7FD3FF}.ticker .tk-tag.seche{background:#B9A2FF}.ticker .tk-tag.mouvement{background:#fff}.ticker .tk-tag.mouvement.trophees{background:#B9A2FF}
 @keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 4px))}}
 @keyframes tk-pouls{50%{box-shadow:0 0 0 6px rgba(224,53,59,0)}}
@@ -771,7 +772,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
 .lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
 .rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
-.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.rum{border-left:4px solid color-mix(in srgb,var(--eq,#6B7C8C) 70%,#fff)}.rum .rum-t{font-weight:800;font-size:16px;line-height:1.3;white-space:normal}.rum .rum-d{color:var(--muted);font-size:13.5px;line-height:1.4;white-space:normal}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:#FFB81C;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
@@ -804,7 +806,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-gcr" aria-selected="false" aria-controls="p-gcr">GCR</button>
     <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">Arbitres</button>
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
-    <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum" data-cache="1">Rumeurs</button>
+    <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -1053,7 +1055,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">57%</span><span class="rp-barre"><i style="width:72.8%"></i></span></td></tr><tr><td><a href="players/beckett-sennecke/">Beckett Sennecke</a><br><span class="rp-note">ANA vs NSH</span></td>
 <td class="rp-n"><span class="rp-p">56%</span><span class="rp-barre"><i style="width:72.6%"></i></span></td></tr><tr><td><a href="players/leo-carlsson/">Leo Carlsson</a><br><span class="rp-note">ANA vs NSH</span></td>
 <td class="rp-n"><span class="rp-p">55%</span><span class="rp-barre"><i style="width:71.0%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.3%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.1%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.9%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>39%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>46%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>55%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>61%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>48%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>8.3%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.1%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>6.9%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>81%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>39%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>80%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>46%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>55%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>61%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>48%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -3418,7 +3420,7 @@ function trophHTML(t){
 }
 // ---- Ticker « À surveiller ce soir » (src/ticker.py) : seulement les matchs du soir, change chaque jour ----
 const TK_TAG = { serie: ["Série", "Streak"], seche: ["Sécheresse", "Drought"], blesse: ["Absent", "Out"], jalon: ["Jalon", "Milestone"],
-                 equipe: ["Équipe", "Team"], prob: ["Prob", "Prob"], mouvement: ["Ça bouge", "Mover"] };
+                 equipe: ["Équipe", "Team"], prob: ["Prob", "Prob"], mouvement: ["Ça bouge", "Mover"], news: ["News", "News"] };
 // Un mouvement vient d'une section : son étiquette = le nom de la stat PB (ou le nom de la section)
 const TK_SEC = { trophees: ["Trophée", "Trophy"], coupe: ["Coupe", "Cup"], classement: ["Classement", "Standings"], projections: ["Pace", "Pace"],
                  salaires: ["PBMV", "PBMV"], enforcers: ["PBIR", "PBIR"], whatif: ["Era-Adj.", "Era-Adj."] };
@@ -3432,7 +3434,12 @@ function ticker(){
     const txt = EN ? x.en : x.fr, sep = EN ? ": " : " : ", i = txt.indexOf(sep);
     const qui = i > 0 ? txt.slice(0, i) : "", quoi = i > 0 ? txt.slice(i + sep.length) : txt;
     const lib = (x.tag === "mouvement" && TK_SEC[x.sec]) || TK_TAG[x.tag] || ["", ""];
-    return `<span class="tk-it" data-c="${x.eq || ""}" style="${eqV(x.eq)}"><span class="tk-tag ${x.tag} ${x.sec || ""}">${L2(...lib)}</span>${qui ? `<b>${qui}</b>` : ""}<span class="tk-x">${quoi}</span></span>`;
+    // Une nouvelle : la carte est un lien vers l'article (nouvel onglet)
+    // (texte d'un site externe : échappé)
+    const esc = (t) => String(t || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    const tg = x.lien ? "a" : "span", lien = x.lien ? ` href="${esc(x.lien)}" target="_blank" rel="noopener nofollow"` : "";
+    const q2 = x.lien ? esc(qui) : qui, b2 = x.lien ? esc(quoi) : quoi;
+    return `<${tg} class="tk-it" data-c="${x.eq || ""}" style="${eqV(x.eq)}"${lien}><span class="tk-tag ${x.tag} ${x.sec || ""}">${L2(...lib)}</span>${q2 ? `<b>${q2}</b>` : ""}<span class="tk-x">${b2}</span></${tg}>`;
   }).join("");
   const nm = D?.matchs?.length || 0;
   const html = `<div class="ticker" role="marquee" aria-label="${L2("À surveiller ce soir", "Tonight's storylines")}"><div class="tk-hd"><span class="tk-lbl">${L2("À surveiller ce soir", "Tonight's storylines")}</span>${nm ? `<span class="tk-n">${nm} ${L2(nm > 1 ? "matchs" : "match", nm > 1 ? "games" : "game")}</span>` : ""}</div>
@@ -4877,27 +4884,33 @@ const topSom = (a, n) => a.map(([v]) => v).sort((x, y) => y - x).slice(0, n).red
 let RUM = null, RUM_p = null;
 const chargerRum = () => RUM_p || (RUM_p = fetch("rumeurs.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(g => (RUM = g)).catch(() => null));
 const ilYa = (q) => { const m = Math.max(0, (Date.now() - new Date(q).getTime()) / 6e4); return m < 60 ? L(`il y a ${Math.round(m)} min`, `${Math.round(m)} min ago`) : m < 1440 ? L(`il y a ${Math.round(m / 60)} h`, `${Math.round(m / 60)} h ago`) : L(`il y a ${Math.round(m / 1440)} j`, `${Math.round(m / 1440)} d ago`); };
+// Le club choisi dans « Mon équipe » (même clé que nav.js et club.js ; « - » = aucun)
+const favLireApp = () => { try { const v = localStorage.getItem("pp_club"); return v && v !== "-" ? v : ""; } catch (e) { return ""; } };
 const echapper = (t) => String(t || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 async function rumOnglet(){
   const el = $("#rum");
   if (!RUM){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerRum(); }
-  const tete = `<div class="cp-tete"><h2>${L("Rumeurs", "Rumors")}</h2><p>${L(
-    `Ce qui se dit sur Threads en ce moment : les posts les plus populaires des ${RUM?.jours || 7} derniers jours sur les échanges, les signatures et les rumeurs de la LNH. Ce sont des rumeurs, pas des nouvelles : PuckProb ne les confirme pas. Touche un post pour le lire au complet sur Threads.`,
-    `What people are saying on Threads right now: the most popular posts of the last ${RUM?.jours || 7} days about NHL trades, signings and rumors. These are rumors, not news: PuckProb doesn't confirm them. Tap a post to read it in full on Threads.`)}</p></div>`;
+  const tete = `<div class="cp-tete"><h2>${L("Nouvelles", "News")}</h2><p>${L(
+    `Les échanges, les rumeurs, les signatures, les rappels et les ballottages des ${RUM?.jours || 7} derniers jours, tirés des sites de nouvelles de hockey, du plus récent au plus vieux (ton club en premier si tu l'as choisi). Une rumeur reste une rumeur : PuckProb ne confirme rien. Touche un article pour le lire au complet sur le site qui l'a publié.`,
+    `Trades, rumors, signings, call-ups and waivers from the last ${RUM?.jours || 7} days, pulled from hockey news sites, newest first (your team first if you picked one). A rumor is still a rumor: PuckProb doesn't confirm anything. Tap an article to read it in full on the site that published it.`)}</p></div>`;
   if (!RUM?.posts?.length){
-    el.innerHTML = tete + `<div class="card"><div class="vide">${RUM?.etat === "attente"
-      ? L("La section se remplit dès que Meta approuve la recherche sur Threads pour PuckProb. Ça s'en vient.", "The section fills up as soon as Meta approves Threads search for PuckProb. Coming soon.")
-      : L("Les rumeurs arrivent au prochain calcul.", "Rumors arrive with the next update.")}</div></div>`;
+    el.innerHTML = tete + `<div class="card"><div class="vide">${RUM?.etat === "vide"
+      ? L("Rien de neuf cette semaine.", "Nothing new this week.")
+      : L("Les nouvelles arrivent au prochain calcul.", "The news arrives with the next update.")}</div></div>`;
     return;
   }
   const feq = S.fe_rum || "";
   $("#fe-rum").innerHTML = filtreEqHTML("fe_rum", [...new Set(RUM.posts.flatMap(p => p.eqs || []))].sort());
-  const L0 = RUM.posts.filter(p => !feq || (p.eqs || []).includes(feq));
-  const cartes = L0.map(p => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}">
-      <div class="rum-h"><b>@${echapper(p.auteur)}</b><small>${p.quand ? ilYa(p.quand) : ""}${p.nouveau ? ` · <span class="wi-cours">${L("NOUVEAU", "NEW")}</span>` : ""}</small></div>
-      <p>${echapper(p.txt)}</p><div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<span>${L("Lire sur Threads", "Read on Threads")} →</span></div></a>`).join("")
+  // Ton club (Mon équipe) d'abord, puis le plus récent
+  const fav = favLireApp();
+  const L0 = RUM.posts.filter(p => !feq || (p.eqs || []).includes(feq)).map((p, i) => [p, i])
+    .sort((a, b) => ((b[0].eqs || []).includes(fav) - (a[0].eqs || []).includes(fav)) || a[1] - b[1]).map(x => x[0]);
+  const cartes = L0.map(p => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}" style="${(p.eqs || [])[0] ? eqV(p.eqs[0]) : ""}">
+      <div class="rum-h"><b>${fav && (p.eqs || []).includes(fav) ? "★ " : ""}${echapper(p.src)}${p.auteur && p.auteur !== p.src ? ` <span>· ${echapper(p.auteur)}</span>` : ""}</b><small>${p.quand ? ilYa(p.quand) : ""}${p.langue ? ` · ${p.langue.toUpperCase()}` : ""}${p.nouveau ? ` · <span class="wi-cours">${L("NOUVEAU", "NEW")}</span>` : ""}</small></div>
+      <p class="rum-t">${echapper(p.txt)}</p>${p.desc ? `<p class="rum-d">${echapper(p.desc)}</p>` : ""}<div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<span>${L("Lire l'article", "Read the article")} →</span></div></a>`).join("")
     || `<div class="card"><div class="vide">${L("Rien pour cette équipe cette semaine.", "Nothing for this team this week.")}</div></div>`;
-  el.innerHTML = tete + cartes + `<p class="aide">${L("Source : Threads (recherche publique). Mis à jour le", "Source: Threads (public search). Updated")} ${dateCourte(RUM.maj)}.</p>`;
+  const srcs = (RUM.sources || []).filter(x => x[1]).map(x => x[0]).join(", ");
+  el.innerHTML = tete + cartes + `<p class="aide">${L("Sources", "Sources")} : ${srcs || "–"}. ${L("Mis à jour le", "Updated")} ${dateCourte(RUM.maj)}.</p>`;
 }
 
 // Les noms PB (choisis par Mitch le 10 nov. 2026, mêmes acronymes en français et en anglais) : le titre de la section,
@@ -5773,7 +5786,7 @@ async function init(){
     else if (/^#(matchs?|games?)$/i.test(location.hash)){ $("#t-matchs").click(); $("#p-matchs").scrollIntoView({ block: "start" }); }
     else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
-    else if (/^#(rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
     else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
     else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
@@ -5790,7 +5803,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#rumors" : "#rumeurs", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#news" : "#nouvelles", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -5806,8 +5819,8 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=7094e4d1" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=7094e4d1" defer></script>
-<script src="nav.js?v=0350ae286a" defer></script>
+<script src="pub.js?v=e1ac562e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=e1ac562e" defer></script>
+<script src="nav.js?v=e70f79ebfd" defer></script>
 </body>
 </html>

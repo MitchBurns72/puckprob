@@ -99,6 +99,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .ticker .tk-x{font:500 12.5px/1.3 var(--f-body);color:#C9D6EE}
 .ticker .tk-tag{align-self:flex-start;width:max-content;font:800 10px/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border-radius:5px;margin-bottom:2px;background:#9FB3CB;color:#0B1220}
 .ticker .tk-tag.blesse{background:#E0353B;color:#fff}.ticker .tk-tag.prob{background:#FFB81C}.ticker .tk-tag.serie{background:#2FBF71}
+.ticker .tk-tag.news{background:#FF8A3D}.ticker a.tk-it{text-decoration:none;color:inherit}.ticker a.tk-it .tk-x{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ticker .tk-tag.jalon{background:#7FD3FF}.ticker .tk-tag.seche{background:#B9A2FF}.ticker .tk-tag.mouvement{background:#fff}.ticker .tk-tag.mouvement.trophees{background:#B9A2FF}
 @keyframes tk-defile{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 4px))}}
 @keyframes tk-pouls{50%{box-shadow:0 0 0 6px rgba(224,53,59,0)}}
@@ -746,7 +747,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
 .lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
 .rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
-.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.rum{border-left:4px solid color-mix(in srgb,var(--eq,#6B7C8C) 70%,#fff)}.rum .rum-t{font-weight:800;font-size:16px;line-height:1.3;white-space:normal}.rum .rum-d{color:var(--muted);font-size:13.5px;line-height:1.4;white-space:normal}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:#FFB81C;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 
 /* « Ça bouge » (accueil) : une ligne par section, la couleur de l'équipe à gauche, une flèche vers la section */
