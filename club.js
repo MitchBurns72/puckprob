@@ -64,23 +64,26 @@
     const sel = t.neutre || D === NEUTRE.b1 ? ":root,:root[data-theme]" : ":root:not(#pp-z)";
     const extra = t.neutre || D === NEUTRE.b1 ? "" : `
 .chip[aria-pressed="true"],.chip.big[aria-pressed="true"],.sv-btn,.lien-plus,.btn-main,.tag.reel{color:${eA}}
-.ticker .tk-lbl,.ticker .tk-tag.prob,header.bug .beta,.rk{color:${eB}}
-.ticker .tk-tag,.ticker .tk-tag.serie,.ticker .tk-tag.jalon,.ticker .tk-tag.equipe{background:${t.acc};color:${eA}}
-.ticker .tk-tag.blesse,.ticker .tk-tag.seche{background:${t.led};color:${eB}}
-.ticker .tk-it::before{background:${t.led}}`;
+header.bug .beta,.rk{color:${eB}}`;
     return `
 ${sel}{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
   --bande:${D};--bande2:color-mix(in srgb,${D} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
   --rayure:transparent;color-scheme:dark}
 body{background:var(--bg) radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${D} 60%,transparent), transparent 60%) no-repeat fixed}
-header.bug{background:radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${D} 80%,#fff) 0%, ${D} 50%, color-mix(in srgb,${D} 75%,#000) 100%);overflow:hidden}
+/* Effet 3D (Mitch, 10 nov. 2026) : même logo, mêmes bandes, mêmes couleurs ; un reflet en haut, une ombre en bas,
+   et les bandes en relief (reflet sur le dessus, ombre portée) */
+header.bug{background:linear-gradient(180deg,rgba(255,255,255,.13) 0,rgba(255,255,255,.03) 38%,rgba(0,0,0,0) 55%,rgba(0,0,0,.28) 100%),
+  radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${D} 80%,#fff) 0%, ${D} 50%, color-mix(in srgb,${D} 75%,#000) 100%);overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -14px 22px -10px rgba(0,0,0,.45),0 6px 16px rgba(0,0,0,.35)}
 header.bug::before{content:"";position:absolute;left:52%;width:70%;height:54px;bottom:-34px;transform:rotate(-24deg);transform-origin:left bottom;pointer-events:none;
-  background:linear-gradient(180deg,${t.sa} 0 27%,${D} 27% 34%,${t.sw} 34% 66%,${D} 66% 73%,${t.sa} 73% 100%);box-shadow:0 0 14px #0008}
+  background:linear-gradient(180deg,rgba(255,255,255,.42) 0,rgba(255,255,255,.08) 22%,rgba(0,0,0,0) 50%,rgba(0,0,0,.30) 100%),
+    linear-gradient(180deg,${t.sa} 0 27%,${D} 27% 34%,${t.sw} 34% 66%,${D} 66% 73%,${t.sa} 73% 100%);
+  box-shadow:0 -6px 16px rgba(0,0,0,.55),0 0 14px #0008,inset 0 1px 0 rgba(255,255,255,.6)}
 header.bug > *{position:relative;z-index:1}
 header.bug .lang,header.bug .livebtn{background:color-mix(in srgb,${D} 70%,#000);box-shadow:0 2px 8px #0006}
-header.bug::after{background:linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%)}
+header.bug::after{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.25)),linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%);z-index:2}
 nav.tabs,nav.menu{background:${D}} nav.tabs button[aria-selected="true"]{color:#fff}
-.ticker{background:color-mix(in srgb,${D} 70%,#000)}${extra}`;
+.ticker{background:linear-gradient(90deg,color-mix(in srgb,${D} 85%,#000),color-mix(in srgb,${D} 55%,#000))}${extra}`;
   };
   const theme = (t) => {
     let st = document.getElementById("pp-theme");
