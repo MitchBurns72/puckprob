@@ -799,6 +799,21 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
 .rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
 .rum{border-left:4px solid color-mix(in srgb,var(--eq,#6B7C8C) 70%,#fff)}.rum .rum-t{font-weight:800;font-size:16px;line-height:1.3;white-space:normal}.rum .rum-d{color:var(--muted);font-size:13.5px;line-height:1.4;white-space:normal}
+/* Transactions (src/transactions.py, maquette approuvée le 12 nov. 2026) */
+.trx{display:block;width:100%;text-align:left;font:inherit;color:inherit;cursor:pointer;margin-bottom:10px;border-left:4px solid var(--tc,#6B7C8C)}
+.trx-h{display:flex;justify-content:space-between;align-items:center;gap:8px}.trx-h small{font:700 12.5px var(--f-body);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.trx-g{font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:5px;background:var(--tc);color:#0B1220}
+.trx-t{margin:8px 0 2px;font-weight:700;font-size:15.5px;line-height:1.45}.trx-t .vbd{vertical-align:-1px}.trx-t em{font-style:normal;color:var(--muted);font-weight:600}
+.trx-n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.trx-n div{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:#ffffff0d;border:2px solid transparent;min-width:0}
+.trx-n div.gagne{border-color:#FFB81C}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
+.trx-pop .trx-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}
+.trx-pop .trx-col{background:#ffffff0b;border-radius:8px;padding:10px;min-width:0}
+.trx-pop .trx-col h4{margin:0 0 6px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:15px}.trx-pop .trx-col h4 .pbp{font:italic 800 22px/1 var(--f-display)}
+.trx-pop .trx-col h5{margin:10px 0 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#3DDC84}.trx-pop .trx-col h5.don{color:#FF6B6B}
+.trx-pop .trx-col p{margin:4px 0 0;font-weight:700;font-size:14px;line-height:1.3}.trx-pop .trx-col p small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.trx-pop .trx-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 14px 0}
+.trx-pop .trx-ex{margin:10px 14px 0;font-size:13px;line-height:1.5;color:var(--muted)}.trx-pop .trx-src{margin:8px 14px 14px;font-size:12px;line-height:1.5;color:#8193A8}
 .rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:#FFB81C;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
@@ -833,6 +848,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">Arbitres</button>
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
+    <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -946,6 +962,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-rum" role="tabpanel" aria-labelledby="t-rum" hidden>
     <div class="ctrls"><div id="fe-rum"></div></div>
     <div id="rum"></div>
+  </section>
+  <section id="p-trx" role="tabpanel" aria-labelledby="t-trx" hidden>
+    <div class="ctrls"><div class="row" id="f-trx"></div><div id="fe-trx"></div></div>
+    <div id="trx"></div>
   </section>
   <section id="p-pwr" role="tabpanel" aria-labelledby="t-pwr" hidden>
     <div class="ctrls"><div class="row" id="f-pwr"></div><div class="row sai-r" id="sai-pwr"></div></div>
@@ -1096,7 +1116,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">63%</span><span class="rp-barre"><i style="width:85.7%"></i></span></td></tr><tr><td><a href="players/adrian-kempe/">Adrian Kempe</a><br><span class="rp-note">LAK vs NYI</span></td>
 <td class="rp-n"><span class="rp-p">62%</span><span class="rp-barre"><i style="width:85.4%"></i></span></td></tr><tr><td><a href="players/kyle-connor/">Kyle Connor</a><br><span class="rp-note">WPG @ DAL</span></td>
 <td class="rp-n"><span class="rp-p">62%</span><span class="rp-barre"><i style="width:84.8%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>9.5%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.4%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7.2%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>33%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>76%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>49%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>54%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>63%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>43%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>46%</b></li></ul></div>
+<div class="rp-carte"><h3>Stanley Cup favorites</h3><ul class="rp-liste"><li><a class="rp-eq" href="teams/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Carolina</a><b>21%</b></li><li><a class="rp-eq" href="teams/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13%</b></li><li><a class="rp-eq" href="teams/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>9.5%</b></li><li><a class="rp-eq" href="teams/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7.4%</b></li><li><a class="rp-eq" href="teams/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7.2%</b></li></ul><p><a href="stanley-cup/">All 32 teams</a></p></div><div class="rp-carte"><h3>Award races: the favorites</h3><ul class="rp-liste"><li><span><a href="trophies/art/">Art Ross</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>79%</b></li><li><span><a href="trophies/rocket/">Maurice &quot;Rocket&quot; Richard</a> · <a href="players/leon-draisaitl/">Leon Draisaitl</a></span><b>33%</b></li><li><span><a href="trophies/hart/">Hart</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>76%</b></li><li><span><a href="trophies/lindsay/">Ted Lindsay</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>78%</b></li><li><span><a href="trophies/norris/">Norris</a> · <a href="players/evan-bouchard/">Evan Bouchard</a></span><b>49%</b></li><li><span><a href="trophies/vezina/">Vezina</a> · <a href="players/jesper-wallstedt/">Jesper Wallstedt</a></span><b>54%</b></li><li><span><a href="trophies/calder/">Calder</a> · <a href="players/cole-hutson/">Cole Hutson</a></span><b>63%</b></li><li><span><a href="trophies/selke/">Selke</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>44%</b></li><li><span><a href="trophies/byng/">Lady Byng</a> · <a href="players/connor-mcdavid/">Connor McDavid</a></span><b>46%</b></li></ul></div>
 <p><a href="trophies/">All trophies</a> · <a href="teams/">All 32 teams</a> · <a href="track-record/">Our track record: are our percentages right?</a> · <a href="about/">How it works</a></p>
 </section>
 </div>
@@ -3381,7 +3401,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_rum: () => rumOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -5158,6 +5178,87 @@ async function rumOnglet(){
   el.innerHTML = tete + cartes + `<p class="aide">${L("Sources", "Sources")} : ${srcs || "–"}. ${L("Mis à jour le", "Updated")} ${dateCourte(RUM.maj)}.</p>`;
 }
 
+// ---- Transactions (src/transactions.py) : échanges, signatures, ballottages, rappels ; chaque échange noté sur 100 % -----
+let TRX = null, TRX_p = null;
+const chargerTrx = () => TRX_p || (TRX_p = fetch("transactions.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(g => (TRX = g)).catch(() => null));
+const TRX_G = { echange: ["Échange", "Trade", "#FFB81C"], signature: ["Signature", "Signing", "#3DDC84"], ballottage: ["Ballottage", "Waivers", "#C59BFF"],
+                mouvement: ["Rappel", "Call-up", "#8EC5FF"], blesse: ["Blessé", "Injury", "#FF8A8A"], autre: ["Autre", "Other", "#A9B8C9"] };
+const TRX_F = [["", "Tout", "All"], ["echange", "Échanges", "Trades"], ["signature", "Signatures", "Signings"], ["ballottage", "Ballottage", "Waivers"],
+               ["mouvement", "Rappels", "Call-ups"], ["blesse", "Blessés", "Injuries"]];
+const trxM = (v) => v == null ? "" : (v / 1e6).toFixed(1).replace(".", EN ? "." : ",") + (EN ? " M$" : " M$");
+const trxRonde = (c) => EN ? `${c[0]} ${["", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th"][c[1]] || c[1] + "th"} round` : `${c[1] === 1 ? "1re" : c[1] + "e"} ronde ${c[0]}`;
+// Un actif (joueur, choix, considérations futures) en texte court
+const trxActif = (a) => a.choix ? trxRonde(a.choix) + (a.cond ? L(" (cond.)", " (cond.)") : "") : a.autre === "fc" ? L("considérations futures", "future considerations") : echapper(a.n);
+const trxDate = (d) => new Date(d + "T12:00:00").toLocaleDateString(EN ? "en-CA" : "fr-CA", { day: "numeric", month: "short" }).replace(".", "");
+// La phrase de la carte : « Joueur A à Montréal · Joueur B + 2e ronde 2027 à Los Angeles »
+function trxTitre(t){
+  if (t.g === "echange" && t.recoit && Object.keys(t.recoit).length){
+    const n = t.notes || {};
+    return Object.entries(t.recoit).filter(([, a]) => a.length).sort((a, b) => (n[b[0]] ?? 0) - (n[a[0]] ?? 0)).map(([e, a]) => `${a.map(trxActif).join(" + ")} ${L("à", "to")} ${villeBadge(e, false)}`).join(" <em>·</em> ");
+  }
+  const e = t.eqs[0], j = (t.joueurs || [])[0];
+  const res = t.res ? (EN ? t.res.en : t.res.fr) : echapper(Object.values(t.desc || {})[0] || "");
+  const val = t.g === "signature" && j?.pbmv ? ` <em>· ${L("vaut", "worth")} ${trxM(j.pbmv)} ${L("par année selon PBMV", "per year per PBMV")}</em>` : "";
+  return `${villeBadge(e, false)} ${res}${val}`;
+}
+function trxCarte(t, i){
+  const g = TRX_G[t.g] || TRX_G.autre, n = t.notes;
+  const max = n ? Math.max(...Object.values(n)) : null;
+  const notes = n ? `<div class="trx-n">${Object.entries(n).sort((a, b) => b[1] - a[1]).map(([e, v]) => `<div class="${v === max && v > 50 ? "gagne" : ""}">${villeBadge(e, false)}${pbN(v)}</div>`).join("")}</div>` : "";
+  return `<button type="button" class="card trx" data-trx="${i}" style="--tc:${g[2]}"><div class="trx-h"><small>${trxDate(t.d)}</small><span class="trx-g">${L(g[0], g[1])}</span></div>
+    <p class="trx-t">${trxTitre(t)}</p>${notes}</button>`;
+}
+let TRX_L = [];
+async function trxOnglet(){
+  const el = $("#trx");
+  if (!TRX){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerTrx(); }
+  const tete = `<div class="cp-tete"><h2>Transactions</h2><p>${L(
+    "Toutes les transactions de la saison, les plus récentes en haut. Chaque échange est noté sur 100 % pour chaque équipe : ce qu'elle reçoit, en salaire mérité PBMV (ce que les joueurs valent, pas ce qu'ils coûtent), plus une valeur fixe par ronde de repêchage. 50 % = échange égal. Touche une transaction pour le détail.",
+    "Every transaction of the season, newest first. Each trade is graded out of 100% for each team: what it gets, in PBMV deserved salary (what players are worth, not what they cost), plus a fixed value per draft round. 50% = even trade. Tap a transaction for the details.")}</p></div>`;
+  if (!TRX?.items?.length){
+    el.innerHTML = tete + `<div class="card"><div class="vide">${L("Les transactions arrivent au prochain calcul.", "Transactions arrive with the next update.")}</div></div>`;
+    $("#f-trx").innerHTML = ""; return;
+  }
+  const fg = S.f_trx || "", feq = S.fe_trx || "";
+  $("#f-trx").innerHTML = TRX_F.filter(([k]) => !k || TRX.items.some(t => t.g === k))
+    .map(([k, fr, en]) => `<button class="chip" data-ftrx="${k}" aria-pressed="${fg === k}">${L(fr, en)}</button>`).join("");
+  $("#fe-trx").innerHTML = filtreEqHTML("fe_trx", [...new Set(TRX.items.flatMap(t => t.eqs || []))].filter(e => VILLES[e]).sort());
+  const fav = favLireApp();
+  TRX_L = TRX.items.filter(t => (!fg || t.g === fg) && (!feq || (t.eqs || []).includes(feq)))
+    .map((t, i) => [t, i]).sort((a, b) => ((b[0].eqs || []).includes(fav) && b[0].d === a[0].d) - ((a[0].eqs || []).includes(fav) && a[0].d === b[0].d) || a[1] - b[1]).map(x => x[0]).slice(0, 200);
+  el.innerHTML = tete + (TRX_L.map(trxCarte).join("") || `<div class="card"><div class="vide">${L("Rien pour ce filtre.", "Nothing for this filter.")}</div></div>`)
+    + `<p class="aide">${L("Source : ESPN (fil public des transactions). Mis à jour le", "Source: ESPN (public transactions feed). Updated")} ${dateCourte(TRX.maj)}.</p>`;
+}
+function trxPop(t){
+  const g = TRX_G[t.g] || TRX_G.autre, eqs = t.eqs || [], n = t.notes, R = t.recoit || {};
+  const vActif = (a) => a.choix ? `≈ ${trxM(a.v)}` : a.pbmv ? `${L("vaut", "worth")} ${trxM(a.pbmv)}${L("/an", "/yr")} (PBMV)` : a.autre ? "" : L("hors PBMV (espoir, mineures)", "not in PBMV (prospect, minors)");
+  const liste = (a) => (a || []).map(x => `<p>${trxActif(x)}<small>${vActif(x)}</small></p>`).join("") || `<p><small>–</small></p>`;
+  let corps;
+  if (t.g === "echange" && eqs.length >= 2){
+    corps = `<div class="trx-cols">${eqs.map(e => `<div class="trx-col"><h4>${villeBadge(e, false)}${n ? pbN(n[e]) : ""}</h4>
+      <h5>${L("Reçoit", "Gets")}</h5>${liste(R[e])}${eqs.length === 2 ? `<h5 class="don">${L("Donne", "Gives")}</h5>${liste(R[eqs.find(x => x !== e)])}` : ""}</div>`).join("")}</div>`
+      + (n ? `<div class="trx-bar">${eqs.map(e => `<i style="width:${n[e]}%;background:${coul(e)}"></i>`).join("")}</div>
+      <p class="trx-ex">${L("La note : ce que chaque équipe reçoit, en salaire mérité PBMV (ce que les joueurs valent, pas ce qu'ils coûtent), plus une valeur fixe par ronde de repêchage. 50 % = échange égal.",
+        "The grade: what each team gets, in PBMV deserved salary (what players are worth, not what they cost), plus a fixed value per draft round. 50% = even trade.")}</p>`
+      : `<p class="trx-ex">${L("Pas de note : aucun joueur de l'échange n'est dans PBMV.", "No grade: no player in this trade is in PBMV.")}</p>`);
+  } else {
+    const j = (t.joueurs || [])[0];
+    corps = `<div class="trx-cols" style="grid-template-columns:1fr"><div class="trx-col"><h4>${villeBadge(eqs[0], false)}</h4><p>${t.res ? (EN ? t.res.en : t.res.fr) : echapper(Object.values(t.desc)[0])}</p>
+      ${j?.pbmv ? `<h5>PBMV</h5><p>${echapper(j.n)}<small>${L("vaut", "worth")} ${trxM(j.pbmv)}${L(" par année", " per year")}${j.vrai > 1 ? ` · ${L("salaire actuel", "current salary")} ${trxM(j.vrai)}` : ""}</small></p>` : ""}</div></div>`;
+  }
+  const src = Object.entries(t.desc || {}).map(([e, d]) => EN ? `${ville(e)}: “${echapper(d)}”` : `${ville(e)} : « ${echapper(d)} »`).join("<br>");
+  const C = palette(eqs[0] || "MTL");
+  return `<div class="wi-carte trx-pop" role="dialog" aria-modal="true" style="--pf:${C.f};--pt:${C.t};--pb:${C.c};--eq:${coul(eqs[0] || "MTL")}">
+    <header><div class="wi-hd"><div><b>${L(g[0], g[1])}</b><span>${trxDate(t.d)} · ${eqs.map(e => ville(e)).join(" ⇄ ")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    ${corps}<p class="trx-src">${L("Source : ESPN", "Source: ESPN")}<br>${src}</p></div>`;
+}
+document.addEventListener("click", (e) => {
+  const f = e.target.closest?.("#f-trx [data-ftrx]");
+  if (f){ S.f_trx = f.dataset.ftrx; trxOnglet(); return; }
+  const c = e.target.closest?.("#trx .trx[data-trx]");
+  if (c && TRX_L[+c.dataset.trx]){ const m = $("#wi-modal"); m.innerHTML = trxPop(TRX_L[+c.dataset.trx]); m.hidden = false; }
+});
+
 // Les noms PB (choisis par Mitch le 10 nov. 2026, mêmes acronymes en français et en anglais) : le titre de la section,
 // l'ancien nom en petit dessous, et l'acronyme en petit à côté du chiffre pour les stats qu'on a inventées
 const AB = (t) => `<i class="ab">${t}</i>`;
@@ -5868,7 +5969,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "rum", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "rum", "trx", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -5878,6 +5979,7 @@ function brancher(){
     if (b.id === "t-arb") arbOnglet();
     if (b.id === "t-pwr") pwrOnglet();
     if (b.id === "t-rum") rumOnglet();
+    if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -6032,6 +6134,7 @@ async function init(){
     else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(transactions|echanges|trades)$/i.test(location.hash)){ $("#t-trx")?.click(); $("#p-trx")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
     else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
     else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
@@ -6048,7 +6151,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#news" : "#nouvelles", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -6098,7 +6201,7 @@ init();
   var EN = /^en/i.test(document.documentElement.lang || "");
   // Section : les rangées qui restent visibles en pastilles (dans l'ordre). Tout le reste de .ctrls va dans le panneau 🔍.
   var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph"], "p-whatif": ["f-wi", "f-wir", "f-wiv"], "p-salaires": ["f-sal", "sai-sal"], "p-enf": ["f-enf", "sai-enf"],
-    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-rum": [], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-rum": [], "p-trx": ["f-trx"], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
   function compte(sh){
@@ -6179,8 +6282,8 @@ init();
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=64663974" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=64663974" defer></script>
-<script src="nav.js?v=b5b911df9d" defer></script>
+<script src="pub.js?v=fce3a0f6" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=fce3a0f6" defer></script>
+<script src="nav.js?v=b5e09341af" defer></script>
 </body>
 </html>
