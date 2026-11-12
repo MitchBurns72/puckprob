@@ -7,7 +7,7 @@
     copié de personne : libre de droit par définition. Pour une vraie toune à la place, déposer un .mp3 ou un .wav
     libre de droit (ex. la bibliothèque audio de YouTube ou Pixabay Music) dans assets/musique/ de Tirs-nhl : il est pris
     à la place (un différent chaque jour s'il y en a plusieurs) ;
-  - la vidéo : 15 s, un zoom lent sur le cadre, H.264 + AAC 48 kHz stéréo (les specs des stories de Meta).
+  - la vidéo : 15 s, le cadre fixe puis le flip vers la fin PuckProb, H.264 + AAC 48 kHz stéréo (les specs des stories de Meta).
     ffmpeg vient du paquet imageio-ffmpeg (installé au besoin, rien à ajouter au workflow).
 
 La file du soir (social.preparer_fil) ajoute un item « story » par match avec son cadre (une image : léger à pousser) ;
@@ -26,6 +26,9 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parent.parent
 # Les tounes déposées (Tirs-nhl : assets/musique/ ; dans puckprob, le calcul les copie dans live_code/musique/)
 DIRS_MUSIQUE = [RACINE / "assets" / "musique", Path(__file__).resolve().parent / "musique"]
+# Les jingles des stories AUTRES que les matchs (Mitch, 11 nov. 2026 : les 3 « Peaceful Broadcast ») : dossier à part,
+# pour qu'ils ne se mélangent jamais aux tounes rock des matchs
+DIRS_JINGLES = [RACINE / "assets" / "jingles", Path(__file__).resolve().parent / "jingles"]
 
 
 def _np():
@@ -183,12 +186,12 @@ def _wav(st):
     return b.getvalue()
 
 
-def musique(cle=None):
+def musique(cle=None, dirs=None):
     """Chemin d'un fichier audio pour la story : une des tounes déposées dans assets/musique/, en rotation (cle = le id
     de la story : chaque match tire la sienne, toujours la même pour un même match), sinon notre riff."""
     cle = cle or datetime.now().date().isoformat()
     graine = int(hashlib.sha1(cle.encode()).hexdigest()[:6], 16)
-    tounes = sorted(p for d in DIRS_MUSIQUE if d.is_dir() for p in d.glob("*") if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".ogg"))
+    tounes = sorted(p for d in (dirs or DIRS_MUSIQUE) if d.is_dir() for p in d.glob("*") if p.suffix.lower() in (".mp3", ".wav", ".m4a", ".ogg"))
     if tounes:
         return tounes[graine % len(tounes)]
     f = Path(tempfile.gettempdir()) / f"pp-riff-{graine % 3}.wav"
@@ -268,47 +271,236 @@ def cadre(atelier, jpeg, debut):
 # La vidéo
 # =================================================================================
 # La fin de chaque story (Mitch, 11 nov. 2026 : la « classique », en français et en anglais) : les FIN dernières
-# secondes passent en fondu au logo, au slogan et à puckprob.ca, comme une pub. Une image fixe 1080 x 1920 :
-# assets/story/fin.jpg dans Tirs-nhl ; le calcul la copie dans live_code/story_fin.jpg de puckprob.
-FIN, FONDU = 4.0, 0.6
+# secondes, le logo, le slogan et puckprob.ca, comme une pub. Une image fixe 1080 x 1920 : assets/story/fin.jpg dans
+# Tirs-nhl ; le calcul la copie dans live_code/story_fin.jpg de puckprob.
+# Le passage (Mitch, 11 nov. 2026) : une seconde plus tôt (FIN 4 -> 5 s), et la carte FLIPPE vers la fin au lieu
+# d'un fondu. 3e version : « comme si tu vires une grosse pierre » : une dalle épaisse qui démarre lentement, prend
+# son élan et retombe lourde (petite secousse), avec un grondement de pierre qui frotte et un gros boum à l'arrivée.
+FIN, FLIP, SECOUSSE = 5.0, 0.8, 0.3
 FICHIERS_FIN = [RACINE / "assets" / "story" / "fin.jpg", Path(__file__).resolve().parent / "story_fin.jpg"]
+
+
+def _pil():
+    """Pillow (le job live de puckprob n'a que Python : installé au besoin, comme numpy et ffmpeg)."""
+    try:
+        from PIL import Image
+    except ImportError:
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", "pillow"], check=True)
+        from PIL import Image
+    return Image
+
+
+def _images_flip(a, b, n, n_sec=0):
+    """Les n images du flip, de la story (a) vers la fin (b), deux images PIL 1080 x 1920, puis n_sec images de
+    secousse (la dalle qui retombe) -> liste d'images PIL.
+    Une dalle de pierre qui tourne sur l'axe vertical : lente au départ, élan au milieu, lente à l'arrivée (cosinus) ;
+    1re moitié la story (0 à 90°), 2e moitié la fin (90° à 0). Largeur apparente |cos| ; perspective forte (le bord
+    qui s'en vient grossit, l'autre rapetisse) ; la tranche de la dalle (épaisseur, grain de pierre) se voit du côté
+    proche ; la face s'assombrit de profil. Autour, le fond noir bleuté du site (#05080F). Calcul vectorisé."""
+    np = _np()
+    Image = _pil()
+    A, B = np.asarray(a.convert("RGB")), np.asarray(b.convert("RGB"))
+    H, W = A.shape[:2]
+    u = (np.arange(W) + 0.5 - W / 2) / (W / 2)                 # -1 .. 1, par colonne
+    Y = (np.arange(H) + 0.5 - H / 2)[:, None]                  # par rangée
+    fond = np.array([5, 8, 15], dtype=np.float32)
+    K, EP = 0.34, 0.11                                          # force de la perspective ; épaisseur de la dalle (en largeur)
+    rng = np.random.default_rng(7)
+    grain = (rng.standard_normal((H, 64)) * 9).astype(np.float32)   # le grain de la pierre sur la tranche
+    out = []
+    for k in range(n):
+        t = (k + 0.5) / n
+        q = 0.5 - 0.5 * np.cos(np.pi * t)                       # lent, élan, lent
+        c, sn = abs(np.cos(np.pi * q)), np.sin(np.pi * q)
+        cote, src = (1, A) if q < 0.5 else (-1, B)
+        xs = u / max(c, 1e-3)
+        v = 1 + K * sn * xs * cote                              # hauteur apparente de chaque colonne
+        ys = Y / v[None, :]
+        dedans = (np.abs(u)[None, :] <= c) & (np.abs(ys) <= H / 2)
+        sx = np.clip(((xs + 1) * W / 2).astype(int), 0, W - 1)
+        sy = np.clip((ys + H / 2).astype(int), 0, H - 1)
+        img = src[sy, sx[None, :].repeat(H, 0)].astype(np.float32) * (0.45 + 0.55 * c)
+        img = np.where(dedans[..., None], img, fond)
+        # La tranche : du bord proche (cote) vers l'extérieur, largeur EP·sin ; même hauteur que ce bord
+        lt = EP * sn
+        if lt > 0.004:
+            d = (u * cote - c) / lt                             # 0 au bord de la face, 1 au bout de la tranche
+            hv = (1 + K * sn) * H / 2
+            tr = (d >= 0) & (d <= 1)
+            tr2 = tr[None, :] & (np.abs(Y) <= hv)
+            gx = (np.clip(d, 0, 1) * 63).astype(int)
+            ton = 62 - 30 * np.clip(d, 0, 1)                    # plus sombre vers le fond
+            pierre = np.stack([ton * 0.92, ton * 0.95, ton * 1.05], -1)[None, :, :] + grain[:, gx][..., None]
+            pierre = pierre * (0.75 + 0.25 * (1 - c))                  # plus clair quand on la voit bien de côté
+            img = np.where(tr2[..., None], np.clip(pierre, 0, 255), img)
+        out.append(Image.fromarray(img.astype(np.uint8)))
+    # La dalle retombe : la fin sautille de quelques pixels, de moins en moins
+    for k in range(n_sec):
+        dy = int(round(16 * np.exp(-k / 2.2) * (1 if k % 2 == 0 else -1)))
+        im = Image.new("RGB", (W, H), (5, 8, 15))
+        im.paste(b.convert("RGB"), (0, dy))
+        out.append(im)
+    return out
+
+
+# L'impact quand la pierre se met en place (Mitch, 11 nov. 2026 : plus d'impact à la fin, 3 choix en mp4) :
+#   "creux" = le boum 2 fois plus fort avec une sous-basse ; "craque" = un coup sec de pierre juste avant le boum ;
+#   "rebond" = le gros boum + 2 petits coups sourds sur les rebonds de la secousse ; "" = l'ancien boum.
+IMPACT = "creux"
+
+
+def son_mecanisme(impact=None):
+    """Le son du flip, composé ici (aucun son de personne) : « une grosse pierre qu'on vire ». Un grondement grave de
+    pierre qui frotte (bruit brun filtré, grains irréguliers) qui enfle pendant que la dalle tourne, puis un gros
+    boum sourd à l'arrivée et quelques petits cailloux qui retombent. -> chemin d'un .wav (FLIP + 1 s)."""
+    impact = IMPACT if impact is None else impact
+    f = Path(tempfile.gettempdir()) / f"pp-pierre-v2-{impact or 'base'}.wav"
+    if f.exists():
+        return f
+    np = _np()
+    rng = np.random.default_rng(72)
+    n = int((FLIP + 1.0) * SR)
+    t = np.arange(n) / SR
+    x = np.zeros(n)
+    # 1) Le frottement : bruit brun (grave), grains irréguliers 18-45 Hz, enfle puis lâche à l'arrivée
+    brun = np.cumsum(rng.standard_normal(n))
+    brun = _passe_haut(_passe_bas(brun - brun.mean(), 260), 35)
+    grains = _passe_bas(np.abs(rng.standard_normal(n)), 30)
+    grains = 0.35 + grains / (grains.max() or 1)
+    env = np.clip(t / (FLIP * 0.6), 0, 1) ** 1.3 * np.clip((FLIP + 0.08 - t) / 0.12, 0, 1)
+    x += 0.9 * brun / (np.abs(brun).max() or 1) * grains * env
+    gravier = _passe_bas(_passe_haut(rng.standard_normal(n), 700), 2600) * grains ** 2
+    x += 0.12 * gravier / (np.abs(gravier).max() or 1) * env
+    # 2) Le boum : sinus qui descend de 75 à 38 Hz + bruit grave, long déclin
+    i0 = int(FLIP * SR)
+    tt = t[i0:] - FLIP
+    fr = 38 + 37 * np.exp(-tt / 0.09)
+    boum = np.sin(2 * np.pi * np.cumsum(fr) / SR) * np.exp(-tt / 0.28)
+    choc = _passe_bas(rng.standard_normal(len(tt)), 180) * np.exp(-tt / 0.06)
+    x[i0:] += 1.3 * boum + 0.9 * choc / (np.abs(choc).max() or 1)
+    # 3) Des petits cailloux qui retombent après le boum
+    for t0 in rng.uniform(0.06, 0.45, 7):
+        j = int((FLIP + t0) * SR)
+        m = min(n - j, int(0.03 * SR))
+        cl = _passe_bas(rng.standard_normal(m), 1800) * np.exp(-np.arange(m) / (0.006 * SR))
+        x[j:j + m] += rng.uniform(0.05, 0.14) * cl / (np.abs(cl).max() or 1)
+    # La force de tout le son (grondement + boum de base) : fixée AVANT d'ajouter l'impact, pour que le frottement
+    # reste exactement pareil et que seul l'impact monte ; un limiteur doux empêche la saturation
+    g = 0.95 / (np.abs(_passe_haut(x, 28)).max() or 1)
+    tt = t[i0:] - FLIP
+
+    def thud(t0, gain, f0=58, f1=40, d=0.12):
+        j = int((FLIP + t0) * SR)
+        m = n - j
+        tl = np.arange(m) / SR
+        fr = f1 + (f0 - f1) * np.exp(-tl / 0.05)
+        y = np.sin(2 * np.pi * np.cumsum(fr) / SR) * np.exp(-tl / d)
+        y += 0.6 * _passe_bas(rng.standard_normal(m), 220) / 3 * np.exp(-tl / 0.04)
+        x[j:] += gain * y
+
+    if impact == "creux":
+        x[i0:] += 1.3 * boum + 0.9 * choc / (np.abs(choc).max() or 1)          # le boum en double
+        x[i0:] += 1.4 * np.sin(2 * np.pi * 31 * tt) * np.exp(-tt / 0.45) * (1 - np.exp(-tt / 0.004))   # sous-basse
+    elif impact == "craque":
+        j = int((FLIP - 0.012) * SR)
+        m = int(0.08 * SR)
+        cr = _passe_haut(_passe_bas(rng.standard_normal(m), 5500), 1200) * np.exp(-np.arange(m) / (0.012 * SR))
+        x[j:j + m] += 1.1 * cr / (np.abs(cr).max() or 1)
+        x[i0:] += 0.5 * boum
+    elif impact == "rebond":
+        x[i0:] += 0.5 * boum
+        thud(0.11, 0.85)
+        thud(0.21, 0.5, 52, 38, 0.1)
+    x = _passe_haut(x, 28) * g
+    x = np.tanh(1.15 * x) / np.tanh(1.15)
+    st = np.stack([x, np.concatenate([np.zeros(5), x[:-5]])], axis=1)      # un brin de largeur stéréo
+    f.write_bytes(_wav(st))
+    return f
+
 
 
 def image_fin():
     return next((f for f in FICHIERS_FIN if f.exists()), None)
 
 
-def video(jpeg_cadre, sortie, jour=None):
-    """Le cadre (zoom lent) puis, les FIN dernières secondes, l'image de fin en fondu ; la musique dessous.
-    -> .mp4 de DUREE secondes. Sans image de fin : le cadre tout le long."""
+def duree_audio(f):
+    """La durée d'un fichier audio en secondes (lue dans la sortie de ffmpeg : pas besoin de ffprobe). None si illisible."""
+    import re
+    r = subprocess.run([_ffmpeg(), "-hide_banner", "-i", str(f)], capture_output=True, text=True)
+    m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", r.stderr or "")
+    return int(m[1]) * 3600 + int(m[2]) * 60 + float(m[3]) if m else None
+
+
+def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5):
+    """Le cadre (fixe) puis, les FIN dernières secondes, la fin PuckProb, arrivée par un flip avec le son du
+    mécanisme ; la musique dessous. -> .mp4 de `duree` secondes (DUREE par défaut). Sans image de fin : le cadre tout
+    le long. image=True : une image qui n'est pas en 9:16 (un post carré, un classement...) est centrée sur sa propre
+    copie agrandie, floutée et assombrie, pour remplir l'écran de la story sans rien couper."""
+    import io
+    Image = _pil()
+    from PIL import ImageEnhance, ImageFilter
     sortie = Path(sortie)
     sortie.parent.mkdir(parents=True, exist_ok=True)
     fin = image_fin()
+    D = float(duree or DUREE)
+    base = Image.open(io.BytesIO(jpeg_cadre)).convert("RGB")
+    if image or base.size != (1080, 1920):
+        r = max(1080 / base.width, 1920 / base.height)
+        fond = base.resize((int(base.width * r) + 1, int(base.height * r) + 1), Image.BILINEAR)
+        x, y = (fond.width - 1080) // 2, (fond.height - 1920) // 2
+        fond = ImageEnhance.Brightness(fond.crop((x, y, x + 1080, y + 1920)).filter(ImageFilter.GaussianBlur(36))).enhance(0.62)
+        r = min(1020 / base.width, 1860 / base.height)
+        im = base.resize((int(base.width * r), int(base.height * r)), Image.LANCZOS)
+        fond.paste(im, ((1080 - im.width) // 2, (1920 - im.height) // 2))
+        base = fond
     with tempfile.TemporaryDirectory() as tmp:
         img = Path(tmp) / "cadre.jpg"
-        img.write_bytes(jpeg_cadre)
-        son = musique(jour)
-        # Zoom de 0 à 4 % sur la durée (recalculé à chaque image), recoupé au centre en 1080 x 1920
-        zoom = (f"scale=w='trunc(1080*(1+0.04*t/{DUREE})/2)*2':h='trunc(1920*(1+0.04*t/{DUREE})/2)*2':eval=frame,"
-                "crop=1080:1920,format=yuv420p,setsar=1")
+        base.save(img, quality=94)
+        son = son or musique(jour)
+        # Image fixe (Mitch, 11 nov. 2026 : le lent zoom de 4 % faisait « descendre » l'image en tremblotant, au pixel
+        # près ; ce qui bouge, c'est seulement le flip et la secousse)
+        zoom = "scale=1080:1920,format=yuv420p,setsar=1"
         ent = [_ffmpeg(), "-y", "-loglevel", "error"]
         fins = ["-r", "30", "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "20",
                 "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
                 "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
-                "-af", f"afade=t=out:st={DUREE - 1.5}:d=1.5", "-t", str(DUREE), "-movflags", "+faststart", str(sortie)]
+                "-t", str(D), "-movflags", "+faststart", str(sortie)]
+        af = f"afade=t=out:st={D - fondu_son}:d={fondu_son}"
         if fin:
-            debut_fin = DUREE - FIN
-            cmd = ent + ["-loop", "1", "-framerate", "30", "-t", str(debut_fin + FONDU), "-i", str(img),
-                         "-loop", "1", "-framerate", "30", "-t", str(FIN), "-i", str(fin), "-i", str(son),
-                         "-filter_complex", f"[0:v]{zoom}[a];[1:v]scale=1080:1920,format=yuv420p,setsar=1[b];"
-                                            f"[a][b]xfade=transition=fade:duration={FONDU}:offset={debut_fin},format=yuv420p[v]",
-                         "-map", "[v]", "-map", "2:a"] + fins
+            debut_fin = D - FIN
+            nf, ns = round(FLIP * 30), round(SECOUSSE * 30)
+            # Les images du flip : la story -> la fin, puis la secousse
+            fin_img = Image.open(fin).convert("RGB").resize((1080, 1920))
+            for k, fr in enumerate(_images_flip(base, fin_img, nf, ns)):
+                fr.save(Path(tmp) / f"flip{k:03d}.jpg", quality=92)
+            reste = D - debut_fin - (nf + ns) / 30
+            ms = int(debut_fin * 1000)           # le clanche part avec le flip, sans baisser la musique
+            cmd = ent + ["-loop", "1", "-framerate", "30", "-t", f"{debut_fin:.3f}", "-i", str(img),
+                         "-framerate", "30", "-i", str(Path(tmp) / "flip%03d.jpg"),
+                         "-loop", "1", "-framerate", "30", "-t", f"{reste:.3f}", "-i", str(fin),
+                         "-i", str(son), "-i", str(son_mecanisme()),
+                         "-filter_complex", f"[0:v]{zoom}[v0];[1:v]format=yuv420p,setsar=1[v1];[2:v]scale=1080:1920,format=yuv420p,setsar=1[v2];"
+                                            f"[v0][v1][v2]concat=n=3:v=1:a=0[v];"
+                                            f"[4:a]adelay={ms}|{ms},volume=2.2[m];[3:a][m]amix=inputs=2:duration=first:normalize=0,{af}[s]",
+                         "-map", "[v]", "-map", "[s]"] + fins
         else:
             cmd = ent + ["-loop", "1", "-framerate", "30", "-i", str(img), "-i", str(son),
-                         "-map", "0:v", "-map", "1:a",      # (un .mp3 peut avoir une pochette : on ne la prend pas)
-                         "-vf", zoom] + fins
+                         "-filter_complex", f"[0:v]{zoom}[v]",
+                         "-map", "[v]", "-map", "1:a", "-af", af] + fins      # (un .mp3 peut avoir une pochette : on ne la prend pas)
         subprocess.run(cmd, check=True, timeout=300)
     return sortie
+
+
+def video_jingle(jpeg, sortie, cle=None):
+    """Les stories AUTRES que les matchs (post sur mesure, case « story ») : l'image du post sur son fond flouté, un des
+    jingles en rotation (cle = le id du post : toujours le même jingle pour un même post), la fin PuckProb en fondu.
+    La vidéo dure le temps du jingle (11 à 14 s), au plus DUREE. Sans jingle déposé : la musique des matchs."""
+    son = musique(cle, DIRS_JINGLES)
+    if not any(d.is_dir() and any(d.glob("*.mp3")) for d in DIRS_JINGLES):
+        son = musique(cle)
+    d = duree_audio(son) or DUREE
+    d = max(FIN + 3, min(DUREE, int(d * 10) / 10))
+    return video(jpeg, sortie, son=son, duree=d, image=True, fondu_son=0.4)
 
 
 def faire(atelier, jpeg_match, debut, sortie, jour=None):
