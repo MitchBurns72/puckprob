@@ -687,6 +687,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .vb-h{margin:8px 2px 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .vb-choisie{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
 .vb-sel{margin:0 0 10px;gap:8px;align-items:center} .vb-dec{margin:0 0 10px;flex-wrap:wrap}
+/* L'interrupteur Réel / PB Era-Adjusted de PB Stats : un seul bouton, la bille glisse du côté choisi */
+.wir-t{display:inline-flex;align-items:center;gap:10px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font:700 13.5px var(--f-body);cursor:pointer}
+.wir-t span.on{color:var(--ink)} .wir-t span.on:last-child{color:#FFB81C}
+.wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
+.wir-t[aria-checked="true"] i{background:#FFB81C} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}
@@ -892,7 +898,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <!-- What if : carrières comme si personne n'avait manqué de match (docs/whatif.json, chargé au 1er clic) -->
   <section id="p-whatif" role="tabpanel" aria-labelledby="t-whatif" hidden>
     <div class="ctrls"><div class="row" id="f-wi">
-    </div><div class="row" id="f-wiv"></div><div class="row">
+    </div><div class="row" id="f-wir"></div><div class="row" id="f-wiv"></div><div class="row">
       <input id="wi-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
     </div><div id="fe-wi"></div></div>
     <div id="whatif"></div>
@@ -1025,61 +1031,61 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <h2 id="resume-titre">En bref, jeudi 12 novembre 2026</h2>
 <div class="rp-carte tbl"><table><thead><tr><th>Match</th><th class="rp-n">Visiteur</th><th class="rp-n">Local</th>
 <th class="rp-n">Buts attendus</th></tr></thead><tbody><tr><td><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CAR</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/sea/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23001628%22%20stroke%3D%22%23355464%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%2399D9D9%22%20text-anchor%3D%22middle%22%3ESEA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> SEA</a></td>
-<td class="rp-n"><span class="rp-p">65 %</span><br><span class="rp-note">CAR</span></td>
-<td class="rp-n"><span class="rp-p">35 %</span><br><span class="rp-note">SEA</span></td>
+<td class="rp-n"><span class="rp-p">59 %</span><br><span class="rp-note">CAR</span></td>
+<td class="rp-n"><span class="rp-p">41 %</span><br><span class="rp-note">SEA</span></td>
 <td class="rp-n">6,2</td></tr><tr><td><a class="rp-eq" href="equipes/mtl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23192168%22%20stroke%3D%22%23AF1E2D%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EMTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MTL</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/bos/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFB81C%22%20text-anchor%3D%22middle%22%3EBOS%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> BOS</a></td>
-<td class="rp-n"><span class="rp-p">53 %</span><br><span class="rp-note">MTL</span></td>
-<td class="rp-n"><span class="rp-p">47 %</span><br><span class="rp-note">BOS</span></td>
+<td class="rp-n"><span class="rp-p">51 %</span><br><span class="rp-note">MTL</span></td>
+<td class="rp-n"><span class="rp-p">49 %</span><br><span class="rp-note">BOS</span></td>
 <td class="rp-n">6,5</td></tr><tr><td><a class="rp-eq" href="equipes/min/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23154734%22%20stroke%3D%22%23DDCBA4%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23EAAA00%22%20text-anchor%3D%22middle%22%3EMIN%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> MIN</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/tor/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300205B%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETOR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TOR</a></td>
-<td class="rp-n"><span class="rp-p">59 %</span><br><span class="rp-note">MIN</span></td>
-<td class="rp-n"><span class="rp-p">41 %</span><br><span class="rp-note">TOR</span></td>
+<td class="rp-n"><span class="rp-p">53 %</span><br><span class="rp-note">MIN</span></td>
+<td class="rp-n"><span class="rp-p">47 %</span><br><span class="rp-note">TOR</span></td>
 <td class="rp-n">6,6</td></tr><tr><td><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> COL</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/ott/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23C2912C%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23C52032%22%20text-anchor%3D%22middle%22%3EOTT%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> OTT</a></td>
-<td class="rp-n"><span class="rp-p">46 %</span><br><span class="rp-note">COL</span></td>
-<td class="rp-n"><span class="rp-p">54 %</span><br><span class="rp-note">OTT</span></td>
+<td class="rp-n"><span class="rp-p">52 %</span><br><span class="rp-note">COL</span></td>
+<td class="rp-n"><span class="rp-p">48 %</span><br><span class="rp-note">OTT</span></td>
 <td class="rp-n">6,3</td></tr><tr><td><a class="rp-eq" href="equipes/wsh/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EWSH%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> WSH</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/njd/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ENJD%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NJD</a></td>
-<td class="rp-n"><span class="rp-p">28 %</span><br><span class="rp-note">WSH</span></td>
-<td class="rp-n"><span class="rp-p">72 %</span><br><span class="rp-note">NJD</span></td>
+<td class="rp-n"><span class="rp-p">29 %</span><br><span class="rp-note">WSH</span></td>
+<td class="rp-n"><span class="rp-p">71 %</span><br><span class="rp-note">NJD</span></td>
 <td class="rp-n">6,1</td></tr><tr><td><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> TBL</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/cbj/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002654%22%20stroke%3D%22%23CE1126%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A4A9AD%22%20text-anchor%3D%22middle%22%3ECBJ%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CBJ</a></td>
 <td class="rp-n"><span class="rp-p">53 %</span><br><span class="rp-note">TBL</span></td>
 <td class="rp-n"><span class="rp-p">47 %</span><br><span class="rp-note">CBJ</span></td>
 <td class="rp-n">6,3</td></tr><tr><td><a class="rp-eq" href="equipes/det/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23CE1126%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EDET%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DET</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/fla/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B9975B%22%20text-anchor%3D%22middle%22%3EFLA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> FLA</a></td>
-<td class="rp-n"><span class="rp-p">44 %</span><br><span class="rp-note">DET</span></td>
-<td class="rp-n"><span class="rp-p">56 %</span><br><span class="rp-note">FLA</span></td>
+<td class="rp-n"><span class="rp-p">46 %</span><br><span class="rp-note">DET</span></td>
+<td class="rp-n"><span class="rp-p">54 %</span><br><span class="rp-note">FLA</span></td>
 <td class="rp-n">6,1</td></tr><tr><td><a class="rp-eq" href="equipes/buf/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23003087%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFB81C%22%20text-anchor%3D%22middle%22%3EBUF%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> BUF</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/chi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23FF671B%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CF0A2C%22%20text-anchor%3D%22middle%22%3ECHI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> CHI</a></td>
-<td class="rp-n"><span class="rp-p">59 %</span><br><span class="rp-note">BUF</span></td>
-<td class="rp-n"><span class="rp-p">41 %</span><br><span class="rp-note">CHI</span></td>
+<td class="rp-n"><span class="rp-p">57 %</span><br><span class="rp-note">BUF</span></td>
+<td class="rp-n"><span class="rp-p">43 %</span><br><span class="rp-note">CHI</span></td>
 <td class="rp-n">6,2</td></tr><tr><td><a class="rp-eq" href="equipes/wpg/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23004C97%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%238E9090%22%20text-anchor%3D%22middle%22%3EWPG%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> WPG</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/dal/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23006847%22%20stroke%3D%22%238F8F8C%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3EDAL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> DAL</a></td>
-<td class="rp-n"><span class="rp-p">37 %</span><br><span class="rp-note">WPG</span></td>
-<td class="rp-n"><span class="rp-p">63 %</span><br><span class="rp-note">DAL</span></td>
+<td class="rp-n"><span class="rp-p">31 %</span><br><span class="rp-note">WPG</span></td>
+<td class="rp-n"><span class="rp-p">69 %</span><br><span class="rp-note">DAL</span></td>
 <td class="rp-n">5,8</td></tr><tr><td><a class="rp-eq" href="equipes/stl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002F87%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FCB514%22%20text-anchor%3D%22middle%22%3ESTL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> STL</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/uta/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23010101%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%236CACE4%22%20text-anchor%3D%22middle%22%3EUTA%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> UTA</a></td>
-<td class="rp-n"><span class="rp-p">42 %</span><br><span class="rp-note">STL</span></td>
-<td class="rp-n"><span class="rp-p">58 %</span><br><span class="rp-note">UTA</span></td>
+<td class="rp-n"><span class="rp-p">47 %</span><br><span class="rp-note">STL</span></td>
+<td class="rp-n"><span class="rp-p">53 %</span><br><span class="rp-note">UTA</span></td>
 <td class="rp-n">6,0</td></tr><tr><td><a class="rp-eq" href="equipes/nyi/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%2300539B%22%20stroke%3D%22%23F47D30%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ENYI%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> NYI</a> <span class="rp-note">@</span> <a class="rp-eq" href="equipes/lak/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23111111%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ELAK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> LAK</a></td>
-<td class="rp-n"><span class="rp-p">37 %</span><br><span class="rp-note">NYI</span></td>
-<td class="rp-n"><span class="rp-p">63 %</span><br><span class="rp-note">LAK</span></td>
+<td class="rp-n"><span class="rp-p">39 %</span><br><span class="rp-note">NYI</span></td>
+<td class="rp-n"><span class="rp-p">61 %</span><br><span class="rp-note">LAK</span></td>
 <td class="rp-n">5,6</td></tr></tbody></table></div>
 <p class="rp-note">Probabilité de gagner le match (prolongation et tirs de barrage inclus).</p>
 <div class="rp-duo"><div class="rp-carte tbl"><h3>But</h3><table><tbody><tr><td><a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ TOR</span></td>
-<td class="rp-n"><span class="rp-p">42 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF @ CHI</span></td>
-<td class="rp-n"><span class="rp-p">41 %</span><span class="rp-barre"><i style="width:98.8%"></i></span></td></tr><tr><td><a href="joueurs/william-nylander/">William Nylander</a><br><span class="rp-note">TOR vs MIN</span></td>
-<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:96.2%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
-<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:96.2%"></i></span></td></tr><tr><td><a href="joueurs/sebastian-aho/">Sebastian Aho</a><br><span class="rp-note">CAR @ SEA</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:94.2%"></i></span></td></tr><tr><td><a href="joueurs/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN @ TOR</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:93.8%"></i></span></td></tr><tr><td><a href="joueurs/auston-matthews/">Auston Matthews</a><br><span class="rp-note">TOR vs MIN</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:93.8%"></i></span></td></tr><tr><td><a href="joueurs/nikita-kucherov/">Nikita Kucherov</a><br><span class="rp-note">TBL @ CBJ</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:93.5%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs MTL</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:93.3%"></i></span></td></tr><tr><td><a href="joueurs/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs NYI</span></td>
-<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:93.3%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>1+ point</h3><table><tbody><tr><td><a href="joueurs/matthew-tkachuk/">Matthew Tkachuk</a><br><span class="rp-note">FLA vs DET</span></td>
-<td class="rp-n"><span class="rp-p">82 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
-<td class="rp-n"><span class="rp-p">78 %</span><span class="rp-barre"><i style="width:95.0%"></i></span></td></tr><tr><td><a href="joueurs/nick-suzuki/">Nick Suzuki</a><br><span class="rp-note">MTL @ BOS</span></td>
-<td class="rp-n"><span class="rp-p">77 %</span><span class="rp-barre"><i style="width:94.7%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs MTL</span></td>
-<td class="rp-n"><span class="rp-p">77 %</span><span class="rp-barre"><i style="width:94.7%"></i></span></td></tr><tr><td><a href="joueurs/brady-tkachuk/">Brady Tkachuk</a><br><span class="rp-note">FLA vs DET</span></td>
-<td class="rp-n"><span class="rp-p">75 %</span><span class="rp-barre"><i style="width:92.0%"></i></span></td></tr><tr><td><a href="joueurs/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL @ OTT</span></td>
-<td class="rp-n"><span class="rp-p">74 %</span><span class="rp-barre"><i style="width:91.2%"></i></span></td></tr><tr><td><a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ TOR</span></td>
-<td class="rp-n"><span class="rp-p">74 %</span><span class="rp-barre"><i style="width:91.1%"></i></span></td></tr><tr><td><a href="joueurs/connor-bedard/">Connor Bedard</a><br><span class="rp-note">CHI vs BUF</span></td>
-<td class="rp-n"><span class="rp-p">74 %</span><span class="rp-barre"><i style="width:90.2%"></i></span></td></tr><tr><td><a href="joueurs/clayton-keller/">Clayton Keller</a><br><span class="rp-note">UTA vs STL</span></td>
-<td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:89.6%"></i></span></td></tr><tr><td><a href="joueurs/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs NYI</span></td>
-<td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:89.2%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>Tirs 3+</h3><table><tbody><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
+<td class="rp-n"><span class="rp-p">45 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF @ CHI</span></td>
+<td class="rp-n"><span class="rp-p">42 %</span><span class="rp-barre"><i style="width:93.5%"></i></span></td></tr><tr><td><a href="joueurs/nikita-kucherov/">Nikita Kucherov</a><br><span class="rp-note">TBL @ CBJ</span></td>
+<td class="rp-n"><span class="rp-p">41 %</span><span class="rp-barre"><i style="width:91.9%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
+<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:90.6%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs MTL</span></td>
+<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:90.4%"></i></span></td></tr><tr><td><a href="joueurs/auston-matthews/">Auston Matthews</a><br><span class="rp-note">TOR vs MIN</span></td>
+<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:88.6%"></i></span></td></tr><tr><td><a href="joueurs/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN @ TOR</span></td>
+<td class="rp-n"><span class="rp-p">40 %</span><span class="rp-barre"><i style="width:88.4%"></i></span></td></tr><tr><td><a href="joueurs/william-nylander/">William Nylander</a><br><span class="rp-note">TOR vs MIN</span></td>
+<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:87.7%"></i></span></td></tr><tr><td><a href="joueurs/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs NYI</span></td>
+<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:87.5%"></i></span></td></tr><tr><td><a href="joueurs/sam-reinhart/">Sam Reinhart</a><br><span class="rp-note">FLA vs DET</span></td>
+<td class="rp-n"><span class="rp-p">39 %</span><span class="rp-barre"><i style="width:87.2%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>1+ point</h3><table><tbody><tr><td><a href="joueurs/nick-suzuki/">Nick Suzuki</a><br><span class="rp-note">MTL @ BOS</span></td>
+<td class="rp-n"><span class="rp-p">81 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/nikita-kucherov/">Nikita Kucherov</a><br><span class="rp-note">TBL @ CBJ</span></td>
+<td class="rp-n"><span class="rp-p">79 %</span><span class="rp-barre"><i style="width:97.5%"></i></span></td></tr><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
+<td class="rp-n"><span class="rp-p">76 %</span><span class="rp-barre"><i style="width:94.8%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs MTL</span></td>
+<td class="rp-n"><span class="rp-p">75 %</span><span class="rp-barre"><i style="width:92.8%"></i></span></td></tr><tr><td><a href="joueurs/kirill-kaprizov/">Kirill Kaprizov</a><br><span class="rp-note">MIN @ TOR</span></td>
+<td class="rp-n"><span class="rp-p">75 %</span><span class="rp-barre"><i style="width:92.8%"></i></span></td></tr><tr><td><a href="joueurs/connor-bedard/">Connor Bedard</a><br><span class="rp-note">CHI vs BUF</span></td>
+<td class="rp-n"><span class="rp-p">74 %</span><span class="rp-barre"><i style="width:91.7%"></i></span></td></tr><tr><td><a href="joueurs/nathan-mackinnon/">Nathan MacKinnon</a><br><span class="rp-note">COL @ OTT</span></td>
+<td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:90.6%"></i></span></td></tr><tr><td><a href="joueurs/william-nylander/">William Nylander</a><br><span class="rp-note">TOR vs MIN</span></td>
+<td class="rp-n"><span class="rp-p">72 %</span><span class="rp-barre"><i style="width:88.7%"></i></span></td></tr><tr><td><a href="joueurs/mikko-rantanen/">Mikko Rantanen</a><br><span class="rp-note">DAL vs WPG</span></td>
+<td class="rp-n"><span class="rp-p">71 %</span><span class="rp-barre"><i style="width:87.6%"></i></span></td></tr><tr><td><a href="joueurs/artemi-panarin/">Artemi Panarin</a><br><span class="rp-note">LAK vs NYI</span></td>
+<td class="rp-n"><span class="rp-p">71 %</span><span class="rp-barre"><i style="width:87.6%"></i></span></td></tr></tbody></table></div><div class="rp-carte tbl"><h3>Tirs 3+</h3><table><tbody><tr><td><a href="joueurs/jack-hughes/">Jack Hughes</a><br><span class="rp-note">NJD vs WSH</span></td>
 <td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/tage-thompson/">Tage Thompson</a><br><span class="rp-note">BUF @ CHI</span></td>
 <td class="rp-n"><span class="rp-p">73 %</span><span class="rp-barre"><i style="width:100.0%"></i></span></td></tr><tr><td><a href="joueurs/matt-boldy/">Matt Boldy</a><br><span class="rp-note">MIN @ TOR</span></td>
 <td class="rp-n"><span class="rp-p">72 %</span><span class="rp-barre"><i style="width:98.8%"></i></span></td></tr><tr><td><a href="joueurs/david-pastrnak/">David Pastrnak</a><br><span class="rp-note">BOS vs MTL</span></td>
@@ -1090,7 +1096,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 <td class="rp-n"><span class="rp-p">63 %</span><span class="rp-barre"><i style="width:85.7%"></i></span></td></tr><tr><td><a href="joueurs/adrian-kempe/">Adrian Kempe</a><br><span class="rp-note">LAK vs NYI</span></td>
 <td class="rp-n"><span class="rp-p">62 %</span><span class="rp-barre"><i style="width:85.4%"></i></span></td></tr><tr><td><a href="joueurs/kyle-connor/">Kyle Connor</a><br><span class="rp-note">WPG @ DAL</span></td>
 <td class="rp-n"><span class="rp-p">62 %</span><span class="rp-barre"><i style="width:84.8%"></i></span></td></tr></tbody></table></div></div>
-<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>9,5 %</b></li><li><a class="rp-eq" href="equipes/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7,4 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7,1 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>79 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/leon-draisaitl/">Leon Draisaitl</a></span><b>35 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>78 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>50 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>54 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>63 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>44 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>46 %</b></li></ul></div>
+<div class="rp-carte"><h3>Favoris de la Coupe Stanley</h3><ul class="rp-liste"><li><a class="rp-eq" href="equipes/car/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23A2AAAD%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23CE1126%22%20text-anchor%3D%22middle%22%3ECAR%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Caroline</a><b>21 %</b></li><li><a class="rp-eq" href="equipes/col/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%236F263D%22%20stroke%3D%22%23000000%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23A2AAAD%22%20text-anchor%3D%22middle%22%3ECOL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Colorado</a><b>13 %</b></li><li><a class="rp-eq" href="equipes/tbl/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23002868%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FFFFFF%22%20text-anchor%3D%22middle%22%3ETBL%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Tampa Bay</a><b>9,5 %</b></li><li><a class="rp-eq" href="equipes/vgk/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23000000%22%20stroke%3D%22%23333F42%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23B4975A%22%20text-anchor%3D%22middle%22%3EVGK%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Vegas</a><b>7,4 %</b></li><li><a class="rp-eq" href="equipes/edm/"><img src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2246%22%20fill%3D%22%23041E42%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%227%22/%3E%3Ctext%20x%3D%2250%22%20y%3D%2261%22%20font-size%3D%2231%22%20font-family%3D%22Arial%20Narrow%2CArial%2Csans-serif%22%20font-weight%3D%22700%22%20fill%3D%22%23FF4C00%22%20text-anchor%3D%22middle%22%3EEDM%3C/text%3E%3C/svg%3E" alt="" width="22" height="22" style="vertical-align:middle"> Edmonton</a><b>7,2 %</b></li></ul><p><a href="coupe-stanley/">Les 32 équipes</a></p></div><div class="rp-carte"><h3>Courses aux trophées : les favoris</h3><ul class="rp-liste"><li><span><a href="trophees/art/">Art-Ross</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>79 %</b></li><li><span><a href="trophees/rocket/">Maurice-Richard</a> · <a href="joueurs/leon-draisaitl/">Leon Draisaitl</a></span><b>33 %</b></li><li><span><a href="trophees/hart/">Hart</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>76 %</b></li><li><span><a href="trophees/lindsay/">Ted-Lindsay</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>78 %</b></li><li><span><a href="trophees/norris/">Norris</a> · <a href="joueurs/evan-bouchard/">Evan Bouchard</a></span><b>49 %</b></li><li><span><a href="trophees/vezina/">Vezina</a> · <a href="joueurs/jesper-wallstedt/">Jesper Wallstedt</a></span><b>54 %</b></li><li><span><a href="trophees/calder/">Calder</a> · <a href="joueurs/cole-hutson/">Cole Hutson</a></span><b>63 %</b></li><li><span><a href="trophees/selke/">Selke</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>43 %</b></li><li><span><a href="trophees/byng/">Lady-Byng</a> · <a href="joueurs/connor-mcdavid/">Connor McDavid</a></span><b>46 %</b></li></ul></div>
 <p><a href="trophees/">Tous les trophées</a> · <a href="equipes/">Les 32 équipes</a> · <a href="bilan/">Notre bilan : est-ce que nos % disent vrai?</a> · <a href="a-propos/">Comment c'est calculé</a></p>
 </section>
 </div>
@@ -3557,11 +3563,20 @@ async function whatif(){
     el.innerHTML = `<div class="card"><div class="vide">${L("Chargement des carrières…", "Loading careers…")}</div></div>`;
     try { WI = await (await fetch("whatif.json?v=" + (D?.date || Date.now()))).json(); if (!WI.j) throw 0; }
     catch (e) { WI = null; WI_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("PB Stats arrive au prochain calcul.", "PB Stats arrives with the next update.")}</div></div>`; return; }
-    $("#f-wi").innerHTML = Object.entries(WI_MODES).map(([k, M]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.wi || "p")}">${L(...M.nom)}</button>`).join("");
+    $("#f-wi").innerHTML = Object.entries(WI_MODES).filter(([k]) => k !== "sw" && k !== "gsw")
+      .map(([k, M]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.wi || "p")}">${L(...M.nom)}</button>`).join("");
   }
-  const mode = S.wi || "p", M = WI_MODES[mode], q = nrm($("#wi-q").value), feq = S.fe_wi || "";
+  let mode = S.wi || "p";
+  if (mode === "sr" || mode === "sw") mode = S.wir === "r" ? "sr" : "sw";
+  if (mode === "gsr" || mode === "gsw") mode = S.wir === "r" ? "gsr" : "gsw";
+  const M = WI_MODES[mode], q = nrm($("#wi-q").value), feq = S.fe_wi || "";
   // PB Stats au complet : la vue (tous les temps, une équipe, une saison, une décennie)
   const vue = S.wiv || "";
+  // Réel ou PB Era-Adjusted (Mitch, 12 nov. 2026) : ce qui est en gros, ce qui classe ; l'autre reste en petit. En
+  // premier dans la rangée pour qu'on le voie sans glisser.
+  const R_ = S.wir === "r";
+  $("#f-wir").innerHTML = `<button class="wir-t" data-wirt role="switch" aria-checked="${!R_}" aria-label="${L("Réel ou PB Era-Adjusted", "Real or PB Era-Adjusted")}">
+    <span class="${R_ ? "on" : ""}">${L("Réel", "Real")}</span><i aria-hidden="true"><b></b></i><span class="${R_ ? "" : "on"}">PB Era-Adjusted</span></button>`;
   $("#f-wiv").innerHTML = [["", L("Tous les temps", "All-time")], ["eq", L("Par équipe", "By team")], ["s", L("Par saison", "By season")], ["d", L("Par décennie", "By decade")]]
     .map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
   if (vue && !M.saisons) return pbsVue(el, vue, mode);
@@ -3575,7 +3590,7 @@ async function whatif(){
     // Une équipe choisie : tous ses joueurs (carrière), classés selon le mode affiché
     const m = mode === "act" ? "p" : mode, t = mode === "act" ? "j" : M.j;
     // Classés selon ce qu'il a fait AVEC cette équipe (ses saisons chez elle) ; % d'arrêts et moyenne : sa carrière
-    const v = (x) => wiAvecEq(m, t, x, feq) ?? wiNum(m, x)[0];
+    const v = (x) => wiAvecEq(m, t, x, feq) ?? (S.wir === "r" ? wiValeurNum(m, x) : wiNum(m, x)[0]);
     lignes = Object.entries(WI[t]).filter(([, x]) => joueAvec(x) && (mode !== "act" || x.act) && v(x) != null)
       .sort((a, b) => m === "gbpg" ? v(a[1]) - v(b[1]) : v(b[1]) - v(a[1])).slice(0, 100).map(([i, x]) => wiLigne(m, t, i, x, feq));
   } else if (q.length >= 2){
@@ -3595,9 +3610,14 @@ async function whatif(){
       }
     }
   } else if (mode === "act"){
-    lignes = Object.entries(WI.j).filter(([, x]) => x.act).sort((a, b) => b[1].w[3] - a[1].w[3]).slice(0, 100).map(([i, x]) => wiLigne("p", "j", i, x));
+    const k_ = S.wir === "r" ? "r" : "w";
+    lignes = Object.entries(WI.j).filter(([, x]) => x.act).sort((a, b) => b[1][k_][3] - a[1][k_][3]).slice(0, 100).map(([i, x]) => wiLigne("p", "j", i, x));
   } else {
-    lignes = (WI.top[mode] || []).map(i => wiLigne(mode, M.j, i, WI[M.j][i])).filter(Boolean);
+    if (S.wir === "r"){
+      // Classé par le vrai rang de tous les temps (calculé sur TOUS les joueurs, dans src/whatif.py)
+      const rr = (x) => wiValeur(mode, x)[3] ?? 1e9;
+      lignes = Object.entries(WI[M.j]).filter(([, x]) => wiValeur(mode, x)[3] != null).sort((a, b) => rr(a[1]) - rr(b[1])).slice(0, 100).map(([i, x]) => wiLigne(mode, M.j, i, x));
+    } else lignes = (WI.top[mode] || []).map(i => wiLigne(mode, M.j, i, WI[M.j][i])).filter(Boolean);
   }
   const R = WI.regles || {}, B = WI.base || {}, per = B.de ? `${B.de.slice(0, 4)}-${B.de.slice(6)} ${L("à", "to")} ${B.a.slice(0, 4)}-${B.a.slice(6)}` : "";
   const tete = `<div class="cp-tete">${titrePB("PB Stats", L("Ajustées à l'ère d'aujourd'hui", "Era-adjusted"))}<p>${L(
@@ -3687,6 +3707,8 @@ function pbsLigne(t, rg, id, n, pos, eq, no, val, unite, sous, vb = ""){
 const pbsMode = (mode) => ["gv", "gsv", "gbpg", "gsr", "gsw"].includes(mode) ? "g" : ["b", "a", "pm"].includes(mode) ? mode : "p";
 async function pbsVue(el, vue, mode){
   const m = pbsMode(mode), meta = await pbsMeta();
+  // Réel ou PB Era-Adjusted : on échange la colonne qui classe et celle en petit
+  const R_ = S.wir === "r", sw = (ix) => R_ ? [ix[1], ix[0]] : ix;
   if (!meta){ el.innerHTML = `<div class="card"><div class="vide">${L("L'historique complet arrive au prochain calcul de PB Stats.", "The full history arrives with the next PB Stats update.")}</div></div>`; return; }
   const u = m === "g" ? L("vict.", "wins") : { p: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pm: "+/-" }[m];
   let tete = "", corps = "";
@@ -3707,33 +3729,34 @@ async function pbsVue(el, vue, mode){
       `Everyone who played in ${ville(t)}, ranked by what they did with this team, adjusted to today's era (the real numbers in small). A season split by a trade counts half.`))
       + `<div class="vb-choisie">${villeBadge(t)}<button class="chip" data-wieq="">${L("Changer de ville", "Change city")}</button></div>`;
     const ans = (de, a) => `${de}-${String(a + 1).slice(2)}`;
-    if (m === "g") corps = E.g.slice(0, 150).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], nW(r[5]), u, `${L("réel", "real")} ${nW(r[6])} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false))).join("");
-    else { const ix = { p: [6, 7], b: [8, 10], a: [9, 11], pm: [6, 7] }[m];
+    if (m === "g") corps = [...E.g].sort((a, b) => b[R_ ? 6 : 5] - a[R_ ? 6 : 5]).slice(0, 150).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], nW(r[R_ ? 6 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 6])} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false))).join("");
+    else { const ix = sw({ p: [6, 7], b: [8, 10], a: [9, 11], pm: [6, 7] }[m]);
       corps = [...E.j].sort((a, b) => b[ix[0]] - a[ix[0]]).slice(0, 150).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], t, r[12], nW(r[ix[0]]), m === "pm" ? "pts" : u,
-        `${L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[3])} ${L("matchs", "games")} · ${ans(r[4], r[5])}`, villeBadge(t, false))).join(""); }
+        `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[3])} ${L("matchs", "games")} · ${ans(r[4], r[5])}`, villeBadge(t, false))).join(""); }
   } else if (vue === "s"){
     const L_ = meta.saisons, sz = S.wis && L_.includes(S.wis) ? S.wis : L_[L_.length - 1];
     if (!PBS.s[sz]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.s[sz] = await pbsGet(`s/${sz}.json`).catch(() => ({ j: [], g: [] })); }
     const X = PBS.s[sz], nomS = `${sz.slice(0, 4)}-${sz.slice(6)}`;
     tete = titre(L(`La saison ${nomS}`, `The ${nomS} season`), L("Tous les joueurs de cette saison-là, ajustés à l'ère d'aujourd'hui et à 82 matchs (le réel en petit). Touche un joueur pour toute sa carrière.", "Every player that season, adjusted to today's era and 82 games (the real numbers in small). Tap a player for his whole career."))
       + `<div class="row vb-sel"><label class="lbl" for="wi-sz">${L("Saison", "Season")}</label><select id="wi-sz">${[...L_].reverse().map(x => `<option value="${x}"${x === sz ? " selected" : ""}>${x.slice(0, 4)}-${x.slice(6)}</option>`).join("")}</select></div>`;
-    if (m === "g") corps = X.g.slice(0, 150).map((r, k) => { const eq = r[2].split(",").pop(); return pbsLigne("g", k + 1, r[0], r[1], "G", eq, r[11], nW(r[7]), u, `${L("réel", "real")} ${r[4]} ${L("V", "W")} · ${r[3]} ${L("matchs", "games")} · ${sv3(r[5])}`); }).join("");
-    else { const ix = { p: [12, 7], b: [10, 5], a: [11, 6], pm: [13, 8] }[m];
+    if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 7] - a[R_ ? 4 : 7]).slice(0, 150).map((r, k) => { const eq = r[2].split(",").pop(); return pbsLigne("g", k + 1, r[0], r[1], "G", eq, r[11], nW(r[R_ ? 4 : 7]), u, `${R_ ? "PB " + r[7] : L("réel", "real") + " " + r[4]} ${L("V", "W")} · ${r[3]} ${L("matchs", "games")} · ${sv3(r[5])}`); }).join("");
+    else { const ix = sw({ p: [12, 7], b: [10, 5], a: [11, 6], pm: [13, 8] }[m]);
       corps = [...X.j].sort((a, b) => (b[ix[0]] ?? -999) - (a[ix[0]] ?? -999)).slice(0, 150).map((r, k) => { const eq = r[3].split(",").pop();
-        return pbsLigne("j", k + 1, r[0], r[1], r[2], eq, r[14], m === "pm" ? pmW(r[ix[0]]) : nW(r[ix[0]]), u, `${L("réel", "real")} ${m === "pm" ? pmW(r[ix[1]]) : nW(r[ix[1]])} · ${r[4]} ${L("matchs", "games")}`); }).join(""); }
+        return pbsLigne("j", k + 1, r[0], r[1], r[2], eq, r[14], m === "pm" ? pmW(r[ix[0]]) : nW(r[ix[0]]), u, `${R_ ? "PB" : L("réel", "real")} ${m === "pm" ? pmW(r[ix[1]]) : nW(r[ix[1]])} · ${r[4]} ${L("matchs", "games")}`); }).join(""); }
   } else {
     const L_ = meta.decennies, d = S.wid != null && L_.includes(Number(S.wid)) ? Number(S.wid) : L_[L_.length - 1];
     if (!PBS.d[d]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.d[d] = await pbsGet(`d/${d}.json`).catch(() => ({ j: [], g: [] })); }
     const X = PBS.d[d];
     tete = titre(L(`Les années ${d}`, `The ${d}s`), L("Les meilleurs de la décennie, ajustés à l'ère d'aujourd'hui (le réel en petit) : seulement leurs saisons de ces 10 années-là.", "The best of the decade, adjusted to today's era (the real numbers in small): only their seasons from those 10 years."))
       + `<div class="row vb-dec">${L_.map(x => `<button class="chip" data-wid="${x}" aria-pressed="${x === d}">${x}</button>`).join("")}</div>`;
-    if (m === "g") corps = X.g.map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2], r[6], nW(r[5]), u, `${L("réel", "real")} ${nW(r[4])} · ${nW(r[3])} ${L("matchs", "games")}`)).join("");
-    else { const ix = { p: [10, 7], b: [8, 5], a: [9, 6], pm: [10, 7] }[m];
-      corps = [...X.j].sort((a, b) => b[ix[0]] - a[ix[0]]).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], r[3], r[11], nW(r[ix[0]]), m === "pm" ? "pts" : u, `${L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[4])} ${L("matchs", "games")}`)).join(""); }
+    if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 5] - a[R_ ? 4 : 5]).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2], r[6], nW(r[R_ ? 4 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 4])} · ${nW(r[3])} ${L("matchs", "games")}`)).join("");
+    else { const ix = sw({ p: [10, 7], b: [8, 5], a: [9, 6], pm: [10, 7] }[m]);
+      corps = [...X.j].sort((a, b) => b[ix[0]] - a[ix[0]]).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], r[3], r[11], nW(r[ix[0]]), m === "pm" ? "pts" : u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[4])} ${L("matchs", "games")}`)).join(""); }
   }
   el.innerHTML = tete + (corps || `<div class="card"><div class="vide">${L("Aucun joueur.", "No player.")}</div></div>`) + `<p class="aide">${L(`${nW(meta.n_j)} patineurs et ${nW(meta.n_g)} gardiens de l'histoire de la LNH (données publiques de la LNH).`, `${nW(meta.n_j)} skaters and ${nW(meta.n_g)} goalies in NHL history (public NHL data).`)}</p>`;
 }
 document.addEventListener("click", (e) => {
+  if (e.target.closest?.("[data-wirt]")){ S.wir = S.wir === "r" ? "" : "r"; whatif(); return; }
   const v = e.target.closest?.("#f-wiv [data-wiv]");
   if (v){ S.wiv = v.dataset.wiv; whatif(); return; }
   const q = e.target.closest?.("[data-wieq]");
@@ -3766,8 +3789,8 @@ function wiSaisons(mode, q, feq){
   const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
   return tous.slice(0, 100).map((r, k) => {
     const sous = r.enCours
-      ? (mode === "sr" ? L("rythme sur 82", "82-game pace") : L("what if, rythme", "what if, pace"))
-      : (mode === "sr" ? L("points réels", "real points") : L(`what if · réel ${r.p} pts`, `what if · real ${r.p} pts`));
+      ? (mode === "sr" ? L("rythme sur 82", "82-game pace") : L("PB, rythme", "PB, pace"))
+      : (mode === "sr" ? L("points réels", "real points") : L(`PB · réel ${r.p} pts`, `PB · real ${r.p} pts`));
     return `<button class="wi-l wi-r" data-t="j" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
       <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.b} ${L("B", "G")} · ${r.a} A · ${r.p} PTS</span></span>
       <span class="v">${coteHTML(k + 1)}${r.v}<small>${sous}</small></span></button>`;
@@ -3794,8 +3817,8 @@ function wiSaisonsG(mode, q, feq){
   Object.assign(COTE, { n: tous.length, inv: false });
   const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
   return tous.slice(0, 100).map((r, k) => {
-    const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("what if, rythme", "what if, pace"))
-      : (mode === "gsr" ? L("victoires", "wins") : L(`what if · réel ${r.v} V`, `what if · real ${r.v} W`));
+    const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("PB, rythme", "PB, pace"))
+      : (mode === "gsr" ? L("victoires", "wins") : L(`PB · réel ${r.v} V`, `PB · real ${r.v} W`));
     return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
       <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.v} ${L("V", "W")} · ${sv3(mode === "gsw" ? r.svw : r.sv)} · ${r.mba != null ? bpg2(r.mba) + " " + L("moy.", "GAA") : "–"}</span></span>
       <span class="v">${coteHTML(k + 1)}${r.val}<small>${sous}</small></span></button>`;
@@ -3814,6 +3837,13 @@ function wiStats(t, x){
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
 }
 // Valeur what if (en nombre) et rang what if, pour comparer avec hier (x.h = valeurs d'hier, seulement si ça a bougé)
+function wiValeurNum(m, x){
+  if (m === "ppg") return x.ppg?.[0];
+  if (m === "gv") return x.r[1];
+  if (m === "gsv") return x.sv[0];
+  if (m === "gbpg") return x.bpg[0];
+  return x.r[WI_MODES[m].k];
+}
 function wiNum(m, x){
   if (m === "ppg") return [x.ppg?.[1], x.rg[9]];
   if (m === "gv") return [x.w[1], x.rg[1]];
@@ -3832,13 +3862,14 @@ function wiHier(m, t, x){
 }
 // Stats what if AVEC une équipe : la somme de ses saisons chez elle (une saison échangée compte pour les deux).
 // Rangées patineur : [s, eqs, pj, b, a, pts, pm, wpj, wb, wa, wpts, wpm] ; gardien : [s, eqs, pj, v, sv, wpj, wv, ...]
-function wiAvecEq(m, t, x, eq){
+function wiAvecEq(m, t, x, eq, reel = S.wir === "r"){
   const R = (x.s || []).filter(r => String(r[1]).split(",").includes(eq));
   if (!R.length) return null;
   const som = (k) => R.reduce((a, r) => a + (r[k] || 0), 0);
-  if (t === "g") return m === "gv" ? som(6) : null;
-  if (m === "ppg"){ const pj = som(7); return pj ? som(10) / pj : null; }
-  const k = { p: 10, b: 8, a: 9, pm: 11 }[m];
+  // Saison d'un patineur : [s, éq, pj, b, a, pts, +/-, pj PB, b PB, a PB, pts PB, +/- PB] ; gardien : [s, éq, pj, v, sv, pj PB, v PB, ...]
+  if (t === "g") return m === "gv" ? som(reel ? 3 : 6) : null;
+  if (m === "ppg"){ const pj = som(2); return pj ? som(reel ? 5 : 10) / pj : null; }
+  const k = (reel ? { p: 5, b: 3, a: 4, pm: 6 } : { p: 10, b: 8, a: 9, pm: 11 })[m];
   return k != null ? som(k) : null;
 }
 // La cote (format C, choisi par Mitch le 10 nov. 2026) : de A+ à D-, selon le rang dans la section (sur tous les
@@ -3855,10 +3886,13 @@ function coteHTML(rg, n, inv){
 function wiLigne(mode, t, i, x, feq = ""){
   if (!x) return "";
   let [v, reel, rg, rgR] = wiValeur(mode, x);
-  const M = WI_MODES[mode], [dv, dr] = wiHier(mode, t, x);
+  const M = WI_MODES[mode];
+  let [dv, dr] = wiHier(mode, t, x);
+  const REEL = S.wir === "r";
+  if (REEL){ [v, reel, rg, rgR] = [reel, v, rgR, rg]; dv = ""; dr = ""; }
   // Filtre d'équipe : le gros chiffre = avec cette équipe ; la carrière en petit
   const ve = feq ? wiAvecEq(mode, t, x, feq) : null;
-  let sousV = `${L("réel", "real")} ${reel} (${rangFr(rgR)})`;
+  let sousV = REEL ? `PB ${reel} (${rangFr(rgR)})` : `${L("réel", "real")} ${reel} (${rangFr(rgR)})`;
   if (ve != null){
     const fmt = mode === "ppg" ? ppg2 : mode === "pm" ? pmW : nW;
     sousV = `${L(...M.u)} ${L("avec", "with")} ${feq} · ${L("carrière", "career")} ${v}`;
@@ -6063,7 +6097,7 @@ init();
 (function(){
   var EN = /^en/i.test(document.documentElement.lang || "");
   // Section : les rangées qui restent visibles en pastilles (dans l'ordre). Tout le reste de .ctrls va dans le panneau 🔍.
-  var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph"], "p-whatif": ["f-wi", "f-wiv"], "p-salaires": ["f-sal", "sai-sal"], "p-enf": ["f-enf", "sai-enf"],
+  var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph"], "p-whatif": ["f-wi", "f-wir", "f-wiv"], "p-salaires": ["f-sal", "sai-sal"], "p-enf": ["f-enf", "sai-enf"],
     "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-rum": [], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
@@ -6145,8 +6179,8 @@ init();
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=e1cc86b1" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=e1cc86b1" defer></script>
-<script src="nav.js?v=afca664983" defer></script>
+<script src="pub.js?v=64663974" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=64663974" defer></script>
+<script src="nav.js?v=b5b911df9d" defer></script>
 </body>
 </html>

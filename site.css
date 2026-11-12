@@ -659,6 +659,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .vb-h{margin:8px 2px 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .vb-choisie{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
 .vb-sel{margin:0 0 10px;gap:8px;align-items:center} .vb-dec{margin:0 0 10px;flex-wrap:wrap}
+/* L'interrupteur Réel / PB Era-Adjusted de PB Stats : un seul bouton, la bille glisse du côté choisi */
+.wir-t{display:inline-flex;align-items:center;gap:10px;padding:6px 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--muted);font:700 13.5px var(--f-body);cursor:pointer}
+.wir-t span.on{color:var(--ink)} .wir-t span.on:last-child{color:#FFB81C}
+.wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
+.wir-t[aria-checked="true"] i{background:#FFB81C} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}
