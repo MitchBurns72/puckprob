@@ -602,6 +602,21 @@
   "publie": true,
   "quand": "2026-11-12T15:15-05:00"
  },
+ "2026-11-12-top-passes": {
+  "fb": "1508565075663838_122109818613537152",
+  "fb_com": "122109818613537152_965460829629414",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "top",
+  "opt": {
+   "marche": "passes",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 1 passe ou plus",
+  "publie": true,
+  "quand": "2026-11-12T15:45-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
