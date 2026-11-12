@@ -46,8 +46,8 @@
   var css = document.createElement("style");
   css.textContent =
     "nav.menu{display:none!important} nav.tabs{display:none!important}" +
-    "#temoins{bottom:calc(66px + env(safe-area-inset-bottom,0px))!important;padding-bottom:12px!important}.pt-attente{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}" +
-    "body{padding-bottom:calc(74px + env(safe-area-inset-bottom,0px))}" +
+    "#temoins{bottom:calc(92px + env(safe-area-inset-bottom,0px))!important;padding-bottom:12px!important}.pt-attente{bottom:calc(116px + env(safe-area-inset-bottom,0px))!important}" +
+    "body{padding-bottom:calc(98px + env(safe-area-inset-bottom,0px))}" +
     ".ppn-chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:9px 2px 8px;margin:4px 0 6px;position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg)}" +
     ".ppn-chips::-webkit-scrollbar{display:none}" +
     ".ppn-chips a{flex:none;border:1px solid var(--line);border-radius:16px;padding:6px 12px;font:600 14px/1 var(--f-body);color:var(--ink);text-decoration:none;background:var(--surface)}" +
@@ -63,7 +63,7 @@
     ".ppn-g a small{font:800 9.5px/1 var(--f-body);color:#FFB81C;letter-spacing:.04em}" +
     ".ppn-g a[aria-current]{background:#FFB81C;border-color:#FFB81C;color:#0B1220;font-weight:800}.ppn-g a[aria-current] small{color:#0B1220}" +
     ".ppn-bas{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;background:var(--bande,#0A2342);border-top:2px solid #FFB81C;padding:6px 0 calc(8px + env(safe-area-inset-bottom,0px))}" +
-    ".ppn-bas a,.ppn-bas button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:700 11.5px/1.1 var(--f-body);color:#9FB3CB;text-decoration:none;background:none;border:0;padding:2px 0;cursor:pointer}" +
+    ".ppn-bas a,.ppn-bas button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;font:700 11.5px/1.15 var(--f-body);color:#9FB3CB;text-decoration:none;background:none;border:0;padding:2px 3px;cursor:pointer;text-align:center;overflow-wrap:break-word}" +
     ".ppn-bas i{font-style:normal;font-size:21px;line-height:1.15}.ppn-bas i svg,.ppn-tuiles a i svg{display:block;width:30px;height:30px;margin:0 auto}" +
     ".ppn-tuiles a i svg{width:38px;height:38px}[aria-current] svg .an{stroke:#FFB81C}" +
     ".ppn-bas [aria-current]{color:#FFB81C}" +
