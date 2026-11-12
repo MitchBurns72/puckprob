@@ -716,6 +716,20 @@
   "publie": true,
   "quand": "2026-11-12T18:40-05:00"
  },
+ "2026-11-12-match-2026020308": {
+  "fb": "1508565075663838_122109888027537152",
+  "fb_com": "122109888027537152_1848928259596046",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020308
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "NYI @ LAK",
+  "publie": true,
+  "quand": "2026-11-12T18:45-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
