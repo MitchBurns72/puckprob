@@ -12,7 +12,7 @@
 
 La file du soir (social.preparer_fil) ajoute un item « story » par match avec son cadre (une image : léger à pousser) ;
 live_code/poster.py (job live de puckprob) fait la vidéo au moment de publier (video(), quelques secondes) et la publie
-avec publier_story_video(). Les vidéos ne sont jamais poussées dans un dépôt (trop lourdes pour l'historique git). Run workflow, case « story_test » : la dernière game du soir,
+avec publier_story_video(). Les vidéos ne sont jamais poussées dans un dépôt (trop lourdes pour l'historique git). Run workflow, case « story_test » : les 6 dernières games du soir,
 publiée tout de suite (social.story_test).
 """
 import base64
@@ -277,6 +277,9 @@ def cadre(atelier, jpeg, debut):
 # d'un fondu. 3e version : « comme si tu vires une grosse pierre » : une dalle épaisse qui démarre lentement, prend
 # son élan et retombe lourde (petite secousse), avec un grondement de pierre qui frotte et un gros boum à l'arrivée.
 FIN, FLIP, SECOUSSE = 5.0, 0.8, 0.3
+# Les fins en rotation (Mitch, 11 nov. 2026 : les 3 propositions, l'anglais en gros) : assets/story/fin-1.jpg, fin-2.jpg,
+# fin-3.jpg dans Tirs-nhl ; live_code/story_fin-1.jpg... chez puckprob. L'ancienne fin.jpg seule sert juste de secours.
+DIRS_FIN = [(RACINE / "assets" / "story", "fin-*.jpg"), (Path(__file__).resolve().parent, "story_fin-*.jpg")]
 FICHIERS_FIN = [RACINE / "assets" / "story" / "fin.jpg", Path(__file__).resolve().parent / "story_fin.jpg"]
 
 
@@ -419,7 +422,14 @@ def son_mecanisme(impact=None):
 
 
 
-def image_fin():
+def image_fin(cle=None):
+    """L'image de fin de la story : une des fins en rotation (cle = le id de la story : toujours la même pour une même
+    story, mais tirée à part de la musique, pour que les paires toune + fin changent), sinon l'ancienne fin seule."""
+    for d, motif in DIRS_FIN:
+        fins = sorted(d.glob(motif)) if d.is_dir() else []
+        if fins:
+            cle = cle or datetime.now().isoformat()
+            return fins[int(hashlib.sha1((cle + "|fin").encode()).hexdigest()[:6], 16) % len(fins)]
     return next((f for f in FICHIERS_FIN if f.exists()), None)
 
 
@@ -431,7 +441,7 @@ def duree_audio(f):
     return int(m[1]) * 3600 + int(m[2]) * 60 + float(m[3]) if m else None
 
 
-def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5):
+def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5, cle_fin=None):
     """Le cadre (fixe) puis, les FIN dernières secondes, la fin PuckProb, arrivée par un flip avec le son du
     mécanisme ; la musique dessous. -> .mp4 de `duree` secondes (DUREE par défaut). Sans image de fin : le cadre tout
     le long. image=True : une image qui n'est pas en 9:16 (un post carré, un classement...) est centrée sur sa propre
@@ -441,7 +451,7 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
     from PIL import ImageEnhance, ImageFilter
     sortie = Path(sortie)
     sortie.parent.mkdir(parents=True, exist_ok=True)
-    fin = image_fin()
+    fin = image_fin(cle_fin or jour)
     D = float(duree or DUREE)
     base = Image.open(io.BytesIO(jpeg_cadre)).convert("RGB")
     if image or base.size != (1080, 1920):
@@ -465,7 +475,7 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
                 "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
                 "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2",
                 "-t", str(D), "-movflags", "+faststart", str(sortie)]
-        af = f"afade=t=out:st={D - fondu_son}:d={fondu_son}"
+        af = f"afade=t=out:st={D - fondu_son}:d={fondu_son},apad"      # apad : une toune un brin plus courte que la vidéo finit en silence
         if fin:
             debut_fin = D - FIN
             nf, ns = round(FLIP * 30), round(SECOUSSE * 30)
@@ -500,7 +510,7 @@ def video_jingle(jpeg, sortie, cle=None):
         son = musique(cle)
     d = duree_audio(son) or DUREE
     d = max(FIN + 3, min(DUREE, int(d * 10) / 10))
-    return video(jpeg, sortie, son=son, duree=d, image=True, fondu_son=0.4)
+    return video(jpeg, sortie, son=son, duree=d, image=True, fondu_son=0.4, cle_fin=cle)
 
 
 def faire(atelier, jpeg_match, debut, sortie, jour=None):
