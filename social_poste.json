@@ -631,6 +631,20 @@
   "publie": true,
   "quand": "2026-11-12T16:05-05:00"
  },
+ "2026-11-12-match-2026020304": {
+  "fb": "1508565075663838_122109831495537152",
+  "fb_com": "122109831495537152_1149943047540041",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020304
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "TBL @ CBJ",
+  "publie": true,
+  "quand": "2026-11-12T16:25-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
