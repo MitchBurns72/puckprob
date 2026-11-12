@@ -3898,7 +3898,7 @@ function coteHTML(rg, n, inv){
   n = n || COTE.n; inv = inv ?? COTE.inv;
   if (!rg || !n) return "";
   const r = inv ? n - rg + 1 : rg, c = ECHELLE_COTE.find(x => (r - 1) / n <= x[0])[1];
-  return `<span class="cote c${c[0]}" title="${L("Cote : son rang parmi", "Grade: his rank among")} ${n}">${c}</span>`;
+  return `<span class="cote c${c[0]}" title="${L("Note : son rang parmi", "Grade: his rank among")} ${n}">${c}</span>`;
 }
 function wiLigne(mode, t, i, x, feq = ""){
   if (!x) return "";
@@ -6279,8 +6279,8 @@ init();
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=fce3a0f6" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=fce3a0f6" defer></script>
+<script src="pub.js?v=466a46bd" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=466a46bd" defer></script>
 <script src="nav.js?v=ca9ca612f9" defer></script>
 </body>
 </html>
