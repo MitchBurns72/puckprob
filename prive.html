@@ -5819,8 +5819,123 @@ async function init(){
 }
 init();
 </script>
-<script src="pub.js?v=e1ac562e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=e1ac562e" defer></script>
-<script src="nav.js?v=e70f79ebfd" defer></script>
+<!-- 3e couche (Mitch, 11 nov. 2026, maquette « Pastilles + 🔍 » approuvée) : dans chaque section, les modes deviennent des
+     pastilles texte fines qui glissent de côté ; la recherche de joueur, le filtre d'équipe et les autres filtres (match,
+     position, tri, conférence...) vont dans un panneau ouvert par le bouton 🔍 au bout de la rangée. Un chiffre jaune sur
+     le bouton = combien de filtres sont actifs. Rien n'est recréé : les mêmes boutons et champs sont seulement DÉPLACÉS
+     (même id, mêmes écouteurs), et le panneau reste dans .ctrls (le partage lit encore les filtres actifs là). -->
+<style>
+.c3-l{display:flex;align-items:center;gap:6px;min-width:0}
+.ctrls.c3 .c3-l>.row,.ctrls.c3>.row.c3-p{flex:1;min-width:0;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent);padding:1px 18px 1px 1px}
+.ctrls.c3 .c3-l>.row::-webkit-scrollbar,.ctrls.c3>.row.c3-p::-webkit-scrollbar{display:none}
+.ctrls.c3 .c3-p .chip,.ctrls.c3 .c3-l .chip,.ctrls.c3 .c3-sh .chip{flex:none!important;clip-path:none!important;font:700 13.5px/1 var(--f-body)!important;font-style:normal!important;text-transform:none!important;letter-spacing:0!important;
+  padding:8px 13px!important;border-radius:999px!important;border:1px solid var(--line)!important;background:transparent!important;color:var(--ink)!important;box-shadow:none!important;white-space:nowrap}
+.ctrls.c3 .c3-p .chip[aria-pressed="true"],.ctrls.c3 .c3-l .chip[aria-pressed="true"],.ctrls.c3 .c3-sh .chip[aria-pressed="true"]{background:var(--ink)!important;color:var(--bg)!important;border-color:var(--ink)!important;font-weight:800!important}
+.ctrls.c3 .c3-p .lbl,.ctrls.c3 .c3-l .lbl{flex:none}
+.ctrls.c3 .c3-p .row{flex-wrap:nowrap}
+.c3-b{flex:none;position:relative;width:42px;height:34px;border-radius:999px;border:1.5px solid var(--goal,#FFB81C);background:var(--surface);color:var(--ink);font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.c3-b b{position:absolute;top:-6px;right:-5px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--goal,#FFB81C);color:#0B1220;font:800 10px/16px var(--f-body);text-align:center}
+.c3-b.seul{width:auto;padding:0 14px;gap:6px;display:inline-flex;align-items:center;font:700 13.5px var(--f-body);margin-left:auto}
+.c3-v{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.45)}
+.c3-sh{position:fixed;left:0;right:0;bottom:0;z-index:61;max-height:72vh;overflow-y:auto;background:var(--surface);border-top:2px solid var(--goal,#FFB81C);border-radius:18px 18px 0 0;
+  padding:10px 14px calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -12px 30px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:10px}
+.c3-sh .c3-t{display:flex;align-items:center;justify-content:space-between;font:800 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.c3-sh .c3-t button{font:800 14px var(--f-body);border:0;border-radius:999px;padding:8px 16px;background:var(--goal,#FFB81C);color:#0B1220;cursor:pointer}
+.c3-sh .c3-t .c3-x{background:transparent;color:var(--muted);border:1px solid var(--line);margin-right:6px}
+.c3-sh input[type=search]{width:100%;box-sizing:border-box}
+.c3-sh .row{flex-wrap:wrap}
+.c3-sh .eq-filtre{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;overflow:visible}
+.c3-sh .peq{min-width:0;height:30px}
+@media (min-width:900px){.c3-sh{left:50%;right:auto;width:640px;transform:translateX(-50%)}}
+</style>
+<script>
+(function(){
+  var EN = /^en/i.test(document.documentElement.lang || "");
+  // Section : les rangées qui restent visibles en pastilles (dans l'ordre). Tout le reste de .ctrls va dans le panneau 🔍.
+  var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph"], "p-whatif": ["f-wi"], "p-salaires": ["f-sal"], "p-enf": ["f-enf"],
+    "p-prj": ["f-prj"], "p-duo": ["f-duo", "f-duo-tri"], "p-gcr": ["f-gcr-tri"], "p-arb": ["f-arb-tri"], "p-rum": [], "p-pwr": ["f-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
+  function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
+  // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
+  function compte(sh){
+    var n = 0;
+    sh.querySelectorAll("input[type=search]").forEach(function(i){ if (i.value.trim()) n++; });
+    sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(){ n++; });
+    sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0) n++; });
+    sh.querySelectorAll(".row").forEach(function(r){
+      var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
+      if (c.length > 1 && c[0].getAttribute("aria-pressed") !== "true" && c.some(function(e){ return e.getAttribute("aria-pressed") === "true"; })) n++;
+    });
+    return n;
+  }
+  var tous = [];
+  function maj(){
+    tous.forEach(function(o){
+      var a = contenu(o.sh);
+      o.b.hidden = !a;
+      var n = a ? compte(o.sh) : 0;
+      o.b.querySelector("b").textContent = n || "";
+      o.b.querySelector("b").hidden = !n;
+    });
+  }
+  function ouvrir(o){
+    var v = document.createElement("div"); v.className = "c3-v";
+    var fermer = function(){ v.remove(); o.sh.hidden = true; document.removeEventListener("keydown", esc); maj(); };
+    var esc = function(e){ if (e.key === "Escape") fermer(); };
+    v.addEventListener("click", fermer);
+    o.sh.querySelector(".c3-ok").onclick = fermer;
+    o.sh.querySelector(".c3-x").onclick = function(){
+      // Tout effacer : vider la recherche, désélectionner l'équipe, remettre menus et pastilles au 1er choix
+      o.sh.querySelectorAll("input[type=search]").forEach(function(i){ if (i.value){ i.value = ""; i.dispatchEvent(new Event("input", { bubbles: true })); } });
+      o.sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(b){ b.click(); });
+      o.sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0){ x.selectedIndex = 0; x.dispatchEvent(new Event("change", { bubbles: true })); } });
+      o.sh.querySelectorAll(".row").forEach(function(r){
+        var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
+        if (c.length > 1 && c[0].getAttribute("aria-pressed") !== "true") c[0].click();
+      });
+      setTimeout(maj, 50);
+    };
+    document.addEventListener("keydown", esc);
+    o.sec.appendChild(v); o.sh.hidden = false;
+  }
+  function poser(){
+    Object.keys(GARDE).forEach(function(id){
+      var sec = document.getElementById(id), ct = sec && sec.querySelector(":scope > .ctrls");
+      if (!ct || ct.classList.contains("c3")) return;
+      ct.classList.add("c3");
+      var garde = GARDE[id].map(function(k){ return document.getElementById(k); }).filter(Boolean);
+      var sh = document.createElement("div"); sh.className = "c3-sh"; sh.hidden = true; sh.setAttribute("role", "dialog");
+      sh.setAttribute("aria-label", EN ? "Filters" : "Filtres");
+      sh.innerHTML = '<div class="c3-t"><span>' + (EN ? "Filter" : "Filtrer") + '</span><span><button type="button" class="c3-x">' + (EN ? "Clear" : "Effacer") +
+        '</button><button type="button" class="c3-ok">OK</button></span></div>';
+      // Le reste de .ctrls dans le panneau : la recherche d'abord, puis les équipes, puis le reste
+      var reste = [].filter.call(ct.children, function(e){ return garde.indexOf(e) < 0; });
+      var rang = function(e){ return e.querySelector && e.querySelector("input[type=search]") ? 0 : /^fe-/.test(e.id) ? 1 : 2; };
+      reste.sort(function(a, b){ return rang(a) - rang(b); }).forEach(function(e){ sh.appendChild(e); });
+      var b = document.createElement("button"); b.type = "button"; b.className = "c3-b";
+      b.setAttribute("aria-label", EN ? "Search and filters" : "Recherche et filtres");
+      b.innerHTML = "🔍<b hidden></b>";
+      if (garde.length){
+        var l = document.createElement("div"); l.className = "c3-l";
+        ct.insertBefore(l, garde[0]); l.appendChild(garde[0]); l.appendChild(b);
+        garde.slice(1).forEach(function(r){ r.classList.add("c3-p"); });
+      } else {
+        b.classList.add("seul"); b.insertAdjacentHTML("beforeend", "<span>" + (EN ? "Filter" : "Filtrer") + "</span>");
+        var l2 = document.createElement("div"); l2.className = "c3-l"; l2.appendChild(b); ct.insertBefore(l2, ct.firstChild);
+      }
+      ct.appendChild(sh);
+      var o = { sec: sec, sh: sh, b: b }; tous.push(o);
+      b.addEventListener("click", function(){ ouvrir(o); });
+    });
+    maj();
+    ["click", "input", "change"].forEach(function(t){ document.addEventListener(t, function(){ setTimeout(maj, 0); }, true); });
+    if (window.MutationObserver) new MutationObserver(function(){ clearTimeout(poser.t); poser.t = setTimeout(maj, 60); })
+      .observe(document.querySelector("main") || document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["aria-pressed"] });
+  }
+  document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
+})();
+</script>
+<script src="pub.js?v=5263fffa" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=5263fffa" defer></script>
+<script src="nav.js?v=54fb6f07ba" defer></script>
 </body>
 </html>

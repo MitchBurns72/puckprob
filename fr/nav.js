@@ -52,17 +52,16 @@
     ".ppn-chips::-webkit-scrollbar{display:none}" +
     ".ppn-chips a{flex:none;border:1px solid var(--line);border-radius:16px;padding:6px 12px;font:600 14px/1 var(--f-body);color:var(--ink);text-decoration:none;background:var(--surface)}" +
     ".ppn-chips a[aria-current]{background:#FFB81C;border-color:#FFB81C;color:#0B1220;font-weight:800}" +
-    /* Le sous-menu de chaque famille (Mitch, 10 nov. 2026) : des boutons en relief avec l'icône de la section, son nom et
-       le vrai nom de sa stat (l'acronyme PB) ; celui où on est a son anneau et son contour jaunes. L'accueil garde ses pastilles. */
-    ".ppn-chips.ppn-bt{align-items:stretch;gap:7px;padding:7px 2px 8px}" +
-    ".ppn-bt a{flex:1 0 auto;min-width:78px;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 7px 6px;text-align:center;border-radius:12px;color:#fff;" +
-      "background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.02)),var(--surface);border:1px solid rgba(255,255,255,.13);" +
-      "box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 4px 10px rgba(0,0,0,.28);font:700 12px/1.1 var(--f-body)}" +
-    ".ppn-bt a i svg{width:34px;height:34px;display:block;margin-bottom:2px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4))}" +
-    ".ppn-bt a b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}" +
-    ".ppn-bt a small{font:800 10px/1.1 var(--f-body);color:#FFB81C;letter-spacing:.04em}" +
-    ".ppn-bt a[aria-current]{background:linear-gradient(180deg,rgba(255,184,28,.22),rgba(255,184,28,.06)),var(--surface);border-color:#FFB81C;color:#FFB81C;font-weight:800;" +
-      "box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 0 0 1px #FFB81C inset,0 4px 12px rgba(255,184,28,.18)}" +
+    /* Le sous-menu de chaque famille, la 2e couche (Mitch, 11 nov. 2026, maquette « Grille » approuvée) : toutes les
+       sections de la famille visibles d'un coup, en boutons texte de même largeur (rien à glisser), le vrai nom de la stat
+       (l'acronyme PB) en petit dessous ; celle où on est est jaune. 4 par rangée au max, 3 quand il y en a 6. L'accueil garde ses pastilles. */
+    "section[role=tabpanel]{scroll-margin-top:var(--ppn-h,96px)}" +
+    ".ppn-chips[hidden]{display:none!important}.ppn-chips.ppn-g{display:grid;gap:6px;overflow:visible;padding:8px 2px}" +
+    ".ppn-g a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:42px;padding:5px 4px;border-radius:10px;text-align:center;" +
+      "background:var(--surface);border:1px solid rgba(255,255,255,.13);color:var(--ink);font:700 12.5px/1.1 var(--f-body);min-width:0}" +
+    ".ppn-g a b{font-weight:inherit;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}" +
+    ".ppn-g a small{font:800 9.5px/1 var(--f-body);color:#FFB81C;letter-spacing:.04em}" +
+    ".ppn-g a[aria-current]{background:#FFB81C;border-color:#FFB81C;color:#0B1220;font-weight:800}.ppn-g a[aria-current] small{color:#0B1220}" +
     ".ppn-bas{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;background:var(--bande,#0A2342);border-top:2px solid #FFB81C;padding:6px 0 calc(8px + env(safe-area-inset-bottom,0px))}" +
     ".ppn-bas a,.ppn-bas button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font:700 11.5px/1.1 var(--f-body);color:#9FB3CB;text-decoration:none;background:none;border:0;padding:2px 0;cursor:pointer}" +
     ".ppn-bas i{font-style:normal;font-size:21px;line-height:1.15}.ppn-bas i svg,.ppn-tuiles a i svg{display:block;width:30px;height:30px;margin:0 auto}" +
@@ -82,25 +81,29 @@
   document.head.appendChild(css);
   var chips = document.createElement("nav"); chips.className = "ppn-chips"; chips.setAttribute("aria-label", FR ? "Sections" : "Sections");
   var bas = document.createElement("nav"); bas.className = "ppn-bas"; bas.setAttribute("aria-label", FR ? "Menu" : "Menu");
-  // La page d'accueil (racine ou fr/) garde ses pastilles simples ; partout ailleurs, des boutons avec icône
+  // La page d'accueil (racine ou fr/) garde ses pastilles simples ; partout ailleurs, la grille de boutons
   var accueil = !app && /^(fr\/)?(index\.html)?$/.test(location.pathname.slice(racine.length));
   function rendre(){
     var id = courant(), fam = id ? famDe(id) : "soir";
     if (id && fam !== "plus") memo(fam, id);
     var items = dispo.filter(function(x){ return x[0] === fam; });
-    chips.className = "ppn-chips" + (accueil ? "" : " ppn-bt");
+    chips.className = "ppn-chips" + (accueil ? "" : " ppn-g");
+    var n = items.length, col = n <= 4 ? n : n === 6 ? 3 : n === 5 ? 5 : 4;
+    chips.style.gridTemplateColumns = accueil ? "" : "repeat(" + col + ",minmax(0,1fr))";
     chips.innerHTML = fam === "plus" ? "" : items.map(function(x){
       var cur = x[1] === id ? ' aria-current="page"' : "";
       if (accueil) return '<a href="' + lien(x) + '"' + cur + ">" + x[K + 3][0] + "</a>";
       // Le court nom de la section : « Classement et trophées » est trop long pour un bouton
       var nom = x[1] === "classement" ? (FR ? "Classement" : "Standings") : x[1] === "power" ? "Power" : x[K + 3][0];
-      return '<a href="' + lien(x) + '"' + cur + "><i>" + x[5] + "</i><b>" + nom + "</b>" + (PB[x[1]] ? "<small>" + PB[x[1]] + "</small>" : "") + "</a>"; }).join("");
+      return '<a href="' + lien(x) + '"' + cur + "><b>" + nom + "</b>" + (PB[x[1]] ? "<small>" + PB[x[1]] + "</small>" : "") + "</a>"; }).join("");
     chips.hidden = fam === "plus" || items.length < 2;
     bas.innerHTML = F.filter(function(f){ return f[0] !== "plus"; }).map(function(f){
       var der = lu(f[0]), x = dispo.filter(function(y){ return y[0] === f[0] && y[1] === der; })[0] || dispo.filter(function(y){ return y[0] === f[0]; })[0];
       return '<a href="' + (x ? lien(x) : racine) + '"' + (f[0] === fam && id ? ' aria-current="page"' : "") + "><i>" + f[2] + "</i>" + f[1][K] + "</a>"; }).join("")
       + '<button type="button" class="ppn-tout"' + (fam === "plus" ? ' aria-current="page"' : "") + '><i><svg viewBox=\"0 0 64 64\" aria-hidden=\"true\"><g transform=\"rotate(-18 32 32)\"><rect x=\"2\" y=\"30\" width=\"26\" height=\"4.5\" rx=\"2\" fill=\"#F5B82E\"/><rect x=\"0\" y=\"36\" width=\"28\" height=\"4.5\" rx=\"2\" fill=\"#E0353B\"/><rect x=\"3\" y=\"42\" width=\"25\" height=\"4.5\" rx=\"2\" fill=\"#2E6FD8\"/></g><circle class=\"an\" cx=\"36\" cy=\"32\" r=\"22\" fill=\"#0F1F3D\" stroke=\"#fff\" stroke-width=\"3\"/><path d=\"M27 26h18 M27 32h18 M27 38h18\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></i>' + (FR ? "Tout" : "All") + "</button>";
-    var a = chips.querySelector("[aria-current]"); if (a && a.scrollIntoView) a.scrollIntoView({ block: "nearest", inline: "center" });
+    // Une section ouverte par son adresse (#projections) ne glisse plus sous la grille collée en haut
+    document.documentElement.style.setProperty("--ppn-h", (chips.hidden ? 8 : chips.offsetHeight + 10) + "px");
+    var a = !accueil ? null : chips.querySelector("[aria-current]"); if (a && a.scrollIntoView) a.scrollIntoView({ block: "nearest", inline: "center" });
   }
   // Mon équipe (demande de Mitch, 10 nov. 2026) : choisie dans « Tout », gardée sur cet appareil ; ses joueurs et son
   // équipe sont encadrés en jaune avec une étoile dans toutes les listes (les lignes portent data-c = l'équipe)
