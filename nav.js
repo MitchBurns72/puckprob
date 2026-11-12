@@ -62,13 +62,14 @@
     ".ppn-g a b{font-weight:inherit;max-width:100%;overflow-wrap:anywhere;font-size:12px;line-height:1.1}" +     /* les noms longs (PB Goalie Confidence %) passent sur 2 lignes */
     ".ppn-g a small{font:800 9.5px/1 var(--f-body);color:#FFB81C;letter-spacing:.04em}" +
     ".ppn-g a[aria-current]{background:#FFB81C;border-color:#FFB81C;color:#0B1220;font-weight:800}.ppn-g a[aria-current] small{color:#0B1220}" +
-    ".ppn-bas{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;background:var(--bande,#0A2342);border-top:2px solid #FFB81C;padding:6px 0 calc(8px + env(safe-area-inset-bottom,0px))}" +
+    ".ppn-bas{position:fixed;left:0;right:0;bottom:0;z-index:53;display:flex;justify-content:space-around;background:var(--bande,#0A2342);border-top:2px solid #FFB81C;padding:6px 0 calc(8px + env(safe-area-inset-bottom,0px))}" +
     ".ppn-bas a,.ppn-bas button{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;font:700 11.5px/1.15 var(--f-body);color:#9FB3CB;text-decoration:none;background:none;border:0;padding:2px 3px;cursor:pointer;text-align:center;overflow-wrap:break-word}" +
     ".ppn-bas i{font-style:normal;font-size:21px;line-height:1.15}.ppn-bas i svg,.ppn-tuiles a i svg{display:block;width:30px;height:30px;margin:0 auto}" +
     ".ppn-tuiles a i svg{width:38px;height:38px}[aria-current] svg .an{stroke:#FFB81C}" +
     ".ppn-bas [aria-current]{color:#FFB81C}" +
-    ".ppn-voile{position:fixed;inset:0;z-index:48;background:rgba(0,0,0,.6)}" +
-    ".ppn-tiroir{position:fixed;left:0;right:0;bottom:0;top:max(48px,env(safe-area-inset-top,0px));z-index:49;background:var(--bande,#0A2342);border-radius:18px 18px 0 0;border-top:2px solid #FFB81C;overflow-y:auto;padding:8px 14px calc(86px + env(safe-area-inset-bottom,0px))}" +
+    /* Tiroir « Tout » (52) et son voile (51) au-dessus de la bannière des témoins (50) ; la barre (53) reste cliquable pour le refermer */
+    ".ppn-voile{position:fixed;inset:0;z-index:51;background:rgba(0,0,0,.6)}" +
+    ".ppn-tiroir{position:fixed;left:0;right:0;bottom:0;top:max(48px,env(safe-area-inset-top,0px));z-index:52;background:var(--bande,#0A2342);border-radius:18px 18px 0 0;border-top:2px solid #FFB81C;overflow-y:auto;padding:8px 14px calc(86px + env(safe-area-inset-bottom,0px))}" +
     ".ppn-fav{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:8px 10px;color:#C9D6EE;font:500 13px var(--f-body)}" +
     ".ppn-fav select{background:#0B1220;color:#fff;border:1px solid #FFB81C;border-radius:7px;padding:6px 8px;font:700 14px var(--f-body)}" +
     ".ppn-tiroir .poi{width:44px;height:5px;border-radius:3px;background:rgba(255,255,255,.25);margin:0 auto 4px}" +
@@ -77,7 +78,25 @@
     ".ppn-tuiles a{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:9px;padding:10px 6px;color:#fff;text-decoration:none;font:700 13.5px/1.15 var(--f-body)}" +
     ".ppn-tuiles a i{font-style:normal;font-size:21px}.ppn-tuiles a small{font:500 11px var(--f-body);color:#9FB3CB}" +
     ".ppn-tuiles a[aria-current]{border-color:#FFB81C;color:#FFB81C}" +
-    "@media (min-width:900px){.ppn-tiroir{left:50%;right:auto;width:680px;transform:translateX(-50%)}.ppn-tuiles{grid-template-columns:repeat(4,minmax(0,1fr))}}";
+    "@media (min-width:900px){.ppn-tiroir{left:50%;right:auto;width:680px;transform:translateX(-50%)}.ppn-tuiles{grid-template-columns:repeat(4,minmax(0,1fr))}}" +
+    /* Ordi (Mitch, 12 nov. 2026, maquette approuvée) : le menu du bas devient une barre en haut (icône + nom sur une ligne,
+       soulignée en jaune là où on est), les sections de la famille en rangée de pastilles, le tiroir « Tout » descend d'en haut.
+       Le cell (moins de 1024 px) ne change pas. */
+    "@media (min-width:1024px){" +
+      "body{padding-bottom:0!important;padding-top:58px}" +
+      ".ppn-bas{top:0;bottom:auto;justify-content:center;gap:4px;border-top:0;border-bottom:2px solid #FFB81C;padding:0 16px;height:56px;align-items:stretch;box-shadow:0 4px 18px rgba(0,0,0,.35)}" +
+      ".ppn-bas a,.ppn-bas button{flex:none;flex-direction:row;align-items:center;gap:9px;font:700 14.5px/1 var(--f-body);padding:0 18px;border-bottom:3px solid transparent;margin-bottom:-2px;overflow-wrap:normal;white-space:nowrap}" +
+      ".ppn-bas i svg{width:24px;height:24px}" +
+      ".ppn-bas a:hover,.ppn-bas button:hover{color:#fff;background:rgba(255,255,255,.05)}" +
+      ".ppn-bas [aria-current]{border-bottom-color:#FFB81C}" +
+      ".ppn-chips{top:56px}" +
+      ".ppn-chips.ppn-g{display:flex;flex-wrap:wrap;gap:6px;padding:10px 2px}" +
+      ".ppn-g a{flex:none;flex-direction:row;gap:7px;min-height:36px;padding:6px 16px;border-radius:18px}" +
+      ".ppn-g a b{font-size:13.5px}" +
+      "#temoins{bottom:16px!important}.pt-attente{bottom:24px!important}" +
+      ".ppn-tiroir{top:64px;bottom:auto;max-height:calc(100vh - 80px);border-radius:14px;border:2px solid #FFB81C;padding-bottom:18px}" +
+      "section[role=tabpanel]{scroll-margin-top:calc(var(--ppn-h,96px) + 56px)}" +
+    "}";
   document.head.appendChild(css);
   var chips = document.createElement("nav"); chips.className = "ppn-chips"; chips.setAttribute("aria-label", FR ? "Sections" : "Sections");
   var bas = document.createElement("nav"); bas.className = "ppn-bas"; bas.setAttribute("aria-label", FR ? "Menu" : "Menu");

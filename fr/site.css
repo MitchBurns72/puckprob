@@ -779,6 +779,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .trx-n div{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:#ffffff0d;border:2px solid transparent;min-width:0}
 .trx-n div.gagne{border-color:#FFB81C}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
+@media (min-width:1024px){ /* ordi : les transactions en 2 colonnes */
+  #trx{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+  #trx > .cp-tete,#trx > .aide,#trx > .card:not(.trx){grid-column:1/-1}
+  #trx .trx{margin:0}
+}
 .trx-pop .trx-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}
 .trx-pop .trx-col{background:#ffffff0b;border-radius:8px;padding:10px;min-width:0}
 .trx-pop .trx-col h4{margin:0 0 6px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:15px}.trx-pop .trx-col h4 .pbp{font:italic 800 22px/1 var(--f-display)}
