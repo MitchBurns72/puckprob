@@ -515,6 +515,20 @@
   "publie": true,
   "quand": "2026-11-11T21:20-05:00"
  },
+ "2026-11-11-match-2026020298": {
+  "fb": "1508565075663838_122109053535537152",
+  "fb_com": "122109053535537152_1705527094533256",
+  "ig": "sauté : Instagram en pause jusqu'à 12/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020298
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "PIT @ SJS",
+  "publie": true,
+  "quand": "2026-11-11T21:40-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-12T14:00-05:00"
  }
