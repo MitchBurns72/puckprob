@@ -646,6 +646,23 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .coupon .cb-l small{display:block;color:var(--muted)}
 .coupon .cb-l.ko{opacity:.6}
 .coupon .cb-c{font:italic 800 17px/1 var(--f-display);text-align:right;white-space:nowrap}
+/* Par saison (src/machine.py) : la rangée des saisons et la bande « telle qu'on l'aurait calculée le ... » */
+.sai-r .chip small{font-weight:600;opacity:.7;margin-left:3px} .sai-r .chip.sai-non{opacity:.45}
+.sai-band{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:rgba(255,184,28,.12);border:1px solid rgba(255,184,28,.45);font:600 13px/1.35 var(--f-body);color:var(--ink)}
+/* PB Stats au complet : le badge d'une ville (ses 3 couleurs en bandes + le nom), la grille des villes, les liens de la fiche */
+.vbd{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
+.vbd i{flex:none;width:22px;height:12px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.vbd small{font-weight:600;opacity:.65;margin-left:2px}
+.vb-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin:6px 0 10px}
+.vb-t{display:flex;align-items:center;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font:600 13.5px var(--f-body);cursor:pointer;text-align:left}
+.vb-t.on{outline:2px solid #FFB81C}
+.vb-h{margin:8px 2px 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.vb-choisie{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
+.vb-sel{margin:0 0 10px;gap:8px;align-items:center} .vb-dec{margin:0 0 10px;flex-wrap:wrap}
+.wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
+/* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
+.pbp{white-space:nowrap}
+.pbp i{font:italic 800 .62em var(--f-display);color:#FFB81C;margin-left:1px;vertical-align:.42em;letter-spacing:0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
 /* Trophées individuels */
 #f-troph{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:0 2px 2px}
 #f-troph::-webkit-scrollbar{display:none}
