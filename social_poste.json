@@ -688,6 +688,20 @@
   "publie": true,
   "quand": "2026-11-12T17:50-05:00"
  },
+ "2026-11-12-match-2026020306": {
+  "fb": "1508565075663838_122109876303537152",
+  "fb_com": "122109876303537152_1011825517874456",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020306
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "WPG @ DAL",
+  "publie": true,
+  "quand": "2026-11-12T18:10-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
