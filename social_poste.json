@@ -810,6 +810,50 @@
   "publie": true,
   "quand": "2026-11-12T21:50-05:00"
  },
+ "2026-11-13-matin-082511-1-story": {
+  "fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Nous limitons le nombre de fois que vous pouvez publier, commenter ou faire autre chose dans un laps de temps donn\\u00e9 afin de prot\\u00e9ger la communaut\\u00e9 contre",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "story",
+  "titre": "Mario Lemieux",
+  "publie": true,
+  "quand": "2026-11-13T11:00-05:00"
+ },
+ "2026-11-13-matin-082514-2-story": {
+  "fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Nous limitons le nombre de fois que vous pouvez publier, commenter ou faire autre chose dans un laps de temps donn\\u00e9 afin de prot\\u00e9ger la communaut\\u00e9 contre",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "story",
+  "titre": "Coupe Stanley",
+  "publie": true,
+  "quand": "2026-11-13T11:00-05:00"
+ },
+ "2026-11-13-matin-082511-1": {
+  "fb": "1508565075663838_122110255095537152",
+  "fb_com": "122110255095537152_1213610964336476",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "whatif",
+  "opt": {
+   "hasard": 0.302240237529823
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#what-if",
+  "lien_en": "https://puckprob.ca/tonight/#what-if",
+  "titre": "Mario Lemieux",
+  "publie": true,
+  "quand": "2026-11-13T11:00-05:00"
+ },
+ "2026-11-13-matin-082514-2": {
+  "fb": "1508565075663838_122110255317537152",
+  "fb_com": "122110255317537152_1485537913549070",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "coupe",
+  "opt": {
+   "hasard": 0.13800144100223044
+  },
+  "lien": "https://puckprob.ca/fr/coupe-stanley/",
+  "lien_en": "https://puckprob.ca/stanley-cup/",
+  "titre": "Coupe Stanley",
+  "publie": true,
+  "quand": "2026-11-13T11:01-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
