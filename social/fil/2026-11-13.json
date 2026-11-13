@@ -1,102 +1,123 @@
 {
  "jour": "2026-11-13",
- "maj": "2026-11-13T08:25-05:00",
+ "maj": "2026-11-13T13:15-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-13-matin-082511-1",
-   "quand": "2026-11-13T09:21-05:00",
-   "image": "social/fil/2026-11-13/matin-1.jpg",
-   "images": [
-    "social/fil/2026-11-13/matin-1.jpg",
-    "social/fil/2026-11-13/matin-1-2.jpg",
-    "social/fil/2026-11-13/matin-1-3.jpg"
-   ],
-   "avant": null,
-   "retard": null,
-   "texte": "Mario Lemieux : 2 133 points PB Stats en carrière\nRéels : 1 723 · n° 4 de tous les temps\n\nMario Lemieux: 2,133 PB Stats career points\nReal: 1,723 · #4 all-time\n\nFR : https://puckprob.ca/fr/ce-soir/#what-if\nEN : https://puckprob.ca/tonight/#what-if\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Mario Lemieux : 2 133 points PB Stats en carrière\nRéels : 1 723 · n° 4 de tous les temps\n\nMario Lemieux: 2,133 PB Stats career points\nReal: 1,723 · #4 all-time\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
-   "com": "Mario Lemieux : 2 133 points PB Stats en carrière · Réels : 1 723 · n° 4 de tous les temps.\nChaque saison ramenée au niveau offensif d'aujourd'hui et à 82 matchs.\nTout le détail : https://puckprob.ca/fr/ce-soir/#what-if\n\nMario Lemieux: 2,133 PB Stats career points · Real: 1,723 · #4 all-time.\nEvery season brought to today's scoring level and 82 games.\nAll the details: https://puckprob.ca/tonight/#what-if",
-   "com_ig": "Mario Lemieux : 2 133 points PB Stats en carrière · Réels : 1 723 · n° 4 de tous les temps.\nChaque saison ramenée au niveau offensif d'aujourd'hui et à 82 matchs.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nMario Lemieux: 2,133 PB Stats career points · Real: 1,723 · #4 all-time.\nEvery season brought to today's scoring level and 82 games.",
-   "type": "whatif",
-   "opt": {
-    "hasard": 0.302240237529823
-   },
-   "lien": "https://puckprob.ca/fr/ce-soir/#what-if",
-   "lien_en": "https://puckprob.ca/tonight/#what-if",
-   "titre": "Mario Lemieux"
-  },
-  {
-   "id": "2026-11-13-matin-082511-1-story",
-   "quand": "2026-11-13T09:23-05:00",
-   "story": true,
-   "jingle": true,
-   "suit": "2026-11-13-matin-082511-1",
-   "cadre": "social/fil/2026-11-13/matin-1-story.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Mario Lemieux"
-  },
-  {
-   "id": "2026-11-13-matin-082514-2",
-   "quand": "2026-11-13T10:42-05:00",
-   "image": "social/fil/2026-11-13/matin-2.jpg",
+   "id": "2026-11-13-top-buts",
+   "quand": "2026-11-13T14:06-05:00",
+   "image": "social/fil/2026-11-13/top-buts.jpg",
    "images": null,
    "avant": null,
    "retard": null,
-   "texte": "Coupe Stanley : Les favoris\n1. Caroline (32 pts · séries 99 %) 22 %\n2. Colorado (25 pts · séries 94 %) 12 %\n3. Tampa Bay (28 pts · séries 94 %) 9,8 %\n4. Vegas (28 pts · séries 96 %) 7,5 %\n5. Minnesota (32 pts · séries 97 %) 7,4 %\n\nStanley Cup: The favorites\n1. Caroline (32 pts · playoffs 99%) 22%\n2. Colorado (25 pts · playoffs 94%) 12%\n3. Tampa Bay (28 pts · playoffs 94%) 9.8%\n4. Vegas (28 pts · playoffs 96%) 7.5%\n5. Minnesota (32 pts · playoffs 97%) 7.4%\n\nFR : https://puckprob.ca/fr/coupe-stanley/\nEN : https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Coupe Stanley : Les favoris\n1. Caroline (32 pts · séries 99 %) 22 %\n2. Colorado (25 pts · séries 94 %) 12 %\n3. Tampa Bay (28 pts · séries 94 %) 9,8 %\n4. Vegas (28 pts · séries 96 %) 7,5 %\n5. Minnesota (32 pts · séries 97 %) 7,4 %\n\nStanley Cup: The favorites\n1. Caroline (32 pts · playoffs 99%) 22%\n2. Colorado (25 pts · playoffs 94%) 12%\n3. Tampa Bay (28 pts · playoffs 94%) 9.8%\n4. Vegas (28 pts · playoffs 96%) 7.5%\n5. Minnesota (32 pts · playoffs 97%) 7.4%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
-   "com": "Caroline mène avec 22 %, devant Colorado (12 %).\nCaroline : 32 pts · séries 99 %.\nTout le détail : https://puckprob.ca/fr/coupe-stanley/\n\nCarolina leads at 22%, ahead of Colorado (12%).\nCarolina: 32 pts · playoffs 99%.\nAll the details: https://puckprob.ca/stanley-cup/",
-   "com_ig": "Caroline mène avec 22 %, devant Colorado (12 %).\nCaroline : 32 pts · séries 99 %.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nCarolina leads at 22%, ahead of Colorado (12%).\nCarolina: 32 pts · playoffs 99%.",
-   "type": "coupe",
+   "texte": "Top 5 ce soir : Marque un but\n1. Steven Stamkos (NSH à VGK) 34%\n2. Filip Forsberg (NSH à VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR à VAN) 32%\n5. Pavel Dorofeyev (NYR à VAN) 29%\n\nTop 5 tonight: Scores a goal\n1. Steven Stamkos (NSH at VGK) 34%\n2. Filip Forsberg (NSH at VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR at VAN) 32%\n5. Pavel Dorofeyev (NYR at VAN) 29%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Top 5 ce soir : Marque un but\n1. Steven Stamkos (NSH à VGK) 34%\n2. Filip Forsberg (NSH à VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR à VAN) 32%\n5. Pavel Dorofeyev (NYR à VAN) 29%\n\nTop 5 tonight: Scores a goal\n1. Steven Stamkos (NSH at VGK) 34%\n2. Filip Forsberg (NSH at VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR at VAN) 32%\n5. Pavel Dorofeyev (NYR at VAN) 29%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "com": "Pourquoi Steven Stamkos en tête : 1er trio + PP1, 11 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Adin Hill (.903).\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Steven Stamkos is #1: 1st line + PP1, 11 goals in 19 games, 6 of his last 10 games, facing Adin Hill (.903).\nAll the details: https://puckprob.ca/tonight/",
+   "com_ig": "Pourquoi Steven Stamkos en tête : 1er trio + PP1, 11 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Adin Hill (.903).\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Steven Stamkos is #1: 1st line + PP1, 11 goals in 19 games, 6 of his last 10 games, facing Adin Hill (.903).",
+   "type": "top",
    "opt": {
-    "hasard": 0.13800144100223044
+    "marche": "buts",
+    "hasard": 0.5
    },
-   "lien": "https://puckprob.ca/fr/coupe-stanley/",
-   "lien_en": "https://puckprob.ca/stanley-cup/",
-   "titre": "Coupe Stanley"
+   "lien": "https://puckprob.ca/fr/ce-soir/",
+   "lien_en": "https://puckprob.ca/tonight/",
+   "titre": "Top 5 · Marque un but"
   },
   {
-   "id": "2026-11-13-matin-082514-2-story",
-   "quand": "2026-11-13T10:44-05:00",
-   "story": true,
-   "jingle": true,
-   "suit": "2026-11-13-matin-082514-2",
-   "cadre": "social/fil/2026-11-13/matin-2-story.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Coupe Stanley"
+   "id": "2026-11-13-match-2026020310",
+   "quand": "2026-11-13T15:46-05:00",
+   "image": "social/fil/2026-11-13/match-2026020310.jpg",
+   "images": null,
+   "avant": "2026-11-13T21:00-05:00",
+   "retard": null,
+   "texte": "NYR à VAN · 13 novembre 2026 · 21 h 00\nNYR 69% · VAN 31% (chances de gagner)\nPlus de 5,5 buts 53 % · 6,5 : 42 %\nMarque un but : Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nNYR at VAN · November 13, 2026 · 9:00 p.m.\nNYR 69% · VAN 31% (chances to win)\nOver 5.5 goals 53% · 6.5: 42%\nScores a goal: Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nFR : https://puckprob.ca/fr/ce-soir/#matchs\nEN : https://puckprob.ca/tonight/#games\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "NYR à VAN · 13 novembre 2026 · 21 h 00\nNYR 69% · VAN 31% (chances de gagner)\nPlus de 5,5 buts 53 % · 6,5 : 42 %\nMarque un but : Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nNYR at VAN · November 13, 2026 · 9:00 p.m.\nNYR 69% · VAN 31% (chances to win)\nOver 5.5 goals 53% · 6.5: 42%\nScores a goal: Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "com": "NYR 69 % de gagner : 5 victoires dans ses 10 derniers matchs (31 buts pour, 34 contre).\nVAN 31 % de gagner : 1 victoires dans ses 10 derniers matchs (26 buts pour, 45 contre).\nEntre eux cette saison (3 matchs) : NYR 8 buts, VAN 5.\nPlus de 5,5 buts : 53 % (total attendu 5,8).\nScore prédit : NYR 3-2 VAN (9 %).\nDevant le filet : Dylan Garand (.905) contre Leevi Meriläinen (.888).\nLe plus probable de marquer : Mika Zibanejad 32 %.\nTout le détail : https://puckprob.ca/fr/ce-soir/#matchs\n\nNYR 69% to win: 5 wins in its last 10 games (31 goals for, 34 against).\nVAN 31% to win: 1 wins in its last 10 games (26 goals for, 45 against).\nHead to head this season (3 games): NYR 8 goals, VAN 5.\nOver 5.5 goals: 53% (expected total 5.8).\nPredicted score: NYR 3-2 VAN (9%).\nIn net: Dylan Garand (.905) vs Leevi Meriläinen (.888).\nMost likely to score: Mika Zibanejad 32%.\nAll the details: https://puckprob.ca/tonight/#games",
+   "com_ig": "NYR 69 % de gagner : 5 victoires dans ses 10 derniers matchs (31 buts pour, 34 contre).\nVAN 31 % de gagner : 1 victoires dans ses 10 derniers matchs (26 buts pour, 45 contre).\nEntre eux cette saison (3 matchs) : NYR 8 buts, VAN 5.\nPlus de 5,5 buts : 53 % (total attendu 5,8).\nScore prédit : NYR 3-2 VAN (9 %).\nDevant le filet : Dylan Garand (.905) contre Leevi Meriläinen (.888).\nLe plus probable de marquer : Mika Zibanejad 32 %.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nNYR 69% to win: 5 wins in its last 10 games (31 goals for, 34 against).\nVAN 31% to win: 1 wins in its last 10 games (26 goals for, 45 against).\nHead to head this season (3 games): NYR 8 goals, VAN 5.\nOver 5.5 goals: 53% (expected total 5.8).\nPredicted score: NYR 3-2 VAN (9%).\nIn net: Dylan Garand (.905) vs Leevi Meriläinen (.888).\nMost likely to score: Mika Zibanejad 32%.",
+   "type": "match",
+   "opt": {
+    "gameId": 2026020310
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+   "lien_en": "https://puckprob.ca/tonight/#games",
+   "titre": "NYR @ VAN"
   },
   {
-   "id": "2026-11-13-matin-082514-3",
-   "quand": "2026-11-13T11:52-05:00",
-   "image": "social/fil/2026-11-13/matin-3.jpg",
+   "id": "2026-11-13-top-passes",
+   "quand": "2026-11-13T17:22-05:00",
+   "image": "social/fil/2026-11-13/top-passes.jpg",
    "images": null,
    "avant": null,
    "retard": null,
-   "texte": "Dans les années 80, il se marquait beaucoup plus de buts. C'est pour ça qu'on a PB Stats : toutes les époques ramenées au même niveau. Va voir qui monte et qui descend.\n\nIn the '80s, way more goals were scored. That's why we built PB Stats: every era brought to the same level. Go see who rises and who drops.\n\nhttps://puckprob.ca",
-   "texte_ig": "Dans les années 80, il se marquait beaucoup plus de buts. C'est pour ça qu'on a PB Stats : toutes les époques ramenées au même niveau. Va voir qui monte et qui descend.\n\nIn the '80s, way more goals were scored. That's why we built PB Stats: every era brought to the same level. Go see who rises and who drops.\n\nLien dans la bio · Link in bio : puckprob.ca/liens",
-   "com": "On lit toutes vos réponses. Les probs du jour : https://puckprob.ca/fr/\n\nWe read every answer. Today's probs: https://puckprob.ca",
-   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens\n",
-   "type": "mod",
+   "texte": "Top 5 ce soir : 1 passe ou plus\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR à VAN) 56%\n4. Roman Josi (NSH à VGK) 49%\n5. Mika Zibanejad (NYR à VAN) 49%\n\nTop 5 tonight: 1+ assist\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR at VAN) 56%\n4. Roman Josi (NSH at VGK) 49%\n5. Mika Zibanejad (NYR at VAN) 49%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Top 5 ce soir : 1 passe ou plus\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR à VAN) 56%\n4. Roman Josi (NSH à VGK) 49%\n5. Mika Zibanejad (NYR à VAN) 49%\n\nTop 5 tonight: 1+ assist\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR at VAN) 56%\n4. Roman Josi (NSH at VGK) 49%\n5. Mika Zibanejad (NYR at VAN) 49%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "com": "Pourquoi Mitch Marner en tête : 2e trio + PP1, 23 points en 18 matchs, 9 de ses 10 derniers matchs.\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Mitch Marner is #1: 2nd line + PP1, 23 points in 18 games, 9 of his last 10 games.\nAll the details: https://puckprob.ca/tonight/",
+   "com_ig": "Pourquoi Mitch Marner en tête : 2e trio + PP1, 23 points en 18 matchs, 9 de ses 10 derniers matchs.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Mitch Marner is #1: 2nd line + PP1, 23 points in 18 games, 9 of his last 10 games.",
+   "type": "top",
    "opt": {
-    "hasard": 0.7663238000660345,
-    "post": "ere-ajustee"
+    "marche": "passes",
+    "hasard": 0.5
    },
-   "lien": "https://puckprob.ca/fr/",
-   "lien_en": "https://puckprob.ca/",
-   "titre": "Mod · 100 points in 1983 ≠ 100 points today"
+   "lien": "https://puckprob.ca/fr/ce-soir/",
+   "lien_en": "https://puckprob.ca/tonight/",
+   "titre": "Top 5 · 1 passe ou plus"
   },
   {
-   "id": "2026-11-13-matin-082514-3-story",
-   "quand": "2026-11-13T11:54-05:00",
-   "story": true,
-   "jingle": true,
-   "suit": "2026-11-13-matin-082514-3",
-   "cadre": "social/fil/2026-11-13/matin-3-story.jpg",
+   "id": "2026-11-13-top-tirs3",
+   "quand": "2026-11-13T19:05-05:00",
+   "image": "social/fil/2026-11-13/top-tirs3.jpg",
+   "images": null,
    "avant": null,
+   "retard": null,
+   "texte": "Top 5 ce soir : 3 tirs ou plus\n1. Jack Eichel (VGK vs NSH) 66%\n2. Pavel Dorofeyev (NYR à VAN) 53%\n3. Mitch Marner (VGK vs NSH) 46%\n4. Filip Forsberg (NSH à VGK) 45%\n5. Mika Zibanejad (NYR à VAN) 41%\n\nTop 5 tonight: 3+ shots\n1. Jack Eichel (VGK vs NSH) 66%\n2. Pavel Dorofeyev (NYR at VAN) 53%\n3. Mitch Marner (VGK vs NSH) 46%\n4. Filip Forsberg (NSH at VGK) 45%\n5. Mika Zibanejad (NYR at VAN) 41%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Top 5 ce soir : 3 tirs ou plus\n1. Jack Eichel (VGK vs NSH) 66%\n2. Pavel Dorofeyev (NYR à VAN) 53%\n3. Mitch Marner (VGK vs NSH) 46%\n4. Filip Forsberg (NSH à VGK) 45%\n5. Mika Zibanejad (NYR à VAN) 41%\n\nTop 5 tonight: 3+ shots\n1. Jack Eichel (VGK vs NSH) 66%\n2. Pavel Dorofeyev (NYR at VAN) 53%\n3. Mitch Marner (VGK vs NSH) 46%\n4. Filip Forsberg (NSH at VGK) 45%\n5. Mika Zibanejad (NYR at VAN) 41%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "com": "Pourquoi Jack Eichel en tête : 1er trio + PP1, 2,5 tirs par match, 4 de ses 10 derniers matchs.\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Jack Eichel is #1: 1st line + PP1, 2.5 shots per game, 4 of his last 10 games.\nAll the details: https://puckprob.ca/tonight/",
+   "com_ig": "Pourquoi Jack Eichel en tête : 1er trio + PP1, 2,5 tirs par match, 4 de ses 10 derniers matchs.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Jack Eichel is #1: 1st line + PP1, 2.5 shots per game, 4 of his last 10 games.",
+   "type": "top",
+   "opt": {
+    "marche": "tirs3",
+    "hasard": 0.5
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/",
+   "lien_en": "https://puckprob.ca/tonight/",
+   "titre": "Top 5 · 3 tirs ou plus"
+  },
+  {
+   "id": "2026-11-13-match-2026020311",
+   "quand": "2026-11-13T20:36-05:00",
+   "image": "social/fil/2026-11-13/match-2026020311.jpg",
+   "images": null,
+   "avant": "2026-11-13T22:00-05:00",
+   "retard": null,
+   "texte": "NSH à VGK · 13 novembre 2026 · 22 h 00\nNSH 46% · VGK 54% (chances de gagner)\nPlus de 5,5 buts 56 % · 6,5 : 45 %\nMarque un but : Steven Stamkos 34%, Filip Forsberg 33%, Jack Eichel 32%\n\nNSH at VGK · November 13, 2026 · 10:00 p.m.\nNSH 46% · VGK 54% (chances to win)\nOver 5.5 goals 56% · 6.5: 45%\nScores a goal: Steven Stamkos 34%, Filip Forsberg 33%, Jack Eichel 32%\n\nFR : https://puckprob.ca/fr/ce-soir/#matchs\nEN : https://puckprob.ca/tonight/#games\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "NSH à VGK · 13 novembre 2026 · 22 h 00\nNSH 46% · VGK 54% (chances de gagner)\nPlus de 5,5 buts 56 % · 6,5 : 45 %\nMarque un but : Steven Stamkos 34%, Filip Forsberg 33%, Jack Eichel 32%\n\nNSH at VGK · November 13, 2026 · 10:00 p.m.\nNSH 46% · VGK 54% (chances to win)\nOver 5.5 goals 56% · 6.5: 45%\nScores a goal: Steven Stamkos 34%, Filip Forsberg 33%, Jack Eichel 32%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
+   "com": "NSH 46 % de gagner : 7 victoires dans ses 10 derniers matchs (36 buts pour, 23 contre).\nVGK 54 % de gagner : 5 victoires dans ses 10 derniers matchs (27 buts pour, 30 contre).\nEntre eux cette saison (4 matchs) : NSH 12 buts, VGK 15.\nPlus de 5,5 buts : 56 % (total attendu 6,2).\nScore prédit : NSH 2-3 VGK (7 %).\nDevant le filet : Juuse Saros (.919) contre Adin Hill (.903).\nLe plus probable de marquer : Steven Stamkos 34 %.\nTout le détail : https://puckprob.ca/fr/ce-soir/#matchs\n\nNSH 46% to win: 7 wins in its last 10 games (36 goals for, 23 against).\nVGK 54% to win: 5 wins in its last 10 games (27 goals for, 30 against).\nHead to head this season (4 games): NSH 12 goals, VGK 15.\nOver 5.5 goals: 56% (expected total 6.2).\nPredicted score: NSH 2-3 VGK (7%).\nIn net: Juuse Saros (.919) vs Adin Hill (.903).\nMost likely to score: Steven Stamkos 34%.\nAll the details: https://puckprob.ca/tonight/#games",
+   "com_ig": "NSH 46 % de gagner : 7 victoires dans ses 10 derniers matchs (36 buts pour, 23 contre).\nVGK 54 % de gagner : 5 victoires dans ses 10 derniers matchs (27 buts pour, 30 contre).\nEntre eux cette saison (4 matchs) : NSH 12 buts, VGK 15.\nPlus de 5,5 buts : 56 % (total attendu 6,2).\nScore prédit : NSH 2-3 VGK (7 %).\nDevant le filet : Juuse Saros (.919) contre Adin Hill (.903).\nLe plus probable de marquer : Steven Stamkos 34 %.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nNSH 46% to win: 7 wins in its last 10 games (36 goals for, 23 against).\nVGK 54% to win: 5 wins in its last 10 games (27 goals for, 30 against).\nHead to head this season (4 games): NSH 12 goals, VGK 15.\nOver 5.5 goals: 56% (expected total 6.2).\nPredicted score: NSH 2-3 VGK (7%).\nIn net: Juuse Saros (.919) vs Adin Hill (.903).\nMost likely to score: Steven Stamkos 34%.",
+   "type": "match",
+   "opt": {
+    "gameId": 2026020311
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+   "lien_en": "https://puckprob.ca/tonight/#games",
+   "titre": "NSH @ VGK"
+  },
+  {
+   "id": "2026-11-13-story-2026020310",
+   "quand": "2026-11-13T20:50-05:00",
+   "story": true,
+   "cadre": "social/fil/2026-11-13/story-2026020310.jpg",
+   "avant": "2026-11-13T21:00-05:00",
    "type": "story",
-   "titre": "Mod · 100 points in 1983 ≠ 100 points today"
+   "titre": "Story · NYR @ VAN"
+  },
+  {
+   "id": "2026-11-13-story-2026020311",
+   "quand": "2026-11-13T21:50-05:00",
+   "story": true,
+   "cadre": "social/fil/2026-11-13/story-2026020311.jpg",
+   "avant": "2026-11-13T22:00-05:00",
+   "type": "story",
+   "titre": "Story · NSH @ VGK"
   }
  ]
 }
