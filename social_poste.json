@@ -877,7 +877,22 @@
   "publie": true,
   "quand": "2026-11-13T11:55-05:00"
  },
+ "2026-11-13-top-buts": {
+  "fb": "1508565075663838_122110346865537152",
+  "fb_com": "122110346865537152_953618107617927",
+  "ig": "erreur : Meta 403 : {\"error\":{\"message\":\"Application request limit reached\",\"code\":4,\"type\":\"OAuthException\",\"error_subcode\":2207051,\"is_transient\":false,\"error_user_msg\":\"Nous restreignons certaines activités",
+  "type": "top",
+  "opt": {
+   "marche": "buts",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · Marque un but",
+  "publie": true,
+  "quand": "2026-11-13T14:10-05:00"
+ },
  "_ig": {
-  "pause_jusqu": "2026-11-13T14:00-05:00"
+  "pause_jusqu": "2026-11-14T14:10-05:00"
  }
 }
