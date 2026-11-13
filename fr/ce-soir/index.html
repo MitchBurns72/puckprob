@@ -647,7 +647,7 @@ body::before{background:var(--bande)}
 .mpop-ch button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;cursor:pointer;color:#fff;font:800 13.5px/1.1 var(--f-body);
   background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#14243D;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px rgba(0,0,0,.35)}
 .mpop-ch button i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),#FFB81C;color:#0B1220;border-color:#FFB81C}
+.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),var(--or,#FFB81C);color:var(--sur-or,#0B1220);border-color:var(--or,#FFB81C)}
 .mpop .mpop-corps{padding:4px 12px 14px}
 .mpop .mpop-corps .m{box-shadow:none}
 .mpop .mpop-corps .m .duel,.mpop .mpop-corps .m .wbar{display:none}
@@ -670,7 +670,7 @@ html[data-public="1"] [data-cache="1"]{display:none!important}
    l'onglet Joueurs remplacé par celui de l'adresse (#games...). Tout apparaît maintenant d'un coup, déjà à sa place. */
 body.charge .wrap>:not(header.bug){visibility:hidden}
 body.charge::after{content:"";position:fixed;left:50%;top:46%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;
-  border:4px solid rgba(255,184,28,.25);border-top-color:#FFB81C;animation:charge-tourne .8s linear infinite;z-index:5}
+  border:4px solid rgba(255,184,28,.25);border-top-color:var(--or,#FFB81C);animation:charge-tourne .8s linear infinite;z-index:5}
 @keyframes charge-tourne{to{transform:rotate(360deg)}}
 body.pret .wrap>*{animation:charge-paraitre .18s ease-out}
 @keyframes charge-paraitre{from{opacity:0}to{opacity:1}}
@@ -689,14 +689,41 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .coupon .cb-c{font:italic 800 17px/1 var(--f-display);text-align:right;white-space:nowrap}
 /* Par saison (src/machine.py) : la rangée des saisons et la bande « telle qu'on l'aurait calculée le ... » */
 .sai-r .chip small{font-weight:600;opacity:.7;margin-left:3px} .sai-r .chip.sai-non{opacity:.45}
-.sai-band{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:rgba(255,184,28,.12);border:1px solid rgba(255,184,28,.45);font:600 13px/1.35 var(--f-body);color:var(--ink)}
+/* PB Correlation Trend */
+.cor-axes{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin:0 0 10px}
+.cor-sel{display:block;background:var(--chip);border-radius:6px;padding:6px 8px;min-width:0}
+.cor-sel small{display:block;font:700 10.5px var(--f-body);letter-spacing:.06em;color:var(--sur-fond-2,#9FB3CB)}
+.cor-sel select{width:100%;background:transparent;border:0;color:#fff;font:700 14.5px var(--f-body);padding:2px 0;max-width:100%}
+.cor-sel select option,.cor-sel select optgroup{color:#0A2342}
+.cor-vs{font:700 22px/1 var(--f-display);color:var(--sur-fond-2,#9FB3CB)}
+.cor-r{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 0 8px} .cor-r::-webkit-scrollbar{display:none} .cor-r .chip{flex:none}
+.cor-eq{flex:none;background:var(--chip);color:#fff;border:0;border-radius:4px;font:700 13px var(--f-body);padding:7px 8px}
+.cor-ajout{display:flex;gap:6px;margin:2px 0 8px} .cor-ajout input{flex:1;min-width:0;font:600 15px var(--f-body);padding:9px 11px;border-radius:6px;border:0;background:#F2F5FA;color:#0A2342}
+.cor-pjs{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 6px}
+.cor-pj{display:inline-flex;align-items:center;gap:5px;background:#F2F5FA;color:#0A2342;border-radius:12px;padding:3px 4px 3px 4px;font:700 12px var(--f-body)}
+.cor-pj i{width:13px;height:13px;border-radius:50%} .cor-pj button{border:0;background:none;color:#8A97A8;font:700 14px/1 var(--f-body);padding:0 3px;cursor:pointer}
+.cor-n{font:700 12px var(--f-body);color:var(--sur-fond-2,#9FB3CB);margin:0 0 10px} .cor-n b{color:var(--or-txt,#FFB81C)}
+.cor-carte{background:#F2F5FA!important;color:#0A2342!important;padding:10px 8px 8px!important}
+.cor-svg{width:100%;height:auto;display:block}
+.cor-svg .ax line{stroke:#D6DEE9} .cor-svg .ax text{font:600 10px var(--f-body);fill:#4A5D78}
+.cor-svg .lab{font:700 10px var(--f-body);fill:#4A5D78;letter-spacing:.06em}
+.cor-svg .nm{font:700 9.5px var(--f-body);fill:#0A2342;paint-order:stroke;stroke:#F2F5FA;stroke-width:3px;pointer-events:none}
+.cor-svg circle{stroke:#fff;stroke-width:1.5;cursor:pointer} .cor-svg circle.on{stroke:#0A2342;stroke-width:2.5}
+.cor-svg .tend{stroke:#C8102E;stroke-width:2;stroke-dasharray:6 5}
+.cor-info{margin:8px 4px 2px;font:600 13px var(--f-body);color:#0A2342;display:flex;align-items:center;gap:6px;flex-wrap:wrap} .cor-info i{width:12px;height:12px;border-radius:50%}
+.cor-info.vide-i{color:#4A5D78;font-size:12px}
+.cor-rr{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0;background:var(--chip);border-radius:6px;padding:9px 12px}
+.cor-rr b{font:700 30px/1 var(--f-display);color:var(--or-txt,#FFB81C);white-space:nowrap} .cor-rr span{font:600 12.5px var(--f-body);color:#C9D6EE;text-align:right}
+/* À pareille date / Saison complète (Mitch, 12 nov. 2026) : dans la bande de la saison passée */
+.sai-c{display:flex;margin-top:8px} .sai-c .wir-t.sai-non{opacity:.45}
+.sai-band{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:color-mix(in srgb,var(--or,#FFB81C) 12%,transparent);border:1px solid color-mix(in srgb,var(--or,#FFB81C) 45%,transparent);font:600 13px/1.35 var(--f-body);color:var(--ink)}
 /* PB Stats au complet : le badge d'une ville (ses 3 couleurs en bandes + le nom), la grille des villes, les liens de la fiche */
 .vbd{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
 .vbd i{flex:none;width:22px;height:12px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
 .vbd small{font-weight:600;opacity:.65;margin-left:2px}
 .vb-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin:6px 0 10px}
 .vb-t{display:flex;align-items:center;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font:600 13.5px var(--f-body);cursor:pointer;text-align:left}
-.vb-t.on{outline:2px solid #FFB81C}
+.vb-t.on{outline:2px solid var(--or,#FFB81C)}
 .vb-h{margin:8px 2px 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .vb-choisie{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
 .vb-sel{margin:0 0 10px;gap:8px;align-items:center} .vb-dec{margin:0 0 10px;flex-wrap:wrap}
@@ -705,11 +732,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .wir-t span.on{color:var(--ink)} .wir-t span.on:last-child{color:#FFB81C}
 .wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
-.wir-t[aria-checked="true"] i{background:#FFB81C} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
+.wir-t[aria-checked="true"] i{background:var(--or,#FFB81C)} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}
-.pbp i{font:italic 800 .62em var(--f-display);color:#FFB81C;margin-left:1px;vertical-align:.42em;letter-spacing:0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.pbp i{font:italic 800 .62em var(--f-display);color:var(--or-txt,#FFB81C);margin-left:1px;vertical-align:.42em;letter-spacing:0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
 /* Trophées individuels */
 #f-troph{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:0 2px 2px}
 #f-troph::-webkit-scrollbar{display:none}
@@ -807,7 +834,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cote{display:inline-block;font:800 13px/1 var(--f-body,system-ui);font-style:normal;padding:4px 6px;border-radius:7px;margin-right:7px;vertical-align:middle;letter-spacing:0}
 .cote.cA{background:#2bd17e;color:#06210f}.cote.cB{background:#38bdf8;color:#04202e}.cote.cC{background:#facc15;color:#2a2200}.cote.cD{background:#f87171;color:#2b0505}
 .ca-rang .cote{font-size:15px}
-.wi-cours{background:#FFB81C;color:#0B1220;border-radius:5px;padding:0 5px;font-size:11px}
+.wi-cours{background:var(--or,#FFB81C);color:var(--sur-or,#0B1220);border-radius:5px;padding:0 5px;font-size:11px}
 .eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
 .lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
 .rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
@@ -819,7 +846,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-t{margin:8px 0 2px;font-weight:700;font-size:15.5px;line-height:1.45}.trx-t .vbd{vertical-align:-1px}.trx-t em{font-style:normal;color:var(--muted);font-weight:600}
 .trx-n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .trx-n div{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:#ffffff0d;border:2px solid transparent;min-width:0}
-.trx-n div.gagne{border-color:#FFB81C}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
+.trx-n div.gagne{border-color:var(--or,#FFB81C)}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
 .nat{font-style:normal;white-space:nowrap}.nat b{letter-spacing:.04em}
 .trx-vues{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .trx-rec{margin:8px 0 0;font-size:13px;color:var(--muted)}.trx-rec b{color:var(--ink)}
@@ -839,11 +866,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-pop .trx-col p{margin:4px 0 0;font-weight:700;font-size:14px;line-height:1.3}.trx-pop .trx-col p small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .trx-pop .trx-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 14px 0}
 .trx-pop .trx-ex{margin:10px 14px 0;font-size:13px;line-height:1.5;color:var(--muted)}.trx-pop .trx-src{margin:8px 14px 14px;font-size:12px;line-height:1.5;color:#8193A8}
-.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:#FFB81C;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:var(--or-txt,#FFB81C);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=18a62c48">
+<link rel="stylesheet" href="carte.css?v=b9d545e0">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -874,6 +901,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-gcr" aria-selected="false" aria-controls="p-gcr">PB Goalie Confidence %</button>
     <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">PB Ref Bias</button>
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
+    <button role="tab" id="t-cor" aria-selected="false" aria-controls="p-cor">PB Correlation Trend</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
@@ -993,6 +1021,9 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-trx" role="tabpanel" aria-labelledby="t-trx" hidden>
     <div class="ctrls"><div class="row" id="f-trx"></div><div id="fe-trx"></div></div>
     <div id="trx"></div>
+  </section>
+  <section id="p-cor" role="tabpanel" aria-labelledby="t-cor" hidden>
+    <div id="cor"></div>
   </section>
   <section id="p-pwr" role="tabpanel" aria-labelledby="t-pwr" hidden>
     <div class="ctrls"><div class="row" id="f-pwr"></div><div class="row sai-r" id="sai-pwr"></div></div>
@@ -3619,14 +3650,18 @@ let CUP0 = null;
 const cupReset = () => { if (CUP0){ D.coupe = CUP0.c; D.trophees = CUP0.t; CUP0 = null; } };
 async function cupSai(){
   CUP0 = { c: D.coupe, t: D.trophees };
-  const base = new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${S.sai}/`, ok = SAI?.saisons?.[S.sai]?.ok || [];
+  const base = saiDossier(), ok = saiX()?.ok || [];
   const get = (f) => ok.includes(f) ? fetch(base + f + "?v=" + (D?.date || "")).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);
   const [c, t] = await Promise.all([get("coupe.json"), get("trophees.json")]);
   D.coupe = c; D.trophees = t;
   trophees();
 }
 let SAI = null;
-const urlSai = (f) => S.sai && SAI?.saisons?.[S.sai]?.ok?.includes(f) ? new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${S.sai}/${f}` : f;
+// Une saison passée se regarde à pareille date (par défaut) ou au complet (S.saiC : jusqu'au dernier match de la saison
+// régulière, docs/saisons/<saison>/complete/, src/machine.py completes()).
+const saiX = () => { const x = S.sai && SAI?.saisons?.[S.sai]; return !x ? null : S.saiC && x.complete?.ok?.length ? { ...x.complete, estComplete: true } : x; };
+const saiDossier = () => new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${S.sai}/` + (saiX()?.estComplete ? "complete/" : "");
+const urlSai = (f) => S.sai && saiX()?.ok?.includes(f) ? saiDossier() + f : f;
 const nomSai = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
 const dateSai = (d) => new Date(d + "T12:00:00").toLocaleDateString(LANG, { day: "numeric", month: "short" });
 // L'index des saisons passées, chargé une seule fois ; les sections l'attendent avant de choisir leur fichier
@@ -3635,7 +3670,7 @@ let SAI_p = null;
 async function saiNon(k, el){
   if (!S.sai) return false;
   await saiAttendre();
-  const x = SAI?.saisons?.[S.sai];
+  const x = saiX();
   if (x && !(x.ok || []).includes(SAI_SEC[k][0])){ el.innerHTML = saiBandeau(k); return true; }
   return false;
 }
@@ -3655,14 +3690,37 @@ async function saiRangees(){
   }
 }
 // La bande sous les contrôles : « Tu regardes 2024-25, au 12 nov. »
+// Le texte de la bande + les 2 boutons « À pareille date / Saison complète »
+function saiTexte(x){
+  return x.estComplete ? L(`Saison ${nomSai(S.sai)} au complet : tous les matchs jusqu'au dernier de la saison régulière (${dateSai(x.jour)}).`,
+                        `The full ${nomSai(S.sai)} season: every game up to the last one of the regular season (${dateSai(x.jour)}).`)
+    : L(`Saison ${nomSai(S.sai)}, telle qu'on l'aurait calculée le ${dateSai(x.jour)} : seulement les matchs joués jusque-là.`, `The ${nomSai(S.sai)} season, as we would have computed it on ${dateSai(x.jour)}: only the games played up to then.`);
+}
+function saiBoutons(k){
+  // Un interrupteur, comme Réel / PB Era-Adjusted : « À pareille date » <-> « Saison complète »
+  const x0 = SAI?.saisons?.[S.sai], c = x0?.complete?.ok?.length, on = !!(S.saiC && c);
+  return `<div class="sai-c" data-k="${k}"><button class="wir-t${c ? "" : " sai-non"}" data-saic role="switch" aria-checked="${on}"`
+    + ` aria-label="${L("À pareille date ou saison complète", "Same date or full season")}"${c ? "" : ` title="${L("La saison complète se calcule au prochain calcul", "The full season is computed at the next update")}"`}>`
+    + `<span class="${on ? "" : "on"}">${L("Au", "On")} ${dateSai(x0.jour)}</span><i aria-hidden="true"><b></b></i><span class="${on ? "on" : ""}">${L("Saison complète", "Full season")}</span></button></div>`;
+}
 function saiBandeau(k){
-  const x = S.sai && SAI?.saisons?.[S.sai], f = SAI_SEC[k]?.[0];
+  const x = saiX(), f = SAI_SEC[k]?.[0];
   if (!x) return "";
-  return (x.ok || []).includes(f) ? `<div class="sai-band">${L(`Saison ${nomSai(S.sai)}, telle qu'on l'aurait calculée le ${dateSai(x.jour)} : seulement les matchs joués jusque-là.`, `The ${nomSai(S.sai)} season, as we would have computed it on ${dateSai(x.jour)}: only the games played up to then.`)}</div>`
+  return (x.ok || []).includes(f) ? `<div class="sai-band">${saiTexte(x)}${saiBoutons(k)}</div>`
     : k === "gcr" ? `<div class="card"><div class="vide">${L(`Pas possible pour ${nomSai(S.sai)} : le PBGC a besoin du jeu-par-jeu détaillé des gardiens, récolté seulement depuis cette saison. Reviens à « En cours ».`,
         `Not possible for ${nomSai(S.sai)}: PBGC needs detailed goalie play-by-play, collected only since this season. Go back to "Current".`)}</div></div>`
-    : `<div class="card"><div class="vide">${L(`Cette section n'est pas encore refaite pour ${nomSai(S.sai)}. Reviens à « En cours ».`, `This section isn't rebuilt for ${nomSai(S.sai)} yet. Go back to "Current".`)}</div></div>`;
+    : `<div class="card"><div class="vide">${L(`Cette section n'est pas encore refaite pour ${nomSai(S.sai)}. Reviens à « En cours ».`, `This section isn't rebuilt for ${nomSai(S.sai)} yet. Go back to "Current".`)}</div>${saiBoutons(k)}</div>`;
 }
+// Le bouton « À pareille date / Saison complète » : même chose qu'un changement de saison
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.(".sai-c [data-saic]"); if (!b || b.classList.contains("sai-non")) return;
+  S.saiC = !S.saiC;
+  const k = b.closest(".sai-c").dataset.k, sec = SAI_SEC[k], el = b.closest("section")?.querySelector(":scope > div:not(.ctrls):not([hidden])");
+  for (const [, reset] of Object.values(SAI_SEC)) reset && reset();
+  saiRangees();
+  if (sec?.[2] && (saiX()?.ok || []).includes(sec[0])) sec[2]();
+  else if (el) el.innerHTML = saiBandeau(k);
+});
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".sai-r [data-sai]"); if (!b) return;
   const avant = S.sai || ""; S.sai = b.dataset.sai;
@@ -3671,7 +3729,7 @@ document.addEventListener("click", (e) => {
   const k = b.closest(".sai-r").id.slice(4), sec = SAI_SEC[k], el = b.closest("section")?.querySelector(":scope > div:not(.ctrls):not([hidden])");
   for (const [, reset] of Object.values(SAI_SEC)) reset && reset();      // [fichier, remise à zéro, affichage]
   saiRangees();
-  if (sec?.[2] && (!S.sai || (SAI.saisons[S.sai]?.ok || []).includes(sec[0]))) sec[2]();
+  if (sec?.[2] && (!S.sai || (saiX()?.ok || []).includes(sec[0]))) sec[2]();
   else if (el) el.innerHTML = saiBandeau(k);
 });
 setTimeout(saiRangees, 0);
@@ -6123,13 +6181,191 @@ function trophees(){
   }
   v === "coupe" ? coupeHTML() : v === "classement" ? classementHTML() : TROPH_EQ[v] ? trophEqHTML(v) : trophHTML(v);
   if (CUP0){
-    const x = SAI.saisons[S.sai];
+    const x = saiX();
     const reel = v === "coupe" || v === "classement" ? (D.coupe?.reel?.champion ? L(`Ce qui est vraiment arrivé : ${ville(D.coupe.reel.champion)} a gagné la Coupe.`, `What really happened: ${ville(D.coupe.reel.champion)} won the Cup.`) : "")
       : (D.trophees?.trophees?.[v]?.reel ? L(`Ce qui est vraiment arrivé : ${D.trophees.trophees[v].reel} l'a gagné.`, `What really happened: ${D.trophees.trophees[v].reel} won it.`) : "");
-    $("#coupe").insertAdjacentHTML("afterbegin", `<div class="sai-band">${L(`Saison ${nomSai(S.sai)}, telle qu'on l'aurait calculée le ${dateSai(x.jour)} : seulement les matchs joués jusque-là.`,
-      `The ${nomSai(S.sai)} season, as we would have computed it on ${dateSai(x.jour)}: only the games played up to then.`)}${reel ? `<br><b>${reel}</b>` : ""}</div>`);
+    $("#coupe").insertAdjacentHTML("afterbegin", `<div class="sai-band">${saiTexte(x)}${reel ? `<br><b>${reel}</b>` : ""}${saiBoutons("cup")}</div>`);
   }
 }
+
+// ---- PB Correlation Trend (Mitch, 12 nov. 2026, maquette approuvée) -------------------------------------------
+// Deux stats (X et Y, toutes celles qu'on a par joueur), une saison, un groupe de joueurs (30 au plus) : un point par
+// joueur aux couleurs de son équipe, son nom à côté (s'il y a de la place ; sinon on touche le point), la ligne de
+// tendance (moindres carrés) et r (la corrélation de Pearson) avec une phrase pour la lire.
+// Les données : les fichiers déjà publiés pour chaque section (salaires, physique, projections, duos, gcr, whatif) ;
+// une saison passée : ceux de la machine à remonter le temps, la saison complète quand elle est prête (src/machine.py).
+const COR = { cache: {}, x: "pts", y: "pbir", sai: "", groupe: "topy", eq: "", ajout: [], retire: [], choisi: null };
+const COR_MAX = 30, COR_MIN_PJ = 10;
+// [clé, nom FR, nom EN, famille, valeur(joueur fusionné), format]
+const fM = (v) => EN ? `$${(v / 1e6).toFixed(1)}M` : `${(v / 1e6).toFixed(1).replace(".", ",")} M$`;
+const COR_STATS = [
+  ["pj", "Matchs joués", "Games played", "base", (j) => j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj],
+  ["b", "Buts", "Goals", "base", (j) => j.sal?.b ?? j.prj?.c?.b],
+  ["a", "Passes", "Assists", "base", (j) => j.sal?.a ?? j.prj?.c?.a],
+  ["pts", "Points", "Points", "base", (j) => j.sal && j.sal.t === "j" ? j.sal.b + j.sal.a : j.prj?.c?.pts],
+  ["ppm", "Points par match", "Points per game", "base", (j) => { const p = j.sal?.t === "j" ? j.sal.b + j.sal.a : j.prj?.c?.pts, n = j.sal?.pj ?? j.prj?.pj; return p != null && n ? +(p / n).toFixed(2) : null; }],
+  ["pim", "Minutes de pénalité", "Penalty minutes", "base", (j) => j.prj?.c?.pim],
+  ["toi", "Temps de glace / match", "Ice time / game", "base", (j) => j.sal?.toi ?? j.phy?.toi ?? j.prj?.toi],
+  ["xgf", "xG pour (sur la glace)", "xG for (on ice)", "base", (j) => j.sal?.xg?.[0]],
+  ["xga", "xG contre (sur la glace)", "xG against (on ice)", "base", (j) => j.sal?.xg?.[1]],
+  ["mj", "Mises au jeu gagnées", "Faceoffs won", "base", (j) => j.sal?.dz?.[0]],
+  ["bl", "Tirs bloqués", "Blocked shots", "physique", (j) => j.sal?.dz?.[5]],
+  ["fr", "Mises en échec", "Hits", "physique", (j) => j.phy?.fr ?? j.sal?.dz?.[6]],
+  ["fr60", "Mises en échec / 60 min", "Hits / 60", "physique", (j) => j.phy?.fr60],
+  ["comb", "Combats", "Fights", "physique", (j) => j.phy?.comb],
+  ["pen", "Pénalités qui font mal", "Painful penalties", "physique", (j) => j.phy?.pen],
+  ["poids", "Poids (lb)", "Weight (lb)", "physique", (j) => j.phy?.poids],
+  ["pbir", "PB Intimidation %", "PB Intimidation %", "pb", (j) => j.phy?.pc ?? (j.phy?.pct != null ? Math.round(j.phy.pct * 100) : null)],
+  ["pbmv", "PB Market Value", "PB Market Value", "pb", (j) => j.sal?.s, fM],
+  ["pbsp", "PB Season Projections (pts)", "PB Season Projections (pts)", "pb", (j) => j.prj?.proj?.pts],
+  ["pbspb", "PB Season Projections (buts)", "PB Season Projections (goals)", "pb", (j) => j.prj?.proj?.b],
+  ["rythme", "Rythme actuel (pts sur 82)", "Current pace (pts over 82)", "pb", (j) => j.prj?.rythme?.pts != null ? Math.round(j.prj.rythme.pts) : null],
+  ["pbcs", "PB Chemistry % (son meilleur duo)", "PB Chemistry % (his best duo)", "pb", (j) => j.chem],
+  ["pbgc", "PB Goalie Confidence %", "PB Goalie Confidence %", "pb", (j) => j.gcr?.pc ?? j.gcr?.gcr],
+  ["sv", "% d'arrêts (gardiens)", "Save % (goalies)", "base", (j) => j.sal?.t === "g" && j.sal.sv != null ? +(j.sal.sv * 100).toFixed(1) : null],
+  ["pbera", "PB Stats : points en carrière (ajustés)", "PB Stats: career points (adjusted)", "pb", (j) => j.wi?.w?.[3] != null ? Math.round(j.wi.w[3]) : null],
+  ["vrai", "Vrai contrat", "Real contract", "contrat", (j) => j.sal?.vrai, fM],
+  ["rend", "Rendement (PBMV / contrat)", "Return (PBMV / contract)", "contrat", (j) => j.sal?.rend != null ? +j.sal.rend.toFixed(2) : null],
+];
+const COR_FAM = [["base", "Stats de base", "Basic stats"], ["physique", "Physique", "Physical"], ["pb", "Nos stats PB", "Our PB stats"], ["contrat", "Contrats", "Contracts"]];
+const corStat = (k) => COR_STATS.find(s => s[0] === k) || COR_STATS[0];
+const corMin = (t) => /^PB/.test(t) ? t : t.toLowerCase();       // « plus de points », mais « plus de PB Market Value »
+const corFmt = (k, v) => v == null ? "–" : (corStat(k)[5] ? corStat(k)[5](v) : (Math.abs(v) >= 1000 ? Math.round(v).toLocaleString(LANG) : String(v).replace(".", EN ? "." : ",")) + (["pbir", "pbcs", "pbgc"].includes(k) ? (EN ? "%" : " %") : ""));
+
+async function corDonnees(sai){
+  if (COR.cache[sai]) return COR.cache[sai];
+  await saiAttendre();
+  const x = sai && SAI?.saisons?.[sai], comp = x?.complete?.ok?.length;
+  const ok = sai ? (comp ? x.complete.ok : x?.ok || []) : null;
+  const url = (f) => !sai ? f : new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${sai}/` + (comp ? "complete/" : "") + f;
+  const get = (f) => (!sai || ok.includes(f)) ? fetch(url(f) + "?v=" + (D?.date || "")).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);
+  const [sal, phy, prj, duo, gcr, wi] = await Promise.all(["salaires.json", "physique.json", "projections.json", "duos.json", "gcr.json", sai ? "-" : "whatif.json"].map(f => f === "-" ? null : get(f)));
+  const J = {};
+  const ajt = (id, k, v) => { if (!id) return; id = String(id); (J[id] = J[id] || { id })[k] = v; };
+  for (const v of Object.values(sal?.joueurs || {})) ajt(v.id, "sal", v);
+  for (const v of Object.values(phy?.joueurs || {})) ajt(v.id, "phy", v);
+  const pj_ = prj?.joueurs || {}; for (const v of (Array.isArray(pj_) ? pj_ : Object.values(pj_))) ajt(v.id, "prj", v);
+  for (const g of gcr?.gardiens || []) ajt(g.id, "gcr", g);
+  for (const d of duo?.duos || []) for (const p of d.j || []){ const v = d.pc ?? d.ch; if (v == null) continue; const id = String(p[0]); if (J[id] && (J[id].chem == null || v > J[id].chem)) J[id].chem = v; }
+  if (wi?.j) for (const id of Object.keys(J)) if (wi.j[id]) J[id].wi = wi.j[id];
+  for (const j of Object.values(J)){ const s = j.sal || j.phy || j.prj || j.gcr || {}; j.n = s.n; j.eq = s.eq; j.no = s.no; j.pos = s.pos; j.pj = j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj ?? j.gcr?.pj ?? 0; }
+  return (COR.cache[sai] = { J: Object.values(J).filter(j => j.n), comp, x });
+}
+function corSelect(id, val){
+  return `<label class="cor-sel"><small>${id === "x" ? L("AXE X", "X AXIS") : L("AXE Y", "Y AXIS")}</small><select data-cor="${id}">`
+    + COR_FAM.map(([f, fr, en]) => `<optgroup label="${L(fr, en)}">` + COR_STATS.filter(s => s[3] === f).map(s => `<option value="${s[0]}"${s[0] === val ? " selected" : ""}>${L(s[1], s[2])}</option>`).join("") + "</optgroup>").join("")
+    + `</select></label>`;
+}
+// Le groupe de joueurs : un top 30 (X ou Y), mon équipe, une équipe ; plus ceux ajoutés à la main, moins ceux retirés
+function corGroupe(Jx){
+  const vx = corStat(COR.x)[4], vy = corStat(COR.y)[4];
+  const avec = Jx.filter(j => vx(j) != null && vy(j) != null);
+  let base = [];
+  const club = (() => { try { const c = localStorage.getItem("pp_club"); return c && c !== "-" ? c : ""; } catch (e) { return ""; } })();
+  if (COR.groupe === "topx" || COR.groupe === "topy"){
+    const v = COR.groupe === "topx" ? vx : vy;
+    base = avec.filter(j => j.pj >= COR_MIN_PJ || j.gcr).sort((a, b) => v(b) - v(a)).slice(0, COR_MAX);
+  } else if (COR.groupe === "club" || COR.groupe === "eq"){
+    const eq = COR.groupe === "club" ? club : COR.eq;
+    base = avec.filter(j => j.eq === eq).sort((a, b) => vy(b) - vy(a)).slice(0, COR_MAX);
+  }
+  const ids = new Set(base.map(j => j.id).filter(id => !COR.retire.includes(id)));
+  for (const id of COR.ajout) if (ids.size < COR_MAX && avec.some(j => j.id === id)) ids.add(id);
+  return avec.filter(j => ids.has(j.id));
+}
+const corNice = (mx) => { const p = Math.pow(10, Math.floor(Math.log10(mx || 1))); const r = mx / p; return (r <= 1 ? 1 : r <= 2 ? 2 : r <= 5 ? 5 : 10) * p; };
+function corSVG(G){
+  const vx = corStat(COR.x)[4], vy = corStat(COR.y)[4];
+  const W = 380, H = 330, Lm = 46, Rm = 12, Tm = 14, Bm = 36;
+  const X = G.map(vx), Y = G.map(vy);
+  const ax = (A) => { let a = Math.min(...A), b = Math.max(...A); if (a === b){ a -= 1; b += 1; } const pad = (b - a) * 0.08; a = a >= 0 && a - pad < 0 ? 0 : a - pad; b += pad;
+    const pas = corNice((b - a) / 4); return { a: Math.floor(a / pas) * pas, b: Math.ceil(b / pas) * pas, pas }; };
+  const ex = ax(X), ey = ax(Y);
+  const px = (v) => Lm + (v - ex.a) / (ex.b - ex.a) * (W - Lm - Rm), py = (v) => H - Bm - (v - ey.a) / (ey.b - ey.a) * (H - Tm - Bm);
+  const court = (v, k) => corStat(k)[5] ? corStat(k)[5](v) : Math.abs(v) >= 1000 ? (v / 1000).toFixed(0) + "k" : +v.toFixed(2);
+  let g = "";
+  for (let t = ex.a; t <= ex.b + 1e-9; t += ex.pas) g += `<line x1="${px(t)}" x2="${px(t)}" y1="${Tm}" y2="${H - Bm}"/><text x="${px(t)}" y="${H - Bm + 14}" text-anchor="middle">${court(t, COR.x)}</text>`;
+  for (let t = ey.a; t <= ey.b + 1e-9; t += ey.pas) g += `<line x1="${Lm}" x2="${W - Rm}" y1="${py(t)}" y2="${py(t)}"/><text x="${Lm - 5}" y="${py(t) + 3.5}" text-anchor="end">${court(t, COR.y)}</text>`;
+  // La tendance (moindres carrés) et r
+  const n = G.length, mx = X.reduce((a, b) => a + b, 0) / n, my = Y.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0, sxx = 0, syy = 0; for (let i = 0; i < n; i++){ sxy += (X[i] - mx) * (Y[i] - my); sxx += (X[i] - mx) ** 2; syy += (Y[i] - my) ** 2; }
+  const r = sxx && syy ? sxy / Math.sqrt(sxx * syy) : 0, pente = sxx ? sxy / sxx : 0, b0 = my - pente * mx;
+  const clipY = (v) => Math.max(ey.a, Math.min(ey.b, v));
+  const ligne = n >= 3 && sxx ? `<line class="tend" x1="${px(ex.a)}" y1="${py(clipY(b0 + pente * ex.a))}" x2="${px(ex.b)}" y2="${py(clipY(b0 + pente * ex.b))}"/>` : "";
+  // Les noms : à droite du point, sinon à gauche, en haut, en bas ; s'il n'y a pas de place, pas de nom (on touche le point)
+  const boites = [], noms = [], pts = [];
+  const libre = (b) => b.x1 >= 2 && b.x2 <= W - 2 && b.y1 >= 0 && b.y2 <= H - Bm && !boites.some(o => b.x1 < o.x2 && b.x2 > o.x1 && b.y1 < o.y2 && b.y2 > o.y1)
+    && !G.some((_, i) => { const cx = px(X[i]), cy = py(Y[i]); return cx > b.x1 - 4 && cx < b.x2 + 4 && cy > b.y1 - 4 && cy < b.y2 + 4; });
+  const ordre = G.map((j, i) => i).sort((a, b) => (Y[b] - Y[a]));
+  for (const i of ordre){
+    const j = G[i], cx = px(X[i]), cy = py(Y[i]), nm = (j.n || "").split(" ").slice(1).join(" ") || j.n, w = nm.length * 5.4 + 4;
+    for (const [x1, y1, anc] of [[cx + 7, cy - 6, "start"], [cx - 7 - w, cy - 6, "start"], [cx - w / 2, cy - 18, "start"], [cx - w / 2, cy + 7, "start"]]){
+      const b = { x1, y1, x2: x1 + w, y2: y1 + 12 };
+      if (libre(b)){ boites.push(b); noms.push(`<text class="nm" x="${x1 + 2}" y="${y1 + 9.5}">${nm}</text>`); break; }
+    }
+  }
+  for (let i = 0; i < n; i++){ const j = G[i];
+    pts.push(`<circle data-corj="${j.id}" cx="${px(X[i])}" cy="${py(Y[i])}" r="${COR.choisi === j.id ? 8 : 5.5}" fill="${coul(j.eq)}"${COR.choisi === j.id ? ' class="on"' : ""}/>`); }
+  return { r, html: `<svg class="cor-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${L(corStat(COR.y)[1], corStat(COR.y)[2])} / ${L(corStat(COR.x)[1], corStat(COR.x)[2])}">
+    <g class="ax">${g}</g>${ligne}${pts.join("")}${noms.join("")}
+    <text class="lab" x="${(W + Lm) / 2}" y="${H - 4}" text-anchor="middle">${L(corStat(COR.x)[1], corStat(COR.x)[2]).toUpperCase()}</text>
+    <text class="lab" transform="translate(11 ${(H - Bm + Tm) / 2}) rotate(-90)" text-anchor="middle">${L(corStat(COR.y)[1], corStat(COR.y)[2]).toUpperCase()}</text></svg>` };
+}
+async function corOnglet(){
+  const el = $("#cor"); if (!el) return;
+  if (!el.innerHTML) el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`;
+  await saiAttendre();
+  const sais = Object.entries(SAI?.saisons || {}).filter(([, x]) => (x.complete?.ok?.length ? x.complete.ok : x.ok || []).length).sort((a, b) => b[0].localeCompare(a[0]));
+  const Dn = await corDonnees(COR.sai);
+  const G = corGroupe(Dn.J);
+  const club = (() => { try { const c = localStorage.getItem("pp_club"); return c && c !== "-" ? c : ""; } catch (e) { return ""; } })();
+  const eqs = [...new Set(Dn.J.map(j => j.eq).filter(Boolean))].sort();
+  const vx = corStat(COR.x)[4], vy = corStat(COR.y)[4];
+  const tous = Dn.J.filter(j => vx(j) != null && vy(j) != null).sort((a, b) => (a.n || "").localeCompare(b.n || ""));
+  const tete = `<div class="cp-tete">${titrePB("PB Correlation Trend", L("Deux stats, une saison, tes joueurs", "Two stats, one season, your players"))}<p>${L(
+    "Choisis une stat pour chaque axe et un groupe de joueurs (30 au plus) : chaque point est un joueur aux couleurs de son équipe, la ligne pointillée est la tendance. r va de −1 à +1 : près de 0, pas de lien ; près de ±1, un lien fort. Touche un point pour ses chiffres.",
+    "Pick a stat for each axis and a group of players (30 max): every dot is a player in his team's colors, the dashed line is the trend. r goes from −1 to +1: near 0, no link; near ±1, a strong link. Tap a dot for his numbers.")}</p></div>`;
+  const ctrl = `<div class="cor-axes">${corSelect("x", COR.x)}<span class="cor-vs">VS</span>${corSelect("y", COR.y)}</div>
+    <div class="row cor-r"><span class="lbl">${L("Saison", "Season")}</span><button class="chip" data-corsai="" aria-pressed="${!COR.sai}">${L("En cours", "Current")}</button>`
+    + sais.map(([s, x]) => `<button class="chip" data-corsai="${s}" aria-pressed="${COR.sai === s}">${nomSai(s)}${x.complete?.ok?.length ? "" : ` <small>${L("au", "on")} ${dateSai(x.jour)}</small>`}</button>`).join("") + `</div>
+    <div class="row cor-r"><span class="lbl">${L("Joueurs", "Players")}</span>`
+    + [["topy", L("Top 30 · Y", "Top 30 · Y")], ["topx", L("Top 30 · X", "Top 30 · X")]].concat(club ? [["club", L("Mon équipe", "My team")]] : [])
+        .map(([k, n]) => `<button class="chip" data-corg="${k}" aria-pressed="${COR.groupe === k}">${n}</button>`).join("")
+    + `<select class="cor-eq" data-coreq aria-label="${L("Une équipe", "A team")}"><option value="">${L("Équipe…", "Team…")}</option>${eqs.map(t => `<option value="${t}"${COR.groupe === "eq" && COR.eq === t ? " selected" : ""}>${t}</option>`).join("")}</select></div>
+    <div class="cor-ajout"><input list="cor-liste" data-corq placeholder="${L("Ajouter un joueur…", "Add a player…")}" autocomplete="off"><datalist id="cor-liste">${tous.map(j => `<option value="${j.n} (${j.eq})">`).join("")}</datalist>
+      <button class="chip" data-corvide>${L("Vider", "Clear")}</button></div>
+    <div class="cor-pjs">${G.map(j => `<span class="cor-pj"><i style="background:${coul(j.eq)}"></i>${(j.n || "").split(" ").slice(1).join(" ") || j.n}<button data-corx="${j.id}" aria-label="${L("Retirer", "Remove")}">×</button></span>`).join("")}</div>
+    <p class="cor-n"><b>${G.length}</b> / ${COR_MAX} ${L("joueurs", "players")}${COR.groupe.startsWith("top") ? ` · ${L(`min. ${COR_MIN_PJ} matchs`, `min. ${COR_MIN_PJ} games`)}` : ""}${COR.sai ? ` · ${Dn.comp ? L("saison complète", "full season") : L(`au ${dateSai(Dn.x?.jour)}`, `on ${dateSai(Dn.x?.jour)}`)}` : ""}</p>`;
+  if (G.length < 2){
+    el.innerHTML = tete + ctrl + `<div class="card"><div class="vide">${L("Pas assez de joueurs avec ces deux stats pour cette saison. Change un axe ou le groupe.", "Not enough players with both stats for this season. Change an axis or the group.")}</div></div>`;
+    return;
+  }
+  const { r, html: svg } = corSVG(G);
+  const fort = Math.abs(r) < 0.1 ? L("Pas de lien", "No link") : Math.abs(r) < 0.3 ? L("Lien faible", "Weak link") : Math.abs(r) < 0.6 ? L("Lien moyen", "Moderate link") : L("Lien fort", "Strong link");
+  const sens = Math.abs(r) < 0.1 ? "" : (r > 0 ? L(` : chez ces ${G.length}, plus de ${corMin(corStat(COR.x)[1])} va avec plus de ${corStat(COR.y)[1]}.`, `: among these ${G.length}, more ${corMin(corStat(COR.x)[2])} goes with more ${corStat(COR.y)[2]}.`)
+    : L(` : chez ces ${G.length}, plus de ${corMin(corStat(COR.x)[1])} va avec moins de ${corStat(COR.y)[1]}.`, `: among these ${G.length}, more ${corMin(corStat(COR.x)[2])} goes with less ${corStat(COR.y)[2]}.`));
+  const ch = G.find(j => j.id === COR.choisi);
+  const info = ch ? `<p class="cor-info"><i style="background:${coul(ch.eq)}"></i><b>${ch.n}</b> ${ch.eq} · ${L(corStat(COR.x)[1], corStat(COR.x)[2])} : <b>${corFmt(COR.x, vx(ch))}</b> · ${L(corStat(COR.y)[1], corStat(COR.y)[2])} : <b>${corFmt(COR.y, vy(ch))}</b></p>`
+    : `<p class="cor-info vide-i">${L("Touche un point pour voir le joueur.", "Tap a dot to see the player.")}</p>`;
+  el.innerHTML = tete + ctrl + `<div class="card cor-carte">${svg}${info}</div><div class="cor-rr"><b>r = ${(r >= 0 ? "+" : "−") + Math.abs(r).toFixed(2).replace(".", EN ? "." : ",")}</b><span>${fort}${sens}</span></div>`;
+}
+document.addEventListener("change", (e) => {
+  const s = e.target.closest?.("[data-cor]"); if (s){ COR[s.dataset.cor] = s.value; COR.choisi = null; corOnglet(); return; }
+  const q = e.target.closest?.("[data-coreq]"); if (q){ if (q.value){ COR.groupe = "eq"; COR.eq = q.value; } COR.ajout = []; COR.retire = []; COR.choisi = null; corOnglet(); return; }
+  const a = e.target.closest?.("[data-corq]"); if (a){
+    const D_ = COR.cache[COR.sai]; const m = D_?.J.find(j => `${j.n} (${j.eq})` === a.value || nrm(j.n) === nrm(a.value));
+    if (m){ COR.retire = COR.retire.filter(x => x !== m.id); if (!COR.ajout.includes(m.id)) COR.ajout.push(m.id); COR.choisi = m.id; corOnglet(); }
+  }
+});
+document.addEventListener("click", (e) => {
+  const t = e.target.closest?.("[data-corsai],[data-corg],[data-corx],[data-corvide],[data-corj]"); if (!t || !t.closest("#p-cor")) return;
+  if (t.dataset.corsai !== undefined){ COR.sai = t.dataset.corsai; COR.ajout = []; COR.retire = []; COR.choisi = null; }
+  else if (t.dataset.corg){ COR.groupe = t.dataset.corg; COR.ajout = []; COR.retire = []; COR.choisi = null; }
+  else if (t.dataset.corx){ const id = t.dataset.corx; COR.ajout = COR.ajout.filter(x => x !== id); COR.retire.push(id); if (COR.choisi === id) COR.choisi = null; }
+  else if (t.dataset.corvide !== undefined){ COR.groupe = "aucun"; COR.ajout = []; COR.retire = []; COR.choisi = null; }
+  else if (t.dataset.corj){ COR.choisi = COR.choisi === t.dataset.corj ? null : t.dataset.corj; }
+  corOnglet();
+});
 
 function tout(){ slate(); liste(); matchs(); suivi(); labo(); trophees(); bets(); }
 
@@ -6167,7 +6403,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "rum", "trx", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "cor", "rum", "trx", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -6176,6 +6412,7 @@ function brancher(){
     if (b.id === "t-gcr") gcrOnglet();
     if (b.id === "t-arb") arbOnglet();
     if (b.id === "t-pwr") pwrOnglet();
+    if (b.id === "t-cor") corOnglet();
     if (b.id === "t-rum") rumOnglet();
     if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-sim") simOnglet();
@@ -6341,6 +6578,7 @@ async function init(){
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(transactions|echanges|trades)$/i.test(location.hash)){ $("#t-trx")?.click(); $("#p-trx")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(correlations?|correlation-trend)$/i.test(location.hash)){ $("#t-cor")?.click(); $("#p-cor")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
     else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
     else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
@@ -6357,7 +6595,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -6497,8 +6735,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=18a62c48" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=18a62c48" defer></script>
-<script src="nav.js?v=d9f17c972d" defer></script>
+<script src="pub.js?v=b9d545e0" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=b9d545e0" defer></script>
+<script src="nav.js?v=89085d689c" defer></script>
 </body>
 </html>

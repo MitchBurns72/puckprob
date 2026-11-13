@@ -27,18 +27,22 @@ html:root:root{
   --f-display:"Teko","Barlow Condensed",sans-serif;
   /* le texte écrit directement sur le fond marine */
   --sur-fond:#EAF1F8; --sur-fond-2:#9FB3CB; --lien-fond:#7CC4F5;
+  /* l'accent : l'or PuckProb sans club ; avec « Mon club », docs/club.js le remplace par la 2e couleur du club */
+  --or:#FFB81C; --sur-or:#0A2342; --or-txt:#FFB81C;
   color-scheme:dark;
 }
-body{background:linear-gradient(180deg,#0E2C52 0,#0A2342 420px,#061529 100%) fixed!important;color:var(--sur-fond)!important}
+/* Le fond de page : un dégradé de --bg (le marine sans club ; avec « Mon club », docs/club.js redéfinit --bg en ombre de
+   la couleur du club et met son propre fond, chargé après : tout le contour de la page suit l'équipe) */
+body{background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 82%,#fff 8%) 0,var(--bg) 420px,color-mix(in srgb,var(--bg) 70%,#000) 100%) fixed;color:var(--sur-fond)!important}
 
 /* ---- Titres : Teko, droits ; le 2e niveau en or (sur le fond) ---- */
 h1,h2{font-family:"Teko",sans-serif!important;font-style:normal!important;font-weight:700!important;letter-spacing:.3px!important;line-height:.9!important}
 h1{font-size:44px!important;color:#fff!important}
-h2{color:#FFB81C!important;font-size:30px!important}
+h2{color:var(--or-txt)!important;font-size:30px!important}
 h1.logo-l{font-size:inherit!important}
 
 /* ---- Les cartes pâles : texte marine (les titres dedans aussi) ---- */
-.card,.j,.tuiles a,.vb-t,.tr,.carte,.wi-l,.cp,.resume-public table,.rp-carte,.saison,.sai-band,details,.guide,.mini,.soir,.mv-bloc,.pl{
+.card,.j,.tuiles a,.vb-t,.tr,.carte,.wi-l,.cp,.resume-public table,.rp-carte,.saison,details,.guide,.mini,.soir,.mv-bloc,.pl{
   color:var(--ink)!important;border-radius:6px!important;border-color:transparent!important}
 .card h2,.card h3,.mv-bloc h2,.texte h2,.cp-test h2,details h2{color:var(--ink)!important}
 .card a,.texte a,details a,.pl a{color:var(--ice)}
@@ -68,9 +72,9 @@ h1.logo-l{font-size:inherit!important}
 .mc{--ink:#EAF1F8;--muted:#9FB3CB;--line:#24406380;--chip:#183150;--surface:#10213A;--surface2:#152A47}
 
 /* ---- Les pastilles : marine, l'active en or ---- */
-html body .chip.chip.chip.chip.chip{background:#13335E!important;color:#DCE6F2!important;border:0!important;border-radius:4px!important;
+html body .chip.chip.chip.chip.chip{background:var(--chip)!important;color:#DCE6F2!important;border:0!important;border-radius:4px!important;
   font:700 14px/1 "Barlow",sans-serif!important;padding:8px 13px 7px!important;text-transform:uppercase;letter-spacing:.5px;box-shadow:none!important}
-html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.chip.chip.chip[aria-selected="true"]{background:#FFB81C!important;color:#0A2342!important}
+html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.chip.chip.chip[aria-selected="true"]{background:var(--or)!important;color:var(--sur-or)!important}
 
 /* ---- Les gros % : Teko ---- */
 .pct,.p,.big,.j .pc,.prob{font-family:"Teko",sans-serif!important;font-style:normal!important}
@@ -79,3 +83,6 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
 .signe{border-top-color:rgba(255,255,255,.15)!important}
 .signe span{color:var(--sur-fond-2)!important}
 .card .pt-mini,.liste .pt-mini,.j .pt-mini{color:var(--muted)!important;border-color:var(--line)!important}
+
+/* la bande « saison passée » : sur un fond teinté (pas une carte pâle), le texte reste pâle */
+.sai-band{color:var(--sur-fond)!important}

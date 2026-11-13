@@ -34,11 +34,23 @@
   // Sans club : le thème neutre PuckProb (marine, rouge, ambre), inchangé. Gardé sur l'appareil pour s'afficher tout de suite.
   const NEUTRE = { b1: "#0A2342", acc: "#D3202B", led: "#FFB81C", sa: "#FFB81C", sw: "#FFFFFF", neutre: 1 };
   const blanc = (x) => /^#fff(fff)?$/i.test(x || "");
+  // La couleur de fond d'un club dont le fond est NOIR (11 équipes : BOS, PIT, CHI, PHI, VGK...) : une teinte foncée de
+  // sa vraie couleur (l'or des Bruins, le rouge des Hawks...) au lieu du noir (Mitch, 12 nov. 2026 : « privilégie une
+  // couleur au lieu du noir, on se ramasse avec 13 équipes noires »). On garde la couleur et on la fonce jusqu'à la
+  // même noirceur que le marine PuckProb, pour que le texte blanc se lise pareil. Un club sans vraie couleur (LAK :
+  // argent et blanc) garde son noir.
+  const sat = (h) => { const c = h.replace("#", "").match(/../g).map(x => parseInt(x, 16) / 255); const mx = Math.max(...c), mn = Math.min(...c); return mx ? (mx - mn) / mx : 0; };
+  const foncer = (c, cible = 0.06) => { let k = 1; while (k > 0.05 && lumHex(ombre(c, k)) > cible) k -= 0.01; return ombre(c, k); };
+  const fondDe = (eq, p) => {
+    if (lumHex(p.fond) >= 0.01) return p.fond;
+    const vive = [eq.c, p.texte, p.contour].find(x => x && !blanc(x) && sat(x) > 0.35 && lumHex(x) > 0.02);
+    return vive ? foncer(vive) : p.fond;
+  };
   const themeDe = (t) => {
     const p = DATA?.eq?.[t]?.pal; if (!p) return NEUTRE;
     const acc = !blanc(p.texte) ? p.texte : !blanc(p.contour) ? p.contour : "#FFFFFF";
     const led = acc === p.texte ? p.contour : p.texte;            // l'autre des deux (peut être le blanc du club)
-    return { b1: p.fond, acc, led, sa: acc, sw: led };
+    return { b1: fondDe(DATA.eq[t], p), acc, led, sa: acc, sw: led };
   };
   const lumHex = (h) => { const c = (h || "#000000").replace("#", "").match(/../g).map(x => parseInt(x, 16) / 255).map(x => x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; };
   const contr = (a, b) => { const x = lumHex(a), y = lumHex(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
@@ -53,7 +65,12 @@
     // La couleur des liens / chiffres en évidence : A, sinon B, sinon le blanc — la première qui se lit sur les cartes
     const ice = [t.acc, t.led, "#FFFFFF"].find(c => c && contr(c, f[1]) >= 4.2);
     const warn = [t.led, t.acc, "#FFFFFF"].find(c => c && contr(c, f[1]) >= 4.2);
-    return `--bg:${f[0]};--surface:${f[1]};--surface2:${f[2]};--card:${f[1]};--chip:${f[3]};--ice:${ice};--muted:color-mix(in srgb,#fff 58%,${noir ? "#000" : D});`
+    // L'accent (le jaune PuckProb sans club) : la 2e couleur du club (Mitch, 12 nov. 2026 : « le jaune remplacé par la
+    // 2e couleur »). --or : le fond des boutons choisis ; --sur-or : leur texte ; --or-txt : l'accent écrit sur le fond
+    // foncé (titres, sigles PBMV...), la 1re couleur du club qui se lit dessus.
+    const orTxt = [t.acc, t.led, "#FFFFFF"].find(c => c && contr(c, f[0]) >= 4.2);
+    return `--or:${t.acc};--sur-or:${encre(t.acc, D)};--or-txt:${orTxt};`
+      + `--bg:${f[0]};--surface:${f[1]};--surface2:${f[2]};--card:${f[1]};--chip:${f[3]};--ice:${ice};--muted:color-mix(in srgb,#fff 58%,${noir ? "#000" : D});`
       + `--us:${ice};--us-bg:color-mix(in srgb,${ice} 16%,${f[1]});--warn:${warn};--warn-bg:color-mix(in srgb,${warn} 16%,${f[1]});`;
   };
   const cssTheme = (t) => {
@@ -70,18 +87,14 @@ ${sel}{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
   --bande:${D};--bande2:color-mix(in srgb,${D} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;
   --rayure:transparent;color-scheme:dark}
 body{background:var(--bg) radial-gradient(120% 60% at 50% 0%, color-mix(in srgb,${D} 60%,transparent), transparent 60%) no-repeat fixed}
-/* Effet 3D (Mitch, 10 nov. 2026) : même logo, mêmes bandes, mêmes couleurs ; un reflet en haut, une ombre en bas,
-   et les bandes en relief (reflet sur le dessus, ombre portée) */
-header.bug{background:linear-gradient(180deg,rgba(255,255,255,.13) 0,rgba(255,255,255,.03) 38%,rgba(0,0,0,0) 55%,rgba(0,0,0,.28) 100%),
-  radial-gradient(120% 140% at 10% 0%, color-mix(in srgb,${D} 80%,#fff) 0%, ${D} 50%, color-mix(in srgb,${D} 75%,#000) 100%);overflow:hidden;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -14px 22px -10px rgba(0,0,0,.45),0 6px 16px rgba(0,0,0,.35)}
+/* L'en-tête : à plat (Mitch, 12 nov. 2026 : « enlève l'espèce d'effet 3D sur l'en-tête du top ») — la couleur du club,
+   les bandes du logo nettes, sans reflet ni ombre */
+header.bug{background:${D};overflow:hidden;box-shadow:none}
 header.bug::before{content:"";position:absolute;left:52%;width:70%;height:54px;bottom:-34px;transform:rotate(-24deg);transform-origin:left bottom;pointer-events:none;
-  background:linear-gradient(180deg,rgba(255,255,255,.42) 0,rgba(255,255,255,.08) 22%,rgba(0,0,0,0) 50%,rgba(0,0,0,.30) 100%),
-    linear-gradient(180deg,${t.sa} 0 27%,${D} 27% 34%,${t.sw} 34% 66%,${D} 66% 73%,${t.sa} 73% 100%);
-  box-shadow:0 -6px 16px rgba(0,0,0,.55),0 0 14px #0008,inset 0 1px 0 rgba(255,255,255,.6)}
+  background:linear-gradient(180deg,${t.sa} 0 27%,${D} 27% 34%,${t.sw} 34% 66%,${D} 66% 73%,${t.sa} 73% 100%)}
 header.bug > *{position:relative;z-index:1}
-header.bug .lang,header.bug .livebtn{background:color-mix(in srgb,${D} 70%,#000);box-shadow:0 2px 8px #0006}
-header.bug::after{background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.25)),linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%);z-index:2}
+header.bug .lang,header.bug .livebtn{background:color-mix(in srgb,${D} 70%,#000);box-shadow:none}
+header.bug::after{background:linear-gradient(90deg,${t.acc} 0 70%,${t.led} 70% 100%);z-index:2}
 nav.tabs,nav.menu{background:${D}} nav.tabs button[aria-selected="true"]{color:#fff}
 .ticker{background:linear-gradient(90deg,color-mix(in srgb,${D} 85%,#000),color-mix(in srgb,${D} 55%,#000))}${extra}`;
   };

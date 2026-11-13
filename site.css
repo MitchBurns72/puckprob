@@ -619,7 +619,7 @@ body::before{background:var(--bande)}
 .mpop-ch button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;cursor:pointer;color:#fff;font:800 13.5px/1.1 var(--f-body);
   background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#14243D;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px rgba(0,0,0,.35)}
 .mpop-ch button i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),#FFB81C;color:#0B1220;border-color:#FFB81C}
+.mpop-ch button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,0) 50%),var(--or,#FFB81C);color:var(--sur-or,#0B1220);border-color:var(--or,#FFB81C)}
 .mpop .mpop-corps{padding:4px 12px 14px}
 .mpop .mpop-corps .m{box-shadow:none}
 .mpop .mpop-corps .m .duel,.mpop .mpop-corps .m .wbar{display:none}
@@ -642,7 +642,7 @@ html[data-public="1"] [data-cache="1"]{display:none!important}
    l'onglet Joueurs remplacé par celui de l'adresse (#games...). Tout apparaît maintenant d'un coup, déjà à sa place. */
 body.charge .wrap>:not(header.bug){visibility:hidden}
 body.charge::after{content:"";position:fixed;left:50%;top:46%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;
-  border:4px solid rgba(255,184,28,.25);border-top-color:#FFB81C;animation:charge-tourne .8s linear infinite;z-index:5}
+  border:4px solid rgba(255,184,28,.25);border-top-color:var(--or,#FFB81C);animation:charge-tourne .8s linear infinite;z-index:5}
 @keyframes charge-tourne{to{transform:rotate(360deg)}}
 body.pret .wrap>*{animation:charge-paraitre .18s ease-out}
 @keyframes charge-paraitre{from{opacity:0}to{opacity:1}}
@@ -661,14 +661,41 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .coupon .cb-c{font:italic 800 17px/1 var(--f-display);text-align:right;white-space:nowrap}
 /* Par saison (src/machine.py) : la rangée des saisons et la bande « telle qu'on l'aurait calculée le ... » */
 .sai-r .chip small{font-weight:600;opacity:.7;margin-left:3px} .sai-r .chip.sai-non{opacity:.45}
-.sai-band{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:rgba(255,184,28,.12);border:1px solid rgba(255,184,28,.45);font:600 13px/1.35 var(--f-body);color:var(--ink)}
+/* PB Correlation Trend */
+.cor-axes{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin:0 0 10px}
+.cor-sel{display:block;background:var(--chip);border-radius:6px;padding:6px 8px;min-width:0}
+.cor-sel small{display:block;font:700 10.5px var(--f-body);letter-spacing:.06em;color:var(--sur-fond-2,#9FB3CB)}
+.cor-sel select{width:100%;background:transparent;border:0;color:#fff;font:700 14.5px var(--f-body);padding:2px 0;max-width:100%}
+.cor-sel select option,.cor-sel select optgroup{color:#0A2342}
+.cor-vs{font:700 22px/1 var(--f-display);color:var(--sur-fond-2,#9FB3CB)}
+.cor-r{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 0 8px} .cor-r::-webkit-scrollbar{display:none} .cor-r .chip{flex:none}
+.cor-eq{flex:none;background:var(--chip);color:#fff;border:0;border-radius:4px;font:700 13px var(--f-body);padding:7px 8px}
+.cor-ajout{display:flex;gap:6px;margin:2px 0 8px} .cor-ajout input{flex:1;min-width:0;font:600 15px var(--f-body);padding:9px 11px;border-radius:6px;border:0;background:#F2F5FA;color:#0A2342}
+.cor-pjs{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 6px}
+.cor-pj{display:inline-flex;align-items:center;gap:5px;background:#F2F5FA;color:#0A2342;border-radius:12px;padding:3px 4px 3px 4px;font:700 12px var(--f-body)}
+.cor-pj i{width:13px;height:13px;border-radius:50%} .cor-pj button{border:0;background:none;color:#8A97A8;font:700 14px/1 var(--f-body);padding:0 3px;cursor:pointer}
+.cor-n{font:700 12px var(--f-body);color:var(--sur-fond-2,#9FB3CB);margin:0 0 10px} .cor-n b{color:var(--or-txt,#FFB81C)}
+.cor-carte{background:#F2F5FA!important;color:#0A2342!important;padding:10px 8px 8px!important}
+.cor-svg{width:100%;height:auto;display:block}
+.cor-svg .ax line{stroke:#D6DEE9} .cor-svg .ax text{font:600 10px var(--f-body);fill:#4A5D78}
+.cor-svg .lab{font:700 10px var(--f-body);fill:#4A5D78;letter-spacing:.06em}
+.cor-svg .nm{font:700 9.5px var(--f-body);fill:#0A2342;paint-order:stroke;stroke:#F2F5FA;stroke-width:3px;pointer-events:none}
+.cor-svg circle{stroke:#fff;stroke-width:1.5;cursor:pointer} .cor-svg circle.on{stroke:#0A2342;stroke-width:2.5}
+.cor-svg .tend{stroke:#C8102E;stroke-width:2;stroke-dasharray:6 5}
+.cor-info{margin:8px 4px 2px;font:600 13px var(--f-body);color:#0A2342;display:flex;align-items:center;gap:6px;flex-wrap:wrap} .cor-info i{width:12px;height:12px;border-radius:50%}
+.cor-info.vide-i{color:#4A5D78;font-size:12px}
+.cor-rr{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0;background:var(--chip);border-radius:6px;padding:9px 12px}
+.cor-rr b{font:700 30px/1 var(--f-display);color:var(--or-txt,#FFB81C);white-space:nowrap} .cor-rr span{font:600 12.5px var(--f-body);color:#C9D6EE;text-align:right}
+/* À pareille date / Saison complète (Mitch, 12 nov. 2026) : dans la bande de la saison passée */
+.sai-c{display:flex;margin-top:8px} .sai-c .wir-t.sai-non{opacity:.45}
+.sai-band{margin:0 0 10px;padding:9px 12px;border-radius:10px;background:color-mix(in srgb,var(--or,#FFB81C) 12%,transparent);border:1px solid color-mix(in srgb,var(--or,#FFB81C) 45%,transparent);font:600 13px/1.35 var(--f-body);color:var(--ink)}
 /* PB Stats au complet : le badge d'une ville (ses 3 couleurs en bandes + le nom), la grille des villes, les liens de la fiche */
 .vbd{display:inline-flex;align-items:center;gap:6px;font-weight:700;white-space:nowrap}
 .vbd i{flex:none;width:22px;height:12px;border-radius:3px;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
 .vbd small{font-weight:600;opacity:.65;margin-left:2px}
 .vb-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin:6px 0 10px}
 .vb-t{display:flex;align-items:center;padding:9px 10px;border-radius:10px;background:var(--surface);border:1px solid var(--line);color:var(--ink);font:600 13.5px var(--f-body);cursor:pointer;text-align:left}
-.vb-t.on{outline:2px solid #FFB81C}
+.vb-t.on{outline:2px solid var(--or,#FFB81C)}
 .vb-h{margin:8px 2px 2px;font:800 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .vb-choisie{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;padding:10px 12px;border-radius:12px;background:var(--surface);border:1px solid var(--line);font-size:16px}
 .vb-sel{margin:0 0 10px;gap:8px;align-items:center} .vb-dec{margin:0 0 10px;flex-wrap:wrap}
@@ -677,11 +704,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .wir-t span.on{color:var(--ink)} .wir-t span.on:last-child{color:#FFB81C}
 .wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
-.wir-t[aria-checked="true"] i{background:#FFB81C} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
+.wir-t[aria-checked="true"] i{background:var(--or,#FFB81C)} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}
-.pbp i{font:italic 800 .62em var(--f-display);color:#FFB81C;margin-left:1px;vertical-align:.42em;letter-spacing:0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
+.pbp i{font:italic 800 .62em var(--f-display);color:var(--or-txt,#FFB81C);margin-left:1px;vertical-align:.42em;letter-spacing:0;text-shadow:0 1px 0 rgba(0,0,0,.35)}
 /* Trophées individuels */
 #f-troph{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -2px;padding:0 2px 2px}
 #f-troph::-webkit-scrollbar{display:none}
@@ -779,7 +806,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cote{display:inline-block;font:800 13px/1 var(--f-body,system-ui);font-style:normal;padding:4px 6px;border-radius:7px;margin-right:7px;vertical-align:middle;letter-spacing:0}
 .cote.cA{background:#2bd17e;color:#06210f}.cote.cB{background:#38bdf8;color:#04202e}.cote.cC{background:#facc15;color:#2a2200}.cote.cD{background:#f87171;color:#2b0505}
 .ca-rang .cote{font-size:15px}
-.wi-cours{background:#FFB81C;color:#0B1220;border-radius:5px;padding:0 5px;font-size:11px}
+.wi-cours{background:var(--or,#FFB81C);color:var(--sur-or,#0B1220);border-radius:5px;padding:0 5px;font-size:11px}
 .eq-cls .lgp{width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:50%}.eq-cls td{padding:6px 8px}.eq-cls summary{font-weight:800;cursor:pointer}.eq-cls td:last-child{text-align:right;white-space:nowrap}.eq-cls{margin-bottom:10px}
 .lire summary{font-weight:800;cursor:pointer}.lire ul{margin:8px 0 0;padding-left:18px}.lire li{margin:4px 0;font-size:14px;line-height:1.4}.lire{margin-bottom:10px}
 .rum{display:block;color:inherit;text-decoration:none;margin-bottom:10px}.rum p{margin:6px 0;font-size:15px;line-height:1.45;white-space:pre-line}
@@ -791,7 +818,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-t{margin:8px 0 2px;font-weight:700;font-size:15.5px;line-height:1.45}.trx-t .vbd{vertical-align:-1px}.trx-t em{font-style:normal;color:var(--muted);font-weight:600}
 .trx-n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .trx-n div{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:#ffffff0d;border:2px solid transparent;min-width:0}
-.trx-n div.gagne{border-color:#FFB81C}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
+.trx-n div.gagne{border-color:var(--or,#FFB81C)}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
 .nat{font-style:normal;white-space:nowrap}.nat b{letter-spacing:.04em}
 .trx-vues{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .trx-rec{margin:8px 0 0;font-size:13px;color:var(--muted)}.trx-rec b{color:var(--ink)}
@@ -811,7 +838,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-pop .trx-col p{margin:4px 0 0;font-weight:700;font-size:14px;line-height:1.3}.trx-pop .trx-col p small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .trx-pop .trx-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 14px 0}
 .trx-pop .trx-ex{margin:10px 14px 0;font-size:13px;line-height:1.5;color:var(--muted)}.trx-pop .trx-src{margin:8px 14px 14px;font-size:12px;line-height:1.5;color:#8193A8}
-.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:#FFB81C;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:var(--or-txt,#FFB81C);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 
 /* « Ça bouge » (accueil) : une ligne par section, la couleur de l'équipe à gauche, une flèche vers la section */
