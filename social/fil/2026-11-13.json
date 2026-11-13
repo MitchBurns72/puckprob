@@ -1,50 +1,11 @@
 {
  "jour": "2026-11-13",
- "maj": "2026-11-13T13:15-05:00",
+ "maj": "2026-11-13T16:54-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-13-top-buts",
-   "quand": "2026-11-13T14:06-05:00",
-   "image": "social/fil/2026-11-13/top-buts.jpg",
-   "images": null,
-   "avant": null,
-   "retard": null,
-   "texte": "Top 5 ce soir : Marque un but\n1. Steven Stamkos (NSH à VGK) 34%\n2. Filip Forsberg (NSH à VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR à VAN) 32%\n5. Pavel Dorofeyev (NYR à VAN) 29%\n\nTop 5 tonight: Scores a goal\n1. Steven Stamkos (NSH at VGK) 34%\n2. Filip Forsberg (NSH at VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR at VAN) 32%\n5. Pavel Dorofeyev (NYR at VAN) 29%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Top 5 ce soir : Marque un but\n1. Steven Stamkos (NSH à VGK) 34%\n2. Filip Forsberg (NSH à VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR à VAN) 32%\n5. Pavel Dorofeyev (NYR à VAN) 29%\n\nTop 5 tonight: Scores a goal\n1. Steven Stamkos (NSH at VGK) 34%\n2. Filip Forsberg (NSH at VGK) 33%\n3. Jack Eichel (VGK vs NSH) 32%\n4. Mika Zibanejad (NYR at VAN) 32%\n5. Pavel Dorofeyev (NYR at VAN) 29%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "com": "Pourquoi Steven Stamkos en tête : 1er trio + PP1, 11 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Adin Hill (.903).\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Steven Stamkos is #1: 1st line + PP1, 11 goals in 19 games, 6 of his last 10 games, facing Adin Hill (.903).\nAll the details: https://puckprob.ca/tonight/",
-   "com_ig": "Pourquoi Steven Stamkos en tête : 1er trio + PP1, 11 buts en 19 matchs, 6 de ses 10 derniers matchs, face à Adin Hill (.903).\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Steven Stamkos is #1: 1st line + PP1, 11 goals in 19 games, 6 of his last 10 games, facing Adin Hill (.903).",
-   "type": "top",
-   "opt": {
-    "marche": "buts",
-    "hasard": 0.5
-   },
-   "lien": "https://puckprob.ca/fr/ce-soir/",
-   "lien_en": "https://puckprob.ca/tonight/",
-   "titre": "Top 5 · Marque un but"
-  },
-  {
-   "id": "2026-11-13-match-2026020310",
-   "quand": "2026-11-13T15:46-05:00",
-   "image": "social/fil/2026-11-13/match-2026020310.jpg",
-   "images": null,
-   "avant": "2026-11-13T21:00-05:00",
-   "retard": null,
-   "texte": "NYR à VAN · 13 novembre 2026 · 21 h 00\nNYR 69% · VAN 31% (chances de gagner)\nPlus de 5,5 buts 53 % · 6,5 : 42 %\nMarque un but : Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nNYR at VAN · November 13, 2026 · 9:00 p.m.\nNYR 69% · VAN 31% (chances to win)\nOver 5.5 goals 53% · 6.5: 42%\nScores a goal: Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nFR : https://puckprob.ca/fr/ce-soir/#matchs\nEN : https://puckprob.ca/tonight/#games\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "NYR à VAN · 13 novembre 2026 · 21 h 00\nNYR 69% · VAN 31% (chances de gagner)\nPlus de 5,5 buts 53 % · 6,5 : 42 %\nMarque un but : Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nNYR at VAN · November 13, 2026 · 9:00 p.m.\nNYR 69% · VAN 31% (chances to win)\nOver 5.5 goals 53% · 6.5: 42%\nScores a goal: Mika Zibanejad 32%, Pavel Dorofeyev 29%, Alexis Lafrenière 28%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "com": "NYR 69 % de gagner : 5 victoires dans ses 10 derniers matchs (31 buts pour, 34 contre).\nVAN 31 % de gagner : 1 victoires dans ses 10 derniers matchs (26 buts pour, 45 contre).\nEntre eux cette saison (3 matchs) : NYR 8 buts, VAN 5.\nPlus de 5,5 buts : 53 % (total attendu 5,8).\nScore prédit : NYR 3-2 VAN (9 %).\nDevant le filet : Dylan Garand (.905) contre Leevi Meriläinen (.888).\nLe plus probable de marquer : Mika Zibanejad 32 %.\nTout le détail : https://puckprob.ca/fr/ce-soir/#matchs\n\nNYR 69% to win: 5 wins in its last 10 games (31 goals for, 34 against).\nVAN 31% to win: 1 wins in its last 10 games (26 goals for, 45 against).\nHead to head this season (3 games): NYR 8 goals, VAN 5.\nOver 5.5 goals: 53% (expected total 5.8).\nPredicted score: NYR 3-2 VAN (9%).\nIn net: Dylan Garand (.905) vs Leevi Meriläinen (.888).\nMost likely to score: Mika Zibanejad 32%.\nAll the details: https://puckprob.ca/tonight/#games",
-   "com_ig": "NYR 69 % de gagner : 5 victoires dans ses 10 derniers matchs (31 buts pour, 34 contre).\nVAN 31 % de gagner : 1 victoires dans ses 10 derniers matchs (26 buts pour, 45 contre).\nEntre eux cette saison (3 matchs) : NYR 8 buts, VAN 5.\nPlus de 5,5 buts : 53 % (total attendu 5,8).\nScore prédit : NYR 3-2 VAN (9 %).\nDevant le filet : Dylan Garand (.905) contre Leevi Meriläinen (.888).\nLe plus probable de marquer : Mika Zibanejad 32 %.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nNYR 69% to win: 5 wins in its last 10 games (31 goals for, 34 against).\nVAN 31% to win: 1 wins in its last 10 games (26 goals for, 45 against).\nHead to head this season (3 games): NYR 8 goals, VAN 5.\nOver 5.5 goals: 53% (expected total 5.8).\nPredicted score: NYR 3-2 VAN (9%).\nIn net: Dylan Garand (.905) vs Leevi Meriläinen (.888).\nMost likely to score: Mika Zibanejad 32%.",
-   "type": "match",
-   "opt": {
-    "gameId": 2026020310
-   },
-   "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
-   "lien_en": "https://puckprob.ca/tonight/#games",
-   "titre": "NYR @ VAN"
-  },
-  {
    "id": "2026-11-13-top-passes",
-   "quand": "2026-11-13T17:22-05:00",
+   "quand": "2026-11-13T16:58-05:00",
    "image": "social/fil/2026-11-13/top-passes.jpg",
    "images": null,
    "avant": null,
@@ -64,7 +25,7 @@
   },
   {
    "id": "2026-11-13-top-tirs3",
-   "quand": "2026-11-13T19:05-05:00",
+   "quand": "2026-11-13T19:23-05:00",
    "image": "social/fil/2026-11-13/top-tirs3.jpg",
    "images": null,
    "avant": null,
@@ -84,7 +45,7 @@
   },
   {
    "id": "2026-11-13-match-2026020311",
-   "quand": "2026-11-13T20:36-05:00",
+   "quand": "2026-11-13T20:45-05:00",
    "image": "social/fil/2026-11-13/match-2026020311.jpg",
    "images": null,
    "avant": "2026-11-13T22:00-05:00",
