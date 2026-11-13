@@ -854,6 +854,29 @@
   "publie": true,
   "quand": "2026-11-13T11:01-05:00"
  },
+ "2026-11-13-matin-082514-3-story": {
+  "fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Nous limitons le nombre de fois que vous pouvez publier, commenter ou faire autre chose dans un laps de temps donn\\u00e9 afin de prot\\u00e9ger la communaut\\u00e9 contre",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "story",
+  "titre": "Mod · 100 points in 1983 ≠ 100 points today",
+  "publie": true,
+  "quand": "2026-11-13T11:55-05:00"
+ },
+ "2026-11-13-matin-082514-3": {
+  "fb": "1508565075663838_122110275483537152",
+  "fb_com": "122110275483537152_1614117810455595",
+  "ig": "sauté : Instagram en pause jusqu'à 13/11 14:00 (blocage)",
+  "type": "mod",
+  "opt": {
+   "hasard": 0.7663238000660345,
+   "post": "ere-ajustee"
+  },
+  "lien": "https://puckprob.ca/fr/",
+  "lien_en": "https://puckprob.ca/",
+  "titre": "Mod · 100 points in 1983 ≠ 100 points today",
+  "publie": true,
+  "quand": "2026-11-13T11:55-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-13T14:00-05:00"
  }
