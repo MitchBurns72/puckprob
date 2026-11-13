@@ -42,7 +42,7 @@
   const sat = (h) => { const c = h.replace("#", "").match(/../g).map(x => parseInt(x, 16) / 255); const mx = Math.max(...c), mn = Math.min(...c); return mx ? (mx - mn) / mx : 0; };
   const foncer = (c, cible = 0.06) => { let k = 1; while (k > 0.05 && lumHex(ombre(c, k)) > cible) k -= 0.01; return ombre(c, k); };
   const fondDe = (eq, p) => {
-    if (lumHex(p.fond) >= 0.01) return p.fond;
+    if (lumHex(p.fond) >= 0.01 || sat(p.fond) > 0.5) return p.fond;      // un vrai marine très foncé (SEA) reste lui-même
     const vive = [eq.c, p.texte, p.contour].find(x => x && !blanc(x) && sat(x) > 0.35 && lumHex(x) > 0.02);
     return vive ? foncer(vive) : p.fond;
   };
@@ -68,7 +68,8 @@
     // L'accent (le jaune PuckProb sans club) : la 2e couleur du club (Mitch, 12 nov. 2026 : « le jaune remplacé par la
     // 2e couleur »). --or : le fond des boutons choisis ; --sur-or : leur texte ; --or-txt : l'accent écrit sur le fond
     // foncé (titres, sigles PBMV...), la 1re couleur du club qui se lit dessus.
-    const orTxt = [t.acc, t.led, "#FFFFFF"].find(c => c && contr(c, f[0]) >= 4.2);
+    // (lisible sur le fond de page ET sur la bande du club, où vivent les titres et le menu du bas)
+    const orTxt = [t.acc, t.led, "#FFFFFF"].find(c => c && contr(c, f[0]) >= 4.2 && contr(c, D) >= 3) || "#FFFFFF";
     return `--or:${t.acc};--sur-or:${encre(t.acc, D)};--or-txt:${orTxt};`
       + `--bg:${f[0]};--surface:${f[1]};--surface2:${f[2]};--card:${f[1]};--chip:${f[3]};--ice:${ice};--muted:color-mix(in srgb,#fff 58%,${noir ? "#000" : D});`
       + `--us:${ice};--us-bg:color-mix(in srgb,${ice} 16%,${f[1]});--warn:${warn};--warn-bg:color-mix(in srgb,${warn} 16%,${f[1]});`;

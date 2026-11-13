@@ -674,6 +674,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cor-pjs{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 6px}
 .cor-pj{display:inline-flex;align-items:center;gap:5px;background:#F2F5FA;color:#0A2342;border-radius:12px;padding:3px 4px 3px 4px;font:700 12px var(--f-body)}
 .cor-pj i{width:13px;height:13px;border-radius:50%} .cor-pj button{border:0;background:none;color:#8A97A8;font:700 14px/1 var(--f-body);padding:0 3px;cursor:pointer}
+.cor-msg{margin:0 0 6px;font:600 12.5px var(--f-body);color:var(--or-txt,#FFB81C)}
 .cor-n{font:700 12px var(--f-body);color:var(--sur-fond-2,#9FB3CB);margin:0 0 10px} .cor-n b{color:var(--or-txt,#FFB81C)}
 .cor-carte{background:#F2F5FA!important;color:#0A2342!important;padding:10px 8px 8px!important}
 .cor-svg{width:100%;height:auto;display:block}
