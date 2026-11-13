@@ -1,0 +1,81 @@
+/* =====================================================================================================================
+   Le style « carte » de PuckProb (Mitch, 12 nov. 2026 : « overhaul tout le site comme les cartes, sans perdre d'info ni
+   de graphiques, vraiment juste les couleurs et le style » ; maquette avant/après approuvée, option « les matchs restent
+   foncés »).
+
+   Ce que ça change, et pourquoi (le même look que les cartes des réseaux sociaux, src/cartes.py) :
+     - le fond marine PuckProb partout, en clair comme en sombre (c'est la couleur de la marque, plus un thème) ;
+     - les « cartes » (rangées, listes, encadrés) deviennent PÂLES, texte marine : le meilleur contraste au cellulaire ;
+     - les titres en Teko, droits, le 2e niveau en or ;
+     - les pastilles marine, l'active en or ;
+     - les cartes de match, les popups et le ticker gardent leur fond foncé (choix de Mitch).
+
+   Comment : ce fichier est chargé APRÈS le style de l'app (docs/index.html) et site.css (pages texte). Il redéfinit
+   d'abord les couleurs de base (--surface, --ink...) : le site au complet s'en sert, donc presque tout suit tout seul.
+   Le reste corrige les endroits qui écrivent directement sur le fond marine (ils gardent un texte pâle) et ceux qui
+   ont leurs propres couleurs.
+   Note sur « .chip.chip.chip.chip.chip » : les pastilles des sections ont des règles « !important » à 4 classes
+   (.ctrls.c3 .c3-p .chip, plus bas dans docs/index.html) ; répéter la classe est la façon propre de passer devant
+   sans toucher à leur logique (dimensions, défilement).
+   ===================================================================================================================== */
+html:root:root{
+  --bg:#0A2342; --surface:#F2F5FA; --surface2:#E2E9F3; --card:#F2F5FA; --ink:#0A2342; --muted:#4A5D78; --line:#C9D3E0;
+  --chip:#13335E; --chipon:#FFB81C; --ice:#1B5FA8; --goal:#C8102E; --good:#14834A; --good-bg:#DDF2E5; --bad:#C8102E; --bad-bg:#FBE3E0;
+  --warn:#9A6200; --warn-bg:#FFF2D2; --us:#5B3FA0; --us-bg:#ECE6F8;
+  --bande:#061833; --bande2:#0E2C52; --rayure:transparent;
+  --ombre:0 2px 0 rgba(0,0,0,.25);
+  --f-display:"Teko","Barlow Condensed",sans-serif;
+  /* le texte écrit directement sur le fond marine */
+  --sur-fond:#EAF1F8; --sur-fond-2:#9FB3CB; --lien-fond:#7CC4F5;
+  color-scheme:dark;
+}
+body{background:linear-gradient(180deg,#0E2C52 0,#0A2342 420px,#061529 100%) fixed!important;color:var(--sur-fond)!important}
+
+/* ---- Titres : Teko, droits ; le 2e niveau en or (sur le fond) ---- */
+h1,h2{font-family:"Teko",sans-serif!important;font-style:normal!important;font-weight:700!important;letter-spacing:.3px!important;line-height:.9!important}
+h1{font-size:44px!important;color:#fff!important}
+h2{color:#FFB81C!important;font-size:30px!important}
+h1.logo-l{font-size:inherit!important}
+
+/* ---- Les cartes pâles : texte marine (les titres dedans aussi) ---- */
+.card,.j,.tuiles a,.vb-t,.tr,.carte,.wi-l,.cp,.resume-public table,.rp-carte,.saison,.sai-band,details,.guide,.mini,.soir,.mv-bloc,.pl{
+  color:var(--ink)!important;border-radius:6px!important;border-color:transparent!important}
+.card h2,.card h3,.mv-bloc h2,.texte h2,.cp-test h2,details h2{color:var(--ink)!important}
+.card a,.texte a,details a,.pl a{color:var(--ice)}
+.mv-l{background:var(--surface2)!important}
+.vb-t small{color:#9A6200!important}
+.tuiles a{background:#F2F5FA!important}
+.tuiles a b{font-family:"Teko",sans-serif!important;font-style:normal!important;font-size:30px!important;line-height:.9!important;color:#0A2342!important}
+.tuiles a span{color:#4A5D78!important}
+.club-bande b{color:#0A2342!important}
+.j .tag{background:#E2E9F3!important;color:#0A2342!important}
+
+/* ---- Ce qui est écrit directement sur le fond marine : reste pâle ---- */
+.lbl,.pt-mini,.rp-note,.resume-public .note,.aide,.maj{color:var(--sur-fond-2)!important}
+.pt-mini{border-color:rgba(255,255,255,.22)!important}
+.lien-plus,.pied a,.menu-pied a,main>p a,.wrap>p a{color:var(--lien-fond)!important}
+.pied,.pied b{color:var(--sur-fond-2)!important}
+.menu-pied a{opacity:.9}
+.pt-mini *{color:inherit!important}
+.resume-public>p a,.resume-public>a{color:var(--lien-fond)!important}
+/* ... mais dans une carte pâle, les petites notes et les liens redeviennent foncés */
+.card .aide,.card .aide b,.card .rp-note,.rp-carte .rp-note,.resume-public table .rp-note,.card .lbl,details .aide{color:var(--muted)!important}
+.resume-public table a{color:var(--ink)!important}
+/* l'interrupteur Réel / PB Era-Adjusted : une pastille pâle */
+.wir-t span{color:var(--muted)!important} .wir-t span.on{color:var(--ink)!important} .wir-t span.on:last-child{color:#9A6200!important}
+
+/* ---- Restent foncés (choix de Mitch) : les cartes de match, avec leurs propres couleurs de texte ---- */
+.mc{--ink:#EAF1F8;--muted:#9FB3CB;--line:#24406380;--chip:#183150;--surface:#10213A;--surface2:#152A47}
+
+/* ---- Les pastilles : marine, l'active en or ---- */
+html body .chip.chip.chip.chip.chip{background:#13335E!important;color:#DCE6F2!important;border:0!important;border-radius:4px!important;
+  font:700 14px/1 "Barlow",sans-serif!important;padding:8px 13px 7px!important;text-transform:uppercase;letter-spacing:.5px;box-shadow:none!important}
+html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.chip.chip.chip[aria-selected="true"]{background:#FFB81C!important;color:#0A2342!important}
+
+/* ---- Les gros % : Teko ---- */
+.pct,.p,.big,.j .pc,.prob{font-family:"Teko",sans-serif!important;font-style:normal!important}
+
+/* ---- La signature au bas des pages ---- */
+.signe{border-top-color:rgba(255,255,255,.15)!important}
+.signe span{color:var(--sur-fond-2)!important}
+.card .pt-mini,.liste .pt-mini,.j .pt-mini{color:var(--muted)!important;border-color:var(--line)!important}

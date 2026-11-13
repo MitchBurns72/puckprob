@@ -12,8 +12,8 @@
 
 La file du soir (social.preparer_fil) ajoute un item « story » par match avec son cadre (une image : léger à pousser) ;
 live_code/poster.py (job live de puckprob) fait la vidéo au moment de publier (video(), quelques secondes) et la publie
-avec publier_story_video(). Les vidéos ne sont jamais poussées dans un dépôt (trop lourdes pour l'historique git). Run workflow, case « story_test » : les 6 dernières games du soir,
-publiée tout de suite (social.story_test).
+avec publier_story_video(). Les vidéos ne sont jamais poussées dans un dépôt (trop lourdes pour l'historique git). Run workflow, case « story_test » : les stories
+déjà sorties aujourd'hui (matin + matchs), refaites au style actuel et republiées, Facebook seulement (social.stories_du_jour).
 """
 import base64
 import hashlib
@@ -454,7 +454,7 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
     fin = image_fin(cle_fin or jour)
     D = float(duree or DUREE)
     base = Image.open(io.BytesIO(jpeg_cadre)).convert("RGB")
-    if image or base.size != (1080, 1920):
+    if base.size != (1080, 1920):           # déjà en 9:16 (la fiche story de src/cartes.py) : plein écran, pas de fond flouté
         r = max(1080 / base.width, 1920 / base.height)
         fond = base.resize((int(base.width * r) + 1, int(base.height * r) + 1), Image.BILINEAR)
         x, y = (fond.width - 1080) // 2, (fond.height - 1920) // 2

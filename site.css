@@ -636,6 +636,19 @@ nav.tabs button{font-size:17px}
 html[data-public="1"] .trow{grid-template-columns:76px 52px minmax(0,1fr)}
 html[data-public="1"] [data-cache="1"]{display:none!important}
 .pied{margin:22px 0 0;font-size:12px;color:var(--muted);line-height:1.5;max-width:65ch}
+/* Le chargement (Mitch, 12 nov. 2026 : « des fois quand ça load, on dirait des fenêtres mal fermées, ça donne
+   l'impression buggy ») : tant que les données ne sont pas là, seul l'en-tête paraît, avec un puck qui tourne. Avant,
+   on voyait le pied de page monter au milieu de l'écran, puis le ticker et les matchs pousser tout vers le bas, puis
+   l'onglet Joueurs remplacé par celui de l'adresse (#games...). Tout apparaît maintenant d'un coup, déjà à sa place. */
+body.charge .wrap>:not(header.bug){visibility:hidden}
+body.charge::after{content:"";position:fixed;left:50%;top:46%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;
+  border:4px solid rgba(255,184,28,.25);border-top-color:#FFB81C;animation:charge-tourne .8s linear infinite;z-index:5}
+@keyframes charge-tourne{to{transform:rotate(360deg)}}
+body.pret .wrap>*{animation:charge-paraitre .18s ease-out}
+@keyframes charge-paraitre{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){body.charge::after{animation:none}body.pret .wrap>*{animation:none}}
+.signe{display:flex;flex-direction:column;align-items:center;gap:8px;margin:34px 0 8px;padding-top:22px;border-top:1px solid var(--line);text-align:center}
+.signe img{width:200px;height:auto;opacity:.9} .signe span{font:600 12px var(--f-body);color:var(--muted);letter-spacing:.3px}
 .pied a{color:var(--ice)}
 /* Version publique : le nom mène à la fiche du joueur, sans avoir l'air d'un lien bleu */
 a.fiche{color:inherit;text-decoration:none}
@@ -779,9 +792,16 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-n{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
 .trx-n div{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 10px;border-radius:8px;background:#ffffff0d;border:2px solid transparent;min-width:0}
 .trx-n div.gagne{border-color:#FFB81C}.trx-n .vbd{font-size:14px;min-width:0;overflow:hidden;text-overflow:ellipsis}.trx-n div{flex-direction:column;align-items:flex-start;gap:4px;padding:8px 10px}.trx-n .pbp{font:italic 800 28px/1 var(--f-display)}.trx-n .vbd{font-size:13.5px;max-width:100%}
+.nat{font-style:normal;white-space:nowrap}.nat b{letter-spacing:.04em}
+.trx-vues{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.trx-rec{margin:8px 0 0;font-size:13px;color:var(--muted)}.trx-rec b{color:var(--ink)}
+.trx-n small.trx-pts{font:600 11.5px var(--f-body);color:var(--muted)}
+.trx-sel{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-weight:700}.trx-sel select{background:var(--surface);color:var(--ink);border:1px solid #FFB81C;border-radius:8px;padding:7px 10px;font:700 14px var(--f-body)}
+.trx-autres summary{cursor:pointer;font-weight:800}.trx-autres p{margin:6px 0;font-size:14px}.trx-autres small{color:var(--muted)}
+.trx-bilan{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-weight:700;margin-bottom:10px}.trx-bilan .pbp{font-size:18px}
 @media (min-width:1024px){ /* ordi : les transactions en 2 colonnes */
   #trx{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
-  #trx > .cp-tete,#trx > .aide,#trx > .card:not(.trx){grid-column:1/-1}
+  #trx > .cp-tete,#trx > .aide,#trx > .card:not(.trx),#trx > .trx-vues,#trx > .trx-sel{grid-column:1/-1}
   #trx .trx{margin:0}
 }
 .trx-pop .trx-cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 14px 4px}

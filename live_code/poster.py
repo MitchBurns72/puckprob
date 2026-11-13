@@ -165,12 +165,14 @@ def _rupload(url, donnees):
     return r
 
 
-def publier_story_video(chemin, f_ig=None):
+def publier_story_video(chemin, f_ig=None, instagram=True):
     """Une story vidéo (src/story_match.py : les matchs 10 min avant, avec musique), Facebook et Instagram.
     Facebook : video_stories (start -> téléversement -> finish). Instagram : conteneur STORIES « resumable », la vidéo
     envoyée directement (pas besoin d'adresse publique), on attend que Meta l'ait traitée, puis media_publish.
     Chacune peut rater sans bloquer l'autre. -> {"fb": ..., "ig": ...}"""
     page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
+    if not instagram:                      # le Run workflow « story test » : Facebook seulement (on laisse Instagram tranquille)
+        ig = ""
     donnees = Path(chemin).read_bytes()
     out = {}
     try:
@@ -216,7 +218,11 @@ def story(it):
     import story_match
     with tempfile.TemporaryDirectory() as tmp:
         # La toune : choisie par le id de la story (chaque match a la sienne, en rotation entre les tounes déposées)
-        mp4 = story_match.video((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"])
+        # Les stories des posts du matin (it["jingle"]) : un des 3 jingles PuckProb, pas la musique des matchs
+        if it.get("jingle"):
+            mp4 = story_match.video_jingle((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"])
+        else:
+            mp4 = story_match.video((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"])
         return publier_story_video(mp4)
 
 
