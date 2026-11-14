@@ -871,7 +871,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=d2cef21e">
+<link rel="stylesheet" href="carte.css?v=a910bfff">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1502,6 +1502,12 @@ const palDeCoul = (c) => {
 // Logos officiels : version « dark » sur fond sombre (contours pâles), « light » sinon
 const sombre = () => { const th = document.documentElement.dataset.theme;
   return th === "dark" || (th !== "light" && matchMedia("(prefers-color-scheme: dark)").matches); };
+// Les petits bonhommes (Mitch, 14 nov. 2026 : ses 3 dessins, joueur, gardien, coach, aux 2 couleurs de l'équipe, à droite
+// des noms). 4 masques par dessin (docs/icones/) : le contour blanc, la couleur principale (--df), la 2e (--dl), le blanc.
+// Les couleurs viennent de la rangée (style=eqV(équipe)) : aucune image par équipe à télécharger.
+// Le nom + son bonhomme : le dernier mot reste collé au bonhomme (un nom sur 2 lignes ne laisse pas l'icône seule en dessous)
+const nomP = (n, k) => { const s_ = String(n ?? ""), i = s_.lastIndexOf(" "); return i < 0 ? `<span class="pers-n">${s_}${persIco(k)}</span>` : `${s_.slice(0, i + 1)}<span class="pers-n">${s_.slice(i + 1)}${persIco(k)}</span>`; };
+const persIco = (k) => `<span class="pers pers-${k === "g" ? "g" : k === "c" ? "c" : "j"}" aria-hidden="true"><i class="o"></i><i class="d"></i><i class="y"></i><i class="w"></i></span>`;
 const LOGO = (t) => PUBLIC ? pastille(t) : `https://assets.nhle.com/logos/nhl/svg/${t}_${sombre() ? "dark" : "light"}.svg`;
 // Pastille maison (version publique) : cercle à la couleur de l'équipe + abréviation, en SVG
 function pastille(t){
@@ -1930,7 +1936,7 @@ function liste(){
     return `<div class="j ${st.cls}" data-c="${j.team}" data-pid="${j.pid ?? ""}" style="${eqV(j.team)};--logo:url(${LOGO(j.team)})">
       ${photo(j, i + 1)}
       <div style="min-width:0">
-        <div class="nom">${PUBLIC && j.slug ? `<a class="fiche" href="${CH.j}${j.slug}/">${j.name}</a>` : j.name}</div>
+        <div class="nom">${PUBLIC && j.slug ? `<a class="fiche" href="${CH.j}${j.slug}/">${nomP(j.name, "j")}</a>` : nomP(j.name, "j")}</div>
         <div class="meta"><span class="tag">${j.team} ${j.home ? "vs" : "@"} ${j.opp}</span><span>${j.pos === "D" ? "Déf." : "Avant"}</span>
           ${j.b2b ? '<span class="tag">B2B</span>' : ""}${j.retro ? '<span class="tag" title="Prédit après la mise au jeu, avec seulement les données d\'avant le match">Rétro</span>' : ""}${j.incertain ? '<span class="tag warn">Absent dernier match</span>' : ""}${j.blesse ? `<span class="tag ${/^(out|suspension|injured reserve)/i.test(j.blesse.statut) ? "ko" : "warn"}" title="${(j.blesse.detail || "").replace(/"/g, "")}${j.blesse.retour ? " · retour prévu " + j.blesse.retour : ""}">Blessé (ESPN) : ${j.blesse.statut}</span>` : ""}</div>
       </div>
@@ -3457,7 +3463,7 @@ function duoHTML(U){
   const H = U.hist || {}, mx = Math.max(...U.top.map(x => x.p), 0.01);
   const lignes = U.top.map((x, i) => `<div class="cp" data-c="${x.eq}" style="${eqV(x.eq)}">
       <span class="rgn">${i + 1}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
-      <span class="nm">${x.nom}<small>${x.eq} · ${x.pts} pts · ${x.pj} matchs</small></span>
+      <span class="nm">${nomP(x.nom, U.g ? "g" : "j")}<small>${x.eq} · ${x.pts} pts · ${x.pj} matchs</small></span>
       <span class="pc">${pc1(x.p)}<small>%</small></span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span></div>`).join("");
   const rows = (H.saisons || []).slice().reverse().map(x => `<tr><td>${x.s.slice(0, 4)}-${x.s.slice(6)}</td><td>${x.hart}</td><td>${x.lindsay}</td></tr>`).join("");
@@ -3476,7 +3482,7 @@ function trophHTML(t){
   const lignes = B.top.map((x, i) => `<div class="tr" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}">
       <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom, x.pos) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
-      <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
+      <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${nomP(x.nom, x.pos === "G" || t === "vezina" ? "g" : "j")}</a>` : nomP(x.nom, x.pos === "G" || t === "vezina" ? "g" : "j")}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
       <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}${spark(x.h, false, null, spkP1)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>
       <span class="stat">${statTroph(t, x)}</span>
@@ -3803,8 +3809,11 @@ const wiAgeTxt = (id, ref) => { const a = wiAge(id, ref); return a == null ? "" 
 async function wiNais(){ if (!PBS.nais && (S.wiage || S.witri === "age")) PBS.nais = await pbsGet("naissances.json").catch(() => ({ j: {}, g: {} })); return PBS.nais; }
 // Filtre (position, âge) + tri (la stat, les matchs ou l'âge ; l'ordre) sur des rangées de patineurs.
 // posF / idF / statF / pjF : comment lire la position, l'id, la stat et les matchs d'une rangée ; ref : la date de l'âge.
+// Les dates de naissance pas encore là (le fichier n'existe pas encore) : on n'applique pas l'âge au lieu de tout vider
+const wiSansAge = () => !!PBS.nais && !Object.keys(PBS.nais.j || {}).length;
 function wiFT(rows, posF, idF, statF, pjF, ref){
-  const pos = S.wipos || "", age = S.wiage || "", tri = S.witri || "", asc = wiAsc();
+  const sa = wiSansAge();
+  const pos = S.wipos || "", age = sa ? "" : (S.wiage || ""), tri = sa && S.witri === "age" ? "" : (S.witri || ""), asc = wiAsc();
   const A = (r) => wiAge(idF(r), ref);
   let L_ = rows.filter(r => { const p_ = posF(r) || ""; return !pos || (pos === "F" ? "CLRF".includes(p_) && p_ !== "" : p_ === pos); });
   if (age){ const [a0, a1] = age.split("-").map(x => x === "" ? null : +x); L_ = L_.filter(r => { const a = A(r); return a != null && (a0 == null || a >= a0) && (a1 == null || a <= a1); }); }
@@ -3815,6 +3824,7 @@ function wiTiroir(){
   const rang = (id, lbl, cle, L_, v) => { const el = $("#" + id); if (el) el.innerHTML = `<span class="lbl">${lbl}</span>` + L_.map(([k, n]) => `<button class="chip" data-${cle}="${k}" aria-pressed="${k === (v || "")}">${n}</button>`).join(""); };
   rang("f-wipos", L("Position", "Position"), "wipos", WI_POS(), S.wipos);
   rang("f-wiage", L("Âge", "Age"), "wiage", WI_AGES(), S.wiage);
+  if (wiSansAge()){ const el = $("#f-wiage"); if (el) el.innerHTML = `<span class="lbl">${L("Âge", "Age")}</span><span class="aide" style="margin:0">${L("Les dates de naissance arrivent au prochain calcul.", "Birth dates arrive with the next update.")}</span>`; }
   rang("f-witri", L("Classer par", "Sort by"), "witri", WI_TRIS(), S.witri);
   rang("f-wiord", L("Ordre", "Order"), "wiord", [["", L("Auto", "Auto")], ["desc", L("↓ Plus haut", "↓ Highest")], ["asc", L("↑ Plus bas", "↑ Lowest")]], S.wiord);
 }
@@ -3830,7 +3840,7 @@ function pbsLigne(t, rg, id, n, pos, eq, no, val, unite, sous, vb = ""){
   const x = { n, pos: pos === "G" ? "" : pos, no, eqs: [[eq, 1]], eq, sv: pos === "G" ? 1 : undefined };
   const p = pos === "G" ? L("Gardien", "Goalie") : pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   return `<button class="wi-l wi-r" data-t="${t}" data-id="${id}" data-c="${eq}" style="${eqV(eq)}"><span class="rg">${rg ?? "·"}</span>${wiRond(x)}
-    <span class="nm">${n}<small>${p} · ${vb || villeBadge(eq, false)}</small><span class="wi-st">${sous}</span></span>
+    <span class="nm">${nomP(n, t)}<small>${p} · ${vb || villeBadge(eq, false)}</small><span class="wi-st">${sous}</span></span>
     <span class="v">${val}${AB(unite)}</span></button>`;
 }
 // Ce qu'on classe selon le mode du haut : les patineurs (points, buts, passes, +/-) ou les gardiens (victoires)
@@ -3950,7 +3960,7 @@ function wiSaisons(mode, q, feq){
       ? (mode === "sr" ? L("rythme sur 82", "82-game pace") : L("PB, rythme", "PB, pace"))
       : (mode === "sr" ? L("points réels", "real points") : L(`PB · réel ${r.p} pts`, `PB · real ${r.p} pts`));
     return `<button class="wi-l wi-r" data-t="j" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
-      <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.b} ${L("B", "G")} · ${r.a} A · ${r.p} PTS</span></span>
+      <span class="nm">${nomP(r.x.n, "j")}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.b} ${L("B", "G")} · ${r.a} A · ${r.p} PTS</span></span>
       <span class="v">${coteHTML(k + 1)}${r.v}<small>${sous}</small></span></button>`;
   });
 }
@@ -3978,7 +3988,7 @@ function wiSaisonsG(mode, q, feq){
     const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("PB, rythme", "PB, pace"))
       : (mode === "gsr" ? L("victoires", "wins") : L(`PB · réel ${r.v} V`, `PB · real ${r.v} W`));
     return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
-      <span class="nm">${r.x.n}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.v} ${L("V", "W")} · ${sv3(mode === "gsw" ? r.svw : r.sv)} · ${r.mba != null ? bpg2(r.mba) + " " + L("moy.", "GAA") : "–"}</span></span>
+      <span class="nm">${nomP(r.x.n, "g")}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.v} ${L("V", "W")} · ${sv3(mode === "gsw" ? r.svw : r.sv)} · ${r.mba != null ? bpg2(r.mba) + " " + L("moy.", "GAA") : "–"}</span></span>
       <span class="v">${coteHTML(k + 1)}${r.val}<small>${sous}</small></span></button>`;
   });
 }
@@ -4059,7 +4069,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
   return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
-    <span class="nm">${x.n}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
+    <span class="nm">${nomP(x.n, t)}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
     <span class="v">${coteHTML(rg, t === "g" ? WI.n_gardiens : WI.n_joueurs, false)}${v}${AB(L(...M.u))}${dv}<small>${sousV}</small></span></button>`;
 }
 function wiRegles(){
@@ -4112,7 +4122,7 @@ function wiCarte(t, id){
   }
   const m = $("#wi-modal");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
-    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, t)}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe).", " * Traded during the season (last team).") : ""}</p></div>`;
   ptCarte(m, x, t === "j" ? nW(x.w[3]) : nW(x.w[1]), t === "j" ? L("points PB Stats en carrière", "PB Stats career points") : L("victoires PB Stats en carrière", "PB Stats career wins"),
@@ -4879,10 +4889,10 @@ function salLigne(x, mode = "top", i = null){
     : `${x.b} ${L("B", "G")} · ${x.a} ${L("A", "A")} · ${x.b + x.a} PTS · ${n1(x.toi)} min`;
   const contrat = !!SAL_CONTRATS[mode];
   return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
-    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
+    <span class="nm">${nomP(x.n, x.t)}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
-      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h, false, null, mD)}</span></button>`
-      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}${AB("PBMV")}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h, false, null, mD)}</span></button>`}`;
+      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h, false, null, v => mD(v * 1e4))}</span></button>`
+      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}${AB("PBMV")}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h, false, null, v => mD(v * 1e4))}</span></button>`}`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
 function salRapport(k){
@@ -4934,7 +4944,7 @@ function salRapport(k){
   const m = $("#wi-modal");
   const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
-    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, x.t)}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
   ptCarte(m, x, mD(x.s), "PBMV · PB Market Value", x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
   m.hidden = false;
@@ -5069,7 +5079,7 @@ function enfCarte(id){
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
   const m = $("#wi-modal");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
-    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>PB Intimidation % ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, "j")}</b><span>PB Intimidation % ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <p><b>${"PB Intimidation % : ".replace(" :", EN ? ":" : " :")}${x.pc != null ? pbTxt(x.pc) : pcIdx(x.pct)}.</b> ${x.pc != null
         ? L(`Son score (${n1(x.score)}) en % PuckProb : 0 % = le patineur moyen de la ligue, 100 % = le niveau des 3 meilleurs (le n° 1 peut dépasser).`, `His score (${n1(x.score)}) in PuckProb %: 0% = the league's average skater, 100% = the level of the top 3 (No. 1 can go over).`)
@@ -5155,7 +5165,7 @@ function projectionsG(el, mode, q, feq){
     "Où chaque gardien va finir la saison : ses victoires, son % d'arrêts et sa moyenne de buts accordés. On part de ses départs de cette saison. Pour ceux qui restent : les matchs de son équipe, fois sa part des départs, à son % de victoires et à son % d'arrêts. Chacun est mélangé avec ses deux saisons d'avant : quelques bons matchs en octobre ne font pas un Vézina. Le % d'arrêts et la moyenne : au moins 20 départs projetés pour être classé.",
     "Where each goalie will finish the season: his wins, his save % and his goals-against average. We start from his starts this season. For the rest: his team's games, times his share of the starts, at his win % and save %. Each one is blended with his previous two seasons: a few good games in October don't make a Vezina. Save % and GAA: at least 20 projected starts to be ranked.")}</p></div>${lireHTML(L("ce qu'il devrait avoir à la fin de la saison.", "what he should have at the end of the season."))}`;
   const lignes = liste.map(x => `<div class="wi-l wi-r" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${x.rg[mode]}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
-    <span class="nm">${x.n}<small>${x.eq} · ${L("environ", "about")} ${x.proj.dep} ${L("départs", "starts")} (${Math.round(x.part * 100)}${L(" % de ceux de son équipe", "% of his team's")})</small><span class="wi-st">${L("en ce moment : ", "now: ")}${x.c.v} ${L("V", "W")} · ${bpg2(x.c.mba)} ${L("moy.", "GAA")} · ${sv3(x.c.sv)} ${L("en", "in")} ${x.c.dep} ${L("départs", "starts")}</span></span>
+    <span class="nm">${nomP(x.n, "g")}<small>${x.eq} · ${L("environ", "about")} ${x.proj.dep} ${L("départs", "starts")} (${Math.round(x.part * 100)}${L(" % de ceux de son équipe", "% of his team's")})</small><span class="wi-st">${L("en ce moment : ", "now: ")}${x.c.v} ${L("V", "W")} · ${bpg2(x.c.mba)} ${L("moy.", "GAA")} · ${sv3(x.c.sv)} ${L("en", "in")} ${x.c.dep} ${L("départs", "starts")}</span></span>
     <span class="v">${coteHTML(x.rg[mode], n, false)}${val(x)}${AB({ v: L("V", "W"), sv: L("% arr.", "SV%"), mba: L("moy.", "GAA") }[mode])}<small>${mode === "sv" ? `${x.proj.v} ${L("V", "W")} · ${bpg2(x.proj.mba)} ${L("moy. projetées", "projected GAA")}` : `${L("% arrêts projeté", "projected save %")} ${sv3(x.proj.sv)}`}</small></span></div>`).join("")
     || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqP = Object.entries(parEq(PRJ.gardiens, x => x.eq, x => mode === "v" ? x.proj?.v : null)).map(([t, a]) => ({ t, v: topSom(a, 3), txt: Math.round(topSom(a, 3)).toLocaleString(LANG) }));
@@ -5168,7 +5178,7 @@ function prjLigne(x, mode){
   const pos = x.pos === "D" ? L("Déf.", "D") : L("Avant", "F"), c = x.c;
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS${c.pm != null ? ` · ${pmW(c.pm)}` : ""} · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
   return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
-    <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
+    <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${mode === "pm" ? pmW(x.proj[mode]) : x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pm: "+/-", pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]), false, null, (v) => Math.round(v))}</span></button>`;
 }
 // Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
@@ -5213,7 +5223,7 @@ function prjCarte(id){
     : L("Aucun point de comparaison : c'est son rythme seul.", "No comparison point: it's his pace alone.");
   const m = $("#wi-modal");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
-    <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>${L("Projection", "Projection")} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, x.g ? "g" : "j")}</b><span>${L("Projection", "Projection")} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <div class="row prj-gk">${Object.entries(PRJ_MODES).map(([k, n]) => `<button class="chip" data-gk="${k}" data-id="${x.id}" aria-pressed="${k === (S.prj || "pts")}">${k === "pim" ? PIM() : L(...n)}</button>`).join("")}</div>
       <div class="prj-g">${prjGraph(x, S.prj || "pts")}</div>
@@ -5703,14 +5713,14 @@ async function pwrOnglet(){
   } else if (mode === "g"){
     Object.assign(COTE, { n: PWR.n_gardiens || PWR.gardiens.length, inv: false });
     lignes = PWR.gardiens.filter(x => garde(x.eq, x.n)).map(x => `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
-        <span class="nm">${x.n}<small>${x.eq} · ${x.v} ${L("V", "W")} ${L("en", "in")} ${x.pj} ${L("départs", "starts")} · ${sv3(x.sv)}${x.mba != null ? ` · ${bpg2(x.mba)} ${L("moy.", "GAA")}` : ""}</small><span class="wi-st">${L("forme : ", "form: ")}${sv3(x.sv5)} ${L("en", "in")} ${x.n5} ${L("départs", "starts")} (${x.v5} ${L("V", "W")})${x.gcr != null ? ` · PBGC ${x.gcr}` : ""}</span></span>
+        <span class="nm">${nomP(x.n, "g")}<small>${x.eq} · ${x.v} ${L("V", "W")} ${L("en", "in")} ${x.pj} ${L("départs", "starts")} · ${sv3(x.sv)}${x.mba != null ? ` · ${bpg2(x.mba)} ${L("moy.", "GAA")}` : ""}</small><span class="wi-st">${L("forme : ", "form: ")}${sv3(x.sv5)} ${L("en", "in")} ${x.n5} ${L("départs", "starts")} (${x.v5} ${L("V", "W")})${x.gcr != null ? ` · PBGC ${x.gcr}` : ""}</span></span>
         <span class="v">${coteHTML(x.rg)}${x.pc != null ? pbN(x.pc) : x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}${pbAv(x)}</small>${pbSpark(x)}</span></div>`).join("");
   } else {
     const LJ = mode === "r" ? PWR.recrues : PWR.joueurs;
     Object.assign(COTE, { n: (mode === "r" ? PWR.n_recrues : PWR.n_classes) || 500, inv: false });
     lignes = LJ.filter(x => garde(x.eq, x.n)).map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
       return `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
-        <span class="nm">${x.n}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme : ", "form: ")}${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
+        <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme : ", "form: ")}${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
         <span class="v">${coteHTML(x.rg)}${x.pc != null ? pbN(x.pc) : x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}${pbAv(x)}</small>${pbSpark(x)}</span></div>`; }).join("");
   }
   el.innerHTML = saiBandeau("pwr") + tete + (lignes || `<div class="card"><div class="vide">${L("Personne de cette équipe dans ce classement.", "Nobody from this team in this ranking.")}</div></div>`) + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(PWR.maj)}.</p>`;
@@ -5755,7 +5765,7 @@ async function arbOnglet(){
   Object.assign(COTE, { n: ARB.joueurs.length, inv: true });
   const lignes = liste.slice(0, 150).map((x, i) => { const [v, lib] = val(x);
     return `<button class="wi-l wi-r arb-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${i + 1}${mvtHTML(pbDr(x, tri === "bas" ? null : tri))}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
-      <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} h</small><span class="wi-st">${L("obtient", "draws")} ${n1a(x.ob)} (${L("att.", "exp.")} ${n1a(x.ob_att)}) · ${L("prend", "takes")} ${n1a(x.pr)} (${L("att.", "exp.")} ${n1a(x.pr_att)})</span></span>
+      <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} h</small><span class="wi-st">${L("obtient", "draws")} ${n1a(x.ob)} (${L("att.", "exp.")} ${n1a(x.ob_att)}) · ${L("prend", "takes")} ${n1a(x.pr)} (${L("att.", "exp.")} ${n1a(x.pr_att)})</span></span>
       <span class="v">${coteHTML(x.rg, ARB.joueurs.length, true)}${pbBloc(x, tri === "bas" ? null : tri, "PBRB", L(...ARB_TRIS[tri]), `${v} ${lib}`)
         ?? `<span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${v}</span><small>${lib}</small>`}</span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
@@ -5823,7 +5833,7 @@ async function coachOnglet(){
      <p><b>The window.</b> The last ${CO.fenetre} seasons up to the chosen season; the 3 most recent count fully, older ones less. A coach fired mid-season: each stint is split by the share of games he coached.</p>`)}</details>`;
   const lignes = liste.map(x => { const r = rang[x.id];
     return `<button class="wi-l wi-r co-c" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${r}${pos === "tous" ? mvtHTML(x.dr) : ""}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
-      <span class="nm">${x.n}<small>${x.eq} · ${x.nsai} ${L(x.nsai > 1 ? "saisons" : "saison", x.nsai > 1 ? "seasons" : "season")} · ${x.nj} ${L("joueurs comparés", "players compared")}</small><span class="wi-st">${x.monte} ${L("en hausse", "up")} · ${x.baisse} ${L("en baisse", "down")} · ${pts2(x[kb])} ${L("pts/match", "pts/game")}</span></span>
+      <span class="nm">${nomP(x.n, "c")}<small>${x.eq} · ${x.nsai} ${L(x.nsai > 1 ? "saisons" : "saison", x.nsai > 1 ? "seasons" : "season")} · ${x.nj} ${L("joueurs comparés", "players compared")}</small><span class="wi-st">${x.monte} ${L("en hausse", "up")} · ${x.baisse} ${L("en baisse", "down")} · ${pts2(x[kb])} ${L("pts/match", "pts/game")}</span></span>
       <span class="v">${coteHTML(r, classes.length, false)}${pbN(x[kp])}${AB("PBCB")}<small>PB Coach Boost %${pos === "tous" && x.pcav != null && x.pcav !== x.pc ? ` · ${L("saison d'avant", "season before")} ${pbTxt(x.pcav)}` : ""}</small>${pos === "tous" && x.ph?.length > 1 ? spark(x.ph, false, L("Saison par saison", "Season by season"), spkPc) : ""}</span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun coach trouvé.", "No coach found.")}</div></div>`;
   const maj = CO.maj ? new Date(CO.maj + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long", year: "numeric" }) : "";
@@ -5836,7 +5846,7 @@ function coachCarte(id){
   const m = $("#wi-modal");
   const J = (x.j || []).map(j => { const d = j.sans > 0 ? (j.avec / j.sans - 1) * 100 : null;
     return `<tr><td><b>${j.n}</b> <small>${j.pos === "D" ? L("Déf.", "D") : L("Av.", "F")}</small></td><td>${j.pja}</td><td>${n2(j.avec)}</td><td>${n2(j.sans)}</td><td class="${j.res > 0 ? "bon" : j.res < 0 ? "mauvais" : ""}">${d == null ? "–" : (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(Math.round(d)) + (EN ? "%" : " %")}</td></tr>`; }).join("");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}"><header><div class="wi-hd"><img class="lg" src="${LOGO(x.eq)}" alt="" style="width:46px;height:46px"><div><b>${x.n}</b><span>${NOMS_EQ[x.eq] || x.eq} · ${coSaiTxt(sc)} · ${x.pj} ${L("matchs derrière le banc", "games behind the bench")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}"><header><div class="wi-hd"><img class="lg" src="${LOGO(x.eq)}" alt="" style="width:46px;height:46px"><div><b>${nomP(x.n, "c")}</b><span>${NOMS_EQ[x.eq] || x.eq} · ${coSaiTxt(sc)} · ${x.pj} ${L("matchs derrière le banc", "games behind the bench")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-res"><div><b>${x.monte}</b><span>${L("joueurs en hausse", "players up")}</span></div><div><b>${x.baisse}</b><span>${L("en baisse", "down")}</span></div>
       <div><b>${pts2(x[kb])}</b><span>${L("pts/match vs attendu", "pts/game vs expected")}</span></div><div><b>${x.nsai}</b><span>${L("saisons comme coach", "seasons as coach")}</span></div></div>
     <p class="aide" style="margin:10px 16px 4px">${L("Ceux qui ont joué pour lui et pour un autre coach : points par match avec lui, puis avec les autres (bruts ; le % de la stat enlève l'âge et la saison).", "Players who played for him and for another coach: points per game with him, then with the others (raw; the stat's % takes out age and season).")}</p>
@@ -5882,7 +5892,7 @@ async function gcrOnglet(){
     const [val, lib] = gcrVal(x, tri);
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
     return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${mvtHTML(pbDr(x, tri === "gcr" ? null : tri))}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
-      <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
+      <span class="nm">${nomP(x.n, "g")}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
       <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${tri === "gcr" ? `${x.pc != null ? pbN(x.pc) : val}${AB("PBGC")}<small>${lib}${pbAv(x)}</small>${pbSpark(x, x.h)}`
         : pbBloc(x, tri, "PBGC", L(...GCR_TRIS[tri]), `${val} ${lib}`) ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => tri === "gcr" ? (x.pc ?? null) : (x.pcs?.[tri] ?? null), x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
@@ -7046,8 +7056,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=d2cef21e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=d2cef21e" defer></script>
+<script src="pub.js?v=a910bfff" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a910bfff" defer></script>
 <script src="nav.js?v=3b910b2362" defer></script>
 </body>
 </html>

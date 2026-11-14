@@ -257,3 +257,13 @@ table.cls td.cls-p{font:700 19px/1 "Teko",var(--f-display)}
 table.cls td.cls-s{font:700 16px/1 "Teko",var(--f-display);color:#1B5FA8}
 table.cls td.bon{color:#14834A}table.cls td.mauvais{color:#C8102E}
 table.cls tr.cls-ligne td{padding:0;height:3px;background:var(--or,#FFB81C);border:0}
+
+/* Les petits bonhommes à droite des noms (Mitch, 14 nov. 2026) : ses dessins joueur / gardien / coach, recolorés aux
+   2 couleurs de l'équipe de la rangée (--df : principale, --dl : 2e, posées par eqV()). 4 masques par dessin dans
+   icones/ (assets/icones/masques.py les refait depuis les originaux). */
+.pers-n{white-space:nowrap}.pers{display:inline-block;position:relative;width:1.4em;height:1.4em;vertical-align:-.32em;margin-left:.3em;flex:none;line-height:0}
+.pers i{position:absolute;inset:0;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat}
+.pers .o{background:#fff;opacity:.9}.pers .d{background:var(--df,#0A2342)}.pers .y{background:var(--dl,#FFB81C)}.pers .w{background:#fff}
+.pers-j .o{--m:url(icones/joueur-o.png)}.pers-j .d{--m:url(icones/joueur-d.png)}.pers-j .y{--m:url(icones/joueur-y.png)}.pers-j .w{--m:url(icones/joueur-w.png)}
+.pers-g .o{--m:url(icones/gardien-o.png)}.pers-g .d{--m:url(icones/gardien-d.png)}.pers-g .y{--m:url(icones/gardien-y.png)}.pers-g .w{--m:url(icones/gardien-w.png)}
+.pers-c .o{--m:url(icones/coach-o.png)}.pers-c .d{--m:url(icones/coach-d.png)}.pers-c .y{--m:url(icones/coach-y.png)}.pers-c .w{--m:url(icones/coach-w.png)}
