@@ -176,3 +176,60 @@ table.cl .cl-eq .spk.spk svg{width:44px;height:14px}
 .wi-l .v .spk.spk svg{flex:1 1 auto;min-width:28px;width:auto}
 .wi-l .v small{max-width:118px}
 .wi-l .spk-a,.wi-l .spk-b{font-size:10px}
+
+/* Le bloc des projections du match (fenêtre d'un match, onglet Probs) : il vit dans la fenêtre foncée du match, il garde
+   donc les couleurs foncées (sinon fond pâle + texte pâle : on ne lisait plus rien. Mitch, 14 nov. 2026) */
+.projm{--ink:#EAF1F8;--muted:#9FB3CB;--line:#24406380;--surface:#10213A;--surface2:#152A47;color:var(--ink)}
+.projm .pv,.projm .pab,.projm .ps{color:var(--ink)}
+
+/* ---- L'en-tête « une barre » (Mitch, 14 nov. 2026 : « l'en-tête plus petite et épurée en gardant son efficacité » ;
+   choix A de la maquette). Tout sur une ligne d'environ 50 px (avant ~130 px avec la barre des réseaux) : le logo,
+   la date et l'heure du calcul en petit dessous, puis à droite FR, LIVE et le bouton de ton club. Facebook et
+   Instagram : dans le menu « All » (la page Liens) au lieu d'une barre noire en haut. Plus de bandes en biais : un
+   filet de la couleur d'accent en bas (l'or, ou la 2e couleur de ton club). ---- */
+html .pp-soc{display:none!important}
+html header.bug.bug{display:grid;grid-template-columns:auto 1fr auto auto;grid-template-areas:"logo . d club" "maj . d club";column-gap:6px;row-gap:2px;align-items:center;min-height:50px;
+  padding:max(6px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) 7px max(12px,env(safe-area-inset-left,0px))}
+html header.bug.bug::before{display:none}
+html header.bug.bug::after{height:3px;background:var(--or,#FFB81C)}
+header.bug .bug-t{display:contents}
+header.bug .logo-l{grid-area:logo;margin:0;align-items:center}
+html header.bug .logo-site.logo-site{width:min(132px,36vw)}
+header.bug .beta{margin-top:0;font-size:8.5px;padding:2px 4px}
+html header.bug .maj.maj{grid-area:maj;font-size:9.5px;line-height:1.15;text-align:left;margin:0;color:var(--sur-fond-2)!important}
+header.bug .bug-d{grid-area:d;margin:0;gap:6px}
+header.bug .club-btn{grid-area:club;margin:0;align-self:center;padding:3px;border-radius:7px;font-size:0;gap:0}
+header.bug .club-btn .club-pas{width:26px;height:26px;border-radius:5px;font-size:9px;box-shadow:none}
+header.bug .club-btn:not(:has(.club-pas)){font-size:10px;padding:5px 7px;line-height:1}
+html header.bug .lang,html header.bug .livebtn{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;padding:6px 9px;border-radius:12px;border-width:1.5px;letter-spacing:.5px;margin-left:0}
+header.bug .livebtn i{width:7px;height:7px}
+header.bug > .lang{grid-area:d;justify-self:end}
+
+/* ---- Les popups « fiche marine » (Mitch, 14 nov. 2026 : « change le style des popups pour que ça fitte le thème du
+   site, on standardise » ; choix B, « marine et qui change aux couleurs de l'équipe choisie comme thème »). Toutes les
+   fenêtres (fiche d'un joueur, d'un match, carrière PB Stats, transactions...) : le fond du thème (--bg : le marine
+   PuckProb, ou l'ombre de ton club avec Mon club), une bande plate de la couleur de l'équipe en haut (fini les rayures
+   en biais), les chiffres dans des tuiles pâles, la 1re en accent (--or : l'or, ou la 2e couleur de ton club), le X
+   rond de l'accent. Les jetons de couleur sont redéfinis DANS la fenêtre : plus de texte pâle sur fond pâle. ---- */
+html .wi-carte.wi-carte{--ink:#EAF1F8;--muted:#9FB3CB;--line:#ffffff22;--surface:color-mix(in srgb,var(--bg) 88%,#fff);--surface2:color-mix(in srgb,var(--bg) 80%,#fff);
+  --card:var(--surface);--chip:color-mix(in srgb,var(--bg) 75%,#fff);
+  background:var(--bg);color:#DCE6F2;border:0;border-top:8px solid var(--pf,var(--eq));border-radius:12px;
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--or) 45%,transparent),0 18px 50px rgba(0,0,0,.6)}
+html .wi-carte.wi-carte header{background:var(--bg);color:#fff;border-bottom:1px solid #ffffff1f;min-height:0;padding:14px}
+html .wi-carte.wi-carte header::before{display:none}
+.wi-carte header b{text-shadow:none}
+.wi-carte header span{text-shadow:none;color:var(--sur-fond-2)}
+html .wi-carte.wi-carte header button{background:var(--or);color:var(--sur-or);font-weight:800}
+.wi-carte .wi-res div{background:#F2F5FA;border:0;color:#0A2342}
+.wi-carte .wi-res div:first-child{background:var(--or)}
+.wi-carte .wi-res div:first-child b,.wi-carte .wi-res div:first-child span{color:var(--sur-or)}
+html .wi-carte .wi-res b{color:#0A2342}
+.wi-carte .wi-res span{color:#4A5D78}
+.wi-carte th{color:var(--or-txt)}
+.wi-carte p{color:var(--sur-fond-2)}
+.wi-carte .card,.wi-carte details{background:var(--surface)!important;color:var(--ink)!important}
+/* le tiroir du bas (la feuille des détails) : même fond, même filet d'accent */
+html .sheet-box{background:var(--bg);border-top:3px solid var(--or);color:#DCE6F2}
+/* le gros chiffre en tête de fiche : blanc, lisible sur le marine (avant : un bleu pâle presque invisible) */
+.wi-carte .gcr-gros b,.wi-carte .ca-hero b{color:#fff}
+.wi-carte .ca-hero{background:transparent}

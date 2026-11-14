@@ -868,7 +868,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=d2dde9b6">
+<link rel="stylesheet" href="carte.css?v=4176ba01">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -5054,7 +5054,9 @@ function enfCarte(id){
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${x.n}</b><span>PB Intimidation % ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
-      <p><b>${"PB Intimidation % : ".replace(" :", EN ? ":" : " :")}${pcIdx(x.pct)}.</b> ${L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
+      <p><b>${"PB Intimidation % : ".replace(" :", EN ? ":" : " :")}${x.pc != null ? pbTxt(x.pc) : pcIdx(x.pct)}.</b> ${x.pc != null
+        ? L(`Son score (${n1(x.score)}) en % PuckProb : 0 % = le patineur moyen de la ligue, 100 % = le niveau des 3 meilleurs (le n° 1 peut dépasser).`, `His score (${n1(x.score)}) in PuckProb %: 0% = the league's average skater, 100% = the level of the top 3 (No. 1 can go over).`)
+        : L(`Une cote sur 100 : son score (${n1(x.score)}) divisé par celui du n° 1 (${n1(un?.score)}). 100 % = le n° 1, 0 % = le patineur moyen de la ligue.`, `A rating out of 100: his score (${n1(x.score)}) divided by the #1's (${n1(un?.score)}). 100% = the #1, 0% = the league's average skater.`)}</p>
       <div class="wi-tbl"><table class="wi-car"><thead><tr><th>${L("Morceau (poids)", "Part (weight)")}</th><th>${L("Lui", "Him")}</th><th>${L("Cote", "Rating")}</th></tr></thead><tbody>${rangs}</tbody></table></div>
       <p>${L("Cote : sur 100 dans chaque catégorie, le n° 1 de la catégorie à 100 %, le patineur moyen à 0 %. Entre parenthèses : son rang dans la ligue.", "Rating: out of 100 in each category, the category's #1 at 100%, the average skater at 0%. In brackets: his league rank.")}</p>
       <p><b>Badassness.</b> ${x.recu60 == null ? L("En attente de la nouvelle récolte (prochain calcul complet).", "Waiting for the new harvest (next full calculation).") : L(
@@ -6903,8 +6905,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=d2dde9b6" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=d2dde9b6" defer></script>
+<script src="pub.js?v=4176ba01" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=4176ba01" defer></script>
 <script src="nav.js?v=bf48d93807" defer></script>
 </body>
 </html>
