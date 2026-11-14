@@ -1010,6 +1010,28 @@
   "publie": true,
   "quand": "2026-11-14T11:01-05:00"
  },
+ "2026-11-14-matin-073531-3-story": {
+  "fb": "1527433155881074",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "story",
+  "titre": "Classement final projeté",
+  "publie": true,
+  "quand": "2026-11-14T12:00-05:00"
+ },
+ "2026-11-14-matin-073531-3": {
+  "fb": "1508565075663838_122110803033537152",
+  "fb_com": "122110803033537152_1471339765186800",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "classement",
+  "opt": {
+   "hasard": 0.2230368269495362
+  },
+  "lien": "https://puckprob.ca/fr/coupe-stanley/",
+  "lien_en": "https://puckprob.ca/stanley-cup/",
+  "titre": "Classement final projeté",
+  "publie": true,
+  "quand": "2026-11-14T12:00-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-14T14:10-05:00"
  }
