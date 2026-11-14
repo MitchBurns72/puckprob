@@ -100,3 +100,72 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
 /* La petite ligne sous le gros chiffre (ce que c'est · la valeur brute · avant) : bornée en largeur, elle passe à la
    ligne au lieu d'écraser le nom du joueur (les sous-catégories en % ont une ligne plus longue, 13 nov. 2026) */
 .wi-l .v small{max-width:10em;margin-left:auto;overflow-wrap:break-word}
+
+/* ---- Les emblèmes « plat moderne » (Mitch, 13 nov. 2026 : « overhaul des emblèmes d'équipe et de joueur, au style du
+   site » ; style D de la maquette). Joueur : un carré plat de la 1re couleur du club, le numéro en Teko, la position dans
+   une languette de la 2e couleur en bas. Aucun contour, aucune ombre, aucun relief. Les couleurs viennent de eqV()
+   (--df fond, --dt texte, --dl languette, --dlt texte de la languette, calculées dans palette()). Les tailles de chaque
+   endroit (listes, fiches, duos, alignements) restent celles d'avant : seul le dessin change. ---- */
+.wi-rond.wi-rond,.plaque.plaque{position:relative;overflow:hidden;background:var(--df,var(--pf,var(--eq)));color:var(--dt,#fff);box-shadow:none;text-shadow:none;border-radius:7px;gap:0;justify-content:center}
+.wi-rond.wi-rond:has(> i),.plaque.plaque:has(> i){padding-bottom:22%}
+.wi-rond.wi-rond b,.plaque.plaque b{font-family:"Teko",var(--f-display);font-weight:700;font-style:normal;line-height:.8;-webkit-text-stroke:0;paint-order:normal;text-shadow:none;margin-top:3px}
+.wi-rond.wi-rond i,.plaque.plaque i{position:absolute;left:0;right:0;bottom:0;height:24%;display:flex;align-items:center;justify-content:center;background:var(--dl,#0A2342);color:var(--dlt,#fff);
+  font:800 max(7px,.5em) "Barlow Condensed",var(--f-body);letter-spacing:.04em;opacity:1}
+.wi-rond.wi-rond b{font-size:22px}.plaque.plaque b{font-size:22px}
+.wi-carte header .wi-rond.wi-rond{box-shadow:none}.wi-carte header .wi-rond.wi-rond b{font-size:26px}
+.tr .ph:has(>.plaque){box-shadow:none!important}
+.tr .ph .plaque.plaque b,.photo .ph .plaque.plaque b{font-size:28px}
+.duo-pl .wi-rond.wi-rond b,.u-pl .wi-rond.wi-rond b{font-size:18px}
+:is(.gface,.aface) .plaque.plaque b{font-size:15px}
+
+/* ---- Les petits graphs, encadrés (Mitch, 13 nov. 2026 : « encadre les graphs, qu'on voie d'où il part et où il arrive,
+   de la couleur de l'entête ») : un cadre fin de la couleur de l'équipe de la rangée, la courbe pleine couleur, un point
+   au départ et à l'arrivée (plus gros à l'arrivée), et les deux valeurs aux bouts quand la section sait les écrire. ---- */
+.spk.spk{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:3px 5px;border:1.5px solid color-mix(in srgb,var(--eq,var(--ice)) 55%,transparent);
+  border-radius:5px;background:color-mix(in srgb,var(--eq,var(--ice)) 7%,transparent);line-height:1;vertical-align:middle}
+.wi-l .v .spk.spk,.tr .spk.spk,.pc .spk.spk{float:right;clear:both}
+.spk.spk svg{width:64px;height:20px}
+.spk.spk path{stroke:var(--eq,var(--ice));stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round;fill:none}
+.spk.spk path.spk-0,.spk.spk path.spk-1{stroke-linecap:round;stroke-width:5}
+.spk.spk path.spk-1{stroke-width:7}
+.spk-a,.spk-b{font:700 11px/1 "Barlow",var(--f-body);font-style:normal;color:var(--muted);white-space:nowrap;letter-spacing:0}
+.spk-b{color:var(--ink);font-weight:800}
+/* sur fond foncé (cartes de match, fiches) : le texte pâle */
+.mc .spk-a,.wi-carte .spk-a{color:#9FB3CB}.mc .spk-b,.wi-carte .spk-b{color:#fff}
+/* le petit graph du tableau du classement : trop petit pour les valeurs et le cadre */
+table.cl .cl-eq .spk.spk{border:0;background:none;padding:0;float:none}
+table.cl .cl-eq .spk.spk svg{width:44px;height:14px}
+/* Les petits emblèmes d'équipe (les équipes d'un joueur, le filtre par équipe, les classements d'équipes) : le même
+   carré plat, 1re couleur, bande de la 2e en bas ; le choisi du filtre : un trait de la couleur du site dessous */
+.wi-eqs i.wi-eqs-x,.wi-eqs i{border-radius:4px;background:var(--df,var(--c));color:var(--dt,#fff);box-shadow:inset 0 -3px 0 var(--dl,transparent);font-family:"Teko",var(--f-display);font-weight:700;font-size:11px;padding-top:1px}
+.wi-carte .wi-eqs i{box-shadow:inset 0 -3px 0 var(--dl,transparent)}
+.peq.peq{border-radius:5px;background:var(--df,var(--c));color:var(--dt,#fff);box-shadow:inset 0 -4px 0 var(--dl,transparent);font-family:"Teko",var(--f-display);font-weight:700;font-size:14px;padding-top:2px}
+.peq.peq[aria-pressed="true"]{box-shadow:inset 0 -4px 0 var(--dl,transparent),0 0 0 2px var(--surface,#fff),0 0 0 4px var(--or,#FFB81C)}
+.eq-cls .lgp{border-radius:4px}
+
+/* ---- Le repêchage en direct (PB SIM, 13 nov. 2026, maquette approuvée) : la carte carrée qui se retourne, la grille ---- */
+.drv{margin:6px 0 14px}.drv-sc{perspective:900px;display:flex;justify-content:center}
+.drv-c{width:min(290px,80vw);aspect-ratio:1;position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,1.4,.5,1);cursor:pointer}
+.drv-c.drv-r{transform:rotateY(180deg)}
+.drv-f{position:absolute;inset:0;border-radius:14px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.drv-av{background:repeating-linear-gradient(135deg,#13335E 0 14px,#102C52 14px 28px);box-shadow:0 0 0 3px var(--or,#FFB81C),0 14px 34px rgba(0,0,0,.45)}
+.drv-no{position:absolute;top:12px;left:14px;font:700 26px/1 "Teko",var(--f-display);color:var(--or-txt,#FFB81C)}.drv-no small{display:block;font:800 12px "Barlow Condensed",var(--f-body);color:#9FB3CB;letter-spacing:1px}
+.drv-q{font:700 140px/.8 "Teko",var(--f-display);color:#fff;text-shadow:0 0 30px rgba(255,184,28,.35);animation:drvPouls 1.6s ease-in-out infinite;margin-top:6px}
+@keyframes drvPouls{50%{transform:scale(1.06);text-shadow:0 0 44px rgba(255,184,28,.6)}}
+.drv-tap{position:absolute;top:14px;right:14px;font:800 11px "Barlow Condensed",var(--f-body);color:#0A2342;background:var(--or,#FFB81C);padding:4px 7px;border-radius:4px;letter-spacing:.5px}
+.drv-pr{position:absolute;left:12px;right:12px;bottom:12px;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:10px}
+.drv-pr span{font:800 11px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78;letter-spacing:.5px}.drv-pr span b{display:block;font:700 20px/1 "Teko",var(--f-display);color:#0A2342;text-transform:none;letter-spacing:0;margin-top:2px}
+.drv-pr em{margin-left:auto;font:700 30px/1 "Teko",var(--f-display);font-style:normal}.drv-pr em i{font-style:normal;color:#C8102E;font-size:.6em}
+.drv-ar{transform:rotateY(180deg);background:var(--df,var(--eq));color:var(--dt,#fff);box-shadow:0 0 0 3px #fff,0 14px 34px rgba(0,0,0,.45)}
+.drv-ar .drv-no{color:inherit}.drv-ab{font:700 116px/.8 "Teko",var(--f-display);margin-top:-12px}.drv-nom{font:700 25px/1 "Teko",var(--f-display);text-transform:uppercase;margin-top:6px}
+.drv-esp{position:absolute;left:0;right:0;bottom:0;height:16%;display:flex;align-items:center;justify-content:center;background:var(--dl,#0A2342);color:var(--dlt,#fff);font:800 13px "Barlow Condensed",var(--f-body);padding:0 8px;text-align:center}
+.drv-mv{position:absolute;top:12px;right:12px;background:#1E9E55;color:#fff;font:700 20px/1 "Teko",var(--f-display);padding:4px 8px 2px;border-radius:5px}
+.drv-b{display:flex;gap:8px;justify-content:center;margin:14px 0 8px}
+.drv-b button{font:800 14px "Barlow Condensed",var(--f-body);text-transform:uppercase;letter-spacing:.5px;border:0;border-radius:5px;padding:9px 14px;cursor:pointer}
+.drv-b1{background:var(--or,#FFB81C);color:var(--sur-or,#0A2342)}.drv-b2{background:#13335E;color:#DCE6F2}
+.drv-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.drv-m{aspect-ratio:1;border-radius:7px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font:700 22px/1 "Teko",var(--f-display)}
+.drv-v{background:repeating-linear-gradient(135deg,#13335E 0 8px,#102C52 8px 16px);color:#56708F}.drv-v b{font-size:28px}
+.drv-m small{position:absolute;top:4px;left:6px;font:700 13px "Teko",var(--f-display);opacity:.9}
+.drv-p{background:var(--df,var(--eq));color:var(--dt,#fff)}.drv-p i{position:absolute;left:0;right:0;bottom:0;height:20%;background:var(--dl,#0A2342)}
+.drv-nv{animation:drvArr .6s ease-out}@keyframes drvArr{from{transform:scale(.4);opacity:0}}

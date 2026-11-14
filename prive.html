@@ -868,7 +868,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=ff3d67b2">
+<link rel="stylesheet" href="carte.css?v=3ed2e48e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1451,7 +1451,7 @@ function palette(t){
   const chrom = (h) => { const c = [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255); return Math.max(...c) > 0.08 && (Math.max(...c) - Math.min(...c)) / Math.max(...c) > 0.3; };
   const contr = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((u, v) => v - u); return (x + 0.05) / (y + 0.05); };
   const P = PALETTES[t];
-  if (!P) return (PAL[t] = { f: coul(t), t: "#FFFFFF", c: "#FFFFFF", k: "#F4E7C5", v: "#DCE6F2", w: "#FFFFFF" });
+  if (!P) return (PAL[t] = { f: coul(t), t: "#FFFFFF", c: "#FFFFFF", k: "#F4E7C5", v: "#DCE6F2", w: "#FFFFFF", d: coul(t), dt: "#FFFFFF", dl: "#0A2342", dlt: "#FFFFFF" });
   const foncees = P.slice(0, 2).filter(c => chrom(c) && lum(c) < 0.13);
   const f = (foncees.length ? foncees : P).reduce((a, b) => lum(b) < lum(a) ? b : a);
   const reste = P.filter(c => c !== f);
@@ -1464,12 +1464,20 @@ function palette(t){
   let v = coul(t), m = 0;
   const pale = (h, a) => "#" + [1, 3, 5].map(i => Math.round(parseInt(h.slice(i, i + 2), 16) * (1 - a) + 255 * a).toString(16).padStart(2, "0")).join("");
   while (contr(v, "#0B1220") < 3.6 && m < 0.9){ m += 0.05; v = pale(coul(t), m); }
-  return (PAL[t] = { f, t: tx, c: ct, k, v, w: ct !== tx ? ct : "#FFFFFF" });
+  // L'emblème « plat moderne » (Mitch, 13 nov. 2026, style D de la maquette) : un carré plat de la 1re couleur du club,
+  // la languette de position de la 2e. Un club « noir » (PIT, LAK...) prend sa couleur vive en fond et le noir en
+  // languette, comme Mon club : 13 emblèmes noirs sur fond marine, ça ne se lit pas. Le texte : blanc ou marine, le plus lisible.
+  const noir = (h) => lum(h) < 0.012;
+  let d = P[0], dl = P[1] || "#FFFFFF";
+  if (noir(d) && P[1]){ d = P[1]; dl = P[0]; }
+  if (contr(d, dl) < 1.3) dl = P.find(c => c !== d && contr(c, d) >= 1.3) || "#FFFFFF";
+  const encre = (h) => contr(h, "#FFFFFF") >= contr(h, "#0A2342") ? "#FFFFFF" : "#0A2342";
+  return (PAL[t] = { f, t: tx, c: ct, k, v, w: ct !== tx ? ct : "#FFFFFF", d, dt: encre(d), dl, dlt: encre(dl) });
 }
 // Les variables CSS d'une équipe : --eq (sa couleur principale, pour les lignes), --pf / --pt / --pb (pastille), --pc (fiche)
 // --ps : le contour du numéro = la 3e couleur, ou la couleur du fond si la 3e est la même que le chiffre (blanc sur blanc)
 const eqV = (t) => { const p = palette(t), ps = String(p.c).toLowerCase() !== String(p.t).toLowerCase() ? p.c : p.f;
-  return `--eq:${coul(t)};--pf:${p.f};--pt:${p.t};--pb:${p.c};--pc:${p.k};--pv:${p.v};--pw:${p.w};--ps:${ps}`; };
+  return `--eq:${coul(t)};--pf:${p.f};--pt:${p.t};--pb:${p.c};--pc:${p.k};--pv:${p.v};--pw:${p.w};--ps:${ps};--df:${p.d};--dt:${p.dt};--dl:${p.dl};--dlt:${p.dlt}`; };
 // Images à partager : la palette d'après la couleur principale (seulement quand elle est à une seule équipe)
 let PAL_DE_COUL = null;
 const palDeCoul = (c) => {
@@ -1482,8 +1490,10 @@ const sombre = () => { const th = document.documentElement.dataset.theme;
 const LOGO = (t) => PUBLIC ? pastille(t) : `https://assets.nhle.com/logos/nhl/svg/${t}_${sombre() ? "dark" : "light"}.svg`;
 // Pastille maison (version publique) : cercle à la couleur de l'équipe + abréviation, en SVG
 function pastille(t){
-  const p = palette(t), c = p.f;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="${c}" stroke="${p.c}" stroke-width="7"/><text x="50" y="61" font-size="31" font-family="Arial Narrow,Arial,sans-serif" font-weight="700" fill="${p.t}" text-anchor="middle">${t || ""}</text></svg>`;
+  // L'emblème d'équipe « plat moderne » (style D) : carré plat de la 1re couleur, bande du bas de la 2e, l'abréviation
+  // en condensé gras. (Une image : la police du site n'y entre pas, on prend la condensée du téléphone.)
+  const p = palette(t);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><clipPath id="k"><rect width="100" height="100" rx="16"/></clipPath><g clip-path="url(#k)"><rect width="100" height="100" fill="${p.d}"/><rect y="84" width="100" height="16" fill="${p.dl}"/></g><text x="50" y="58" font-size="34" font-family="Roboto Condensed,sans-serif-condensed,Arial Narrow,Arial,sans-serif" font-weight="700" fill="${p.dt}" text-anchor="middle" dominant-baseline="middle">${t || ""}</text></svg>`;
   return "data:image/svg+xml," + encodeURIComponent(svg);
 }
 // Si une version « dark » manque, on retombe sur la « light »
@@ -3178,17 +3188,26 @@ function courbe(vals){
 }
 // La même courbe, pour n'importe quelle valeur : du plus bas au plus haut des derniers jours (pas depuis 0 : un salaire
 // de 2,0 M$ à 2,1 M$ doit se voir). inv : plus bas = mieux (un rang) -> la courbe monte quand ça s'améliore.
-function spark(vals, inv = false, titre = null){
+function spark(vals, inv = false, titre = null, fmt = null){
+  // Mitch, 13 nov. 2026 : « encadre les graphs, qu'on voie d'où il part et où il arrive ; les petits graphs partout de
+  // la couleur de l'entête ». Encadré (docs/carte.css, .spk), un point au départ et à l'arrivée, et quand on sait écrire
+  // la valeur (fmt), la valeur de départ à gauche et celle d'arrivée à droite. La couleur : celle de l'équipe de la rangée.
+  // Les points : un trait de longueur 0 au bout rond (non mis à l'échelle), donc des ronds même si le graph est étiré.
   const v = (vals || []).map(x => x == null ? null : +x);
   const ok = v.filter(x => x != null && !isNaN(x));
   if (ok.length < 2) return "";
   let lo = Math.min(...ok), hi = Math.max(...ok);
   if (hi - lo < 1e-9){ lo -= 1; hi += 1; }
-  const n = v.length - 1, Y = (x) => { const r = (x - lo) / (hi - lo); return (2 + (inv ? r : 1 - r) * 22).toFixed(1); };
-  let d = "";
-  v.forEach((x, i) => { if (x == null || isNaN(x)) return; d += `${d ? "L" : "M"}${(i / n * 100).toFixed(1)},${Y(x)}`; });
-  return `<span class="spk" title="${titre || L("Jour après jour", "Day by day")}"><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg></span>`;
+  const n = v.length - 1, Y = (x) => { const r = (x - lo) / (hi - lo); return (3 + (inv ? r : 1 - r) * 20).toFixed(1); };
+  let d = "", p0 = null, p1 = null;
+  v.forEach((x, i) => { if (x == null || isNaN(x)) return; const X = (i / n * 100).toFixed(1); d += `${d ? "L" : "M"}${X},${Y(x)}`; p1 = [X, Y(x), x]; if (!p0) p0 = p1; });
+  const pt = (q, c) => `<path class="${c}" d="M${q[0]},${q[1]}h0"/>`;
+  const lab = (q, c) => fmt ? `<span class="${c}">${fmt(q[2])}</span>` : "";
+  return `<span class="spk${fmt ? " spk-v" : ""}" title="${titre || L("Jour après jour", "Day by day")}">${lab(p0, "spk-a")}<svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/>${pt(p0, "spk-0")}${pt(p1, "spk-1")}</svg>${lab(p1, "spk-b")}</span>`;
 }
+// Les formats des valeurs au bout des petits graphs
+const spkPc = (v) => (v < 0 ? "−" : "") + Math.abs(Math.round(v)) + "%";
+const spkP1 = (v) => pc1(v) + "%";
 function coupeHTML(){
   const C = D.coupe, el = $("#coupe");
   if (!C || !C.equipes){ el.innerHTML = `<div class="card"><div class="vide">Les % de la Coupe arrivent au prochain calcul (la première fois, il récolte toutes les saisons depuis 2008).</div></div>`; return; }
@@ -3341,7 +3360,7 @@ function trophEqHTML(t){
       <span class="nm">${trophEqNom(t, x)}<small>${trophEqQui(t, x) ? nomEq(x.t) + " · " : ""}${t === "jennings" ? `${x.bc} buts accordés en ${x.pj} matchs, projeté ${x.proj}`
         : t === "adams" ? `${Math.round(x.pct * 100)} % des points projetés, attendu ${Math.round(x.attendu * 100)} % avant la saison`
         : `projeté ${Math.round(x.proj)} pts`}</small></span>
-      <span class="pc">${pc1(x.p)}<small>%</small>${ecartPc(x.dp)}${spark(x.h)}</span>
+      <span class="pc">${pc1(x.p)}<small>%</small>${ecartPc(x.dp)}${spark(x.h, false, null, spkP1)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>${hierHTML(x.dp, x.raison)}</div>`).join("");
   const T = (E.tests?.[t] || []).filter(x => x.gagnant);
   let test = "";
@@ -3372,7 +3391,7 @@ function filtreEqHTML(cle, equipes){
   const mc = window.ppClub?.() || "";
   if (mc && equipes.includes(mc)) equipes = [mc, ...equipes.filter(t => t !== mc)];
   return `<div class="eq-filtre" role="group" aria-label="${L("Filtrer par équipe", "Filter by team")}">${equipes.map(t =>
-    `<button type="button" class="peq" data-fe="${cle}" data-t="${t}" aria-pressed="${t === actif}" style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c}" title="${NOMS_EQ[t] || t}">${t}</button>`).join("")}</div>`;
+    `<button type="button" class="peq" data-fe="${cle}" data-t="${t}" aria-pressed="${t === actif}" style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c};--df:${palette(t).d};--dt:${palette(t).dt};--dl:${palette(t).dl}" title="${NOMS_EQ[t] || t}">${t}</button>`).join("")}</div>`;
 }
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
@@ -3443,7 +3462,7 @@ function trophHTML(t){
       <span class="rgn" style="font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center">${i + 1}${x.rang_av ? mvtHTML(x.rang_av - (i + 1)) : ""}</span>
       <span class="ph">${PUBLIC ? rondNo(x.no, x.nom, x.pos) : `<img src="${x.photo}" alt="" loading="lazy" onerror="this.remove()">`}</span>
       <span class="nm" style="font:800 19px/1.05 var(--f-display);text-transform:uppercase">${PUBLIC && x.slug ? `<a class="fiche" href="${CH.j}${x.slug}/">${x.nom}</a>` : x.nom}<small style="display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px">${x.eq}${x.pos ? " · " + (x.pos === "D" ? "Déf." : x.pos === "G" ? "Gardien" : "Avant") : ""} · ${x.pj} matchs</small></span>
-      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}${spark(x.h)}</span>
+      <span class="pc" style="font:italic 800 30px/.9 var(--f-display);text-align:right">${pc1(x.p)}<small style="font-size:15px">%</small>${ecartPc(x.dp)}${spark(x.h, false, null, spkP1)}</span>
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>
       <span class="stat">${statTroph(t, x)}</span>
       ${hierHTML(x.dp, x.raison)}
@@ -3901,7 +3920,7 @@ const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.
 // Couleur d'un joueur : son équipe ACTUELLE s'il joue encore (Kreider = MTL, pas NYR où il a joué le plus) ;
 // un retraité garde l'équipe où il a joué le plus de matchs.
 const eqPrincipale = (x) => x.act === false ? (x.eqs?.[0]?.[0] || x.eq) : (x.eq || x.eqs?.[0]?.[0]);
-const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
+const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c};--df:${palette(t).d};--dt:${palette(t).dt};--dl:${palette(t).dl}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
 const wiRond = (x) => `<span class="wi-rond" style="${eqV(eqPrincipale(x))}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
 function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
@@ -4794,8 +4813,8 @@ function salLigne(x, mode = "top", i = null){
   return `<button class="wi-l wi-r sal-j" data-k="${x.id + x.t}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${contrat ? i : x.rg}${contrat ? mvtHTML(SAL_MV[x.id + x.t]) : mvtHTML(x.dr)}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
     ${SAL_CONTRATS[mode]
-      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h)}</span></button>`
-      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}${AB("PBMV")}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h)}</span></button>`}`;
+      ? `<span class="v"><span class="${(mode === "rend" ? x.rend >= 1 : x.diff >= 0) ? "bon" : "mauvais"}">${mode === "rend" ? rendTxt(x.rend) : mDs(x.diff)}</span>${ecartHTML(mode === "rend" ? (x.ds == null ? null : x.ds / x.vrai) : x.ds, mode === "rend" ? (v) => Math.round(v * 100) + (EN ? "%" : " %") : mD, 1, mode === "rend" ? 0.005 : 50000)}<small>${L("vrai", "real")} ${mD(x.vrai)} · ${L("mérité", "deserved")} ${mD(x.s)}</small>${spark(x.h, false, null, mD)}</span></button>`
+      : `<span class="v">${coteHTML(x.rg, Object.keys(SAL.joueurs).length, false)}${mD(x.s)}${AB("PBMV")}<small>${L(f[1], f[2])}${ecartHTML(x.ds, mD, 1, 50000)}</small>${spark(x.h, false, null, mD)}</span></button>`}`;
 }
 // Rapport de dépisteur : le « pourquoi » en mots, à partir des morceaux de l'apport
 function salRapport(k){
@@ -4932,7 +4951,7 @@ const pbN = (v) => v == null ? "–" : `<span class="pbp">${v < 0 ? "−" : ""}$
 const pbAv = (x) => x?.pcav != null && x.pcav !== x.pc ? ` · ${L("avant", "was")} ${x.pcav < 0 ? "−" : ""}${Math.abs(x.pcav)}${EN ? "%" : " %"}` : "";
 // Les % PuckProb : un point par match joué, depuis le 1er match de la saison (src/pbpct.py, courbe ; les matins d'avant
 // le 11 nov. sont refaits par src/machine.py, remonter)
-const pbSpark = (x, alt) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season")) : alt?.length > 1 ? spark(alt) : "";
+const pbSpark = (x, alt) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season"), spkPc) : alt?.length > 1 ? spark(alt) : "";
 // Le bloc standard d'un % PuckProb, pour une stat principale (k = null : pc, pcav, ph) ou une SOUS-CATÉGORIE (k = sa clé :
 // pcs[k], pcavs[k], phs[k], src/pbpct.py SOUS). Mitch, 13 nov. 2026 : « standardise les sous-catégories : l'avantage
 // numérique c'est même pas des %, badassness n'a pas de graph ni de gainers/fallers ; le plus standard possible partout ».
@@ -4943,7 +4962,7 @@ function pbBloc(x, k, ab, lib, brut){
   const pc = g("pc"); if (pc == null) return null;
   const av = g("pcav"), ph = g("ph");
   const avTxt = av != null && av !== pc ? ` · ${L("avant", "was")} ${av < 0 ? "−" : ""}${Math.abs(av)}${EN ? "%" : " %"}` : "";
-  return `${pbN(pc)}${ab ? AB(ab) : ""}<small>${lib}${brut ? " · " + brut : ""}${avTxt}</small>${ph?.length > 1 ? spark(ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season")) : ""}`;
+  return `${pbN(pc)}${ab ? AB(ab) : ""}<small>${lib}${brut ? " · " + brut : ""}${avTxt}</small>${ph?.length > 1 ? spark(ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season"), spkPc) : ""}`;
 }
 // Le changement de position (les flèches gainers / fallers) d'une sous-catégorie, ou de la principale (k = null)
 const pbDr = (x, k) => k == null ? x?.dr : x?.drs?.[k];
@@ -5080,7 +5099,7 @@ function prjLigne(x, mode){
   const st = `${c.b} ${L("B", "G")} · ${c.a} A · ${c.pts} PTS${c.pm != null ? ` · ${pmW(c.pm)}` : ""} · ${c.pim} ${PIM()} ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`;
   return `<button class="wi-l wi-r prj-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${x.rg[mode]}${mvtHTML(x.dr?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${L("encore", "about")} ${x.mj} ${L("matchs", "games left")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${mode === "pm" ? pmW(x.proj[mode]) : x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pm: "+/-", pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]))}</span></button>`;
+    <span class="v">${coteHTML(x.rg[mode], Object.keys(PRJ.joueurs).length, false)}${mode === "pm" ? pmW(x.proj[mode]) : x.proj[mode]}${AB({ pts: "pts", b: L("buts", "goals"), a: L("passes", "assists"), pm: "+/-", pim: "PIM" }[mode])}${ecartHTML(x.dp?.[mode], (v) => v)}<small>${L(...PRJ_MODES[mode]).toLowerCase()} · ${L("rythme pur", "pure pace")} ${Math.round(x.rythme[mode])}</small>${spark((x.h || []).map(j => j?.[{ b: 0, a: 1, pts: 2, pim: 3 }[mode]]), false, null, (v) => Math.round(v))}</span></button>`;
 }
 // Graphique de la saison : après chaque match, la réalité (ce qu'il a) et la projection telle qu'on l'aurait faite
 // ce soir-là (même recette : rythme mélangé avec son passé, matchs qui restent x sa présence). x = ses matchs, y = la stat.
@@ -5940,6 +5959,59 @@ function draftInfo(R, DR){
     fichier: "pb-sim-repechage", liste: C.map(c => ({ rg: c.n, nom: c.j ? c.j.n : "?", no: c.t, pos: "", coul: coul(c.t),
       gros: c.av && c.av > c.n ? `+${c.av - c.n}` : "", sous: [NOMS_EQ?.[c.t] || c.t, c.j?.pos, c.j?.club].filter(Boolean).join(" · ") })) };
 }
+// ---- Le repêchage EN DIRECT (Mitch, 13 nov. 2026 : « je veux voir le draft arriver live : une carte carrée avec des points
+// d'interrogation, tu pèses dessus, elle se découvre et on voit l'équipe ; de la dernière à la première ; sur la carte, la
+// prochaine équipe avec le plus de probabilité, comme dans NBA 2K »). Maquette approuvée. Les choix 16 à 1 (la loterie et
+// les équipes hors séries) se dévoilent un à un ; la grille de 16 dessous se remplit, sans avoir à descendre. Le texte de
+// la loterie et la liste détaillée apparaissent quand tout est dévoilé (sinon ils vendraient la mèche).
+// Les % de la carte : les vraies chances de la LNH (2 tirages, au plus 10 rangs de montée), calculées exactement sur les
+// 16 équipes de CETTE saison simulée : la chance que telle équipe tombe sur CE choix.
+let DRV = null;
+function drvProbas(hors){
+  const CH = [185, 135, 115, 95, 85, 75, 65, 60, 50, 35, 30, 25, 20, 15, 5, 5], n = hors.length;
+  const place = (o, g) => { const r = [...Array(n).keys()].filter(i => !o.includes(i)); o.push(g - o.length > 10 ? r[0] : g); };
+  const comp = (o) => { for (let i = 0; i < n; i++) if (!o.includes(i)) o.push(i); return o; };
+  const dispo = (o) => [...Array(n).keys()].filter(i => !o.includes(i));
+  const P = Array.from({ length: n }, () => Array(n).fill(0)), tot = CH.slice(0, n).reduce((a, b) => a + b, 0);
+  for (const a of dispo([])){ const o1 = []; place(o1, a); const pa = CH[a] / tot, r2 = dispo(o1), t2 = r2.reduce((s_, i) => s_ + CH[i], 0);
+    for (const b of r2){ const o = [...o1]; place(o, b); comp(o).forEach((t, k) => P[k][t] += pa * CH[b] / t2); } }
+  return P;
+}
+function drvHTML(){
+  return `<div class="drv"><div class="drv-sc"><div class="drv-c" id="drv-c"><div class="drv-f drv-av" id="drv-av"></div><div class="drv-f drv-ar" id="drv-ar"></div></div></div>
+    <div class="drv-b"><button type="button" class="drv-b1" id="drv-n">${L("Révéler", "Reveal")}</button><button type="button" class="drv-b2" id="drv-t">${L("Tout révéler", "Reveal all")}</button></div>
+    <div class="drv-g" id="drv-g"></div></div>`;
+}
+function drvPoser(R, DR){
+  const hors = Object.keys(R.rangs || {}).sort((a, b) => R.rangs[a] - R.rangs[b]);
+  if (hors.length < 2){ $(".drv")?.remove(); const f = $(".drv-fin"); if (f) f.hidden = false; return; }
+  const n = hors.length, P = drvProbas(hors), L0 = DR?.liste || [];
+  DRV = { k: n - 1, ret: false, n };
+  const nomE = (t) => NOMS_EQ?.[t] || t;
+  const face = () => {
+    const k = DRV.k, best = P[k].map((p_, i) => [p_, i]).sort((x, y) => y[0] - x[0])[0];
+    const pc_ = best[0] * 100, txt = pc_ > 99.5 && pc_ < 100 ? ">99" : pc_ < 1 ? "<1" : Math.round(pc_);
+    $("#drv-av").innerHTML = `<div class="drv-no"><small>${L("CHOIX", "PICK")}</small>#${k + 1}</div><div class="drv-tap">${L("TOUCHE", "TAP")}</div><div class="drv-q">?</div>
+      <div class="drv-pr"><span>${L("Le plus probable", "Most likely")}<b>${nomE(hors[best[1]])}</b></span><em>${txt}<i>%</i></em></div>`;
+    const t = R.ordre[k], j = L0[k], mv = (R.rangs[t] || 0) - (k + 1);
+    $("#drv-ar").style.cssText = eqV(t);
+    $("#drv-ar").innerHTML = `<div class="drv-no">#${k + 1}</div>${mv > 0 ? `<div class="drv-mv">▲${mv}</div>` : ""}<div class="drv-ab">${t}</div><div class="drv-nom">${nomE(t)}</div>
+      <div class="drv-esp">${j ? [j.n, j.pos, j.club].filter(Boolean).join(" · ") : ""}</div>`;
+  };
+  const grille = (nouv) => { $("#drv-g").innerHTML = Array.from({ length: n }, (_, i) => {
+      const fait = i > DRV.k || (i === DRV.k && DRV.ret);
+      if (!fait) return `<div class="drv-m drv-v"><small>${i + 1}</small><b>?</b></div>`;
+      const t = R.ordre[i]; return `<div class="drv-m drv-p${i === nouv ? " drv-nv" : ""}" style="${eqV(t)}"><small>${i + 1}</small>${t}<i></i></div>`; }).join(""); };
+  const fin = () => { $("#drv-n").textContent = L("Terminé", "Done"); const f = $(".drv-fin"); if (f) f.hidden = false; };
+  const suivant = () => {
+    if (!DRV.ret){ DRV.ret = true; $("#drv-c").classList.add("drv-r"); grille(DRV.k); DRV.k ? ($("#drv-n").textContent = L("Prochain choix", "Next pick")) : fin(); return; }
+    if (!DRV.k) return;
+    DRV.k--; DRV.ret = false; $("#drv-c").classList.remove("drv-r"); setTimeout(face, 250); $("#drv-n").textContent = L("Révéler", "Reveal"); grille();
+  };
+  $("#drv-c").onclick = suivant; $("#drv-n").onclick = suivant;
+  $("#drv-t").onclick = () => { DRV.k = 0; DRV.ret = true; face(); $("#drv-c").classList.add("drv-r"); grille(0); fin(); };
+  face(); grille();
+}
 function svDraft(R, DR){
   const el = $("#sv-dr"); if (!el || !R) return;
   if (!DR?.liste?.length){ el.innerHTML = ""; return; }
@@ -5959,14 +6031,16 @@ function svDraft(R, DR){
     `My ${DR.annee} draft on PB Manager PA: Season Sim: ${C[0].j ? C[0].j.n + " to " : ""}${nomEq_(C[0].t)} at #1. Replay it: https://puckprob.ca/tonight/#sim=${SV_GRAINE}`) });
   if (inf) setTimeout(() => ptPrep("simDraft"), 1800);
   el.innerHTML = `${inf ? ptHaut("simDraft", "Partager le repêchage", "Share the draft") : ""}<h3 class="dr-h">${L(`Repêchage ${DR.annee} : la loterie et le mock draft`, `${DR.annee} Draft: the lottery and the mock draft`)}</h3>
-    <p class="aide" style="margin:0 0 8px">${loto}</p>
-    <div class="dr">${C.slice(0, 16).map(ligne).join("")}</div>
+    ${drvHTML()}
+    <div class="drv-fin" hidden><p class="aide" style="margin:0 0 8px">${loto}</p>
+    <div class="dr">${C.slice(0, 16).map(ligne).join("")}</div></div>
     <details class="sv-po"><summary>${L("Choix 17 à 32", "Picks 17 to 32")}</summary><div class="dr">${C.slice(16).map(ligne).join("")}</div></details>
     <p class="aide">${DR.source === "centrale"
       ? L("Les espoirs : le classement de la Centrale de recrutement de la LNH (Nord-Américains et internationaux fusionnés). Le 1er choix prend le 1er espoir, et ainsi de suite.",
           "Prospects: NHL Central Scouting's rankings (North American and International lists merged). Pick #1 takes prospect #1, and so on.")
       : L("Les espoirs : classement préliminaire (top 10 de The Hockey News, puis des joueurs cotés A par la Centrale de recrutement, dans un ordre à titre indicatif). La Centrale publie son classement en janvier : il prendra la place tout seul. Le 1er choix prend le 1er espoir, et ainsi de suite.",
           "Prospects: preliminary ranking (The Hockey News top 10, then players rated A by NHL Central Scouting, in an indicative order). Central Scouting publishes its rankings in January: they will take over automatically. Pick #1 takes prospect #1, and so on.")}</p>`;
+  drvPoser(R, DR);
 }
 // ---- PB SIM : son propre onglet (entre Matchs et Trophées) -------------------------------------------------------
 function simOnglet(){
@@ -6778,8 +6852,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=ff3d67b2" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=ff3d67b2" defer></script>
+<script src="pub.js?v=3ed2e48e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=3ed2e48e" defer></script>
 <script src="nav.js?v=bf48d93807" defer></script>
 </body>
 </html>
