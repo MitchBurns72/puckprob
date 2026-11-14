@@ -868,7 +868,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=3ed2e48e">
+<link rel="stylesheet" href="carte.css?v=d2dde9b6">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -969,7 +969,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <div class="ctrls"><div class="row" id="f-wi">
     </div><div class="row" id="f-wir"></div><div class="row" id="f-wiv"></div><div class="row">
       <input id="wi-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
-    </div><div id="fe-wi"></div></div>
+    </div><div id="fe-wi"></div><div class="row" id="f-wipos"></div><div class="row" id="f-wiage"></div><div class="row" id="f-witri"></div><div class="row" id="f-wiord"></div></div>
     <div id="whatif"></div>
   </section>
   <!-- Salaires mérités (docs/salaires.json, chargé au 1er clic) -->
@@ -3594,6 +3594,8 @@ async function whatif(){
     <span class="${R_ ? "on" : ""}">${L("Réel", "Real")}</span><i aria-hidden="true"><b></b></i><span class="${R_ ? "" : "on"}">PB Era-Adjusted</span></button>`;
   $("#f-wiv").innerHTML = [["", L("Tous les temps", "All-time")], ["eq", L("Par équipe", "By team")], ["s", L("Par saison", "By season")], ["d", L("Par décennie", "By decade")]]
     .map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
+  wiTiroir();
+  await wiNais();
   if (vue && !M.saisons) return pbsVue(el, vue, mode);
   $("#fe-wi").innerHTML = filtreEqHTML("fe_wi", [...new Set(Object.values(WI.j).filter(x => x.act).map(x => x.eq))].filter(Boolean).sort());
   let lignes = [];
@@ -3624,6 +3626,13 @@ async function whatif(){
           : pbsLigne("g", null, r[0], r[1], "G", r[2], r[8], nW(r[5]), L("vict.", "wins"), `${L("réel", "real")} ${nW(r[6])} · ${r[3]}-${String(r[4] + 1).slice(2)}`)));
       }
     }
+  } else if (wiFiltre() && M.j === "j" && q.length < 2){
+    // Le tiroir (position, âge, classer par) sur tous les temps : les joueurs de whatif.json (les meilleurs de l'histoire
+    // dans chaque catégorie et tous les actifs), filtrés et classés ; l'âge = aujourd'hui
+    const m = mode === "act" ? "p" : mode, aj = new Date();
+    const stat = (x) => S.wir === "r" ? wiValeurNum(m, x) : wiNum(m, x)[0];
+    lignes = wiFT(Object.entries(WI.j).filter(([, x]) => mode !== "act" || x.act), ([, x]) => x.pos === "W" ? "L" : x.pos, ([i]) => i, ([, x]) => stat(x), ([, x]) => x.r?.[0], aj)
+      .slice(0, 100).map(([i, x]) => wiLigne(m, "j", i, x).replace("</small>", `${wiAgeTxt(i, aj)}</small>`));
   } else if (mode === "act"){
     const k_ = S.wir === "r" ? "r" : "w";
     lignes = Object.entries(WI.j).filter(([, x]) => x.act).sort((a, b) => b[1][k_][3] - a[1][k_][3]).slice(0, 100).map(([i, x]) => wiLigne("p", "j", i, x));
@@ -3757,6 +3766,41 @@ setTimeout(saiRangees, 0);
 const PBS = { idx: null, eq: {}, s: {}, d: {}, meta: null };
 const PBS_URL = () => new URL(EN ? "./" : "../", document.baseURI).href + "pbstats/";
 const pbsGet = async (ch) => { const r = await fetch(PBS_URL() + ch + "?v=" + (WI?.maj || "")); if (!r.ok) throw new Error(ch); return r.json(); };
+// ---- Le tiroir de PB Stats (Mitch, 14 nov. 2026 : « PB Stats triable dans tous les sens, et par âge ; dans la loupe,
+// toutes les catégories : équipe, position, saison, ère, âge ; et quoi on regarde ») : maquette approuvée. Dans le tiroir
+// de la loupe : QUI (équipe, position, âge) et QUOI (classer par : la stat du haut, les matchs ou l'âge ; l'ordre).
+// L'âge vient de docs/pbstats/naissances.json (src/whatif.py naissances()) : pendant la saison choisie (au 1er février),
+// sinon aujourd'hui. Les filtres marchent dans toutes les vues de patineurs : tous les temps, par équipe, par saison,
+// par décennie (les gardiens gardent leurs propres classements).
+const WI_POS = () => [["", L("Tous", "All")], ["F", L("Avants", "Forwards")], ["C", "C"], ["L", L("AG", "LW")], ["R", L("AD", "RW")], ["D", "D"]];
+const WI_AGES = () => [["", L("Tous", "All")], ["-21", "≤ 21"], ["22-25", "22-25"], ["26-29", "26-29"], ["30-34", "30-34"], ["35-", "35 +"]];
+const WI_TRIS = () => [["", L("La stat choisie", "Chosen stat")], ["pj", L("Matchs", "Games")], ["age", L("Âge", "Age")]];
+const wiFiltre = () => !!(S.wipos || S.wiage || S.witri);
+const wiAsc = () => S.wiord ? S.wiord === "asc" : S.witri === "age";      // l'âge : le plus jeune d'abord, par défaut
+function wiAge(id, ref){
+  const n = PBS.nais?.j?.[id] || PBS.nais?.g?.[id]; if (!n) return null;
+  const d = new Date(n + "T12:00:00"); return Math.floor((ref - d) / (365.25 * 864e5));
+}
+const wiRefSaison = (sz) => new Date(+String(sz).slice(4, 8), 1, 1);      // l'âge « pendant la saison » : au 1er février
+const wiAgeTxt = (id, ref) => { const a = wiAge(id, ref); return a == null ? "" : ` · ${a} ${L("ans", "yrs")}`; };
+async function wiNais(){ if (!PBS.nais && (S.wiage || S.witri === "age")) PBS.nais = await pbsGet("naissances.json").catch(() => ({ j: {}, g: {} })); return PBS.nais; }
+// Filtre (position, âge) + tri (la stat, les matchs ou l'âge ; l'ordre) sur des rangées de patineurs.
+// posF / idF / statF / pjF : comment lire la position, l'id, la stat et les matchs d'une rangée ; ref : la date de l'âge.
+function wiFT(rows, posF, idF, statF, pjF, ref){
+  const pos = S.wipos || "", age = S.wiage || "", tri = S.witri || "", asc = wiAsc();
+  const A = (r) => wiAge(idF(r), ref);
+  let L_ = rows.filter(r => { const p_ = posF(r) || ""; return !pos || (pos === "F" ? "CLRF".includes(p_) && p_ !== "" : p_ === pos); });
+  if (age){ const [a0, a1] = age.split("-").map(x => x === "" ? null : +x); L_ = L_.filter(r => { const a = A(r); return a != null && (a0 == null || a >= a0) && (a1 == null || a <= a1); }); }
+  const k = tri === "pj" ? pjF : tri === "age" ? A : statF;
+  return L_.filter(r => k(r) != null).sort((x, y) => (asc ? 1 : -1) * (k(x) - k(y)));
+}
+function wiTiroir(){
+  const rang = (id, lbl, cle, L_, v) => { const el = $("#" + id); if (el) el.innerHTML = `<span class="lbl">${lbl}</span>` + L_.map(([k, n]) => `<button class="chip" data-${cle}="${k}" aria-pressed="${k === (v || "")}">${n}</button>`).join(""); };
+  rang("f-wipos", L("Position", "Position"), "wipos", WI_POS(), S.wipos);
+  rang("f-wiage", L("Âge", "Age"), "wiage", WI_AGES(), S.wiage);
+  rang("f-witri", L("Classer par", "Sort by"), "witri", WI_TRIS(), S.witri);
+  rang("f-wiord", L("Ordre", "Order"), "wiord", [["", L("Auto", "Auto")], ["desc", L("↓ Plus haut", "↓ Highest")], ["asc", L("↑ Plus bas", "↑ Lowest")]], S.wiord);
+}
 async function pbsIndex(){ if (!PBS.idx) PBS.idx = await pbsGet("index.json").catch(() => null); return PBS.idx; }
 async function pbsMeta(){ if (!PBS.meta) PBS.meta = await pbsGet("meta.json").catch(() => null); return PBS.meta; }
 async function pbsFiche(t, id){
@@ -3814,8 +3858,9 @@ async function pbsVue(el, vue, mode){
     if (m === "g" && gq) corps = gqListe(E.g, { pj: 2, sv: 8, wsv: 9, gaa: 10, wgaa: 11 }, 82, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false)));
     else if (m === "g") corps = [...E.g].sort((a, b) => b[R_ ? 6 : 5] - a[R_ ? 6 : 5]).slice(0, 150).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], nW(r[R_ ? 6 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 6])} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false))).join("");
     else { const ix = sw({ p: [6, 7], b: [8, 10], a: [9, 11], pm: [6, 7] }[m]);
-      corps = [...E.j].sort((a, b) => b[ix[0]] - a[ix[0]]).slice(0, 150).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], t, r[12], nW(r[ix[0]]), m === "pm" ? "pts" : u,
-        `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[3])} ${L("matchs", "games")} · ${ans(r[4], r[5])}`, villeBadge(t, false))).join(""); }
+      const aj = new Date();
+      corps = wiFT(E.j, r => r[2], r => r[0], r => r[ix[0]], r => r[3], aj).slice(0, 150).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], t, r[12], nW(r[ix[0]]), m === "pm" ? "pts" : u,
+        `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[3])} ${L("matchs", "games")} · ${ans(r[4], r[5])}${wiAgeTxt(r[0], aj)}`, villeBadge(t, false))).join(""); }
   } else if (vue === "s"){
     const L_ = meta.saisons, sz = S.wis && L_.includes(S.wis) ? S.wis : L_[L_.length - 1];
     if (!PBS.s[sz]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.s[sz] = await pbsGet(`s/${sz}.json`).catch(() => ({ j: [], g: [] })); }
@@ -3827,8 +3872,9 @@ async function pbsVue(el, vue, mode){
     if (m === "g" && gq) corps = gqListe(X.g, { pj: 3, sv: 5, wsv: 8, gaa: 9, wgaa: 10 }, 20, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2].split(",").pop(), r[11], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${r[3]} ${L("matchs", "games")} · ${r[R_ ? 4 : 7]} ${L("V", "W")}`));
     else if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 7] - a[R_ ? 4 : 7]).slice(0, 150).map((r, k) => { const eq = r[2].split(",").pop(); return pbsLigne("g", k + 1, r[0], r[1], "G", eq, r[11], nW(r[R_ ? 4 : 7]), u, `${R_ ? "PB " + r[7] : L("réel", "real") + " " + r[4]} ${L("V", "W")} · ${r[3]} ${L("matchs", "games")} · ${sv3(r[5])}`); }).join("");
     else { const ix = sw({ p: [12, 7], b: [10, 5], a: [11, 6], pm: [13, 8] }[m]);
-      corps = [...X.j].sort((a, b) => (b[ix[0]] ?? -999) - (a[ix[0]] ?? -999)).slice(0, 150).map((r, k) => { const eq = r[3].split(",").pop();
-        return pbsLigne("j", k + 1, r[0], r[1], r[2], eq, r[14], m === "pm" ? pmW(r[ix[0]]) : nW(r[ix[0]]), u, `${R_ ? "PB" : L("réel", "real")} ${m === "pm" ? pmW(r[ix[1]]) : nW(r[ix[1]])} · ${r[4]} ${L("matchs", "games")}`); }).join(""); }
+      const rf = wiRefSaison(sz);
+      corps = wiFT(X.j, r => r[2], r => r[0], r => r[ix[0]], r => r[4], rf).slice(0, 150).map((r, k) => { const eq = r[3].split(",").pop();
+        return pbsLigne("j", k + 1, r[0], r[1], r[2], eq, r[14], m === "pm" ? pmW(r[ix[0]]) : nW(r[ix[0]]), u, `${R_ ? "PB" : L("réel", "real")} ${m === "pm" ? pmW(r[ix[1]]) : nW(r[ix[1]])} · ${r[4]} ${L("matchs", "games")}${wiAgeTxt(r[0], rf)}`); }).join(""); }
   } else {
     const L_ = meta.decennies, d = S.wid != null && L_.includes(Number(S.wid)) ? Number(S.wid) : L_[L_.length - 1];
     if (!PBS.d[d]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.d[d] = await pbsGet(`d/${d}.json`).catch(() => ({ j: [], g: [] })); }
@@ -3838,12 +3884,17 @@ async function pbsVue(el, vue, mode){
     if (m === "g" && gq) corps = gqListe(X.g, { pj: 3, sv: 7, wsv: 8, gaa: 9, wgaa: 10 }, 100, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2], r[6], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${nW(r[3])} ${L("matchs", "games")}`));
     else if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 5] - a[R_ ? 4 : 5]).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2], r[6], nW(r[R_ ? 4 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 4])} · ${nW(r[3])} ${L("matchs", "games")}`)).join("");
     else { const ix = sw({ p: [10, 7], b: [8, 5], a: [9, 6], pm: [10, 7] }[m]);
-      corps = [...X.j].sort((a, b) => b[ix[0]] - a[ix[0]]).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], r[3], r[11], nW(r[ix[0]]), m === "pm" ? "pts" : u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[4])} ${L("matchs", "games")}`)).join(""); }
+      const aj = new Date();
+      corps = wiFT(X.j, r => r[2], r => r[0], r => r[ix[0]], r => r[4], aj).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], r[3], r[11], nW(r[ix[0]]), m === "pm" ? "pts" : u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[4])} ${L("matchs", "games")}${wiAgeTxt(r[0], aj)}`)).join(""); }
   }
   el.innerHTML = tete + (corps || `<div class="card"><div class="vide">${L("Aucun joueur.", "No player.")}</div></div>`) + `<p class="aide">${L(`${nW(meta.n_j)} patineurs et ${nW(meta.n_g)} gardiens de l'histoire de la LNH (données publiques de la LNH).`, `${nW(meta.n_j)} skaters and ${nW(meta.n_g)} goalies in NHL history (public NHL data).`)}</p>`;
 }
 document.addEventListener("click", (e) => {
   if (e.target.closest?.("[data-wirt]")){ S.wir = S.wir === "r" ? "" : "r"; whatif(); return; }
+  for (const k of ["wipos", "wiage", "witri", "wiord"]){
+    const b = e.target.closest?.(`[data-${k}]`);
+    if (b){ S[k] = b.dataset[k]; whatif(); return; }
+  }
   const v = e.target.closest?.("#f-wiv [data-wiv]");
   if (v){ S.wiv = v.dataset.wiv; whatif(); return; }
   const q = e.target.closest?.("[data-wieq]");
@@ -6852,8 +6903,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=3ed2e48e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=3ed2e48e" defer></script>
+<script src="pub.js?v=d2dde9b6" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=d2dde9b6" defer></script>
 <script src="nav.js?v=bf48d93807" defer></script>
 </body>
 </html>

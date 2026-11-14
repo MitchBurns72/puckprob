@@ -169,3 +169,10 @@ table.cl .cl-eq .spk.spk svg{width:44px;height:14px}
 .drv-m small{position:absolute;top:4px;left:6px;font:700 13px "Teko",var(--f-display);opacity:.9}
 .drv-p{background:var(--df,var(--eq));color:var(--dt,#fff)}.drv-p i{position:absolute;left:0;right:0;bottom:0;height:20%;background:var(--dl,#0A2342)}
 .drv-nv{animation:drvArr .6s ease-out}@keyframes drvArr{from{transform:scale(.4);opacity:0}}
+/* Dans une rangée de liste, la colonne du chiffre reste étroite (le nom a besoin de place au cellulaire) : le petit
+   graph s'étire sur la largeur de la colonne au lieu de l'élargir, et la petite ligne passe à la ligne */
+.wi-l .v{max-width:118px}
+.wi-l .v .spk.spk{max-width:118px;box-sizing:border-box}
+.wi-l .v .spk.spk svg{flex:1 1 auto;min-width:28px;width:auto}
+.wi-l .v small{max-width:118px}
+.wi-l .spk-a,.wi-l .spk-b{font-size:10px}
