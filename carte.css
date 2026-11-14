@@ -94,3 +94,5 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
    Le fond plein cache la liste qui défile dessous. Ordinateur : la barre du menu (56 px) est en haut, on se place sous elle. */
 .ctrls.c3{position:sticky;top:max(0px,calc(var(--ppn-h,8px) - 10px + env(safe-area-inset-top,0px)));z-index:5;background:var(--bg);padding-top:4px;padding-bottom:6px}
 @media (min-width:1024px){.ctrls.c3{top:calc(var(--ppn-h,8px) + 46px)}}
+/* Tiroir des filtres ouvert (🔍) : la rangée passe au-dessus du voile sombre (z-index 60), sinon on ne peut plus rien toucher dedans */
+.ctrls.c3.c3-ouvert,.ctrls.c3:has(> .c3-sh:not([hidden])){z-index:62}
