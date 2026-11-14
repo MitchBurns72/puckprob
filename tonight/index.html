@@ -871,7 +871,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=a910bfff">
+<link rel="stylesheet" href="carte.css?v=364f1aa8">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1983,8 +1983,21 @@ function joueursEquipe(g, team, A){
   if (!al){
     return { source: null, groupes: null, liste: nos.map(j => ({ nom: j.name, j, p: pr(j), pos: j.pos })) };
   }
+  // Un nom écrit autrement par DailyFaceoff (Zack / Zachary, Matt / Matthew...) : même nom de famille dans l'équipe
+  // (s'il est seul), sinon le même numéro. Avant : pas trouvé -> plaque grise et pas de %.
+  const fam = (n) => nrm(n).split(" ").slice(-1)[0];
+  const parFam = {}; nos.forEach(j => { (parFam[fam(j.name)] ||= []).push(j); });
+  // Les « hors » (pas prévus au calcul : rappelés, retours de blessure) : prédits à part par le calcul (D.extras),
+  // utilisés seulement quand l'alignement du soir les met dans la formation
+  const hors = (D.extras || []).filter(j => j.gameId === g.gameId && j.team === team);
+  const parNomH = Object.fromEntries(hors.map(j => [nrm(j.name), j]));
+  const parFamH = {}; hors.forEach(j => { (parFamH[fam(j.name)] ||= []).push(j); });
+  const trouver = (nom, x) => parNom[nrm(nom)] || (parFam[fam(nom)]?.length === 1 ? parFam[fam(nom)][0] : null)
+    || (x.no != null ? nos.find(j => String(j.no) === String(x.no)) : null)
+    || parNomH[nrm(nom)] || (parFamH[fam(nom)]?.length === 1 ? parFamH[fam(nom)][0] : null)
+    || (x.no != null ? hors.find(j => String(j.no) === String(x.no)) : null) || null;
   const fiche = (nom) => {
-    const j = parNom[nrm(nom)] || null, x = al.joueurs[nom] || {};
+    const x = al.joueurs[nom] || {}, j = trouver(nom, x);
     return { nom, j, p: pr(j), no: x.no ?? j?.no, face: j?.photo || x.face, inj: x.inj, gtd: x.gtd, pos: (x.pos === "ld" || x.pos === "rd") ? "D" : x.pos === "g" ? "G" : "F" };
   };
   const groupes = {};
@@ -2110,21 +2123,21 @@ function blocAlignement(g){
       <span><b>${x.nom}</b> <small>${t} · ${x.fiche || ""} · ${parseFloat(x.sv) > 0.5 ? L("arrêts ", "SV% ") + parseFloat(x.sv).toFixed(3).replace(/^0/, "") : ""}</small>${gcrNote(t, x.nom)}</span>
       <span class="statut ${conf ? "ok" : ""}">${conf ? "Confirmé" : x.statut === "Likely" ? "Probable" : (x.statut || "Pas confirmé")}</span></div>`;
   };
-  const ligneJ = (x) => `<div class="aj ${x.inj ? "bless" : ""}">
-      <span class="aface" style="${eqV(x.j?.team || "")}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, x.j?.pos || x.pos) : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
+  const ligneJ = (x, t) => `<div class="aj ${x.inj ? "bless" : ""}">
+      <span class="aface" style="${eqV(x.j?.team || t || "")}">${PUBLIC ? rondNo(x.no ?? x.j?.no, x.nom, x.j?.pos || x.pos) : x.face ? `<img src="${x.face}" alt="" loading="lazy" onerror="this.remove()">` : ""}</span>
       <span class="anom">${x.no != null ? `<small>#${x.no}</small> ` : ""}${x.nom}${x.gtd ? ' <span class="tag warn">Décision tardive</span>' : ""}</span>
       <span class="ap" title="But">${x.p?.b ? pct(x.p.b.p) + "%" : "–"}</span>
       <span class="ap" title="Passe">${x.p?.a ? pct(x.p.a.p) + "%" : "–"}</span>
       <span class="ap" title="Tirs 2+">${x.p?.t ? pct(x.p.t.p) + "%" : "–"}</span></div>`;
   const equipe = (t, eq) => {
     if (!eq.groupes) return `<div class="aeq"><h3>${t}</h3><p class="sh-info">DailyFaceoff n'a pas encore d'alignement. Joueurs probables selon les derniers matchs.</p>
-      <div class="ahead"><span></span><span></span><span>But</span><span>Passe</span><span>Tirs 2+</span></div>${eq.liste.map(ligneJ).join("")}</div>`;
+      <div class="ahead"><span></span><span></span><span>But</span><span>Passe</span><span>Tirs 2+</span></div>${eq.liste.map(x => ligneJ(x, t)).join("")}</div>`;
     const G = eq.groupes;
     const pp = ["pp1", "pp2"].filter(k => G[k]).map(k => `<div class="pp"><b>${k.toUpperCase()}</b> ${G[k].map(x => x.nom.split(" ").slice(-1)[0]).join(", ")}</div>`).join("");
     const ir = G.ir?.length ? `<p class="sh-info">Blessés : ${G.ir.map(x => x.nom).join(", ")}</p>` : "";
     return `<div class="aeq"><h3><img class="logo" src="${LOGO(t)}" alt="" loading="lazy" onerror="this.remove()">${t}</h3>
       <div class="ahead"><span></span><span></span><span>But</span><span>Passe</span><span>Tirs 2+</span></div>
-      ${EV.filter(k => G[k]).map(k => `<div class="agr">${NOM_GROUPE[k]}</div>${G[k].map(ligneJ).join("")}`).join("")}
+      ${EV.filter(k => G[k]).map(k => `<div class="agr">${NOM_GROUPE[k]}</div>${G[k].map(x => ligneJ(x, t)).join("")}`).join("")}
       ${pp}${ir}</div>`;
   };
   const src = (eq) => eq.source ? `${eq.source.source || "DailyFaceoff"}, ${new Date(eq.source.maj).toLocaleString(LANG, { weekday: "short", hour: "2-digit", minute: "2-digit" })}` : "estimé";
@@ -7056,8 +7069,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=a910bfff" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=a910bfff" defer></script>
+<script src="pub.js?v=364f1aa8" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=364f1aa8" defer></script>
 <script src="nav.js?v=3b910b2362" defer></script>
 </body>
 </html>
