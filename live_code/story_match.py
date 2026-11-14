@@ -513,6 +513,67 @@ def video_jingle(jpeg, sortie, cle=None):
     return video(jpeg, sortie, son=son, duree=d, image=True, fondu_son=0.4, cle_fin=cle)
 
 
+# Les posts du mod en vidéo (Mitch, 14 nov. 2026 : « les posts avec musique, juste pour les posts du mod ; fais des
+# switch de pierre avec son 2 fois ; sépare en 3 : la 1re image ce que le mod dit, la 2e un matchup, un ranking ou le
+# classement »). 3 cartes 1080 x 1350, la dalle de pierre qui vire entre chacune (le même flip et le même son que la
+# fin des stories), la toune des posts du mod dessous. Ses tounes : assets/musique_mouv/ (dans puckprob :
+# live_code/musique_mouv/, copiées par le calcul). Aucun fichier : la musique des matchs.
+DIRS_MUSIQUE_MOD = [RACINE / "assets" / "musique_mouv", Path(__file__).resolve().parent / "musique_mouv"]
+TENUES_DIAPO = (4.5, 5.5, 3.2)      # secondes sur chaque carte (la question, les chiffres, la fin), sans les flips
+
+
+def video_diapo(jpegs, sortie, cle=None, son=None, tenues=TENUES_DIAPO):
+    """jpegs = [la question du mod, la carte de chiffres, la fin] (octets JPEG, même taille). -> .mp4 (H.264 + AAC 48 kHz)
+    d'environ 15 s : carte 1, flip + son de pierre, carte 2, flip + son de pierre, carte 3 ; fondu de son à la fin."""
+    import io
+    Image = _pil()
+    sortie = Path(sortie)
+    sortie.parent.mkdir(parents=True, exist_ok=True)
+    ims = [Image.open(io.BytesIO(j)).convert("RGB") for j in jpegs]
+    if len(ims) < 2:
+        raise ValueError("au moins 2 cartes")
+    W_, H_ = ims[0].size
+    ims = [im if im.size == (W_, H_) else im.resize((W_, H_)) for im in ims]
+    tenues = list(tenues)[:len(ims)] + [tenues[-1]] * max(0, len(ims) - len(tenues))
+    nf, ns = round(FLIP * 30), round(SECOUSSE * 30)
+    d_flip = (nf + ns) / 30
+    D = sum(tenues) + d_flip * (len(ims) - 1)
+    if son is None:
+        tounes = any(d.is_dir() and any(p.suffix.lower() in (".mp3", ".m4a", ".wav", ".ogg") for p in d.iterdir()) for d in DIRS_MUSIQUE_MOD)
+        son = musique(cle, DIRS_MUSIQUE_MOD) if tounes else musique(cle)
+    pierre = son_mecanisme()
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        entrees, filtres, sons, t = [], [], [], 0.0
+        for k, im in enumerate(ims):
+            f = tmp / f"carte{k}.jpg"
+            im.save(f, quality=94)
+            entrees += ["-loop", "1", "-framerate", "30", "-t", f"{tenues[k]:.3f}", "-i", str(f)]
+            t += tenues[k]
+            if k < len(ims) - 1:
+                for j, fr in enumerate(_images_flip(im, ims[k + 1], nf, ns)):
+                    fr.save(tmp / f"flip{k}_{j:03d}.jpg", quality=92)
+                entrees += ["-framerate", "30", "-i", str(tmp / f"flip{k}_%03d.jpg")]
+                sons.append(int(t * 1000))          # le son de pierre part avec le flip
+                t += d_flip
+        nv = sum(1 for x in entrees if x == "-i")          # les entrées vidéo (cartes + flips)
+        for i in range(nv):
+            filtres.append(f"[{i}:v]scale={W_}:{H_},format=yuv420p,setsar=1[v{i}]")
+        filtres.append("".join(f"[v{i}]" for i in range(nv)) + f"concat=n={nv}:v=1:a=0[v]")
+        entrees += ["-i", str(son)] + sum((["-i", str(pierre)] for _ in sons), [])
+        a0 = nv
+        for k, ms in enumerate(sons):
+            filtres.append(f"[{a0 + 1 + k}:a]adelay={ms}|{ms},volume=2.2[p{k}]")
+        filtres.append(f"[{a0}:a]" + "".join(f"[p{k}]" for k in range(len(sons)))
+                       + f"amix=inputs={1 + len(sons)}:duration=first:normalize=0,afade=t=out:st={D - 1.5:.3f}:d=1.5,apad[s]")
+        cmd = [_ffmpeg(), "-y", "-loglevel", "error"] + entrees + ["-filter_complex", ";".join(filtres), "-map", "[v]", "-map", "[s]",
+               "-r", "30", "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-crf", "20",
+               "-g", "60", "-keyint_min", "60", "-sc_threshold", "0", "-flags", "+cgop",
+               "-c:a", "aac", "-b:a", "192k", "-ar", str(SR), "-ac", "2", "-t", f"{D:.3f}", "-movflags", "+faststart", str(sortie)]
+        subprocess.run(cmd, check=True, timeout=300)
+    return sortie
+
+
 def faire(atelier, jpeg_match, debut, sortie, jour=None):
     """Tout d'un coup : cadre + vidéo. -> (chemin du .mp4, octets du cadre JPEG)."""
     c = cadre(atelier, jpeg_match, debut)

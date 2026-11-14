@@ -36,8 +36,9 @@ def _lire(f, defaut):
         return defaut
 
 
-def _graph(chemin, champs=None, fichier=None, methode="POST"):
-    url = f"https://graph.facebook.com/{API}/{chemin.lstrip('/')}"
+def _graph(chemin, champs=None, fichier=None, methode="POST", mime="image/jpeg", nom_fichier="puckprob.jpg", hote="graph"):
+    """hote="graph-video" : l'adresse de Meta pour téléverser une vidéo (les vidéos du mod)."""
+    url = f"https://{hote}.facebook.com/{API}/{chemin.lstrip('/')}"
     champs = dict(champs or {})
     champs["access_token"] = os.environ["META_PAGE_TOKEN"]
     if methode == "GET":
@@ -47,13 +48,13 @@ def _graph(chemin, champs=None, fichier=None, methode="POST"):
         corps = b""
         for k, val in champs.items():
             corps += f'--{sep}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{val}\r\n'.encode()
-        corps += (f'--{sep}\r\nContent-Disposition: form-data; name="source"; filename="puckprob.jpg"\r\n'
-                  f"Content-Type: image/jpeg\r\n\r\n").encode() + fichier + f"\r\n--{sep}--\r\n".encode()
+        corps += (f'--{sep}\r\nContent-Disposition: form-data; name="source"; filename="{nom_fichier}"\r\n'
+                  f"Content-Type: {mime}\r\n\r\n").encode() + fichier + f"\r\n--{sep}--\r\n".encode()
         req = urllib.request.Request(url, data=corps, headers={"Content-Type": f"multipart/form-data; boundary={sep}"})
     else:
         req = urllib.request.Request(url, data=urllib.parse.urlencode(champs).encode())
     try:
-        with urllib.request.urlopen(req, timeout=90) as rep:
+        with urllib.request.urlopen(req, timeout=300 if mime.startswith("video") else 90) as rep:
             return json.loads(rep.read().decode("utf-8"))
     except urllib.error.HTTPError as ex:
         raise RuntimeError(f"Meta {ex.code} : {ex.read().decode('utf-8', 'replace')[:300]}") from None
@@ -291,8 +292,68 @@ def publier_plusieurs(it):
     return out
 
 
+def publier_diapo(it):
+    """Le post du mod en vidéo (Mitch, 14 nov. 2026) : les 3 cartes poussées par le calcul (it["diapo"]) deviennent ici
+    une vidéo (live_code/story_match.video_diapo : 2 flips de pierre avec leur son, la toune du mod), publiée en vidéo
+    Facebook puis en Reel Instagram. -> {"fb": ..., "ig": ...}, ou None si la vidéo n'a pas pu être faite ou envoyée
+    à Facebook (publier() sort alors la photo, comme avant). Facebook sans réponse (délai) : on ne republie pas en
+    photo (la vidéo a peut-être passé : pas de doublon)."""
+    import tempfile
+    import story_match
+    page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
+    out = {}
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            mp4 = story_match.video_diapo([(RACINE / f).read_bytes() for f in it["diapo"]], Path(tmp) / "post.mp4", it["id"])
+            donnees = Path(mp4).read_bytes()
+        except Exception as ex:  # noqa: BLE001
+            print(f"  vidéo du mod pas faite ({str(ex)[:160]}) : la photo à la place")
+            return None
+        try:
+            r = _graph(f"{page}/videos", {"description": it["texte"]}, fichier=donnees, mime="video/mp4", nom_fichier="puckprob.mp4", hote="graph-video")
+        except Exception as ex:  # noqa: BLE001
+            if "timed out" in str(ex).lower():
+                print(f"  vidéo envoyée mais pas de réponse de Meta ({str(ex)[:100]}) : on ne republie pas en photo")
+                return {"fb": "incertain (pas de réponse de Meta)", "video": True}
+            print(f"  vidéo Facebook ratée ({str(ex)[:160]}) : la photo à la place")
+            return None
+        out["fb"], out["video"] = r.get("post_id") or r.get("id"), True
+        print(f"  Facebook OK, vidéo du mod ({out['fb']})")
+        out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
+        if not ig:
+            return out
+        ok, raison = ig_ok()
+        if not ok:
+            out["ig"] = f"sauté : {raison}"
+            print(f"  Instagram {out['ig']}")
+            return out
+        try:
+            c = _graph(f"{ig}/media", {"media_type": "REELS", "upload_type": "resumable", "caption": it.get("texte_ig") or it["texte"], "share_to_feed": "true"})
+            _rupload(c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{API}/{c['id']}", donnees)
+            for _ in range(60):                       # une vidéo : jusqu'à 3 min de traitement chez Meta
+                st = _graph(str(c["id"]), {"fields": "status_code"}, methode="GET").get("status_code")
+                if st in ("FINISHED", None):
+                    break
+                if st == "ERROR":
+                    raise RuntimeError("Instagram n'a pas pu lire la vidéo")
+                time.sleep(3)
+            out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
+            print(f"  Instagram OK, Reel du mod ({out['ig']})")
+            if IG_COMMENTAIRE:
+                out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
+        except Exception as ex:  # noqa: BLE001
+            out["ig"] = f"erreur : {str(ex)[:200]}"
+            print(f"  Instagram {out['ig']}")
+        ig_noter(out.get("ig"))
+    return out
+
+
 def publier(it):
     """Facebook (fichier), puis Instagram (adresse de la photo Facebook). Même recette que social.publier()."""
+    if it.get("diapo"):
+        out = publier_diapo(it)
+        if out:
+            return out
     if it.get("images") and len(it["images"]) > 1:
         return publier_plusieurs(it)
     page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()

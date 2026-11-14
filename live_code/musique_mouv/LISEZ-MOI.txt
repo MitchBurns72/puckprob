@@ -1,0 +1,6 @@
+La musique des posts PB's Biggest Gainers / PB's Biggest Fallers (les plus grosses montées / chutes PB, minuit et demi).
+Dépose ici un ou plusieurs fichiers .mp3 (ou .m4a, .wav) : le post sort alors en courte vidéo (la carte + la toune,
+~15 s) sur Facebook et en Reel sur Instagram. Plusieurs fichiers = une toune différente par jour, en rotation.
+Aucun fichier = la photo comme avant. Pour arrêter sans enlever les fichiers : config.json « social_musique_mouv »: false.
+Utilise seulement de la musique que tu as le droit d'utiliser (libre de droits ou achetée avec licence) : Meta coupe
+le son ou retire les vidéos avec de la musique protégée.
