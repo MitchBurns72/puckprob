@@ -1032,6 +1032,21 @@
   "publie": true,
   "quand": "2026-11-14T12:00-05:00"
  },
+ "2026-11-14-top-buts": {
+  "fb": "1508565075663838_122110845687537152",
+  "fb_com": "122110845687537152_2928479510860744",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "top",
+  "opt": {
+   "marche": "buts",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · Marque un but",
+  "publie": true,
+  "quand": "2026-11-14T14:05-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-14T14:10-05:00"
  }
