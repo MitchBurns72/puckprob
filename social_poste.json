@@ -966,6 +966,50 @@
   "publie": true,
   "quand": "2026-11-13T21:50-05:00"
  },
+ "2026-11-14-matin-073505-1-story": {
+  "fb": "1845584443290660",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "story",
+  "titre": "Jesper Wallstedt",
+  "publie": true,
+  "quand": "2026-11-14T11:00-05:00"
+ },
+ "2026-11-14-matin-073520-2-story": {
+  "fb": "1723603239099430",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "story",
+  "titre": "Jeff Viel",
+  "publie": true,
+  "quand": "2026-11-14T11:00-05:00"
+ },
+ "2026-11-14-matin-073505-1": {
+  "fb": "1508565075663838_122110781661537152",
+  "fb_com": "122110781661537152_28735872809442270",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "salaires",
+  "opt": {
+   "hasard": 0.4503317024963631
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#salaires",
+  "lien_en": "https://puckprob.ca/tonight/#salaries",
+  "titre": "Jesper Wallstedt",
+  "publie": true,
+  "quand": "2026-11-14T11:01-05:00"
+ },
+ "2026-11-14-matin-073520-2": {
+  "fb": "1508565075663838_122110782027537152",
+  "fb_com": "122110782027537152_1862661794769090",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "enf",
+  "opt": {
+   "hasard": 0.2894521618960736
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#enforcers",
+  "lien_en": "https://puckprob.ca/tonight/#enforcers",
+  "titre": "Jeff Viel",
+  "publie": true,
+  "quand": "2026-11-14T11:01-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-14T14:10-05:00"
  }
