@@ -239,3 +239,21 @@ html .sheet-box{background:var(--bg);border-top:3px solid var(--or);color:#DCE6F
 html .tr .pc .spk.spk{display:flex;float:none;width:122px;max-width:122px;margin:6px 0 0 auto}
 .tr .pc .spk.spk svg{flex:1 1 auto;width:auto;min-width:28px}
 .tr .spk-a,.tr .spk-b{font-size:10px}
+
+/* ---- Le classement actuel de la ligue (onglet Classement / Standings de Gameday, 14 nov. 2026) : une carte pâle, la
+   colonne de l'équipe collée à gauche, le reste défile au cellulaire ; la ligne des séries en accent ---- */
+.cls-h{font:700 28px/1 "Teko",var(--f-display);color:var(--or-txt);margin:16px 0 6px}
+.cls-sh{font:800 13px "Barlow Condensed",var(--f-body);text-transform:uppercase;letter-spacing:.6px;color:var(--sur-fond-2);margin:10px 0 4px}
+.cls-tbl{overflow-x:auto;-webkit-overflow-scrolling:touch;background:#F2F5FA;border-radius:6px}
+table.cls{border-collapse:collapse;width:100%;min-width:560px;color:#0A2342;font:600 13px/1 "Barlow",var(--f-body)}
+table.cls th{font:800 11px "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78;padding:8px 5px;text-align:center;border-bottom:2px solid #C9D3E0}
+table.cls td{padding:7px 5px;text-align:center;border-bottom:1px solid #DDE4EE;font-variant-numeric:tabular-nums}
+table.cls td.cls-r{color:#4A5D78;width:22px}
+table.cls .cls-e{position:sticky;left:0;background:#F2F5FA;text-align:left;white-space:nowrap;border-left:4px solid var(--df,var(--eq))}
+table.cls .cls-e img{width:20px;height:20px;vertical-align:middle;margin-right:6px;border-radius:4px}
+table.cls .cls-e b{font:700 17px/1 "Teko",var(--f-display);vertical-align:middle}
+table.cls th:nth-child(2){position:sticky;left:0;background:#F2F5FA;text-align:left}
+table.cls td.cls-p{font:700 19px/1 "Teko",var(--f-display)}
+table.cls td.cls-s{font:700 16px/1 "Teko",var(--f-display);color:#1B5FA8}
+table.cls td.bon{color:#14834A}table.cls td.mauvais{color:#C8102E}
+table.cls tr.cls-ligne td{padding:0;height:3px;background:var(--or,#FFB81C);border:0}

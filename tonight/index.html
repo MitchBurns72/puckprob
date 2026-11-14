@@ -871,7 +871,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=186300ab">
+<link rel="stylesheet" href="carte.css?v=3a11e6b6">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -905,6 +905,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-cor" aria-selected="false" aria-controls="p-cor">PB Correlation Trend</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
+    <button role="tab" id="t-cls" aria-selected="false" aria-controls="p-cls">Classement</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -1018,6 +1019,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-rum" role="tabpanel" aria-labelledby="t-rum" hidden>
     <div class="ctrls"><div id="fe-rum"></div></div>
     <div id="rum"></div>
+  </section>
+  <!-- Le classement actuel de la ligue (Mitch, 14 nov. 2026 : « un nouvel onglet Standings dans Gameday, le classement à jour ») -->
+  <section id="p-cls" role="tabpanel" aria-labelledby="t-cls" hidden>
+    <div class="ctrls"><div class="row" id="f-cls"></div></div>
+    <div id="cls"></div>
   </section>
   <section id="p-trx" role="tabpanel" aria-labelledby="t-trx" hidden>
     <div class="ctrls"><div class="row" id="f-trx"></div><div id="fe-trx"></div></div>
@@ -5436,6 +5442,55 @@ function trxCarte(t, i){
 let TRX_L = [];
 const TRX_V = [["", "Cette saison", "This season"], ["s", "Par saison", "By season"], ["top", "Les plus déséquilibrés", "Most lopsided"], ["eq", "Par équipe", "By team"]];
 const trxVues = () => `<div class="row trx-vues" role="tablist">${TRX_V.map(([k, fr, en]) => `<button class="chip" data-trxv="${k}" aria-pressed="${(S.trx_v || "") === k}">${L(fr, en)}</button>`).join("")}</div>`;
+// ---- Le classement actuel de la ligue (Mitch, 14 nov. 2026) : les vrais points de ce matin (docs/data.json, coupe.equipes :
+// points, matchs, victoires en temps réglementaire et prolongation, fiche V-D-DP-BP-BC, division, association), en 4 vues
+// comme la LNH : par division, par association, la course aux séries (les 3 premiers de chaque division + les 2 meilleurs
+// deuxièmes de l'association, la ligne de coupe) et toute la ligue. Bris d'égalité de la LNH : points, puis le moins de
+// matchs joués, puis les victoires en temps réglementaire + prolongation (RW... on a « rw »), puis le différentiel.
+// La dernière colonne : nos chances de faire les séries (la simulation de la Coupe).
+const CLS_DIV = { A: ["Atlantique", "Atlantic"], M: ["Métropolitaine", "Metropolitan"], C: ["Centrale", "Central"], P: ["Pacifique", "Pacific"] };
+const CLS_CONF = { E: ["Association de l'Est", "Eastern Conference"], W: ["Association de l'Ouest", "Western Conference"] };
+function clsTri(L_){
+  return L_.slice().sort((a, b) => (b.pts - a.pts) || (a.pj - b.pj) || ((b.rw || 0) - (a.rw || 0))
+    || (((b.fiche || [])[3] - (b.fiche || [])[4]) - ((a.fiche || [])[3] - (a.fiche || [])[4])));
+}
+function clsTable(L_, ligne = null, depart = 1){
+  const pc3 = (x) => x.pj ? (x.pts / (2 * x.pj)).toFixed(3).replace(/^0/, "") : "–";
+  const rangs = L_.map((x, i) => { const [v, d, p, bp, bc] = x.fiche || [0, 0, 0, 0, 0], df = bp - bc;
+    return `${ligne === i ? `<tr class="cls-ligne"><td colspan="11"></td></tr>` : ""}<tr style="${eqV(x.t)}">
+      <td class="cls-r">${depart + i}</td><td class="cls-e"><img src="${LOGO(x.t)}" alt="" loading="lazy"><b>${x.t}</b></td>
+      <td>${x.pj}</td><td>${v}</td><td>${d}</td><td>${p}</td><td class="cls-p">${x.pts}</td><td>${pc3(x)}</td>
+      <td>${bp}</td><td>${bc}</td><td class="${df > 0 ? "bon" : df < 0 ? "mauvais" : ""}">${df > 0 ? "+" : ""}${df}</td>
+      <td class="cls-s">${x.p_series != null ? Math.round(x.p_series * 100) + "%" : "–"}</td></tr>`; }).join("");
+  return `<div class="cls-tbl"><table class="cls"><thead><tr><th></th><th>${L("Équipe", "Team")}</th><th>${L("PJ", "GP")}</th><th>${L("V", "W")}</th><th>${L("D", "L")}</th>
+    <th>${L("DP", "OTL")}</th><th>PTS</th><th>%</th><th>${L("BP", "GF")}</th><th>${L("BC", "GA")}</th><th>DIFF</th><th title="${L("Nos chances de faire les séries", "Our playoff chances")}">${L("Séries", "Playoffs")}</th></tr></thead><tbody>${rangs}</tbody></table></div>`;
+}
+function clsOnglet(){
+  const el = $("#cls"); if (!el) return;
+  const E = (D?.coupe?.equipes || []).filter(x => x.t);
+  const vue = S.cls || "wc";
+  $("#f-cls").innerHTML = [["wc", L("Course aux séries", "Wild card")], ["div", L("Divisions", "Divisions")], ["conf", L("Associations", "Conferences")], ["lig", L("Ligue", "League")]]
+    .map(([k, n]) => `<button class="chip" data-cls="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
+  if (!E.length){ el.innerHTML = `<div class="card"><div class="vide">${L("Le classement arrive au prochain calcul.", "The standings arrive with the next update.")}</div></div>`; return; }
+  const titre = (h) => `<h3 class="cls-h">${h}</h3>`;
+  let corps = "";
+  if (vue === "lig") corps = clsTable(clsTri(E));
+  else if (vue === "conf") corps = ["E", "W"].map(c => titre(L(...CLS_CONF[c])) + clsTable(clsTri(E.filter(x => x.conf === c)), 8)).join("");
+  else if (vue === "div") corps = ["A", "M", "C", "P"].map(d => titre(L(...CLS_DIV[d])) + clsTable(clsTri(E.filter(x => x.div === d)), 3)).join("");
+  else corps = ["E", "W"].map(c => {
+    const divs = c === "E" ? ["A", "M"] : ["C", "P"];
+    const tops = divs.map(d => clsTri(E.filter(x => x.div === d)).slice(0, 3));
+    const pris = new Set(tops.flat().map(x => x.t));
+    const reste = clsTri(E.filter(x => x.conf === c && !pris.has(x.t)));
+    return titre(L(...CLS_CONF[c])) + divs.map((d, k) => `<p class="cls-sh">${L(...CLS_DIV[d])}</p>` + clsTable(tops[k])).join("")
+      + `<p class="cls-sh">${L("Meilleurs deuxièmes", "Wild card")}</p>` + clsTable(reste, 2);
+  }).join("");
+  const maj = D?.coupe?.date ? new Date(D.coupe.date + "T12:00:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : "";
+  el.innerHTML = `<div class="cp-tete"><h2>${L("Classement de la LNH", "NHL standings")}</h2><p>${L(`Le vrai classement, à jour ce matin (${maj}). La ligne : la limite des séries. La dernière colonne : nos chances de faire les séries.`,
+    `The real standings, updated this morning (${maj}). The line: the playoff cut. The last column: our playoff chances.`)}</p></div>` + corps
+    + `<p class="aide">${L("Égalité : les points, puis le moins de matchs joués, puis les victoires en temps réglementaire et en prolongation, puis le différentiel.", "Ties: points, then fewer games played, then regulation and overtime wins, then goal differential.")}</p>`;
+}
+document.addEventListener("click", (e) => { const b = e.target.closest?.("[data-cls]"); if (b){ S.cls = b.dataset.cls; clsOnglet(); } });
 async function trxOnglet(){
   const el = $("#trx");
   if (S.trx_v){ $("#f-trx").innerHTML = ""; $("#fe-trx").innerHTML = ""; return trxHist(S.trx_v); }
@@ -6571,7 +6626,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "cor", "rum", "trx", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "pwr", "cor", "rum", "trx", "cls", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -6584,6 +6639,7 @@ function brancher(){
     if (b.id === "t-coupe") trophees();               // la saison choisie (ou « En cours ») suit aussi dans les courses
     if (b.id === "t-rum") rumOnglet();
     if (b.id === "t-trx") trxOnglet();
+    if (b.id === "t-cls") clsOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -6747,6 +6803,7 @@ async function init(){
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(transactions|echanges|trades)$/i.test(location.hash)){ $("#t-trx")?.click(); $("#p-trx")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(classement|league-standings)$/i.test(location.hash)){ $("#t-cls")?.click(); $("#p-cls")?.scrollIntoView({ block: "start" }); }
     else if (/^#(correlations?|correlation-trend)$/i.test(location.hash)){ $("#t-cor")?.click(); $("#p-cor")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
     else if (/^#(arbitres|refs?)$/i.test(location.hash)){ $("#t-arb")?.click(); $("#p-arb")?.scrollIntoView({ block: "start" }); }
@@ -6764,7 +6821,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -6823,7 +6880,7 @@ init().catch(finCharge);
   var EN = /^en/i.test(document.documentElement.lang || "");
   // Section : les rangées qui restent visibles en pastilles (dans l'ordre). Tout le reste de .ctrls va dans le panneau 🔍.
   var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph", "sai-cup"], "p-whatif": ["f-wi", "f-wir", "f-wiv"], "p-salaires": ["f-sal", "sai-sal"], "p-enf": ["f-enf", "sai-enf"],
-    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-rum": [], "p-trx": ["f-trx"], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-rum": [], "p-trx": ["f-trx"], "p-cls": ["f-cls"], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
   function compte(sh){
@@ -6908,8 +6965,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=186300ab" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=186300ab" defer></script>
-<script src="nav.js?v=bf48d93807" defer></script>
+<script src="pub.js?v=3a11e6b6" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=3a11e6b6" defer></script>
+<script src="nav.js?v=ebf596e2ed" defer></script>
 </body>
 </html>
