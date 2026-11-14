@@ -1,31 +1,11 @@
 {
  "jour": "2026-11-13",
- "maj": "2026-11-13T16:54-05:00",
+ "maj": "2026-11-13T19:00-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-13-top-passes",
-   "quand": "2026-11-13T16:58-05:00",
-   "image": "social/fil/2026-11-13/top-passes.jpg",
-   "images": null,
-   "avant": null,
-   "retard": null,
-   "texte": "Top 5 ce soir : 1 passe ou plus\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR à VAN) 56%\n4. Roman Josi (NSH à VGK) 49%\n5. Mika Zibanejad (NYR à VAN) 49%\n\nTop 5 tonight: 1+ assist\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR at VAN) 56%\n4. Roman Josi (NSH at VGK) 49%\n5. Mika Zibanejad (NYR at VAN) 49%\n\nFR : https://puckprob.ca/fr/ce-soir/\nEN : https://puckprob.ca/tonight/\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Top 5 ce soir : 1 passe ou plus\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR à VAN) 56%\n4. Roman Josi (NSH à VGK) 49%\n5. Mika Zibanejad (NYR à VAN) 49%\n\nTop 5 tonight: 1+ assist\n1. Mitch Marner (VGK vs NSH) 58%\n2. Jack Eichel (VGK vs NSH) 57%\n3. Adam Fox (NYR at VAN) 56%\n4. Roman Josi (NSH at VGK) 49%\n5. Mika Zibanejad (NYR at VAN) 49%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\nPour le divertissement seulement. Pas un conseil de pari. 18+ / For entertainment only. Not betting advice. 18+\n#LNH #NHL #hockey #PuckProb",
-   "com": "Pourquoi Mitch Marner en tête : 2e trio + PP1, 23 points en 18 matchs, 9 de ses 10 derniers matchs.\nTout le détail : https://puckprob.ca/fr/ce-soir/\n\nWhy Mitch Marner is #1: 2nd line + PP1, 23 points in 18 games, 9 of his last 10 games.\nAll the details: https://puckprob.ca/tonight/",
-   "com_ig": "Pourquoi Mitch Marner en tête : 2e trio + PP1, 23 points en 18 matchs, 9 de ses 10 derniers matchs.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nWhy Mitch Marner is #1: 2nd line + PP1, 23 points in 18 games, 9 of his last 10 games.",
-   "type": "top",
-   "opt": {
-    "marche": "passes",
-    "hasard": 0.5
-   },
-   "lien": "https://puckprob.ca/fr/ce-soir/",
-   "lien_en": "https://puckprob.ca/tonight/",
-   "titre": "Top 5 · 1 passe ou plus"
-  },
-  {
    "id": "2026-11-13-top-tirs3",
-   "quand": "2026-11-13T19:23-05:00",
+   "quand": "2026-11-13T19:06-05:00",
    "image": "social/fil/2026-11-13/top-tirs3.jpg",
    "images": null,
    "avant": null,
@@ -80,5 +60,6 @@
    "type": "story",
    "titre": "Story · NSH @ VGK"
   }
- ]
+ ],
+ "ig_pause_jusqu": "2026-11-14T00:55-05:00"
 }

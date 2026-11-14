@@ -868,7 +868,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=5721fa32">
+<link rel="stylesheet" href="carte.css?v=44d524c1">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -3178,7 +3178,7 @@ function courbe(vals){
 }
 // La même courbe, pour n'importe quelle valeur : du plus bas au plus haut des derniers jours (pas depuis 0 : un salaire
 // de 2,0 M$ à 2,1 M$ doit se voir). inv : plus bas = mieux (un rang) -> la courbe monte quand ça s'améliore.
-function spark(vals, inv = false){
+function spark(vals, inv = false, titre = null){
   const v = (vals || []).map(x => x == null ? null : +x);
   const ok = v.filter(x => x != null && !isNaN(x));
   if (ok.length < 2) return "";
@@ -3187,7 +3187,7 @@ function spark(vals, inv = false){
   const n = v.length - 1, Y = (x) => { const r = (x - lo) / (hi - lo); return (2 + (inv ? r : 1 - r) * 22).toFixed(1); };
   let d = "";
   v.forEach((x, i) => { if (x == null || isNaN(x)) return; d += `${d ? "L" : "M"}${(i / n * 100).toFixed(1)},${Y(x)}`; });
-  return `<span class="spk" title="${L("Jour après jour", "Day by day")}"><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg></span>`;
+  return `<span class="spk" title="${titre || L("Jour après jour", "Day by day")}"><svg viewBox="0 0 100 26" preserveAspectRatio="none" aria-hidden="true"><path d="${d}"/></svg></span>`;
 }
 function coupeHTML(){
   const C = D.coupe, el = $("#coupe");
@@ -4930,7 +4930,9 @@ const pcIdx = (v) => v == null ? "–" : Math.round(v * 100) + (EN ? "%" : " %")
 // 3 meilleurs. Le chiffre avec le % jaune penché du logo, l'ancienne valeur (« avant ») et la petite courbe.
 const pbN = (v) => v == null ? "–" : `<span class="pbp">${v < 0 ? "−" : ""}${Math.abs(v)}<i>%</i></span>`;
 const pbAv = (x) => x?.pcav != null && x.pcav !== x.pc ? ` · ${L("avant", "was")} ${x.pcav < 0 ? "−" : ""}${Math.abs(x.pcav)}${EN ? "%" : " %"}` : "";
-const pbSpark = (x, alt) => x?.ph?.length > 1 ? spark(x.ph) : alt?.length > 1 ? spark(alt) : "";
+// Les % PuckProb : un point par match joué, depuis le 1er match de la saison (src/pbpct.py, courbe ; les matins d'avant
+// le 11 nov. sont refaits par src/machine.py, remonter)
+const pbSpark = (x, alt) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season")) : alt?.length > 1 ? spark(alt) : "";
 function enfLigne(x, mode = "score"){
   if (!x) return "";
   const glob = mode === "score", rg = glob ? x.rg : x.rk?.[mode];
@@ -6741,8 +6743,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=5721fa32" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=5721fa32" defer></script>
+<script src="pub.js?v=44d524c1" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=44d524c1" defer></script>
 <script src="nav.js?v=89085d689c" defer></script>
 </body>
 </html>

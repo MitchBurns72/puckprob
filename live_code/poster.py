@@ -71,7 +71,14 @@ def _graph(chemin, champs=None, fichier=None, methode="POST"):
 # Chaque côté a son fichier : le calcul de Tirs-nhl (data/social/ig_garde.json, ses posts du matin et de la nuit)
 # et le job live de puckprob (social/ig_garde.json, la file du soir et les stories).
 # ---------------------------------------------------------------------------------
-IG_MAX_JOUR, IG_ECART_MIN, IG_PAUSE_H = 8, 30, 24
+IG_MAX_JOUR, IG_ECART_MIN, IG_PAUSE_H = 8, 30, 72
+# Après un blocage (13 nov. 2026 : bloqué le 11, puis encore le 12 à 14 h en réessayant après 24 h, puis le calcul de la
+# nuit l'a réveillé à 0 h 55 parce qu'il ne savait pas que le job live était en pause) :
+#   - la pause dure 72 h (réessayer trop tôt prolonge le blocage chez Meta) ;
+#   - puis 72 h de RODAGE : au plus 3 posts et 2 stories Instagram par jour, pour remonter doucement ;
+#   - les deux côtés (le calcul de Tirs-nhl et le job live de puckprob) respectent la pause de l'AUTRE : PAUSE_EXTERNE.
+IG_RODAGE_H, IG_RODAGE_MAX, IG_RODAGE_STORIES = 72, 3, 2
+PAUSE_EXTERNE = None       # la pause vue par l'autre côté (ISO), mise par main() (le fil) ou par social.py (le job live)
 IG_COMMENTAIRE = False
 # L'état est gardé sous la clé « _ig » du fichier : ici social_poste.json (le job live le pousse déjà ; un fichier à part
 # serait perdu à chaque relance du job). Côté Tirs-nhl : data/social/ig_garde.json.
@@ -95,11 +102,23 @@ def ig_ok(f=None, max_jour=None, ecart_min=None, story=False):
     max_jour = IG_MAX_JOUR if max_jour is None else max_jour
     ecart_min = IG_ECART_MIN if ecart_min is None else ecart_min
     g, n = _ig_lire(f or POSTE), MAINTENANT or datetime.now(TZ)
-    if g.get("pause_jusqu") and n < datetime.fromisoformat(g["pause_jusqu"]):
-        return False, f"Instagram en pause jusqu'à {datetime.fromisoformat(g['pause_jusqu']).astimezone(TZ):%d/%m %H:%M} (blocage)"
+    for p_ in (g.get("pause_jusqu"), PAUSE_EXTERNE):
+        try:
+            if p_ and n < datetime.fromisoformat(p_):
+                return False, f"Instagram en pause jusqu'à {datetime.fromisoformat(p_).astimezone(TZ):%d/%m %H:%M} (blocage)"
+        except (TypeError, ValueError):
+            pass
+    aujourd = g.get("jour") == n.date().isoformat()
+    # (une pause d'avant le 13 nov. n'a pas de date de rodage : 72 h après la fin de sa pause)
+    fin_r = g.get("rodage_jusqu") or ((datetime.fromisoformat(g["pause_jusqu"]) + timedelta(hours=IG_RODAGE_H)).isoformat() if g.get("pause_jusqu") else None)
+    rodage = bool(fin_r) and n < datetime.fromisoformat(fin_r)
     if story:
+        if rodage and aujourd and g.get("n_st", 0) >= IG_RODAGE_STORIES:
+            return False, f"rodage après un blocage : déjà {IG_RODAGE_STORIES} stories Instagram aujourd'hui"
         return True, ""
-    if g.get("jour") == n.date().isoformat() and g.get("n", 0) >= max_jour:
+    if rodage:
+        max_jour = min(max_jour, IG_RODAGE_MAX)
+    if aujourd and g.get("n", 0) >= max_jour:
         return False, f"déjà {max_jour} posts Instagram aujourd'hui"
     if g.get("dernier") and n - datetime.fromisoformat(g["dernier"]) < timedelta(minutes=ecart_min):
         return False, f"moins de {ecart_min} min depuis le dernier post Instagram"
@@ -112,13 +131,18 @@ def ig_noter(resultat, f=None, story=False):
     g, n = _ig_lire(f), MAINTENANT or datetime.now(TZ)
     r = str(resultat or "")
     if r.startswith("erreur") and ("2207051" in r or "request limit" in r.lower() or "2207042" in r):
-        g["pause_jusqu"] = (n + timedelta(hours=IG_PAUSE_H)).isoformat(timespec="minutes")
-        print(f"  Instagram bloque nos posts : pause de {IG_PAUSE_H} h")
-    elif r and not r.startswith("erreur") and not story:
+        fin_p = n + timedelta(hours=IG_PAUSE_H)
+        g["pause_jusqu"] = fin_p.isoformat(timespec="minutes")
+        g["rodage_jusqu"] = (fin_p + timedelta(hours=IG_RODAGE_H)).isoformat(timespec="minutes")
+        print(f"  Instagram bloque nos posts : pause de {IG_PAUSE_H} h, puis {IG_RODAGE_H} h de rodage")
+    elif r and not r.startswith("erreur"):
         if g.get("jour") != n.date().isoformat():
-            g["jour"], g["n"] = n.date().isoformat(), 0
-        g["n"] = g.get("n", 0) + 1
-        g["dernier"] = n.isoformat(timespec="minutes")
+            g["jour"], g["n"], g["n_st"] = n.date().isoformat(), 0, 0
+        if story:
+            g["n_st"] = g.get("n_st", 0) + 1
+        else:
+            g["n"] = g.get("n", 0) + 1
+            g["dernier"] = n.isoformat(timespec="minutes")
     try:
         tout = _json(f)
         tout["_ig"] = g
@@ -334,6 +358,8 @@ def main(maintenant=None):
     if not F.get("publier"):
         print("fil : file en aperçu seulement (config social_actif), rien de publié")
         return 0
+    global PAUSE_EXTERNE
+    PAUSE_EXTERNE = F.get("ig_pause_jusqu")          # la pause Instagram du calcul (s'il s'est fait bloquer de son bord)
     poste = _lire(POSTE, {})
     dus = [it for it in F["items"] if it["id"] not in poste and datetime.fromisoformat(it["quand"]) <= now]
     n = 0
