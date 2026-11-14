@@ -233,3 +233,9 @@ html .sheet-box{background:var(--bg);border-top:3px solid var(--or);color:#DCE6F
 /* le gros chiffre en tête de fiche : blanc, lisible sur le marine (avant : un bleu pâle presque invisible) */
 .wi-carte .gcr-gros b,.wi-carte .ca-hero b{color:#fff}
 .wi-carte .ca-hero{background:transparent}
+/* Les rangées des trophées : le petit graph sous le %, dans une colonne étroite (avant, à côté du % quand celui-ci
+   était court, il écrasait le nom du joueur et ses valeurs ne rentraient pas) */
+.tr .pc{max-width:126px;text-align:right}
+html .tr .pc .spk.spk{display:flex;float:none;width:122px;max-width:122px;margin:6px 0 0 auto}
+.tr .pc .spk.spk svg{flex:1 1 auto;width:auto;min-width:28px}
+.tr .spk-a,.tr .spk-b{font-size:10px}
