@@ -133,7 +133,7 @@ nav.menu::-webkit-scrollbar{display:none}
 @keyframes tk-pouls{50%{box-shadow:0 0 0 6px rgba(224,53,59,0)}}
 @media (prefers-reduced-motion:reduce){.ticker .tk-piste{animation:none}.ticker .tk-vue{overflow-x:auto}.ticker .tk-lbl::before{animation:none}}
 /* What if : liste + dos de carte de hockey */
-#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q,#arb-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+#wi-q,#sal-q,#duo-q,#enf-q,#prj-q,#gcr-q,#arb-q,#pwr-q{width:100%;font:500 16px var(--f-body);padding:10px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
 .wi-l{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:4px solid var(--eq);border-radius:6px;padding:10px 12px;margin:0 0 6px;cursor:pointer;font:inherit}
 .wi-l .rg{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 /* Écarts avec hier : vert = mieux, rouge = pire ; ▲/▼ = places gagnées ou perdues */
@@ -871,7 +871,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=d1040906">
+<link rel="stylesheet" href="carte.css?v=ff3d67b2">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1027,7 +1027,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <div id="cor"></div>
   </section>
   <section id="p-pwr" role="tabpanel" aria-labelledby="t-pwr" hidden>
-    <div class="ctrls"><div class="row" id="f-pwr"></div><div class="row sai-r" id="sai-pwr"></div></div>
+    <div class="ctrls"><div class="row" id="f-pwr"></div><div class="row"><input id="pwr-q" type="search" autocomplete="off"></div><div id="fe-pwr"></div><div class="row sai-r" id="sai-pwr"></div></div>
     <div id="pwr"></div>
   </section>
   <div id="wi-modal" class="wi-modal" hidden></div>
@@ -3380,7 +3380,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_pwr: () => pwrOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -4909,21 +4909,21 @@ async function enforcers(){
   const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
-     <p><b>Les 5 classements</b> : l'indice peur (le mélange des quatre) ou un seul morceau ; chaque morceau a aussi sa cote sur 100, le n° 1 de la catégorie à 100 %.</p>
-     <p><b>Indice peur</b> : une cote sur 100. Son score divisé par celui du n° 1 : le n° 1 est à 100 %, un joueur à +8 quand le n° 1 est à +10 est à 80 %. 0 % = le patineur moyen de la ligue (20 matchs et plus).</p>
+     <p><b>Les 6 classements</b> : le PB Intimidation % (le mélange) ou un seul morceau. Tous en % PuckProb, la même règle partout : 0 % = le patineur moyen de la ligue (20 matchs et plus), 100 % = le niveau des 3 meilleurs de CE classement (le n° 1 peut dépasser). Chacun a sa petite courbe (un point par match) et ses places gagnées ou perdues.</p>
      <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la LNH, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
      <p><b>Chaos</b> : quand il est sur la glace, est-ce que ça brasse plus, toutes équipes confondues ? Combats, mises en échec, pénalités et mêlées (des pénalités aux deux équipes au même moment) avec lui sur la glace, contre ce qu'on attendrait au rythme de quand il est au banc, dans les mêmes matchs. Chaque écart est tiré vers 0 quand l'échantillon est petit.</p>
      <p><b>Effet peur</b> (affiché dans la fiche, plus dans le score : trop bruité, il récompensait des joueurs offensifs) : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il l'affronte contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. Ensuite, deux garde-fous : chaque mesure est tirée vers 0 quand l'échantillon est petit, et l'effet peur ne compte qu'en proportion de sa réputation physique. Un défenseur offensif que l'adversaire frappe peu parce que son équipe a la rondelle ne fait pas peur pour autant : sans réputation physique, son effet peur compte pour 0.</p>
      <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats.</p>`,
     `<p>Built from the NHL play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
-     <p><b>The 5 rankings</b>: PB Intimidation % (the blend of all four) or a single part; each part also has its rating out of 100, the category's #1 at 100%.</p>
-     <p><b>PB Intimidation %</b>: a rating out of 100. His score divided by the #1's: the #1 is at 100%, a player at +8 when the #1 is at +10 is at 80%. 0% = the league's average skater (20+ games).</p>
+     <p><b>The 6 rankings</b>: PB Intimidation % (the blend) or a single part. All in PuckProb %, the same rule everywhere: 0% = the league's average skater (20+ games), 100% = the level of the top 3 in THAT ranking (No. 1 can go over). Each has its little curve (one point per game) and its places gained or lost.</p>
      <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from NHL bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
      <p><b>Chaos</b>: when he's on the ice, does it get rowdier, both teams combined? Fights, hits, penalties and scrums (penalties to both teams at the same moment) with him on the ice, against what we'd expect at the pace of when he's on the bench, in the same games. Each difference is pulled toward 0 when the sample is small.</p>
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces him against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
      <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
-  const eqE = Object.entries(parEq(Object.values(ENF.joueurs), x => x.eq, x => x.pct)).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pcIdx(topMoy(a, 3)) }));
-  el.innerHTML = saiBandeau("enf") + tete + eqClassementHTML(eqE, L("la moyenne de ses 3 plus intimidants", "average of its 3 most intimidating")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
+  // Le classement des équipes suit le classement choisi, en % PuckProb (la moyenne de ses 3 meilleurs)
+  const vEq = (x) => mode === "score" ? (x.pc ?? (x.pct != null ? x.pct * 100 : null)) : (x.pcs?.[mode] ?? (x.r?.[mode] != null ? x.r[mode] * 100 : null));
+  const eqE = Object.entries(parEq(Object.values(ENF.joueurs), x => x.eq, vEq)).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pbTxt(topMoy(a, 3)) }));
+  el.innerHTML = saiBandeau("enf") + tete + eqClassementHTML(eqE, (mode === "score" ? "" : L(...ENF_MODES[mode]) + " · ") + L("la moyenne de ses 3 meilleurs", "average of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
   ptListeTab("p-enf");
 }
 // L'indice peur en % (part des patineurs qu'il dépasse) : la marque de commerce, en gros à droite
@@ -4936,6 +4936,22 @@ const pbAv = (x) => x?.pcav != null && x.pcav !== x.pc ? ` · ${L("avant", "was"
 // Les % PuckProb : un point par match joué, depuis le 1er match de la saison (src/pbpct.py, courbe ; les matins d'avant
 // le 11 nov. sont refaits par src/machine.py, remonter)
 const pbSpark = (x, alt) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season")) : alt?.length > 1 ? spark(alt) : "";
+// Le bloc standard d'un % PuckProb, pour une stat principale (k = null : pc, pcav, ph) ou une SOUS-CATÉGORIE (k = sa clé :
+// pcs[k], pcavs[k], phs[k], src/pbpct.py SOUS). Mitch, 13 nov. 2026 : « standardise les sous-catégories : l'avantage
+// numérique c'est même pas des %, badassness n'a pas de graph ni de gainers/fallers ; le plus standard possible partout ».
+// Partout pareil : le chiffre au % jaune, l'acronyme, la petite ligne (ce que c'est · la valeur brute · avant), la courbe.
+// -> null si la stat n'a pas encore son % (vieille saison, premier calcul) : la section garde alors son ancien chiffre.
+function pbBloc(x, k, ab, lib, brut){
+  const g = (c) => k == null ? x?.[c] : x?.[c + "s"]?.[k];
+  const pc = g("pc"); if (pc == null) return null;
+  const av = g("pcav"), ph = g("ph");
+  const avTxt = av != null && av !== pc ? ` · ${L("avant", "was")} ${av < 0 ? "−" : ""}${Math.abs(av)}${EN ? "%" : " %"}` : "";
+  return `${pbN(pc)}${ab ? AB(ab) : ""}<small>${lib}${brut ? " · " + brut : ""}${avTxt}</small>${ph?.length > 1 ? spark(ph, false, L("Match par match, depuis le 1er match de la saison", "Game by game since the first game of the season")) : ""}`;
+}
+// Le changement de position (les flèches gainers / fallers) d'une sous-catégorie, ou de la principale (k = null)
+const pbDr = (x, k) => k == null ? x?.dr : x?.drs?.[k];
+// Le % d'une équipe dans les classements d'équipes (la moyenne de ses meilleurs), écrit comme partout
+const pbTxt = (v) => v == null ? "–" : (v < 0 ? "−" : "") + Math.abs(Math.round(v)) + (EN ? "%" : " %");
 function enfLigne(x, mode = "score"){
   if (!x) return "";
   const glob = mode === "score", rg = glob ? x.rg : x.rk?.[mode];
@@ -4944,7 +4960,8 @@ function enfLigne(x, mode = "score"){
     `${n1(x.fr60)} ${L("mises en échec/60", "hits/60")}`, `${x.pen ?? 0} ${L("pén. qui font mal", "painful pen.")}`, `${L("chaos", "chaos")} ${pcS(x.chaos)}`].join(" · ");
   return `<button class="wi-l wi-r enf-j" data-id="${x.id}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${mvtHTML(glob ? x.dr : x.drk?.[mode])}</span>${wiRond(x)}
     <span class="nm">${x.n}<small>${x.eq} · ${pos} · ${x.pj} ${L("matchs", "games")}</small>${wiEqs(x)}<span class="wi-st">${st}</span></span>
-    <span class="v">${coteHTML(rg, Object.keys(ENF.joueurs).length, false)}${glob ? (x.pc != null ? pbN(x.pc) : x.pct == null ? "–" : Math.round(x.pct * 100)) + AB("PBIR") : pcIdx(x.r?.[mode])}<small>${mode === "score" ? "PB Intimidation %" : L(...ENF_MODES[mode]).toLowerCase()}${glob ? pbAv(x) : ""}${!glob || x.pc != null ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>${glob ? pbSpark(x, x.h) : ""}</span></button>`;
+    <span class="v">${coteHTML(rg, Object.keys(ENF.joueurs).length, false)}${glob ? (x.pc != null ? pbN(x.pc) : x.pct == null ? "–" : Math.round(x.pct * 100)) + AB("PBIR") + `<small>PB Intimidation %${pbAv(x)}${x.pc != null ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>` + pbSpark(x, x.h)
+      : pbBloc(x, mode, "PBIR", L(...ENF_MODES[mode])) ?? `${pcIdx(x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}</small>`}</span></button>`;
 }
 function enfCarte(id){
   const x = ENF?.joueurs?.[id]; if (!x) return;
@@ -5180,7 +5197,7 @@ async function duos(){
   Object.assign(COTE, { n: L0.length, inv: false });
   const lignes = liste.map((x, i) => duoLigne(x, tri === "ch" ? x.rg : i + 1)).join("")
     || `<div class="card"><div class="vide">${L0.length ? L("Aucun duo trouvé.", "No duo found.") : L("Les duos se remplissent avec la récolte des matchs (version 8) : quelques calculs.", "Duos fill up as games are harvested (version 8): a few updates.")}</div></div>`;
-  const eqD = Object.entries(parEq(L0, x => x.eq, x => x.ch)).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pts1(topMoy(a, 3)) }));
+  const eqD = Object.entries(parEq(L0, x => x.eq, x => tri === "pe" ? (x.pcs?.dom ?? null) : (x.pc ?? x.ch))).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pbTxt(topMoy(a, 3)) }));
   el.innerHTML = saiBandeau("duo") + tete + eqClassementHTML(eqD, L("la chimie de ses 3 meilleurs", "chemistry of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
   ptListeTab("p-duo");
 }
@@ -5520,6 +5537,12 @@ async function pwrOnglet(){
   if (!PWR){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerPwr(); }
   if (!PWR?.equipes?.length){ el.innerHTML = `<div class="card"><div class="vide">${L("Les power rankings arrivent au prochain calcul.", "Power rankings arrive with the next update.")}</div></div>`; return; }
   const mode = S.pwr || "eq";
+  // Le filtre par équipe et la recherche, comme dans toutes les sections (Mitch, 13 nov. 2026 : « le search by team
+  // fonctionne pas partout ; assure-toi qu'il fonctionne partout »). Équipes : la recherche cherche le nom de la ville.
+  const feq = S.fe_pwr || "", q = nrm($("#pwr-q")?.value || "");
+  $("#pwr-q").placeholder = mode === "eq" ? L("Chercher une équipe", "Search a team") : L("Chercher un joueur", "Search a player");
+  $("#fe-pwr").innerHTML = filtreEqHTML("fe_pwr", [...new Set(PWR.equipes.map(x => x.t))].filter(Boolean).sort());
+  const garde = (t, n) => (!feq || t === feq) && (q.length < 2 || nrm(n || "").includes(q));
   $("#f-pwr").innerHTML = [["eq", L("Équipes", "Teams")], ["j", L("Joueurs", "Players")], ["g", L("Gardiens", "Goalies")], ["r", L("Recrues", "Rookies")]]
     .filter(([k]) => k === "eq" || k === "j" || (k === "g" ? PWR.gardiens?.length : PWR.recrues?.length)).map(([k, n]) => `<button class="chip big" data-pw="${k}" aria-pressed="${k === mode}">${n}</button>`).join("");
   const ref = PWR.ref ? L(`Les flèches : depuis le classement du ${dateCourte(PWR.ref)}.`, `Arrows: since the ${dateCourte(PWR.ref)} ranking.`) : L("Les flèches arrivent la semaine prochaine.", "Arrows show up next week.");
@@ -5538,24 +5561,24 @@ async function pwrOnglet(){
   let lignes;
   if (mode === "eq"){
     Object.assign(COTE, { n: PWR.equipes.length, inv: false });
-    lignes = PWR.equipes.map(x => { const [v, d, p] = x.fiche || [0, 0, 0], diff = x.bp - x.bc;
+    lignes = PWR.equipes.filter(x => garde(x.t, nomEq(x.t) + " " + x.t)).map(x => { const [v, d, p] = x.fiche || [0, 0, 0], diff = x.bp - x.bc;
       return `<div class="wi-l wi-r pwr-e" data-c="${x.t}" style="${eqV(x.t)}"><span class="rg">${x.rg}${pwrMv(x)}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy">
         <span class="nm">${nomEq(x.t)}<small>${v}-${d}-${p} · ${x.pts} pts ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("buts", "goals")} ${x.bp}-${x.bc} (${diff > 0 ? "+" : ""}${diff}) · ${L("projeté", "projected")} ${Math.round(x.proj)} pts · ${L("Coupe", "Cup")} ${pc1(x.p_coupe)} %</span></span>
         <span class="v">${coteHTML(x.rg)}${x.pc != null ? pbN(x.pc) : x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}${pbAv(x)}</small>${pbSpark(x)}</span></div>`; }).join("");
   } else if (mode === "g"){
     Object.assign(COTE, { n: PWR.n_gardiens || PWR.gardiens.length, inv: false });
-    lignes = PWR.gardiens.map(x => `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
+    lignes = PWR.gardiens.filter(x => garde(x.eq, x.n)).map(x => `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
         <span class="nm">${x.n}<small>${x.eq} · ${x.v} ${L("V", "W")} ${L("en", "in")} ${x.pj} ${L("départs", "starts")} · ${sv3(x.sv)}${x.mba != null ? ` · ${bpg2(x.mba)} ${L("moy.", "GAA")}` : ""}</small><span class="wi-st">${L("forme : ", "form: ")}${sv3(x.sv5)} ${L("en", "in")} ${x.n5} ${L("départs", "starts")} (${x.v5} ${L("V", "W")})${x.gcr != null ? ` · PBGC ${x.gcr}` : ""}</span></span>
         <span class="v">${coteHTML(x.rg)}${x.pc != null ? pbN(x.pc) : x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}${pbAv(x)}</small>${pbSpark(x)}</span></div>`).join("");
   } else {
     const LJ = mode === "r" ? PWR.recrues : PWR.joueurs;
     Object.assign(COTE, { n: (mode === "r" ? PWR.n_recrues : PWR.n_classes) || 500, inv: false });
-    lignes = LJ.map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
+    lignes = LJ.filter(x => garde(x.eq, x.n)).map(x => { const [b, a, n] = x.forme || [0, 0, 0], c = x.c || {};
       return `<div class="wi-l wi-r pwr-j" data-c="${x.eq}" data-pid="${x.id ?? ""}" style="${eqV(x.eq)}"><span class="rg">${x.rg}${pwrMv(x)}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
         <span class="nm">${x.n}<small>${x.eq} · ${c.b ?? 0} B · ${c.a ?? 0} A · ${c.pts ?? 0} PTS ${L("en", "in")} ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${L("forme : ", "form: ")}${b} B, ${a} A ${L("en", "in")} ${n} ${L("matchs", "games")} · ${L("projeté", "projected")} ${x.proj} pts · ${L("mérite", "deserves")} ${mD(x.s)}</span></span>
         <span class="v">${coteHTML(x.rg)}${x.pc != null ? pbN(x.pc) : x.idx ?? "–"}${AB("PBDR")}<small>${L("indice de puissance", "power index")}${pbAv(x)}</small>${pbSpark(x)}</span></div>`; }).join("");
   }
-  el.innerHTML = saiBandeau("pwr") + tete + lignes + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(PWR.maj)}.</p>`;
+  el.innerHTML = saiBandeau("pwr") + tete + (lignes || `<div class="card"><div class="vide">${L("Personne de cette équipe dans ce classement.", "Nobody from this team in this ranking.")}</div></div>`) + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(PWR.maj)}.</p>`;
   ptListeTab("p-pwr");
 }
 document.addEventListener("click", (e) => { const b = e.target.closest?.("#f-pwr .chip"); if (b){ S.pwr = b.dataset.pw; pwrOnglet(); } });
@@ -5596,11 +5619,13 @@ async function arbOnglet(){
      <p><b>The number.</b> (drawn − expected) − (taken − expected), per hour of ice time, pulled toward 0 with ${ARB.k_h} fictional hours: a player who hasn't played much stays near 0. Last season counts half. At least ${ARB.min_min} minutes this season.</p>`)}</details>`;
   Object.assign(COTE, { n: ARB.joueurs.length, inv: true });
   const lignes = liste.slice(0, 150).map((x, i) => { const [v, lib] = val(x);
-    return `<button class="wi-l wi-r arb-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${i + 1}${["bas", "haut"].includes(tri) ? mvtHTML(tri === "haut" && x.dr != null ? -x.dr : x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
+    return `<button class="wi-l wi-r arb-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${i + 1}${mvtHTML(pbDr(x, tri === "bas" ? null : tri))}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} h</small><span class="wi-st">${L("obtient", "draws")} ${n1a(x.ob)} (${L("att.", "exp.")} ${n1a(x.ob_att)}) · ${L("prend", "takes")} ${n1a(x.pr)} (${L("att.", "exp.")} ${n1a(x.pr_att)})</span></span>
-      <span class="v">${coteHTML(x.rg, ARB.joueurs.length, true)}<span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${["bas", "haut"].includes(tri) && x.pc != null ? pbN(Math.abs(x.pc)) : v}</span>${["bas", "haut"].includes(tri) ? AB("PBRB") : ""}<small>${lib}${["bas", "haut"].includes(tri) ? pbAv(x) : ""}</small>${["bas", "haut"].includes(tri) ? pbSpark(x) : ""}</span></button>`; }).join("")
+      <span class="v">${coteHTML(x.rg, ARB.joueurs.length, true)}${pbBloc(x, tri === "bas" ? null : tri, "PBRB", L(...ARB_TRIS[tri]), `${v} ${lib}`)
+        ?? `<span class="${parseFloat(String(v).replace("−", "-").replace(",", ".")) < 0 ? "mauvais" : "bon"}">${v}</span><small>${lib}</small>`}</span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
-  const eqA = Object.entries(parEq(ARB.joueurs, x => x.eq, x => x.net, x => x.h)).map(([t, a]) => ({ t, v: moyP(a), txt: sg2(moyP(a)) }));
+  // Les mieux traités : le % « Chouchous » de ses joueurs, selon leurs heures de glace
+  const eqA = Object.entries(parEq(ARB.joueurs, x => x.eq, x => x.pcs?.haut ?? null, x => x.h)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
   el.innerHTML = saiBandeau("arb") + tete + eqClassementHTML(eqA, L("les mieux traités par les arbitres", "best treated by the refs")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la LNH.", "Source: NHL play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
   ptListeTab("p-arb");
 }
@@ -5622,6 +5647,7 @@ document.addEventListener("click", (e) => {
   const j = e.target.closest?.(".arb-j"); if (j){ arbCarte(j.dataset.id); return; }
 });
 document.addEventListener("input", (e) => { if (e.target.id === "arb-q") arbOnglet(); });
+document.addEventListener("input", (e) => { if (e.target.id === "pwr-q") pwrOnglet(); });
 async function gcrOnglet(){
   const el = $("#gcr");
   if (await saiNon("gcr", el)) return;
@@ -5634,8 +5660,8 @@ async function gcrOnglet(){
   const liste = GCR.gardiens.filter(x => (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q))).sort((a, b) => cle(a) - cle(b));
   const P = GCR.poids || {};
   const tete = `<div class="cp-tete">${titrePB("PB Goalie Confidence %", L("Gardiens", "Goalies"))}<p>${L(
-    "Les gardiens en qui on a le plus confiance. Trois choses comptent. Un : il arrête plus de buts que prévu, compte tenu de la qualité des tirs qu'il reçoit (un tir de la ligne bleue et un tir seul devant le filet, ce n'est pas pareil). Deux : son équipe joue en confiance devant lui ; les mêmes joueurs laissent moins de belles chances quand c'est lui dans le filet plutôt que l'autre gardien. Trois : son coach lui fait confiance et lui donne les matchs. 50 = un gardien moyen ; plus c'est haut, mieux c'est. Touche un gardien pour le détail.",
-    "The goalies everyone trusts the most. Three things count. One: he stops more goals than expected, given the quality of the shots he faces (a shot from the blue line and a shot alone in front of the net aren't the same). Two: his team plays with confidence in front of him; the same players allow fewer good chances when he's in net rather than the other goalie. Three: his coach trusts him and gives him the games. 50 = an average goalie; the higher, the better. Tap a goalie for the details.")}</p></div>${lireHTML(L("son PBGC : 50 = un gardien moyen.", "his PBGC: 50 = an average goalie."))}`;
+    "Les gardiens en qui on a le plus confiance. Trois choses comptent. Un : il arrête plus de buts que prévu, compte tenu de la qualité des tirs qu'il reçoit (un tir de la ligne bleue et un tir seul devant le filet, ce n'est pas pareil). Deux : son équipe joue en confiance devant lui ; les mêmes joueurs laissent moins de belles chances quand c'est lui dans le filet plutôt que l'autre gardien. Trois : son coach lui fait confiance et lui donne les matchs. PB Goalie Confidence % : 0 % = un gardien moyen, 100 % = le niveau des 3 meilleurs (le n° 1 peut dépasser). Chaque morceau a aussi son propre classement en %. Touche un gardien pour le détail.",
+    "The goalies everyone trusts the most. Three things count. One: he stops more goals than expected, given the quality of the shots he faces (a shot from the blue line and a shot alone in front of the net aren't the same). Two: his team plays with confidence in front of him; the same players allow fewer good chances when he's in net rather than the other goalie. Three: his coach trusts him and gives him the games. PB Goalie Confidence %: 0% = an average goalie, 100% = the level of the top 3 (No. 1 can go over). Each part also has its own ranking in %. Tap a goalie for the details.")}</p></div>${lireHTML(L("son PB Goalie Confidence % : 0 % = gardien moyen, 100 % = le top 3.", "his PB Goalie Confidence %: 0% = average goalie, 100% = top 3."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
     `<p><b>Il arrête plus que prévu (${Math.round((P.gsax || 0) * 100)} %).</b> Les buts attendus (notre xG) de tous les tirs qu'il a faits face, moins les buts qu'il a accordés : les buts « sauvés ». Par 60 minutes, ramené vers 0 quand il a peu joué (× minutes ÷ (minutes + ${GCR.k_gsax})).</p>
      <p><b>Confiance devant lui (${Math.round((P.conf || 0) * 100)} %).</b> À 5 contre 5, pour chaque joueur de son équipe : les xG accordés par 60 minutes quand il est dans le filet, comparés à quand c'est l'autre gardien. Mêmes joueurs, même système : ce qui change, c'est le gars dans le filet. Moyenne pondérée par le temps des deux bords, ramenée vers 0 avec peu de temps (${GCR.k_conf} min). Seul gardien de son équipe : rien à comparer, 0.</p>
@@ -5649,11 +5675,12 @@ async function gcrOnglet(){
   const lignes = liste.map((x, i) => {
     const [val, lib] = gcrVal(x, tri);
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
-    return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${tri === "gcr" ? mvtHTML(x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
+    return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${mvtHTML(pbDr(x, tri === "gcr" ? null : tri))}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
       <span class="nm">${x.n}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
-      <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${tri === "gcr" && x.pc != null ? pbN(x.pc) : val}${tri === "gcr" ? AB("PBGC") : ""}<small>${lib}${tri === "gcr" ? pbAv(x) : ""}</small>${tri === "gcr" ? pbSpark(x, x.h) : ""}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
-  const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => x.gcr, x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: Math.round(moyP(a)) }));
-  el.innerHTML = saiBandeau("gcr") + tete + eqClassementHTML(eqG, L("le PBGC de ses gardiens, selon leurs minutes", "its goalies' PBGC, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
+      <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${tri === "gcr" ? `${x.pc != null ? pbN(x.pc) : val}${AB("PBGC")}<small>${lib}${pbAv(x)}</small>${pbSpark(x, x.h)}`
+        : pbBloc(x, tri, "PBGC", L(...GCR_TRIS[tri]), `${val} ${lib}`) ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
+  const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => tri === "gcr" ? (x.pc ?? null) : (x.pcs?.[tri] ?? null), x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
+  el.innerHTML = saiBandeau("gcr") + tete + eqClassementHTML(eqG, (tri === "gcr" ? "PBGC" : L(...GCR_TRIS[tri])) + " · " + L("ses gardiens, selon leurs minutes", "its goalies, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
   ptListeTab("p-gcr");
 }
 function gcrCarte(id){
@@ -5722,10 +5749,13 @@ function duosUnites(el, mode, tri, q, feq){
     : L("Aucune unité trouvée.", "No unit found.");
   const lignes = liste.map((x, i) => {
     const [val, lib] = uniteVal(x, U, tri);
+    // « Meilleures » : le % PuckProb de l'unité dans SA situation (0 % = la moyenne de la ligue, 100 % = le top 3) ;
+    // la valeur brute (part ou xG/60) reste dans la petite ligne
+    const bloc = tri === "ch" ? pbBloc(x, "u", "PBCS", L(...SIT_NOM[sit]), `${val} ${lib}`) : null;
     const st = `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga} · ${duoBase()} ${duoBase() === "xG" ? `${n1u(x.xf)}-${n1u(x.xa)}` : `${x.sf}-${x.sa}`}`;
-    return `<button class="wi-l wi-r duo-j unite-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "ch" ? x.rg : i + 1}</span>
+    return `<button class="wi-l wi-r duo-j unite-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "ch" ? x.rg : i + 1}${tri === "ch" ? mvtHTML(pbDr(x, "u")) : ""}</span>
       <span class="nm"><span class="u-pl">${duoPlaques(x)}</span>${x.j.map(j => j[1].split(" ").slice(-1)[0]).join(", ")}<small>${x.eq} · ${L(...SIT_NOM[sit])}</small><span class="wi-st">${st}</span></span>
-      <span class="v">${val}<small>${lib}</small></span></button>`; }).join("") || `<div class="card"><div class="vide">${vide}</div></div>`;
+      <span class="v">${tri === "ch" ? coteHTML(x.rg, L0.length, false) : ""}${bloc ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${vide}</div></div>`;
   el.innerHTML = saiBandeau("duo") + tete + lignes + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs_v9 ?? 0} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
   ptListeTab("p-duo");
 }
@@ -5752,13 +5782,14 @@ function duoLigne(x, rg){
   const st = `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga} · ${duoBase()} ${pc0(x.pe)}`;
   // Le gros chiffre suit le tri choisi (chimie, part ensemble, minutes, buts) et dit ce que c'est
   const tri = S.duotri || "ch";
+  const blocDom = tri === "pe" ? pbBloc(x, "dom", "PBCS", L("Dominent", "Dominate"), `${pc0(x.pe)} ${L(`des ${duoBase()} ensemble`, `of ${duoBase()} together`)}`) : null;
   const [val, lib] = tri === "pe" ? [pc0(x.pe), L(`des ${duoBase()} ensemble`, `of ${duoBase()} together`)]
     : tri === "min" ? [Math.round(x.min), L("min ensemble", "min together")]
     : tri === "gf" ? [x.gf, L("buts ensemble", "goals together")]
     : [x.pc != null ? pbN(x.pc) : pts1(x.ch), L("chimie", "chemistry") + pbAv(x)];
-  return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${rg}${(S.duotri || "ch") === "ch" ? mvtHTML(x.dr) : ""}</span>${duoPlaques(x)}
+  return `<button class="wi-l wi-r duo-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${rg}${tri === "ch" ? mvtHTML(x.dr) : tri === "pe" ? mvtHTML(pbDr(x, "dom")) : ""}</span>${duoPlaques(x)}
     <span class="nm">${duoNoms(x)}<small>${x.eq} · ${x.j.map(j => j[1]).join(", ")}</small><span class="wi-st">${st}</span></span>
-    <span class="v">${tri === "ch" ? coteHTML(x.rg) : ""}${val}${tri === "ch" ? AB("PBCS") : ""}<small>${lib}</small>${tri === "ch" ? pbSpark(x) : ""}</span></button>`;
+    <span class="v">${tri === "ch" ? coteHTML(x.rg) : ""}${blocDom ?? `${val}${tri === "ch" ? AB("PBCS") : ""}<small>${lib}</small>${tri === "ch" ? pbSpark(x) : ""}`}</span></button>`;
 }
 function duoCarte(id){
   const mode = S.duo || "duos", x = duoListe(mode).find(d => d.id === id); if (!x) return;
@@ -6750,8 +6781,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=d1040906" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=d1040906" defer></script>
+<script src="pub.js?v=ff3d67b2" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=ff3d67b2" defer></script>
 <script src="nav.js?v=bf48d93807" defer></script>
 </body>
 </html>
