@@ -86,3 +86,11 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
 
 /* la bande « saison passée » : sur un fond teinté (pas une carte pâle), le texte reste pâle */
 .sai-band{color:var(--sur-fond)!important}
+
+/* ---- Les menus du haut suivent quand on descend la liste (Mitch, 13 nov. 2026 : « les 3 menus du haut suivent quand on
+   scroll vers le bas, sur mobile ») : la grille des sections (src/nav_site.py, déjà collée en haut) + les pastilles de
+   la section et la rangée Saison (.ctrls.c3) collées juste dessous. --ppn-h = la hauteur de la grille + 10 px de marge,
+   tenue à jour par nav_site.py (au rendu et quand elle change de taille) ; sans grille (8 px) : collé tout en haut.
+   Le fond plein cache la liste qui défile dessous. Ordinateur : la barre du menu (56 px) est en haut, on se place sous elle. */
+.ctrls.c3{position:sticky;top:max(0px,calc(var(--ppn-h,8px) - 10px + env(safe-area-inset-top,0px)));z-index:5;background:var(--bg);padding-top:4px;padding-bottom:6px}
+@media (min-width:1024px){.ctrls.c3{top:calc(var(--ppn-h,8px) + 46px)}}

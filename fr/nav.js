@@ -169,6 +169,10 @@
     document.body.appendChild(bas);
     rendre();
     window.addEventListener("hashchange", function(){ setTimeout(rendre, 30); });
+    // La grille change de hauteur toute seule (rotation de l'écran, polices chargées après coup) : --ppn-h suit, pour
+    // que les menus de section collés juste dessous (docs/carte.css, .ctrls.c3) ne glissent pas en dessous d'elle
+    if (window.ResizeObserver) new ResizeObserver(function(){
+      document.documentElement.style.setProperty("--ppn-h", (chips.hidden ? 8 : chips.offsetHeight + 10) + "px"); }).observe(chips);
     var tabs = document.querySelector("nav.tabs");
     if (tabs && window.MutationObserver) new MutationObserver(function(){ rendre(); }).observe(tabs, { attributes: true, subtree: true, attributeFilter: ["aria-selected"] });
   }
