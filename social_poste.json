@@ -1182,6 +1182,35 @@
   "publie": true,
   "quand": "2026-11-14T15:25-05:00"
  },
+ "2026-11-14-top-tirs3": {
+  "fb": "1508565075663838_122110872963537152",
+  "fb_com": "122110872963537152_3016540348686776",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "top",
+  "opt": {
+   "marche": "tirs3",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 3 tirs ou plus",
+  "publie": true,
+  "quand": "2026-11-14T15:30-05:00"
+ },
+ "2026-11-14-match-2026020322": {
+  "fb": "1508565075663838_122110873107537152",
+  "fb_com": "122110873107537152_1433443345108337",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020322
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "BUF @ DAL",
+  "publie": true,
+  "quand": "2026-11-14T15:30-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-17T14:25-05:00",
   "rodage_jusqu": "2026-11-20T14:25-05:00"
