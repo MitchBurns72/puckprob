@@ -1047,7 +1047,22 @@
   "publie": true,
   "quand": "2026-11-14T14:05-05:00"
  },
+ "2026-11-14-match-2026020313": {
+  "fb": "1508565075663838_122110851927537152",
+  "fb_com": "122110851927537152_1497559542291228",
+  "ig": "erreur : Meta 403 : {\"error\":{\"message\":\"Application request limit reached\",\"type\":\"OAuthException\",\"is_transient\":false,\"code\":4,\"error_subcode\":2207051,\"error_user_title\":\"l\\u2019action est bloqu\\u00e9e\",\"er",
+  "type": "match",
+  "opt": {
+   "gameId": 2026020313
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#matchs",
+  "lien_en": "https://puckprob.ca/tonight/#games",
+  "titre": "MIN @ BOS",
+  "publie": true,
+  "quand": "2026-11-14T14:25-05:00"
+ },
  "_ig": {
-  "pause_jusqu": "2026-11-14T14:10-05:00"
+  "pause_jusqu": "2026-11-17T14:25-05:00",
+  "rodage_jusqu": "2026-11-20T14:25-05:00"
  }
 }
