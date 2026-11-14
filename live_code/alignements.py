@@ -166,6 +166,11 @@ def canoniser(eq, lnh):
         return eq
     ren = {n: nom_lnh(n, (j or {}).get("no"), lnh) for n, j in eq.get("joueurs", {}).items()}
     eq["joueurs"] = {ren[n]: j for n, j in eq["joueurs"].items()}
+    # Le numéro manquant chez DailyFaceoff (un rappelé des mineures...) : celui de la LNH, pour la plaque du site
+    nos = {n: no for n, _f, no in lnh}
+    for n, j in eq["joueurs"].items():
+        if isinstance(j, dict) and j.get("no") in (None, "") and nos.get(n) is not None:
+            j["no"] = nos[n]
     eq["groupes"] = {g: [ren.get(n, n) for n in l] for g, l in eq.get("groupes", {}).items()}
     return eq
 
