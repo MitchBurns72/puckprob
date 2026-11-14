@@ -921,6 +921,21 @@
   "publie": true,
   "quand": "2026-11-13T17:00-05:00"
  },
+ "2026-11-13-top-tirs3": {
+  "fb": "1508565075663838_122110443075537152",
+  "fb_com": "122110443075537152_1121300604126953",
+  "ig": "sauté : Instagram en pause jusqu'à 14/11 14:10 (blocage)",
+  "type": "top",
+  "opt": {
+   "marche": "tirs3",
+   "hasard": 0.5
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Top 5 · 3 tirs ou plus",
+  "publie": true,
+  "quand": "2026-11-13T19:10-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-14T14:10-05:00"
  }
