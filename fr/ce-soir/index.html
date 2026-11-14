@@ -871,7 +871,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=cd2656a6">
+<link rel="stylesheet" href="carte.css?v=e25cc7c5">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1278,7 +1278,7 @@ Object.assign(TR, {
   "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données LNH, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.":
     "Behind every %: our own machine-learning models, built on years of NHL data, the player's form, his role, the opponent and tonight's lineup (DailyFaceoff). You get the result; the recipe stays in the kitchen.",
   "Les modèles sont remis à l'épreuve chaque semaine sur les vrais résultats, et tout est vérifié dans le Bilan. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint).":
-    "The models are put back to the test every week against real results, and everything is checked in the Track record. The small bars = his last 10 games (colored: threshold reached).",
+    "The models are put back to the test every week against real results, and everything is checked in Quality Control. The small bars = his last 10 games (colored: threshold reached).",
   "Une carte par match : les deux équipes dans leurs couleurs, la plus encadrée de blanc est la favorite. Touche une carte : « Alignement » montre les trios, les gardiens et le score prédit joueur par joueur ; « Probs » montre la victoire en 60 minutes, les totaux, la forme et les duels directs.":
     "One card per game: both teams in their colors, the one framed in white is the favorite. Tap a card: \"Roster\" shows the lines, the goalies and the player-by-player predicted score; \"Probs\" shows the 60-minute win, the totals, recent form and head-to-head.",
   "Victoire = chances de gagner, prolongation et tirs de barrage compris. Buts attendus = la moyenne de buts prévue pour chaque équipe ; les probs de +5,5 ou +6,5 buts en découlent.":
@@ -3481,7 +3481,9 @@ function trophHTML(t){
       <span class="barre"><i style="width:${(x.p / mx * 100).toFixed(1)}%"></i></span>
       <span class="stat">${statTroph(t, x)}</span>
       ${hierHTML(x.dp, x.raison)}
-    </div>`).join("");
+    </div>`).join("") + (B.champ ? `<p class="aide" style="margin:6px 4px 10px"><b>${pc1(B.champ)} %</b> ${L(
+      "pour un joueur qui n'est pas encore dans la course (à pareille date, le futur gagnant est souvent hors de la liste).",
+      "for a player who isn't in the race yet (at this point of the season, the future winner is often off the list).")}</p>` : "");
   const T = (B.test || []).filter(x => x.gagnant);
   let test = "";
   if (T.length){
@@ -5126,14 +5128,14 @@ async function projections(){
     "Où chaque joueur va finir la saison, en buts, passes, points et minutes de pénalité. Un départ en feu ne fait presque jamais une saison de 130 points : la chance finit par se calmer. Alors on mélange son rythme de cette saison avec ce qu'il a fait les deux saisons d'avant. En octobre, son passé pèse plus ; plus la saison avance, plus c'est sa saison à lui qui parle. On tient aussi compte des matchs qu'il lui reste et de ceux qu'il manque d'habitude. Touche un joueur pour son graphique de la saison.",
     "Where each player will finish the season, in goals, assists, points and penalty minutes. A hot start almost never turns into a 130-point season: luck eventually cools off. So we blend his pace this season with what he did the previous two seasons. In October his past weighs more; the further the season goes, the more his own season speaks. We also account for the games he has left and the ones he usually misses. Tap a player for his season chart.")}</p></div>${lireHTML(L("ce qu'il devrait avoir à la fin de la saison.", "what he should have at the end of the season."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p><b>Le rythme mélangé.</b> Par match : (ce qu'il a cette saison + ${PRJ.k[0]} matchs fantômes à son rythme des deux saisons d'avant) ÷ (ses matchs + ${PRJ.k[0]}). La saison dernière compte ${PRJ.poids_derniere || 3} fois plus que l'avant-dernière. Après 10 matchs, sa saison pèse environ 30 % ; après 60 matchs, environ 70 %.</p>
+    `<p><b>Le rythme mélangé.</b> Par match : (ce qu'il a cette saison + ${PRJ.k[0]} matchs fantômes à son rythme des deux saisons d'avant) ÷ (ses matchs + ${PRJ.k[0]}). La saison dernière compte ${PRJ.poids_derniere || 3} fois plus que l'avant-dernière. Après 10 matchs, sa saison pèse environ ${Math.round(1000 / (10 + PRJ.k[0]))} % ; après 60 matchs, environ ${Math.round(6000 / (60 + PRJ.k[0]))} %.</p>
      <p><b>Une recrue</b> (moins de 20 matchs dans les deux saisons d'avant) : tirée vers la moyenne des joueurs de son poste qui jouent autant que lui, comme ${PRJ.k[1]} matchs fantômes.</p>
-     <p><b>Les matchs qui restent.</b> Ceux de son équipe, multipliés par sa présence : celle de cette saison, tirée vers sa présence des deux saisons d'avant (20 matchs fantômes ; 90 % pour une recrue). Un 13e attaquant qui a joué 3 matchs sur 14 n'est pas projeté comme un joueur de tous les soirs, et un gars de fer absent quelques matchs ne perd pas le tiers de sa saison.</p>
+     <p><b>Les matchs qui restent.</b> Ceux de son équipe, multipliés par sa présence : celle de cette saison, tirée vers sa présence des deux saisons d'avant (${PRJ.kpres || 20} matchs fantômes ; 90 % pour une recrue), moins une petite part pour les blessures à venir. Un 13e attaquant qui a joué 3 matchs sur 14 n'est pas projeté comme un joueur de tous les soirs, et un gars de fer absent quelques matchs ne perd pas le tiers de sa saison.</p>
      <p><b>Pourquoi pas juste son rythme?</b> Les départs en feu redescendent presque toujours (chance au tir, petit échantillon). Et la ligue ne ralentit pas vraiment en mars : sur nos trois dernières saisons, les buts par match restent entre 5,8 et 6,3 du début à la fin.</p>
      <p><b>▲▼ et +/−</b> : les places et la projection depuis hier.</p>`,
-    `<p><b>Blended pace.</b> Per game: (what he has this season + ${PRJ.k[0]} ghost games at his pace from the previous two seasons) ÷ (his games + ${PRJ.k[0]}). Last season counts ${PRJ.poids_derniere || 3} times more than the one before. After 10 games his season weighs about 30%; after 60 games, about 70%.</p>
+    `<p><b>Blended pace.</b> Per game: (what he has this season + ${PRJ.k[0]} ghost games at his pace from the previous two seasons) ÷ (his games + ${PRJ.k[0]}). Last season counts ${PRJ.poids_derniere || 3} times more than the one before. After 10 games his season weighs about ${Math.round(1000 / (10 + PRJ.k[0]))}%; after 60 games, about ${Math.round(6000 / (60 + PRJ.k[0]))}%.</p>
      <p><b>A rookie</b> (under 20 games in the previous two seasons): pulled toward the average of players at his position with similar ice time, as ${PRJ.k[1]} ghost games.</p>
-     <p><b>Games left.</b> His team's, times his attendance: this season's, pulled toward his attendance over the previous two seasons (20 ghost games; 90% for a rookie). A 13th forward who played 3 of 14 games isn't projected like an every-night player, and an iron man who misses a few games doesn't lose a third of his season.</p>
+     <p><b>Games left.</b> His team's, times his attendance: this season's, pulled toward his attendance over the previous two seasons (${PRJ.kpres || 20} ghost games; 90% for a rookie), minus a small share for injuries to come. A 13th forward who played 3 of 14 games isn't projected like an every-night player, and an iron man who misses a few games doesn't lose a third of his season.</p>
      <p><b>Why not just his pace?</b> Hot starts almost always cool off (shooting luck, small sample). And the league doesn't really slow down in March: over our last three seasons, goals per game stay between 5.8 and 6.3 from start to finish.</p>
      <p><b>▲▼ and +/−</b>: places and projection since yesterday.</p>`)}</details>`;
   Object.assign(COTE, { n: Object.keys(PRJ.joueurs).length, inv: false });
@@ -5178,7 +5180,7 @@ function prjSerie(x, k){
   return (x.g || []).map((g, i) => {
     c = { b: c.b + g[0], a: c.a + g[1], pim: c.pim + g[2] };
     const cum = k === "pts" ? c.b + c.a : c[k], n = i + 1, tg = g[3];
-    const KP = PRJ.kpres || 20, pres = Math.min(1, (n + KP * (x.pp ?? 0.9)) / (tg + KP)), reste = Math.max(0, M - tg);
+    const KP = PRJ.kpres || 20, pres = Math.min(1, (n + KP * (x.pp ?? 0.9)) / (tg + KP)) * (PRJ.fpres ?? 1), reste = Math.max(0, M - tg);
     return [cum, cum + (cum + K * pr[k]) / (n + K) * reste * pres];
   });
 }
@@ -6743,8 +6745,8 @@ function nettoyerPublic(){
   // Un seul menu dans l'app : la barre d'onglets, plus, au bout, les pages du site qui ne sont pas des onglets
   // (les pages texte gardent leur menu à elles). L'app vit dans tonight/ (fr/ce-soir/) avec <base href="../"> :
   // les liens partent de la racine de la langue. Le logo ramène à l'accueil.
-  const liens = EN ? [[CH.e, "Teams"], [CH.b, "Track record"], [CH.a, "About"], [CH.n, "What's new"], ["./", "Home"]]
-                   : [[CH.e, "Équipes"], [CH.b, "Bilan"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"], ["./", "Accueil"]];
+  const liens = EN ? [[CH.e, "Teams"], [CH.b, "Quality Control"], [CH.a, "About"], [CH.n, "What's new"], ["./", "Home"]]
+                   : [[CH.e, "Équipes"], [CH.b, "Contrôle de qualité"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"], ["./", "Accueil"]];
   document.querySelector("nav.tabs")?.insertAdjacentHTML("beforeend", liens.map(([h, n]) => `<a class="tab-lien" href="${h}">${n}</a>`).join(""));
   const tete = document.querySelector("header.bug");
   const imgLogo = tete?.querySelector(".logo-site");
@@ -7044,8 +7046,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=cd2656a6" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=cd2656a6" defer></script>
-<script src="nav.js?v=3a57d6fc0e" defer></script>
+<script src="pub.js?v=e25cc7c5" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=e25cc7c5" defer></script>
+<script src="nav.js?v=dfcf340567" defer></script>
 </body>
 </html>
