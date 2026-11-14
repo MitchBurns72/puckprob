@@ -1,0 +1,108 @@
+{
+ "jour": "2026-11-14",
+ "maj": "2026-11-14T07:35-05:00",
+ "publier": true,
+ "items": [
+  {
+   "id": "2026-11-14-matin-073505-1",
+   "quand": "2026-11-14T08:55-05:00",
+   "image": "social/fil/2026-11-14/matin-1.jpg",
+   "images": [
+    "social/fil/2026-11-14/matin-1.jpg",
+    "social/fil/2026-11-14/matin-1-2.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Jesper Wallstedt : 16,6 M$ PBMV · PB Market Value\nVrai contrat : 2,2 M$ · rendement 754 % · Rang 6 (même rang qu'hier)\n\nJesper Wallstedt: $16.6M PBMV · PB Market Value\nReal contract: $2.2M · return 754% · Rank 6 (same rank as yesterday)\n\nFR : https://puckprob.ca/fr/ce-soir/#salaires\nEN : https://puckprob.ca/tonight/#salaries\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Jesper Wallstedt : 16,6 M$ PBMV · PB Market Value\nVrai contrat : 2,2 M$ · rendement 754 % · Rang 6 (même rang qu'hier)\n\nJesper Wallstedt: $16.6M PBMV · PB Market Value\nReal contract: $2.2M · return 754% · Rank 6 (same rank as yesterday)\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Jesper Wallstedt : 16,6 M$ PBMV · PB Market Value · Vrai contrat : 2,2 M$ · rendement 754 % · Rang 6 (même rang qu'hier).\nTout le détail : https://puckprob.ca/fr/ce-soir/#salaires\n\nJesper Wallstedt: $16.6M PBMV · PB Market Value · Real contract: $2.2M · return 754% · Rank 6 (same rank as yesterday).\nAll the details: https://puckprob.ca/tonight/#salaries",
+   "com_ig": "Jesper Wallstedt : 16,6 M$ PBMV · PB Market Value · Vrai contrat : 2,2 M$ · rendement 754 % · Rang 6 (même rang qu'hier).\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nJesper Wallstedt: $16.6M PBMV · PB Market Value · Real contract: $2.2M · return 754% · Rank 6 (same rank as yesterday).",
+   "type": "salaires",
+   "opt": {
+    "hasard": 0.4503317024963631
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#salaires",
+   "lien_en": "https://puckprob.ca/tonight/#salaries",
+   "titre": "Jesper Wallstedt",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-14-matin-073505-1-story",
+   "quand": "2026-11-14T08:57-05:00",
+   "story": true,
+   "jingle": true,
+   "suit": "2026-11-14-matin-073505-1",
+   "cadre": "social/fil/2026-11-14/matin-1-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Jesper Wallstedt"
+  },
+  {
+   "id": "2026-11-14-matin-073520-2",
+   "quand": "2026-11-14T10:20-05:00",
+   "image": "social/fil/2026-11-14/matin-2.jpg",
+   "images": [
+    "social/fil/2026-11-14/matin-2.jpg",
+    "social/fil/2026-11-14/matin-2-2.jpg",
+    "social/fil/2026-11-14/matin-2-3.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Jeff Viel : 94 % PBIR · PB Intimidation %\nPB Intimidation % n° 2 · 60 matchs · Rang 2 (même rang qu'hier)\n\nJeff Viel: 94% PBIR · PB Intimidation %\nPB Intimidation % #2 · 60 games · Rank 2 (same rank as yesterday)\n\nFR : https://puckprob.ca/fr/ce-soir/#enforcers\nEN : https://puckprob.ca/tonight/#enforcers\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Jeff Viel : 94 % PBIR · PB Intimidation %\nPB Intimidation % n° 2 · 60 matchs · Rang 2 (même rang qu'hier)\n\nJeff Viel: 94% PBIR · PB Intimidation %\nPB Intimidation % #2 · 60 games · Rank 2 (same rank as yesterday)\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Jeff Viel : 94 % PBIR · PB Intimidation % · PB Intimidation % n° 2 · 60 matchs · Rang 2 (même rang qu'hier).\nTout le détail : https://puckprob.ca/fr/ce-soir/#enforcers\n\nJeff Viel: 94% PBIR · PB Intimidation % · PB Intimidation % #2 · 60 games · Rank 2 (same rank as yesterday).\nAll the details: https://puckprob.ca/tonight/#enforcers",
+   "com_ig": "Jeff Viel : 94 % PBIR · PB Intimidation % · PB Intimidation % n° 2 · 60 matchs · Rang 2 (même rang qu'hier).\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nJeff Viel: 94% PBIR · PB Intimidation % · PB Intimidation % #2 · 60 games · Rank 2 (same rank as yesterday).",
+   "type": "enf",
+   "opt": {
+    "hasard": 0.2894521618960736
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#enforcers",
+   "lien_en": "https://puckprob.ca/tonight/#enforcers",
+   "titre": "Jeff Viel",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-14-matin-073520-2-story",
+   "quand": "2026-11-14T10:22-05:00",
+   "story": true,
+   "jingle": true,
+   "suit": "2026-11-14-matin-073520-2",
+   "cadre": "social/fil/2026-11-14/matin-2-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Jeff Viel"
+  },
+  {
+   "id": "2026-11-14-matin-073531-3",
+   "quand": "2026-11-14T11:58-05:00",
+   "image": "social/fil/2026-11-14/matin-3.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "Classement final projeté : 10 000 fins de saison simulées\nEst : CAR 99 %, TBL 94 %, MTL 83 %\nOuest : MIN 96 %, COL 94 %, EDM 97 %\n\nProjected final standings: 10,000 simulated seasons\nEast : CAR 99%, TBL 94%, MTL 83%\nWest : MIN 96%, COL 94%, EDM 97%\n\nFR : https://puckprob.ca/fr/coupe-stanley/\nEN : https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Classement final projeté : 10 000 fins de saison simulées\nEst : CAR 99 %, TBL 94 %, MTL 83 %\nOuest : MIN 96 %, COL 94 %, EDM 97 %\n\nProjected final standings: 10,000 simulated seasons\nEast : CAR 99%, TBL 94%, MTL 83%\nWest : MIN 96%, COL 94%, EDM 97%\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Est : Caroline 99 %\nOuest : Minnesota 96 %\nTout le détail : https://puckprob.ca/fr/coupe-stanley/\n\nEast: Carolina 99%\nWest: Minnesota 96%\nAll the details: https://puckprob.ca/stanley-cup/",
+   "com_ig": "Est : Caroline 99 %\nOuest : Minnesota 96 %\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nEast: Carolina 99%\nWest: Minnesota 96%",
+   "type": "classement",
+   "opt": {
+    "hasard": 0.2230368269495362
+   },
+   "lien": "https://puckprob.ca/fr/coupe-stanley/",
+   "lien_en": "https://puckprob.ca/stanley-cup/",
+   "titre": "Classement final projeté",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-14-matin-073531-3-story",
+   "quand": "2026-11-14T12:00-05:00",
+   "story": true,
+   "jingle": true,
+   "suit": "2026-11-14-matin-073531-3",
+   "cadre": "social/fil/2026-11-14/matin-3-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Classement final projeté"
+  }
+ ],
+ "ig_pause_jusqu": "2026-11-14T00:55-05:00"
+}
