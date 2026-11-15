@@ -228,6 +228,9 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
+.wi-carte tr.wi-sp td{font-size:.9em;opacity:.8} .wi-carte tr.wi-sp td:nth-child(2){padding-left:10px}
+.wi-carte tr.wi-pe-t td{padding-top:10px;font-weight:800;color:var(--or-txt,#FFB81C);text-transform:uppercase;font-size:.8em;letter-spacing:.06em}
+.wi-carte tr.wi-pe td{font-weight:600}
 .wi-carte header .wi-rond{width:46px;height:52px;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 2px var(--pt,#fff)} .wi-carte header .wi-rond b{font-size:19px}
 .wi-carte .wi-eqs i{box-shadow:0 0 0 1px rgba(255,255,255,.6)}
 .wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:flex}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
@@ -873,7 +876,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=c4fc223c">
+<link rel="stylesheet" href="carte.css?v=c6f4339a">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -3632,14 +3635,16 @@ async function whatif(){
   if (mode === "gsr" || mode === "gsw") mode = S.wir === "r" ? "gsr" : "gsw";
   const M = WI_MODES[mode], q = nrm($("#wi-q").value), feq = S.fe_wi || "";
   // PB Stats au complet : la vue (tous les temps, une équipe, une saison, une décennie)
-  const vue = S.wiv || "";
+  // Les records (une ligne = une saison) : « Par saison » n'a pas de sens, il disparaît ; Par équipe et Par décennie
+  // filtrent les records (Mitch, 14 nov. 2026 : « by decade marche pas »)
+  const vue = M.saisons && S.wiv === "s" ? "" : S.wiv || "";
   // Réel ou PB Era-Adjusted (Mitch, 12 nov. 2026) : ce qui est en gros, ce qui classe ; l'autre reste en petit. En
   // premier dans la rangée pour qu'on le voie sans glisser.
   const R_ = S.wir === "r";
   $("#f-wir").innerHTML = `<button class="wir-t" data-wirt role="switch" aria-checked="${!R_}" aria-label="${L("Réel ou PB Era-Adjusted", "Real or PB Era-Adjusted")}">
     <span class="${R_ ? "on" : ""}">${L("Réel", "Real")}</span><i aria-hidden="true"><b></b></i><span class="${R_ ? "" : "on"}">PB Era-Adjusted</span></button>`;
   $("#f-wiv").innerHTML = [["", L("Tous les temps", "All-time")], ["eq", L("Par équipe", "By team")], ["s", L("Par saison", "By season")], ["d", L("Par décennie", "By decade")]]
-    .map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
+    .filter(([k]) => !(M.saisons && k === "s")).map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
   wiTiroir(vue, M);
   await wiNais();
   // Les équipes de la loupe, AVANT les vues de PB Stats au complet (avant : elles n'étaient faites qu'en « tous les
@@ -3649,8 +3654,29 @@ async function whatif(){
   let lignes = [];
   Object.assign(COTE, { n: (M.j === "g" ? WI.n_gardiens : WI.n_joueurs) || 0, inv: false });
   const joueAvec = (x) => (x.eqs || []).some(([t]) => t === feq);
+  let avant = "";
+  WI_REC = { d: null };
   if (M.saisons){
-    lignes = wiSaisons(mode, q, feq);
+    let feqR = feq;
+    if (vue === "eq"){
+      const t = S.fe_wi || S.wieq, meta = await pbsMeta();
+      if (!t){
+        const eqs = (meta?.equipes || [...new Set(Object.values(WI.j).flatMap(x => (x.eqs || []).map(e => e[0])))]);
+        const grille = (L_) => `<div class="vb-g">${L_.map(x => `<button class="vb-t" data-wieq="${x}">${villeBadge(x)}</button>`).join("")}</div>`;
+        const act = eqs.filter(x => !VILLES[x]?.[2]).sort((a, b) => ville(a).localeCompare(ville(b))), anc = eqs.filter(x => VILLES[x]?.[2] || !VILLES[x]).sort((a, b) => ville(a).localeCompare(ville(b)));
+        el.innerHTML = `<div class="cp-tete"><h2>${L("Records par équipe", "Records by team")}</h2><p>${L("Choisis une ville : les plus grosses saisons jouées avec elle.", "Pick a city: the biggest seasons played with it.")}</p></div>`
+          + `<div class="card"><h3 class="vb-h">${L("Aujourd'hui", "Today")}</h3>${grille(act)}<h3 class="vb-h">${L("Les anciennes", "Former teams")}</h3>${grille(anc)}</div>`;
+        ptListeTab("p-whatif"); return;
+      }
+      feqR = t;
+      avant = `<div class="vb-choisie">${villeBadge(t)}<button class="chip" data-wieq="">${L("Changer de ville", "Change city")}</button></div>`;
+    } else if (vue === "d"){
+      const decs = [...new Set(Object.values(WI[M.j] || {}).flatMap(x => (x.s || []).map(r => Math.floor(+String(r[0]).slice(0, 4) / 10) * 10)))].sort((a, b) => a - b);
+      const d = S.wid != null && decs.includes(Number(S.wid)) ? Number(S.wid) : decs[decs.length - 1];
+      WI_REC.d = d;
+      avant = `<div class="row vb-dec">${decs.map(x => `<button class="chip" data-wid="${x}" aria-pressed="${x === d}">${x}</button>`).join("")}</div>`;
+    }
+    lignes = wiSaisons(mode, q, feqR);
   } else if (feq && q.length < 2){
     // Une équipe choisie : tous ses joueurs (carrière), classés selon le mode affiché
     const m = mode === "act" ? "p" : mode, t = mode === "act" ? "j" : M.j;
@@ -3709,7 +3735,7 @@ async function whatif(){
         "The same seasons, brought to today's scoring level and to 82 games: a 1985 season, when goals were raining, loses points; a 2000 season, when it was tight, gains some.")}</p></div>` : "";
   const comment = `<details class="card wi-regles"><summary>${L("Comment c'est calculé (et les ratios année par année)", "How it's computed (and the ratios year by year)")}</summary>${wiRegles()}</details>`;
   const pied = `<p class="aide">${L(`${nW(WI.n_joueurs)} patineurs et ${nW(WI.n_gardiens)} gardiens, ${WI.n_saisons} saisons de la LNH (données publiques de la LNH).`, `${nW(WI.n_joueurs)} skaters and ${nW(WI.n_gardiens)} goalies, ${WI.n_saisons} NHL seasons (NHL public data).`)}${WI.complet === false ? L(" Les vieilles saisons se chargent encore : le classement sera complet dans quelques calculs.", " Older seasons are still loading: the ranking will be complete within a few updates.") : ""}</p>`;
-  el.innerHTML = (teteS || tete) + (lignes.join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`) + comment + pied;
+  el.innerHTML = (teteS || tete) + avant + (lignes.join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`) + comment + pied;
   ptListeTab("p-whatif");
 }
 // ---- Par saison (src/machine.py ; Mitch, 12 nov. 2026) : nos stats refaites sur les saisons passées, À PAREILLE DATE --
@@ -3842,6 +3868,7 @@ const WI_TRIS = () => [["", L("La stat choisie", "Chosen stat")], ["pj", L("Matc
 // l'âge seulement quand c'est l'âge d'une saison (par saison, records) ; pas de position ni de tri pour les gardiens ;
 // pas de tri dans les records (classés par la saison). Posé par wiTiroir() ; ce qui est caché n'agit pas.
 let WI_OK = { pos: true, age: true, tri: true };
+let WI_REC = { d: null };            // la décennie choisie dans les records (Par décennie)
 const wiFiltre = () => !!((WI_OK.pos && S.wipos) || (WI_OK.age && S.wiage) || (WI_OK.tri && S.witri));
 const wiAsc = () => S.wiord ? S.wiord === "asc" : S.witri === "age";      // l'âge : le plus jeune d'abord, par défaut
 function wiAge(id, ref){
@@ -4007,7 +4034,8 @@ function wiSaisons(mode, q, feq){
     if (q.length >= 2 && !nrm(x.n).includes(q)) continue;
     for (const r of x.s || []){
       const [s, eq, pj, b, a, p, , , , , wp] = r;
-      if (feq && eq !== feq) continue;
+      if (feq && !String(eq).split(",").includes(feq)) continue;
+      if (WI_REC.d != null && Math.floor(+String(s).slice(0, 4) / 10) * 10 !== WI_REC.d) continue;
       const enCours = s === cur;
       if (enCours && pj < 10) continue;
       const v = mode === "sr" ? (enCours ? Math.round(p / pj * 82) : p) : wp;
@@ -4041,7 +4069,8 @@ function wiSaisonsG(mode, q, feq){
     if (q.length >= 2 && !nrm(x.n).includes(q)) continue;
     for (const r of x.s || []){
       const [s, eq, pj, v, sv, , vw, svw, mba] = r;
-      if (feq && eq !== feq) continue;
+      if (feq && !String(eq).split(",").includes(feq)) continue;
+      if (WI_REC.d != null && Math.floor(+String(s).slice(0, 4) / 10) * 10 !== WI_REC.d) continue;
       const enCours = s === cur;
       if (enCours && pj < 10) continue;
       const val = mode === "gsr" ? (enCours ? Math.round(v / pj * n1) : v) : (vw == null ? null : Math.round(vw));
@@ -4155,6 +4184,31 @@ function wiRegles(){
     return `<tr><td>${s.slice(0, 4)}-${s.slice(6)}</td><td>${x2(f[0])}</td><td>${x2(f[1])}</td><td>${bpg2(f[2])}</td><td>${x2(f[3])}</td><td>${sv3(f[4])}</td><td>${bpg2(f[5])}</td></tr>`; }).join("");
   return txt + `<div class="tbl"><table class="serre"><thead><tr><th>${L("Saison", "Season")}</th><th>${L("Buts", "Goals")}</th><th>${L("Passes", "Assists")}</th><th>${L("Passes/but", "Assists/goal")}</th><th>${L("Vict.", "Wins")}</th><th>${L("% arrêts ligue", "League sv%")}</th><th>${L("Moy. ligue", "League GAA")}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+// Le total de carrière par équipe, sous le Total (Mitch, 14 nov. 2026) : une saison séparée (x.sp) compte ses vrais
+// chiffres avec chaque équipe ; une saison partagée pas encore séparée compte à parts égales (marquée ≈). Rien si une
+// seule équipe dans sa carrière.
+function wiParEq(t, x){
+  const T = new Map(), approx = new Set();
+  const add = (e, v) => { const o = T.get(e) || v.map(() => 0); T.set(e, o.map((z, k) => z + v[k])); };
+  for (const r of x.s){
+    const [s, eq] = r, ts = String(eq).split(",").filter(Boolean), sp = x.sp?.[s];
+    if (t === "j"){
+      if (sp) sp.forEach(([e, pj, b, a, p, pm, wpj, wb, wa, wp, wpm]) => add(e, [pj, b, a, p, pm, wb, wa, wp, wpm]));
+      else { const [, , pj, b, a, p, pm, , wb, wa, wp, wpm] = r, k = ts.length; if (k > 1) ts.forEach(e => approx.add(e));
+        ts.forEach(e => add(e, [pj, b, a, p, pm || 0, wb, wa, wp, wpm || 0].map(v => v / k))); }
+    } else {
+      if (sp) sp.forEach(([e, pj, v, , , wpj, wv]) => add(e, [pj, v, wpj, wv]));
+      else { const [, , pj, v, , wpj, wv] = r, k = ts.length; if (k > 1) ts.forEach(e => approx.add(e));
+        ts.forEach(e => add(e, [pj, v, wpj, wv].map(z => z / k))); }
+    }
+  }
+  if (T.size < 2) return "";
+  const R = [...T.entries()].sort((a, b) => b[1][0] - a[1][0]), n = (v) => nW(Math.round(v));
+  const tete = `<tr class="wi-pe-t"><td colspan="2">${L("Par équipe", "By team")}</td><td colspan="${t === "j" ? 9 : 8}"></td></tr>`;
+  return tete + R.map(([e, v]) => `<tr class="wi-pe"><td></td><td><button class="wi-lien" data-wieq="${e}">${e}${approx.has(e) ? " ≈" : ""}</button></td>` + (t === "j"
+    ? `<td>${n(v[0])}</td><td>${n(v[1])}</td><td>${n(v[2])}</td><td>${n(v[3])}</td><td>${pmW(Math.round(v[4]))}</td><td class="wi-w">${n(v[5])}</td><td class="wi-w">${n(v[6])}</td><td class="wi-w">${n(v[7])}</td><td class="wi-w">${pmW(Math.round(v[8]))}</td>`
+    : `<td>${n(v[0])}</td><td>${n(v[1])}</td><td></td><td></td><td class="wi-w">${n(v[2])}</td><td class="wi-w">${n(v[3])}</td><td class="wi-w"></td><td class="wi-w"></td>`) + "</tr>").join("");
+}
 function wiCarte(t, id){
   const x = WI?.[t]?.[id]; if (!x) return;
   const sz = (s) => `${s.slice(2, 4)}-${s.slice(6)}`, eqC = (e) => { const l = e.split(","); return l.length > 1 ? l.pop() + "*" : e; };
@@ -4165,12 +4219,17 @@ function wiCarte(t, id){
     tete = `<table class="wi-car"><thead><tr><th></th><th>${L("Réel", "Real")}</th><th>${L("Rang", "Rank")}</th><th class="wi-w">PB</th><th class="wi-w">${L("Rang", "Rank")}</th></tr></thead><tbody>${C.map(([, k, r, n]) => {
       const f = k === 4 ? pmW : nW; return `<tr><td>${n}</td><td>${f(x.r[k])}</td><td>${rangFr(x.rg[r])}</td><td class="wi-w">${f(x.w[k])}</td><td class="wi-w">${rangFr(x.rg[r + 1])}</td></tr>`; }).join("")}
       <tr><td>${L("Pts/match", "Pts/game")}</td><td>${ppg2(x.ppg?.[0])}</td><td>${rangFr(x.rg[8])}</td><td class="wi-w">${ppg2(x.ppg?.[1])}</td><td class="wi-w">${rangFr(x.rg[9])}</td></tr></tbody></table>`;
+    // Une saison partagée (échangé) : la ligne de la saison, puis une sous-ligne par équipe (x.sp, src/whatif.py
+    // scissions ; Mitch, 14 nov. 2026)
+    const sousJ = (s) => (x.sp?.[s] || []).map(([e, pj, b, a, p, pm, wpj, wb, wa, wp, wpm]) =>
+      `<tr class="wi-sp"><td></td><td><button class="wi-lien" data-wieq="${e}" data-wiss="${s}">↳ ${e}</button></td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td><td>${pmW(pm)}</td>
+        <td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td><td class="wi-w">${pmW(wpm)}</td></tr>`).join("");
     const lignes = x.s.map(r => { const [s, eq, pj, b, a, p, pm, wpj, wb, wa, wp, wpm] = r;
       return `<tr class="${wpj !== pj ? "et" : ""}"><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td><td>${pmW(pm)}</td>
-        <td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td><td class="wi-w">${pmW(wpm)}</td></tr>`; }).join("");
+        <td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td><td class="wi-w">${pmW(wpm)}</td></tr>${sousJ(s)}`; }).join("");
     table = `<table><thead><tr><th></th><th></th><th class="g" colspan="5">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB (${WI.regles?.matchs || 82} ${L("m.", "g.")})</th></tr>
       <tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th><th>${L("B", "G")}</th><th>A</th><th>PTS</th><th>+/-</th><th class="wi-w">${L("B", "G")}</th><th class="wi-w">A</th><th class="wi-w">PTS</th><th class="wi-w">+/-</th></tr></thead>
-      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${nW(x.r[2])}</td><td>${nW(x.r[3])}</td><td>${pmW(x.r[4])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${nW(x.w[2])}</td><td class="wi-w">${nW(x.w[3])}</td><td class="wi-w">${pmW(x.w[4])}</td></tr></tfoot></table>`;
+      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${nW(x.r[2])}</td><td>${nW(x.r[3])}</td><td>${pmW(x.r[4])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${nW(x.w[2])}</td><td class="wi-w">${nW(x.w[3])}</td><td class="wi-w">${pmW(x.w[4])}</td></tr>${wiParEq("j", x)}</tfoot></table>`;
     note = L(`PB Stats = ramené à l'ère d'aujourd'hui et à ${WI.regles?.matchs} matchs. En rouge : saisons étirées (matchs manqués remplacés par son rythme). Sous ${WI.regles?.min_pj} matchs : l'ère seulement.`,
              `PB Stats = brought to today's era and ${WI.regles?.matchs} games. In red: stretched seasons (missed games replaced by his pace). Under ${WI.regles?.min_pj} games: era only.`);
   } else {
@@ -4178,12 +4237,15 @@ function wiCarte(t, id){
       <tr><td>${L("Victoires", "Wins")}</td><td>${nW(x.r[1])}</td><td>${rangFr(x.rg[0])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${rangFr(x.rg[1])}</td></tr>
       <tr><td>${L("% arrêts", "Save %")}</td><td>${sv3(x.sv[0])}</td><td>${rangFr(x.rg[2])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${rangFr(x.rg[3])}</td></tr>
       <tr><td>${L("Moyenne", "GAA")}</td><td>${bpg2(x.bpg[0])}</td><td>${rangFr(x.rg[4])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td><td class="wi-w">${rangFr(x.rg[5])}</td></tr></tbody></table>`;
+    const sousG = (s) => (x.sp?.[s] || []).map(([e, pj, v, sv, gaa, wpj, wv]) =>
+      `<tr class="wi-sp"><td></td><td><button class="wi-lien" data-wieq="${e}" data-wiss="${s}">↳ ${e}</button></td><td>${pj}</td><td>${v}</td><td>${sv3(sv)}</td><td>${bpg2(gaa)}</td>
+        <td class="wi-w">${wpj}</td><td class="wi-w">${wv}</td><td class="wi-w"></td><td class="wi-w"></td></tr>`).join("");
     const lignes = x.s.map(r => { const [s, eq, pj, v, sv, wpj, wv, wsv, bp, wbp] = r;
       return `<tr class="${wpj !== pj ? "et" : ""}"><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${v}</td><td>${sv3(sv)}</td><td>${bpg2(bp)}</td>
-        <td class="wi-w">${wpj}</td><td class="wi-w">${wv}</td><td class="wi-w">${sv3(wsv)}</td><td class="wi-w">${bpg2(wbp)}</td></tr>`; }).join("");
+        <td class="wi-w">${wpj}</td><td class="wi-w">${wv}</td><td class="wi-w">${sv3(wsv)}</td><td class="wi-w">${bpg2(wbp)}</td></tr>${sousG(s)}`; }).join("");
     table = `<table><thead><tr><th></th><th></th><th class="g" colspan="4">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB</th></tr>
       <tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th><th>${L("V", "W")}</th><th>${L("Arr%", "Sv%")}</th><th>${L("Moy.", "GAA")}</th><th class="wi-w">${L("PJ", "GP")}</th><th class="wi-w">${L("V", "W")}</th><th class="wi-w">${L("Arr%", "Sv%")}</th><th class="wi-w">${L("Moy.", "GAA")}</th></tr></thead>
-      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${sv3(x.sv[0])}</td><td>${bpg2(x.bpg[0])}</td><td class="wi-w">${nW(x.w[0])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td></tr></tfoot></table>`;
+      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${sv3(x.sv[0])}</td><td>${bpg2(x.bpg[0])}</td><td class="wi-w">${nW(x.w[0])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td></tr>${wiParEq("g", x)}</tfoot></table>`;
     const G = WI.regles?.g || [62, 24, 25, 5];
     note = L(`PB Stats = ${G[0]} matchs par saison (${G[2]}+ joués) ou ${G[1]} (moins de ${G[2]}), victoires, % d'arrêts et moyenne ramenés à l'ère d'aujourd'hui. « – » = pas de tirs ou de temps de jeu comptés cette saison-là.`,
              `PB Stats = ${G[0]} games per season (${G[2]}+ played) or ${G[1]} (fewer than ${G[2]}), wins, save % and GAA brought to today's era. "–" = no shots or ice time counted that season.`);
@@ -4192,7 +4254,7 @@ function wiCarte(t, id){
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, t)}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
-    <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe).", " * Traded during the season (last team).") : ""}</p></div>`;
+    <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe) ; ↳ ses chiffres avec chaque équipe. ≈ : saison partagée pas encore séparée, comptée à parts égales.", " * Traded during the season (last team); ↳ his numbers with each team. ≈: split season not separated yet, counted in equal parts.") : ""}</p></div>`;
   ptCarte(m, x, t === "j" ? nW(x.w[3]) : nW(x.w[1]), t === "j" ? L("points PB Stats en carrière", "PB Stats career points") : L("victoires PB Stats en carrière", "PB Stats career wins"),
     t === "j" ? L(`Réels : ${nW(x.r[3])} · n° ${x.rg[5]} de tous les temps`, `Real: ${nW(x.r[3])} · #${x.rg[5]} all-time`)
               : L(`Réelles : ${nW(x.r[1])} · n° ${x.rg[1]} de tous les temps`, `Real: ${nW(x.r[1])} · #${x.rg[1]} all-time`));
@@ -7218,8 +7280,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=c4fc223c" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=c4fc223c" defer></script>
-<script src="nav.js?v=f5f8a73394" defer></script>
+<script src="pub.js?v=c6f4339a" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=c6f4339a" defer></script>
+<script src="nav.js?v=34af59f204" defer></script>
 </body>
 </html>

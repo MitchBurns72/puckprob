@@ -203,6 +203,9 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
+.wi-carte tr.wi-sp td{font-size:.9em;opacity:.8} .wi-carte tr.wi-sp td:nth-child(2){padding-left:10px}
+.wi-carte tr.wi-pe-t td{padding-top:10px;font-weight:800;color:var(--or-txt,#FFB81C);text-transform:uppercase;font-size:.8em;letter-spacing:.06em}
+.wi-carte tr.wi-pe td{font-weight:600}
 .wi-carte header .wi-rond{width:46px;height:52px;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 2px var(--pt,#fff)} .wi-carte header .wi-rond b{font-size:19px}
 .wi-carte .wi-eqs i{box-shadow:0 0 0 1px rgba(255,255,255,.6)}
 .wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:flex}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
