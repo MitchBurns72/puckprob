@@ -972,7 +972,9 @@
   "type": "story",
   "titre": "Jesper Wallstedt",
   "publie": true,
-  "quand": "2026-11-14T11:00-05:00"
+  "quand": "2026-11-14T11:00-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1845584443290660' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-matin-073520-2-story": {
   "fb": "1723603239099430",
@@ -980,7 +982,9 @@
   "type": "story",
   "titre": "Jeff Viel",
   "publie": true,
-  "quand": "2026-11-14T11:00-05:00"
+  "quand": "2026-11-14T11:00-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1723603239099430' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-matin-073505-1": {
   "fb": "1508565075663838_122110781661537152",
@@ -1016,7 +1020,9 @@
   "type": "story",
   "titre": "Classement final projeté",
   "publie": true,
-  "quand": "2026-11-14T12:00-05:00"
+  "quand": "2026-11-14T12:00-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1527433155881074' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-matin-073531-3": {
   "fb": "1508565075663838_122110803033537152",
@@ -1124,7 +1130,9 @@
   "type": "story",
   "titre": "Story · WPG @ CHI",
   "publie": true,
-  "quand": "2026-11-14T15:20-05:00"
+  "quand": "2026-11-14T15:20-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1472930854773487' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-match-2026020317": {
   "fb": "1508565075663838_122110869087537152",
@@ -1259,7 +1267,9 @@
   "type": "story",
   "titre": "Story · MIN @ BOS",
   "publie": true,
-  "quand": "2026-11-14T18:50-05:00"
+  "quand": "2026-11-14T18:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1892391961748619' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020314": {
   "fb": "2637017610150439",
@@ -1267,7 +1277,9 @@
   "type": "story",
   "titre": "Story · EDM @ TOR",
   "publie": true,
-  "quand": "2026-11-14T18:50-05:00"
+  "quand": "2026-11-14T18:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '2637017610150439' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020315": {
   "fb": "1462552456015067",
@@ -1275,7 +1287,9 @@
   "type": "story",
   "titre": "Story · COL @ MTL",
   "publie": true,
-  "quand": "2026-11-14T18:51-05:00"
+  "quand": "2026-11-14T18:51-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1462552456015067' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020316": {
   "fb": "2369658180514955",
@@ -1283,7 +1297,9 @@
   "type": "story",
   "titre": "Story · DET @ TBL",
   "publie": true,
-  "quand": "2026-11-14T18:51-05:00"
+  "quand": "2026-11-14T18:51-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '2369658180514955' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020317": {
   "fb": "5556780821212662",
@@ -1291,7 +1307,9 @@
   "type": "story",
   "titre": "Story · OTT @ PIT",
   "publie": true,
-  "quand": "2026-11-14T18:52-05:00"
+  "quand": "2026-11-14T18:52-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '5556780821212662' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020318": {
   "fb": "1125904240158553",
@@ -1299,7 +1317,9 @@
   "type": "story",
   "titre": "Story · NJD @ WSH",
   "publie": true,
-  "quand": "2026-11-14T18:52-05:00"
+  "quand": "2026-11-14T18:52-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1125904240158553' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020319": {
   "fb": "1514307220523683",
@@ -1307,7 +1327,9 @@
   "type": "story",
   "titre": "Story · PHI @ CBJ",
   "publie": true,
-  "quand": "2026-11-14T18:52-05:00"
+  "quand": "2026-11-14T18:52-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1514307220523683' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020320": {
   "fb": "1833802111275104",
@@ -1315,7 +1337,9 @@
   "type": "story",
   "titre": "Story · FLA @ STL",
   "publie": true,
-  "quand": "2026-11-14T18:53-05:00"
+  "quand": "2026-11-14T18:53-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1833802111275104' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020322": {
   "fb": "1014480480942099",
@@ -1323,7 +1347,9 @@
   "type": "story",
   "titre": "Story · BUF @ DAL",
   "publie": true,
-  "quand": "2026-11-14T19:50-05:00"
+  "quand": "2026-11-14T19:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1014480480942099' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020323": {
   "fb": "1640130944316453",
@@ -1331,7 +1357,9 @@
   "type": "story",
   "titre": "Story · SJS @ UTA",
   "publie": true,
-  "quand": "2026-11-14T20:50-05:00"
+  "quand": "2026-11-14T20:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1640130944316453' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020324": {
   "fb": "40041156235529003",
@@ -1339,7 +1367,9 @@
   "type": "story",
   "titre": "Story · NYI @ ANA",
   "publie": true,
-  "quand": "2026-11-14T21:50-05:00"
+  "quand": "2026-11-14T21:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '40041156235529003' does not exist, cannot be loaded due to missing permissions, or d",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-14-story-2026020325": {
   "fb": "1110398945320946",
@@ -1347,7 +1377,9 @@
   "type": "story",
   "titre": "Story · CGY @ LAK",
   "publie": true,
-  "quand": "2026-11-14T21:50-05:00"
+  "quand": "2026-11-14T21:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1110398945320946' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-15T13:20-05:00"
  },
  "2026-11-15-matin-080723-1": {
   "fb": "1508565075663838_122111296251537152",
@@ -1406,6 +1438,11 @@
   "titre": "Story · récap 4",
   "publie": true,
   "quand": "2026-11-15T11:40-05:00"
+ },
+ "_efface": {
+  "jour": "2026-11-15",
+  "n": 16,
+  "quand": "2026-11-15T13:20-05:00"
  },
  "_ig": {
   "pause_jusqu": "2026-11-17T14:25-05:00",
