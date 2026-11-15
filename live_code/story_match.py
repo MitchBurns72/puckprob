@@ -441,7 +441,7 @@ def duree_audio(f):
     return int(m[1]) * 3600 + int(m[2]) * 60 + float(m[3]) if m else None
 
 
-def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5, cle_fin=None):
+def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5, cle_fin=None, fin_s=None):
     """Le cadre (fixe) puis, les FIN dernières secondes, la fin PuckProb, arrivée par un flip avec le son du
     mécanisme ; la musique dessous. -> .mp4 de `duree` secondes (DUREE par défaut). Sans image de fin : le cadre tout
     le long. image=True : une image qui n'est pas en 9:16 (un post carré, un classement...) est centrée sur sa propre
@@ -477,7 +477,7 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
                 "-t", str(D), "-movflags", "+faststart", str(sortie)]
         af = f"afade=t=out:st={D - fondu_son}:d={fondu_son},apad"      # apad : une toune un brin plus courte que la vidéo finit en silence
         if fin:
-            debut_fin = D - FIN
+            debut_fin = D - (fin_s or FIN)
             nf, ns = round(FLIP * 30), round(SECOUSSE * 30)
             # Les images du flip : la story -> la fin, puis la secousse
             fin_img = Image.open(fin).convert("RGB").resize((1080, 1920))
@@ -499,6 +499,26 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
                          "-map", "[v]", "-map", "1:a", "-af", af] + fins      # (un .mp3 peut avoir une pochette : on ne la prend pas)
         subprocess.run(cmd, check=True, timeout=300)
     return sortie
+
+
+# Les stories courtes (Mitch, 15 nov. 2026 : « 4 secondes la transition des stories et seulement 7 secondes total avec
+# les chansons que je t'ai envoyées ») : la carte 4 s, le flip vers la fin PuckProb, 7 s en tout. Les tounes : celles du
+# matin (assets/musique_matin : les stories du matin et de minuit) et celles des matchs (assets/musique_matchs : la
+# story pre-game 10 min avant chaque match) ; dans puckprob : live_code/musique_matin et live_code/musique_matchs.
+COURTE_DUREE, COURTE_CARTE = 7.0, 4.0
+DIRS_COURTES = {
+    "matin": [RACINE / "assets" / "musique_matin", Path(__file__).resolve().parent / "musique_matin"],
+    "match": [RACINE / "assets" / "musique_matchs", Path(__file__).resolve().parent / "musique_matchs"],
+}
+
+
+def video_courte(jpeg, sortie, cle=None, quoi="matin"):
+    """La story de 7 s : la carte (plein écran si déjà en 9:16, sinon centrée sur son fond flouté) 4 s, le flip, la fin.
+    La toune tirée par la cle (toujours la même pour une même story), du dossier « matin » ou « match »."""
+    dirs = DIRS_COURTES.get(quoi) or DIRS_COURTES["matin"]
+    son = musique(cle, dirs) if any(d.is_dir() and any(d.glob("*.mp3")) for d in dirs) else musique(cle)
+    return video(jpeg, sortie, son=son, duree=COURTE_DUREE, image=True, fondu_son=0.8, cle_fin=cle,
+                 fin_s=COURTE_DUREE - COURTE_CARTE)
 
 
 def video_jingle(jpeg, sortie, cle=None):
