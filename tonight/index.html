@@ -876,7 +876,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=0ad44c9f">
+<link rel="stylesheet" href="carte.css?v=c4fc223c">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -912,6 +912,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
     <button role="tab" id="t-cls" aria-selected="false" aria-controls="p-cls">Classement</button>
+    <button role="tab" id="t-fa" aria-selected="false" aria-controls="p-fa">Upcoming FA</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -1035,6 +1036,13 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-cls" role="tabpanel" aria-labelledby="t-cls" hidden>
     <div class="ctrls"><div class="row" id="f-cls"></div></div>
     <div id="cls"></div>
+  </section>
+  <!-- Upcoming FA (src/agents_libres.py -> docs/agents_libres.json, chargé au 1er clic) -->
+  <section id="p-fa" role="tabpanel" aria-labelledby="t-fa" hidden>
+    <div class="ctrls"><div class="row" id="f-fa"></div><div class="row" id="f-fa-tri"></div><div class="row">
+      <input id="fa-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
+    </div><div id="fe-fa"></div><div class="row" id="f-fa-pos"></div></div>
+    <div id="fa"></div>
   </section>
   <section id="p-trx" role="tabpanel" aria-labelledby="t-trx" hidden>
     <div class="ctrls"><div class="row" id="f-trx"></div><div id="fe-trx"></div></div>
@@ -3435,7 +3443,7 @@ function filtreEqHTML(cle, equipes){
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
   const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -3635,10 +3643,12 @@ async function whatif(){
     <span class="${R_ ? "on" : ""}">${L("Réel", "Real")}</span><i aria-hidden="true"><b></b></i><span class="${R_ ? "" : "on"}">PB Era-Adjusted</span></button>`;
   $("#f-wiv").innerHTML = [["", L("Tous les temps", "All-time")], ["eq", L("Par équipe", "By team")], ["s", L("Par saison", "By season")], ["d", L("Par décennie", "By decade")]]
     .map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
-  wiTiroir();
+  wiTiroir(vue, M);
   await wiNais();
-  if (vue && !M.saisons) return pbsVue(el, vue, mode);
+  // Les équipes de la loupe, AVANT les vues de PB Stats au complet (avant : elles n'étaient faites qu'en « tous les
+  // temps », et l'équipe choisie n'agissait pas par saison, décennie ou équipe ; Mitch, 14 nov. 2026)
   $("#fe-wi").innerHTML = filtreEqHTML("fe_wi", [...new Set(Object.values(WI.j).filter(x => x.act).map(x => x.eq))].filter(Boolean).sort());
+  if (vue && !M.saisons) return pbsVue(el, vue, mode);
   let lignes = [];
   Object.assign(COTE, { n: (M.j === "g" ? WI.n_gardiens : WI.n_joueurs) || 0, inv: false });
   const joueAvec = (x) => (x.eqs || []).some(([t]) => t === feq);
@@ -3649,8 +3659,10 @@ async function whatif(){
     const m = mode === "act" ? "p" : mode, t = mode === "act" ? "j" : M.j;
     // Classés selon ce qu'il a fait AVEC cette équipe (ses saisons chez elle) ; % d'arrêts et moyenne : sa carrière
     const v = (x) => wiAvecEq(m, t, x, feq) ?? (S.wir === "r" ? wiValeurNum(m, x) : wiNum(m, x)[0]);
-    lignes = Object.entries(WI[t]).filter(([, x]) => joueAvec(x) && (mode !== "act" || x.act) && v(x) != null)
-      .sort((a, b) => m === "gbpg" ? v(a[1]) - v(b[1]) : v(b[1]) - v(a[1])).slice(0, 100).map(([i, x]) => wiLigne(m, t, i, x, feq));
+    const avec = Object.entries(WI[t]).filter(([, x]) => joueAvec(x) && (mode !== "act" || x.act) && v(x) != null);
+    // L'équipe + le reste de la loupe (position, âge, classer par) ensemble
+    lignes = (wiFiltre() && t === "j" ? wiFT(avec, ([, x]) => x.pos === "W" ? "L" : x.pos, ([i]) => i, ([, x]) => v(x), ([, x]) => x.r?.[0], new Date())
+      : avec.sort((a, b) => m === "gbpg" ? v(a[1]) - v(b[1]) : v(b[1]) - v(a[1]))).slice(0, 100).map(([i, x]) => wiLigne(m, t, i, x, feq));
   } else if (q.length >= 2){
     const tous = [...Object.entries(WI.j).map(([i, x]) => ["j", i, x]), ...Object.entries(WI.g).map(([i, x]) => ["g", i, x])]
       .filter(([, , x]) => nrm(x.n).includes(q) && (!feq || joueAvec(x))).slice(0, 60);
@@ -3829,7 +3841,11 @@ function wiAgeLu(v = S.wiage){
 const wiAgeOk = (ag, a) => a != null && ({ lt: a < ag.n, le: a <= ag.n, eq: a === ag.n, ge: a >= ag.n, gt: a > ag.n }[ag.op] ?? (a >= ag.a0 && a <= ag.a1));
 const wiAgeResume = (ag) => !ag ? "" : ag.op === "rg" ? `${ag.a0}-${ag.a1}` : `${WI_OPS.find(o => o[0] === ag.op)[1]} ${ag.n}`;
 const WI_TRIS = () => [["", L("La stat choisie", "Chosen stat")], ["pj", L("Matchs", "Games")], ["age", L("Âge", "Age")]];
-const wiFiltre = () => !!(S.wipos || S.wiage || S.witri);
+// Ce qui a du sens dans la vue en cours (Mitch, 14 nov. 2026 : « que les options qui font pas de sens disparaissent ») :
+// l'âge seulement quand c'est l'âge d'une saison (par saison, records) ; pas de position ni de tri pour les gardiens ;
+// pas de tri dans les records (classés par la saison). Posé par wiTiroir() ; ce qui est caché n'agit pas.
+let WI_OK = { pos: true, age: true, tri: true };
+const wiFiltre = () => !!((WI_OK.pos && S.wipos) || (WI_OK.age && S.wiage) || (WI_OK.tri && S.witri));
 const wiAsc = () => S.wiord ? S.wiord === "asc" : S.witri === "age";      // l'âge : le plus jeune d'abord, par défaut
 function wiAge(id, ref){
   const n = PBS.nais?.j?.[id] || PBS.nais?.g?.[id]; if (!n) return null;
@@ -3844,7 +3860,9 @@ async function wiNais(){ if (!PBS.nais && (S.wiage || S.witri === "age")) PBS.na
 const wiSansAge = () => !!PBS.nais && !Object.keys(PBS.nais.j || {}).length;
 function wiFT(rows, posF, idF, statF, pjF, ref){
   const sa = wiSansAge();
-  const pos = S.wipos || "", age = sa ? "" : (S.wiage || ""), tri = sa && S.witri === "age" ? "" : (S.witri || ""), asc = wiAsc();
+  const pos = WI_OK.pos ? S.wipos || "" : "", age = sa || !WI_OK.age ? "" : (S.wiage || "");
+  const tri0 = WI_OK.tri ? S.witri || "" : "", tri = (sa || !WI_OK.age) && tri0 === "age" ? "" : tri0;
+  const asc = WI_OK.tri ? wiAsc() : false;
   const A = (r) => wiAge(idF(r), ref);
   let L_ = rows.filter(r => { const p_ = posF(r) || ""; return !pos || (pos === "F" ? "CLRF".includes(p_) && p_ !== "" : p_ === pos); });
   const ag = age ? wiAgeLu(age) : null;
@@ -3852,7 +3870,12 @@ function wiFT(rows, posF, idF, statF, pjF, ref){
   const k = tri === "pj" ? pjF : tri === "age" ? A : statF;
   return L_.filter(r => k(r) != null).sort((x, y) => (asc ? 1 : -1) * (k(x) - k(y)));
 }
-function wiTiroir(){
+function wiTiroir(vue = S.wiv || "", M = {}){
+  WI_OK = M.j === "g" ? { pos: false, age: false, tri: false }
+    : M.saisons ? { pos: true, age: true, tri: false }
+    : { pos: true, age: vue === "s", tri: true };
+  const voir = (id, ok) => { const el = $("#" + id); if (el) el.hidden = !ok; };
+  voir("f-wipos", WI_OK.pos); voir("f-wiage", WI_OK.age); voir("f-witri", WI_OK.tri); voir("f-wiord", WI_OK.tri);
   const rang = (id, lbl, cle, L_, v) => { const el = $("#" + id); if (el) el.innerHTML = `<span class="lbl">${lbl}</span>` + L_.map(([k, n]) => `<button class="chip" data-${cle}="${k}" aria-pressed="${k === (v || "")}">${n}</button>`).join(""); };
   rang("f-wipos", L("Position", "Position"), "wipos", WI_POS(), S.wipos);
   // L'âge : « Tous », les 5 signes, puis − l'âge + (le signe garde son âge ; changer l'âge garde le signe, ≤ si aucun)
@@ -3867,7 +3890,7 @@ function wiTiroir(){
       + `<b>${n}</b><small>${L("ans", "yrs")}</small><button class="wi-agb" data-wiage="${op}:${borne(n + 1)}" aria-label="${L("Plus vieux", "Older")}">+</button></span>`;
   }
   if (wiSansAge()){ const el = $("#f-wiage"); if (el) el.innerHTML = `<span class="lbl">${L("Âge", "Age")}</span><span class="aide" style="margin:0">${L("Les dates de naissance arrivent au prochain calcul.", "Birth dates arrive with the next update.")}</span>`; }
-  rang("f-witri", L("Classer par", "Sort by"), "witri", WI_TRIS(), S.witri);
+  rang("f-witri", L("Classer par", "Sort by"), "witri", WI_TRIS().filter(([k]) => k !== "age" || WI_OK.age), WI_OK.age || S.witri !== "age" ? S.witri : "");
   rang("f-wiord", L("Ordre", "Order"), "wiord", [["", L("Auto", "Auto")], ["desc", L("↓ Plus haut", "↓ Highest")], ["asc", L("↑ Plus bas", "↑ Lowest")]], S.wiord);
 }
 async function pbsIndex(){ if (!PBS.idx) PBS.idx = await pbsGet("index.json").catch(() => null); return PBS.idx; }
@@ -3909,7 +3932,7 @@ async function pbsVue(el, vue, mode){
           `No save % here yet: it arrives with the next PB Stats update (or shots weren't counted back then). Minimum ${min} games.`)}</div></div>`;
   };
   if (vue === "eq"){
-    const t = S.wieq;
+    const t = S.fe_wi || S.wieq;            // l'équipe de la loupe choisit la ville aussi
     const actuelles = meta.equipes.filter(x => !VILLES[x]?.[2]).sort((a, b) => ville(a).localeCompare(ville(b)));
     const anciennes = meta.equipes.filter(x => VILLES[x]?.[2] || !VILLES[x]).sort((a, b) => ville(a).localeCompare(ville(b)));
     const grille = (L_) => `<div class="vb-g">${L_.map(x => `<button class="vb-t${x === t ? " on" : ""}" data-wieq="${x}">${villeBadge(x)}</button>`).join("")}</div>`;
@@ -3933,7 +3956,7 @@ async function pbsVue(el, vue, mode){
   } else if (vue === "s"){
     const L_ = meta.saisons, sz = S.wis && L_.includes(S.wis) ? S.wis : L_[L_.length - 1];
     if (!PBS.s[sz]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.s[sz] = await pbsGet(`s/${sz}.json`).catch(() => ({ j: [], g: [] })); }
-    const X0 = PBS.s[sz], nomS = `${sz.slice(0, 4)}-${sz.slice(6)}`, fq = S.wiseq || "";
+    const X0 = PBS.s[sz], nomS = `${sz.slice(0, 4)}-${sz.slice(6)}`, fq = S.fe_wi || S.wiseq || "";
     const X = fq ? { j: X0.j.filter(r => r[3].split(",").includes(fq)), g: X0.g.filter(r => r[2].split(",").includes(fq)) } : X0;
     tete = titre(L(`La saison ${nomS}`, `The ${nomS} season`), L("Tous les joueurs de cette saison-là, ajustés à l'ère d'aujourd'hui et à 82 matchs (le réel en petit). Touche un joueur pour toute sa carrière.", "Every player that season, adjusted to today's era and 82 games (the real numbers in small). Tap a player for his whole career."))
       + `<div class="row vb-sel"><label class="lbl" for="wi-sz">${L("Saison", "Season")}</label><select id="wi-sz">${[...L_].reverse().map(x => `<option value="${x}"${x === sz ? " selected" : ""}>${x.slice(0, 4)}-${x.slice(6)}</option>`).join("")}</select></div>`
@@ -3947,7 +3970,8 @@ async function pbsVue(el, vue, mode){
   } else {
     const L_ = meta.decennies, d = S.wid != null && L_.includes(Number(S.wid)) ? Number(S.wid) : L_[L_.length - 1];
     if (!PBS.d[d]) { el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; PBS.d[d] = await pbsGet(`d/${d}.json`).catch(() => ({ j: [], g: [] })); }
-    const X = PBS.d[d];
+    const X0 = PBS.d[d], fd = S.fe_wi || "";
+    const X = fd ? { j: X0.j.filter(r => String(r[3]).split(",").includes(fd)), g: X0.g.filter(r => String(r[2]).split(",").includes(fd)) } : X0;
     tete = titre(L(`Les années ${d}`, `The ${d}s`), L("Les meilleurs de la décennie, ajustés à l'ère d'aujourd'hui (le réel en petit) : seulement leurs saisons de ces 10 années-là.", "The best of the decade, adjusted to today's era (the real numbers in small): only their seasons from those 10 years."))
       + `<div class="row vb-dec">${L_.map(x => `<button class="chip" data-wid="${x}" aria-pressed="${x === d}">${x}</button>`).join("")}</div>`;
     if (m === "g" && gq) corps = gqListe(X.g, { pj: 3, sv: 7, wsv: 8, gaa: 9, wgaa: 10 }, 100, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2], r[6], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${nW(r[3])} ${L("matchs", "games")}`));
@@ -3968,9 +3992,9 @@ document.addEventListener("click", (e) => {
   if (v){ S.wiv = v.dataset.wiv; whatif(); return; }
   const q = e.target.closest?.("[data-wieq]");
   if (q && q.dataset.wiss){ S.wiv = "s"; S.wis = q.dataset.wiss; S.wiseq = q.dataset.wieq; $("#wi-modal").hidden = true; whatif(); $("#p-whatif").scrollIntoView({ block: "start" }); return; }
-  if (q){ S.wiv = "eq"; S.wieq = q.dataset.wieq; $("#wi-modal").hidden = true; whatif(); $("#p-whatif").scrollIntoView({ block: "start" }); return; }
+  if (q){ S.wiv = "eq"; S.wieq = q.dataset.wieq; if (!q.dataset.wieq) S.fe_wi = ""; $("#wi-modal").hidden = true; whatif(); $("#p-whatif").scrollIntoView({ block: "start" }); return; }
   const qs = e.target.closest?.("[data-wiseq]");
-  if (qs){ S.wiseq = qs.dataset.wiseq; whatif(); return; }
+  if (qs){ S.wiseq = qs.dataset.wiseq; if (!qs.dataset.wiseq) S.fe_wi = ""; whatif(); return; }
   const d = e.target.closest?.("[data-wid]");
   if (d){ S.wid = d.dataset.wid; whatif(); return; }
   const z = e.target.closest?.("[data-wis]");
@@ -3994,6 +4018,11 @@ function wiSaisons(mode, q, feq){
       tous.push({ i, x, s, eq, pj, b, a, p, wp, v, enCours });
     }
   }
+  // La loupe dans les records : la position et l'âge pendant CETTE saison-là (avant : rien n'agissait ici)
+  const pos = WI_OK.pos ? S.wipos || "" : "", ag = WI_OK.age && !wiSansAge() ? wiAgeLu() : null;
+  const posOk = (x) => { const p_ = x.pos === "W" ? "L" : x.pos || ""; return !pos || (pos === "F" ? p_ !== "" && "CLRF".includes(p_) : p_ === pos); };
+  const garde = tous.filter(r => posOk(r.x) && (!ag || wiAgeOk(ag, wiAge(r.i, wiRefSaison(r.s)))));
+  tous.length = 0; tous.push(...garde);
   tous.sort((u, w) => w.v - u.v);
   Object.assign(COTE, { n: tous.length, inv: false });
   const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
@@ -5553,6 +5582,56 @@ function clsOnglet(){
     + `<p class="aide">${L("Égalité : les points, puis le moins de matchs joués, puis les victoires en temps réglementaire et en prolongation, puis le différentiel.", "Ties: points, then fewer games played, then regulation and overtime wins, then goal differential.")}</p>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest?.("[data-cls]"); if (b){ S.cls = b.dataset.cls; clsOnglet(); } });
+// ---- Upcoming FA (Mitch, 14 nov. 2026 : « classés par leur salaire PBMV pis réel, pis mets aussi leur bargain % ») ----
+// Les contrats qui finissent cet été : UFA ou RFA (Pro Hockey Rumors), avec ce qu'on sait dans PB Market Value : PBMV,
+// vrai salaire, bargain % (PBMV ÷ vrai salaire). Toucher un joueur ouvre son rapport PBMV.
+let FA = null, FA_p = null;
+const chargerFa = () => FA_p || (FA_p = fetch("agents_libres.json?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(g => (FA = g)).catch(() => null));
+const FA_POS = () => [["", L("Tous", "All")], ["F", L("Avants", "Forwards")], ["D", "D"], ["G", L("Gardiens", "Goalies")]];
+async function faOnglet(){
+  const el = $("#fa");
+  if (!FA){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerFa(); }
+  if (S.fa_ty == null) S.fa_ty = "UFA";
+  const ty = S.fa_ty, tri = S.fa_tri || "s", pos = S.fa_pos || "", feq = S.fe_fa || "", q = nrm($("#fa-q").value);
+  $("#f-fa").innerHTML = [["UFA", "UFA"], ["RFA", "RFA"], ["", L("Tous", "All")]].map(([k, n]) => `<button class="chip" data-faty="${k}" aria-pressed="${k === ty}">${n}</button>`).join("");
+  $("#f-fa-tri").innerHTML = `<span class="lbl">${L("Classer par", "Sort by")}</span>` + [["s", "PBMV"], ["vrai", L("Réel", "Real")], ["rend", "Bargain %"]]
+    .map(([k, n]) => `<button class="chip" data-fatri="${k}" aria-pressed="${k === tri}">${n}</button>`).join("");
+  $("#f-fa-pos").innerHTML = `<span class="lbl">${L("Position", "Position")}</span>` + FA_POS().map(([k, n]) => `<button class="chip" data-fapos="${k}" aria-pressed="${k === pos}">${n}</button>`).join("");
+  const an = FA?.annee || "";
+  const tete = `<div class="cp-tete"><h2>Upcoming FA ${an}</h2><p>${L(
+    `Les joueurs dont le contrat finit cet été. UFA : libre de signer où il veut le 1er juillet. RFA : son équipe garde un droit de match. Pour chacun : ce qu'il vaut cette saison en PB Market Value (PBMV), son vrai salaire, et son bargain % (PBMV ÷ vrai salaire : 150 % = il vaut une fois et demie ce qu'il coûte). Touche un joueur pour son rapport.`,
+    `Players whose contract ends this summer. UFA: free to sign anywhere on July 1. RFA: his team keeps matching rights. For each: what he's worth this season in PB Market Value (PBMV), his real salary, and his bargain % (PBMV ÷ real salary: 150% = he's worth one and a half times what he costs). Tap a player for his report.`)}</p></div>`;
+  if (!FA?.joueurs?.length){
+    el.innerHTML = tete + `<div class="card"><div class="vide">${L("La liste arrive au prochain calcul.", "The list arrives with the next update.")}</div></div>`;
+    $("#fe-fa").innerHTML = ""; return;
+  }
+  $("#fe-fa").innerHTML = filtreEqHTML("fe_fa", [...new Set(FA.joueurs.map(x => x.eq))].filter(e => e && VILLES[e]).sort());
+  if (!SAL) chargerSalFa();
+  const posOk = (x) => !pos || (pos === "G" ? x.pos === "G" : pos === "D" ? x.pos === "D" : x.pos !== "G" && x.pos !== "D");
+  const v = (x) => x[tri];
+  const L_ = FA.joueurs.filter(x => (!ty || x.type === ty) && posOk(x) && (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q)))
+    .sort((a, b) => (v(b) ?? -1) - (v(a) ?? -1) || (b.s || 0) - (a.s || 0));
+  const ligne = (x, k) => {
+    const eq = x.eq || "", p_ = x.pos === "G" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
+    const gros = tri === "rend" ? rendTxt(x.rend) : mD(x[tri]);
+    const bon = tri === "rend" && x.rend != null ? (x.rend >= 1 ? "bon" : "mauvais") : "";
+    const det = x.s != null ? `PBMV ${mD(x.s)} · ${L("réel", "real")} ${mD(x.vrai)} · Bargain ${rendTxt(x.rend)}` : L("pas dans PBMV (blessé ou dans les mineures)", "not in PBMV (injured or in the minors)");
+    return `<button class="wi-l wi-r${x.id ? " sal-j" : ""}"${x.id ? ` data-k="${x.id + x.t}"` : ""} data-c="${eq}" style="${eq ? eqV(eq) : ""}"><span class="rg">${k + 1}</span>${wiRond({ n: x.n, pos: x.pos === "G" ? "" : x.pos, no: x.no, eqs: [[eq, 1]], eq, sv: x.pos === "G" ? 1 : undefined })}
+      <span class="nm">${nomP(x.n, x.pos === "G" ? "g" : "j")}<small>${x.type} · ${p_} · ${x.age} ${L("ans", "yrs")}${eq ? " · " + villeBadge(eq, false) : ""}</small><span class="wi-st">${det}</span></span>
+      <span class="v">${x[tri] != null ? `<span class="${bon}">${gros}</span>` : "–"}${tri === "s" ? AB("PBMV") : ""}<small>${tri === "s" ? L("vaut cette saison", "worth this season") : tri === "vrai" ? L("vrai salaire", "real salary") : "Bargain %"}</small></span></button>`;
+  };
+  el.innerHTML = tete + (L_.map(ligne).join("") || `<div class="card"><div class="vide">${L("Aucun joueur pour ce filtre.", "No player for this filter.")}</div></div>`)
+    + `<p class="aide">${L("Liste : Pro Hockey Rumors", "List: Pro Hockey Rumors")}${FA.source_maj ? ` (${L("à jour au", "updated")} ${FA.source_maj})` : ""}. ${L("Chiffres : PB Market Value, mis à jour le", "Numbers: PB Market Value, updated")} ${dateCourte(FA.maj)}.</p>`;
+}
+// Le rapport PBMV d'un joueur (toucher une ligne) a besoin de salaires.json : chargé une fois, en silence
+let SAL_fa = null;
+const chargerSalFa = () => SAL_fa || (SAL_fa = fetch(urlSai("salaires.json") + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(d_ => { if (!SAL && d_?.joueurs) SAL = d_; }).catch(() => null));
+document.addEventListener("click", (e) => {
+  const t = e.target.closest?.("[data-faty]"); if (t){ S.fa_ty = t.dataset.faty; faOnglet(); return; }
+  const r = e.target.closest?.("[data-fatri]"); if (r){ S.fa_tri = r.dataset.fatri; faOnglet(); return; }
+  const p_ = e.target.closest?.("[data-fapos]"); if (p_){ S.fa_pos = p_.dataset.fapos; faOnglet(); }
+});
+document.addEventListener("input", (e) => { if (e.target.id === "fa-q") faOnglet(); });
 async function trxOnglet(){
   const el = $("#trx");
   if (S.trx_v){ $("#f-trx").innerHTML = ""; $("#fe-trx").innerHTML = ""; return trxHist(S.trx_v); }
@@ -6759,7 +6838,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "rum", "trx", "cls", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "rum", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -6774,6 +6853,7 @@ function brancher(){
     if (b.id === "t-rum") rumOnglet();
     if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-cls") clsOnglet();
+    if (b.id === "t-fa") faOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -6937,6 +7017,7 @@ async function init(){
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(transactions|echanges|trades)$/i.test(location.hash)){ $("#t-trx")?.click(); $("#p-trx")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(agents-libres|free-agents|upcoming-fa)$/i.test(location.hash)){ $("#t-fa")?.click(); $("#p-fa")?.scrollIntoView({ block: "start" }); }
     else if (/^#(classement-lnh|league-standings)$/i.test(location.hash)){ $("#t-cls")?.click(); $("#p-cls")?.scrollIntoView({ block: "start" }); }
     else if (/^#(correlations?|correlation-trend)$/i.test(location.hash)){ $("#t-cor")?.click(); $("#p-cor")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
@@ -6956,7 +7037,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -7022,7 +7103,7 @@ init().catch(finCharge);
   var EN = /^en/i.test(document.documentElement.lang || "");
   // Section : les rangées qui restent visibles en pastilles (dans l'ordre). Tout le reste de .ctrls va dans le panneau 🔍.
   var GARDE = { "p-joueurs": ["f-marche", "f-seuil"], "p-coupe": ["f-troph", "sai-cup"], "p-whatif": ["f-wi", "f-wir", "f-wiv"], "p-salaires": ["f-sal", "sai-sal"], "p-enf": ["f-enf", "sai-enf"],
-    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-coach": ["f-coach", "sai-coach"], "p-rum": [], "p-trx": ["f-trx"], "p-cls": ["f-cls"], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-prj": ["f-prj", "sai-prj"], "p-duo": ["f-duo", "f-duo-tri", "sai-duo"], "p-gcr": ["f-gcr-tri", "sai-gcr"], "p-arb": ["f-arb-tri", "sai-arb"], "p-coach": ["f-coach", "sai-coach"], "p-rum": [], "p-trx": ["f-trx"], "p-cls": ["f-cls"], "p-fa": ["f-fa", "f-fa-tri"], "p-pwr": ["f-pwr", "sai-pwr"], "p-matchs": [], "p-bets": ["f-bets"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
   function compte(sh){
@@ -7031,6 +7112,7 @@ init().catch(finCharge);
     sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(){ n++; });
     sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0) n++; });
     sh.querySelectorAll(".row").forEach(function(r){
+      if (r.hidden) return;
       var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
       if (c.length > 1 && c[0].getAttribute("aria-pressed") !== "true" && c.some(function(e){ return e.getAttribute("aria-pressed") === "true"; })) n++;
     });
@@ -7045,6 +7127,7 @@ init().catch(finCharge);
     sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(b){ out.push(b.getAttribute("data-t") || b.textContent.trim()); });
     sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0) out.push(x.options[x.selectedIndex].text); });
     sh.querySelectorAll(".row").forEach(function(r){
+      if (r.hidden) return;                 // une option cachée dans cette vue n'agit pas
       if (r.hasAttribute("data-resume")){ if (r.getAttribute("data-resume")) out.push(r.getAttribute("data-resume")); return; }
       var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
       if (c.length < 2 || c[0].getAttribute("aria-pressed") === "true") return;
@@ -7138,8 +7221,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=0ad44c9f" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=0ad44c9f" defer></script>
-<script src="nav.js?v=3b910b2362" defer></script>
+<script src="pub.js?v=c4fc223c" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=c4fc223c" defer></script>
+<script src="nav.js?v=f5f8a73394" defer></script>
 </body>
 </html>
