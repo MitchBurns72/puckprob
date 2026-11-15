@@ -107,7 +107,11 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
    (--df fond, --dt texte, --dl languette, --dlt texte de la languette, calculées dans palette()). Les tailles de chaque
    endroit (listes, fiches, duos, alignements) restent celles d'avant : seul le dessin change. ---- */
 .wi-rond.wi-rond,.plaque.plaque{position:relative;overflow:hidden;background:var(--df,var(--pf,var(--eq)));color:var(--dt,#fff);box-shadow:none;text-shadow:none;border-radius:7px;gap:0;justify-content:center}
-.wi-rond.wi-rond:has(> i),.plaque.plaque:has(> i){padding-bottom:22%}
+/* Le numéro centré au-dessus de la languette, positionné par rapport à la plaque elle-même. Avant : padding-bottom:22 %,
+   mais un % de padding se calcule sur la LARGEUR DU PARENT : dans une rangée large (trios complets, duos), la plaque
+   s'étirait en hauteur et le numéro sortait par le haut (Mitch, 14 nov. 2026, capture des Full units). */
+.wi-rond.wi-rond:has(> i),.plaque.plaque:has(> i){padding:0}
+.wi-rond.wi-rond:has(> i) > b,.plaque.plaque:has(> i) > b{position:absolute;left:0;right:0;top:0;bottom:24%;display:flex;align-items:center;justify-content:center;margin:0;padding-top:3px}
 .wi-rond.wi-rond b,.plaque.plaque b{font-family:"Teko",var(--f-display);font-weight:700;font-style:normal;line-height:.8;-webkit-text-stroke:0;paint-order:normal;text-shadow:none;margin-top:3px}
 .wi-rond.wi-rond i,.plaque.plaque i{position:absolute;left:0;right:0;bottom:0;height:24%;display:flex;align-items:center;justify-content:center;background:var(--dl,#0A2342);color:var(--dlt,#fff);
   font:800 max(7px,.5em) "Barlow Condensed",var(--f-body);letter-spacing:.04em;opacity:1}

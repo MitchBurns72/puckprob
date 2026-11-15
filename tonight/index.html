@@ -212,6 +212,11 @@ nav.menu::-webkit-scrollbar{display:none}
 .plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--pf,var(--eq, var(--muted)));color:var(--pt,#fff);box-shadow:inset 0 0 0 2px var(--pb,transparent);text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .plaque b{font:800 16px/1 var(--f-display);paint-order:stroke fill;-webkit-text-stroke:.16em var(--ps,#000);text-shadow:none}  /* le numéro cerné de la 3e couleur (idée de Mitch) */
 .plaque i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
+.chip.wi-op{min-width:40px;font-size:17px;font-weight:800}
+/* L'âge choisi, entre − et + : mêmes couleurs que les pastilles (--chip et son texte), lisible dans le panneau pâle ou foncé */
+.wi-ag{display:inline-flex;align-items:center;gap:6px;margin-left:6px;padding:3px;border-radius:6px;background:var(--chip,#13335E);color:#DCE6F2}
+.wi-ag b{font:700 22px/1 var(--f-display);min-width:28px;text-align:center;color:#fff} .wi-ag small{font-size:12px;opacity:.8;margin-left:-3px}
+.wi-agb{width:32px;height:32px;border-radius:4px;border:0;background:rgba(255,255,255,.12);color:#fff;font:800 20px/1 var(--f-display);cursor:pointer}
 :is(.ph,.gface,.aface):has(>.plaque){border-radius:6px;overflow:visible;background:none}
 /* (plus précis que « .tr .ph » et « .photo .ph », qui arrivent plus bas et font des ronds) */
 .tr .ph:has(>.plaque){width:44px;height:50px;border-radius:6px;overflow:visible;background:none;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--eq)}
@@ -871,7 +876,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=364f1aa8">
+<link rel="stylesheet" href="carte.css?v=0ad44c9f">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -3809,7 +3814,20 @@ const pbsGet = async (ch) => { const r = await fetch(PBS_URL() + ch + "?v=" + (W
 // sinon aujourd'hui. Les filtres marchent dans toutes les vues de patineurs : tous les temps, par équipe, par saison,
 // par décennie (les gardiens gardent leurs propres classements).
 const WI_POS = () => [["", L("Tous", "All")], ["F", L("Avants", "Forwards")], ["C", "C"], ["L", L("AG", "LW")], ["R", L("AD", "RW")], ["D", "D"]];
-const WI_AGES = () => [["", L("Tous", "All")], ["-21", "≤ 21"], ["22-25", "22-25"], ["26-29", "26-29"], ["30-34", "30-34"], ["35-", "35 +"]];
+// L'âge : un signe et un âge au choix (Mitch, 14 nov. 2026 : « choisir l'âge et les signes plus grand, plus petit ou égal »).
+// S.wiage = "le:21" (signe:âge). L'ancien format en tranches ("-21", "22-25", "35-") reste lu.
+const WI_OPS = [["lt", "<"], ["le", "≤"], ["eq", "="], ["ge", "≥"], ["gt", ">"]];
+const WI_AGE_MIN = 18, WI_AGE_MAX = 45, WI_AGE_DEF = 25;
+function wiAgeLu(v = S.wiage){
+  if (!v) return null;
+  if (v.includes(":")){ const [op, n] = v.split(":"); return WI_OPS.some(o => o[0] === op) && isFinite(+n) ? { op, n: +n } : null; }
+  const [a0, a1] = v.split("-");
+  if (a0 === "" && a1) return { op: "le", n: +a1 };
+  if (a1 === "" && a0) return { op: "ge", n: +a0 };
+  return a0 && a1 ? { op: "rg", a0: +a0, a1: +a1 } : null;
+}
+const wiAgeOk = (ag, a) => a != null && ({ lt: a < ag.n, le: a <= ag.n, eq: a === ag.n, ge: a >= ag.n, gt: a > ag.n }[ag.op] ?? (a >= ag.a0 && a <= ag.a1));
+const wiAgeResume = (ag) => !ag ? "" : ag.op === "rg" ? `${ag.a0}-${ag.a1}` : `${WI_OPS.find(o => o[0] === ag.op)[1]} ${ag.n}`;
 const WI_TRIS = () => [["", L("La stat choisie", "Chosen stat")], ["pj", L("Matchs", "Games")], ["age", L("Âge", "Age")]];
 const wiFiltre = () => !!(S.wipos || S.wiage || S.witri);
 const wiAsc = () => S.wiord ? S.wiord === "asc" : S.witri === "age";      // l'âge : le plus jeune d'abord, par défaut
@@ -3829,14 +3847,25 @@ function wiFT(rows, posF, idF, statF, pjF, ref){
   const pos = S.wipos || "", age = sa ? "" : (S.wiage || ""), tri = sa && S.witri === "age" ? "" : (S.witri || ""), asc = wiAsc();
   const A = (r) => wiAge(idF(r), ref);
   let L_ = rows.filter(r => { const p_ = posF(r) || ""; return !pos || (pos === "F" ? "CLRF".includes(p_) && p_ !== "" : p_ === pos); });
-  if (age){ const [a0, a1] = age.split("-").map(x => x === "" ? null : +x); L_ = L_.filter(r => { const a = A(r); return a != null && (a0 == null || a >= a0) && (a1 == null || a <= a1); }); }
+  const ag = age ? wiAgeLu(age) : null;
+  if (ag) L_ = L_.filter(r => wiAgeOk(ag, A(r)));
   const k = tri === "pj" ? pjF : tri === "age" ? A : statF;
   return L_.filter(r => k(r) != null).sort((x, y) => (asc ? 1 : -1) * (k(x) - k(y)));
 }
 function wiTiroir(){
   const rang = (id, lbl, cle, L_, v) => { const el = $("#" + id); if (el) el.innerHTML = `<span class="lbl">${lbl}</span>` + L_.map(([k, n]) => `<button class="chip" data-${cle}="${k}" aria-pressed="${k === (v || "")}">${n}</button>`).join(""); };
   rang("f-wipos", L("Position", "Position"), "wipos", WI_POS(), S.wipos);
-  rang("f-wiage", L("Âge", "Age"), "wiage", WI_AGES(), S.wiage);
+  // L'âge : « Tous », les 5 signes, puis − l'âge + (le signe garde son âge ; changer l'âge garde le signe, ≤ si aucun)
+  const elA = $("#f-wiage");
+  if (elA){
+    const ag = wiAgeLu(), n = ag && ag.op !== "rg" ? ag.n : WI_AGE_DEF, op = ag && ag.op !== "rg" ? ag.op : "le";
+    const borne = (x) => Math.max(WI_AGE_MIN, Math.min(WI_AGE_MAX, x));
+    elA.dataset.resume = ag ? `${L("Âge", "Age")} ${wiAgeResume(ag)}` : "";
+    elA.innerHTML = `<span class="lbl">${L("Âge", "Age")}</span><button class="chip" data-wiage="" aria-pressed="${!ag}">${L("Tous", "All")}</button>`
+      + WI_OPS.map(([k, t]) => `<button class="chip wi-op" data-wiage="${k}:${n}" aria-pressed="${!!ag && ag.op === k}" aria-label="${t} ${n}">${t}</button>`).join("")
+      + `<span class="wi-ag"><button class="wi-agb" data-wiage="${op}:${borne(n - 1)}" aria-label="${L("Plus jeune", "Younger")}">−</button>`
+      + `<b>${n}</b><small>${L("ans", "yrs")}</small><button class="wi-agb" data-wiage="${op}:${borne(n + 1)}" aria-label="${L("Plus vieux", "Older")}">+</button></span>`;
+  }
   if (wiSansAge()){ const el = $("#f-wiage"); if (el) el.innerHTML = `<span class="lbl">${L("Âge", "Age")}</span><span class="aide" style="margin:0">${L("Les dates de naissance arrivent au prochain calcul.", "Birth dates arrive with the next update.")}</span>`; }
   rang("f-witri", L("Classer par", "Sort by"), "witri", WI_TRIS(), S.witri);
   rang("f-wiord", L("Ordre", "Order"), "wiord", [["", L("Auto", "Auto")], ["desc", L("↓ Plus haut", "↓ Highest")], ["asc", L("↑ Plus bas", "↑ Lowest")]], S.wiord);
@@ -4227,17 +4256,19 @@ function ptFit(g, txt, maxW, police, taille, min = 24){
 }
 function ptRond(g, x, y, w, h, r){ g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); }
 function ptPlaque(g, cx, y, cote, couleur, no, pos){
-  const P = palDeCoul(couleur);
-  ptRond(g, cx - cote / 2, y, cote, cote, cote * 0.1); g.fillStyle = P ? P.f : couleur; g.fill();
-  g.lineWidth = Math.max(4, cote / 30); g.strokeStyle = P ? P.c : "#fff"; g.stroke();
-  g.fillStyle = P ? P.t : "#fff"; g.textAlign = "center"; g.textBaseline = "alphabetic";
+  // L'emblème D (Mitch, 13 nov. 2026), comme les plaques du site : carré plat de la 1re couleur, languette du bas
+  // de la 2e avec la position, le numéro lisible sur le fond. Plus de contour ni de numéro cerné (l'ancien style).
+  const P = palDeCoul(couleur), x = cx - cote / 2, hL = cote * 0.24;
+  const d = P ? P.d : couleur, dl = P ? P.dl : "#0A2342", dt = P ? P.dt : "#fff", dlt = P ? P.dlt : "#fff";
+  g.save(); ptRond(g, x, y, cote, cote, cote * 0.16); g.clip();
+  g.fillStyle = d; g.fillRect(x, y, cote, cote);
+  g.fillStyle = dl; g.fillRect(x, y + cote - hL, cote, hL);
+  g.restore();
+  g.textAlign = "center"; g.textBaseline = "alphabetic"; g.fillStyle = dt;
   const n = no != null && no !== "" ? String(no) : "";
-  g.font = `800 ${Math.round(cote * (n.length > 2 ? 0.42 : 0.56))}px 'Barlow Condensed'`;
-  // Le numéro cerné de la 3e couleur, comme sur le site (ou du fond si la 3e est la même que le chiffre)
-  if (P){ g.save(); g.lineJoin = "round"; g.lineWidth = Math.max(3, cote * 0.07); g.strokeStyle = String(P.c).toLowerCase() !== String(P.t).toLowerCase() ? P.c : P.f;
-    g.strokeText(n, cx, y + cote * (pos ? 0.62 : 0.7)); g.restore(); g.fillStyle = P.t; }
-  g.fillText(n, cx, y + cote * (pos ? 0.62 : 0.7));
-  if (pos){ g.font = `700 ${Math.round(cote * 0.16)}px Barlow`; g.fillText(pos, cx, y + cote * 0.86); }
+  g.font = `700 ${Math.round(cote * (n.length > 2 ? 0.40 : 0.52))}px 'Barlow Condensed'`;
+  g.fillText(n, cx, y + (cote - hL) * 0.5 + cote * 0.18);
+  if (pos){ g.fillStyle = dlt; g.font = `700 ${Math.round(cote * 0.16)}px Barlow`; g.fillText(pos, cx, y + cote - hL * 0.26); }
 }
 async function ptDessiner(info){
   await ptPolices();
@@ -6964,6 +6995,13 @@ init().catch(finCharge);
 .ctrls.c3 .c3-p .chip[aria-pressed="true"],.ctrls.c3 .c3-l .chip[aria-pressed="true"],.ctrls.c3 .c3-sh .chip[aria-pressed="true"]{background:var(--ink)!important;color:var(--bg)!important;border-color:var(--ink)!important;font-weight:800!important}
 .ctrls.c3 .c3-p .lbl,.ctrls.c3 .c3-l .lbl{flex:none}
 .ctrls.c3 .c3-p .row{flex-wrap:nowrap}
+.ctrls.c3 .c3-w{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;width:100%;min-width:0}
+.ctrls.c3 .c3-w>.row.c3-p{flex:0 1 auto;min-width:0;max-width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.ctrls.c3 .c3-w>.row.c3-p::-webkit-scrollbar{display:none}
+.c3-s{flex:1 1 170px;min-width:0;text-align:left;padding:7px 12px;border:1px dashed var(--or,#FFB81C);border-radius:10px;background:rgba(0,0,0,.18);color:inherit;
+  font:600 13px/1.35 var(--f-body);cursor:pointer}
+.c3-s b{color:var(--or,#FFB81C);font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+.c3-s[hidden]{display:none}
 .c3-b{flex:none;position:relative;width:42px;height:34px;border-radius:999px;border:1.5px solid var(--goal,#FFB81C);background:var(--surface);color:var(--ink);font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
 .c3-b b{position:absolute;top:-6px;right:-5px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--goal,#FFB81C);color:#0B1220;font:800 10px/16px var(--f-body);text-align:center}
 .c3-b.seul{width:auto;padding:0 14px;gap:6px;display:inline-flex;align-items:center;font:700 13.5px var(--f-body);margin-left:auto}
@@ -6998,6 +7036,25 @@ init().catch(finCharge);
     });
     return n;
   }
+  // Ce qui est choisi dans le panneau, en mots (Mitch, 14 nov. 2026 : « je veux voir ce qui a été sélectionné ») :
+  // la recherche, l'équipe, les menus, chaque rangée de pastilles qui n'est pas sur son 1er choix. Une rangée peut
+  // donner son propre résumé (data-resume, ex. l'âge de PB Stats : « Âge ≤ 21 »).
+  function resume(sh){
+    var out = [];
+    sh.querySelectorAll("input[type=search]").forEach(function(i){ if (i.value.trim()) out.push("« " + i.value.trim() + " »"); });
+    sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(b){ out.push(b.getAttribute("data-t") || b.textContent.trim()); });
+    sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0) out.push(x.options[x.selectedIndex].text); });
+    sh.querySelectorAll(".row").forEach(function(r){
+      if (r.hasAttribute("data-resume")){ if (r.getAttribute("data-resume")) out.push(r.getAttribute("data-resume")); return; }
+      var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
+      if (c.length < 2 || c[0].getAttribute("aria-pressed") === "true") return;
+      var on = c.filter(function(e){ return e.getAttribute("aria-pressed") === "true"; })[0]; if (!on) return;
+      var l = r.querySelector(".lbl");
+      out.push((l && l.textContent.trim() ? l.textContent.trim() + " : " : "") + on.textContent.trim());
+    });
+    return out;
+  }
+  function ech(t){ return String(t).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var tous = [];
   function maj(){
     tous.forEach(function(o){
@@ -7006,6 +7063,9 @@ init().catch(finCharge);
       var n = a ? compte(o.sh) : 0;
       o.b.querySelector("b").textContent = n || "";
       o.b.querySelector("b").hidden = !n;
+      // Réécrit seulement quand ça change (sinon l'observateur plus bas relancerait maj sans arrêt)
+      var t = a ? resume(o.sh) : [], h = t.length ? "<b>" + (EN ? "Filters" : "Filtres") + "</b> " + t.map(ech).join(" · ") : "";
+      if (o.s && o.s._h !== h){ o.s._h = h; o.s.innerHTML = h; o.s.hidden = !h; }
     });
   }
   function ouvrir(o){
@@ -7049,17 +7109,26 @@ init().catch(finCharge);
       var b = document.createElement("button"); b.type = "button"; b.className = "c3-b";
       b.setAttribute("aria-label", EN ? "Search and filters" : "Recherche et filtres");
       b.innerHTML = "🔍<b hidden></b>";
+      // Le résumé des filtres choisis : à droite de la dernière rangée de pastilles visible (sous elle sur un téléphone
+      // étroit) ; le toucher ouvre le panneau
+      var s = document.createElement("button"); s.type = "button"; s.className = "c3-s"; s.hidden = true;
       if (garde.length){
         var l = document.createElement("div"); l.className = "c3-l";
         ct.insertBefore(l, garde[0]); l.appendChild(garde[0]); l.appendChild(b);
         garde.slice(1).forEach(function(r){ r.classList.add("c3-p"); });
+        if (garde.length > 1){
+          var der = garde[garde.length - 1], w = document.createElement("div"); w.className = "c3-w";
+          ct.insertBefore(w, der); w.appendChild(der); w.appendChild(s);
+        } else ct.insertBefore(s, l.nextSibling);
       } else {
         b.classList.add("seul"); b.insertAdjacentHTML("beforeend", "<span>" + (EN ? "Filter" : "Filtrer") + "</span>");
         var l2 = document.createElement("div"); l2.className = "c3-l"; l2.appendChild(b); ct.insertBefore(l2, ct.firstChild);
+        ct.insertBefore(s, l2.nextSibling);
       }
       ct.appendChild(sh);
-      var o = { sec: sec, sh: sh, b: b }; tous.push(o);
+      var o = { sec: sec, sh: sh, b: b, s: s }; tous.push(o);
       b.addEventListener("click", function(){ ouvrir(o); });
+      s.addEventListener("click", function(){ ouvrir(o); });
     });
     maj();
     ["click", "input", "change"].forEach(function(t){ document.addEventListener(t, function(){ setTimeout(maj, 0); }, true); });
@@ -7069,8 +7138,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=364f1aa8" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=364f1aa8" defer></script>
+<script src="pub.js?v=0ad44c9f" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=0ad44c9f" defer></script>
 <script src="nav.js?v=3b910b2362" defer></script>
 </body>
 </html>

@@ -157,7 +157,26 @@ def nom_lnh(nom, no, lnh):
         meme = [x for x in lnh if str(x[2]) == str(no) and _cle_nom(x[1])[:1] == fam[:1]]
         if len(meme) == 1:
             return meme[0][0]
+    # Une translittération différente (« Silayev » chez DailyFaceoff, « Silaev » à la LNH) : même initiale du prénom
+    # et un nom de famille à 2 lettres près, s'il est le seul dans l'équipe
+    pre = k.split(" ")[0][:1]
+    proches = [x for x in lnh if len(fam) >= 4 and _cle_nom(x[0])[:1] == pre
+               and _distance(_cle_nom(x[1]).split(" ")[-1], fam) <= 2]
+    if len(proches) == 1:
+        return proches[0][0]
     return nom
+
+
+def _distance(a, b):
+    """Distance d'édition (Levenshtein) entre deux mots courts."""
+    if abs(len(a) - len(b)) > 2:
+        return 9
+    d = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        p, d[0] = d[0], i
+        for j, cb in enumerate(b, 1):
+            p, d[j] = d[j], min(d[j] + 1, d[j - 1] + 1, p + (ca != cb))
+    return d[-1]
 
 
 def canoniser(eq, lnh):
