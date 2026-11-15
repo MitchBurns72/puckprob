@@ -3,7 +3,8 @@ par le calcul de Tirs-nhl, chacun à son heure, au lieu de tout d'un coup.
 
 Roule dans le dépôt PUBLIC puckprob, dans le job live (aux 5 minutes, minutes de calcul illimitées) :
   - lit social/fil/<jour>.json (la file : heure, image, légendes, commentaires ; copiée là par le calcul) ;
-  - publie ce qui est dû et pas encore sorti (au plus 2 par passage : un retard se rattrape doucement) ;
+  - publie ce qui est dû et pas encore sorti (au plus 2 par passage ; en retard de plus de 10 min : 1 par passage,
+    le retard se rattrape aux 5 min) ; la story d'un post attend son post ;
     un match déjà commencé est sauté (le post n'a plus de sens) ;
   - note ce qui est sorti dans social_poste.json (racine de puckprob ; le calcul le relit pour ne rien refaire
     et pour la page puckprob.ca/liens).
@@ -426,11 +427,17 @@ def main(maintenant=None):
     PAUSE_EXTERNE = F.get("ig_pause_jusqu")          # la pause Instagram du calcul (s'il s'est fait bloquer de son bord)
     poste = _lire(POSTE, {})
     dus = [it for it in F["items"] if it["id"] not in poste and datetime.fromisoformat(it["quand"]) <= now]
+    # Le rattrapage (Mitch, 15 nov. 2026 : « quand il part en retard, qu'il se rattrape ») : des posts en retard de plus
+    # de 10 min (le job live reparti tard, un passage manqué) sortent UN par passage (aux 5 min), dans l'ordre, au lieu
+    # de tout d'un coup ; la story d'un post (« suit ») attend que son post soit sorti.
+    en_retard = any(not it.get("story") and now - datetime.fromisoformat(it["quand"]) > timedelta(minutes=10) for it in dus)
+    max_p = 1 if en_retard else MAX_PAR_PASSAGE
+    dus = [it for it in dus if not (it.get("story") and it.get("suit") and it["suit"] not in poste)]
     n = 0
     # Les stories des matchs passent toutes (plusieurs matchs à 19 h = plusieurs stories à 18 h 50) : elles ne comptent
     # pas dans MAX_PAR_PASSAGE, sinon les dernières seraient sautées à la mise au jeu
     for it in sorted(dus, key=lambda x: (not x.get("story"), x["quand"])):
-        if n >= MAX_PAR_PASSAGE and not it.get("story"):
+        if n >= max_p and not it.get("story"):
             break
         if it.get("avant") and now >= datetime.fromisoformat(it["avant"]) - timedelta(minutes=2):
             poste[it["id"]] = {"saute": "match commencé", "quand": now.isoformat(timespec="minutes")}
@@ -454,7 +461,7 @@ def main(maintenant=None):
                                "quand": datetime.now(TZ).isoformat(timespec="minutes")}
         n += 0 if it.get("story") else 1
         _ecrire_poste(poste)
-        if n < MAX_PAR_PASSAGE:
+        if n < max_p:
             time.sleep(5)
     _ecrire_poste(poste)
     reste = [it for it in F["items"] if it["id"] not in poste]

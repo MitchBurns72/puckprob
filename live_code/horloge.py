@@ -16,7 +16,8 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 # (plage, heure, minute) en heure de l'Est : les mêmes plages que src/garde.py
-CRENEAUX = [("nuit", 0, 37), ("matin", 9, 7), ("midi", 11, 37), ("fil", 13, 7), ("soir", 16, 47)]
+# matin : 7 h 37 (avant 9 h 07) depuis le 15 nov. 2026, pour que les stories du récap sortent à 8 h
+CRENEAUX = [("nuit", 0, 37), ("matin", 7, 37), ("midi", 11, 37), ("fil", 13, 7), ("soir", 16, 47)]
 FENETRE = timedelta(minutes=75)
 DEPOT, FLUX = "MitchBurns72/Tirs-nhl", "quotidien.yml"
 ETAT = Path(os.environ.get("RUNNER_TEMP") or "/tmp") / "horloge.json"
