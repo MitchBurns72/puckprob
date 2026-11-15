@@ -3,7 +3,9 @@ horaires automatiques). Roule dans la boucle du job Live de puckprob (aux 5 min,
 calcul de Tirs-nhl à ses heures, par l'API de GitHub (secret TIRS_DISPATCH de puckprob : un jeton limité à
 « Actions » sur Tirs-nhl). Envoyé dans live_code/ par le calcul, comme live.py et poster.py.
 
-Une fenêtre de 75 min après chaque heure : si la boucle redémarre ou rate un tour, elle part quand même le calcul.
+Une fenêtre après chaque heure, jusqu'à la fin de sa plage (Mitch, 15 nov. 2026 : « mets de quoi pour rattraper ce qui
+a pas été fait ») : si la boucle redémarre, rate un tour ou que GitHub échappe le calcul, elle le repart tant que la
+plage n'est pas finie (avant : 75 min seulement).
 Un calcul déjà fait dans sa plage s'arrête tout seul en 15 s (src/garde.py, input « horloge »), donc partir deux
 fois ne fait jamais deux calculs.
 """
@@ -18,18 +20,20 @@ from zoneinfo import ZoneInfo
 # (plage, heure, minute) en heure de l'Est : les mêmes plages que src/garde.py
 # matin : 7 h 37 (avant 9 h 07) depuis le 15 nov. 2026, pour que les stories du récap sortent à 8 h
 CRENEAUX = [("nuit", 0, 37), ("matin", 7, 37), ("midi", 11, 37), ("fil", 13, 7), ("soir", 16, 47)]
-FENETRE = timedelta(minutes=75)
+# La fin de chaque plage (src/garde.py) : un calcul raté repart jusque-là
+FIN = {"nuit": (3, 0), "matin": (11, 0), "midi": (13, 0), "fil": (16, 30), "soir": (20, 0)}
 DEPOT, FLUX = "MitchBurns72/Tirs-nhl", "quotidien.yml"
 ETAT = Path(os.environ.get("RUNNER_TEMP") or "/tmp") / "horloge.json"
 
 
 def a_partir(maintenant, faits):
-    """Les plages dont l'heure est passée depuis moins de 75 min et pas encore parties."""
+    """Les plages dont l'heure est passée, pas encore finies et pas encore parties."""
     out = []
     for nom, h, m in CRENEAUX:
         t = maintenant.replace(hour=h, minute=m, second=0, microsecond=0)
+        fin = maintenant.replace(hour=FIN[nom][0], minute=FIN[nom][1], second=0, microsecond=0)
         cle = f"{t.date().isoformat()}-{nom}"
-        if t <= maintenant < t + FENETRE and cle not in faits:
+        if t <= maintenant < fin and cle not in faits:
             out.append((nom, cle))
     return out
 
