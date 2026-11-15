@@ -1363,6 +1363,34 @@
   "publie": true,
   "quand": "2026-11-15T11:00-05:00"
  },
+ "2026-11-15-recap-story-1": {
+  "fb": "4564509593807442",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "story",
+  "titre": "Story · récap 1",
+  "publie": true,
+  "quand": "2026-11-15T11:35-05:00"
+ },
+ "2026-11-15-recap-story-2": {
+  "fb": "2433274104231124",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "story",
+  "titre": "Story · récap 2",
+  "publie": true,
+  "quand": "2026-11-15T11:35-05:00"
+ },
+ "2026-11-15-recap": {
+  "fb": "1508565075663838_122111307687537152",
+  "fb_com": "122111307687537152_1679521187091872",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "recap",
+  "opt": {},
+  "lien": "https://puckprob.ca/fr/coupe-stanley/",
+  "lien_en": "https://puckprob.ca/stanley-cup/",
+  "titre": "Récap · séries, marqueurs, gardiens",
+  "publie": true,
+  "quand": "2026-11-15T11:36-05:00"
+ },
  "_ig": {
   "pause_jusqu": "2026-11-17T14:25-05:00",
   "rodage_jusqu": "2026-11-20T14:25-05:00"
