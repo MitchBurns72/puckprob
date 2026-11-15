@@ -4,7 +4,7 @@ name: Live
 # Le code (live_code/) est envoyé ici par le calcul de Tirs-nhl.
 # GitHub saute ou retarde ses horaires automatiques (8-10 nov. 2026 : posts du soir pris, calcul de la nuit jamais
 # parti, midi sauté). Maintenant : UN passage qui reste allumé 24 h sur 24 et boucle lui-même aux 5 min :
-#   - scores en direct et posts du fil (de 11 h à 2 h, heure de l'Est) ;
+#   - scores en direct et posts du fil (de 8 h à 2 h, heure de l'Est ; 8 h depuis le 15 nov. 2026 : les posts du matin) ;
 #   - l'horloge (live_code/horloge.py) part le calcul de Tirs-nhl à 0 h 37, 9 h 07, 11 h 37, 13 h 07 et 16 h 47.
 # Un passage dure au plus ~5 h 45 (limite de GitHub) : à la fin, il se relance lui-même (workflow_dispatch). Les
 # horaires aux heures restent comme filet : s'il tourne déjà, la relance attend derrière (concurrency).
@@ -68,8 +68,9 @@ jobs:
             # Le calcul de Tirs-nhl pousse ici (site, fil du soir, code) : on prend la dernière version à chaque tour
             git pull --rebase --autostash -q || echo "pull : raté, on continue"
             if [ -f live_code/horloge.py ]; then python live_code/horloge.py || echo "horloge : erreur"; fi
-            # De 2 h à 11 h (heure de l'Est) : pas de match ni de post, juste l'horloge
-            if [ "$h" -ge 11 ] || [ "$h" -lt 2 ]; then
+            # De 2 h à 8 h (heure de l'Est) : pas de match ni de post, juste l'horloge. (Avant : jusqu'à 11 h, et les posts
+            # du matin, prévus entre 8 h 30 et 11 h, sortaient tous d'un coup à 11 h ; Mitch, 15 nov. 2026.)
+            if [ "$h" -ge 8 ] || [ "$h" -lt 2 ]; then
               python live_code/live.py || echo "live : erreur"
               if [ -f live_code/poster.py ]; then python live_code/poster.py || echo "fil : erreur"; fi
               git add live.json 2>/dev/null || true
