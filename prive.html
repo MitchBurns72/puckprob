@@ -872,11 +872,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-pop .trx-col p{margin:4px 0 0;font-weight:700;font-size:14px;line-height:1.3}.trx-pop .trx-col p small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .trx-pop .trx-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 14px 0}
 .trx-pop .trx-ex{margin:10px 14px 0;font-size:13px;line-height:1.5;color:var(--muted)}.trx-pop .trx-src{margin:8px 14px 14px;font-size:12px;line-height:1.5;color:#8193A8}
-.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:var(--or-txt,#FFB81C);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}
+.rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:var(--or-txt,#FFB81C);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}.rum-sh{margin-left:auto;border:1.5px solid var(--goal);background:none;color:var(--goal);border-radius:999px;padding:5px 12px;font:800 12.5px var(--f-body);cursor:pointer}.rum-sh+span{margin-left:10px}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=c6f4339a">
+<link rel="stylesheet" href="carte.css?v=39e90aab">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -5464,6 +5464,89 @@ const ilYa = (q) => { const m = Math.max(0, (Date.now() - new Date(q).getTime())
 // Le club choisi dans « Mon équipe » (même clé que nav.js et club.js ; « - » = aucun)
 const favLireApp = () => { try { const v = localStorage.getItem("pp_club"); return v && v !== "-" ? v : ""; } catch (e) { return ""; } };
 const echapper = (t) => String(t || "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+// Partager une nouvelle (Mitch, 15 nov. 2026 : « un bouton share sur les news : ça envoie la pic du rectangle de la
+// news, pis la caption c'est le titre en gras avec le TL;DR » ; « mets le lien de la page, mais sans la grosse bille
+// à la Sportsnet : juste un lien cliquable dans la caption avec ma pic »). L'image : la carte de la nouvelle redessinée
+// en 1080 de large (canvas, comme les autres images à partager). La caption : le titre en gras (lettres grasses
+// Unicode : Facebook et Instagram n'ont pas de gras), le résumé, puis le lien de la page des nouvelles. Avec une photo
+// dans le post, Facebook ne fait pas d'aperçu du lien : il reste un lien cliquable dans le texte. Facebook ignore souvent
+// le texte d'un partage : la caption est aussi copiée, prête à coller.
+let RUM_L = [];
+const GRAS = (t) => String(t || "").normalize("NFD").replace(/[A-Za-z0-9]/g, c => {
+  const k = c.charCodeAt(0);
+  return String.fromCodePoint(k >= 97 ? 0x1D5EE + k - 97 : k >= 65 ? 0x1D5D4 + k - 65 : 0x1D7EC + k - 48);
+}).normalize("NFC");
+function rumLignes(g, txt, maxW){
+  const out = []; let l = "";
+  for (const m of String(txt || "").split(/\s+/)){
+    const t = l ? l + " " + m : m;
+    if (g.measureText(t).width > maxW && l){ out.push(l); l = m; } else l = t;
+  }
+  if (l) out.push(l);
+  return out;
+}
+async function rumImage(p){
+  const W = 1080, X = 50, CW = W - 100, PAD = 54, TW = CW - 2 * PAD - 14;
+  try { await Promise.all(["700 58px Barlow", "500 40px Barlow", "600 30px Barlow", "italic 800 62px 'Barlow Condensed'"].map(f => document.fonts.load(f))); } catch (e) { /* police de secours */ }
+  const m = document.createElement("canvas").getContext("2d");
+  m.font = "700 58px Barlow"; const lt = rumLignes(m, p.txt, TW);
+  m.font = "500 40px Barlow"; const ld = p.desc ? rumLignes(m, p.desc, TW).slice(0, 6) : [];
+  const eqs = (p.eqs || []).slice(0, 6);
+  const hCarte = PAD + 44 + 30 + lt.length * 68 + (ld.length ? 22 + ld.length * 54 : 0) + (eqs.length ? 34 + 72 : 0) + PAD;
+  const H = 60 + hCarte + 150;
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const g = c.getContext("2d");
+  g.fillStyle = "#0A2342"; g.fillRect(0, 0, W, H);
+  const ce = coul((p.eqs || [])[0]) || "#6B7C8C";
+  g.fillStyle = "#F2F5FA"; ptRond(g, X, 60, CW, hCarte, 22); g.fill();
+  g.save(); ptRond(g, X, 60, CW, hCarte, 22); g.clip(); g.fillStyle = ce; g.fillRect(X, 60, 14, hCarte); g.restore();
+  let y = 60 + PAD + 34;
+  const x0 = X + PAD + 14;
+  g.textAlign = "left"; g.fillStyle = "#C98F00"; g.font = "700 34px Barlow";
+  const src = String(p.src || "").toUpperCase(); g.fillText(src, x0, y);
+  if (p.auteur && p.auteur !== p.src){ const w_ = g.measureText(src).width; g.fillStyle = "#4A5D78"; g.font = "700 32px Barlow"; ptFit(g, " · " + p.auteur, TW - w_ - 230, "700 {t}px Barlow", 32, 20); g.fillText(" · " + p.auteur, x0 + w_, y); }
+  g.textAlign = "right"; g.fillStyle = "#4A5D78"; g.font = "600 30px Barlow";
+  g.fillText([p.quand ? ilYa(p.quand) : "", p.langue ? p.langue.toUpperCase() : ""].filter(Boolean).join(" · "), X + CW - PAD, y);
+  g.textAlign = "left"; y += 30;
+  g.fillStyle = "#0A2342"; g.font = "700 58px Barlow";
+  for (const l of lt){ y += 68; g.fillText(l, x0, y - 14); }
+  if (ld.length){ y += 22; g.fillStyle = "#4A5D78"; g.font = "500 40px Barlow"; for (const l of ld){ y += 54; g.fillText(l, x0, y - 12); } }
+  if (eqs.length){
+    y += 34;
+    const imgs = await Promise.all(eqs.map(t => new Promise(ok => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => ok(null); im.src = pastille(t); })));
+    imgs.forEach((im, k) => { if (im) g.drawImage(im, x0 + k * 86, y, 72, 72); });
+  }
+  // Le pied : l'adresse du site
+  g.fillStyle = ce; g.fillRect(0, H - 110, W, 6);
+  g.textAlign = "left"; g.fillStyle = "#fff"; g.font = "italic 800 62px 'Barlow Condensed'"; g.fillText("puckprob.ca", 56, H - 34);
+  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Nouvelles de la LNH", "NHL news"), W - 56, H - 44);
+  return new Promise(ok => c.toBlob(ok, "image/png"));
+}
+async function rumPartager(i){
+  const p = RUM_L[i]; if (!p) return;
+  const url = EN ? "https://puckprob.ca/tonight/#news" : "https://puckprob.ca/fr/ce-soir/#nouvelles";
+  const texte = `${GRAS(p.txt)}${p.desc ? "\n\n" + p.desc : ""}\n\n${url}`;
+  // La caption copiée tout de suite (dans le toucher : sinon le téléphone la refuse)
+  let copie = false;
+  try { await navigator.clipboard.writeText(texte); copie = true; } catch (e) {}
+  const att = document.createElement("div"); att.className = "pt-attente"; att.textContent = L("Image en préparation…", "Preparing the image…");
+  document.body.appendChild(att);
+  try {
+    const bl = await rumImage(p);
+    const f = new File([bl], "puckprob-news.png", { type: "image/png" });
+    if (navigator.canShare?.({ files: [f] })){
+      try { await navigator.share({ files: [f], text: texte, title: "PuckProb" }); }
+      catch (e) {
+        if (e.name === "NotAllowedError"){ att.textContent = L("Image prête : touche Partager encore", "Image ready: tap Share again"); await new Promise(r => setTimeout(r, 2200)); return; }
+        if (e.name !== "AbortError") throw e;
+      }
+    } else {
+      const a = document.createElement("a"); a.href = URL.createObjectURL(f); a.download = f.name;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 8000);
+    }
+    if (copie){ att.textContent = L("Caption copiée : colle-la sous ta photo", "Caption copied: paste it under your photo"); await new Promise(r => setTimeout(r, 1800)); }
+  } finally { att.remove(); }
+}
 async function rumOnglet(){
   const el = $("#rum");
   if (!RUM){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerRum(); }
@@ -5482,9 +5565,10 @@ async function rumOnglet(){
   const fav = favLireApp();
   const L0 = RUM.posts.filter(p => !feq || (p.eqs || []).includes(feq)).map((p, i) => [p, i])
     .sort((a, b) => ((b[0].eqs || []).includes(fav) - (a[0].eqs || []).includes(fav)) || a[1] - b[1]).map(x => x[0]);
-  const cartes = L0.map(p => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}" style="${(p.eqs || [])[0] ? eqV(p.eqs[0]) : ""}">
+  RUM_L = L0;
+  const cartes = L0.map((p, i_) => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}" style="${(p.eqs || [])[0] ? eqV(p.eqs[0]) : ""}">
       <div class="rum-h"><b>${fav && (p.eqs || []).includes(fav) ? "★ " : ""}${echapper(p.src)}${p.auteur && p.auteur !== p.src ? ` <span>· ${echapper(p.auteur)}</span>` : ""}</b><small>${p.quand ? ilYa(p.quand) : ""}${p.langue ? ` · ${p.langue.toUpperCase()}` : ""}${p.nouveau ? ` · <span class="wi-cours">${L("NOUVEAU", "NEW")}</span>` : ""}</small></div>
-      <p class="rum-t">${echapper(p.txt)}</p>${p.desc ? `<p class="rum-d">${echapper(p.desc)}</p>` : ""}<div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<span>${L("Lire l'article", "Read the article")} →</span></div></a>`).join("")
+      <p class="rum-t">${echapper(p.txt)}</p>${p.desc ? `<p class="rum-d">${echapper(p.desc)}</p>` : ""}<div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<button type="button" class="rum-sh" onclick="event.preventDefault();event.stopPropagation();rumPartager(${i_})">${L("Partager", "Share")}</button><span>${L("Lire l'article", "Read the article")} →</span></div></a>`).join("")
     || `<div class="card"><div class="vide">${L("Rien pour cette équipe cette semaine.", "Nothing for this team this week.")}</div></div>`;
   const srcs = (RUM.sources || []).filter(x => x[1]).map(x => x[0]).join(", ");
   el.innerHTML = tete + cartes + `<p class="aide">${L("Sources", "Sources")} : ${srcs || "–"}. ${L("Mis à jour le", "Updated")} ${dateCourte(RUM.maj)}.</p>`;
@@ -7280,8 +7364,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=c6f4339a" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=c6f4339a" defer></script>
+<script src="pub.js?v=39e90aab" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=39e90aab" defer></script>
 <script src="nav.js?v=34af59f204" defer></script>
 </body>
 </html>
