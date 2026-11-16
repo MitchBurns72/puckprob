@@ -1401,7 +1401,9 @@
   "type": "story",
   "titre": "Story · récap 1",
   "publie": true,
-  "quand": "2026-11-15T11:35-05:00"
+  "quand": "2026-11-15T11:35-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '4564509593807442' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-recap-story-2": {
   "fb": "2433274104231124",
@@ -1409,7 +1411,9 @@
   "type": "story",
   "titre": "Story · récap 2",
   "publie": true,
-  "quand": "2026-11-15T11:35-05:00"
+  "quand": "2026-11-15T11:35-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '2433274104231124' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-recap": {
   "fb": "1508565075663838_122111307687537152",
@@ -1429,7 +1433,9 @@
   "type": "story",
   "titre": "Story · récap 3",
   "publie": true,
-  "quand": "2026-11-15T11:40-05:00"
+  "quand": "2026-11-15T11:40-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '4120198051608946' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-recap-story-4": {
   "fb": "1830957884614016",
@@ -1437,7 +1443,9 @@
   "type": "story",
   "titre": "Story · récap 4",
   "publie": true,
-  "quand": "2026-11-15T11:40-05:00"
+  "quand": "2026-11-15T11:40-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1830957884614016' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-tous": {
   "fb": "1508565075663838_122111353689537152",
@@ -1459,7 +1467,9 @@
   "type": "story",
   "titre": "Story · EDM @ PHI",
   "publie": true,
-  "quand": "2026-11-15T19:20-05:00"
+  "quand": "2026-11-15T19:20-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1434307265074087' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-story-2026020327": {
   "fb": "1073068709119249",
@@ -1467,7 +1477,9 @@
   "type": "story",
   "titre": "Story · FLA @ DAL",
   "publie": true,
-  "quand": "2026-11-15T19:50-05:00"
+  "quand": "2026-11-15T19:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1073068709119249' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-story-2026020328": {
   "fb": "28963783979959599",
@@ -1475,7 +1487,9 @@
   "type": "story",
   "titre": "Story · CGY @ ANA",
   "publie": true,
-  "quand": "2026-11-15T19:50-05:00"
+  "quand": "2026-11-15T19:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '28963783979959599' does not exist, cannot be loaded due to missing permissions, or d",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-story-2026020329": {
   "fb": "1107251282073161",
@@ -1483,7 +1497,9 @@
   "type": "story",
   "titre": "Story · VAN @ VGK",
   "publie": true,
-  "quand": "2026-11-15T20:50-05:00"
+  "quand": "2026-11-15T20:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1107251282073161' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-15-story-2026020330": {
   "fb": "1835041287691033",
@@ -1491,7 +1507,9 @@
   "type": "story",
   "titre": "Story · NSH @ SJS",
   "publie": true,
-  "quand": "2026-11-15T20:50-05:00"
+  "quand": "2026-11-15T20:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1835041287691033' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-16T08:00-05:00"
  },
  "2026-11-16-nuit-story-up": {
   "fb": "999026686585691",
@@ -1509,10 +1527,18 @@
   "publie": true,
   "quand": "2026-11-16T01:00-05:00"
  },
+ "2026-11-16-recap-story-1": {
+  "fb": "1453846403569613",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Est",
+  "publie": true,
+  "quand": "2026-11-16T08:00-05:00"
+ },
  "_efface": {
-  "jour": "2026-11-15",
-  "n": 16,
-  "quand": "2026-11-15T13:20-05:00"
+  "jour": "2026-11-16",
+  "n": 9,
+  "quand": "2026-11-16T08:00-05:00"
  },
  "_ig": {
   "pause_jusqu": "2026-11-17T14:25-05:00",
