@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-16",
- "maj": "2026-11-16T00:50-05:00",
+ "maj": "2026-11-16T07:46-05:00",
  "publier": true,
  "items": [
   {
@@ -22,6 +22,136 @@
    "avant": null,
    "type": "story",
    "titre": "Story · Fallers"
+  },
+  {
+   "id": "2026-11-16-recap-story-1",
+   "quand": "2026-11-16T08:00-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 0,
+   "cadre": "social/fil/2026-11-16/recap-story-series-e.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Est"
+  },
+  {
+   "id": "2026-11-16-recap-story-2",
+   "quand": "2026-11-16T08:01-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 1,
+   "cadre": "social/fil/2026-11-16/recap-story-series-w.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Ouest"
+  },
+  {
+   "id": "2026-11-16-recap-story-3",
+   "quand": "2026-11-16T08:02-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 2,
+   "cadre": "social/fil/2026-11-16/recap-story-buteurs.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les marqueurs d'hier"
+  },
+  {
+   "id": "2026-11-16-recap-story-4",
+   "quand": "2026-11-16T08:03-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 3,
+   "cadre": "social/fil/2026-11-16/recap-story-gardiens.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les gardiens d'hier"
+  },
+  {
+   "id": "2026-11-16-matin-074648-1",
+   "quand": "2026-11-16T08:39-05:00",
+   "image": "social/fil/2026-11-16/matin-1.jpg",
+   "images": [
+    "social/fil/2026-11-16/matin-1.jpg",
+    "social/fil/2026-11-16/matin-1-2.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Les plus gros mouvements d'hier soir :\n▲ Tristan Jarry (EDM) : +1,1 M$ de PB Market Value (.909 d'efficacité, 274 tirs reçus en 10 matchs)\n▼ Juuse Saros (NSH) : −0,7 M$ de PB Market Value (.917 d'efficacité, 457 tirs reçus en 15 matchs)\nTout ce qui a bougé : https://puckprob.ca/fr/\n\nLast night's biggest movers:\n▲ Tristan Jarry (EDM): +$1.1M in PB Market Value (.909 SV%, 274 shots faced in 10 games)\n▼ Juuse Saros (NSH): −$0.7M in PB Market Value (.917 SV%, 457 shots faced in 15 games)\nEverything that moved: https://puckprob.ca/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Les plus gros mouvements d'hier soir :\n▲ Tristan Jarry (EDM) : +1,1 M$ de PB Market Value (.909 d'efficacité, 274 tirs reçus en 10 matchs)\n▼ Juuse Saros (NSH) : −0,7 M$ de PB Market Value (.917 d'efficacité, 457 tirs reçus en 15 matchs)\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLast night's biggest movers:\n▲ Tristan Jarry (EDM): +$1.1M in PB Market Value (.909 SV%, 274 shots faced in 10 games)\n▼ Juuse Saros (NSH): −$0.7M in PB Market Value (.917 SV%, 457 shots faced in 15 games)\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout ce qui a bougé / Everything that moved: https://puckprob.ca/fr/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "movers",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/",
+   "lien_en": "https://puckprob.ca/",
+   "titre": "Last Night's Biggest Movers",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-16-recap",
+   "quand": "2026-11-16T09:59-05:00",
+   "image": "social/fil/2026-11-16/recap-series.jpg",
+   "images": [
+    "social/fil/2026-11-16/recap-series.jpg",
+    "social/fil/2026-11-16/recap-buteurs.jpg",
+    "social/fil/2026-11-16/recap-gardiens.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nTous les % : https://puckprob.ca/fr/coupe-stanley/\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\nAll the %: https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\n#LNH #NHL #hockey #PuckProb",
+   "com": "Ta surprise d'hier soir ? / Last night's surprise? https://puckprob.ca/fr/coupe-stanley/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "recap",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/coupe-stanley/",
+   "lien_en": "https://puckprob.ca/stanley-cup/",
+   "titre": "Récap · séries, marqueurs, gardiens"
+  },
+  {
+   "id": "2026-11-16-matin-074655-8",
+   "quand": "2026-11-16T11:10-05:00",
+   "image": "social/fil/2026-11-16/matin-8.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB Dominance Rating : Équipes · En cours\n1. Caroline  CAR · indice de puissance\n2. Colorado  COL · indice de puissance\n3. Minnesota  MIN · indice de puissance\n4. Tampa Bay  TBL · indice de puissance\n5. Edmonton  EDM · indice de puissance\n6. Dallas  DAL · indice de puissance\n7. Boston  BOS · indice de puissance\n8. Vegas  VGK · indice de puissance\n9. New Jersey  NJD · indice de puissance\n10. Montréal  MTL · indice de puissance\n\nPB Dominance Rating: Teams · Current\n1. Carolina  CAR · power index\n2. Colorado  COL · power index\n3. Minnesota  MIN · power index\n4. Tampa Bay  TBL · power index\n5. Edmonton  EDM · power index\n6. Dallas  DAL · power index\n7. Boston  BOS · power index\n8. Vegas  VGK · power index\n9. New Jersey  NJD · power index\n10. Montreal  MTL · power index\n\nFR : https://puckprob.ca/fr/ce-soir/#power\nEN : https://puckprob.ca/tonight/#power\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "PB Dominance Rating : Équipes · En cours\n1. Caroline  CAR · indice de puissance\n2. Colorado  COL · indice de puissance\n3. Minnesota  MIN · indice de puissance\n4. Tampa Bay  TBL · indice de puissance\n5. Edmonton  EDM · indice de puissance\n6. Dallas  DAL · indice de puissance\n7. Boston  BOS · indice de puissance\n8. Vegas  VGK · indice de puissance\n9. New Jersey  NJD · indice de puissance\n10. Montréal  MTL · indice de puissance\n\nPB Dominance Rating: Teams · Current\n1. Carolina  CAR · power index\n2. Colorado  COL · power index\n3. Minnesota  MIN · power index\n4. Tampa Bay  TBL · power index\n5. Edmonton  EDM · power index\n6. Dallas  DAL · power index\n7. Boston  BOS · power index\n8. Vegas  VGK · power index\n9. New Jersey  NJD · power index\n10. Montreal  MTL · power index\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout le détail : https://puckprob.ca/fr/ce-soir/#power\n\nAll the details: https://puckprob.ca/tonight/#power",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens\n",
+   "type": "power",
+   "opt": {
+    "mode": "eq"
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#power",
+   "lien_en": "https://puckprob.ca/tonight/#power",
+   "titre": "PB Dominance Rating",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-16-matin-074658-9",
+   "quand": "2026-11-16T12:08-05:00",
+   "image": "social/fil/2026-11-16/matin-9.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB Dominance Rating : Joueurs · En cours\n1. Leon  EDM · indice de puissance\n2. Kirill  MIN · indice de puissance\n3. Connor  EDM · indice de puissance\n4. Nikita  TBL · indice de puissance\n5. Macklin  SJS · indice de puissance\n6. Kyle  WPG · indice de puissance\n7. Mark  WPG · indice de puissance\n8. Cutter  ANA · indice de puissance\n9. Sebastian  CAR · indice de puissance\n10. Quinn  MIN · indice de puissance\n\nPB Dominance Rating: Players · Current\n1. Leon  EDM · power index\n2. Kirill  MIN · power index\n3. Connor  EDM · power index\n4. Nikita  TBL · power index\n5. Macklin  SJS · power index\n6. Kyle  WPG · power index\n7. Mark  WPG · power index\n8. Cutter  ANA · power index\n9. Sebastian  CAR · power index\n10. Quinn  MIN · power index\n\nFR : https://puckprob.ca/fr/ce-soir/#power\nEN : https://puckprob.ca/tonight/#power\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "PB Dominance Rating : Joueurs · En cours\n1. Leon  EDM · indice de puissance\n2. Kirill  MIN · indice de puissance\n3. Connor  EDM · indice de puissance\n4. Nikita  TBL · indice de puissance\n5. Macklin  SJS · indice de puissance\n6. Kyle  WPG · indice de puissance\n7. Mark  WPG · indice de puissance\n8. Cutter  ANA · indice de puissance\n9. Sebastian  CAR · indice de puissance\n10. Quinn  MIN · indice de puissance\n\nPB Dominance Rating: Players · Current\n1. Leon  EDM · power index\n2. Kirill  MIN · power index\n3. Connor  EDM · power index\n4. Nikita  TBL · power index\n5. Macklin  SJS · power index\n6. Kyle  WPG · power index\n7. Mark  WPG · power index\n8. Cutter  ANA · power index\n9. Sebastian  CAR · power index\n10. Quinn  MIN · power index\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout le détail : https://puckprob.ca/fr/ce-soir/#power\n\nAll the details: https://puckprob.ca/tonight/#power",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens\n",
+   "type": "power",
+   "opt": {
+    "mode": "j"
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#power",
+   "lien_en": "https://puckprob.ca/tonight/#power",
+   "titre": "PB Dominance Rating",
+   "diapo": null
   }
  ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"
