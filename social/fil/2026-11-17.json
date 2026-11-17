@@ -1,117 +1,147 @@
 {
  "jour": "2026-11-17",
- "maj": "2026-11-17T07:48-05:00",
+ "maj": "2026-11-17T13:15-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-17-nuit-story-up",
-   "quand": "2026-11-17T00:53-05:00",
-   "story": true,
-   "courte": "matin",
-   "cadre": "social/fil/2026-11-17/nuit-up.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · Gainers"
-  },
-  {
-   "id": "2026-11-17-nuit-story-down",
-   "quand": "2026-11-17T00:55-05:00",
-   "story": true,
-   "courte": "matin",
-   "cadre": "social/fil/2026-11-17/nuit-down.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · Fallers"
-  },
-  {
-   "id": "2026-11-17-recap-story-1",
-   "quand": "2026-11-17T08:00-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 0,
-   "cadre": "social/fil/2026-11-17/recap-story-series-e.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · chances de séries, l'Est"
-  },
-  {
-   "id": "2026-11-17-recap-story-2",
-   "quand": "2026-11-17T08:01-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 1,
-   "cadre": "social/fil/2026-11-17/recap-story-series-w.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · chances de séries, l'Ouest"
-  },
-  {
-   "id": "2026-11-17-recap-story-3",
-   "quand": "2026-11-17T08:02-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 2,
-   "cadre": "social/fil/2026-11-17/recap-story-buteurs.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · les marqueurs d'hier"
-  },
-  {
-   "id": "2026-11-17-recap-story-4",
-   "quand": "2026-11-17T08:03-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 3,
-   "cadre": "social/fil/2026-11-17/recap-story-gardiens.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · les gardiens d'hier"
-  },
-  {
-   "id": "2026-11-17-matin-074819-1",
-   "quand": "2026-11-17T09:19-05:00",
-   "image": "social/fil/2026-11-17/matin-1.jpg",
+   "id": "2026-11-17-tous",
+   "quand": "2026-11-17T14:28-05:00",
+   "image": "social/fil/2026-11-17/tous-1.jpg",
    "images": [
-    "social/fil/2026-11-17/matin-1.jpg",
-    "social/fil/2026-11-17/matin-1-2.jpg"
+    "social/fil/2026-11-17/tous-1.jpg",
+    "social/fil/2026-11-17/tous-2.jpg",
+    "social/fil/2026-11-17/tous-3.jpg",
+    "social/fil/2026-11-17/tous-4.jpg",
+    "social/fil/2026-11-17/tous-5.jpg",
+    "social/fil/2026-11-17/tous-6.jpg",
+    "social/fil/2026-11-17/tous-7.jpg",
+    "social/fil/2026-11-17/tous-8.jpg",
+    "social/fil/2026-11-17/tous-9.jpg",
+    "social/fil/2026-11-17/tous-10.jpg"
    ],
    "avant": null,
    "retard": null,
-   "texte": "Les plus gros mouvements d'hier soir :\n▲ Will Cuylle (NYR) : +0,9 M$ de PB Market Value (6 B, 5 A en 22 matchs)\n▼ Ilya Sorokin (NYI) : −0,9 M$ de PB Market Value (.915 d'efficacité, 390 tirs reçus en 13 matchs)\nTout ce qui a bougé : https://puckprob.ca/fr/\n\nLast night's biggest movers:\n▲ Will Cuylle (NYR): +$0.9M in PB Market Value (6 G, 5 A in 22 games)\n▼ Ilya Sorokin (NYI): −$0.9M in PB Market Value (.915 SV%, 390 shots faced in 13 games)\nEverything that moved: https://puckprob.ca/\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Les plus gros mouvements d'hier soir :\n▲ Will Cuylle (NYR) : +0,9 M$ de PB Market Value (6 B, 5 A en 22 matchs)\n▼ Ilya Sorokin (NYI) : −0,9 M$ de PB Market Value (.915 d'efficacité, 390 tirs reçus en 13 matchs)\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLast night's biggest movers:\n▲ Will Cuylle (NYR): +$0.9M in PB Market Value (6 G, 5 A in 22 games)\n▼ Ilya Sorokin (NYI): −$0.9M in PB Market Value (.915 SV%, 390 shots faced in 13 games)\n#LNH #NHL #hockey #PuckProb",
-   "com": "Tout ce qui a bougé / Everything that moved: https://puckprob.ca/fr/",
+   "texte": "Les 10 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nTous les % de chaque joueur : https://puckprob.ca/fr/ce-soir/\n\nTonight's 10 games: who wins, how many goals, who scores. Swipe through them all.\nEvery player's %: https://puckprob.ca/tonight/\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
+   "texte_ig": "Les 10 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nTonight's 10 games: who wins, how many goals, who scores. Swipe through them all.\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
+   "com": "Ton match de la soirée ? / Your game of the night? https://puckprob.ca/fr/ce-soir/",
    "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
-   "type": "movers",
-   "opt": {},
-   "lien": "https://puckprob.ca/fr/",
-   "lien_en": "https://puckprob.ca/",
-   "titre": "Last Night's Biggest Movers",
-   "diapo": null
+   "type": "tous",
+   "opt": {
+    "n": 10
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/",
+   "lien_en": "https://puckprob.ca/tonight/",
+   "titre": "Les 10 matchs du soir · Tonight's 10 games"
   },
   {
-   "id": "2026-11-17-recap",
-   "quand": "2026-11-17T11:35-05:00",
-   "image": "social/fil/2026-11-17/recap-series.jpg",
-   "images": [
-    "social/fil/2026-11-17/recap-series.jpg",
-    "social/fil/2026-11-17/recap-buteurs.jpg",
-    "social/fil/2026-11-17/recap-gardiens.jpg"
-   ],
-   "avant": null,
-   "retard": null,
-   "texte": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nTous les % : https://puckprob.ca/fr/coupe-stanley/\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\nAll the %: https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\n#LNH #NHL #hockey #PuckProb",
-   "com": "Ta surprise d'hier soir ? / Last night's surprise? https://puckprob.ca/fr/coupe-stanley/",
-   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
-   "type": "recap",
-   "opt": {},
-   "lien": "https://puckprob.ca/fr/coupe-stanley/",
-   "lien_en": "https://puckprob.ca/stanley-cup/",
-   "titre": "Récap · séries, marqueurs, gardiens"
+   "id": "2026-11-17-story-2026020333",
+   "quand": "2026-11-17T18:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020333.jpg",
+   "avant": "2026-11-17T19:00-05:00",
+   "type": "story",
+   "titre": "Story · LAK @ BOS"
+  },
+  {
+   "id": "2026-11-17-story-2026020335",
+   "quand": "2026-11-17T18:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020335.jpg",
+   "avant": "2026-11-17T19:00-05:00",
+   "type": "story",
+   "titre": "Story · EDM @ FLA"
+  },
+  {
+   "id": "2026-11-17-story-2026020336",
+   "quand": "2026-11-17T18:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020336.jpg",
+   "avant": "2026-11-17T19:00-05:00",
+   "type": "story",
+   "titre": "Story · CBJ @ NYI"
+  },
+  {
+   "id": "2026-11-17-story-2026020337",
+   "quand": "2026-11-17T18:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020337.jpg",
+   "avant": "2026-11-17T19:00-05:00",
+   "type": "story",
+   "titre": "Story · BUF @ PHI"
+  },
+  {
+   "id": "2026-11-17-story-2026020341",
+   "quand": "2026-11-17T18:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020341.jpg",
+   "avant": "2026-11-17T19:00-05:00",
+   "type": "story",
+   "titre": "Story · OTT @ WPG"
+  },
+  {
+   "id": "2026-11-17-story-2026020334",
+   "quand": "2026-11-17T19:20-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020334.jpg",
+   "avant": "2026-11-17T19:30-05:00",
+   "type": "story",
+   "titre": "Story · WSH @ TBL"
+  },
+  {
+   "id": "2026-11-17-story-2026020338",
+   "quand": "2026-11-17T19:20-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020338.jpg",
+   "avant": "2026-11-17T19:30-05:00",
+   "type": "story",
+   "titre": "Story · TOR @ CHI"
+  },
+  {
+   "id": "2026-11-17-story-2026020339",
+   "quand": "2026-11-17T19:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020339.jpg",
+   "avant": "2026-11-17T20:00-05:00",
+   "type": "story",
+   "titre": "Story · ANA @ STL"
+  },
+  {
+   "id": "2026-11-17-story-2026020340",
+   "quand": "2026-11-17T19:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020340.jpg",
+   "avant": "2026-11-17T20:00-05:00",
+   "type": "story",
+   "titre": "Story · NSH @ MIN"
+  },
+  {
+   "id": "2026-11-17-story-2026020342",
+   "quand": "2026-11-17T21:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020342.jpg",
+   "avant": "2026-11-17T22:00-05:00",
+   "type": "story",
+   "titre": "Story · DAL @ VGK"
+  },
+  {
+   "id": "2026-11-17-story-2026020343",
+   "quand": "2026-11-17T21:50-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-17/story-2026020343.jpg",
+   "avant": "2026-11-17T22:00-05:00",
+   "type": "story",
+   "titre": "Story · CGY @ SJS"
   }
  ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"
