@@ -1641,6 +1641,22 @@
   "publie": true,
   "quand": "2026-11-16T21:20-05:00"
  },
+ "2026-11-17-nuit-story-up": {
+  "fb": "1440784607660607",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "story",
+  "titre": "Story · Gainers",
+  "publie": true,
+  "quand": "2026-11-17T00:55-05:00"
+ },
+ "2026-11-17-nuit-story-down": {
+  "fb": "1496960392281325",
+  "ig": "sauté : Instagram en pause jusqu'à 17/11 14:25 (blocage)",
+  "type": "story",
+  "titre": "Story · Fallers",
+  "publie": true,
+  "quand": "2026-11-17T00:55-05:00"
+ },
  "_efface": {
   "jour": "2026-11-16",
   "n": 9,
