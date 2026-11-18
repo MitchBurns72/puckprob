@@ -1929,6 +1929,20 @@
   "publie": true,
   "quand": "2026-11-18T11:40-05:00"
  },
+ "2026-11-18-tous": {
+  "fb": "1508565075663838_122112894543537152",
+  "fb_com": "122112894543537152_972773142202449",
+  "ig": "sauté : Instagram en pause jusqu'à 20/11 14:31 (blocage)",
+  "type": "tous",
+  "opt": {
+   "n": 3
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Les 3 matchs du soir · Tonight's 3 games",
+  "publie": true,
+  "quand": "2026-11-18T14:10-05:00"
+ },
  "_efface": {
   "jour": "2026-11-18",
   "n": 15,
