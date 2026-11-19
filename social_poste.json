@@ -1879,7 +1879,9 @@
   "type": "story",
   "titre": "Story · chances de séries, l'Est",
   "publie": true,
-  "quand": "2026-11-18T08:00-05:00"
+  "quand": "2026-11-18T08:00-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '29043020605355801' does not exist, cannot be loaded due to missing permissions, or d",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-recap-story-2": {
   "fb": "1762808344791210",
@@ -1887,7 +1889,9 @@
   "type": "story",
   "titre": "Story · chances de séries, l'Ouest",
   "publie": true,
-  "quand": "2026-11-18T08:05-05:00"
+  "quand": "2026-11-18T08:05-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1762808344791210' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-recap-story-3": {
   "fb": "29438995282405527",
@@ -1895,7 +1899,9 @@
   "type": "story",
   "titre": "Story · les marqueurs d'hier",
   "publie": true,
-  "quand": "2026-11-18T08:05-05:00"
+  "quand": "2026-11-18T08:05-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '29438995282405527' does not exist, cannot be loaded due to missing permissions, or d",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-recap-story-4": {
   "fb": "1173117758385148",
@@ -1903,7 +1909,9 @@
   "type": "story",
   "titre": "Story · les gardiens d'hier",
   "publie": true,
-  "quand": "2026-11-18T08:06-05:00"
+  "quand": "2026-11-18T08:06-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1173117758385148' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-matin-074625-1": {
   "fb": "1508565075663838_122112806283537152",
@@ -1949,7 +1957,9 @@
   "type": "story",
   "titre": "Story · BOS @ DET",
   "publie": true,
-  "quand": "2026-11-18T19:20-05:00"
+  "quand": "2026-11-18T19:20-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '2099499974019533' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-story-2026020345": {
   "fb": "1182421184119545",
@@ -1957,7 +1967,9 @@
   "type": "story",
   "titre": "Story · MTL @ NJD",
   "publie": true,
-  "quand": "2026-11-18T19:20-05:00"
+  "quand": "2026-11-18T19:20-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '1182421184119545' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-18-story-2026020346": {
   "fb": "2319943208840797",
@@ -1965,7 +1977,9 @@
   "type": "story",
   "titre": "Story · COL @ UTA",
   "publie": true,
-  "quand": "2026-11-18T21:50-05:00"
+  "quand": "2026-11-18T21:50-05:00",
+  "efface_fb": "erreur : Meta 400 : {\"error\":{\"message\":\"Unsupported delete request. Object with ID '2319943208840797' does not exist, cannot be loaded due to missing permissions, or do",
+  "efface": "2026-11-19T08:00-05:00"
  },
  "2026-11-19-nuit-story-up": {
   "fb": "1725707035805220",
@@ -1983,10 +1997,18 @@
   "publie": true,
   "quand": "2026-11-19T01:00-05:00"
  },
+ "2026-11-19-recap-story-1": {
+  "fb": "3018104048553961",
+  "ig": "sauté : Instagram en pause jusqu'à 20/11 14:31 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Est",
+  "publie": true,
+  "quand": "2026-11-19T08:00-05:00"
+ },
  "_efface": {
-  "jour": "2026-11-18",
-  "n": 15,
-  "quand": "2026-11-18T08:00-05:00"
+  "jour": "2026-11-19",
+  "n": 7,
+  "quand": "2026-11-19T08:00-05:00"
  },
  "_ig": {
   "pause_jusqu": "2026-11-20T14:31-05:00",
