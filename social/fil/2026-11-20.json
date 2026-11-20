@@ -1,7 +1,27 @@
 {
  "jour": "2026-11-20",
- "maj": "2026-11-20T18:05-05:00",
+ "maj": "2026-11-20T18:12-05:00",
  "publier": true,
- "items": [],
+ "items": [
+  {
+   "id": "2026-11-20-matin-fil",
+   "quand": "2026-11-20T18:19-05:00",
+   "image": "social/fil/2026-11-20/2026-11-20-matin-fil.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · Hagel et Makar sur la touche : mauvaise journée pour les poursuivants\n\nLe Lightning et l'Avalanche, nos 2e et 3e favoris pour la Coupe derrière la Caroline, ont chacun placé un gros morceau sur la liste des blessés jeudi. Pendant ce temps, ça brasse à Detroit, et à Pittsburgh, on regarde passer le train.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · Hagel and Makar go down: a rough day for the chasers\n\nTampa Bay and Colorado, our second and third Cup favourites behind Carolina, each put a big piece on injured reserve Thursday. Meanwhile, things are heating up in Detroit, and Pittsburgh is watching the train go by.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · Hagel et Makar sur la touche : mauvaise journée pour les poursuivants\n\nLe Lightning et l'Avalanche, nos 2e et 3e favoris pour la Coupe derrière la Caroline, ont chacun placé un gros morceau sur la liste des blessés jeudi. Pendant ce temps, ça brasse à Detroit, et à Pittsburgh, on regarde passer le train.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · Hagel and Makar go down: a rough day for the chasers\n\nTampa Bay and Colorado, our second and third Cup favourites behind Carolina, each put a big piece on injured reserve Thursday. Meanwhile, things are heating up in Detroit, and Pittsburgh is watching the train go by.\n\nFull article: link in bio.",
+   "com": "Hagel et Makar sur la touche : mauvaise journée pour les poursuivants\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-20/\n\nHagel and Makar go down: a rough day for the chasers\nhttps://puckprob.ca/on-the-wire/2026-11-20/",
+   "com_ig": "Hagel et Makar sur la touche : mauvaise journée pour les poursuivants\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nHagel and Makar go down: a rough day for the chasers",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-20"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-20/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-20/",
+   "titre": "PB On The Wire · Hagel et Makar sur la touche : mauvaise journée pour les poursuivants"
+  }
+ ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"
 }
