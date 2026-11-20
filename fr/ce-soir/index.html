@@ -369,6 +369,11 @@ html.fen-on .wi-modal{z-index:80}
 .wi-carte header .wi-rond{width:46px;height:52px;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 2px var(--pt,#fff)} .wi-carte header .wi-rond b{font-size:19px}
 .wi-carte .wi-eqs i{box-shadow:0 0 0 1px rgba(255,255,255,.6)}
 .wi-carte header .wi-hd{flex:1;min-width:0}.wi-carte header .wi-eqs{display:flex}.wi-carte header .wi-rond{display:flex}.wi-carte header .wi-hd span:not(.wi-rond):not(.wi-eqs){display:block}
+/* Le nom de famille dans le haut d'une fiche ou d'une fenêtre : la même couleur et la même police que le prénom
+   (Mitch, 20 nov. 2026 : « le prénom est blanc et le nom foncé, mets les deux blancs ») ; avant, la règle des petites
+   lignes du haut (bloc, 13 px, couleur des sous-titres) l'attrapait aussi, parce que c'est un <span> */
+.wi-carte header b span.pers-n.pers-n.pers-n.pers-n{display:inline;font:inherit;color:inherit;opacity:1;margin:0;text-shadow:inherit;white-space:nowrap}
+.wi-carte header b span.pers.pers.pers.pers{display:inline-block;margin:0 0 0 .3em;opacity:1;font:inherit;text-shadow:none}
 .wi-l .nm{font:800 18px/1.05 var(--f-display);text-transform:uppercase}
 .wi-l .nm small,.wi-l .v small{display:block;font:500 12px var(--f-body);color:var(--muted);text-transform:none;margin-top:3px}
 .wi-l .v{font:italic 800 26px/.9 var(--f-display);text-align:right}
@@ -920,6 +925,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 #f-troph::-webkit-scrollbar{display:none}
 #f-troph .chip.big{font-size:15px;padding:8px 16px 8px 11px;flex:none}
 .tr{--eq:var(--muted);display:grid;grid-template-columns:24px 46px minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);position:relative}
+#coupe .tr[data-pid]:not([data-pid=""]){cursor:pointer}
 .tr:first-child{border-top:0}
 .tr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--eq)}
 .tr .ph{width:46px;height:46px;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--eq) 35%,#fff);box-shadow:0 0 0 2px var(--eq)}
@@ -1060,7 +1066,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=8d1e4831">
+<link rel="stylesheet" href="carte.css?v=a34e2780">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -3722,6 +3728,12 @@ function duoHTML(U){
     <p class="aide">Pourquoi ça diffère : les journalistes (Hart) récompensent la valeur pour l'équipe, les buts, et parfois un gardien. Les joueurs (Lindsay) prennent le meilleur producteur : chaque fois, leur gagnant était 1er en points ou en points par match.</p>
     ${rows ? `<div class="tbl"><table class="serre"><thead><tr><th>Saison</th><th>Hart</th><th>Ted-Lindsay</th></tr></thead><tbody>${rows}</tbody></table></div>` : ""}</div>`;
 }
+// Toute la rangée d'une course aux trophées ouvre la fenêtre du joueur (pas seulement son nom ; Mitch, 20 nov. 2026)
+document.addEventListener("click", (e) => {
+  const r = e.target.closest?.("#coupe .tr[data-pid]");
+  if (!r || !r.dataset.pid || e.target.closest("a,button")) return;
+  ouvrirJoueur(r.dataset.pid);
+});
 function trophHTML(t){
   const el = $("#coupe"), B = D.trophees?.trophees?.[t], I = TROPH[t];
   if (!B){ el.innerHTML = `<div class="card"><div class="vide">Le ${I.nom} arrive au prochain calcul.</div></div>`; return; }
@@ -8327,6 +8339,42 @@ const COR_STATS = [
   ["rend", "Rendement (PBMV / contrat)", "Return (PBMV / contract)", "contrat", (j) => j.sal?.rend != null ? +j.sal.rend.toFixed(2) : null],
 ];
 const COR_FAM = [["base", "Stats de base", "Basic stats"], ["physique", "Physique", "Physical"], ["pb", "Nos stats PB", "Our PB stats"], ["contrat", "Contrats", "Contracts"]];
+// Toutes les stats qu'on a (Mitch, 20 nov. 2026 : « mets toutes les stats qu'on a dans PB Correlation ») : en plus de
+// celles d'en haut, tout le catalogue de PB Stats (docs/pbstats/x/cat.json : chaque stat de la LNH récoltée par
+// src/pbstats_plus.py, joueurs et gardiens, la saison choisie), l'âge, la taille et PB Power ranking. Ajoutées une
+// fois, au 1er chargement du catalogue. Les % s'affichent sur 100, les temps de glace en minutes.
+const COR_XFAM = { pun: ["Punitions", "Penalties"], an: ["Avantage numérique", "Power play"], dn: ["Désavantage numérique", "Shorthanded"],
+  fe: ["Forces égales", "Even strength"], clutch: ["Moments clés", "Clutch"], tirs: ["Tirs", "Shooting"], phys: ["Physique", "Physical"],
+  mj: ["Mises au jeu", "Faceoffs"], tg: ["Temps de glace", "Ice time"], tdb: ["Tirs de barrage", "Shootouts"], glace: ["Sur la glace", "On ice"],
+  poss: ["Possession", "Possession"], base: ["Stats de base", "Basic stats"] };
+// Celles du catalogue qui sont déjà en haut (même chose, autre source) : pas deux fois dans la liste
+const COR_XDEJA = { j: ["pj", "b", "a", "p", "ppm", "pun", "mee", "tb", "mjg", "tg"], g: ["sv"] };
+let COR_XOK = false;
+function corAjouterCatalogue(cat){
+  if (COR_XOK || !cat) return;
+  COR_XOK = true;
+  const pc = (v) => (EN ? "" : "") + String(v).replace(".", EN ? "." : ",") + (EN ? "%" : " %");
+  const val = (c) => (x) => { const v = x?.[c.k]; if (v == null || Number.isNaN(v)) return null;
+    return c.f === "p" || c.f === "p3" ? +(v * 100).toFixed(1) : c.f === "t" ? +(v / 60).toFixed(2) : c.f === "d" ? +v.toFixed(2) : Math.round(v * 10) / 10; };
+  const fmt = (c) => c.f === "p" || c.f === "p3" ? (v) => pc(+(+v).toFixed(1)) : c.f === "t" ? (v) => `${String(+(+v).toFixed(1)).replace(".", EN ? "." : ",")} min` : null;
+  for (const c of cat.j || []){
+    if (COR_XDEJA.j.includes(c.k)) continue;
+    const fam = c.grp === "phys" ? "physique" : c.grp === "base" ? "base" : "x_" + c.grp, f = val(c);
+    if (!COR_FAM.some(x => x[0] === fam)) COR_FAM.push([fam, ...(COR_XFAM[c.grp] || [c.grp, c.grp])]);
+    COR_STATS.push(["x:" + c.k, c.fr, c.en, fam, (j) => f(j.x), fmt(c)]);
+  }
+  if (!COR_FAM.some(x => x[0] === "gardiens")) COR_FAM.push(["gardiens", "Gardiens", "Goalies"]);
+  for (const c of cat.g || []){
+    if (COR_XDEJA.g.includes(c.k)) continue;
+    const f = val(c);
+    COR_STATS.push(["g:" + c.k, c.fr + (c.k === "pj" || / \(gardien\)$/.test(c.fr) ? "" : " (gardiens)"), c.en + (c.k === "pj" || / \(goalie\)$/.test(c.en) ? "" : " (goalies)"),
+      "gardiens", (j) => f(j.xg), fmt(c)]);
+  }
+  COR_FAM.push(["profil", "Profil", "Profile"]);
+  COR_STATS.push(["age", "Âge", "Age", "profil", (j) => j.age ?? null],
+                 ["taille", "Taille (pouces)", "Height (inches)", "profil", (j) => j.bio?.[0] ?? null],
+                 ["pbpr", "PB Power ranking (joueurs, %)", "PB Power ranking (players, %)", "pb", (j) => j.pwr?.pc ?? null]);
+}
 const corStat = (k) => COR_STATS.find(s => s[0] === k) || COR_STATS[0];
 const corMin = (t) => /^(PB|xG|%)/.test(t) ? t : t.charAt(0).toLowerCase() + t.slice(1);       // « plus de points », mais « plus de PB Market Value »
 const corFmt = (k, v) => v == null ? "–" : (corStat(k)[5] ? corStat(k)[5](v) : (Math.abs(v) >= 1000 ? Math.round(v).toLocaleString(LANG) : String(v).replace(".", EN ? "." : ",")) + (["pbir", "pbcs", "pbgc"].includes(k) ? (EN ? "%" : " %") : ""));
@@ -8339,6 +8387,11 @@ async function corDonnees(sai){
   const url = (f) => !sai ? f : new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${sai}/` + (comp ? "complete/" : "") + f;
   const get = (f) => (!sai || ok.includes(f)) ? fetch(url(f) + "?v=" + (D?.date || "")).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null);
   const [sal, phy, prj, duo, gcr, wi] = await Promise.all(["salaires.json", "physique.json", "projections.json", "duos.json", "gcr.json", sai ? "-" : "whatif.json"].map(f => f === "-" ? null : get(f)));
+  // Le catalogue de PB Stats (toutes les stats de la LNH de la saison), l'âge, la taille, PB Power ranking
+  const sx = sai || saisonCour();
+  const [cat, X, , pwr] = await Promise.all([pbxCat(), pbxSaison(sx), FEN_CH.nais().catch(() => null), sai ? null : chargerPwr()]);
+  if (!BIOS) await biosCharger().catch(() => null);
+  corAjouterCatalogue(cat);
   const J = {};
   const ajt = (id, k, v) => { if (!id) return; id = String(id); (J[id] = J[id] || { id })[k] = v; };
   for (const v of Object.values(sal?.joueurs || {})) ajt(v.id, "sal", v);
@@ -8347,7 +8400,32 @@ async function corDonnees(sai){
   for (const g of gcr?.gardiens || []) ajt(g.id, "gcr", g);
   for (const d of duo?.duos || []) for (const p of d.j || []){ const v = d.pc ?? d.ch; if (v == null) continue; const id = String(p[0]); if (J[id] && (J[id].chem == null || v > J[id].chem)) J[id].chem = v; }
   if (wi?.j) for (const id of Object.keys(J)) if (wi.j[id]) J[id].wi = wi.j[id];
-  for (const j of Object.values(J)){ const s = j.sal || j.phy || j.prj || j.gcr || {}; j.n = s.n; j.eq = s.eq; j.no = s.no; j.pos = s.pos; j.pj = j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj ?? j.gcr?.pj ?? 0; }
+  // Les stats de la LNH de la saison (un joueur échangé : ses lignes de chaque équipe additionnées)
+  if (cat && X) for (const t of ["j", "g"]){
+    const B = X[t]; if (!B?.c) continue;
+    const catL = cat[t] || [], catK = Object.fromEntries(catL.map(c => [c.k, c])), acc = {};
+    for (const row of B.r || []){
+      const id = String(row[0]), o = pbxLigne(B.c, row, "r", t, catK);
+      const a = acc[id] || (acc[id] = { _row: row });
+      pbxAjouter(a, o, catL, 1);
+    }
+    for (const [id, a] of Object.entries(acc)){
+      pbxFinir(a, catL, t, "r");
+      const r = a._row;
+      if (!J[id]) J[id] = { id, x_n: r[1], x_eq: r[3], x_pos: r[2] };
+      J[id][t === "j" ? "x" : "xg"] = a;
+      J[id].x_pj = a._pjr;
+    }
+  }
+  // L'âge au 1er février de la saison (comme PB Stats), la taille, PB Power ranking (saison en cours seulement)
+  const an = +String(sx).slice(0, 4) + 1;
+  for (const [id, j] of Object.entries(J)){
+    const nd = PBS.nais?.j?.[id] || PBS.nais?.g?.[id];
+    if (nd){ const [y, m, d] = nd.split("-").map(Number); j.age = +((an - y) + (2 - m) / 12 + (1 - d) / 365).toFixed(1); }
+    if (BIOS?.[id]) j.bio = BIOS[id];
+  }
+  if (pwr) for (const x of [...(pwr.joueurs || []), ...(pwr.gardiens || [])]) if (J[String(x.id)]) J[String(x.id)].pwr = x;
+  for (const j of Object.values(J)){ const s = j.sal || j.phy || j.prj || j.gcr || {}; j.n = s.n ?? j.x_n; j.eq = s.eq ?? j.x_eq; j.no = s.no; j.pos = s.pos ?? j.x_pos; j.pj = j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj ?? j.gcr?.pj ?? j.x_pj ?? 0; }
   return (COR.cache[sai] = { J: Object.values(J).filter(j => j.n), comp, x });
 }
 function corSelect(id, val){
@@ -8908,8 +8986,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=8d1e4831" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=8d1e4831" defer></script>
-<script src="nav.js?v=beb4ca712b" defer></script>
+<script src="pub.js?v=a34e2780" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a34e2780" defer></script>
+<script src="nav.js?v=1fee1a6e5f" defer></script>
 </body>
 </html>

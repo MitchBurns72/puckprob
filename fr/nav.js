@@ -236,6 +236,24 @@
   function nrmQ(t){ return String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim(); }
   function esc(t){ return String(t == null ? "" : t).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function vaA(h){ return racine + (FR ? "fr/" : "") + h; }
+  // Un joueur ou une équipe touché n'importe où sur le site -> sa fenêtre (Mitch, 20 nov. 2026 : « partout partout
+  // partout, on clique sur un joueur ou une équipe, c'est les nouvelles pages »). Les liens gardent leur adresse vers
+  // les vieilles pages texte (players/<nom>/, teams/<équipe>/) : Google les suit encore ; seul le clic d'une personne
+  // est détourné. Dans l'application : la fenêtre s'ouvre sur place ; ailleurs : on va à l'application, fenêtre ouverte.
+  // Un joueur a besoin de son numéro (data-pid sur le lien ou sur sa rangée) ; sans numéro, le lien fait comme avant.
+  document.addEventListener("click", function(ev){
+    if (ev.defaultPrevented || ev.button || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    var a = ev.target.closest && ev.target.closest("a[href]"); if (!a || a.target === "_blank") return;
+    var h = a.getAttribute("href") || "";
+    var mj = /(?:^|\/)(?:players|joueurs)\/([a-z0-9-]+)\/?$/i.exec(h), me = /(?:^|\/)(?:teams|equipes)\/([a-z]{3})\/?$/i.exec(h);
+    var pid = mj ? (a.getAttribute("data-pid") || (a.closest("[data-pid]") || { getAttribute: function(){ return ""; } }).getAttribute("data-pid") || "") : "";
+    pid = String(pid).replace(/[^0-9]/g, "");
+    if (!(mj && pid) && !me) return;
+    ev.preventDefault(); ev.stopPropagation();
+    if (mj && typeof window.ouvrirJoueur === "function"){ window.ouvrirJoueur(pid); return; }
+    if (me && typeof window.ouvrirEquipe === "function"){ window.ouvrirEquipe(me[1].toUpperCase()); return; }
+    location.href = vaA(APP + "#" + (mj ? (FR ? "joueur/" : "player/") + mj[1] + "-" + pid : (FR ? "equipe/" : "team/") + me[1].toLowerCase()));
+  }, true);
   // Un mot cherché colle si un mot du nom commence par lui (« suz » -> Suzuki), ou le nom au complet le contient
   function colle(nom, q){
     var n = nrmQ(nom); if (!q) return 0;
