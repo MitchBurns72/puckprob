@@ -1,0 +1,140 @@
+{
+ "jour": "2026-11-20",
+ "par": "claude",
+ "titre": {
+  "fr": "Hagel et Makar sur la touche : mauvaise journée pour les poursuivants",
+  "en": "Hagel and Makar go down: a rough day for the chasers"
+ },
+ "titre_court": {
+  "fr": "Hagel et Makar sur la touche",
+  "en": "Hagel and Makar go down"
+ },
+ "chapeau": {
+  "fr": "Le Lightning et l'Avalanche, nos 2e et 3e favoris pour la Coupe derrière la Caroline, ont chacun placé un gros morceau sur la liste des blessés jeudi. Pendant ce temps, ça brasse à Detroit, et à Pittsburgh, on regarde passer le train.",
+  "en": "Tampa Bay and Colorado, our second and third Cup favourites behind Carolina, each put a big piece on injured reserve Thursday. Meanwhile, things are heating up in Detroit, and Pittsburgh is watching the train go by."
+ },
+ "corps": {
+  "fr": [
+   {
+    "p": "Commençons par Tampa. [[8479542|Brandon Hagel]], c'est 13 buts et 24 points en 20 matchs, un rythme de 84 points. Selon notre **PB Market Value**, un joueur qui produit comme ça vaut 12,4 M$ par année. Il en coûte 6,5 M$ au Lightning. On parle d'un des meilleurs contrats de la ligue, et c'est lui qui tombe. Jansen Harkins monte de Syracuse pour boucher le trou."
+   },
+   {
+    "p": "Même journée, même scénario au Colorado : [[8480069|Cale Makar]] rejoint la liste des blessés après 23 points en 19 matchs, dont 18 passes ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/avalanche-recall-adam-beckman-place-cale-makar-on-injured-reserve.html)). Dans notre course au Norris, il était déjà 9e (1,6 %), loin derrière [[8480803|Evan Bouchard]] (32 %) et [[8480800|Quinn Hughes]] (28 %), et une absence prolongée n'arrangera rien. L'Avalanche reste quand même 3e de nos **Power rankings**, avec 11,7 % de chances de soulever la Coupe. Le Lightning suit à 10,2 %. Nos simulations repassent chaque nuit : on va voir assez vite ce que ces deux absences coûtent vraiment."
+   },
+   {
+    "p": "À Detroit, ça commence à sentir le brûlé. Selon un rapport relayé par [Daily Faceoff](https://www.dailyfaceoff.com/), Simon Edvinsson aurait refusé plusieurs offres hostiles pour forcer sa sortie, et [The Hockey Writers](https://thehockeywriters.com/red-wings-2026-27-trades-prediction/) rappelle que [[8477946|Dylan Larkin]] a lui aussi demandé à partir. Les Red Wings sont 24es dans nos Power rankings et n'ont que 9,9 % de chances de faire les séries. Larkin a seulement 6 points en 10 matchs cette saison, mais sa PB Market Value (9,1 M$) dépasse encore son salaire (8,7 M$). Pour un acheteur, ce serait pas un mauvais deal."
+   },
+   {
+    "p": "À Pittsburgh, [[8471675|Sidney Crosby]] dit à [RDS](https://www.rds.ca/hockey/lnh/article/crosby-pas-presse-de-prendre-une-decision-a-propos-de-son-avenir/) qu'il n'est « pas pressé de prendre une décision » sur son avenir. Pendant ce temps, [[8481582|Nick Robertson]] s'en va sur la liste des blessés avec une ligne de stats rare : 7 points en 20 matchs, et c'est 7 buts. Zéro passe. Les Penguins, 22es dans nos Power rankings, ont 9,6 % de chances de faire les séries."
+   },
+   {
+    "h": "En rafale"
+   },
+   {
+    "liste": [
+     "Calgary aimerait prolonger [[8480028|Morgan Frost]] ([Daily Faceoff](https://www.dailyfaceoff.com/news/calgary-flames-hoping-to-re-sign-pending-ufa-morgan-frost-nhl-newhook-contract)). Notre PB Market Value le place à 6,2 M$, contre 4,4 M$ aujourd'hui. Ça va coûter plus cher.",
+     "Vegas place [[8478396|Noah Hanifin]] sur la liste des blessés et rappelle Lukas Cormier.",
+     "Winnipeg soumet le gardien [[8483532|Clay Stevenson]] au ballottage (,862 d'efficacité).",
+     "Selon [The Hockey Writers](https://thehockeywriters.com/senators-should-trade-burakovsky-to-address-lack-of-depth/), Ottawa devrait échanger [[8477444|Andre Burakovsky]] : 0 point en 8 matchs.",
+     "Va-et-vient avec la Ligue américaine : Pitlick (Minnesota), Silaev (New Jersey), Solberg (Anaheim), Biber (Utah)."
+    ]
+   },
+   {
+    "p": "Toutes les transactions sont dans la section **Transactions** de PuckProb, et chaque échange y est noté sur 100 %."
+   }
+  ],
+  "en": [
+   {
+    "p": "Let's start in Tampa. [[8479542|Brandon Hagel]] has 13 goals and 24 points in 20 games, an 84-point pace. Our **PB Market Value** says a player producing like that is worth $12.4M a year. He costs the Lightning $6.5M. That's one of the best contracts in the league, and he's the one going down. Jansen Harkins comes up from Syracuse to plug the hole."
+   },
+   {
+    "p": "Same day, same story in Colorado: [[8480069|Cale Makar]] lands on injured reserve after 23 points in 19 games, 18 of them assists ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/avalanche-recall-adam-beckman-place-cale-makar-on-injured-reserve.html)). In our Norris race he was already 9th (1.6%), well behind [[8480803|Evan Bouchard]] (32%) and [[8480800|Quinn Hughes]] (28%), and a long absence won't help. The Avalanche are still 3rd in our **Power rankings**, with an 11.7% prob of lifting the Cup. The Lightning sit at 10.2%. Our simulations rerun every night: we'll know soon enough what these two absences really cost."
+   },
+   {
+    "p": "In Detroit, you can smell the smoke. A report relayed by [Daily Faceoff](https://www.dailyfaceoff.com/) says Simon Edvinsson turned down several offer sheets to force his way out, and [The Hockey Writers](https://thehockeywriters.com/red-wings-2026-27-trades-prediction/) points out that [[8477946|Dylan Larkin]] has asked out too. The Red Wings are 24th in our Power rankings with just a 9.9% prob of making the playoffs. Larkin only has 6 points in 10 games this season, but his PB Market Value ($9.1M) still tops his salary ($8.7M). For a buyer, that's not a bad deal."
+   },
+   {
+    "p": "In Pittsburgh, [[8471675|Sidney Crosby]] told [RDS](https://www.rds.ca/hockey/lnh/article/crosby-pas-presse-de-prendre-une-decision-a-propos-de-son-avenir/) he's \"in no rush to make a decision\" about his future. Meanwhile, [[8481582|Nick Robertson]] goes on injured reserve with a rare stat line: 7 points in 20 games, all 7 of them goals. Zero assists. The Penguins, 22nd in our Power rankings, have a 9.6% prob of making the playoffs."
+   },
+   {
+    "h": "Quick hits"
+   },
+   {
+    "liste": [
+     "Calgary hopes to re-sign [[8480028|Morgan Frost]] ([Daily Faceoff](https://www.dailyfaceoff.com/news/calgary-flames-hoping-to-re-sign-pending-ufa-morgan-frost-nhl-newhook-contract)). Our PB Market Value puts him at $6.2M, up from $4.4M today. It's going to cost more.",
+     "Vegas puts [[8478396|Noah Hanifin]] on injured reserve and recalls Lukas Cormier.",
+     "Winnipeg places goalie [[8483532|Clay Stevenson]] on waivers (.862 SV%).",
+     "According to [The Hockey Writers](https://thehockeywriters.com/senators-should-trade-burakovsky-to-address-lack-of-depth/), Ottawa should trade [[8477444|Andre Burakovsky]]: 0 points in 8 games.",
+     "AHL shuffle: Pitlick (Minnesota), Silaev (New Jersey), Solberg (Anaheim), Biber (Utah)."
+    ]
+   },
+   {
+    "p": "Every transaction is in PuckProb's **Transactions** section, and every trade gets graded out of 100%."
+   }
+  ]
+ },
+ "vedette": {
+  "id": "8479542",
+  "n": "Brandon Hagel",
+  "eq": "TBL",
+  "no": 38,
+  "etiquette": {
+   "fr": "Sur la liste des blessés",
+   "en": "On injured reserve"
+  },
+  "sous": {
+   "fr": "Tampa Bay · 3e favori pour la Coupe",
+   "en": "Tampa Bay · 3rd Cup favourite"
+  },
+  "cases": [
+   {
+    "v": "24",
+    "fr": "pts en 20 PJ",
+    "en": "pts in 20 GP"
+   },
+   {
+    "v": "12,4 M$",
+    "v_en": "$12.4M",
+    "fr": "PB Market Value",
+    "en": "PB Market Value"
+   }
+  ]
+ },
+ "points": {
+  "fr": [
+   "Makar aussi : le Colorado perd son quart-arrière",
+   "Detroit : Larkin et Edvinsson veulent partir",
+   "Crosby « pas pressé » de décider de son avenir"
+  ],
+  "en": [
+   "Makar too: Colorado loses its quarterback",
+   "Detroit: Larkin and Edvinsson want out",
+   "Crosby \"in no rush\" to decide his future"
+  ]
+ },
+ "ids": [
+  "1e87f56d3ae1",
+  "85cb59cdc888",
+  "n:b88fa227cc37",
+  "486a084e62c5",
+  "n:ee21e4399aa1",
+  "n:d09d75cd249c",
+  "n:59ebe5f51830",
+  "acdfb2ca92d9",
+  "e2ecf3b37cc4",
+  "n:186b272a5f0b",
+  "n:d309d010a661",
+  "n:dae064d94d63",
+  "d6d3b3b434c2",
+  "f2a0767f6482",
+  "af396b1be1b8",
+  "b06e695a0278",
+  "8d4bc95a2c32",
+  "6fb37380ac65",
+  "387e88b2ec87"
+ ],
+ "depuis": "2026-11-19T22:30",
+ "jusqu": "2026-11-20T22:38",
+ "saison": "20262027",
+ "auteur": "PuckProb.ca"
+}
