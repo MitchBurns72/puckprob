@@ -180,7 +180,7 @@ nav.menu::-webkit-scrollbar{display:none}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
 /* Plaque du joueur : rectangle aux couleurs de son équipe, numéro + position (pas de photo sur le site public :
-   droits d'image de la LNH et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
+   droits d'image de la ligue et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
 .plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--pf,var(--eq, var(--muted)));color:var(--pt,#fff);box-shadow:inset 0 0 0 2px var(--pb,transparent);text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .plaque b{font:800 16px/1 var(--f-display);paint-order:stroke fill;-webkit-text-stroke:.16em var(--ps,#000);text-shadow:none}  /* le numéro cerné de la 3e couleur (idée de Mitch) */
 .plaque i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
@@ -200,6 +200,103 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--pf,var(--eq));color:var(--pt,#fff);text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 1px var(--pf,var(--eq))}
 .wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.wi-eqs i .eqlg{width:13px;height:13px;margin-right:2px;background:#fff;border-radius:50%;padding:1px} .wi-eqs i:has(.eqlg){display:inline-flex;align-items:center;padding:0 5px 0 3px}
+/* Les logos de l'emblème (19 nov. 2026) : en filigrane derrière le numéro, en rond dans le coin */
+.wi-rond,.plaque{position:relative;overflow:visible} .wi-rond b,.wi-rond i,.plaque b,.plaque i{position:relative;z-index:1}
+.pl-wm{position:absolute;left:50%;top:42%;width:78%;height:auto;transform:translate(-50%,-50%);opacity:.22;pointer-events:none;z-index:0}
+.pl-lg{position:absolute;top:-7px;right:-9px;width:20px;height:20px;padding:2px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.45);z-index:2}
+.wi-carte header .pl-lg{width:24px;height:24px;top:-8px;right:-10px}
+/* La face du joueur à droite des popups (19 nov. 2026, maquette approuvée) + sa fiche (grandeur, poids, main, repêchage) */
+.wi-carte header{position:relative;overflow:hidden}
+/* La face à droite (maquette approuvée) : l'emblème au-dessus du nom, la photo collée au bas du bandeau, les boutons
+   Partager/Fermer gardés en haut à droite par-dessus. Le dégradé reprend la couleur du club (--pt : sa 2e couleur). */
+html .wi-carte.wi-carte header.a-face{padding-right:132px;min-height:170px;align-items:flex-start}
+.wi-carte header.a-face::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(105deg,transparent 45%,color-mix(in srgb,var(--pt,#fff) 30%,transparent) 100%)}
+.wi-carte header.a-face .wi-hd{flex-direction:column;align-items:flex-start;gap:8px}
+.wi-carte header.a-face .wi-rond{flex:none} .wi-carte header.a-face .wi-hd span{white-space:normal}
+.wi-carte header.a-face .pt-btn{position:absolute;top:10px;right:56px;margin:0;z-index:3}
+.wi-carte header.a-face .wi-x{position:absolute;top:10px;right:10px;margin:0;z-index:3}
+.wi-carte header > img.wi-face{position:absolute;right:-6px;bottom:0;height:158px;width:auto;z-index:1;pointer-events:none;filter:drop-shadow(0 6px 12px rgba(0,0,0,.45))}
+.wi-carte header > *:not(.wi-face){position:relative;z-index:1}
+.wi-bio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px 14px 12px}
+.wi-bio div{background:color-mix(in srgb,var(--ink) 8%,transparent);border-radius:8px;padding:7px 9px;min-width:0}
+.wi-bio div.l{grid-column:1 / -1}
+.wi-bio small{display:block;font:700 10.5px var(--f-body);letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.wi-bio b{display:block;font:800 16px/1.15 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ---- La fenêtre joueur (20 nov. 2026, maquette approuvée) : une page par-dessus le site, plein écran sur cell et
+   tablette (centrée, 760 px max, sur un grand écran). Le haut reprend la fiche des popups (la face, l'emblème, la fiche
+   grandeur/poids/repêchage) ; les fiches d'avant deviennent des onglets, sans leur propre haut. */
+html.fen-on,html.fen-on body{overflow:hidden}
+#fenetre{position:fixed;inset:0;z-index:70;background:rgba(5,12,24,.78);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#fenetre[hidden]{display:none}
+.fen-boite{max-width:760px;min-height:100%;margin:0 auto;background:var(--bg,#0A2342);animation:fen-in .22s ease-out}
+@keyframes fen-in{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.fen-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));background:#061833;border-bottom:3px solid var(--or,#FFB81C)}
+.fen-ret{flex:none;background:none;border:0;padding:6px 2px;font:800 17px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer}
+.fen-url{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 12px/1 var(--f-body);color:#9FB3CB;background:#0F2C52;border-radius:99px;padding:8px 12px}
+.fen-pt{flex:none;width:36px;height:36px;border-radius:50%;border:0;background:var(--or,#FFB81C);color:var(--sur-or,#0A2342);display:grid;place-items:center;cursor:pointer}
+.fen-pt svg{width:16px;height:16px}
+.fen-ch{padding:40px 16px;text-align:center}
+/* La carte de la fenêtre : la même que les popups, à plat, pleine largeur */
+html #fenetre .wi-carte.fen{width:auto;max-height:none;overflow:visible;border-radius:0;border-top:0;box-shadow:none;animation:none}
+#fenetre .wi-carte.fen > header .wi-hd > div > b{font-size:30px;line-height:.95}
+#fenetre .fen-pas:empty{display:none}
+#fenetre .fen-pas{color:var(--or,#FFB81C)!important;font-weight:700}
+/* Les onglets : collés sous la barre quand on défile */
+.fen-ongl{position:sticky;top:59px;z-index:4;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 12px;background:var(--bg,#0A2342);border-bottom:1px solid #ffffff1f}
+.fen-ongl::-webkit-scrollbar{display:none}
+.fen-ongl button{flex:none;border:0;background:none;border-radius:6px;padding:7px 11px;font:800 italic 16px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#9FB3CB;cursor:pointer}
+.fen-ongl button[aria-selected="true"]{background:var(--or,#FFB81C);color:var(--sur-or,#0A2342)}
+.fen-pane{padding:4px 0 28px}
+.fen-pane > .vide{padding:30px 16px;text-align:center}
+/* Une fiche d'avant dans son onglet : sans son haut (la fenêtre l'a déjà), à plat */
+html #fenetre .fen-pane .wi-carte{width:auto;max-height:none;overflow:visible;border:0;border-radius:0;box-shadow:none;animation:none;background:transparent}
+html #fenetre .fen-pane .wi-carte > header{display:none}
+/* L'Aperçu */
+.fen-s{padding:12px 14px 4px}
+.fen-s[hidden]{display:none}
+.fen-s h3{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:800 italic 19px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C)}
+.fen-s h3 em{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;background:#ffffff1f;color:#fff;padding:4px 7px;border-radius:4px;letter-spacing:.04em}
+.fen-bref{background:#F2F5FA;color:#0A2342;border-radius:10px;padding:12px 14px;font:500 15px/1.45 var(--f-body);border-left:6px solid var(--or,#FFB81C)}
+.fen-bref b{font-weight:800}
+.fen-cases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.fen-cases.fen-c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fen-cases:has(> :nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+.fen-cases div{background:#F2F5FA;color:#0A2342;border-radius:8px;padding:8px 4px 6px;text-align:center;min-width:0}
+.fen-cases b{display:block;font:700 30px/.9 "Teko",var(--f-display);white-space:nowrap}
+.fen-cases b sup{font-size:.5em;color:#C8102E}
+.fen-cases span{font:800 11px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78}
+.fen-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin-top:6px}
+.fen-duo div{background:#13335E;border-radius:10px;padding:10px 12px;min-width:0}
+.fen-duo b{display:block;font:700 40px/.85 "Teko",var(--f-display);color:var(--or,#FFB81C);white-space:nowrap}
+.fen-duo span{display:block;margin-top:4px;font:800 12px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#C9D6EE}
+.fen-duo small{display:block;margin-top:3px;font:600 12px/1.3 var(--f-body);color:#9FB3CB}
+.fen-barres{display:flex;gap:5px;align-items:stretch;height:92px;background:#13335E;border-radius:8px;padding:8px 10px 20px}
+.fen-barres div{flex:1;display:flex;flex-direction:column-reverse;position:relative}
+.fen-barres i{display:block;flex:none} .fen-barres i:last-of-type{border-radius:3px 3px 0 0}
+.fen-barres .bb{background:var(--or,#FFB81C)} .fen-barres .ba{background:#9FC3F0}
+.fen-barres span{position:absolute;bottom:-17px;left:0;right:0;text-align:center;font:700 14px/1 "Teko",var(--f-display);color:#C9D6EE}
+.fen-serie{display:flex;align-items:center;gap:10px;margin-top:6px;background:#0F2C52;border-radius:8px;padding:9px 10px}
+.fen-serie small{font:800 12px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#9FB3CB}
+.fen-serie b{font:800 16px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;min-width:74px;text-align:right}
+.fen-therm{flex:1;height:10px;border-radius:99px;background:linear-gradient(90deg,#3F7FD6,#9FC3F0 28%,#8A97A8 50%,#F2A33A 72%,#E0412F);position:relative}
+.fen-therm i{position:absolute;top:-5px;width:4px;height:20px;margin-left:-2px;background:#fff;border-radius:2px;box-shadow:0 0 0 2px #0A2342}
+.fen-tro{display:flex;flex-direction:column;gap:5px}
+.fen-tro > div{display:flex;align-items:center;gap:10px;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:7px 10px}
+.fen-tro b{flex:none;width:62px;font:700 24px/1 "Teko",var(--f-display)}
+.fen-tro span{flex:1;min-width:0;font:800 14px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
+.fen-tro small{flex:none;font:700 12px/1 var(--f-body);color:#4A5D78}
+.fen-jauge{flex:0 0 80px;height:8px;border-radius:99px;background:#D7E1EE;overflow:hidden;position:relative}
+.fen-jauge i{position:absolute;left:0;top:0;bottom:0;background:var(--or,#FFB81C);border-radius:99px}
+.fen-tbl{overflow-x:auto}
+.fen-carr table{width:100%;border-collapse:collapse;font:600 13.5px/1.2 var(--f-body);font-variant-numeric:tabular-nums}
+.fen-carr th{font:800 12px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);text-align:right;padding:6px 5px;border-bottom:2px solid #ffffff30}
+.fen-carr td{text-align:right;padding:6px 5px;border-bottom:1px dotted #ffffff26;color:#DCE6F2}
+.fen-carr th:nth-child(-n+2),.fen-carr td:nth-child(-n+2){text-align:left}
+.fen-carr .pb{background:#ffffff0d;color:#FFB0A8}
+html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;border-top:2px solid #ffffff30} html .fen-carr tfoot td.pb{color:#FFB0A8}
+.fen-plus{display:block;width:100%;margin-top:8px;background:none;border:1px solid #ffffff33;border-radius:8px;padding:10px;font:800 14px/1.2 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer;text-align:center}
+@media (min-width:761px){ .fen-boite{box-shadow:0 0 0 1px #ffffff1a,0 20px 60px rgba(0,0,0,.6)} }
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
@@ -714,6 +811,25 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
 .wir-t[aria-checked="true"] i{background:var(--or,#FFB81C)} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
+/* Le toggle à 3 choix de PB Stats (Mitch, 19 nov. 2026) : Réel / PB Era · 82 PJ / PB Era · PJ réels */
+.wir-3{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.wir-3 button{border:0;background:none;color:var(--muted);font:700 13px var(--f-body);padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.wir-3 button[aria-pressed="true"]{background:var(--or,#FFB81C);color:#0B1220}
+/* La loupe au complet de PB Stats (les étapes 1, 2, 3, 3b, 4) */
+.px-h{display:flex;align-items:center;gap:8px;margin:16px 0 8px;font:800 12.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--goal)}
+.px-h:empty,.px-h[hidden]{display:none}
+.px-n{display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--goal,#C8102E);color:#fff;font-size:11.5px;letter-spacing:0}
+.px-segr{display:flex !important;gap:4px;padding:4px;border-radius:12px;background:rgba(10,35,66,.12)}
+.ctrls.c3 .c3-sh .px-segr .chip.px-seg{flex:1 1 0!important;border:0!important;font:800 15px/1 var(--f-body)!important;padding:11px!important;border-radius:9px!important;background:none!important;color:var(--ink)!important;box-shadow:none!important}
+.ctrls.c3 .c3-sh .px-segr .chip.px-seg[aria-pressed="true"]{background:#0A2342!important;color:#fff!important}
+.px-g{width:100%;margin:6px 2px 0;font:700 11px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.px-g:first-child{margin-top:0}
+.px-sts{flex-wrap:wrap}
+.px-sl{margin:4px 2px 6px;font:700 11.5px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)} .px-sl small{text-transform:none;letter-spacing:0;font-weight:500;margin-left:6px}
+.px-anc summary{cursor:pointer;margin:8px 2px;font:700 12.5px var(--f-body);color:var(--muted)}
+.px-et{font:600 13px var(--f-body);color:var(--muted);margin:0 2px}
+#px-sz,#px-trisel{padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:600 15px var(--f-body);background:var(--surface);color:var(--ink)}
+.pbx-plus{display:block;margin:14px auto 6px;border:0;cursor:pointer}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}

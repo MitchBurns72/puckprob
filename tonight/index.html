@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <base href="../">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Tonight&#x27;s NHL probabilities: goals, points, shots | PuckProb</title>
-<meta name="description" content="Tonight&#x27;s probabilities for every NHL player (goals, assists, points, shots), every game&#x27;s win probs, and the favorites for every award and the Stanley Cup. Updated daily, checked after every game.">
+<title>Tonight&#x27;s Hockey probabilities: goals, points, shots | PuckProb</title>
+<meta name="description" content="Tonight&#x27;s probabilities for every league player (goals, assists, points, shots), every game&#x27;s win probs, and the favorites for every award and the Stanley Cup. Updated daily, checked after every game.">
 <link rel="canonical" href="https://puckprob.ca/tonight/">
 <link rel="alternate" hreflang="en" href="https://puckprob.ca/tonight/">
 <link rel="alternate" hreflang="fr" href="https://puckprob.ca/fr/ce-soir/">
@@ -13,8 +13,8 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PuckProb">
 <meta property="og:locale" content="en_CA">
-<meta property="og:title" content="Tonight&#x27;s NHL probabilities: goals, points, shots | PuckProb">
-<meta property="og:description" content="Tonight&#x27;s probabilities for every NHL player (goals, assists, points, shots), every game&#x27;s win probs, and the favorites for every award and the Stanley Cup. Updated daily, checked after every game.">
+<meta property="og:title" content="Tonight&#x27;s Hockey probabilities: goals, points, shots | PuckProb">
+<meta property="og:description" content="Tonight&#x27;s probabilities for every league player (goals, assists, points, shots), every game&#x27;s win probs, and the favorites for every award and the Stanley Cup. Updated daily, checked after every game.">
 <meta property="og:url" content="https://puckprob.ca/tonight/">
 <meta property="og:image" content="https://puckprob.ca/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -208,7 +208,7 @@ nav.menu::-webkit-scrollbar{display:none}
 /* What if : le rectangle du joueur (rond de son équipe la plus jouée, pastilles de ses clubs, matchs, ère) */
 .wi-l.wi-r{grid-template-columns:26px 40px minmax(0,1fr) auto}
 /* Plaque du joueur : rectangle aux couleurs de son équipe, numéro + position (pas de photo sur le site public :
-   droits d'image de la LNH et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
+   droits d'image de la ligue et des joueurs). Même principe partout : What if, Salaires, Enforcers, Trophées, alignements. */
 .plaque{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:100%;height:100%;border-radius:6px;background:var(--pf,var(--eq, var(--muted)));color:var(--pt,#fff);box-shadow:inset 0 0 0 2px var(--pb,transparent);text-shadow:0 1px 2px rgba(0,0,0,.25)}
 .plaque b{font:800 16px/1 var(--f-display);paint-order:stroke fill;-webkit-text-stroke:.16em var(--ps,#000);text-shadow:none}  /* le numéro cerné de la 3e couleur (idée de Mitch) */
 .plaque i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
@@ -228,6 +228,103 @@ nav.menu::-webkit-scrollbar{display:none}
 .wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--pf,var(--eq));color:var(--pt,#fff);text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 1px var(--pf,var(--eq))}
 .wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.wi-eqs i .eqlg{width:13px;height:13px;margin-right:2px;background:#fff;border-radius:50%;padding:1px} .wi-eqs i:has(.eqlg){display:inline-flex;align-items:center;padding:0 5px 0 3px}
+/* Les logos de l'emblème (19 nov. 2026) : en filigrane derrière le numéro, en rond dans le coin */
+.wi-rond,.plaque{position:relative;overflow:visible} .wi-rond b,.wi-rond i,.plaque b,.plaque i{position:relative;z-index:1}
+.pl-wm{position:absolute;left:50%;top:42%;width:78%;height:auto;transform:translate(-50%,-50%);opacity:.22;pointer-events:none;z-index:0}
+.pl-lg{position:absolute;top:-7px;right:-9px;width:20px;height:20px;padding:2px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.45);z-index:2}
+.wi-carte header .pl-lg{width:24px;height:24px;top:-8px;right:-10px}
+/* La face du joueur à droite des popups (19 nov. 2026, maquette approuvée) + sa fiche (grandeur, poids, main, repêchage) */
+.wi-carte header{position:relative;overflow:hidden}
+/* La face à droite (maquette approuvée) : l'emblème au-dessus du nom, la photo collée au bas du bandeau, les boutons
+   Partager/Fermer gardés en haut à droite par-dessus. Le dégradé reprend la couleur du club (--pt : sa 2e couleur). */
+html .wi-carte.wi-carte header.a-face{padding-right:132px;min-height:170px;align-items:flex-start}
+.wi-carte header.a-face::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(105deg,transparent 45%,color-mix(in srgb,var(--pt,#fff) 30%,transparent) 100%)}
+.wi-carte header.a-face .wi-hd{flex-direction:column;align-items:flex-start;gap:8px}
+.wi-carte header.a-face .wi-rond{flex:none} .wi-carte header.a-face .wi-hd span{white-space:normal}
+.wi-carte header.a-face .pt-btn{position:absolute;top:10px;right:56px;margin:0;z-index:3}
+.wi-carte header.a-face .wi-x{position:absolute;top:10px;right:10px;margin:0;z-index:3}
+.wi-carte header > img.wi-face{position:absolute;right:-6px;bottom:0;height:158px;width:auto;z-index:1;pointer-events:none;filter:drop-shadow(0 6px 12px rgba(0,0,0,.45))}
+.wi-carte header > *:not(.wi-face){position:relative;z-index:1}
+.wi-bio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px 14px 12px}
+.wi-bio div{background:color-mix(in srgb,var(--ink) 8%,transparent);border-radius:8px;padding:7px 9px;min-width:0}
+.wi-bio div.l{grid-column:1 / -1}
+.wi-bio small{display:block;font:700 10.5px var(--f-body);letter-spacing:.06em;text-transform:uppercase;opacity:.7}
+.wi-bio b{display:block;font:800 16px/1.15 var(--f-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* ---- La fenêtre joueur (20 nov. 2026, maquette approuvée) : une page par-dessus le site, plein écran sur cell et
+   tablette (centrée, 760 px max, sur un grand écran). Le haut reprend la fiche des popups (la face, l'emblème, la fiche
+   grandeur/poids/repêchage) ; les fiches d'avant deviennent des onglets, sans leur propre haut. */
+html.fen-on,html.fen-on body{overflow:hidden}
+#fenetre{position:fixed;inset:0;z-index:70;background:rgba(5,12,24,.78);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#fenetre[hidden]{display:none}
+.fen-boite{max-width:760px;min-height:100%;margin:0 auto;background:var(--bg,#0A2342);animation:fen-in .22s ease-out}
+@keyframes fen-in{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.fen-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));background:#061833;border-bottom:3px solid var(--or,#FFB81C)}
+.fen-ret{flex:none;background:none;border:0;padding:6px 2px;font:800 17px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer}
+.fen-url{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:600 12px/1 var(--f-body);color:#9FB3CB;background:#0F2C52;border-radius:99px;padding:8px 12px}
+.fen-pt{flex:none;width:36px;height:36px;border-radius:50%;border:0;background:var(--or,#FFB81C);color:var(--sur-or,#0A2342);display:grid;place-items:center;cursor:pointer}
+.fen-pt svg{width:16px;height:16px}
+.fen-ch{padding:40px 16px;text-align:center}
+/* La carte de la fenêtre : la même que les popups, à plat, pleine largeur */
+html #fenetre .wi-carte.fen{width:auto;max-height:none;overflow:visible;border-radius:0;border-top:0;box-shadow:none;animation:none}
+#fenetre .wi-carte.fen > header .wi-hd > div > b{font-size:30px;line-height:.95}
+#fenetre .fen-pas:empty{display:none}
+#fenetre .fen-pas{color:var(--or,#FFB81C)!important;font-weight:700}
+/* Les onglets : collés sous la barre quand on défile */
+.fen-ongl{position:sticky;top:59px;z-index:4;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 12px;background:var(--bg,#0A2342);border-bottom:1px solid #ffffff1f}
+.fen-ongl::-webkit-scrollbar{display:none}
+.fen-ongl button{flex:none;border:0;background:none;border-radius:6px;padding:7px 11px;font:800 italic 16px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#9FB3CB;cursor:pointer}
+.fen-ongl button[aria-selected="true"]{background:var(--or,#FFB81C);color:var(--sur-or,#0A2342)}
+.fen-pane{padding:4px 0 28px}
+.fen-pane > .vide{padding:30px 16px;text-align:center}
+/* Une fiche d'avant dans son onglet : sans son haut (la fenêtre l'a déjà), à plat */
+html #fenetre .fen-pane .wi-carte{width:auto;max-height:none;overflow:visible;border:0;border-radius:0;box-shadow:none;animation:none;background:transparent}
+html #fenetre .fen-pane .wi-carte > header{display:none}
+/* L'Aperçu */
+.fen-s{padding:12px 14px 4px}
+.fen-s[hidden]{display:none}
+.fen-s h3{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:800 italic 19px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C)}
+.fen-s h3 em{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;background:#ffffff1f;color:#fff;padding:4px 7px;border-radius:4px;letter-spacing:.04em}
+.fen-bref{background:#F2F5FA;color:#0A2342;border-radius:10px;padding:12px 14px;font:500 15px/1.45 var(--f-body);border-left:6px solid var(--or,#FFB81C)}
+.fen-bref b{font-weight:800}
+.fen-cases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.fen-cases.fen-c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fen-cases:has(> :nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}
+.fen-cases div{background:#F2F5FA;color:#0A2342;border-radius:8px;padding:8px 4px 6px;text-align:center;min-width:0}
+.fen-cases b{display:block;font:700 30px/.9 "Teko",var(--f-display);white-space:nowrap}
+.fen-cases b sup{font-size:.5em;color:#C8102E}
+.fen-cases span{font:800 11px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78}
+.fen-duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:6px;margin-top:6px}
+.fen-duo div{background:#13335E;border-radius:10px;padding:10px 12px;min-width:0}
+.fen-duo b{display:block;font:700 40px/.85 "Teko",var(--f-display);color:var(--or,#FFB81C);white-space:nowrap}
+.fen-duo span{display:block;margin-top:4px;font:800 12px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#C9D6EE}
+.fen-duo small{display:block;margin-top:3px;font:600 12px/1.3 var(--f-body);color:#9FB3CB}
+.fen-barres{display:flex;gap:5px;align-items:stretch;height:92px;background:#13335E;border-radius:8px;padding:8px 10px 20px}
+.fen-barres div{flex:1;display:flex;flex-direction:column-reverse;position:relative}
+.fen-barres i{display:block;flex:none} .fen-barres i:last-of-type{border-radius:3px 3px 0 0}
+.fen-barres .bb{background:var(--or,#FFB81C)} .fen-barres .ba{background:#9FC3F0}
+.fen-barres span{position:absolute;bottom:-17px;left:0;right:0;text-align:center;font:700 14px/1 "Teko",var(--f-display);color:#C9D6EE}
+.fen-serie{display:flex;align-items:center;gap:10px;margin-top:6px;background:#0F2C52;border-radius:8px;padding:9px 10px}
+.fen-serie small{font:800 12px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#9FB3CB}
+.fen-serie b{font:800 16px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;min-width:74px;text-align:right}
+.fen-therm{flex:1;height:10px;border-radius:99px;background:linear-gradient(90deg,#3F7FD6,#9FC3F0 28%,#8A97A8 50%,#F2A33A 72%,#E0412F);position:relative}
+.fen-therm i{position:absolute;top:-5px;width:4px;height:20px;margin-left:-2px;background:#fff;border-radius:2px;box-shadow:0 0 0 2px #0A2342}
+.fen-tro{display:flex;flex-direction:column;gap:5px}
+.fen-tro > div{display:flex;align-items:center;gap:10px;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:7px 10px}
+.fen-tro b{flex:none;width:62px;font:700 24px/1 "Teko",var(--f-display)}
+.fen-tro span{flex:1;min-width:0;font:800 14px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
+.fen-tro small{flex:none;font:700 12px/1 var(--f-body);color:#4A5D78}
+.fen-jauge{flex:0 0 80px;height:8px;border-radius:99px;background:#D7E1EE;overflow:hidden;position:relative}
+.fen-jauge i{position:absolute;left:0;top:0;bottom:0;background:var(--or,#FFB81C);border-radius:99px}
+.fen-tbl{overflow-x:auto}
+.fen-carr table{width:100%;border-collapse:collapse;font:600 13.5px/1.2 var(--f-body);font-variant-numeric:tabular-nums}
+.fen-carr th{font:800 12px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);text-align:right;padding:6px 5px;border-bottom:2px solid #ffffff30}
+.fen-carr td{text-align:right;padding:6px 5px;border-bottom:1px dotted #ffffff26;color:#DCE6F2}
+.fen-carr th:nth-child(-n+2),.fen-carr td:nth-child(-n+2){text-align:left}
+.fen-carr .pb{background:#ffffff0d;color:#FFB0A8}
+html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;border-top:2px solid #ffffff30} html .fen-carr tfoot td.pb{color:#FFB0A8}
+.fen-plus{display:block;width:100%;margin-top:8px;background:none;border:1px solid #ffffff33;border-radius:8px;padding:10px;font:800 14px/1.2 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer;text-align:center}
+@media (min-width:761px){ .fen-boite{box-shadow:0 0 0 1px #ffffff1a,0 20px 60px rgba(0,0,0,.6)} }
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
@@ -742,6 +839,25 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .wir-t i{position:relative;width:44px;height:24px;border-radius:12px;background:#22314F;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
 .wir-t b{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .18s}
 .wir-t[aria-checked="true"] i{background:var(--or,#FFB81C)} .wir-t[aria-checked="true"] b{left:23px;background:#0B1220}
+/* Le toggle à 3 choix de PB Stats (Mitch, 19 nov. 2026) : Réel / PB Era · 82 PJ / PB Era · PJ réels */
+.wir-3{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
+.wir-3 button{border:0;background:none;color:var(--muted);font:700 13px var(--f-body);padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.wir-3 button[aria-pressed="true"]{background:var(--or,#FFB81C);color:#0B1220}
+/* La loupe au complet de PB Stats (les étapes 1, 2, 3, 3b, 4) */
+.px-h{display:flex;align-items:center;gap:8px;margin:16px 0 8px;font:800 12.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--goal)}
+.px-h:empty,.px-h[hidden]{display:none}
+.px-n{display:grid;place-items:center;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--goal,#C8102E);color:#fff;font-size:11.5px;letter-spacing:0}
+.px-segr{display:flex !important;gap:4px;padding:4px;border-radius:12px;background:rgba(10,35,66,.12)}
+.ctrls.c3 .c3-sh .px-segr .chip.px-seg{flex:1 1 0!important;border:0!important;font:800 15px/1 var(--f-body)!important;padding:11px!important;border-radius:9px!important;background:none!important;color:var(--ink)!important;box-shadow:none!important}
+.ctrls.c3 .c3-sh .px-segr .chip.px-seg[aria-pressed="true"]{background:#0A2342!important;color:#fff!important}
+.px-g{width:100%;margin:6px 2px 0;font:700 11px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.px-g:first-child{margin-top:0}
+.px-sts{flex-wrap:wrap}
+.px-sl{margin:4px 2px 6px;font:700 11.5px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)} .px-sl small{text-transform:none;letter-spacing:0;font-weight:500;margin-left:6px}
+.px-anc summary{cursor:pointer;margin:8px 2px;font:700 12.5px var(--f-body);color:var(--muted)}
+.px-et{font:600 13px var(--f-body);color:var(--muted);margin:0 2px}
+#px-sz,#px-trisel{padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:600 15px var(--f-body);background:var(--surface);color:var(--ink)}
+.pbx-plus{display:block;margin:14px auto 6px;border:0;cursor:pointer}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
 /* Le % PuckProb des stats maison (pbN) : le chiffre en gros, le % jaune et penché comme dans le logo, un peu monté */
 .pbp{white-space:nowrap}
@@ -879,7 +995,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=39e90aab">
+<link rel="stylesheet" href="carte.css?v=220412ce">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -982,8 +1098,14 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-whatif" role="tabpanel" aria-labelledby="t-whatif" hidden>
     <div class="ctrls"><div class="row" id="f-wi">
     </div><div class="row" id="f-wir"></div><div class="row" id="f-wiv"></div><div class="row">
-      <input id="wi-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
-    </div><div id="fe-wi"></div><div class="row" id="f-wipos"></div><div class="row" id="f-wiage"></div><div class="row" id="f-witri"></div><div class="row" id="f-wiord"></div></div>
+      <input id="wi-q" type="search" placeholder="Finder : n'importe quel joueur de l'histoire" aria-label="Finder : n'importe quel joueur de l'histoire" autocomplete="off">
+    </div><div id="fe-wi" hidden></div><div class="row px-segr" id="px-t"></div>
+    <div class="px-h" id="px-h1"></div><div class="row" id="px-ep"></div><div class="row" id="px-ep2"></div>
+    <div class="px-h" id="px-h2"></div><div class="row" id="f-wiage"></div><div class="row" id="px-pos"></div><div class="row" id="px-nat"></div><div class="row" id="px-pj"></div><div class="row" id="px-stat"></div><div id="px-eqs"></div>
+    <div class="px-h" id="px-h3"></div><div class="row px-sts" id="px-st"></div>
+    <div class="px-h" id="px-h3b"></div><div class="row" id="px-tri"></div><div class="row" id="px-tri2"></div><div class="row" id="px-ord"></div>
+    <div class="px-h" id="px-h4"></div><div class="row" id="px-lig"></div>
+    <div class="row" id="f-wipos" hidden></div><div class="row" id="f-witri" hidden></div><div class="row" id="f-wiord" hidden></div></div>
     <div id="whatif"></div>
   </section>
   <!-- Salaires mérités (docs/salaires.json, chargé au 1er clic) -->
@@ -1291,8 +1413,8 @@ Object.assign(TR, {
   "Comment lire les joueurs": "How to read players", "Comment lire les matchs": "How to read games", "Comment lire les trophées": "How to read awards",
   "Le gros % = les chances que le joueur atteigne le seuil choisi ce soir (exemple : 2 tirs ou plus). C'est tout ce qu'on publie : des probabilités.":
     "The big % = the chance the player reaches the chosen threshold tonight (example: 2 or more shots). That's all we publish: probabilities.",
-  "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données LNH, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.":
-    "Behind every %: our own machine-learning models, built on years of NHL data, the player's form, his role, the opponent and tonight's lineup (DailyFaceoff). You get the result; the recipe stays in the kitchen.",
+  "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données de la ligue, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.":
+    "Behind every %: our own machine-learning models, built on years of league data, the player's form, his role, the opponent and tonight's lineup (DailyFaceoff). You get the result; the recipe stays in the kitchen.",
   "Les modèles sont remis à l'épreuve chaque semaine sur les vrais résultats, et tout est vérifié dans le Bilan. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint).":
     "The models are put back to the test every week against real results, and everything is checked in Quality Control. The small bars = his last 10 games (colored: threshold reached).",
   "Une carte par match : les deux équipes dans leurs couleurs, la plus encadrée de blanc est la favorite. Touche une carte : « Alignement » montre les trios, les gardiens et le score prédit joueur par joueur ; « Probs » montre la victoire en 60 minutes, les totaux, la forme et les duels directs.":
@@ -1326,7 +1448,7 @@ Object.assign(TR, {
   "Pourquoi ça diffère : les journalistes (Hart) récompensent la valeur pour l'équipe, les buts, et parfois un gardien. Les joueurs (Lindsay) prennent le meilleur producteur : chaque fois, leur gagnant était 1er en points ou en points par match.":
     "Why they differ: writers (Hart) reward value to the team, goals, and sometimes a goalie. Players (Lindsay) pick the best producer: every time, their winner was 1st in points or in points per game.",
   "Salaires": "Salaries", "Top 100 points": "Top 100 points", "Top 100 buts": "Top 100 goals", "Joueurs actuels": "Current players",
-  "Chercher un joueur": "Search a player", "Chercher un gardien": "Search a goalie", "Chargement des carrières…": "Loading careers…", "Le What if arrive au prochain calcul.": "PB Stats arrives with the next update.",
+  "Chercher un joueur": "Search a player", "Finder : n'importe quel joueur de l'histoire": "Finder: any player in history", "Chercher un gardien": "Search a goalie", "Chargement des carrières…": "Loading careers…", "Le What if arrive au prochain calcul.": "PB Stats arrives with the next update.",
   "Aucun joueur trouvé.": "No player found.", "points réels": "real points", "points what if": "PB Era-Adjusted points", "rang réel": "real rank",
   "rang what if": "PB Era-Adjusted rank", "Réel": "Real", "Éq.": "Team", "Total": "Total", "Fermer": "Close",
   "projeté": "projected", "min de pénalité": "penalty minutes", "mises au jeu": "faceoffs", "son équipe gagne": "his team wins",
@@ -1334,7 +1456,7 @@ Object.assign(TR, {
   "Gagnant à pareille date": "Winner on the same date",
   // Pied de page
   ". Site indépendant, non affilié à la LNH ni à ses équipes.": ". Independent site, not affiliated with the NHL or its teams.",
-  "calcule des probabilités à partir des données publiques de la LNH, des statistiques avancées de": "computes probabilities from public NHL data, advanced stats from",
+  "calcule des probabilités à partir des données publiques de la ligue, des statistiques avancées de": "computes probabilities from public league data, advanced stats from",
   "et des alignements de": "and lineups from",
   // Équipes (noms français -> anglais)
   "Caroline": "Carolina", "Détroit": "Detroit", "Floride": "Florida", "Philadelphie": "Philadelphia", "Montréal": "Montreal",
@@ -1482,7 +1604,8 @@ function palette(t){
   const chrom = (h) => { const c = [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255); return Math.max(...c) > 0.08 && (Math.max(...c) - Math.min(...c)) / Math.max(...c) > 0.3; };
   const contr = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((u, v) => v - u); return (x + 0.05) / (y + 0.05); };
   const P = PALETTES[t];
-  if (!P) return (PAL[t] = { f: coul(t), t: "#FFFFFF", c: "#FFFFFF", k: "#F4E7C5", v: "#DCE6F2", w: "#FFFFFF", d: coul(t), dt: "#FFFFFF", dl: "#0A2342", dlt: "#FFFFFF" });
+  const pale_ = (h, a) => "#" + [1, 3, 5].map(i => Math.round(parseInt(h.slice(i, i + 2), 16) * (1 - a) + 255 * a).toString(16).padStart(2, "0")).join("");
+  if (!P) return (PAL[t] = { f: coul(t), t: "#FFFFFF", c: "#FFFFFF", k: "#F4E7C5", v: "#DCE6F2", w: "#FFFFFF", d: coul(t), dt: "#FFFFFF", dl: "#0A2342", dlt: "#FFFFFF", pale: pale_(coul(t), 0.72) });
   const foncees = P.slice(0, 2).filter(c => chrom(c) && lum(c) < 0.13);
   const f = (foncees.length ? foncees : P).reduce((a, b) => lum(b) < lum(a) ? b : a);
   const reste = P.filter(c => c !== f);
@@ -1503,12 +1626,17 @@ function palette(t){
   if (noir(d) && P[1]){ d = P[1]; dl = P[0]; }
   if (contr(d, dl) < 1.3) dl = P.find(c => c !== d && contr(c, d) >= 1.3) || "#FFFFFF";
   const encre = (h) => contr(h, "#FFFFFF") >= contr(h, "#0A2342") ? "#FFFFFF" : "#0A2342";
-  return (PAL[t] = { f, t: tx, c: ct, k, v, w: ct !== tx ? ct : "#FFFFFF", d, dt: encre(d), dl, dlt: encre(dl) });
+  // Le pastel des cartes de joueurs quand un club (thème) est choisi (Mitch, 19 nov. 2026 : « pour le thème par défaut
+  // c'est blanc ; je veux les couleurs pour les thèmes seulement, et pastel ») : la couleur la plus pâle du club parmi
+  // ses couleurs (le blanc exclu : Dallas -> son gris argent), mélangée à 72 % de blanc. Le texte reste marine.
+  const nonBlanc = P.filter(c => lum(c) < 0.85);
+  const paleCarte = pale_(nonBlanc.length ? nonBlanc.reduce((a, b) => lum(b) > lum(a) ? b : a) : f, 0.72);
+  return (PAL[t] = { f, t: tx, c: ct, k, v, w: ct !== tx ? ct : "#FFFFFF", d, dt: encre(d), dl, dlt: encre(dl), pale: paleCarte });
 }
 // Les variables CSS d'une équipe : --eq (sa couleur principale, pour les lignes), --pf / --pt / --pb (pastille), --pc (fiche)
 // --ps : le contour du numéro = la 3e couleur, ou la couleur du fond si la 3e est la même que le chiffre (blanc sur blanc)
 const eqV = (t) => { const p = palette(t), ps = String(p.c).toLowerCase() !== String(p.t).toLowerCase() ? p.c : p.f;
-  return `--eq:${coul(t)};--pf:${p.f};--pt:${p.t};--pb:${p.c};--pc:${p.k};--pv:${p.v};--pw:${p.w};--ps:${ps};--df:${p.d};--dt:${p.dt};--dl:${p.dl};--dlt:${p.dlt}`; };
+  return `--eq:${coul(t)};--pf:${p.f};--pt:${p.t};--pb:${p.c};--pc:${p.k};--pv:${p.v};--pw:${p.w};--ps:${ps};--df:${p.d};--dt:${p.dt};--dl:${p.dl};--dlt:${p.dlt};--pale:${p.pale}`; };
 // Images à partager : la palette d'après la couleur principale (seulement quand elle est à une seule équipe)
 let PAL_DE_COUL = null;
 const palDeCoul = (c) => {
@@ -1524,7 +1652,22 @@ const sombre = () => { const th = document.documentElement.dataset.theme;
 // Le nom + son bonhomme : le dernier mot reste collé au bonhomme (un nom sur 2 lignes ne laisse pas l'icône seule en dessous)
 const nomP = (n, k) => { const s_ = String(n ?? ""), i = s_.lastIndexOf(" "); return i < 0 ? `<span class="pers-n">${s_}${persIco(k)}</span>` : `${s_.slice(0, i + 1)}<span class="pers-n">${s_.slice(i + 1)}${persIco(k)}</span>`; };
 const persIco = (k) => `<span class="pers pers-${k === "g" ? "g" : k === "c" ? "c" : "j"}" aria-hidden="true"><i class="o"></i><i class="d"></i><i class="y"></i><i class="w"></i></span>`;
-const LOGO = (t) => PUBLIC ? pastille(t) : `https://assets.nhle.com/logos/nhl/svg/${t}_${sombre() ? "dark" : "light"}.svg`;
+// Les vrais logos des équipes, partout, version publique comprise (Mitch, 19 nov. 2026 : « ajoute les logos des équipes
+// sur les emblèmes ; I'll deal with it if there's a problem, everyone is doing it anyway »). Avant : la pastille maison
+// dans la version publique. Un logo qui ne charge pas (une vieille équipe que la LNH n'a pas) : la pastille maison à sa
+// place (plus bas, l'écouteur « error »), sauf les petits logos des emblèmes, qui s'enlèvent.
+const LOGO_URL = (t, fonce) => `https://assets.nhle.com/logos/nhl/svg/${t}_${fonce ? "dark" : "light"}.svg`;
+const LOGO = (t) => LOGO_URL(t, sombre());
+// Les logos d'un emblème de joueur (« les deux », Mitch 19 nov. 2026) : en filigrane derrière le numéro + en rond dans le coin
+const plLogos = (t) => { t = String(t || "").split(",").pop(); return /^[A-Z]{2,3}$/.test(t) ? `<img class="pl-wm" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()"><img class="pl-lg" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()">` : ""; };
+document.addEventListener("error", (e) => {
+  const im = e.target;
+  if (im?.tagName !== "IMG" || im.dataset.pas || im.classList.contains("pl-wm") || im.classList.contains("pl-lg") || im.classList.contains("eqlg")) return;
+  const m = /assets\.nhle\.com\/logos\/nhl\/svg\/([A-Z]{2,3})_/.exec(im.src || "");
+  if (!m) return;
+  e.stopPropagation();                  // avant le onerror="this.remove()" de l'image : on la garde, avec la pastille
+  im.dataset.pas = "1"; im.src = pastille(m[1]);
+}, true);
 // Pastille maison (version publique) : cercle à la couleur de l'équipe + abréviation, en SVG
 function pastille(t){
   // L'emblème d'équipe « plat moderne » (style D) : carré plat de la 1re couleur, bande du bas de la 2e, l'abréviation
@@ -3445,7 +3588,10 @@ function filtreEqHTML(cle, equipes){
 }
 document.addEventListener("click", (e) => {
   const b = e.target.closest?.(".peq"); if (!b) return;
-  const cle = b.dataset.fe; S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
+  const cle = b.dataset.fe;
+  // PB Stats : plusieurs équipes à la fois (la loupe au complet)
+  if (cle === "px_eq"){ const L0 = pbxListe(S.px_eq), t = b.dataset.t; S.px_eq = (L0.includes(t) ? L0.filter(x => x !== t) : [...L0, t]).join(","); S.px_n = ""; whatif(); return; }
+  S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
   ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
@@ -3628,10 +3774,9 @@ async function whatif(){
     if (WI_ch) return;
     WI_ch = true;
     el.innerHTML = `<div class="card"><div class="vide">${L("Chargement des carrières…", "Loading careers…")}</div></div>`;
-    try { WI = await (await fetch("whatif.json?v=" + (D?.date || Date.now()))).json(); if (!WI.j) throw 0; }
-    catch (e) { WI = null; WI_ch = false; el.innerHTML = `<div class="card"><div class="vide">${L("PB Stats arrive au prochain calcul.", "PB Stats arrives with the next update.")}</div></div>`; return; }
-    $("#f-wi").innerHTML = Object.entries(WI_MODES).filter(([k]) => k !== "sw" && k !== "gsw")
-      .map(([k, M]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.wi || "p")}">${L(...M.nom)}</button>`).join("");
+    // Le chargement est partagé avec la fenêtre joueur (chargerWI : une seule fois, les boutons du haut avec)
+    const ok = await chargerWI(); WI_ch = false;
+    if (!ok){ el.innerHTML = `<div class="card"><div class="vide">${L("PB Stats arrive au prochain calcul.", "PB Stats arrives with the next update.")}</div></div>`; return; }
   }
   let mode = S.wi || "p";
   if (mode === "sr" || mode === "sw") mode = S.wir === "r" ? "sr" : "sw";
@@ -3644,12 +3789,17 @@ async function whatif(){
   // Réel ou PB Era-Adjusted (Mitch, 12 nov. 2026) : ce qui est en gros, ce qui classe ; l'autre reste en petit. En
   // premier dans la rangée pour qu'on le voie sans glisser.
   const R_ = S.wir === "r";
-  $("#f-wir").innerHTML = `<button class="wir-t" data-wirt role="switch" aria-checked="${!R_}" aria-label="${L("Réel ou PB Era-Adjusted", "Real or PB Era-Adjusted")}">
-    <span class="${R_ ? "on" : ""}">${L("Réel", "Real")}</span><i aria-hidden="true"><b></b></i><span class="${R_ ? "" : "on"}">PB Era-Adjusted</span></button>`;
+  // 3 choix (Mitch, 19 nov. 2026) : Réel, PB Era à 82 matchs (comme avant), PB Era sur ses vrais matchs (l'ère seulement)
+  $("#f-wir").innerHTML = `<div class="wir-3" role="group" aria-label="${L("Réel ou PB Era-Adjusted", "Real or PB Era-Adjusted")}">${[["r", L("Réel", "Real")], ["", "PB Era · 82 PJ"], ["e", L("PB Era · PJ réels", "PB Era · real GP")]]
+    .map(([k, n]) => `<button type="button" data-wir="${k}" aria-pressed="${(S.wir || "") === k}">${n}</button>`).join("")}</div>`;
   $("#f-wiv").innerHTML = [["", L("Tous les temps", "All-time")], ["eq", L("Par équipe", "By team")], ["s", L("Par saison", "By season")], ["d", L("Par décennie", "By decade")]]
     .filter(([k]) => !(M.saisons && k === "s")).map(([k, n]) => `<button class="chip" data-wiv="${k}" aria-pressed="${k === vue}">${n}</button>`).join("");
   wiTiroir(vue, M);
   await wiNais();
+  // La loupe au complet (PBX) : ses rangées, puis le moteur s'il est demandé
+  const [catX] = await Promise.all([pbxCat(), pbsMeta()]);
+  pbxTiroir(catX);
+  if (pbxActif()) return pbxVue(el, q);
   // Les équipes de la loupe, AVANT les vues de PB Stats au complet (avant : elles n'étaient faites qu'en « tous les
   // temps », et l'équipe choisie n'agissait pas par saison, décennie ou équipe ; Mitch, 14 nov. 2026)
   $("#fe-wi").innerHTML = filtreEqHTML("fe_wi", [...new Set(Object.values(WI.j).filter(x => x.act).map(x => x.eq))].filter(Boolean).sort());
@@ -3688,7 +3838,7 @@ async function whatif(){
     const avec = Object.entries(WI[t]).filter(([, x]) => joueAvec(x) && (mode !== "act" || x.act) && v(x) != null);
     // L'équipe + le reste de la loupe (position, âge, classer par) ensemble
     lignes = (wiFiltre() && t === "j" ? wiFT(avec, ([, x]) => x.pos === "W" ? "L" : x.pos, ([i]) => i, ([, x]) => v(x), ([, x]) => x.r?.[0], new Date())
-      : avec.sort((a, b) => m === "gbpg" ? v(a[1]) - v(b[1]) : v(b[1]) - v(a[1]))).slice(0, 100).map(([i, x]) => wiLigne(m, t, i, x, feq));
+      : avec.sort((a, b) => m === "gbpg" ? v(a[1]) - v(b[1]) : v(b[1]) - v(a[1]))).slice(0, pbxN()).map(([i, x]) => wiLigne(m, t, i, x, feq));
   } else if (q.length >= 2){
     const tous = [...Object.entries(WI.j).map(([i, x]) => ["j", i, x]), ...Object.entries(WI.g).map(([i, x]) => ["g", i, x])]
       .filter(([, , x]) => nrm(x.n).includes(q) && (!feq || joueAvec(x))).slice(0, 60);
@@ -3711,15 +3861,15 @@ async function whatif(){
     const m = mode === "act" ? "p" : mode, aj = new Date();
     const stat = (x) => S.wir === "r" ? wiValeurNum(m, x) : wiNum(m, x)[0];
     lignes = wiFT(Object.entries(WI.j).filter(([, x]) => mode !== "act" || x.act), ([, x]) => x.pos === "W" ? "L" : x.pos, ([i]) => i, ([, x]) => stat(x), ([, x]) => x.r?.[0], aj)
-      .slice(0, 100).map(([i, x]) => wiLigne(m, "j", i, x).replace("</small>", `${wiAgeTxt(i, aj)}</small>`));
+      .slice(0, pbxN()).map(([i, x]) => wiLigne(m, "j", i, x).replace("</small>", `${wiAgeTxt(i, aj)}</small>`));
   } else if (mode === "act"){
     const k_ = S.wir === "r" ? "r" : "w";
-    lignes = Object.entries(WI.j).filter(([, x]) => x.act).sort((a, b) => b[1][k_][3] - a[1][k_][3]).slice(0, 100).map(([i, x]) => wiLigne("p", "j", i, x));
+    lignes = Object.entries(WI.j).filter(([, x]) => x.act).sort((a, b) => b[1][k_][3] - a[1][k_][3]).slice(0, pbxN()).map(([i, x]) => wiLigne("p", "j", i, x));
   } else {
     if (S.wir === "r"){
       // Classé par le vrai rang de tous les temps (calculé sur TOUS les joueurs, dans src/whatif.py)
       const rr = (x) => wiValeur(mode, x)[3] ?? 1e9;
-      lignes = Object.entries(WI[M.j]).filter(([, x]) => wiValeur(mode, x)[3] != null).sort((a, b) => rr(a[1]) - rr(b[1])).slice(0, 100).map(([i, x]) => wiLigne(mode, M.j, i, x));
+      lignes = Object.entries(WI[M.j]).filter(([, x]) => wiValeur(mode, x)[3] != null).sort((a, b) => rr(a[1]) - rr(b[1])).slice(0, pbxN()).map(([i, x]) => wiLigne(mode, M.j, i, x));
     } else lignes = (WI.top[mode] || []).map(i => wiLigne(mode, M.j, i, WI[M.j][i])).filter(Boolean);
   }
   const R = WI.regles || {}, B = WI.base || {}, per = B.de ? `${B.de.slice(0, 4)}-${B.de.slice(6)} ${L("à", "to")} ${B.a.slice(0, 4)}-${B.a.slice(6)}` : "";
@@ -3727,18 +3877,18 @@ async function whatif(){
     `Et si tous les joueurs de l'histoire avaient joué dans la même ligue, aujourd'hui ? Dans les années 80, il se marquait beaucoup plus de buts qu'aujourd'hui : 100 points en 1983, c'était plus facile que 100 points en 1999. Ici, chaque saison est ramenée au niveau de buts d'aujourd'hui (la moyenne des ${R.n_base} dernières saisons, ${per}) et à ${R.matchs} matchs, pour comparer les époques d'égal à égal. Le rang à gauche : son rang de tous les temps une fois ajusté. Entre parenthèses : son vrai rang. Touche un joueur pour voir le dos de sa carte, saison par saison.`,
     `What if every player in history had played in the same league, today? In the 80s, many more goals were scored than today: 100 points in 1983 was easier than 100 points in 1999. Here, every season is brought to today's scoring level (the average of the last ${R.n_base} seasons, ${per}) and to ${R.matchs} games, to compare eras on equal footing. The rank on the left: his all-time rank once adjusted. In parentheses: his real rank. Tap a player to see the back of his card, season by season.`)}</p></div>${lireHTML(L("ses points (ou buts, passes...) de carrière une fois ramenés à l'ère d'aujourd'hui.", "his career points (or goals, assists...) once brought to today's era."), false)}`;
   const teteS = M.saisons && M.j === "g" ? `<div class="cp-tete"><h2>${L("Records des gardiens : les plus grosses saisons", "Goalie records: the biggest seasons")}</h2><p>${mode === "gsr"
-    ? L("Les saisons de gardien avec le plus de victoires de l'histoire de la LNH, avec l'année. Les gardiens d'aujourd'hui y sont insérés au rythme de leur saison en cours (après 10 matchs), étiré sur une saison complète de gardien no 1. Sous le nom : ses victoires, son % d'arrêts et sa moyenne cette saison-là.",
-        "The goalie seasons with the most wins in NHL history, with the year. Today's goalies are slotted in at their current season's pace (after 10 games), stretched over a full season for a no. 1 goalie. Under the name: his wins, save % and GAA that season.")
+    ? L("Les saisons de gardien avec le plus de victoires de l'histoire de la ligue, avec l'année. Les gardiens d'aujourd'hui y sont insérés au rythme de leur saison en cours (après 10 matchs), étiré sur une saison complète de gardien no 1. Sous le nom : ses victoires, son % d'arrêts et sa moyenne cette saison-là.",
+        "The goalie seasons with the most wins in league history, with the year. Today's goalies are slotted in at their current season's pace (after 10 games), stretched over a full season for a no. 1 goalie. Under the name: his wins, save % and GAA that season.")
     : L("Les mêmes saisons, ramenées à l'ère d'aujourd'hui et à une saison complète de gardien no 1 : les victoires d'un gardien des années 80, quand les buts pleuvaient, sont rajustées, comme son % d'arrêts.",
         "The same seasons, brought to today's era and to a full season for a no. 1 goalie: the wins of an 80s goalie, when goals were raining, are adjusted, like his save %.")}</p></div>`
     : M.saisons ? `<div class="cp-tete"><h2>${L("Records : les plus grosses saisons", "Records: the biggest seasons")}</h2><p>${mode === "sr"
-    ? L("Les meilleures saisons de points de l'histoire de la LNH, avec l'année. Les joueurs d'aujourd'hui y sont insérés au rythme de leur saison en cours, étiré sur 82 matchs (après 10 matchs) : on voit où ils s'en vont s'ils gardent le rythme.",
-        "The best point seasons in NHL history, with the year. Today's players are slotted in at their current season's pace, stretched over 82 games (after 10 games): you see where they're headed if they keep it up.")
+    ? L("Les meilleures saisons de points de l'histoire de la ligue, avec l'année. Les joueurs d'aujourd'hui y sont insérés au rythme de leur saison en cours, étiré sur 82 matchs (après 10 matchs) : on voit où ils s'en vont s'ils gardent le rythme.",
+        "The best point seasons in league history, with the year. Today's players are slotted in at their current season's pace, stretched over 82 games (after 10 games): you see where they're headed if they keep it up.")
     : L("Les mêmes saisons, ramenées au niveau offensif d'aujourd'hui et à 82 matchs : une saison de 1985, quand les buts pleuvaient, perd des points ; une saison de 2000, quand c'était serré, en gagne.",
         "The same seasons, brought to today's scoring level and to 82 games: a 1985 season, when goals were raining, loses points; a 2000 season, when it was tight, gains some.")}</p></div>` : "";
   const comment = `<details class="card wi-regles"><summary>${L("Comment c'est calculé (et les ratios année par année)", "How it's computed (and the ratios year by year)")}</summary>${wiRegles()}</details>`;
-  const pied = `<p class="aide">${L(`${nW(WI.n_joueurs)} patineurs et ${nW(WI.n_gardiens)} gardiens, ${WI.n_saisons} saisons de la LNH (données publiques de la LNH).`, `${nW(WI.n_joueurs)} skaters and ${nW(WI.n_gardiens)} goalies, ${WI.n_saisons} NHL seasons (NHL public data).`)}${WI.complet === false ? L(" Les vieilles saisons se chargent encore : le classement sera complet dans quelques calculs.", " Older seasons are still loading: the ranking will be complete within a few updates.") : ""}</p>`;
-  el.innerHTML = (teteS || tete) + avant + (lignes.join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`) + comment + pied;
+  const pied = `<p class="aide">${L(`${nW(WI.n_joueurs)} patineurs et ${nW(WI.n_gardiens)} gardiens, ${WI.n_saisons} saisons de la ligue (données publiques de la ligue).`, `${nW(WI.n_joueurs)} skaters and ${nW(WI.n_gardiens)} goalies, ${WI.n_saisons} league seasons (public league data).`)}${WI.complet === false ? L(" Les vieilles saisons se chargent encore : le classement sera complet dans quelques calculs.", " Older seasons are still loading: the ranking will be complete within a few updates.") : ""}</p>`;
+  el.innerHTML = (teteS || tete) + avant + (lignes.join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`) + (q.length < 2 ? pbxPlusAvant(lignes.length) : "") + comment + pied;
   ptListeTab("p-whatif");
 }
 // ---- Par saison (src/machine.py ; Mitch, 12 nov. 2026) : nos stats refaites sur les saisons passées, À PAREILLE DATE --
@@ -3952,7 +4102,7 @@ async function pbsVue(el, vue, mode){
   const gqListe = (rows, ix, min, ligne) => {
     const a = gq === "gsv" ? (R_ ? ix.sv : ix.wsv) : (R_ ? ix.gaa : ix.wgaa), b = gq === "gsv" ? (R_ ? ix.wsv : ix.sv) : (R_ ? ix.wgaa : ix.gaa);
     const f = gq === "gsv" ? sv3 : bpg2;
-    const L_ = rows.filter(r => r[a] != null && r[ix.pj] >= min).sort((x, y) => gq === "gsv" ? y[a] - x[a] : x[a] - y[a]).slice(0, 150);
+    const L_ = rows.filter(r => r[a] != null && r[ix.pj] >= min).sort((x, y) => gq === "gsv" ? y[a] - x[a] : x[a] - y[a]).slice(0, pbxN());
     return L_.length ? L_.map((r, k) => ligne(r, k, f(r[a]), f(r[b]))).join("")
       + `<p class="aide">${L(`Minimum ${min} matchs.`, `Minimum ${min} games.`)}</p>`
       : `<div class="card"><div class="vide">${L(`Pas encore de % d'arrêts ici : ils arrivent au prochain calcul de PB Stats (ou les tirs n'étaient pas comptés à cette époque). Minimum ${min} matchs.`,
@@ -3975,10 +4125,10 @@ async function pbsVue(el, vue, mode){
       + `<div class="vb-choisie">${villeBadge(t)}<button class="chip" data-wieq="">${L("Changer de ville", "Change city")}</button></div>`;
     const ans = (de, a) => `${de}-${String(a + 1).slice(2)}`;
     if (m === "g" && gq) corps = gqListe(E.g, { pj: 2, sv: 8, wsv: 9, gaa: 10, wgaa: 11 }, 82, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false)));
-    else if (m === "g") corps = [...E.g].sort((a, b) => b[R_ ? 6 : 5] - a[R_ ? 6 : 5]).slice(0, 150).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], nW(r[R_ ? 6 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 6])} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false))).join("");
+    else if (m === "g") corps = [...E.g].sort((a, b) => b[R_ ? 6 : 5] - a[R_ ? 6 : 5]).slice(0, pbxN()).map((r, k) => pbsLigne("g", k + 1, r[0], r[1], "G", t, r[7], nW(r[R_ ? 6 : 5]), u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[R_ ? 5 : 6])} · ${nW(r[2])} ${L("matchs", "games")} · ${ans(r[3], r[4])}`, villeBadge(t, false))).join("");
     else { const ix = sw({ p: [6, 7], b: [8, 10], a: [9, 11], pm: [6, 7] }[m]);
       const aj = new Date();
-      corps = wiFT(E.j, r => r[2], r => r[0], r => r[ix[0]], r => r[3], aj).slice(0, 150).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], t, r[12], nW(r[ix[0]]), m === "pm" ? "pts" : u,
+      corps = wiFT(E.j, r => r[2], r => r[0], r => r[ix[0]], r => r[3], aj).slice(0, pbxN()).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], t, r[12], nW(r[ix[0]]), m === "pm" ? "pts" : u,
         `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[3])} ${L("matchs", "games")} · ${ans(r[4], r[5])}${wiAgeTxt(r[0], aj)}`, villeBadge(t, false))).join(""); }
   } else if (vue === "s"){
     const L_ = meta.saisons, sz = S.wis && L_.includes(S.wis) ? S.wis : L_[L_.length - 1];
@@ -3989,10 +4139,10 @@ async function pbsVue(el, vue, mode){
       + `<div class="row vb-sel"><label class="lbl" for="wi-sz">${L("Saison", "Season")}</label><select id="wi-sz">${[...L_].reverse().map(x => `<option value="${x}"${x === sz ? " selected" : ""}>${x.slice(0, 4)}-${x.slice(6)}</option>`).join("")}</select></div>`
       + (fq ? `<div class="vb-choisie">${villeBadge(fq)} <span>${L(`l'alignement de ${nomS}`, `the ${nomS} roster`)}</span><button class="chip" data-wiseq="">${L("Toute la ligue", "Whole league")}</button></div>` : "");
     if (m === "g" && gq) corps = gqListe(X.g, { pj: 3, sv: 5, wsv: 8, gaa: 9, wgaa: 10 }, 20, (r, k, v, v2) => pbsLigne("g", k + 1, r[0], r[1], "G", r[2].split(",").pop(), r[11], v, gqU, `${R_ ? "PB" : L("réel", "real")} ${v2} · ${r[3]} ${L("matchs", "games")} · ${r[R_ ? 4 : 7]} ${L("V", "W")}`));
-    else if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 7] - a[R_ ? 4 : 7]).slice(0, 150).map((r, k) => { const eq = r[2].split(",").pop(); return pbsLigne("g", k + 1, r[0], r[1], "G", eq, r[11], nW(r[R_ ? 4 : 7]), u, `${R_ ? "PB " + r[7] : L("réel", "real") + " " + r[4]} ${L("V", "W")} · ${r[3]} ${L("matchs", "games")} · ${sv3(r[5])}`); }).join("");
+    else if (m === "g") corps = [...X.g].sort((a, b) => b[R_ ? 4 : 7] - a[R_ ? 4 : 7]).slice(0, pbxN()).map((r, k) => { const eq = r[2].split(",").pop(); return pbsLigne("g", k + 1, r[0], r[1], "G", eq, r[11], nW(r[R_ ? 4 : 7]), u, `${R_ ? "PB " + r[7] : L("réel", "real") + " " + r[4]} ${L("V", "W")} · ${r[3]} ${L("matchs", "games")} · ${sv3(r[5])}`); }).join("");
     else { const ix = sw({ p: [12, 7], b: [10, 5], a: [11, 6], pm: [13, 8] }[m]);
       const rf = wiRefSaison(sz);
-      corps = wiFT(X.j, r => r[2], r => r[0], r => r[ix[0]], r => r[4], rf).slice(0, 150).map((r, k) => { const eq = r[3].split(",").pop();
+      corps = wiFT(X.j, r => r[2], r => r[0], r => r[ix[0]], r => r[4], rf).slice(0, pbxN()).map((r, k) => { const eq = r[3].split(",").pop();
         return pbsLigne("j", k + 1, r[0], r[1], r[2], eq, r[14], m === "pm" ? pmW(r[ix[0]]) : nW(r[ix[0]]), u, `${R_ ? "PB" : L("réel", "real")} ${m === "pm" ? pmW(r[ix[1]]) : nW(r[ix[1]])} · ${r[4]} ${L("matchs", "games")}${wiAgeTxt(r[0], rf)}`); }).join(""); }
   } else {
     const L_ = meta.decennies, d = S.wid != null && L_.includes(Number(S.wid)) ? Number(S.wid) : L_[L_.length - 1];
@@ -4007,16 +4157,462 @@ async function pbsVue(el, vue, mode){
       const aj = new Date();
       corps = wiFT(X.j, r => r[2], r => r[0], r => r[ix[0]], r => r[4], aj).map((r, k) => pbsLigne("j", k + 1, r[0], r[1], r[2], r[3], r[11], nW(r[ix[0]]), m === "pm" ? "pts" : u, `${R_ ? "PB" : L("réel", "real")} ${nW(r[ix[1]])} · ${nW(r[4])} ${L("matchs", "games")}${wiAgeTxt(r[0], aj)}`)).join(""); }
   }
-  el.innerHTML = tete + (corps || `<div class="card"><div class="vide">${L("Aucun joueur.", "No player.")}</div></div>`) + `<p class="aide">${L(`${nW(meta.n_j)} patineurs et ${nW(meta.n_g)} gardiens de l'histoire de la LNH (données publiques de la LNH).`, `${nW(meta.n_j)} skaters and ${nW(meta.n_g)} goalies in NHL history (public NHL data).`)}</p>`;
+  el.innerHTML = tete + (corps || `<div class="card"><div class="vide">${L("Aucun joueur.", "No player.")}</div></div>`) + pbxPlusAvant((corps.match(/class="wi-l /g) || []).length) + `<p class="aide">${L(`${nW(meta.n_j)} patineurs et ${nW(meta.n_g)} gardiens de l'histoire de la ligue (données publiques de la ligue).`, `${nW(meta.n_j)} skaters and ${nW(meta.n_g)} goalies in league history (public league data).`)}</p>`;
 }
+// ---- PB Stats : la loupe au complet (Mitch, 19 nov. 2026 : « imagine tout dans un Excel : les lignes, les joueurs ;
+// les colonnes, toutes les stats... pis après t'as les filtres ; c'est là qu'on va se démarquer » ; maquette approuvée) ---
+// Dans la loupe, dans l'ordre : le Finder (n'importe quel joueur de l'histoire), Patineurs ou Gardiens, 1 l'époque
+// (tous les temps, une décennie, une saison, ou une expression sur les années), 2 le bassin (âge, position, nationalité,
+// matchs, statut, plusieurs équipes), 3 la stat affichée (toutes les stats de la LNH, docs/pbstats/x/cat.json), 3b le tri
+// (custom : n'importe quelle stat ; l'ordre), 4 les lignes (total sur l'époque, ou meilleures saisons = records).
+// La page ne change pas : quand la loupe demande quelque chose que les vues d'avant savent faire (une stat de base,
+// une époque simple), ce sont elles qui répondent, avec les mêmes boutons du haut synchronisés. Le reste, c'est ce
+// moteur (PBX) : les fichiers docs/pbstats/x/<saison>.json (src/pbstats_plus.py), une ligne par joueur et par saison,
+// ses vraies stats (R) et ses stats PB Era « PJ réels » (E). Le 3e choix du toggle (PB Era · 82 PJ) étire E à 82 matchs
+// (patineurs, 10 PJ et plus) ou à une saison de gardien no 1 / auxiliaire (62 / 24, 5 PJ et plus), comme PB Stats.
+// Les règles (Mitch, 19 nov. 2026, « recherche les autres trucs qui vont bloquer ») :
+//   - l'âge (filtre, stat, tri) seulement avec une seule saison ou en records (sur plusieurs saisons, pas un seul âge) ;
+//   - gardiens : pas de position, leurs propres stats ;
+//   - records cachés avec une seule saison (ce serait la même liste) ;
+//   - une stat que la LNH ne comptait pas pendant toute l'époque choisie disparaît ; en partie : « comptée depuis » ;
+//   - les moyennes (pts/match, %...) : un minimum de matchs automatique (41 par saison pour un patineur, 25 pour un
+//     gardien, × le nombre de saisons jusqu'à 10), qu'on change dans Matchs ;
+//   - équipes choisies : seulement ce qu'il a fait avec elles (une saison partagée : sa part des matchs).
+// Top 300, et « Voir plus » double la liste (partout dans PB Stats).
+const PBX = { cat: null, s: {}, p: {}, car: {} };
+const PBX_N0 = 300;
+// « Voir plus » sous les listes des vues d'avant : le moteur prend le relais avec le double (une liste de 100, comme le
+// top de tous les temps de whatif.json : il va chercher le top 300)
+const pbxPlusAvant = (n) => n === 100 || n >= pbxN() ? `<button class="lien-plus pbx-plus" data-pxplus="${n >= pbxN() ? pbxN() * 2 : PBX_N0}">${L("Voir plus", "Show more")}</button>` : "";
+const pbxN = () => Math.max(PBX_N0, +S.px_n || PBX_N0);
+const pbxCat = async () => PBX.cat || (PBX.cat = await pbsGet("x/cat.json").catch(() => null));
+const pbxSaison = (s) => PBX.s[s] ? Promise.resolve(PBX.s[s]) : (PBX.p[s] ||= pbsGet(`x/${s}.json`).then(d => (PBX.s[s] = d)).catch(() => (PBX.s[s] = null)));
+// Les stats que les vues d'avant savent faire (stat PBX -> mode du haut)
+const PBX_LEG = { j: { p: "p", b: "b", a: "a", pm: "pm", ppm: "ppg" }, g: { v: "gv", sv: "gsv", bpg: "gbpg" } };
+const PBX_DE_MODE = { p: "p", b: "b", a: "a", pm: "pm", ppg: "ppm", act: "p", sr: "p", sw: "p", gv: "v", gsv: "sv", gbpg: "bpg", gsr: "v", gsw: "v" };
+const pbxT = () => S.px_t || (WI_MODES[S.wi || "p"]?.j === "g" ? "g" : "j");
+const pbxStat = () => S.px_st || PBX_DE_MODE[S.wi || "p"] || (pbxT() === "g" ? "v" : "p");
+const pbxLig = () => S.px_lig || (WI_MODES[S.wi || "p"]?.saisons ? "rec" : "tot");
+const pbxListe = (v) => String(v || "").split(",").filter(Boolean);
+// L'époque : "" (tous les temps), via les boutons du haut (Par saison / Par décennie), ou une expression S.px_ep :
+// "ge:2005" (2005-06 et après), "le:1999", "eq:1993", "lt:", "gt:", "rg:1980-1989"
+function pbxEpoque(saisons){
+  const an = (s) => +String(s).slice(0, 4);
+  if (S.px_ep){
+    const [op, v] = S.px_ep.split(":");
+    if (op === "rg"){ const [a, b] = v.split("-").map(Number); return saisons.filter(s => an(s) >= a && an(s) <= b); }
+    const n = +v;
+    return saisons.filter(s => ({ lt: an(s) < n, le: an(s) <= n, eq: an(s) === n, ge: an(s) >= n, gt: an(s) > n }[op]));
+  }
+  if (S.wiv === "s"){ const sz = S.wis && saisons.includes(S.wis) ? S.wis : saisons[saisons.length - 1]; return [sz]; }
+  if (S.wiv === "d"){ const d = S.wid != null ? +S.wid : Math.floor(an(saisons[saisons.length - 1]) / 10) * 10; return saisons.filter(s => Math.floor(an(s) / 10) * 10 === d); }
+  return saisons;
+}
+const pbxUneSaison = (cat) => pbxEpoque(cat.saisons).length === 1;
+const pbxNomS = (s) => `${String(s).slice(0, 4)}-${String(s).slice(6)}`;
+// Le moteur prend la main dès que la loupe demande une chose que les vues d'avant ne font pas
+function pbxActif(){
+  const t = pbxT(), st = pbxStat();
+  return !!(S.wir === "e" || S.px_ep || S.px_pos || S.px_nat || S.px_pj || S.px_eq || S.px_stat || S.px_tri || S.px_ord || S.px_n
+    || (S.px_st && !PBX_LEG[t][S.px_st]) || (pbxLig() === "rec" && !["p", "v"].includes(st)) || (S.px_t && S.px_t !== (WI_MODES[S.wi || "p"]?.j === "g" ? "g" : "j")));
+}
+// Le format d'une valeur selon la stat
+function pbxF(c, v){
+  if (v == null || Number.isNaN(v)) return "–";
+  if (c.f === "p") return (v * 100).toFixed(1).replace(".", EN ? "." : ",") + " %";
+  if (c.f === "p3") return sv3(v);
+  if (c.f === "d") return v.toFixed(2).replace(".", EN ? "." : ",");
+  if (c.f === "t"){ const m = Math.floor(v / 60), s_ = Math.round(v % 60); return `${m}:${String(s_).padStart(2, "0")}`; }
+  return c.k === "pm" || c.k === "gsaa" ? pmW(v) : nW(v);
+}
+const pbxRate = (c) => c.f !== "n";                     // les moyennes et les % (pas étirées à 82, moyennées par match)
+// Les stats calculées (jamais ajustées deux fois : à partir des composantes déjà ajustées)
+const PBX_DER = {
+  ppm: [["p", "pj"], (p, pj) => pj ? p / pj : null],
+  tp: [["b", "t"], (b, t) => t ? b / t : null],
+  mjp: [["mjg", "mjt"], (g, t) => t ? g / t : null],
+  p60: [["p", "tgs"], (p, s) => s ? p * 3600 / s : null],
+  tbp: [["tbb", "tbt"], (b, t) => t ? b / t : null],
+  tbsv: [["tbs", "tbr"], (s, r) => r ? s / r : null],
+  ar: [["ta", "sv"], (ta, sv) => ta != null && sv != null ? ta * sv : null],
+  ba: [["ta", "sv"], (ta, sv) => ta != null && sv != null ? ta * (1 - sv) : null],
+};
+// Une ligne d'une saison -> {k: valeur} dans le mode choisi (r : réel ; e : PB Era PJ réels ; 8 : PB Era étiré)
+function pbxLigne(cols, row, mode, t, catK){
+  const R = row[5], E = row[6], o = {}, pj = R[cols.indexOf("pj")] || 0;
+  let k = 1;
+  if (mode === "8"){
+    if (t === "j") k = pj >= 10 ? 82 / pj : 1;
+    else { const cible = pj >= 25 ? 62 : 24; k = pj >= 5 ? cible / pj : 1; }
+  }
+  cols.forEach((c, x) => {
+    let v = mode === "r" ? R[x] : (E[x] ?? (catK[c]?.rec === "egal" ? R[x] : null));
+    if (v != null && mode === "8" && catK[c] && !pbxRate(catK[c])) v *= k;
+    o[c] = v;
+  });
+  // Les composantes réelles des gardiens (arrêts, buts accordés) : en réel, les vraies valeurs de la LNH
+  if (t === "g" && mode === "r"){ const ia = cols.indexOf("ar"), ib = cols.indexOf("ba"); if (ia >= 0) o._ar = R[ia]; if (ib >= 0) o._ba = R[ib]; }
+  o.tgs = o.tg != null && pj ? o.tg * (mode === "8" ? pj * k : pj) : null;      // le temps de glace total (pour /60)
+  o._pj = pj; o._k = k;
+  return o;
+}
+// Additionner des saisons (le total sur l'époque). Les moyennes : pondérées par les matchs. part : la part de la saison
+// gardée (une équipe choisie, une saison partagée après un échange)
+function pbxAjouter(acc, o, catL, part){
+  for (const c of catL){
+    const v = o[c.k]; if (v == null) continue;
+    if (pbxRate(c)){ const w = (o._pj || 0) * part; acc["w_" + c.k] = (acc["w_" + c.k] || 0) + w; acc[c.k] = (acc[c.k] || 0) + v * w; }
+    else acc[c.k] = (acc[c.k] || 0) + v * part;
+  }
+  if (o.tgs != null) acc.tgs = (acc.tgs || 0) + o.tgs * part;
+  for (const k of ["_ar", "_ba"]) if (o[k] != null) acc[k] = (acc[k] || 0) + o[k] * part;
+  acc._pjr = (acc._pjr || 0) + (o._pj || 0) * part;
+}
+function pbxFinir(acc, catL, t, mode){
+  for (const c of catL) if (pbxRate(c) && acc["w_" + c.k]) acc[c.k] = acc[c.k] / acc["w_" + c.k];
+  for (const [k, [src, f]] of Object.entries(PBX_DER)){
+    if (!catL.some(c => c.k === k)) continue;
+    if (t === "g" && mode === "r" && (k === "ar" || k === "ba")){ acc[k] = acc["_" + k] ?? f(...src.map(s => acc[s])); continue; }
+    const v = f(...src.map(s => acc[s]));
+    if (v != null && !Number.isNaN(v)) acc[k] = v;
+  }
+  // % d'arrêts du total en réel : arrêts ÷ tirs (plus juste que la moyenne des %)
+  if (t === "g" && mode === "r" && acc._ar != null && acc.ta) acc.sv = acc._ar / acc.ta;
+  return acc;
+}
+// Le minimum de matchs automatique pour une moyenne
+const pbxMin = (t, nS) => (t === "g" ? 25 : 41) * Math.min(Math.max(nS, 1), 10);
+function pbxPjOk(pj){
+  if (!S.px_pj) return true;
+  const [op, v] = S.px_pj.split(":"), n = +v;
+  return { lt: pj < n, le: pj <= n, eq: pj === n, ge: pj >= n, gt: pj > n }[op] ?? true;
+}
+// La vue du moteur
+async function pbxVue(el, q){
+  const cat = await pbxCat();
+  if (!cat){ el.innerHTML = `<div class="card"><div class="vide">${L("Toutes les stats de PB Stats arrivent au prochain calcul.", "All PB Stats stats arrive with the next update.")}</div></div>`; return; }
+  const t = pbxT(), catL = cat[t], catK = Object.fromEntries(catL.map(c => [c.k, c]));
+  const saisons = pbxEpoque(cat.saisons), une = saisons.length === 1;
+  const lig = une ? "tot" : pbxLig();
+  const mode = S.wir === "r" ? "r" : S.wir === "e" ? "e" : "8";
+  const ageOk = une || lig === "rec";
+  // Une stat qui n'a pas de sens ici (l'âge sur plusieurs saisons, une stat que la LNH ne comptait pas encore à la fin de
+  // l'époque choisie) : la stat de base à la place
+  const finEp = saisons[saisons.length - 1] || "";
+  const sensOk = (k) => k === "age" ? ageOk : !!catK[k] && (!catK[k].depuis || catK[k].depuis <= finEp || ["ppm", "tp", "mjp", "p60", "tbp", "tbsv", "ar", "ba"].includes(k));
+  let stK = pbxStat(); if (!sensOk(stK)) stK = t === "g" ? "v" : "p";
+  const triK = S.px_tri && sensOk(S.px_tri) ? S.px_tri : stK;
+  const st = stK === "age" ? { k: "age", fr: "Âge", en: "Age", f: "n", u: L("ans", "yrs") } : catK[stK];
+  const tri = triK === "age" ? { k: "age", f: "n" } : catK[triK];
+  // Les équipes : celles de la loupe, ou la ville de « Par équipe »
+  const eqs = pbxListe(S.px_eq).length ? pbxListe(S.px_eq) : (S.wiv === "eq" && S.wieq ? [S.wieq] : []);
+  // Tous les temps sans équipe : les carrières toutes faites (x/car_<t>.json), un seul fichier au lieu de 109 saisons
+  const carOk = saisons.length === cat.saisons.length && !eqs.length && lig === "tot" && !S.px_ep;
+  if (carOk && !PBX.car[t]){
+    el.innerHTML = `<div class="card"><div class="vide">${L("Chargement des carrières…", "Loading careers…")}</div></div>`;
+    PBX.car[t] = await pbsGet(`x/car_${t}.json`).catch(() => null);
+  }
+  const avecCar = carOk && PBX.car[t];
+  if (S.px_stat && !PBX.s[cat.saisons[cat.saisons.length - 1]]) await pbxSaison(cat.saisons[cat.saisons.length - 1]);
+  // Chargement des saisons (toutes en même temps, 8 à la fois)
+  const manq = avecCar ? [] : saisons.filter(s => PBX.s[s] === undefined);
+  if (manq.length){
+    let n = 0;
+    const msg = () => { el.innerHTML = `<div class="card"><div class="vide">${L(`Chargement des saisons… ${n}/${manq.length}`, `Loading seasons… ${n}/${manq.length}`)}</div></div>`; };
+    msg();
+    for (let i = 0; i < manq.length; i += 8){ await Promise.all(manq.slice(i, i + 8).map(s => pbxSaison(s).then(() => { n++; }))); msg(); }
+  }
+  await natCharger();
+  const pos = pbxListe(S.px_pos), nats = pbxListe(S.px_nat);
+  const ag = ageOk && S.wiage ? wiAgeLu() : null;
+  const actifs = S.px_stat ? new Set(((PBX.s[cat.saisons[cat.saisons.length - 1]] || {})[t]?.r || []).map(r => String(r[0]))) : null;
+  const posOk = (p_) => { p_ = p_ === "W" ? "L" : p_ || ""; return !pos.length || pos.includes(p_) || (pos.includes("F") && "CLR".includes(p_) && p_); };
+  const natOk = (id) => !nats.length || nats.includes(natInfo(id)?.code || "?");
+  const statOk = (id) => !actifs || (S.px_stat === "act" ? actifs.has(id) : !actifs.has(id));
+  // Les lignes : une par saison (records) ou le total par joueur
+  const out = new Map(), recs = [];
+  if (avecCar){
+    const C = PBX.car[t], ix = mode === "r" ? 7 : mode === "e" ? 8 : 9;
+    const obj = (a) => { const o = {}; C.c.forEach((c, x) => { if (a[x] != null) o[c] = a[x]; }); return o; };
+    for (const r of C.r){
+      const id = String(r[0]);
+      if (q.length >= 2 && !nrm(r[1]).includes(q)) continue;
+      if (t === "j" && !posOk(r[2])) continue;
+      if (!natOk(id) || !statOk(id)) continue;
+      const v = obj(r[ix]), vr = obj(r[7]);
+      if (t === "g" && mode === "r"){ v._ar = v.ar; v._ba = v.ba; }
+      vr._ar = vr.ar; vr._ba = vr.ba; vr._pjr = vr.pj;
+      out.set(id, { id, n: r[1], pos: r[2], eq: r[3], no: r[4], de: r[5], a: r[6], v, vr, eqPJ: { [r[3]]: 1 } });
+    }
+  }
+  for (const s of (avecCar ? [] : saisons)){
+    const X = PBX.s[s]?.[t]; if (!X) continue;
+    const ref = wiRefSaison(s);
+    for (const row of X.r){
+      const id = String(row[0]);
+      if (q.length >= 2 && !nrm(row[1]).includes(q)) continue;
+      if (t === "j" && !posOk(row[2])) continue;
+      if (!natOk(id) || !statOk(id)) continue;
+      const ts = String(row[3] || "").split(",").filter(Boolean);
+      let part = 1;
+      if (eqs.length){
+        const sp = row[7];                       // [[équipe, PJ], ...] une saison partagée (src/pbstats_plus.py)
+        const avec = ts.filter(e_ => eqs.includes(e_)); if (!avec.length) continue;
+        if (ts.length > 1){
+          const pjT = sp ? sp.filter(([e_]) => eqs.includes(e_)).reduce((a, [, p_]) => a + p_, 0) : null;
+          const pjS = sp ? sp.reduce((a, [, p_]) => a + p_, 0) : null;
+          part = sp && pjS ? pjT / pjS : avec.length / ts.length;
+        }
+      }
+      const o = pbxLigne(X.c, row, mode, t, catK);
+      const oR = mode === "r" ? o : pbxLigne(X.c, row, "r", t, catK);
+      if (lig === "rec"){
+        const a_ = wiAge(id, ref);
+        if (ag && !wiAgeOk(ag, a_)) continue;
+        const acc = {}; pbxAjouter(acc, o, catL, part); pbxFinir(acc, catL, t, mode);
+        const accR = {}; pbxAjouter(accR, oR, catL, part); pbxFinir(accR, catL, t, "r");
+        acc.age = a_;
+        recs.push({ id, n: row[1], pos: row[2], eq: ts[ts.length - 1] || "", no: row[4], s, v: acc, vr: accR, pj: oR._pj * part });
+      } else {
+        let x = out.get(id);
+        if (!x){ x = { id, n: row[1], pos: row[2], eq: ts[ts.length - 1] || "", no: row[4], de: s, a: s, v: {}, vr: {}, eqPJ: {} }; out.set(id, x); }
+        pbxAjouter(x.v, o, catL, part); pbxAjouter(x.vr, oR, catL, part);
+        x.a = s; if (s < x.de) x.de = s; x.n = row[1]; if (row[4] != null) x.no = row[4];
+        for (const e_ of ts) x.eqPJ[e_] = (x.eqPJ[e_] || 0) + (oR._pj || 0) / ts.length;
+        if (une) x.age = wiAge(id, ref);
+      }
+    }
+  }
+  let L_ = lig === "rec" ? recs : [...out.values()].map(x => {
+    pbxFinir(x.v, catL, t, mode); pbxFinir(x.vr, catL, t, "r");
+    x.pj = x.vr._pjr || x.vr.pj || 0;
+    x.eq = Object.entries(x.eqPJ).sort((a, b) => b[1] - a[1])[0]?.[0] || x.eq;
+    x.v.age = x.age;
+    return x;
+  });
+  if (ag && lig !== "rec") L_ = L_.filter(x => wiAgeOk(ag, x.age));
+  // Le minimum de matchs : celui choisi (Matchs), sinon automatique pour une moyenne
+  const nS = lig === "rec" ? 1 : saisons.length;
+  const minAuto = !S.px_pj && ((st && pbxRate(st)) || (tri && pbxRate(tri)) || (lig === "rec" && mode === "8")) ? pbxMin(t, nS) : 0;
+  L_ = L_.filter(x => pbxPjOk(Math.round(x.pj)) && x.pj >= minAuto);
+  const val = (x, c) => c.k === "age" ? x.v.age : x.v[c.k];
+  L_ = L_.filter(x => val(x, tri) != null && val(x, st) != null);
+  // L'ordre : choisi, sinon le plus haut d'abord (le plus bas pour la moyenne de buts accordés, les buts accordés et l'âge)
+  const basBon = ["bpg", "ba", "age", "rev", "bcf"].includes(tri.k);
+  const asc = S.px_ord ? S.px_ord === "asc" : basBon;
+  L_.sort((x, y) => (asc ? 1 : -1) * (val(x, tri) - val(y, tri)) || (y.pj - x.pj));
+  const N = pbxN(), total = L_.length;
+  const unite = st.u || "";
+  const lignes = L_.slice(0, N).map((x, k) => {
+    const et = L("réel", "real");
+    const pjTxt = `${nW(x.pj)} ${L("matchs", "games")}`;
+    const quand = lig === "rec" ? pbxNomS(x.s) : (x.de === x.a ? pbxNomS(x.de) : `${x.de.slice(0, 4)}-${String(+x.a.slice(0, 4) + 1).slice(2)}`);
+    const sous = [st.k !== "age" && mode !== "r" ? `${et} ${pbxF(st, x.vr[st.k])}` : "",
+      tri.k !== st.k ? `${tri.k === "age" ? L("âge", "age") : L(tri.fr, tri.en).toLowerCase()} ${pbxF(tri, val(x, tri))}` : "",
+      pjTxt, quand, (x.v.age != null && ageOk) ? `${x.v.age} ${L("ans", "yrs")}` : ""].filter(Boolean).join(" · ");
+    return pbsLigne(t, k + 1, x.id, x.n, t === "g" ? "G" : x.pos, x.eq, x.no, pbxF(st, val(x, st)), st.f === "n" ? unite : "", sous);
+  }).join("");
+  // L'en-tête : ce qui est cherché, en mots
+  const ep = S.px_ep ? (() => { const [op, v] = S.px_ep.split(":"); return op === "rg" ? `${v.split("-")[0]}-${String(+v.split("-")[1] + 1).slice(2)}` : `${WI_OPS.find(o => o[0] === op)?.[1] || ""} ${pbxNomS(v + String(+v + 1))}`; })()
+    : une ? pbxNomS(saisons[0]) : S.wiv === "d" ? L(`les années ${Math.floor(+saisons[0].slice(0, 4) / 10) * 10}`, `the ${Math.floor(+saisons[0].slice(0, 4) / 10) * 10}s`) : L("tous les temps", "all-time");
+  const modeTxt = mode === "r" ? L("réel", "real") : mode === "e" ? "PB Era · " + L("PJ réels", "real GP") : "PB Era · 82 PJ";
+  const depuis = st.depuis && saisons[0] < st.depuis ? L(` La ligue compte cette stat depuis ${pbxNomS(st.depuis)}.`, ` The league has counted this stat since ${pbxNomS(st.depuis)}.`) : "";
+  const minTxt = minAuto ? L(` Minimum ${minAuto} matchs (change-le dans Matchs).`, ` Minimum ${minAuto} games (change it in Games).`) : "";
+  const tete = `<div class="cp-tete">${titrePB("PB Stats", L(st.fr || "Âge", st.en || "Age"))}<p>${L(`${t === "g" ? "Gardiens" : "Patineurs"}, ${ep}${lig === "rec" ? ", meilleures saisons" : ""}, ${modeTxt}. ${total.toLocaleString(LANG)} ${lig === "rec" ? "saisons" : "joueurs"}.`,
+    `${t === "g" ? "Goalies" : "Skaters"}, ${ep}${lig === "rec" ? ", best seasons" : ""}, ${modeTxt}. ${total.toLocaleString(LANG)} ${lig === "rec" ? "seasons" : "players"}.`)}${depuis}${minTxt}</p></div>`;
+  const plus = total > N ? `<button class="lien-plus pbx-plus" data-pxplus="${N * 2}">${L(`Voir plus : +${Math.min(N, total - N).toLocaleString(LANG)}`, `Show more: +${Math.min(N, total - N).toLocaleString(LANG)}`)}</button>` : "";
+  const rec = st.rec ? `<p class="aide">${pbxRecette(st)}</p>` : "";
+  el.innerHTML = tete + (lignes || `<div class="card"><div class="vide">${L("Aucun joueur.", "No player.")}</div></div>`) + plus + rec;
+  ptListeTab("p-whatif");
+}
+// La recette PB Era de la stat, en mots (sous la liste)
+function pbxRecette(c){
+  const R = {
+    pb: L("PB Era : l'algo de PB Stats (ère d'aujourd'hui, par match-joueur).", "PB Era: the PB Stats algorithm (today's era, per player-game)."),
+    rythme: L("PB Era : contre le rythme de la ligue de cette stat (par match-joueur), ramené à la moyenne des 20 dernières saisons.", "PB Era: against the league's rate of this stat (per player-game), brought to the average of the last 20 seasons."),
+    arena: L("PB Era : rythme de la ligue + le biais du marqueur de son aréna (certains arénas comptent beaucoup plus que d'autres ; méthode des facteurs d'aréna, matchs à domicile vs à l'étranger).", "PB Era: league rate + his home rink's scorer bias (some rinks count far more than others; rink factors, home vs road games)."),
+    decision: L("PB Era : sa part des décisions, ramenée à celle d'aujourd'hui (comme les victoires).", "PB Era: his share of decisions, brought to today's (like wins)."),
+    nul: L("PB Era : 0, il n'y a plus de nuls aujourd'hui (déjà redistribués dans les victoires).", "PB Era: 0, there are no ties today (already redistributed into wins)."),
+    situation: L("PB Era : contre le % d'arrêts de la ligue dans la même situation.", "PB Era: against the league's save % in the same situation."),
+    gsaa: L("Buts sauvés vs la moyenne de la ligue de sa saison ; PB Era : ramené au volume de tirs d'aujourd'hui.", "Goals saved vs his season's league average; PB Era: brought to today's shot volume."),
+    egal: L("Pas d'ajustement : cette stat se compare d'égal à égal d'une époque à l'autre.", "No adjustment: this stat compares evenly across eras."),
+    derive: L("Calculée à partir des stats déjà ajustées (jamais ajustée deux fois).", "Computed from already-adjusted stats (never adjusted twice)."),
+  };
+  return R[c.rec] || "";
+}
+// Les rangées de la loupe (dans le panneau 🔍 de la section)
+function pbxTiroir(cat){
+  const t = pbxT(), lig = pbxLig();
+  const ch = (k, v, txt, on, extra = "") => `<button class="chip${extra}" data-px="${k}" data-pv="${v}" aria-pressed="${!!on}">${txt}</button>`;
+  const lbl = (x) => `<span class="lbl">${x}</span>`;
+  const h = (n, x) => `<span class="px-n">${n}</span>${x}`;
+  const set = (id, html, resume) => { const el = $("#" + id); if (!el) return; el.innerHTML = html; if (resume !== undefined) el.dataset.resume = resume; };
+  const voir = (id, ok) => { const el = $("#" + id); if (el) el.hidden = !ok; };
+  // Patineurs / gardiens
+  set("px-t", ch("px_t", "j", L("Patineurs", "Skaters"), t === "j", " px-seg") + ch("px_t", "g", L("Gardiens", "Goalies"), t === "g", " px-seg"), t === "g" ? L("Gardiens", "Goalies") : "");
+  // 1 Époque
+  const sais = cat?.saisons || [];
+  const an0 = +String(sais[0] || "19171918").slice(0, 4), an1 = +String(sais[sais.length - 1] || "20262027").slice(0, 4);
+  const [op, v] = (S.px_ep || "").split(":");
+  const quoi = S.px_ep ? "ans" : S.wiv === "s" ? "s" : S.wiv === "d" ? "d" : "";
+  $("#px-h1").innerHTML = h(1, L("Époque", "Era"));
+  set("px-ep", ch("px_ep", "", L("Tous les temps", "All-time"), quoi === "") + ch("px_ep", "d", L("Décennie", "Decade"), quoi === "d")
+    + ch("px_ep", "s", L("Une saison", "One season"), quoi === "s") + ch("px_ep", "ans", L("Années", "Years"), quoi === "ans"),
+    quoi === "ans" ? "" : undefined);
+  let ep2 = "";
+  if (quoi === "d"){
+    const decs = cat?.saisons ? [...new Set(sais.map(s => Math.floor(+s.slice(0, 4) / 10) * 10))] : [];
+    const d = S.wid != null ? +S.wid : decs[decs.length - 1];
+    ep2 = decs.map(x => `<button class="chip" data-wid="${x}" aria-pressed="${x === d}">${x}</button>`).join("");
+  } else if (quoi === "s"){
+    const sz = S.wis && sais.includes(S.wis) ? S.wis : sais[sais.length - 1];
+    ep2 = `<select id="px-sz" aria-label="${L("Saison", "Season")}">${[...sais].reverse().map(x => `<option value="${x}"${x === sz ? " selected" : ""}>${pbxNomS(x)}</option>`).join("")}</select>`;
+  } else if (quoi === "ans"){
+    const pas = (cle, n, sens) => `<button class="wi-agb" data-px="px_epn" data-pv="${cle}:${Math.max(an0, Math.min(an1, n + sens))}" aria-label="${sens < 0 ? "−" : "+"}">${sens < 0 ? "−" : "+"}</button>`;
+    if (op === "rg"){
+      const [a, b] = v.split("-").map(Number);
+      ep2 = ch("px_epop", "ge", "≥", false, " wi-op") + ch("px_epop", "rg", L("Entre", "Between"), true)
+        + `<span class="wi-ag">${pas("a", a, -1)}<b>${pbxNomS(a + "" + (a + 1))}</b>${pas("a", a, 1)}</span><span class="px-et">${L("et", "and")}</span><span class="wi-ag">${pas("b", b, -1)}<b>${pbxNomS(b + "" + (b + 1))}</b>${pas("b", b, 1)}</span>`;
+    } else {
+      const n = +v;
+      ep2 = WI_OPS.map(([k, x]) => ch("px_epop", k, x, op === k, " wi-op")).join("") + ch("px_epop", "rg", L("Entre", "Between"), false)
+        + `<span class="wi-ag">${pas("n", n, -1)}<b>${pbxNomS(n + "" + (n + 1))}</b>${pas("n", n, 1)}</span>`;
+    }
+    const el = $("#px-ep"); if (el) el.dataset.resume = L("Années ", "Years ") + (op === "rg" ? `${v.split("-")[0]}-${+v.split("-")[1] + 1}` : `${WI_OPS.find(o => o[0] === op)?.[1]} ${pbxNomS(v + String(+v + 1))}`);
+  }
+  // La 2e rangée de l'époque (signes, années, décennies, saison) : son résumé est déjà dans la 1re
+  set("px-ep2", ep2, ""); voir("px-ep2", !!ep2);
+  const elEp = $("#px-ep");
+  if (elEp && quoi === "s") elEp.dataset.resume = L("Saison ", "Season ") + pbxNomS(S.wis && sais.includes(S.wis) ? S.wis : sais[sais.length - 1]);
+  if (elEp && quoi === "d") elEp.dataset.resume = L("Les années ", "The ") + (S.wid != null ? S.wid : Math.floor(an1 / 10) * 10) + L("", "s");
+  if (elEp && quoi === "") elEp.dataset.resume = "";
+  const une = cat ? pbxUneSaison(cat) : S.wiv === "s";
+  // 2 Bassin
+  $("#px-h2").innerHTML = h(2, L("Bassin de joueurs", "Player pool"));
+  voir("f-wiage", une || lig === "rec");                 // l'âge : une seule saison ou les records
+  const pos = pbxListe(S.px_pos);
+  set("px-pos", lbl(L("Position", "Position")) + ch("px_pos", "", L("Tous", "All"), !pos.length)
+    + [["F", L("Avants", "Forwards")], ["C", "C"], ["L", L("AG", "LW")], ["R", L("AD", "RW")], ["D", "D"]].map(([k, x]) => ch("px_pos", k, x, pos.includes(k))).join(""),
+    pos.length ? `${L("Position", "Position")} : ${pos.join(", ")}` : "");
+  voir("px-pos", t === "j");
+  const nats = pbxListe(S.px_nat);
+  const top = ["CAN", "USA", "SWE", "FIN", "RUS", "CZE", "SVK", "GER", "SUI", "DEN", "LAT", "AUT", "NOR", "SLO", "BLR", "FRA", "GBR", "URS", "TCH", "KAZ", "UKR", "NED", "POL", "AUS", "JPN", "KOR", "ITA", "HUN", "EST", "LTU", "CRO", "BRA", "RSA", "NGR", "JAM", "VEN", "BAH", "TPE"];
+  const vus = S.px_natx ? top : top.slice(0, 8);
+  set("px-nat", lbl(L("Nationalité", "Nationality")) + ch("px_nat", "", L("Tous", "All"), !nats.length)
+    + vus.map(k => ch("px_nat", k, k, nats.includes(k))).join("") + (S.px_natx ? "" : `<button class="chip" data-px="px_natx" data-pv="1">+</button>`),
+    nats.length ? `${L("Nationalité", "Nationality")} : ${nats.join(", ")}` : "");
+  const [pop, pv] = (S.px_pj || "").split(":"), pn = +pv || 100;
+  set("px-pj", lbl(L("Matchs", "Games")) + ch("px_pj", "", L("Tous", "All"), !S.px_pj)
+    + WI_OPS.filter(([k]) => ["ge", "le"].includes(k)).map(([k, x]) => ch("px_pj", `${k}:${pn}`, x, pop === k, " wi-op")).join("")
+    + `<span class="wi-ag"><button class="wi-agb" data-px="px_pj" data-pv="${pop || "ge"}:${Math.max(1, pn - (pn > 100 ? 50 : 10))}">−</button><b>${pn}</b><button class="wi-agb" data-px="px_pj" data-pv="${pop || "ge"}:${pn + (pn >= 100 ? 50 : 10)}">+</button></span>`,
+    S.px_pj ? `${L("PJ", "GP")} ${WI_OPS.find(o => o[0] === pop)?.[1]} ${pn}` : "");
+  set("px-stat", lbl(L("Statut", "Status")) + ch("px_stat", "", L("Tous", "All"), !S.px_stat) + ch("px_stat", "act", L("Actifs", "Active"), S.px_stat === "act")
+    + ch("px_stat", "ret", L("Retraités", "Retired"), S.px_stat === "ret"), S.px_stat ? (S.px_stat === "act" ? L("Actifs", "Active") : L("Retraités", "Retired")) : "");
+  // Les équipes : plusieurs à la fois, toutes celles de l'histoire (les actuelles d'abord)
+  const eqs = pbxListe(S.px_eq);
+  const toutes = (PBS.meta?.equipes || []).slice();
+  const act = toutes.filter(x => !VILLES[x]?.[2]).sort(), anc = toutes.filter(x => VILLES[x]?.[2] || !VILLES[x]).sort();
+  const pq = (x) => `<button type="button" class="peq" data-fe="px_eq" data-t="${x}" aria-pressed="${eqs.includes(x)}" style="--c:${palette(x).f};--ct:${palette(x).t};--cb:${palette(x).c};--df:${palette(x).d};--dt:${palette(x).dt};--dl:${palette(x).dl}" title="${NOMS_EQ[x] || ville(x)}">${x}</button>`;
+  const elE = $("#px-eqs");
+  if (elE) elE.innerHTML = `<div class="px-sl">${L("Équipes", "Teams")} <small>${L("plusieurs à la fois", "several at once")}</small></div><div class="eq-filtre">${act.map(pq).join("")}</div>`
+    + (anc.length ? `<details class="px-anc"${anc.some(x => eqs.includes(x)) ? " open" : ""}><summary>${L("Les anciennes", "Former teams")}</summary><div class="eq-filtre">${anc.map(pq).join("")}</div></details>` : "");
+  // 3 La stat affichée : toutes celles du catalogue pour ce type, groupées ; celles que la LNH ne comptait pas pendant
+  // toute l'époque choisie disparaissent
+  $("#px-h3").innerHTML = h(3, L("Ce qu'on affiche", "What to show"));
+  const catL = cat?.[t] || [];
+  const ep = cat ? pbxEpoque(cat.saisons) : [];
+  const dernier = ep[ep.length - 1] || "";
+  const PBX_COMP = { ppm: ["p", "pj"], tp: ["b", "t"], mjp: ["mjg", "mjt"], p60: ["p", "tg"], tbp: ["tbb", "tbt"], tbsv: ["tbs", "tbr"] };
+  const depC = (c) => PBX_COMP[c.k] ? PBX_COMP[c.k].map(k => catL.find(x => x.k === k)?.depuis).reduce((a, b) => !a || !b ? null : a > b ? a : b) : c.depuis;
+  const dispo = (c) => { const d = depC(c); return !!d && d <= dernier; };
+  const stK = pbxStat();
+  const GRP = { base: ["La base", "Basics"], pun: ["Punitions", "Penalties"], an: ["Avantage numérique", "Power play"], dn: ["Désavantage numérique", "Shorthanded"],
+    fe: ["Forces égales", "Even strength"], clutch: ["Buts qui comptent", "Clutch goals"], tirs: ["Tirs", "Shots"], phys: ["Jeu physique et rondelle", "Physical and puck play"],
+    mj: ["Mises au jeu", "Faceoffs"], tg: ["Temps de glace", "Ice time"], tdb: ["Tirs de barrage", "Shootout"], glace: ["Sur la glace", "On ice"], poss: ["Possession", "Possession"],
+    sit: ["% d'arrêts par situation", "Save % by situation"], avance: ["Avancées", "Advanced"], autre: ["Autres", "Other"] };
+  const parG = {};
+  for (const c of catL.filter(dispo)) (parG[c.grp || "autre"] ||= []).push(c);
+  if (une || lig === "rec") (parG.base ||= []).push({ k: "age", fr: "Âge", en: "Age" });
+  const cs = Object.entries(parG).map(([g, L0]) => `<span class="px-g">${L(...(GRP[g] || [g, g]))}</span>` + L0.map(c => ch("px_st", c.k, L(c.fr, c.en), stK === c.k)).join("")).join("");
+  const elSt = $("#px-st"); if (elSt) elSt.dataset.raz = t === "g" ? "v" : "p";
+  set("px-st", cs || `<span class="aide" style="margin:0">${L("Les stats complètes arrivent au prochain calcul.", "Full stats arrive with the next update.")}</span>`,
+    S.px_st ? `${L("Stat", "Stat")} : ${L((catL.find(c => c.k === S.px_st) || { fr: "Âge", en: "Age" }).fr, (catL.find(c => c.k === S.px_st) || { en: "Age" }).en)}` : "");
+  // 3b Trier par
+  $("#px-h3b").innerHTML = h("3b", L("Trier par", "Sort by"));
+  set("px-tri", ch("px_tri", "", L("Comme l'affichage", "Same as shown"), !S.px_tri) + ch("px_tri", "cus", "Custom", !!S.px_tri),
+    S.px_tri ? `${L("Trier par", "Sort by")} : ${S.px_tri === "age" ? L("Âge", "Age") : L(catL.find(c => c.k === S.px_tri)?.fr || "", catL.find(c => c.k === S.px_tri)?.en || "")}` : "");
+  const triS = S.px_tri && S.px_tri !== "cus" ? S.px_tri : "";
+  set("px-tri2", S.px_tri ? `<select id="px-trisel" aria-label="${L("Trier par", "Sort by")}">${catL.filter(dispo).map(c => `<option value="${c.k}"${c.k === triS ? " selected" : ""}>${L(c.fr, c.en)}</option>`).join("")}${(une || lig === "rec") ? `<option value="age"${triS === "age" ? " selected" : ""}>${L("Âge", "Age")}</option>` : ""}</select>` : "");
+  voir("px-tri2", !!S.px_tri);
+  set("px-ord", lbl(L("Ordre", "Order")) + ch("px_ord", "", L("Auto", "Auto"), !S.px_ord) + ch("px_ord", "desc", L("↓ Plus haut", "↓ Highest"), S.px_ord === "desc") + ch("px_ord", "asc", L("↑ Plus bas", "↑ Lowest"), S.px_ord === "asc"),
+    S.px_ord ? (S.px_ord === "asc" ? L("↑ Plus bas", "↑ Lowest") : L("↓ Plus haut", "↓ Highest")) : "");
+  // 4 Les lignes
+  $("#px-h4").innerHTML = h(4, L("Lignes", "Rows"));
+  set("px-lig", ch("px_lig", "tot", L("Total sur l'époque", "Total over the era"), lig !== "rec") + ch("px_lig", "rec", L("Meilleures saisons (records)", "Best seasons (records)"), lig === "rec"));
+  voir("px-lig", !une); voir("px-h4", !une);
+  // Les rangées d'avant : remplacées par celles-ci
+  ["f-wipos", "f-witri", "f-wiord", "fe-wi"].forEach(id => voir(id, false));
+  // Les boutons du haut suivent la loupe : une stat ou une époque qu'ils n'ont pas -> aucun allumé
+  document.querySelectorAll("#f-wi .chip").forEach(x => x.setAttribute("aria-pressed", !S.px_st && !S.px_t && x.dataset.v === (S.wi || "p")));
+  if (S.px_ep) document.querySelectorAll("#f-wiv .chip").forEach(x => x.setAttribute("aria-pressed", "false"));
+}
+// Les touchers de la loupe
 document.addEventListener("click", (e) => {
-  if (e.target.closest?.("[data-wirt]")){ S.wir = S.wir === "r" ? "" : "r"; whatif(); return; }
+  const b = e.target.closest?.("[data-px]");
+  if (b){
+    const k = b.dataset.px, v = b.dataset.pv || "";
+    const t = pbxT();
+    if (k === "px_t"){
+      S.px_t = v; S.px_st = ""; S.px_tri = ""; S.wi = v === "g" ? (pbxLig() === "rec" ? "gsr" : "gv") : (pbxLig() === "rec" ? "sr" : "p");
+      if (S.px_t === (WI_MODES[S.wi]?.j === "g" ? "g" : "j")) S.px_t = "";
+    } else if (k === "px_ep"){
+      if (v === "ans"){ S.px_ep = S.px_ep || `ge:${new Date().getFullYear() - 11}`; }
+      else { S.px_ep = ""; S.wiv = v === "s" ? "s" : v === "d" ? "d" : ""; }
+    } else if (k === "px_epop"){
+      const [op, n] = (S.px_ep || "ge:2005").split(":");
+      const a = op === "rg" ? +n.split("-")[0] : +n;
+      S.px_ep = v === "rg" ? `rg:${a}-${Math.min(a + 9, new Date().getFullYear())}` : `${v}:${a}`;
+    } else if (k === "px_epn"){
+      const [cle, n] = v.split(":"), [op, x] = (S.px_ep || "ge:2005").split(":");
+      if (op === "rg"){ let [a, b2] = x.split("-").map(Number); if (cle === "a") a = +n; else b2 = +n; if (a > b2) [a, b2] = [b2, a]; S.px_ep = `rg:${a}-${b2}`; }
+      else S.px_ep = `${op}:${n}`;
+    } else if (k === "px_pos" || k === "px_nat"){
+      if (!v) S[k] = "";
+      else { const L0 = pbxListe(S[k]); S[k] = (L0.includes(v) ? L0.filter(x => x !== v) : [...L0, v]).join(","); }
+    } else if (k === "px_st"){
+      const leg = PBX_LEG[t][v];
+      if (leg && !S.px_t){
+        S.px_st = "";
+        S.wi = pbxLig() === "rec" && (v === "p" || v === "v") ? (v === "p" ? "sr" : "gsr") : leg;
+      } else S.px_st = v;
+    } else if (k === "px_tri"){
+      S.px_tri = v === "cus" ? (S.px_tri || pbxStat()) : "";
+    } else if (k === "px_lig"){
+      const st = pbxStat();
+      S.px_lig = "";
+      if (v === "rec" && (st === "p" || st === "v") && !S.px_st) S.wi = st === "p" ? "sr" : "gsr";
+      else if (v === "rec") S.px_lig = "rec";
+      else if (WI_MODES[S.wi || "p"]?.saisons) S.wi = WI_MODES[S.wi].j === "g" ? "gv" : "p";
+    } else S[k] = v;
+    S.px_n = "";
+    whatif(); return;
+  }
+  const m = e.target.closest?.("[data-pxplus]");
+  if (m){ S.px_n = m.dataset.pxplus; whatif(); }
+});
+document.addEventListener("change", (e) => {
+  if (e.target.id === "px-sz"){ S.wis = e.target.value; S.wiv = "s"; whatif(); }
+  if (e.target.id === "px-trisel"){ S.px_tri = e.target.value; whatif(); }
+});
+document.addEventListener("click", (e) => {
+  const wr = e.target.closest?.("[data-wir]");
+  if (wr){ S.wir = wr.dataset.wir; S.px_n = ""; whatif(); return; }
   for (const k of ["wipos", "wiage", "witri", "wiord"]){
     const b = e.target.closest?.(`[data-${k}]`);
     if (b){ S[k] = b.dataset[k]; whatif(); return; }
   }
   const v = e.target.closest?.("#f-wiv [data-wiv]");
-  if (v){ S.wiv = v.dataset.wiv; whatif(); return; }
+  if (v){ S.wiv = v.dataset.wiv; S.px_ep = ""; S.px_n = ""; whatif(); return; }
   const q = e.target.closest?.("[data-wieq]");
   if (q && q.dataset.wiss){ S.wiv = "s"; S.wis = q.dataset.wiss; S.wiseq = q.dataset.wieq; $("#wi-modal").hidden = true; whatif(); $("#p-whatif").scrollIntoView({ block: "start" }); return; }
   if (q){ S.wiv = "eq"; S.wieq = q.dataset.wieq; if (!q.dataset.wieq) S.fe_wi = ""; $("#wi-modal").hidden = true; whatif(); $("#p-whatif").scrollIntoView({ block: "start" }); return; }
@@ -4054,7 +4650,7 @@ function wiSaisons(mode, q, feq){
   tous.sort((u, w) => w.v - u.v);
   Object.assign(COTE, { n: tous.length, inv: false });
   const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
-  return tous.slice(0, 100).map((r, k) => {
+  return tous.slice(0, pbxN()).map((r, k) => {
     const sous = r.enCours
       ? (mode === "sr" ? L("rythme sur 82", "82-game pace") : L("PB, rythme", "PB, pace"))
       : (mode === "sr" ? L("points réels", "real points") : L(`PB · réel ${r.p} pts`, `PB · real ${r.p} pts`));
@@ -4084,7 +4680,7 @@ function wiSaisonsG(mode, q, feq){
   tous.sort((u, w) => w.val - u.val || (w.sv || 0) - (u.sv || 0));
   Object.assign(COTE, { n: tous.length, inv: false });
   const saisonTxt = (s) => `${s.slice(0, 4)}-${s.slice(6)}`;
-  return tous.slice(0, 100).map((r, k) => {
+  return tous.slice(0, pbxN()).map((r, k) => {
     const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("PB, rythme", "PB, pace"))
       : (mode === "gsr" ? L("victoires", "wins") : L(`PB · réel ${r.v} V`, `PB · real ${r.v} W`));
     return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
@@ -4098,8 +4694,8 @@ const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.
 // Couleur d'un joueur : son équipe ACTUELLE s'il joue encore (Kreider = MTL, pas NYR où il a joué le plus) ;
 // un retraité garde l'équipe où il a joué le plus de matchs.
 const eqPrincipale = (x) => x.act === false ? (x.eqs?.[0]?.[0] || x.eq) : (x.eq || x.eqs?.[0]?.[0]);
-const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c};--df:${palette(t).d};--dt:${palette(t).dt};--dl:${palette(t).dl}" title="${t} · ${n}">${t}</i>`).join("")}</span>`;
-const wiRond = (x) => `<span class="wi-rond" style="${eqV(eqPrincipale(x))}">${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
+const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c};--df:${palette(t).d};--dt:${palette(t).dt};--dl:${palette(t).dl}" title="${t} · ${n}"><img class="eqlg" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()">${t}</i>`).join("")}</span>`;
+const wiRond = (x) => `<span class="wi-rond" style="${eqV(eqPrincipale(x))}">${plLogos(eqPrincipale(x))}${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
 function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
@@ -4253,8 +4849,8 @@ function wiCarte(t, id){
     note = L(`PB Stats = ${G[0]} matchs par saison (${G[2]}+ joués) ou ${G[1]} (moins de ${G[2]}), victoires, % d'arrêts et moyenne ramenés à l'ère d'aujourd'hui. « – » = pas de tirs ou de temps de jeu comptés cette saison-là.`,
              `PB Stats = ${G[0]} games per season (${G[2]}+ played) or ${G[1]} (fewer than ${G[2]}), wins, save % and GAA brought to today's era. "–" = no shots or ice time counted that season.`);
   }
-  const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
+  const m = fenCible("car", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${id}" data-ms="${x.s[x.s.length - 1][0]}:${String(x.s[x.s.length - 1][1]).split(",").pop()}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, t)}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe) ; ↳ ses chiffres avec chaque équipe. ≈ : saison partagée pas encore séparée, comptée à parts égales.", " * Traded during the season (last team); ↳ his numbers with each team. ≈: split season not separated yet, counted in equal parts.") : ""}</p></div>`;
@@ -4270,7 +4866,7 @@ document.addEventListener("click", (e) => {
   const m = $("#wi-modal");
   if (m && !m.hidden && (e.target === m || e.target.closest?.(".wi-x"))) m.hidden = true;
   const c = e.target.closest?.("#f-wi .chip");
-  if (c){ S.wi = c.dataset.v; document.querySelectorAll("#f-wi .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#wi-q").value = ""; whatif(); }
+  if (c){ S.wi = c.dataset.v; S.px_st = ""; S.px_t = ""; S.px_n = ""; if (!WI_MODES[S.wi]?.saisons) S.px_lig = ""; document.querySelectorAll("#f-wi .chip").forEach(b => b.setAttribute("aria-pressed", b === c)); $("#wi-q").value = ""; whatif(); }
 });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape" && $("#wi-modal")) $("#wi-modal").hidden = true; });
 // ---- Partager : une image prête pour Facebook, Messenger, Reddit, les forums (1080 x 1350, le format des fils
@@ -4553,7 +5149,7 @@ async function ptDessiner(info){
   g.fillStyle = "rgba(255,255,255,.07)"; g.fillRect(0, H - 120, W, 120);
   g.fillStyle = coulP; g.fillRect(0, H - 120, W, 6);
   g.textAlign = "left"; g.fillStyle = "#fff"; g.font = "italic 800 62px 'Barlow Condensed'"; g.fillText("puckprob.ca", 56, H - 40);
-  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Probabilités LNH, chaque soir", "NHL probabilities, every night"), W - 56, H - 50);
+  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Probabilités hockey, chaque soir", "Hockey probabilities, every night"), W - 56, H - 50);
   return c;
 }
 // Le top 10 qui accompagne une fiche : celui de la liste d'où elle vient (le top 20 de l'onglet ouvert, ou le top 20
@@ -4737,6 +5333,7 @@ function ppMatch(gameId){
 // Post sur mesure (demande de Mitch, 10 nov. 2026 : « Malkin dans What if parce qu'il a dépassé Ovy ») : le bout
 // du classement de la section où on voit tous les joueurs nommés, dessiné comme les tops. -> image + leurs rangs.
 window.ppSurMesure = async (opt = {}) => {
+  FEN.robot = true;                                  // le robot photographie les popups : pas de fenêtre joueur
   const type = opt.type, attendre = async (f, ms = 8000) => { const t0 = Date.now(); let v; while (!(v = f()) && Date.now() - t0 < ms) await new Promise(r => setTimeout(r, 120)); return v; };
   if (opt.mode && type === "whatif"){ S.wi = opt.mode; }
   $("#t-" + type)?.click();
@@ -4764,6 +5361,7 @@ window.ppSurMesure = async (opt = {}) => {
 // PB SIM du mois (src/social.py, demande de Mitch : « une fois par mois ») : une saison jouée d'un coup avec une graine,
 // puis ses images (graphique, séries, champions, repêchage) en JPEG pour un post à plusieurs photos
 window.ppSim = async (opt = {}) => {
+  FEN.robot = true;                                  // le robot photographie les popups : pas de fenêtre joueur
   if (!D?.coupe?.sim_vis?.reste?.length) return null;
   SV_FIN = null; SV_DR = null;
   simSaison(true, opt.graine || 1);
@@ -4783,6 +5381,7 @@ window.ppSim = async (opt = {}) => {
            choix1: c1 ? { eq: c1.t, nom_eq: NOMS_EQ?.[c1.t] || c1.t, joueur: c1.j?.n || null } : null };
 };
 window.ppSocial = async (type, opt = {}) => {
+  FEN.robot = true;                                  // le robot photographie les popups : pas de fenêtre joueur
   const pause = (ms) => new Promise(r => setTimeout(r, ms));
   const attendre = async (f, ms = 15000) => { for (let t = 0; t < ms; t += 200){ const v = f(); if (v) return v; await pause(200); } return null; };
   const hasard = opt.hasard ?? Math.random();
@@ -4977,8 +5576,8 @@ async function salaires(){
   const mode = S.sal || "top", q = nrm($("#sal-q").value), J = SAL.joueurs, R = SAL.regles, feq = S.fe_sal || "";
   $("#fe-sal").innerHTML = filtreEqHTML("fe_sal", SAL.equipes.map(e => e.t).filter(Boolean).sort());
   const tete = `<div class="cp-tete">${titrePB("PB Market Value", L("Ce que chaque joueur vaut vraiment", "What every player is really worth"))}<p>${L(
-    `Si on renégociait tous les contrats ce matin, selon ce que chaque joueur apporte CETTE saison, combien il vaudrait ? On compte ses points, mais aussi ce qui ne paraît pas au pointage : son équipe domine-t-elle quand il est sur la glace, gagne-t-il ses mises au jeu, bloque-t-il des tirs. Puis on le compare à un joueur de remplacement qu'on pourrait faire monter de la ligue américaine. Les dollars suivent les règles de la LNH 2026-27 : plafond ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Les onglets Bonnes affaires et Trop payés comparent avec son vrai contrat. Touche un joueur pour son rapport de dépisteur.`,
-    `If every contract were renegotiated this morning, based on what each player brings THIS season, what would he be worth? We count his points, but also what doesn't show on the scoresheet: does his team dominate when he's on the ice, does he win his faceoffs, does he block shots. Then we compare him with a replacement player you could call up from the AHL. The dollars follow the 2026-27 NHL rules: cap ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. The Bargains and Overpaid tabs compare with his real contract. Tap a player for his scouting report.`)}</p></div>${lireHTML(L("le salaire qu'il mériterait cette saison.", "the salary he'd deserve this season."), false)}`;
+    `Si on renégociait tous les contrats ce matin, selon ce que chaque joueur apporte CETTE saison, combien il vaudrait ? On compte ses points, mais aussi ce qui ne paraît pas au pointage : son équipe domine-t-elle quand il est sur la glace, gagne-t-il ses mises au jeu, bloque-t-il des tirs. Puis on le compare à un joueur de remplacement qu'on pourrait faire monter de la ligue américaine. Les dollars suivent les règles de la ligue 2026-27 : plafond ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. Les onglets Bonnes affaires et Trop payés comparent avec son vrai contrat. Touche un joueur pour son rapport de dépisteur.`,
+    `If every contract were renegotiated this morning, based on what each player brings THIS season, what would he be worth? We count his points, but also what doesn't show on the scoresheet: does his team dominate when he's on the ice, does he win his faceoffs, does he block shots. Then we compare him with a replacement player you could call up from the AHL. The dollars follow the 2026-27 league rules: cap ${mD(R.plafond)}, minimum ${mD(R.minimum)}, maximum ${mD(R.maximum)}. The Bargains and Overpaid tabs compare with his real contract. Tap a player for his scouting report.`)}</p></div>${lireHTML(L("le salaire qu'il mériterait cette saison.", "the salary he'd deserve this season."), false)}`;
   let corps;
   if (mode === "eq" && q.length < 2){
     const mx = Math.max(...SAL.equipes.map(e => e.masse));
@@ -5007,10 +5606,10 @@ async function salaires(){
   }
   const F = SAL.fourchettes, dist = SAL.dist || [];
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p><b>L'apport</b> (en buts au-dessus d'un joueur de remplacement). Production : un but vaut 1 et se partage, ${R.v_but} au marqueur et le reste aux passeurs (≈ ${R.v_passe} par passe), pour ne pas compter chaque but deux fois. Jeu sur la glace : buts attendus pour moins contre quand il est sur la glace (notre xG), comparés au reste de son équipe dans le même temps de jeu, divisés par 5 (sa part). Le travail qui ne paraît pas (jeu-par-jeu de la LNH) : une mise au jeu gagnée de plus que perdue vaut ${R.v_dur ? n1(R.v_dur[0] * 100) : "1,0"} but par 100, et ${R.v_dur ? n1((R.v_dur[0] + R.v_dur[1]) * 100) : "2,2"} en zone défensive (une perdue là donne un tir à l'adversaire tout de suite) ; les tirs bloqués et les mises en échec en échec-avant comptent au-dessus de la moyenne de son poste. On enlève ce qu'un joueur de remplacement aurait produit dans le même temps de glace (${n1(R.rep60[0])} chez les attaquants et ${n1(R.rep60[1])} chez les défenseurs, par 60 minutes). Gardiens : buts sauvés de plus qu'un gardien de remplacement, comptés à moitié (le marché les paie moins : leur rendement varie beaucoup d'une année à l'autre).</p>
+    `<p><b>L'apport</b> (en buts au-dessus d'un joueur de remplacement). Production : un but vaut 1 et se partage, ${R.v_but} au marqueur et le reste aux passeurs (≈ ${R.v_passe} par passe), pour ne pas compter chaque but deux fois. Jeu sur la glace : buts attendus pour moins contre quand il est sur la glace (notre xG), comparés au reste de son équipe dans le même temps de jeu, divisés par 5 (sa part). Le travail qui ne paraît pas (jeu-par-jeu de la ligue) : une mise au jeu gagnée de plus que perdue vaut ${R.v_dur ? n1(R.v_dur[0] * 100) : "1,0"} but par 100, et ${R.v_dur ? n1((R.v_dur[0] + R.v_dur[1]) * 100) : "2,2"} en zone défensive (une perdue là donne un tir à l'adversaire tout de suite) ; les tirs bloqués et les mises en échec en échec-avant comptent au-dessus de la moyenne de son poste. On enlève ce qu'un joueur de remplacement aurait produit dans le même temps de glace (${n1(R.rep60[0])} chez les attaquants et ${n1(R.rep60[1])} chez les défenseurs, par 60 minutes). Gardiens : buts sauvés de plus qu'un gardien de remplacement, comptés à moitié (le marché les paie moins : leur rendement varie beaucoup d'une année à l'autre).</p>
      <p><b>Le rythme.</b> Tôt en saison, son rythme est mélangé avec celui de l'an passé (comme ${R.k[0]} matchs de plus, ${R.k[1]} pour un gardien), puis ramené à 82 matchs.</p>
      <p><b>Les dollars.</b> On classe tout le monde par apport. Le 1er reçoit le salaire du 1er contrat du marché, le 100e celui du 100e, et ainsi de suite (forme du marché actuel), puis on ajuste pour que la ligue dépense son vrai total. Ça garde des fourchettes réalistes : une poignée de supervedettes, beaucoup de joueurs près du minimum.</p>`,
-    `<p><b>Impact</b> (goals above a replacement player). Production: a goal is worth 1 and is shared, ${R.v_but} to the scorer and the rest to the passers (≈ ${R.v_passe} per assist), so no goal is counted twice. On-ice play: expected goals for minus against while he's on the ice (our xG), compared with the rest of his team in the same ice time, divided by 5 (his share). The stuff that doesn't show up (NHL play-by-play): a net faceoff win is worth ${R.v_dur ? n1(R.v_dur[0] * 100) : "1.0"} goals per 100, and ${R.v_dur ? n1((R.v_dur[0] + R.v_dur[1]) * 100) : "2.2"} in the defensive zone (a loss there hands the other team a shot right away); blocked shots and forechecking hits count above his position's average. We subtract what a replacement player would have produced in the same ice time (${n1(R.rep60[0])} for forwards and ${n1(R.rep60[1])} for defensemen, per 60 minutes). Goalies: goals saved above a replacement goalie, counted at half value (the market pays them less: their results swing a lot from year to year).</p>
+    `<p><b>Impact</b> (goals above a replacement player). Production: a goal is worth 1 and is shared, ${R.v_but} to the scorer and the rest to the passers (≈ ${R.v_passe} per assist), so no goal is counted twice. On-ice play: expected goals for minus against while he's on the ice (our xG), compared with the rest of his team in the same ice time, divided by 5 (his share). The stuff that doesn't show up (league play-by-play): a net faceoff win is worth ${R.v_dur ? n1(R.v_dur[0] * 100) : "1.0"} goals per 100, and ${R.v_dur ? n1((R.v_dur[0] + R.v_dur[1]) * 100) : "2.2"} in the defensive zone (a loss there hands the other team a shot right away); blocked shots and forechecking hits count above his position's average. We subtract what a replacement player would have produced in the same ice time (${n1(R.rep60[0])} for forwards and ${n1(R.rep60[1])} for defensemen, per 60 minutes). Goalies: goals saved above a replacement goalie, counted at half value (the market pays them less: their results swing a lot from year to year).</p>
      <p><b>Pace.</b> Early in the season, his pace is blended with last season's (like ${R.k[0]} extra games, ${R.k[1]} for a goalie), then brought to 82 games.</p>
      <p><b>Dollars.</b> Everyone is ranked by impact. The 1st gets the salary of the market's 1st contract, the 100th that of the 100th, and so on (today's market shape), then it's adjusted so the league spends its real total. That keeps realistic brackets: a handful of superstars, lots of players near the minimum.</p>`)}
     <table class="serre"><tbody>${F.map((f, i) => `<tr><td>${L(f[1], f[2])}</td><td>${f[0] ? mD(f[0]) + " +" : "–"}</td><td><b>${dist[i] ?? "–"}</b> ${L("joueurs", "players")}</td></tr>`).join("")}</tbody></table></details>`;
@@ -5076,9 +5675,9 @@ function salRapport(k){
   }
   if (x.vrai) txt += L(`<p><b>Son vrai contrat.</b> ${mD(x.vrai)} sur le plafond. Il mérite ${mDs(x.diff)} de plus : il vaut ${rendTxt(x.rend)} de son contrat${x.rend >= 1.5 ? ", une aubaine" : x.rend < 0.7 ? ", trop payé pour ce qu'il apporte cette saison" : ""}.</p>`,
     `<p><b>His real contract.</b> ${mD(x.vrai)} against the cap. He deserves ${mDs(x.diff)} more: he's worth ${rendTxt(x.rend)} of his contract${x.rend >= 1.5 ? ", a bargain" : x.rend < 0.7 ? ", overpaid for what he brings this season" : ""}.</p>`);
-  const m = $("#wi-modal");
+  const m = fenCible("sal", k); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
   const posL = x.t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, x.t)}</b><span>${L("Rapport de dépisteur", "Scouting report")} · ${posL}</span><span>${x.pj} ${L("matchs", "games")} · ${mD(x.s)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">${txt}</div></div>`;
   ptCarte(m, x, mD(x.s), "PBMV · PB Market Value", x.vrai ? L(`Vrai contrat : ${mD(x.vrai)} · rendement ${rendTxt(x.rend)}`, `Real contract: ${mD(x.vrai)} · return ${rendTxt(x.rend)}`) : posL);
@@ -5137,22 +5736,22 @@ async function enforcers(){
   const W = ENF.poids || {};
   const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la LNH et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
+    `<p>Tiré du jeu-par-jeu de la ligue et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
      <p><b>Les 6 classements</b> : le PB Intimidation % (le mélange) ou un seul morceau. Tous en % PuckProb, la même règle partout : 0 % = le patineur moyen de la ligue (20 matchs et plus), 100 % = le niveau des 3 meilleurs de CE classement (le n° 1 peut dépasser). Chacun a sa petite courbe (un point par match) et ses places gagnées ou perdues.</p>
-     <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la LNH, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
+     <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la ligue, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
      <p><b>Chaos</b> : quand il est sur la glace, est-ce que ça brasse plus, toutes équipes confondues ? Combats, mises en échec, pénalités et mêlées (des pénalités aux deux équipes au même moment) avec lui sur la glace, contre ce qu'on attendrait au rythme de quand il est au banc, dans les mêmes matchs. Chaque écart est tiré vers 0 quand l'échantillon est petit.</p>
      <p><b>Effet peur</b> (affiché dans la fiche, plus dans le score : trop bruité, il récompensait des joueurs offensifs) : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il l'affronte contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. Ensuite, deux garde-fous : chaque mesure est tirée vers 0 quand l'échantillon est petit, et l'effet peur ne compte qu'en proportion de sa réputation physique. Un défenseur offensif que l'adversaire frappe peu parce que son équipe a la rondelle ne fait pas peur pour autant : sans réputation physique, son effet peur compte pour 0.</p>
-     <p><b>Combats.</b> La LNH ne note pas qui gagne un combat ; on compte les combats.</p>`,
-    `<p>Built from the NHL play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
+     <p><b>Combats.</b> La ligue ne note pas qui gagne un combat ; on compte les combats.</p>`,
+    `<p>Built from the league play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
      <p><b>The 6 rankings</b>: PB Intimidation % (the blend) or a single part. All in PuckProb %, the same rule everywhere: 0% = the league's average skater (20+ games), 100% = the level of the top 3 in THAT ranking (No. 1 can go over). Each has its little curve (one point per game) and its places gained or lost.</p>
-     <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from NHL bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
+     <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from league bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
      <p><b>Chaos</b>: when he's on the ice, does it get rowdier, both teams combined? Fights, hits, penalties and scrums (penalties to both teams at the same moment) with him on the ice, against what we'd expect at the pace of when he's on the bench, in the same games. Each difference is pulled toward 0 when the sample is small.</p>
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces him against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
-     <p><b>Fights.</b> The NHL doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
+     <p><b>Fights.</b> The league doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
   // Le classement des équipes suit le classement choisi, en % PuckProb (la moyenne de ses 3 meilleurs)
   const vEq = (x) => mode === "score" ? (x.pc ?? (x.pct != null ? x.pct * 100 : null)) : (x.pcs?.[mode] ?? (x.r?.[mode] != null ? x.r[mode] * 100 : null));
   const eqE = Object.entries(parEq(Object.values(ENF.joueurs), x => x.eq, vEq)).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pbTxt(topMoy(a, 3)) }));
-  el.innerHTML = saiBandeau("enf") + tete + eqClassementHTML(eqE, (mode === "score" ? "" : L(...ENF_MODES[mode]) + " · ") + L("la moyenne de ses 3 meilleurs", "average of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la LNH. Mis à jour le", "Source: NHL play-by-play. Updated")} ${ENF.maj}.</p>`;
+  el.innerHTML = saiBandeau("enf") + tete + eqClassementHTML(eqE, (mode === "score" ? "" : L(...ENF_MODES[mode]) + " · ") + L("la moyenne de ses 3 meilleurs", "average of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu de la ligue. Mis à jour le", "Source: league play-by-play. Updated")} ${ENF.maj}.</p>`;
   ptListeTab("p-enf");
 }
 // L'indice peur en % (part des patineurs qu'il dépasse) : la marque de commerce, en gros à droite
@@ -5212,8 +5811,8 @@ function enfCarte(id){
     ["Badassness", `${x.padv > 0 ? "+" : ""}${n1(x.padv || 0)} lb`, "badass"]]
     .map(([n, v, k]) => `<tr><td>${n} <small>${pc0(W[k])}</small></td><td>${v}</td><td class="wi-w">${pcIdx(x.r?.[k])}${x.rk?.[k] ? ` <small>(${rangFr(x.rk[k])})</small>` : ""}</td></tr>`).join("");
   const pos = x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
-  const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
+  const m = fenCible("enf", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id ?? id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, "j")}</b><span>PB Intimidation % ${L("n° ", "#")}${x.rg} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <p><b>${"PB Intimidation % : ".replace(" :", EN ? ":" : " :")}${x.pc != null ? pbTxt(x.pc) : pcIdx(x.pct)}.</b> ${x.pc != null
@@ -5286,7 +5885,7 @@ async function projections(){
   Object.assign(COTE, { n: Object.keys(PRJ.joueurs).length, inv: false });
   const lignes = ids.map(id => prjLigne(PRJ.joueurs[id], mode)).join("") || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
   const eqP = Object.entries(parEq(Object.values(PRJ.joueurs), x => x.eq, x => x.proj?.[mode])).map(([t, a]) => ({ t, v: topSom(a, 12), txt: Math.round(topSom(a, 12)) }));
-  el.innerHTML = saiBandeau("prj") + tete + eqClassementHTML(eqP, L(`${L(...PRJ_MODES[mode]).toLowerCase()} projetés, ses 12 meilleurs`, `projected ${L(...PRJ_MODES[mode]).toLowerCase()}, its top 12`)) + lignes + regles + `<p class="aide">${L("Source : feuilles de match de la LNH. Mis à jour le", "Source: NHL game sheets. Updated")} ${PRJ.maj}.</p>`;
+  el.innerHTML = saiBandeau("prj") + tete + eqClassementHTML(eqP, L(`${L(...PRJ_MODES[mode]).toLowerCase()} projetés, ses 12 meilleurs`, `projected ${L(...PRJ_MODES[mode]).toLowerCase()}, its top 12`)) + lignes + regles + `<p class="aide">${L("Source : feuilles de match de la ligue. Mis à jour le", "Source: league game sheets. Updated")} ${PRJ.maj}.</p>`;
   ptListeTab("p-prj");
 }
 // Les gardiens : victoires, arrêts et moyenne de fin de saison (src/projections.py, gardiens())
@@ -5305,7 +5904,7 @@ function projectionsG(el, mode, q, feq){
     || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqP = Object.entries(parEq(PRJ.gardiens, x => x.eq, x => mode === "v" ? x.proj?.v : null)).map(([t, a]) => ({ t, v: topSom(a, 3), txt: Math.round(topSom(a, 3)).toLocaleString(LANG) }));
   el.innerHTML = saiBandeau("prj") + tete + (inv ? "" : eqClassementHTML(eqP, L(`${L(...PRJ_MODES[mode]).replace(/^[^:]+: ?/, "").toLowerCase()} projetés, ses gardiens`, `projected ${L(...PRJ_MODES[mode]).replace(/^[^:]+: ?/, "").toLowerCase()}, its goalies`)))
-    + lignes + `<p class="aide">${L("Source : feuilles de match de la LNH (le gardien partant de chaque match). Mis à jour le", "Source: NHL game sheets (each game's starting goalie). Updated")} ${PRJ.maj}.</p>`;
+    + lignes + `<p class="aide">${L("Source : feuilles de match de la ligue (le gardien partant de chaque match). Mis à jour le", "Source: league game sheets (each game's starting goalie). Updated")} ${PRJ.maj}.</p>`;
   ptListeTab("p-prj");
 }
 function prjLigne(x, mode){
@@ -5356,8 +5955,8 @@ function prjCarte(id){
   const passe = x.src === "passe" ? L(`Ses deux saisons d'avant : ${x.passe.pj} matchs (la plus récente compte ${PRJ.poids_derniere || 3} fois plus).`, `His previous two seasons: ${x.passe.pj} games (the most recent counts ${PRJ.poids_derniere || 3} times more).`)
     : x.src === "poste" ? L("Pas assez de matchs avant cette saison : il est comparé à la moyenne des joueurs de son poste qui jouent autant que lui.", "Not enough games before this season: he's compared with the average player at his position with similar ice time.")
     : L("Aucun point de comparaison : c'est son rythme seul.", "No comparison point: it's his pace alone.");
-  const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(eqPrincipale(x))}">
+  const m = fenCible("prj", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id ?? id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(eqPrincipale(x))}">
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, x.g ? "g" : "j")}</b><span>${L("Projection", "Projection")} · ${pos}</span><span>${x.pj} ${L("matchs", "games")} · ${n1(x.toi)} ${L("min par match", "min per game")}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="sal-rap">
       <div class="row prj-gk">${Object.entries(PRJ_MODES).map(([k, n]) => `<button class="chip" data-gk="${k}" data-id="${x.id}" aria-pressed="${k === (S.prj || "pts")}">${k === "pim" ? PIM() : L(...n)}</button>`).join("")}</div>
@@ -5429,7 +6028,7 @@ async function duos(){
   const lignes = liste.map((x, i) => duoLigne(x, tri === "ch" ? x.rg : i + 1)).join("")
     || `<div class="card"><div class="vide">${L0.length ? L("Aucun duo trouvé.", "No duo found.") : L("Les duos se remplissent avec la récolte des matchs (version 8) : quelques calculs.", "Duos fill up as games are harvested (version 8): a few updates.")}</div></div>`;
   const eqD = Object.entries(parEq(L0, x => x.eq, x => tri === "pe" ? (x.pcs?.dom ?? null) : (x.pc ?? x.ch))).map(([t, a]) => ({ t, v: topMoy(a, 3), txt: pbTxt(topMoy(a, 3)) }));
-  el.innerHTML = saiBandeau("duo") + tete + eqClassementHTML(eqD, L("la chimie de ses 3 meilleurs", "chemistry of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
+  el.innerHTML = saiBandeau("duo") + tete + eqClassementHTML(eqD, L("la chimie de ses 3 meilleurs", "chemistry of its top 3")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la ligue,", "Source: league play-by-play and shifts,")} ${DUO.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
   ptListeTab("p-duo");
 }
 // ---- GCR : Goalie Confidence Rating (src/gcr.py) : les gardiens en qui on a le plus confiance -------------------
@@ -5522,7 +6121,7 @@ async function rumImage(p){
   // Le pied : l'adresse du site
   g.fillStyle = ce; g.fillRect(0, H - 110, W, 6);
   g.textAlign = "left"; g.fillStyle = "#fff"; g.font = "italic 800 62px 'Barlow Condensed'"; g.fillText("puckprob.ca", 56, H - 34);
-  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Nouvelles de la LNH", "NHL news"), W - 56, H - 44);
+  g.textAlign = "right"; g.fillStyle = "#AFC3D9"; g.font = "600 30px Barlow"; g.fillText(L("Nouvelles de la ligue", "League news"), W - 56, H - 44);
   return new Promise(ok => c.toBlob(ok, "image/png"));
 }
 async function rumPartager(i){
@@ -5603,6 +6202,435 @@ const NAT_P = { CAN: ["CA", "CAN", "Canada", "Canada"], USA: ["US", "USA", "Éta
   BRN: ["BN", "BRU", "Brunei", "Brunei"], LBN: ["LB", "LBN", "Liban", "Lebanon"], TZA: ["TZ", "TAN", "Tanzanie", "Tanzania"], PRY: ["PY", "PAR", "Paraguay", "Paraguay"],
   SUN: [null, "URS", "URSS", "USSR"], URS: [null, "URS", "URSS", "USSR"], CSK: [null, "TCH", "Tchécoslovaquie", "Czechoslovakia"],
   CSHH: [null, "TCH", "Tchécoslovaquie", "Czechoslovakia"], YUG: [null, "YUG", "Yougoslavie", "Yugoslavia"], DDR: [null, "GDR", "Allemagne de l'Est", "East Germany"] };
+// ==== La fenêtre joueur (Mitch, 19 nov. 2026 : « une fenêtre joueur au lieu d'un popup, qui load les saisons et la
+// description du joueur, au style PuckProb » ; maquette approuvée le 20 nov.). Une vraie page par-dessus le site, avec
+// son adresse (#joueur/nick-suzuki-8480018[/onglet]) : partageable, et le bouton Retour du téléphone la ferme.
+// Elle remplace les popups de joueur partout : chaque fiche d'avant (PB Stats, PBMV, projections, intimidation, arbitres,
+// gardiens) devient un onglet. Les fonctions des fiches restent les mêmes : fenCible() leur donne l'onglet à remplir
+// au lieu du popup. Le robot des réseaux sociaux (ppSocial) garde le popup : il le photographie.
+// L'onglet Aperçu : la description écrite à partir de nos chiffres (fenBref), la saison, la projection, les 10 derniers
+// matchs et la série (le thermomètre), ce soir, les courses aux trophées, le contrat, le résumé de carrière.
+const FEN = { ouvert: false, id: null, o: "apercu", robot: false, pousse: false, x: null };
+const FEN_O = [["apercu", "Aperçu", "Overview"], ["car", "Carrière", "Career"], ["sal", "Contrat", "Contract"], ["prj", "Projection", "Projection"],
+               ["enf", "Physique", "Physical"], ["gcr", "Gardien", "Goalie"], ["arb", "Arbitres", "Refs"]];
+const slugJ = (n) => nrm(n).replace(/ /g, "-");
+const villeNom = (t) => (EN ? { CAR: "Carolina", DET: "Detroit", FLA: "Florida", PHI: "Philadelphia" }[t] : null) || NOMS_EQ[t] || t || "";
+const fenHashDe = (id, o, n) => `#${EN ? "player" : "joueur"}/${n ? slugJ(n) + "-" : ""}${id}${o && o !== "apercu" ? "/" + o : ""}`;
+const FEN_RE = /^#(?:joueur|player)\/(?:[a-z0-9-]*?-)?(\d{6,8})(?:\/(\w+))?$/i;
+// Les données de la saison (chargées au besoin, une fois ; les mêmes que les sections du site)
+const fenJ = (f) => fetch(urlSai(f) + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).catch(() => null);
+let WI_p = null;
+// whatif.json (les carrières) : chargé une seule fois, que ce soit par PB Stats ou par la fenêtre
+function chargerWI(){
+  if (WI) return Promise.resolve(true);
+  return WI_p || (WI_p = fetch("whatif.json?v=" + (D?.date || Date.now())).then(r => r.json()).then(d => {
+    if (!d?.j) throw 0;
+    WI = d;
+    $("#f-wi").innerHTML = Object.entries(WI_MODES).filter(([k]) => k !== "sw" && k !== "gsw")
+      .map(([k, M]) => `<button class="chip big" data-v="${k}" aria-pressed="${k === (S.wi || "p")}">${L(...M.nom)}</button>`).join("");
+    return true;
+  }).catch(() => { WI_p = null; return false; }));
+}
+const FEN_CH = {
+  sal: () => SAL ? 1 : fenJ("salaires.json").then(d => { if (!SAL && d?.joueurs) SAL = d; }),
+  prj: () => PRJ ? 1 : fenJ("projections.json").then(d => { if (!PRJ && d?.joueurs) PRJ = d; }),
+  enf: () => ENF ? 1 : fenJ("physique.json").then(d => { if (!ENF && d?.joueurs && d.ordres) ENF = d; }),
+  gcr: () => chargerGcr(), arb: () => chargerArb(), wi: () => chargerWI(), nat: () => natCharger(), bios: () => biosCharger(),
+  nais: async () => { if (!PBS.nais) PBS.nais = await pbsGet("naissances.json").catch(() => ({ j: {}, g: {} })); } };
+// Ce que chaque source sait de ce joueur
+const fenSal = (id) => SAL?.joueurs?.[id + "j"] || SAL?.joueurs?.[id + "g"] || SAL?.joueurs?.[id] || null;
+const fenSalK = (id) => SAL?.joueurs?.[id + "j"] ? id + "j" : SAL?.joueurs?.[id + "g"] ? id + "g" : SAL?.joueurs?.[id] ? String(id) : null;
+const fenPrj = (id) => PRJ?.joueurs?.[id] || null;
+const fenEnf = (id) => ENF?.joueurs?.[id] || null;
+const fenGcr = (id) => GCR?.gardiens?.find(g => String(g.id) === String(id)) || null;
+const fenArb = (id) => ARB?.joueurs?.find(y => String(y.id) === String(id)) || null;
+const fenWiT = (id) => WI?.j?.[id] ? "j" : WI?.g?.[id] ? "g" : null;
+const fenSoir = (id) => (D?.joueurs || []).find(j => String(j.pid) === String(id)) || null;
+// Qui il est : le nom, le numéro, l'équipe, la position, de la 1re source qui le connaît
+function fenQui(id){
+  const t = fenWiT(id), w = t && WI[t][id], s = fenSal(id), p = fenPrj(id), g = fenGcr(id), so = fenSoir(id), e = fenEnf(id);
+  const n = s?.n || p?.n || g?.n || e?.n || so?.name || w?.n;
+  if (!n) return null;
+  const gard = t === "g" || (s && fenSalK(id)?.endsWith("g")) || !!g || so?.pos === "G";
+  const eq = s?.eq || p?.eq || g?.eq || e?.eq || so?.team || (w && eqPrincipale(w)) || "";
+  return { id: String(id), n, no: s?.no ?? p?.no ?? g?.no ?? e?.no ?? so?.no ?? w?.no, eq, pos: gard ? "G" : (s?.pos || p?.pos || e?.pos || w?.pos || so?.pos || ""),
+           g: gard, act: w ? w.act !== false : true, eqs: w?.eqs || s?.eqs || p?.eqs || [[eq, 1]], w, t: t || (gard ? "g" : "j") };
+}
+// Les onglets qu'il a (un joueur d'avant n'a que l'Aperçu et sa carrière)
+function fenOnglets(q){
+  const id = q.id;
+  return FEN_O.filter(([o]) => o === "apercu" || (o === "car" && fenWiT(id)) || (o === "sal" && fenSalK(id)) || (o === "prj" && fenPrj(id))
+    || (o === "enf" && fenEnf(id)) || (o === "gcr" && fenGcr(id)) || (o === "arb" && fenArb(id)));
+}
+// L'onglet à remplir par une fiche d'avant (salRapport, prjCarte...) : la fenêtre si elle montre ce joueur ; sinon on
+// l'ouvre sur cet onglet (et la fiche sera rappelée). Le robot des posts photographie le popup : il le garde.
+function fenCible(o, id){
+  if (FEN.robot || document.documentElement.classList.contains("pp-capture")) return $("#wi-modal");
+  const pid = String(id).replace(/[jg]$/, "");
+  if (FEN.ouvert && FEN.id === pid){
+    const p = FEN.pane(o);
+    if (p){ fenMontrer(o, false); return p; }
+  }
+  ouvrirJoueur(pid, o);
+  return null;
+}
+function ouvrirJoueur(id, o = "apercu"){
+  if (FEN.garder){ o = FEN.garder; FEN.garder = null; }          // glisser au joueur suivant : on reste sur le même onglet
+  const q = fenQui(id), h = fenHashDe(id, o, q?.n);
+  if (FEN.ouvert && FEN.id === String(id)){ history.replaceState(null, "", location.pathname + location.search + h); fenMontrer(o); return; }
+  // Déjà ouverte sur un autre joueur (glisser au suivant, un lien) : on la remplace, Retour ferme toujours la fenêtre
+  if (FEN.ouvert){ history.replaceState(null, "", location.pathname + location.search + h); fenAfficher(String(id), o); return; }
+  if (!FEN.ouvert) FEN.pousse = true;
+  if (location.hash === h) fenAfficher(String(id), o); else location.hash = h;
+}
+function fenFermer(){
+  if (!FEN.ouvert) return;
+  if (FEN.pousse){ FEN.pousse = false; history.back(); return; }              // le hashchange qui suit ferme
+  history.replaceState(null, "", location.pathname + location.search);
+  fenCacher();
+}
+function fenCacher(){
+  const f = $("#fenetre"); if (!f) return;
+  FEN.ouvert = false; FEN.id = null; f.hidden = true; f.innerHTML = "";
+  document.documentElement.classList.remove("fen-on");
+  if (FEN.y != null) window.scrollTo(0, FEN.y);
+}
+// Appelé par ouvrirHash : true si l'adresse est celle d'une fenêtre (elle s'ouvre), sinon on ferme celle qui est ouverte
+function fenHash(){
+  const m = FEN_RE.exec(location.hash);
+  // Plus une adresse de fenêtre (le bouton Retour) : on ferme, et rien d'autre (sinon la section d'avant se rouvrirait
+  // en haut de page au lieu de garder l'endroit où on était)
+  if (!m){ if (FEN.ouvert){ FEN.pousse = false; fenCacher(); return true; } return false; }
+  const o = FEN_O.some(([k]) => k === m[2]) ? m[2] : "apercu";
+  if (FEN.ouvert && FEN.id === m[1]) fenMontrer(o); else fenAfficher(m[1], o);
+  return true;
+}
+async function fenAfficher(id, o){
+  let f = $("#fenetre");
+  if (!f){ f = document.createElement("div"); f.id = "fenetre"; f.hidden = true; document.body.appendChild(f); }
+  if (!FEN.ouvert) FEN.y = window.scrollY;
+  FEN.ouvert = true; FEN.id = id; FEN.o = o;
+  $("#wi-modal") && ($("#wi-modal").hidden = true);
+  document.documentElement.classList.add("fen-on");
+  f.hidden = false;
+  f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button><span class="fen-url"></span></div>
+    <div class="vide fen-ch">${L("Chargement du joueur…", "Loading player…")}</div></div>`;
+  f.querySelector(".fen-ret").onclick = fenFermer;
+  // Ce qu'il faut pour le haut et l'Aperçu ; les carrières (whatif.json) seulement si on ne le trouve pas ailleurs
+  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), FEN_CH.nat(), FEN_CH.bios(), FEN_CH.nais()]);
+  if (FEN.id !== id) return;
+  if (!fenQui(id) || o === "car") await FEN_CH.wi();
+  if (!fenQui(id) && WI){ await pbsFiche("j", id); if (!WI.j[id]) await pbsFiche("g", id); }
+  if (FEN.id !== id) return;
+  const q = fenQui(id);
+  if (!q){ f.querySelector(".fen-ch").textContent = L("Joueur introuvable.", "Player not found."); return; }
+  if (!fenOnglets(q).some(([k]) => k === o)) o = "apercu";
+  FEN.x = q;
+  history.replaceState(null, "", location.pathname + location.search + fenHashDe(id, o, q.n));
+  fenBatir(q, o);
+  // Le reste en arrière-plan : les onglets apparaissent quand leurs données arrivent ; la carrière complète l'Aperçu
+  Promise.all([FEN_CH.enf(), FEN_CH.arb(), FEN_CH.wi()]).then(async () => {
+    if (FEN.id !== id) return;
+    if (!fenWiT(id)){ await pbsFiche(q.t, id); if (FEN.id !== id) return; }
+    fenOngletsMaj(q); fenCarriereResume(q); fenBrefMaj(q);
+  });
+}
+function fenBatir(q, o){
+  const f = $("#fenetre"), eq = q.eq, s = saisonCour();
+  const ms = q.act && eq ? `${s}:${eq}` : q.w ? `${q.w.s[q.w.s.length - 1][0]}:${String(q.w.s[q.w.s.length - 1][1]).split(",").pop()}` : "";
+  const pos = q.g ? L("Gardien", "Goalie") : q.pos === "D" ? L("Défenseur", "Defenseman") : q.pos === "C" ? L("Centre", "Center")
+    : /^(L|LW)$/.test(q.pos) ? L("Ailier gauche", "Left wing") : /^(R|RW)$/.test(q.pos) ? L("Ailier droit", "Right wing") : L("Attaquant", "Forward");
+  const nais = PBS.nais?.[q.g ? "g" : "j"]?.[q.id] || PBS.nais?.j?.[q.id] || PBS.nais?.g?.[q.id];
+  const age = nais ? Math.floor((Date.now() - new Date(nais + "T12:00:00")) / 3.15576e10) : null;
+  const n = natInfo(q.id);
+  const ligne1 = [n ? `${n.drap ? n.drap + " " : ""}${n.nom}` : "", pos, q.act && age ? `${age} ${L("ans", "years old")}` : ""].filter(Boolean).join(" · ");
+  const ligne2 = q.act ? `${villeNom(eq)}${q.w ? ` · ${q.w.s.length}${L(q.w.s.length === 1 ? "re" : "e", ["st", "nd", "rd"][q.w.s.length - 1] || "th")} ${L("saison", "season")}` : ""}`
+    : q.w ? `${L("Retraité", "Retired")} · ${q.w.s[0][0].slice(0, 4)}–${q.w.s[q.w.s.length - 1][0].slice(4)}` : "";
+  f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button>
+      <span class="fen-url">${(location.host || "puckprob.ca") + location.pathname.replace(/index\.html$/, "")}${fenHashDe(q.id, "", q.n)}</span><button type="button" class="fen-pt" aria-label="${L("Partager", "Share")}">${ICO_PT}</button></div>
+    <div class="wi-carte fen" data-pid="${q.id}" data-ms="${ms}" style="${eqV(eq)}">
+      <header><div class="wi-hd">${wiRond({ ...q, eqs: [[eq, 1]] })}<div><b>${nomP(q.n, q.t)}</b><span>${ligne1}</span><span class="fen-l2">${ligne2}</span><span class="fen-pas"></span></div></div></header>
+      <nav class="fen-ongl" role="tablist"></nav>
+      <div class="fen-panes"></div>
+    </div></div>`;
+  f.querySelector(".fen-ret").onclick = fenFermer;
+  f.querySelector(".fen-pt").onclick = fenPartager;
+  fenOngletsMaj(q);
+  fenMontrer(o);
+}
+function fenOngletsMaj(q){
+  const nav = $("#fenetre .fen-ongl"); if (!nav) return;
+  nav.innerHTML = fenOnglets(q).map(([o, fr, en]) => `<button type="button" role="tab" data-fo="${o}" aria-selected="${o === FEN.o}">${L(fr, en)}</button>`).join("");
+}
+// L'élément d'un onglet (créé au besoin)
+FEN.pane = (o) => {
+  const b = $("#fenetre .fen-panes"); if (!b) return null;
+  let p = b.querySelector(`.fen-pane[data-o="${o}"]`);
+  if (!p){ p = document.createElement("div"); p.className = "fen-pane"; p.dataset.o = o; p.hidden = true; b.appendChild(p); }
+  return p;
+};
+// Montre un onglet ; le remplit la 1re fois (rendre = false : la fiche qui l'appelle va le remplir elle-même)
+async function fenMontrer(o, rendre = true){
+  const q = FEN.x; if (!q || !$("#fenetre .fen-panes")) return;
+  FEN.o = o;
+  document.querySelectorAll("#fenetre .fen-ongl [data-fo]").forEach(b => b.setAttribute("aria-selected", b.dataset.fo === o));
+  document.querySelectorAll("#fenetre .fen-pane").forEach(p => p.hidden = p.dataset.o !== o);
+  const p = FEN.pane(o); p.hidden = false;
+  history.replaceState(null, "", location.pathname + location.search + fenHashDe(q.id, o, q.n));
+  if (!rendre || p.dataset.ok) return;
+  p.dataset.ok = "1";
+  const id = q.id;
+  if (o === "apercu"){ p.innerHTML = fenApercu(q); fenCarriereResume(q); return; }
+  p.innerHTML = `<div class="vide">${L("Chargement…", "Loading…")}</div>`;
+  if (o === "car"){ await FEN_CH.wi(); if (!fenWiT(id)) await pbsFiche(q.t, id); const t = fenWiT(id); if (t) wiCarte(t, id); }
+  else if (o === "sal"){ await FEN_CH.sal(); const k = fenSalK(id); if (k) salRapport(k); }
+  else if (o === "prj"){ await FEN_CH.prj(); prjCarte(id); }
+  else if (o === "enf"){ await FEN_CH.enf(); enfCarte(id); }
+  else if (o === "gcr"){ await FEN_CH.gcr(); gcrCarte(id); }
+  else if (o === "arb"){ await FEN_CH.arb(); arbCarte(id); }
+  if (p.querySelector(".vide") && !p.querySelector(".wi-carte")) p.innerHTML = `<div class="vide">${L("Rien pour lui ici.", "Nothing for him here.")}</div>`;
+}
+// Partager : l'image de l'onglet ouvert (le même bouton que les fiches d'avant) ; l'Aperçu partage le lien
+function fenPartager(){
+  const b = $(`#fenetre .fen-pane[data-o="${FEN.o}"] [data-pt]`);
+  if (b){ b.click(); return; }
+  const url = location.href, titre = FEN.x?.n || "PuckProb";
+  if (navigator.share) navigator.share({ title: titre, url }).catch(() => {});
+  else navigator.clipboard?.writeText(url).then(() => { const u = $("#fenetre .fen-url"); if (u){ const t0 = u.textContent; u.textContent = L("Lien copié", "Link copied"); setTimeout(() => u.textContent = t0, 1500); } });
+}
+// ---- La série : 5 niveaux, des points de ses 10 derniers matchs comparés à sa moyenne de la saison. Les mêmes seuils
+// que la carte des posts (src/cartes.py joueur : chaud = 25 % au-dessus et au moins 0,5 pt par match ; froid = 25 %
+// en dessous), plus les deux extrêmes.
+const FEN_SERIE = [["tf", "Très froid", "Ice cold", "#3F7FD6"], ["f", "Froid", "Cold", "#7FB0EE"], ["n", "Normal", "Steady", "#8A97A8"],
+                   ["c", "Chaud", "Hot", "#F2A33A"], ["tc", "Très chaud", "On fire", "#E0412F"]];
+function fenSerie(q){
+  const p = fenPrj(q.id), so = fenSoir(q.id);
+  let B = [], A = [];
+  if (p?.g?.length){ const g = p.g.slice(-10); B = g.map(x => x[0]); A = g.map(x => x[1]); }
+  else if (so?.l10_goals){ B = so.l10_goals.slice(-10); A = (so.l10_assists || []).slice(-10); }
+  const n = B.length; if (n < 5) return null;
+  const pts = B.reduce((a, b) => a + b, 0) + A.reduce((a, b) => a + b, 0), r10 = pts / n;
+  const moy = p?.pj ? (p.c?.pts || 0) / p.pj : so?.saison?.pj ? so.saison.pts / so.saison.pj : null;
+  if (moy == null) return null;
+  const ratio = moy > 0 ? r10 / moy : (r10 > 0 ? 2 : 1);
+  const niv = ratio >= 1.6 && r10 >= 0.8 ? 4 : ratio >= 1.25 && r10 >= 0.5 ? 3 : ratio <= 0.4 ? 0 : ratio <= 0.75 ? 1 : 2;
+  return { niv, ratio, B, A, n, pts, b: B.reduce((a, b) => a + b, 0), a: A.reduce((a, b) => a + b, 0), pos: Math.max(0.03, Math.min(0.97, (ratio - 0.2) / 1.6)) };
+}
+// ---- La description : des phrases bâties avec nos chiffres du matin (aucun texte copié d'ailleurs)
+function fenBref(q){
+  const p = fenPrj(q.id), s = fenSal(q.id), so = fenSoir(q.id), w = q.w || (fenWiT(q.id) && WI[fenWiT(q.id)][q.id]);
+  const ph = [];
+  const ville = villeNom(q.eq), nb = (v) => nW(v);
+  if (!q.act && w){
+    const eqs = (w.eqs || []).slice(0, 4).map(([t]) => t).join(", ");
+    ph.push(q.t === "g"
+      ? L(`${w.s.length} saisons dans la ligue (${eqs}) : ${nb(w.r[1])} victoires, ${nb(w.w[1])} en PB Stats, ${rangFr(w.rg[1])} de tous les temps.`,
+          `${w.s.length} seasons in the league (${eqs}): ${nb(w.r[1])} wins, ${nb(w.w[1])} in PB Stats, ${rangFr(w.rg[1])} all-time.`)
+      : L(`${w.s.length} saisons dans la ligue (${eqs}) : ${nb(w.r[3])} points en ${nb(w.r[0])} matchs. Ramené à l'ère d'aujourd'hui : <b>${nb(w.w[3])} points</b>, ${rangFr(w.rg[5])} de tous les temps.`,
+          `${w.s.length} seasons in the league (${eqs}): ${nb(w.r[3])} points in ${nb(w.r[0])} games. Brought to today's era: <b>${nb(w.w[3])} points</b>, ${rangFr(w.rg[5])} all-time.`));
+    const best = w.s.reduce((m, r) => (q.t === "g" ? r[3] : r[5]) > (q.t === "g" ? m[3] : m[5]) ? r : m, w.s[0]);
+    if (best) ph.push(q.t === "g" ? L(`Sa meilleure saison : ${best[3]} victoires en ${best[0].slice(0, 4)}-${best[0].slice(6)}.`, `Best season: ${best[3]} wins in ${best[0].slice(0, 4)}-${best[0].slice(6)}.`)
+      : L(`Sa meilleure saison : ${best[5]} points en ${best[0].slice(0, 4)}-${best[0].slice(6)}.`, `Best season: ${best[5]} points in ${best[0].slice(0, 4)}-${best[0].slice(6)}.`));
+    return ph.join(" ");
+  }
+  if (p && !q.g){
+    const c = p.c || {}, ry = Math.round(p.rythme?.pts || 0);
+    let ph1 = L(`<b>${c.pts} points en ${p.pj} matchs</b> (${c.b} B, ${c.a} A) avec ${ville}, un rythme de <b>${ry} points</b> sur ${PRJ.matchs || 82} matchs`,
+                `<b>${c.pts} points in ${p.pj} games</b> (${c.b} G, ${c.a} A) for ${ville}, a <b>${ry}-point</b> pace over ${PRJ.matchs || 82} games`);
+    if (w && w.s.length > 1 && p.pj >= 10){
+      const passe = w.s.filter(r => r[0] !== WI.saison && r[2] >= 40);
+      const mx = passe.length ? Math.max(...passe.map(r => r[5] / r[2] * 82)) : null;
+      if (mx != null && ry > mx * 1.03) ph1 += L(", son meilleur rythme en carrière", ", the best pace of his career");
+      else if (mx != null && ry < mx * 0.7) ph1 += L(`, loin de son sommet (${Math.round(mx)} sur 82)`, `, well off his peak (${Math.round(mx)} per 82)`);
+    }
+    ph.push(ph1 + ".");
+    if (p.proj) ph.push(L(`PuckProb le projette à <b>${p.proj.pts} points</b> (${rangFr(p.rg?.pts)} de la ligue).`, `PuckProb projects him at <b>${p.proj.pts} points</b> (${rangFr(p.rg?.pts)} in the league).`));
+  }
+  const g = fenGcr(q.id);
+  if (q.g && g) ph.push(L(`${g.pj} matchs cette saison avec ${ville}, ${sv3(g.sv)} d'arrêts (${sv3(g.xsv)} attendu)${g.gsax != null ? `, ${g.gsax >= 0 ? "+" : "−"}${n1(Math.abs(g.gsax))} buts sauvés de plus que prévu` : ""}.`,
+                          `${g.pj} games this season for ${ville}, ${sv3(g.sv)} save % (${sv3(g.xsv)} expected)${g.gsax != null ? `, ${g.gsax >= 0 ? "+" : "−"}${n1(Math.abs(g.gsax))} goals saved above expected` : ""}.`));
+  const se = !q.g && fenSerie(q);
+  if (se && se.niv !== 2) ph.push(L(`Il est <b>${FEN_SERIE[se.niv][1].toLowerCase()}</b> : ${se.pts} points à ses ${se.n} derniers matchs.`,
+                                    `He's <b>${FEN_SERIE[se.niv][2].toLowerCase()}</b>: ${se.pts} points in his last ${se.n} games.`));
+  if (s?.s && s.vrai){
+    const r = s.s / s.vrai;
+    const comp = r >= 2.25 ? L(`${(Math.round(r * 10) / 10).toString().replace(".", ",")} fois son vrai contrat`, `${Math.round(r * 10) / 10} times his real contract`)
+      : r >= 1.85 ? L("presque le double de son vrai contrat", "nearly double his real contract") : r >= 1.15 ? L(`${Math.round((r - 1) * 100)} % de plus que son vrai contrat`, `${Math.round((r - 1) * 100)}% more than his real contract`)
+      : r >= 0.87 ? L("à peu près son vrai contrat", "about what he's paid") : L(`${Math.round((1 - r) * 100)} % de moins que son vrai contrat`, `${Math.round((1 - r) * 100)}% less than his real contract`);
+    ph.push(L(`Sa PB Market Value : <b>${mD(s.s)}</b>, ${comp} (${mD(s.vrai)}).`, `His PB Market Value: <b>${mD(s.s)}</b>, ${comp} (${mD(s.vrai)}).`));
+  }
+  const tr = fenTroph(q).filter(t => t.p >= 0.05)[0];
+  if (tr) ph.push(L(`${pcTxt(tr.p)} de chances de gagner le ${tr.nom}.`, `${pcTxt(tr.p)} chance to win the ${tr.nom}.`));
+  if (so){
+    const pr = pred(so, D.principale, "buts");
+    const g0 = (D.games || []).find(x => String(x.gameId) === String(so.gameId));
+    if (pr?.p != null && g0 && !g0.result) ph.push(L(`Ce soir ${so.home ? "contre" : "à"} ${villeNom(so.opp)} : <b>${pcTxt(pr.p)}</b> de chances de marquer.`,
+                                                     `Tonight ${so.home ? "vs" : "at"} ${villeNom(so.opp)}: <b>${pcTxt(pr.p)}</b> to score.`));
+  }
+  return ph.join(" ");
+}
+function fenBrefMaj(q){ const d = $('#fenetre .fen-pane[data-o="apercu"] .fen-bref'); if (d){ const t = fenBref(q); if (t) d.innerHTML = t; } }
+// Ses courses aux trophées (la simulation du matin)
+function fenTroph(q){
+  const T = D?.trophees?.trophees || {};
+  return Object.entries(T).map(([k, B]) => { const i = (B?.top || []).findIndex(x => String(x.id) === q.id); return i < 0 ? null : { k, nom: TROPH[k]?.nom || k, p: B.top[i].p || 0, rg: i + 1, dp: B.top[i].dp }; })
+    .filter(Boolean).sort((a, b) => b.p - a.p);
+}
+function fenApercu(q){
+  const p = fenPrj(q.id), s = fenSal(q.id), so = fenSoir(q.id), g = fenGcr(q.id), sec = [];
+  const cas = (v, lib) => `<div><b>${v}</b><span>${lib}</span></div>`;
+  sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${fenBref(q) || L("Les détails arrivent…", "Details loading…")}</div></section>`);
+  if (p && !q.g){
+    const c = p.c || {}, toi = p.toi ? `${Math.floor(p.toi)}:${String(Math.round((p.toi % 1) * 60)).padStart(2, "0")}` : "";
+    sec.push(`<section class="fen-s"><h3>${L("Cette saison", "This season")} <em>${p.pj} ${L("PJ", "GP")}${toi ? " · " + toi : ""}</em></h3>
+      <div class="fen-cases">${cas(c.b, L("Buts", "Goals"))}${cas(c.a, L("Passes", "Assists"))}${cas(c.pts, "Pts")}${cas(pmW(c.pm), "+/-")}${cas(c.pim, L("Pun.", "PIM"))}</div>
+      ${p.proj ? `<div class="fen-duo"><div><b>${p.proj.b}-${p.proj.a}-${p.proj.pts}</b><span>${L("Projection fin de saison", "Season-end projection")}</span>
+        <small>${rangFr(p.rg?.pts)} ${L("de la ligue", "in the league")} · ${L("rythme actuel", "current pace")} ${Math.round(p.rythme?.pts || 0)}</small></div>
+        ${s?.s ? `<div><b>${mD(s.s)}</b><span>PB Market Value</span><small>${L("vrai contrat", "real contract")} ${s.vrai ? mD(s.vrai) : "–"} · ${rangFr(s.rg)}</small></div>` : ""}</div>` : ""}
+    </section>`);
+  }
+  if (q.g && g){
+    sec.push(`<section class="fen-s"><h3>${L("Cette saison", "This season")} <em>${g.pj} ${L("PJ", "GP")}</em></h3>
+      <div class="fen-cases">${cas(sv3(g.sv), L("% arrêts", "Save %"))}${cas(sv3(g.xsv), L("attendu", "expected"))}${cas((g.gsax >= 0 ? "+" : "−") + n1(Math.abs(g.gsax || 0)), "GSAx")}${cas(Math.round(g.min || 0), "Min.")}</div>
+      ${s?.s ? `<div class="fen-duo"><div><b>${mD(s.s)}</b><span>PB Market Value</span><small>${L("vrai contrat", "real contract")} ${s.vrai ? mD(s.vrai) : "–"}</small></div></div>` : ""}</section>`);
+  }
+  const se = !q.g && fenSerie(q);
+  if (se){
+    const mx = Math.max(3, ...se.B.map((b, i) => b + (se.A[i] || 0)));
+    const bars = se.B.map((b, i) => { const a = se.A[i] || 0; return `<div><i class="bb" style="height:${b / mx * 100}%"></i><i class="ba" style="height:${a / mx * 100}%"></i><span>${b + a}</span></div>`; }).join("");
+    const N = FEN_SERIE[se.niv];
+    sec.push(`<section class="fen-s"><h3>${L(`${se.n} derniers matchs`, `Last ${se.n} games`)} <em>${se.b} ${L("B", "G")} · ${se.a} A · ${se.pts} PTS</em></h3>
+      <div class="fen-barres">${bars}</div>
+      <div class="fen-serie"><small>${L("Très froid", "Ice cold")}</small><div class="fen-therm"><i style="left:${(se.pos * 100).toFixed(0)}%"></i></div><b style="color:${N[3]}">${L(N[1], N[2])}</b></div></section>`);
+  }
+  if (so){
+    const g0 = (D.games || []).find(x => String(x.gameId) === String(so.gameId));
+    const P = [["buts", L("But", "Goal")], ["pts1", "Point"], ["tirs", L("2 tirs et +", "2+ shots")]].map(([m, lib]) => [lib, pred(so, D.principale, m)?.p]).filter(([, v]) => v != null);
+    if (P.length && g0 && !g0.result){
+      const h = new Date(g0.start).toLocaleTimeString(EN ? "en-CA" : "fr-CA", { hour: "numeric", minute: "2-digit" });
+      sec.push(`<section class="fen-s"><h3>${L("Ce soir", "Tonight")} <em>${so.home ? "vs" : "@"} ${so.opp} · ${h}</em></h3>
+        <div class="fen-cases fen-c3">${P.map(([lib, v]) => cas(`${pc1(v)}<sup>%</sup>`, lib)).join("")}</div></section>`);
+    }
+  }
+  const T = fenTroph(q);
+  if (T.length) sec.push(`<section class="fen-s"><h3>${L("Courses aux trophées", "Award races")}</h3><div class="fen-tro">${T.map(t =>
+    `<div><b>${pcTxt(t.p)}</b><span>${t.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, t.p * 100 / Math.max(0.01, T[0].p) * 100 / 100)).toFixed(0)}%"></i></i><small>${rangFr(t.rg)}</small></div>`).join("")}</div></section>`);
+  sec.push(`<section class="fen-s fen-carr" hidden></section>`);
+  return sec.join("");
+}
+// Le résumé de carrière dans l'Aperçu (quand whatif.json est là) + le lien vers l'onglet Carrière
+function fenCarriereResume(q){
+  const el = $('#fenetre .fen-pane[data-o="apercu"] .fen-carr'), t = fenWiT(q.id); if (!el || !t) return;
+  const w = WI[t][q.id];
+  const lignes = w.s.slice(-6).map(r => t === "g"
+    ? `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${sv3(r[4])}</td><td class="pb">${r[6]}</td></tr>`
+    : `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td class="pb">${r[10]}</td></tr>`).join("");
+  el.innerHTML = `<h3>${L("Carrière", "Career")} <em>${L("Réel · PB Era", "Real · PB Era")}</em></h3><div class="fen-tbl"><table>
+    <thead><tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th>${t === "g" ? `<th>${L("V", "W")}</th><th>${L("Arr%", "Sv%")}</th><th class="pb">${L("V PB", "PB W")}</th>` : `<th>${L("B", "G")}</th><th>A</th><th>PTS</th><th class="pb">PTS PB</th>`}</tr></thead>
+    <tbody>${lignes}</tbody><tfoot><tr><td>${L("Carrière", "Career")}</td><td></td><td>${nW(w.r[0])}</td>${t === "g" ? `<td>${nW(w.r[1])}</td><td>${sv3(w.sv[0])}</td><td class="pb">${nW(w.w[1])}</td>` : `<td>${nW(w.r[1])}</td><td>${nW(w.r[2])}</td><td>${nW(w.r[3])}</td><td class="pb">${nW(w.w[3])}</td>`}</tr></tfoot></table></div>
+    <button type="button" class="fen-plus" data-fo="car">${w.s.length > 6 ? L(`Les ${w.s.length} saisons, par équipe, les rangs de tous les temps`, `All ${w.s.length} seasons, by team, all-time ranks`) : L("Les rangs de tous les temps et le détail par équipe", "All-time ranks and the by-team detail")} ›</button>`;
+  el.hidden = false;
+  // Sa saison n° (« Montréal · 8e saison ») et son rang PB Stats dans le haut
+  const l2 = $("#fenetre .fen-l2"), ns = w.s.length;
+  if (l2 && q.act && !l2.textContent.includes("·")) l2.textContent += ` · ${ns}${L(ns === 1 ? "re" : "e", ["st", "nd", "rd"][ns - 1] || "th")} ${L("saison", "season")}`;
+  const pas = $("#fenetre .fen-pas");
+  if (pas && !pas.textContent) pas.innerHTML = t === "g" ? `PB Stats : ${rangFr(w.rg[1])} ${L("de tous les temps (victoires)", "all-time (wins)")}` : `PB Stats : ${rangFr(w.rg[5])} ${L("de tous les temps", "all-time")}`;
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.("#fenetre [data-fo]");
+  if (b){ fenMontrer(b.dataset.fo); if (b.classList.contains("fen-plus")) $("#fenetre .fen-ongl")?.scrollIntoView({ block: "start" }); return; }
+});
+// Un lien de la carrière vers PB Stats (une équipe, une saison) : la fenêtre se ferme sur place (sans revenir en arrière,
+// ce qui rouvrirait la section d'avant), l'onglet PB Stats s'ouvre, puis la fiche d'avant fait le reste (la vue, le défilement)
+document.addEventListener("click", (e) => {
+  if (!e.target.closest?.("#fenetre .wi-lien")) return;
+  FEN.pousse = false; FEN.y = null;
+  history.replaceState(null, "", location.pathname + location.search + "#what-if");
+  fenCacher();
+  $("#t-whatif")?.click();
+}, true);
+document.addEventListener("keydown", (e) => {
+  if (!FEN.ouvert) return;
+  if (e.key === "Escape") fenFermer();
+  else if (e.key === "ArrowRight" || e.key === "ArrowLeft") fenVoisin(e.key === "ArrowRight" ? 1 : -1);
+});
+// Glisser de côté dans la fenêtre (comme dans les popups d'avant) : à gauche = le joueur suivant de la liste d'où on
+// l'a ouverte (même ordre, mêmes filtres), à droite = le précédent. La fenêtre reste sur le même onglet.
+document.addEventListener("click", (e) => { const l = e.target.closest?.(".wi-l"); if (l && !l.closest("#fenetre")) FEN.ligne = l; }, true);
+function fenVoisin(d){
+  let v = FEN.ligne;
+  if (!v || !document.contains(v)) return false;
+  do { v = d > 0 ? v.nextElementSibling : v.previousElementSibling; } while (v && !(v.matches(".wi-l") && v.offsetParent !== null));
+  if (!v) return false;
+  const b = $("#fenetre .fen-boite");
+  if (b){ b.style.transition = "transform .14s ease-in, opacity .14s ease-in"; b.style.transform = `translateX(${-d * 30}%)`; b.style.opacity = "0"; }
+  const o = FEN.o;
+  setTimeout(() => {
+    FEN.ligne = v; FEN.garder = o;
+    v.click();                                           // la fiche de la ligne -> fenCible -> la fenêtre passe à lui
+    v.scrollIntoView({ block: "nearest" });
+  }, 130);
+  return true;
+}
+(function(){
+  let x0 = 0, y0 = 0, ok = false;
+  document.addEventListener("touchstart", (e) => {
+    ok = false;
+    if (!FEN.ouvert || e.touches.length !== 1 || !e.target.closest?.("#fenetre")) return;
+    for (let n = e.target; n && n.id !== "fenetre"; n = n.parentElement)        // un tableau qui défile de côté garde son glissement
+      if (n.scrollWidth > n.clientWidth + 2 && /auto|scroll/.test(getComputedStyle(n).overflowX)) return;
+    ok = true; x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener("touchend", (e) => {
+    if (!ok) return; ok = false;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) fenVoisin(dx < 0 ? 1 : -1);
+  }, { passive: true });
+})();
+
+// ---- La face et la fiche du joueur dans les popups (Mitch, 19 nov. 2026 : « la face du joueur à droite sur les
+// popups » ; « ajoute la grandeur, le poids, la main, l'année, la ronde, le rang et l'équipe du repêchage pour tous les
+// popups de joueur » ; maquette approuvée). Chaque popup de joueur porte data-pid (son id) et data-ms (« saison:équipe »
+// de sa photo officielle) ; une seule passe les décore quand ils apparaissent. Pas de photo (un ancien joueur) : l'emblème
+// reste seul, comme avant. La fiche : docs/bios.json (src/nationalites.py, le rapport « bios » de la LNH).
+const saisonCour = () => { const d = new Date(), a = d.getMonth() >= 8 ? d.getFullYear() : d.getFullYear() - 1; return `${a}${a + 1}`; };
+let BIOS = null, BIOS_p = null;
+const biosCharger = () => BIOS_p || (BIOS_p = fetch("bios.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (BIOS = x || {})));
+const ordFr = (n, f) => EN ? `${n}${["th", "st", "nd", "rd"][(n % 100 > 10 && n % 100 < 14) ? 0 : Math.min(n % 10, 4) % 4] || "th"}` : `${n}${n === 1 ? (f ? "re" : "er") : "e"}`;
+async function ficheDeco(c){
+  if (c.dataset.deco) return;
+  c.dataset.deco = "1";
+  if (c.closest(".fen-pane")) return;               // une fiche dans un onglet de la fenêtre : la fenêtre a déjà son haut
+  const id = c.dataset.pid, [s, t] = (c.dataset.ms || "").split(":"), h = c.querySelector("header");
+  if (!h || !id) return;
+  if (s && /^[A-Z]{2,3}$/.test(t || "")){
+    const im = new Image();
+    im.className = "wi-face"; im.alt = "";
+    im.onload = () => h.classList.add("a-face");
+    im.onerror = () => im.remove();
+    im.src = `https://assets.nhle.com/mugs/nhl/${s}/${t}/${id}.png`;
+    h.appendChild(im);
+  }
+  await biosCharger();
+  const b = BIOS?.[id]; if (!b) return;
+  const [po, lb, main, dy, dr, dp, dt, ville, prov, pays] = b;
+  const g = c.querySelector(".wi-rond i")?.textContent === "G" || /gardien|goalie/i.test(c.querySelector(".wi-hd")?.textContent || "");
+  const tuiles = [];
+  if (po) tuiles.push([L("Grandeur", "Height"), `${Math.floor(po / 12)}'${po % 12}" · ${Math.round(po * 2.54)} cm`]);
+  if (lb) tuiles.push([L("Poids", "Weight"), `${lb} lb · ${Math.round(lb * 0.4536)} kg`]);
+  if (main) tuiles.push([g ? L("Attrape", "Catches") : L("Tire", "Shoots"), main === "L" ? L("Gauche", "Left") : main === "R" ? L("Droite", "Right") : main]);
+  const rep = dy ? [dy, dr ? `${ordFr(dr, true)} ${L("ronde", "round")}` : "", dp ? `${ordFr(dp)} ${L("au total", "overall")}` : "", dt || ""].filter(Boolean).join(" · ")
+    : L("Jamais repêché", "Undrafted");
+  tuiles.push([L("Repêchage", "Draft"), rep, "l"]);
+  const ne = [ville, prov, (NAT_P[pays] || [])[EN ? 3 : 2] || pays].filter(Boolean).join(", ");
+  // + sa date de naissance quand on l'a (docs/pbstats/naissances.json, chargé par la fenêtre joueur)
+  const nd = typeof PBS !== "undefined" && (PBS.nais?.j?.[id] || PBS.nais?.g?.[id]);
+  const ndT = nd ? new Date(nd + "T12:00:00").toLocaleDateString(EN ? "en-CA" : "fr-CA", { day: "numeric", month: "long", year: "numeric" }) : "";
+  if (ne || ndT) tuiles.push([L("Né à", "Born in"), [ne, ndT].filter(Boolean).join(" · "), "l"]);
+  h.insertAdjacentHTML("afterend", `<div class="wi-bio">${tuiles.map(([k, v, cl]) => `<div${cl ? ` class="${cl}"` : ""}><small>${k}</small><b>${v}</b></div>`).join("")}</div>`);
+}
+new MutationObserver(() => document.querySelectorAll(".wi-carte[data-pid]:not([data-deco])").forEach(ficheDeco))
+  .observe(document.documentElement, { childList: true, subtree: true });
 let NAT = null, NAT_p = null;
 const natCharger = () => NAT_p || (NAT_p = fetch("nat.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (NAT = x || {})));
 const natDrap = (i2) => i2 ? i2.replace(/./g, c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)) : "";
@@ -5723,7 +6751,7 @@ function clsOnglet(){
       + `<p class="cls-sh">${L("Meilleurs deuxièmes", "Wild card")}</p>` + clsTable(reste, 2);
   }).join("");
   const maj = D?.coupe?.date ? new Date(D.coupe.date + "T12:00:00").toLocaleDateString(LANG, { day: "numeric", month: "long" }) : "";
-  el.innerHTML = `<div class="cp-tete"><h2>${L("Classement de la LNH", "NHL standings")}</h2><p>${L(`Le vrai classement, à jour ce matin (${maj}). La ligne : la limite des séries. La dernière colonne : nos chances de faire les séries.`,
+  el.innerHTML = `<div class="cp-tete"><h2>${L("Classement de la ligue", "League standings")}</h2><p>${L(`Le vrai classement, à jour ce matin (${maj}). La ligne : la limite des séries. La dernière colonne : nos chances de faire les séries.`,
     `The real standings, updated this morning (${maj}). The line: the playoff cut. The last column: our playoff chances.`)}</p></div>` + corps
     + `<p class="aide">${L("Égalité : les points, puis le moins de matchs joués, puis les victoires en temps réglementaire et en prolongation, puis le différentiel.", "Ties: points, then fewer games played, then regulation and overtime wins, then goal differential.")}</p>`;
 }
@@ -5857,7 +6885,7 @@ function trxhCarte(t, i){
 function trxhPop(t){
   const eqs = t.eqs || Object.keys(t.recoit || {}), n = t.notes;
   const vA = (a, e) => a.autre ? "" : a.v > 0 ? `${Math.round(a.v)} pts PB · ${a.sa} ${a.sa > 1 ? L("saisons", "seasons") : L("saison", "season")} · ${a.pj} ${L("matchs avec", "games with")} ${ville(e)}`
-    : a.id ? L(`n'a jamais vraiment joué pour ${ville(e)}`, `never really played for ${ville(e)}`) : a.choix && !a.n ? L("joueur repêché inconnu", "unknown pick") : L("jamais dans la LNH (ou nom introuvable)", "never in the NHL (or name not found)");
+    : a.id ? L(`n'a jamais vraiment joué pour ${ville(e)}`, `never really played for ${ville(e)}`) : a.choix && !a.n ? L("joueur repêché inconnu", "unknown pick") : L("jamais dans la ligue (ou nom introuvable)", "never in the league (or name not found)");
   const liste = (a, e) => (a || []).map(x => `<p>${trxhActif(x)}<small>${vA(x, e)}</small></p>`).join("") || `<p><small>–</small></p>`;
   const C = palette(eqs[0] || "MTL");
   const page = t.page || (t.s ? `${t.s.slice(0, 4)}–${t.s.slice(0, 4) === "1999" ? "2000" : t.s.slice(6, 8)} NHL transactions` : "");
@@ -5965,8 +6993,8 @@ async function pwrOnglet(){
   const tete = `<div class="cp-tete">${titrePB("PB Dominance Rating", sousT)}<p>${mode === "g"
     ? L(`Les ${PWR.gardiens.length} gardiens les plus dominants en ce moment. D'abord la qualité de sa saison : notre cote de confiance (le PBGC : il arrête plus que prévu, son équipe joue en confiance devant lui, son coach le fait jouer). Puis sa forme : son % d'arrêts sur ses ${PWR.n_forme} derniers départs. Puis ses victoires. Au moins ${PWR.min_departs} départs.`,
         `The ${PWR.gardiens.length} most dominant goalies right now. First the quality of his season: our confidence rating (PBGC: he stops more than expected, his team plays with confidence in front of him, his coach plays him). Then his form: his save % over his last ${PWR.n_forme} starts. Then his wins. At least ${PWR.min_departs} starts.`)
-    : mode === "r" ? L(`Les ${PWR.recrues.length} recrues les plus dominantes en ce moment, classées seulement entre recrues : ce qu'elles valent sur la saison, leur forme sur leurs ${PWR.n_forme} derniers matchs et où elles s'en vont. Recrue : au plus ${PWR.max_pj_recrue} matchs dans la LNH avant cette saison.`,
-        `The ${PWR.recrues.length} most dominant rookies right now, ranked only against rookies: what they're worth over the season, their form over their last ${PWR.n_forme} games and where they're headed. Rookie: at most ${PWR.max_pj_recrue} NHL games before this season.`)
+    : mode === "r" ? L(`Les ${PWR.recrues.length} recrues les plus dominantes en ce moment, classées seulement entre recrues : ce qu'elles valent sur la saison, leur forme sur leurs ${PWR.n_forme} derniers matchs et où elles s'en vont. Recrue : au plus ${PWR.max_pj_recrue} matchs dans la ligue avant cette saison.`,
+        `The ${PWR.recrues.length} most dominant rookies right now, ranked only against rookies: what they're worth over the season, their form over their last ${PWR.n_forme} games and where they're headed. Rookie: at most ${PWR.max_pj_recrue} league games before this season.`)
     : mode === "eq"
     ? L("Qui est le plus fort en ce moment, pas juste qui a le plus de points. On regarde d'abord la force réelle de chaque club, qui monte quand il bat de bonnes équipes et baisse quand il perd contre des faibles, puis ses points et ses buts pour et contre. Mis à jour chaque jour, les flèches comparent avec le classement de la semaine passée.",
         "Who's the strongest right now, not just who has the most points. First the real strength of each club, which goes up when it beats good teams and down when it loses to weak ones, then its points and its goals for and against. Updated daily; the arrows compare with last week's ranking.")
@@ -6025,11 +7053,11 @@ async function arbOnglet(){
     "Les gars que les arbitres ont dans le collimateur, et leurs chouchous. Pour chaque joueur, on compte les pénalités qu'il se fait siffler et celles qu'il fait siffler contre l'autre équipe. Puis on compare avec un joueur pareil, à la même position, avec le même temps de glace et dans les mêmes situations : les arbitres sifflent plus facilement contre l'équipe qui mène, alors un gars qui joue souvent en avance n'est pas puni pour ça. Négatif = il se fait siffler plus et obtient moins que prévu : les arbitres l'aiment pas. Positif = un chouchou. Touche un joueur pour le détail.",
     "The players the refs have their eye on, and their favorites. For each player, we count the penalties called on him and the ones he draws from the other team. Then we compare with a similar player, at the same position, with the same ice time and in the same situations: refs call penalties more easily against the team that's leading, so a guy who often plays with the lead isn't punished for it. Negative = he gets called more and draws less than expected: the refs don't like him. Positive = a favorite. Tap a player for the details.")}</p></div>${lireHTML(L("pénalités en sa faveur moins contre lui, par rapport à ce qui était attendu, par heure de jeu.", "penalties for him minus against him, compared with what was expected, per hour of play."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p><b>Ce qu'on compte.</b> Les mineures et les majeures du jeu-par-jeu de la LNH : qui est puni, et qui a obtenu la pénalité. Pas les combats, ni les inconduites, ni les pénalités de banc.</p>
-     <p><b>Ce qu'on attend.</b> Son temps de glace de chaque match, réparti selon le temps que son équipe a passé en avance, à égalité et en retard ce soir-là, fois le taux de la ligue pour sa position dans chaque état. Dans la LNH, l'équipe qui tire de l'arrière obtient ${n1a(lg.retard)} pénalité par 60 min de glace d'un joueur, contre ${n1a(lg.avance)} quand elle mène : on ne pénalise personne pour ça.</p>
+    `<p><b>Ce qu'on compte.</b> Les mineures et les majeures du jeu-par-jeu de la ligue : qui est puni, et qui a obtenu la pénalité. Pas les combats, ni les inconduites, ni les pénalités de banc.</p>
+     <p><b>Ce qu'on attend.</b> Son temps de glace de chaque match, réparti selon le temps que son équipe a passé en avance, à égalité et en retard ce soir-là, fois le taux de la ligue pour sa position dans chaque état. Dans la ligue, l'équipe qui tire de l'arrière obtient ${n1a(lg.retard)} pénalité par 60 min de glace d'un joueur, contre ${n1a(lg.avance)} quand elle mène : on ne pénalise personne pour ça.</p>
      <p><b>Le chiffre.</b> (obtenues − attendues) − (prises − attendues), par heure de glace, ramené vers 0 avec ${ARB.k_h} heures fictives : un gars qui a peu joué reste près de 0. La saison passée compte à moitié. Au moins ${ARB.min_min} minutes cette saison.</p>`,
-    `<p><b>What we count.</b> Minors and majors from the NHL play-by-play: who is penalized, and who drew the penalty. No fights, misconducts or bench minors.</p>
-     <p><b>What we expect.</b> His ice time in every game, split by the time his team spent leading, tied and trailing that night, times the league rate for his position in each state. In the NHL, the trailing team draws ${n1a(lg.retard)} penalties per 60 minutes of a player's ice time, vs ${n1a(lg.avance)} when it leads: nobody is punished for that.</p>
+    `<p><b>What we count.</b> Minors and majors from the league play-by-play: who is penalized, and who drew the penalty. No fights, misconducts or bench minors.</p>
+     <p><b>What we expect.</b> His ice time in every game, split by the time his team spent leading, tied and trailing that night, times the league rate for his position in each state. In the league, the trailing team draws ${n1a(lg.retard)} penalties per 60 minutes of a player's ice time, vs ${n1a(lg.avance)} when it leads: nobody is punished for that.</p>
      <p><b>The number.</b> (drawn − expected) − (taken − expected), per hour of ice time, pulled toward 0 with ${ARB.k_h} fictional hours: a player who hasn't played much stays near 0. Last season counts half. At least ${ARB.min_min} minutes this season.</p>`)}</details>`;
   Object.assign(COTE, { n: ARB.joueurs.length, inv: true });
   const lignes = liste.slice(0, 150).map((x, i) => { const [v, lib] = val(x);
@@ -6040,14 +7068,14 @@ async function arbOnglet(){
     || `<div class="card"><div class="vide">${L("Aucun joueur trouvé.", "No player found.")}</div></div>`;
   // Les mieux traités : le % « Chouchous » de ses joueurs, selon leurs heures de glace
   const eqA = Object.entries(parEq(ARB.joueurs, x => x.eq, x => x.pcs?.haut ?? null, x => x.h)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
-  el.innerHTML = saiBandeau("arb") + tete + eqClassementHTML(eqA, L("les mieux traités par les arbitres", "best treated by the refs")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la LNH.", "Source: NHL play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
+  el.innerHTML = saiBandeau("arb") + tete + eqClassementHTML(eqA, L("les mieux traités par les arbitres", "best treated by the refs")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la ligue.", "Source: league play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
   ptListeTab("p-arb");
 }
 function arbCarte(id){
   const x = ARB?.joueurs?.find(y => String(y.id) === String(id)); if (!x) return;
   const E = [["avance", L("Son équipe mène", "His team leads")], ["egal", L("Égalité", "Tied")], ["retard", L("Son équipe tire de l'arrière", "His team trails")]];
-  const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}"><header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span><div><b>${x.n}</b><span>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} ${L("h de glace (saison passée à moitié)", "h of ice time (last season half)")}</span></div></div><button class="wi-x" type="button" aria-label="${L("Fermer", "Close")}">×</button></header>
+  const m = fenCible("arb", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id ?? id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(x.eq)}"><header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, x.pos)}</span><div><b>${x.n}</b><span>${x.eq} · ${x.pj} ${L("matchs", "games")} · ${n1a(x.h)} ${L("h de glace (saison passée à moitié)", "h of ice time (last season half)")}</span></div></div><button class="wi-x" type="button" aria-label="${L("Fermer", "Close")}">×</button></header>
     <p class="aide" style="margin:8px 16px">${L("Les pénalités qu'il obtient et qu'il prend, comparées à un joueur pareil dans les mêmes situations.", "Penalties he draws and takes, compared with a similar player in the same situations.")}</p>
     <div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("Obt.", "Drawn")}</th><th>${L("Att.", "Exp.")}</th><th>${L("Prises", "Taken")}</th><th>${L("Att.", "Exp.")}</th></tr></thead><tbody>
     ${E.map(([k, n]) => { const v = x.etats?.[k] || []; return `<tr><td>${n}</td><td>${n1a(v[0])}</td><td>${n1a(v[1])}</td><td>${n1a(v[2])}</td><td>${n1a(v[3])}</td></tr>`; }).join("")}
@@ -6106,7 +7134,7 @@ async function coachOnglet(){
       <span class="v">${coteHTML(r, classes.length, false)}${pbN(x[kp])}${AB("PBCB")}<small>PB Coach Boost %${pos === "tous" && x.pcav != null && x.pcav !== x.pc ? ` · ${L("saison d'avant", "season before")} ${pbTxt(x.pcav)}` : ""}</small>${pos === "tous" && x.ph?.length > 1 ? spark(x.ph, false, L("Saison par saison", "Season by season"), spkPc) : ""}</span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun coach trouvé.", "No coach found.")}</div></div>`;
   const maj = CO.maj ? new Date(CO.maj + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long", year: "numeric" }) : "";
-  el.innerHTML = tete + lignes + regles + `<p class="aide">${sc === CO.saison ? L("La saison en cours bouge encore. ", "The current season still moves. ") : ""}${L("Source : statistiques par club et feuilles de match de la LNH. Mis à jour le", "Source: NHL club stats and game sheets. Updated")} ${maj}.</p>`;
+  el.innerHTML = tete + lignes + regles + `<p class="aide">${sc === CO.saison ? L("La saison en cours bouge encore. ", "The current season still moves. ") : ""}${L("Source : statistiques par club et feuilles de match de la ligue. Mis à jour le", "Source: league club stats and game sheets. Updated")} ${maj}.</p>`;
   ptListeTab("p-coach");
 }
 function coachCarte(id){
@@ -6165,7 +7193,7 @@ async function gcrOnglet(){
       <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${tri === "gcr" ? `${x.pc != null ? pbN(x.pc) : val}${AB("PBGC")}<small>${lib}${pbAv(x)}</small>${pbSpark(x, x.h)}`
         : pbBloc(x, tri, "PBGC", L(...GCR_TRIS[tri]), `${val} ${lib}`) ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => tri === "gcr" ? (x.pc ?? null) : (x.pcs?.[tri] ?? null), x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
-  el.innerHTML = saiBandeau("gcr") + tete + eqClassementHTML(eqG, (tri === "gcr" ? "PBGC" : L(...GCR_TRIS[tri])) + " · " + L("ses gardiens, selon leurs minutes", "its goalies, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH, notre xG.", "Source: NHL play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
+  el.innerHTML = saiBandeau("gcr") + tete + eqClassementHTML(eqG, (tri === "gcr" ? "PBGC" : L(...GCR_TRIS[tri])) + " · " + L("ses gardiens, selon leurs minutes", "its goalies, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la ligue, notre xG.", "Source: league play-by-play and shifts, our xG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
   ptListeTab("p-gcr");
 }
 function gcrCarte(id){
@@ -6173,8 +7201,8 @@ function gcrCarte(id){
   const P = GCR.poids || {}, moy = GCR.moy_xga60_5;
   const barre = (z) => `<i class="gz"><b style="width:${Math.max(4, Math.min(100, 50 + (z || 0) * 16.7)).toFixed(0)}%"></b></i>`;
   const autres = GCR.gardiens.filter(g => g.eq === x.eq && g.id !== x.id).map(g => g.n);
-  const m = $("#wi-modal");
-  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}">
+  const m = fenCible("gcr", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
+  m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id ?? id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(x.eq)}">
     <header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span><div><b>${x.n}</b><span>PBGC ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${x.pj} ${L("matchs", "games")} · ${x.min} min${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt">
       <p class="gcr-gros"><b>${x.pc != null ? pbN(x.pc) : x.gcr}</b> PBGC${x.pc != null ? ` <small>(${L("note", "rating")} ${x.gcr}${ptTxt(pbAv(x))})</small>` : ""}</p>
@@ -6241,7 +7269,7 @@ function duosUnites(el, mode, tri, q, feq){
     return `<button class="wi-l wi-r duo-j unite-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "ch" ? x.rg : i + 1}${tri === "ch" ? mvtHTML(pbDr(x, "u")) : ""}</span>
       <span class="nm"><span class="u-pl">${duoPlaques(x)}</span>${x.j.map(j => j[1].split(" ").slice(-1)[0]).join(", ")}<small>${x.eq} · ${L(...SIT_NOM[sit])}</small><span class="wi-st">${st}</span></span>
       <span class="v">${tri === "ch" ? coteHTML(x.rg, L0.length, false) : ""}${bloc ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${vide}</div></div>`;
-  el.innerHTML = saiBandeau("duo") + tete + lignes + `<p class="aide">${L("Source : jeu-par-jeu et présences de la LNH,", "Source: NHL play-by-play and shifts,")} ${DUO.matchs_v9 ?? 0} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
+  el.innerHTML = saiBandeau("duo") + tete + lignes + `<p class="aide">${L("Source : jeu-par-jeu et présences de la ligue,", "Source: league play-by-play and shifts,")} ${DUO.matchs_v9 ?? 0} ${L("matchs. Mis à jour le", "games. Updated")} ${DUO.maj}.</p>`;
   ptListeTab("p-duo");
 }
 function uniteCarte(id){
@@ -6334,7 +7362,7 @@ function classementHTML(){
   }).join("");
   const moyC = (c) => C.equipes.filter(e => e.conf === c).map(e => ({ ...e, moy: e.rangs.reduce((a, p, k) => a + p * (k + 1), 0) })).sort((a, b) => a.moy - b.moy);
   ptReg("classement", { titre: L("Classement final projeté", "Projected final standings"), lib: L(`${C.n_sim.toLocaleString(LANG)} fins de saison simulées`, `${C.n_sim.toLocaleString(LANG)} simulated seasons`),
-    sous: ptDate(), fichier: "classement-projete", texte: L("Le classement final projeté de la LNH", "The projected NHL final standings"), entetes: [L("SÉRIES", "PLAYOFFS")],
+    sous: ptDate(), fichier: "classement-projete", texte: L("Le classement final projeté de la ligue", "The projected league final standings"), entetes: [L("SÉRIES", "PLAYOFFS")],
     cols: ["E", "W"].map(c => ({ titre: c === "E" ? L("Est", "East") : L("Ouest", "West"), lignes: moyC(c).map(e => ({ t: e.t, coul: coul(e.t), vals: [pcTxt(e.p_series)] })) })) });
   el.innerHTML = `<div class="cp-tete"><h2>Classement final</h2><p>Les chances de chaque équipe de finir à chaque rang de son association, sur ${C.n_sim.toLocaleString(LANG)} fins de saison simulées. Les équipes sont classées par rang moyen (le petit chiffre sous le nom). La ligne après le 8e rang est un repère : les séries passent par les divisions, la vraie qualification est dans la colonne Séries.</p></div>${D.coupe?.sim_vis?.reste ? `<button type="button" class="sv-btn" data-aller="sim">${L("Simuler la fin de saison : PB SIM", "Simulate the rest of the season: PB SIM")}</button>` : ""}${ptHaut("classement", "Partager le classement", "Share the standings")}${blocs}`;
 }
@@ -6521,11 +7549,11 @@ function simOnglet(){
     `Play the rest of the season in front of you, game by game, then the playoffs all the way to the Cup. Every time, another possible season: one of the thousands PuckProb simulates every day, not a prediction. Check the teams to follow on the chart, then share your season (the link replays the exact same one today).`)}</p></div>
     <details class="card wi-regles"><summary>${L("Comment ça marche", "How it works")}</summary>${L(
     `<p><b>La force des équipes.</b> Chaque équipe part de sa cote Elo d'aujourd'hui (calculée match par match depuis 2008), plus un petit coup de hasard pour toute la saison (±${V.sigma} Elo en moyenne) : personne ne sait exactement à quel point une équipe est bonne.</p>
-     <p><b>Chaque match.</b> La chance de gagner vient de l'écart d'Elo, plus l'avantage de la glace (${V.hfa} Elo). ${Math.round(V.p_ot * 100)} % des matchs vont en prolongation (le perdant prend 1 point). Le pointage : le perdant marque autour de 2 buts, l'écart suit celui de la LNH (1 but : 45 % des fois, 2 : 27 %, 3 : 15 %...).</p>
+     <p><b>Chaque match.</b> La chance de gagner vient de l'écart d'Elo, plus l'avantage de la glace (${V.hfa} Elo). ${Math.round(V.p_ot * 100)} % des matchs vont en prolongation (le perdant prend 1 point). Le pointage : le perdant marque autour de 2 buts, l'écart suit celui de la ligue (1 but : 45 % des fois, 2 : 27 %, 3 : 15 %...).</p>
      <p><b>Les séries.</b> Le vrai format : les 3 premiers de chaque division et 2 équipes repêchées par association. Avantage de la glace au meilleur classement, matchs 1, 2, 5 et 7 chez lui. On joue chaque série match par match.</p>
      <p><b>Les colonnes.</b> SV et SD : la plus longue série de victoires et sans victoire pendant la simulation. BP/m et BC/m : buts pour et contre par match.</p>`,
     `<p><b>Team strength.</b> Every team starts from today's Elo rating (computed game by game since 2008), plus a small dose of luck for the whole season (±${V.sigma} Elo on average): nobody knows exactly how good a team is.</p>
-     <p><b>Every game.</b> The win chance comes from the Elo gap, plus home ice (${V.hfa} Elo). ${Math.round(V.p_ot * 100)}% of games go to overtime (the loser gets 1 point). The score: the loser scores about 2 goals, the margin follows the NHL's (1 goal: 45% of the time, 2: 27%, 3: 15%...).</p>
+     <p><b>Every game.</b> The win chance comes from the Elo gap, plus home ice (${V.hfa} Elo). ${Math.round(V.p_ot * 100)}% of games go to overtime (the loser gets 1 point). The score: the loser scores about 2 goals, the margin follows the league's (1 goal: 45% of the time, 2: 27%, 3: 15%...).</p>
      <p><b>The playoffs.</b> The real format: top 3 of each division plus 2 wild cards per conference. Home ice to the better record, games 1, 2, 5 and 7 at home. Every series is played game by game.</p>
      <p><b>The columns.</b> LWS and LLS: longest winning and losing streak during the simulation. GF/G and GAA: goals for and against per game.</p>`)}</details>
     <button type="button" class="sv-btn" id="sv-go">${L("Lancer la simulation", "Start the simulation")}</button><div class="sv" id="sv"></div>`;
@@ -7047,7 +8075,7 @@ function nettoyerPublic(){
   const guides = {
     "#p-joueurs": ["Comment lire les joueurs", [
       "Le gros % = les chances que le joueur atteigne le seuil choisi ce soir (exemple : 2 tirs ou plus). C'est tout ce qu'on publie : des probabilités.",
-      "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données LNH, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.",
+      "Derrière chaque %, nos propres modèles d'apprentissage automatique : des années de données de la ligue, la forme du joueur, son rôle, l'adversaire et l'alignement du soir (DailyFaceoff). Vous avez le résultat ; la recette reste dans la cuisine.",
       "Les modèles sont remis à l'épreuve chaque semaine sur les vrais résultats, et tout est vérifié dans le Bilan. Les petites barres = ses 10 derniers matchs (en couleur : seuil atteint)."]],
     "#p-matchs": ["Comment lire les matchs", [
       "Une carte par match : les deux équipes dans leurs couleurs, la plus encadrée de blanc est la favorite. Touche une carte : « Alignement » montre les trios, les gardiens et le score prédit joueur par joueur ; « Probs » montre la victoire en 60 minutes, les totaux, la forme et les duels directs.",
@@ -7152,6 +8180,7 @@ async function init(){
   btn.addEventListener("click", () => allumer(btn.getAttribute("aria-pressed") !== "true"));
   allumer(store.get("live") === "1");
   const ouvrirHash = () => {
+    if (fenHash()) return;                           // #joueur/... : la fenêtre joueur
     if (/^#(what-?if|et-si)$/i.test(location.hash)){ $("#t-whatif").click(); $("#p-whatif").scrollIntoView({ block: "start" }); }
     else if (/^#(salaries|salaires)$/i.test(location.hash)){ $("#t-salaires").click(); $("#p-salaires").scrollIntoView({ block: "start" }); }
     else if (/^#enforcers?$/i.test(location.hash)){ $("#t-enf").click(); $("#p-enf").scrollIntoView({ block: "start" }); }
@@ -7259,6 +8288,8 @@ init().catch(finCharge);
     sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0) n++; });
     sh.querySelectorAll(".row").forEach(function(r){
       if (r.hidden) return;
+      // Une rangée qui donne son propre résumé (data-resume) compte seulement quand ce résumé n'est pas vide
+      if (r.hasAttribute("data-resume")){ if (r.getAttribute("data-resume")) n++; return; }
       var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
       if (c.length > 1 && c[0].getAttribute("aria-pressed") !== "true" && c.some(function(e){ return e.getAttribute("aria-pressed") === "true"; })) n++;
     });
@@ -7313,6 +8344,9 @@ init().catch(finCharge);
       o.sh.querySelectorAll(".peq[aria-pressed='true']").forEach(function(b){ b.click(); });
       o.sh.querySelectorAll("select").forEach(function(x){ if (x.selectedIndex > 0){ x.selectedIndex = 0; x.dispatchEvent(new Event("change", { bubbles: true })); } });
       o.sh.querySelectorAll(".row").forEach(function(r){
+        // Une rangée dont le choix par défaut n'est pas le 1er bouton (ex. la stat de PB Stats : Points) le dit dans data-raz
+        var rz = r.getAttribute("data-raz");
+        if (rz){ var x = r.querySelector('[data-pv="' + rz + '"]'); if (x && x.getAttribute("aria-pressed") !== "true") x.click(); return; }
         var c = [].filter.call(r.children, function(e){ return e.matches && e.matches("button.chip[aria-pressed]"); });
         if (c.length > 1 && c[0].getAttribute("aria-pressed") !== "true") c[0].click();
       });
@@ -7367,8 +8401,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=39e90aab" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=39e90aab" defer></script>
+<script src="pub.js?v=220412ce" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=220412ce" defer></script>
 <script src="nav.js?v=34af59f204" defer></script>
 </body>
 </html>

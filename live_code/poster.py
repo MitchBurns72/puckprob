@@ -8,8 +8,8 @@ Roule dans le dépôt PUBLIC puckprob, dans le job live (aux 5 minutes, minutes 
     un match déjà commencé est sauté (le post n'a plus de sens) ;
   - note ce qui est sorti dans social_poste.json (racine de puckprob ; le calcul le relit pour ne rien refaire
     et pour la page puckprob.ca/liens) ;
-  - le matin (1er passage dès 8 h), efface les stories d'hier encore en ligne, pour repartir clean ; un item
-    « effacer » du fil (le rattrapage après un update, social.rattraper) efface les stories qu'il nomme.
+  - n'efface jamais les stories : Facebook et Instagram les enlèvent seuls après 24 h (Mitch, 19 nov. 2026 : « enlève
+    le truc d'effacer les stories, elles s'enlèvent seules pareil »).
 Secrets du dépôt puckprob (Settings → Secrets → Actions) : META_PAGE_TOKEN, META_PAGE_ID, META_IG_ID.
 Sans META_PAGE_TOKEN : ne fait rien. Code copié ici par le calcul (live_code/) : le modifier dans Tirs-nhl.
 """
@@ -402,7 +402,7 @@ def publier(it):
 
 def _ecrire_poste(poste):
     """Les GARDER derniers posts + l'état de la garde d'Instagram (« _ig », écrit sur le disque par ig_noter pendant
-    le passage : on le relit pour ne pas l'écraser avec la copie en mémoire) + les autres états (« _efface »)."""
+    le passage : on le relit pour ne pas l'écraser avec la copie en mémoire) + les autres états (clés « _... »)."""
     ig = _ig_lire(POSTE) or poste.get("_ig")
     garde = dict([kv for kv in poste.items() if not kv[0].startswith("_")][-GARDER:])
     for k, v in poste.items():
@@ -414,53 +414,12 @@ def _ecrire_poste(poste):
 
 
 # ---------------------------------------------------------------------------------
-# Effacer les stories (Mitch, 15 nov. 2026 : « es-tu capable d'effacer les stories le matin pour restart clean ? ») :
-#   - chaque matin, au 1er passage dès EFFACER_H (avant les stories du récap de 8 h) : les stories d'HIER encore en
-#     ligne (une story vit 24 h) sont effacées sur Facebook et Instagram ; celles de minuit (Gainers / Fallers, déjà
-#     datées d'aujourd'hui) restent ;
-#   - un item « effacer » du fil (social.rattraper, après un update) : les stories qu'il nomme, refaites avec le
-#     nouveau code.
-# Facebook : DELETE sur l'id de la story (Meta le documente pour les posts de la Page, pas pour les stories : si Meta le
-# refuse, c'est noté dans social_poste.json, pas réessayé). Instagram : DELETE sur l'id du média (« IG Media Deleting
-# API », déc. 2025). Une story déjà effacée (« efface ») ne l'est jamais deux fois.
+# Plus d'effaçage des stories (Mitch, 19 nov. 2026 : « enlève le truc d'effacer les stories, elles s'enlèvent seules
+# pareil ») : une story vit 24 h sur Facebook et Instagram, puis disparaît d'elle-même. L'effaçage du matin (avant
+# celles de 8 h) et l'item « effacer » du rattrapage (social.rattraper) sont enlevés : moins d'appels à Meta (le DELETE
+# d'une story Facebook n'est même pas documenté), rien à garder dans social_poste.json. Un vieil item « effacer »
+# encore dans un fil d'avant l'update est simplement sauté dans main() (sinon il partirait comme un post).
 # ---------------------------------------------------------------------------------
-EFFACER_H = 8
-EFFACER_MAX_H = 30         # le matin : seulement les stories des 30 dernières heures (les plus vieilles sont expirées)
-
-
-def _id_meta(v):
-    """Un id rendu par Meta (« 1234 » ou « 1234_5678 ») ; pas « sauté : ... », « erreur : ... », « incertain » ni « ok »."""
-    v = str(v or "").strip()
-    return bool(v) and v != "ok" and " " not in v and not v.startswith(("sauté", "erreur", "incertain"))
-
-
-def effacer_stories(poste, avant=None, ids=None, now=None):
-    """Efface les stories publiées (dans poste) avant `avant` (et depuis moins de EFFACER_MAX_H h), ou celles de `ids`.
-    Note le résultat dans chaque entrée (« efface », « efface_fb », « efface_ig »). -> le nombre d'entrées traitées."""
-    now = now or MAINTENANT or datetime.now(TZ)
-    ids = set(ids or ())
-    n = 0
-    for k, v in list(poste.items()):
-        if k.startswith("_") or not isinstance(v, dict) or v.get("type") != "story" or not v.get("publie") or v.get("efface"):
-            continue
-        try:
-            q = datetime.fromisoformat(v.get("quand") or "")
-        except ValueError:
-            continue
-        if not (k in ids or (avant and now - timedelta(hours=EFFACER_MAX_H) <= q < avant)):
-            continue
-        for cote in ("fb", "ig"):
-            if not _id_meta(v.get(cote)):
-                continue
-            try:
-                r = _graph(str(v[cote]), methode="DELETE")
-                v[f"efface_{cote}"] = "ok" if r.get("success", True) else f"refusé : {str(r)[:120]}"
-            except Exception as ex:  # noqa: BLE001
-                v[f"efface_{cote}"] = f"erreur : {str(ex)[:160]}"
-            print(f"  story {k} ({'Facebook' if cote == 'fb' else 'Instagram'}) effacée : {v[f'efface_{cote}']}")
-        v["efface"] = now.isoformat(timespec="minutes")
-        n += 1
-    return n
 
 
 def main(maintenant=None):
@@ -481,20 +440,10 @@ def main(maintenant=None):
     global PAUSE_EXTERNE
     PAUSE_EXTERNE = F.get("ig_pause_jusqu")          # la pause Instagram du calcul (s'il s'est fait bloquer de son bord)
     poste = _lire(POSTE, {})
-    # Le matin : les stories d'hier encore en ligne, effacées avant celles de 8 h (une fois par jour)
-    if now.hour >= EFFACER_H and (poste.get("_efface") or {}).get("jour") != jour:
-        k_ = effacer_stories(poste, avant=now.replace(hour=0, minute=0, second=0, microsecond=0), now=now)
-        poste["_efface"] = {"jour": jour, "n": k_, "quand": now.isoformat(timespec="minutes")}
-        print(f"fil : {k_} story(s) d'hier effacée(s) (repartir clean le matin)")
-        _ecrire_poste(poste)
-    # Un item « effacer » (le rattrapage après un update) : les vieilles stories qu'il nomme, dès qu'il est dû
-    for it in F["items"]:
-        if it.get("type") == "effacer" and it["id"] not in poste and datetime.fromisoformat(it["quand"]) <= now:
-            k_ = effacer_stories(poste, ids=it.get("effacer") or [], now=now)
-            poste[it["id"]] = {"type": "effacer", "n": k_, "titre": f"Effacé {k_} vieille(s) story(s)", "quand": now.isoformat(timespec="minutes")}
-            print(f"fil : {it['id']} : {k_} vieille(s) story(s) effacée(s)")
-            _ecrire_poste(poste)
-    dus = [it for it in F["items"] if it["id"] not in poste and datetime.fromisoformat(it["quand"]) <= now]
+    # (un vieil item « effacer », laissé dans le fil par le code d'avant le 19 nov. 2026 : sauté, jamais publié comme
+    # un post ; les stories s'enlèvent seules après 24 h)
+    dus = [it for it in F["items"] if it["id"] not in poste and it.get("type") != "effacer"
+           and datetime.fromisoformat(it["quand"]) <= now]
     # Le rattrapage (Mitch, 15 nov. 2026 : « quand il part en retard, qu'il se rattrape ») : des posts en retard de plus
     # de 10 min (le job live reparti tard, un passage manqué) sortent UN par passage (aux 5 min), dans l'ordre, au lieu
     # de tout d'un coup ; la story d'un post (« suit ») attend que son post soit sorti.
@@ -532,7 +481,7 @@ def main(maintenant=None):
         if n < max_p:
             time.sleep(5)
     _ecrire_poste(poste)
-    reste = [it for it in F["items"] if it["id"] not in poste]
+    reste = [it for it in F["items"] if it["id"] not in poste and it.get("type") != "effacer"]   # (vieil « effacer » : sauté)
     print(f"fil : {n} publié(s), {len(reste)} à venir" + (f" (prochain à {reste[0]['quand'][11:16]})" if reste else ""))
     return n
 

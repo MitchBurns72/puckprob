@@ -82,7 +82,11 @@
     const sel = t.neutre || D === NEUTRE.b1 ? ":root,:root[data-theme]" : ":root:not(#pp-z)";
     const extra = t.neutre || D === NEUTRE.b1 ? "" : `
 .chip[aria-pressed="true"],.chip.big[aria-pressed="true"],.sv-btn,.lien-plus,.btn-main,.tag.reel{color:${eA}}
-header.bug .beta,.rk{color:${eB}}`;
+header.bug .beta,.rk{color:${eB}}
+/* Les cartes de joueurs et d'équipes (classements) : le pastel de LEUR club (--pale, posé par eqV dans l'app) au lieu
+   du fond foncé du thème ; le texte en marine (Mitch, 19 nov. 2026 : « les couleurs pour les thèmes seulement, et
+   pastel »). Sans thème (neutre), elles restent blanches. */
+:is(.wi-l,.j,.tr,.cp)[style*="--pale"]{background-color:var(--pale)!important;--ink:#0A2342;--muted:#4A5D78;--card:var(--pale);color:#0A2342}`;
     return `
 ${sel}{${vars(t)}--ink:#F2F5F8;--line:#ffffff1c;
   --bande:${D};--bande2:color-mix(in srgb,${D} 82%,#fff);--goal:${t.acc};--led:${t.led};--chipon:${t.acc};--good:#3DDC84;--good-bg:#10301F;--bad:#FF7B6A;--bad-bg:#3A1915;

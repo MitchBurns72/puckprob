@@ -116,6 +116,11 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
 .wi-rond.wi-rond i,.plaque.plaque i{position:absolute;left:0;right:0;bottom:0;height:24%;display:flex;align-items:center;justify-content:center;background:var(--dl,#0A2342);color:var(--dlt,#fff);
   font:800 max(7px,.5em) "Barlow Condensed",var(--f-body);letter-spacing:.04em;opacity:1}
 .wi-rond.wi-rond b{font-size:22px}.plaque.plaque b{font-size:22px}
+/* Le logo rond dans le coin de l'emblème (19 nov. 2026) dépasse du carré : l'emblème ne coupe plus ce qui dépasse, la
+   languette garde elle-même les coins arrondis du bas. */
+.wi-rond.wi-rond:has(> .pl-lg),.plaque.plaque:has(> .pl-lg){overflow:visible}
+.wi-rond.wi-rond:has(> .pl-lg) > i,.plaque.plaque:has(> .pl-lg) > i{border-radius:0 0 7px 7px}
+.wi-rond.wi-rond:has(> .pl-lg) > .pl-wm,.plaque.plaque:has(> .pl-lg) > .pl-wm{max-height:70%;object-fit:contain}
 .wi-carte header .wi-rond.wi-rond{box-shadow:none}.wi-carte header .wi-rond.wi-rond b{font-size:26px}
 .tr .ph:has(>.plaque){box-shadow:none!important}
 .tr .ph .plaque.plaque b,.photo .ph .plaque.plaque b{font-size:28px}
