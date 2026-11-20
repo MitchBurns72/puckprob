@@ -1042,10 +1042,22 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .trx-pop .trx-bar{display:flex;height:10px;border-radius:5px;overflow:hidden;margin:12px 14px 0}
 .trx-pop .trx-ex{margin:10px 14px 0;font-size:13px;line-height:1.5;color:var(--muted)}.trx-pop .trx-src{margin:8px 14px 14px;font-size:12px;line-height:1.5;color:#8193A8}
 .rum-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rum-h b{color:var(--or-txt,#FFB81C);font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}.rum-h b span{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}.rum-h small{color:var(--muted)}.rum-eq{display:flex;gap:6px;align-items:center}.rum-eq .lgp{width:24px;height:24px;border-radius:50%}.rum-eq span{margin-left:auto;color:var(--goal);font-weight:800;font-size:13px}.rum-sh{margin-left:auto;border:1.5px solid var(--goal);background:none;color:var(--goal);border-radius:999px;padding:5px 12px;font:800 12.5px var(--f-body);cursor:pointer}.rum-sh+span{margin-left:10px}
+.rum-tl{background:#0A2342;color:#fff;border-radius:10px;padding:10px 12px;border-left:6px solid var(--or,#FFB81C);margin:8px 0 6px}
+.rum-tl b{display:inline-block;font:800 12px/1 "Barlow Condensed",var(--f-body);letter-spacing:.06em;background:var(--or,#FFB81C);color:#0A2342;border-radius:4px;padding:3px 6px;margin-bottom:6px}
+.rum-tl p{margin:0;font:600 15.5px/1.4 var(--f-body);white-space:normal;color:#fff}
+.rum .rum-t2{margin:2px 0 6px;color:var(--muted);font:italic 600 13px/1.35 var(--f-body);white-space:normal}
+.rum-nos{display:flex;flex-direction:column;gap:5px;margin:4px 0 8px}
+.rum-nos > small{font:800 11.5px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.rum-j{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:1px solid color-mix(in srgb,currentColor 16%,transparent);background:color-mix(in srgb,currentColor 5%,transparent);color:inherit;border-radius:8px;padding:5px 9px 5px 5px;cursor:pointer}
+.rum-j img{flex:none;width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:top;background:color-mix(in srgb,var(--eq,#6B7C8C) 35%,#fff)}
+.rum-j span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.rum-j b{font:800 15px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
+.rum-j small{font:600 12px/1.3 var(--f-body);color:var(--muted);white-space:normal}
+.rum-j i{flex:none;font-style:normal;font-size:22px;color:var(--goal)}
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=3f4faf21">
+<link rel="stylesheet" href="carte.css?v=8d1e4831">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6254,10 +6266,24 @@ async function rumOnglet(){
   RUM_L = L0;
   const cartes = L0.map((p, i_) => `<a class="card rum" href="${echapper(p.lien)}" target="_blank" rel="noopener nofollow" data-c="${(p.eqs || [])[0] || ""}" style="${(p.eqs || [])[0] ? eqV(p.eqs[0]) : ""}">
       <div class="rum-h"><b>${fav && (p.eqs || []).includes(fav) ? "★ " : ""}${echapper(p.src)}${p.auteur && p.auteur !== p.src ? ` <span>· ${echapper(p.auteur)}</span>` : ""}</b><small>${p.quand ? ilYa(p.quand) : ""}${p.langue ? ` · ${p.langue.toUpperCase()}` : ""}${p.nouveau ? ` · <span class="wi-cours">${L("NOUVEAU", "NEW")}</span>` : ""}</small></div>
-      <p class="rum-t">${echapper(p.txt)}</p>${p.desc ? `<p class="rum-d">${echapper(p.desc)}</p>` : ""}<div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<button type="button" class="rum-sh" onclick="event.preventDefault();event.stopPropagation();rumPartager(${i_})">${L("Partager", "Share")}</button><span>${L("Lire l'article", "Read the article")} →</span></div></a>`).join("")
+      ${rumTldr(p)}<div class="rum-eq">${(p.eqs || []).map(t => `<img class="lgp" src="${LOGO(t)}" alt="${t}" title="${nomEq(t)}">`).join("")}<button type="button" class="rum-sh" onclick="event.preventDefault();event.stopPropagation();rumPartager(${i_})">${L("Partager", "Share")}</button><span>${L("Lire l'article", "Read the article")} →</span></div></a>`).join("")
     || `<div class="card"><div class="vide">${L("Rien pour cette équipe cette semaine.", "Nothing for this team this week.")}</div></div>`;
   const srcs = (RUM.sources || []).filter(x => x[1]).map(x => x[0]).join(", ");
   el.innerHTML = tete + cartes + `<p class="aide">${L("Sources", "Sources")} : ${srcs || "–"}. ${L("Mis à jour le", "Updated")} ${dateCourte(RUM.maj)}.</p>`;
+}
+
+// Le TL;DR d'une nouvelle (Mitch, 20 nov. 2026 : « un TL;DR où y'a le lien pour l'ouvrir ») : notre phrase à nous
+// (src/resume_nouvelles.py), le titre de l'article en petit (le lien reste : toute la carte ouvre l'article), puis nos
+// chiffres sur chaque joueur nommé ; toucher un joueur ouvre sa fenêtre au lieu de l'article. Sans TL;DR (titre qui
+// ne suit aucune formule connue) : le titre et l'extrait d'une ligne, comme avant.
+function rumTldr(p){
+  const tl = p.tl && (EN ? p.tl.en : p.tl.fr);
+  if (!tl) return `<p class="rum-t">${echapper(p.txt)}</p>${p.desc ? `<p class="rum-d">${echapper(p.desc)}</p>` : ""}`;
+  const nos = (p.nos || []).map(j => `<button type="button" class="rum-j" onclick="event.preventDefault();event.stopPropagation();ouvrirJoueur(${+j.id})">`
+    + `<img src="https://assets.nhle.com/mugs/nhl/${saisonCour()}/${j.eq}/${j.id}.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
+    + `<span><b>${echapper(j.n)}</b><small>${echapper(EN ? j.en : j.fr)}</small></span><i>›</i></button>`).join("");
+  return `<div class="rum-tl"><b>TL;DR</b><p>${echapper(tl)}</p></div><p class="rum-t2">${echapper(p.txt)}</p>`
+    + (nos ? `<div class="rum-nos"><small>${L("Nos chiffres", "Our numbers")}</small>${nos}</div>` : "");
 }
 
 // ---- La nationalité (src/nationalites.py -> nat.json ; Mitch, 12 nov. 2026, maquette B) ------------------------------
@@ -6759,7 +6785,7 @@ function eqBatir(t, o){
       <span class="fen-url">${(location.host || "puckprob.ca") + location.pathname.replace(/index\.html$/, "")}${eqHashDe(t, "")}</span><button type="button" class="fen-pt" aria-label="${L("Partager", "Share")}">${ICO_PT}</button></div>
     <div class="wi-carte fen fen-eq" style="${eqV(t)}">
       <header class="a-logo"><div class="wi-hd"><div><b><small>${villeNom(t)}</small>${eqSurnom(t)}</b><span>${fiche}</span><span>${rangs}</span>${co ? `<span>${L("Coach", "Coach")} : ${co.n}</span>` : ""}
-        <span class="fen-chips">${N ? `<i style="background:${N[3]}">${se.niv >= 3 ? "▲" : se.niv <= 1 ? "▼" : "–"} ${L(N[1], N[2])} · ${eqFiche(se.v, se.d, se.p)}</i>` : ""}${pw ? `<i>PB Power ${L("n°", "#")} ${pw.rg}</i>` : ""}</span></div></div>
+        <span class="fen-chips">${N ? `<i style="background:${N[3]}">${se.niv >= 3 ? "▲" : se.niv <= 1 ? "▼" : "–"} ${L(N[1], N[2])} · ${eqFiche(se.v, se.d, se.p)}</i>` : ""}${pw ? `<i>PB Power ranking ${L("n°", "#")} ${pw.rg}</i>` : ""}</span></div></div>
         <img class="fen-logo" src="${LOGO_URL(t, false)}" alt="" onerror="this.remove()"></header>
       ${e ? `<div class="wi-bio eq4">${tuile(L("Séries", "Playoffs"), pcTxt(e.p_series))}${tuile(L("Coupe", "Cup"), pcTxt(e.p_coupe))}${tuile("Projection", Math.round(e.proj) + " pts")}${tuile(L("Buts", "Goals"), `${bp}-${bc}`)}</div>` : ""}
       <nav class="fen-ongl" role="tablist">${EQF_O.map(([k, fr, en]) => `<button type="button" role="tab" data-fo="${k}" aria-selected="${k === o}">${L(fr, en)}</button>`).join("")}</nav>
@@ -8521,8 +8547,8 @@ function nettoyerPublic(){
   // Un seul menu dans l'app : la barre d'onglets, plus, au bout, les pages du site qui ne sont pas des onglets
   // (les pages texte gardent leur menu à elles). L'app vit dans tonight/ (fr/ce-soir/) avec <base href="../"> :
   // les liens partent de la racine de la langue. Le logo ramène à l'accueil.
-  const liens = EN ? [[CH.e, "Teams"], [CH.b, "Quality Control"], [CH.a, "About"], [CH.n, "What's new"], ["./", "Home"]]
-                   : [[CH.e, "Équipes"], [CH.b, "Contrôle de qualité"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"], ["./", "Accueil"]];
+  const liens = EN ? [[CH.b, "Quality Control"], [CH.a, "About"], [CH.n, "What's new"], ["./", "Home"]]
+                   : [[CH.b, "Contrôle de qualité"], [CH.a, "À propos"], [CH.n, "Quoi de neuf"], ["./", "Accueil"]];
   document.querySelector("nav.tabs")?.insertAdjacentHTML("beforeend", liens.map(([h, n]) => `<a class="tab-lien" href="${h}">${n}</a>`).join(""));
   const tete = document.querySelector("header.bug");
   const imgLogo = tete?.querySelector(".logo-site");
@@ -8879,8 +8905,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=3f4faf21" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=3f4faf21" defer></script>
-<script src="nav.js?v=c1ea737229" defer></script>
+<script src="pub.js?v=8d1e4831" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=8d1e4831" defer></script>
+<script src="nav.js?v=beb4ca712b" defer></script>
 </body>
 </html>
