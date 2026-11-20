@@ -2235,13 +2235,27 @@
   "publie": true,
   "quand": "2026-11-20T11:35-05:00"
  },
+ "2026-11-20-matin-fil": {
+  "fb": "1508565075663838_122113749621537152",
+  "fb_com": "122113749621537152_1085966814489163",
+  "ig": "erreur : Meta 403 : {\"error\":{\"message\":\"Application request limit reached\",\"code\":4,\"type\":\"OAuthException\",\"error_subcode\":2207051,\"is_transient\":false,\"error_user_msg\":\"Nous restreignons certaines activités",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-20"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-20/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-20/",
+  "titre": "PB On The Wire · Hagel et Makar sur la touche : mauvaise journée pour les poursuivants",
+  "publie": true,
+  "quand": "2026-11-20T18:20-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
   "quand": "2026-11-19T08:00-05:00"
  },
  "_ig": {
-  "pause_jusqu": "2026-11-20T14:31-05:00",
-  "rodage_jusqu": "2026-11-23T14:31-05:00"
+  "pause_jusqu": "2026-11-23T18:20-05:00",
+  "rodage_jusqu": "2026-11-26T18:20-05:00"
  }
 }
