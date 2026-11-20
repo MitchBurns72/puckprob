@@ -212,7 +212,20 @@
   // loupe dans l'en-tête, toujours là). Joueurs (avec leurs meilleurs rangs PuckProb et leur % de but ce soir),
   // équipes, coachs, sections et stats, Quoi de neuf. L'index (recherche.json, src/site_public.py) se charge
   // seulement au 1er tap sur la loupe : rien de plus à télécharger pour ceux qui ne cherchent pas.
-  var IDX = null, IDXp = null;
+  var IDX = null, IDXp = null, PBI = null, PBIp = null;
+  var APP = FR ? "ce-soir/" : "tonight/";
+  var SURNOM = { ANA: "Ducks", BOS: "Bruins", BUF: "Sabres", CGY: "Flames", CAR: "Hurricanes", CHI: "Blackhawks", COL: "Avalanche", CBJ: "Blue Jackets",
+    DAL: "Stars", DET: "Red Wings", EDM: "Oilers", FLA: "Panthers", LAK: "Kings", MIN: "Wild", MTL: "Canadiens", NSH: "Predators", NJD: "Devils",
+    NYI: "Islanders", NYR: "Rangers", OTT: "Senators", PHI: "Flyers", PIT: "Penguins", SJS: "Sharks", SEA: "Kraken", STL: "Blues", TBL: "Lightning",
+    TOR: "Maple Leafs", UTA: "Mammoth", VAN: "Canucks", VGK: "Golden Knights", WSH: "Capitals", WPG: "Jets" };
+  // « Canadiens de Montréal » / « Montreal Canadiens »
+  function nomEq(x){ var s_ = SURNOM[x[0]]; if (!s_) return FR ? x[1] : x[2]; return FR ? s_ + (x[1] === "Utah" ? " de l'Utah" : " de " + x[1]) : x[2] + " " + s_; }
+  function slug(n){ return nrmQ(n).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+  // Tous les joueurs de l'histoire (le même index que PB Stats) : chargé au 1er tap, en même temps que recherche.json
+  function chargerPbi(){
+    return PBIp || (PBIp = fetch(racine + "pbstats/index.json").then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(d){ PBI = d; return d; }).catch(function(){ PBIp = null; return null; }));
+  }
   function chargerIdx(){
     return IDXp || (IDXp = fetch(racine + "recherche.json", { cache: "no-cache" }).then(function(r){ return r.ok ? r.json() : null; })
       .then(function(d){ IDX = d; return d; }).catch(function(){ IDXp = null; return null; }));
@@ -231,41 +244,36 @@
   function pct(p){ var v = Math.round(p * 1000) / 10; return (FR ? String(v).replace(".", ",") + " %" : v + "%"); }
   function chercher(q, box){
     q = nrmQ(q);
-    if (q.length < 2){ box.innerHTML = '<p class="ppf-aide">' + (FR ? "Un joueur, une équipe, un coach, une stat, une section…" : "A player, a team, a coach, a stat, a section…") + "</p>"; return; }
+    if (q.length < 2){ box.innerHTML = '<p class="ppf-aide">' + (FR ? "Un joueur (toute l'histoire), une équipe, un coach…" : "A player (all-time), a team, a coach…") + "</p>"; return; }
     if (!IDX){ box.innerHTML = '<p class="ppf-aide">' + (FR ? "Chargement…" : "Loading…") + "</p>"; chargerIdx().then(function(){ chercher(q, box); }); return; }
-    var groupes = [];
-    var J = (IDX.j || []).map(function(x){ return [colle(x[0], q), x]; }).filter(function(t){ return t[0]; })
-      .sort(function(a, b){ return b[0] - a[0] || (b[1][6].length - a[1][6].length); }).slice(0, 8);
+    // Le Finder sert à une seule chose (Mitch, 20 nov. 2026 : « que ça soit pour trouver les pages de joueur, d'équipe
+    // ou de coach, juste ça ») : un nom -> sa page (la fenêtre joueur ou équipe de l'application). Les joueurs : toute
+    // l'histoire (pbstats/index.json), les actifs d'abord ; les équipes et les coachs : recherche.json.
+    if (!PBI){ chargerPbi().then(function(){ chercher(q, box); }); }
+    var groupes = [], an = new Date().getFullYear() - 1;
+    var J = [].concat((PBI && PBI.j || []).map(function(r){ return { id: r[0], n: r[1], pos: r[2], t: r[3], a0: r[4], a1: r[5], v: r[6] }; }),
+                      (PBI && PBI.g || []).map(function(r){ return { id: r[0], n: r[1], pos: "G", t: r[2], a0: r[3], a1: r[4], v: r[5] }; }))
+      .map(function(x){ return [colle(x.n, q), x]; }).filter(function(t){ return t[0]; })
+      .sort(function(a, b){ return b[0] - a[0] || ((b[1].a1 >= an) - (a[1].a1 >= an)) || (b[1].v - a[1].v); }).slice(0, 10);
     if (J.length) groupes.push([FR ? "Joueurs" : "Players", J.map(function(t){ var x = t[1];
-      var lienJ = vaA((FR ? "joueurs/" : "players/") + x[4] + "/");
-      var puces = (x[5] != null ? ['<a class="ppf-p" href="' + lienJ + '">' + (FR ? "Ce soir : un but " : "Tonight: a goal ") + "<i>" + pct(x[5]) + "</i></a>"] : [])
-        .concat(x[6].map(function(c){ var l = IDX.l[c[0]] || []; return '<a class="ppf-p" href="' + vaA(FR ? l[2] : l[3]) + '">' + esc(FR ? l[0] : l[1])
-          + " <i>" + (c[1] ? (FR ? c[1] + "<sup>e</sup>" : "#" + c[1]) : "") + "</i> <small>" + esc(FR ? c[3] : c[4]) + "</small></a>"; }));
-      return '<div class="ppf-it">' + tuileEq(x[1]) + '<div class="ppf-tx"><a class="ppf-n" href="' + lienJ + '">' + esc(x[0]) + "</a><small>" + esc(x[1] || "") + (x[2] ? " · " + esc(x[2]) : "") + (x[3] != null && x[3] !== "" ? " · #" + esc(x[3]) : "")
-        + '</small><div class="ppf-ch">' + puces.join("") + "</div></div></div>"; }).join("")]);
-    var E = (IDX.e || []).filter(function(x){ return nrmQ(x[0]) === q || colle(x[1], q) || colle(x[2], q); }).slice(0, 4);
+      return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "joueur/" : "player/") + slug(x.n) + "-" + x.id) + '">' + tuileEq(x.t) + '<div class="ppf-tx"><b class="ppf-n">' + esc(x.n) + "</b><small>"
+        + esc([x.t, x.pos, x.a1 >= an ? (FR ? "actif" : "active") : x.a0 + "–" + (x.a1 + 1)].filter(Boolean).join(" · ")) + "</small></div></a>"; }).join("")]);
+    var E = (IDX.e || []).filter(function(x){ return nrmQ(x[0]) === q || colle(x[1], q) || colle(x[2], q) || colle(SURNOM[x[0]] || "", q); }).slice(0, 4);
     if (E.length) groupes.push([FR ? "Équipes" : "Teams", E.map(function(x){
-      return '<a class="ppf-it" href="' + vaA((FR ? "equipes/" : "teams/") + x[0].toLowerCase() + "/") + '">' + tuileEq(x[0]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(FR ? x[1] : x[2]) + "</b><small>" + esc(x[0]) + "</small></div></a>"; }).join("")]);
+      return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "equipe/" : "team/") + x[0].toLowerCase()) + '">' + tuileEq(x[0]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(nomEq(x)) + "</b><small>" + esc(x[0]) + "</small></div></a>"; }).join("")]);
     var C = (IDX.c || []).filter(function(x){ return colle(x[0], q); }).slice(0, 4);
     if (C.length) groupes.push([FR ? "Coachs" : "Coaches", C.map(function(x){
-      return '<a class="ppf-it" href="' + vaA(FR ? "ce-soir/#coach" : "tonight/#coach") + '">' + tuileEq(x[1]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(x[0]) + "</b><small>" + esc(x[1] || "") + " · PB Coach Boost % <i>" + (x[2] != null ? x[2] + (FR ? " %" : "%") : "–") + "</i></small></div></a>"; }).join("")]);
-    var Sx = dispo.filter(function(x){ return colle(x[K + 3][0], q) || colle(x[6][K], q) || (PB[x[1]] && nrmQ(PB[x[1]]).indexOf(q) === 0); }).slice(0, 6);
-    if (Sx.length) groupes.push([FR ? "Sections et stats" : "Sections and stats", Sx.map(function(x){
-      var fam = F.filter(function(f){ return f[0] === x[0]; })[0];
-      return '<a class="ppf-it" href="' + lien(x) + '"><span class="ppf-ic">' + x[5] + '</span><div class="ppf-tx"><b class="ppf-n">' + esc(x[K + 3][0]) + "</b><small>" + esc((fam ? fam[1][K] : "") + (x[6][K] ? " · " + x[6][K] : "")) + "</small></div></a>"; }).join("")]);
-    var N = (IDX.n || []).filter(function(x){ return colle(x[FR ? 2 : 3], q) || nrmQ(x[0]).indexOf(q) >= 0; }).slice(0, 4);
-    if (N.length) groupes.push([FR ? "Quoi de neuf" : "What's new", N.map(function(x){
-      return '<a class="ppf-it" href="' + vaA(FR ? "nouveautes/" : "whats-new/") + '"><span class="ppf-ic">✨</span><div class="ppf-tx"><b class="ppf-n">' + esc(x[0] + " · " + x[FR ? 2 : 3]) + "</b><small>" + esc(x[1]) + "</small></div></a>"; }).join("")]);
+      return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "equipe/" : "team/") + String(x[1] || "").toLowerCase() + "/coach") + '">' + tuileEq(x[1]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(x[0]) + "</b><small>" + esc((FR ? "Coach · " : "Coach · ") + (x[1] || "")) + "</small></div></a>"; }).join("")]);
     box.innerHTML = groupes.length ? groupes.map(function(g){ return '<div class="ppf-g">' + g[0] + "</div>" + g[1]; }).join("")
       : '<p class="ppf-aide">' + (FR ? "Rien trouvé pour « " + esc(q) + " »." : "Nothing found for \u201c" + esc(q) + "\u201d.") + "</p>";
   }
   function ouvrirFinder(){
     if (document.getElementById("pp-find")) return;
-    chargerIdx();
+    chargerIdx(); chargerPbi();
     var o = document.createElement("div");
     o.id = "pp-find"; o.setAttribute("role", "dialog"); o.setAttribute("aria-modal", "true");
     o.innerHTML = '<div class="ppf-bar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.2"/><path d="M15.2 15.2L20 20"/></svg>'
-      + '<input type="search" autocomplete="off" enterkeyhint="search" placeholder="' + (FR ? "Joueur, équipe, coach, stat…" : "Player, team, coach, stat…") + '">'
+      + '<input type="search" autocomplete="off" enterkeyhint="search" placeholder="' + (FR ? "Joueur, équipe, coach…" : "Player, team, coach…") + '">'
       + '<button type="button" class="ppf-x" aria-label="' + (FR ? "Fermer" : "Close") + '">✕</button></div><div class="ppf-res"></div>';
     var inp = o.querySelector("input"), box = o.querySelector(".ppf-res");
     var fermer = function(){ o.remove(); document.documentElement.classList.remove("ppf-ouvert"); document.removeEventListener("keydown", escF); };
