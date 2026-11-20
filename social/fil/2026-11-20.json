@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-20",
- "maj": "2026-11-20T07:48-05:00",
+ "maj": "2026-11-20T07:57-05:00",
  "publier": true,
  "items": [
   {
@@ -72,8 +72,8 @@
    "titre": "Story · les gardiens d'hier"
   },
   {
-   "id": "2026-11-20-matin-074809-1",
-   "quand": "2026-11-20T09:18-05:00",
+   "id": "2026-11-20-matin-075729-1",
+   "quand": "2026-11-20T09:26-05:00",
    "image": "social/fil/2026-11-20/matin-1.jpg",
    "images": [
     "social/fil/2026-11-20/matin-1.jpg",
@@ -94,7 +94,7 @@
   },
   {
    "id": "2026-11-20-recap",
-   "quand": "2026-11-20T11:30-05:00",
+   "quand": "2026-11-20T11:32-05:00",
    "image": "social/fil/2026-11-20/recap-series.jpg",
    "images": [
     "social/fil/2026-11-20/recap-series.jpg",
