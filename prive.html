@@ -768,6 +768,24 @@ body::before{background:var(--bande)}
   box-shadow:inset 0 0 0 2px var(--c),0 3px 8px rgba(0,0,0,.35);opacity:.9}
 .mc-e.fav{opacity:1;box-shadow:inset 0 0 0 2px var(--c),0 0 0 2px #fff,0 3px 10px rgba(0,0,0,.4)}
 .mc-e b{font:italic 800 15px/1 var(--f-display)} .mc-e big{font:italic 800 27px/1 var(--f-display)} .mc-e big small{font-size:15px}
+/* Le pourquoi d'un match (20 nov. 2026) */
+.mt-bouge{margin:0 0 10px;background:#F2F5FA;color:#0A2342;border-radius:12px;padding:10px 12px;font:500 14px/1.4 var(--f-body);border-left:6px solid var(--or,#FFB81C)}
+.mt-bouge b{font-weight:800}
+.mt-pq{margin:0 0 12px;background:rgba(0,0,0,.18);border-radius:12px;padding:10px 12px}
+.mt-pq h3{margin:0 0 2px;font:800 italic 19px/1 "Barlow Condensed",var(--f-display);text-transform:uppercase;color:var(--or,#FFB81C)}
+.mt-pq p{margin:0 0 8px;font:600 12.5px/1.3 var(--f-body);color:#9FB3CB}
+.mt-tete{display:flex;justify-content:space-between;font:800 italic 15px "Barlow Condensed",var(--f-body);color:#fff}
+.mt-f{display:grid;grid-template-columns:minmax(58px,auto) 1fr minmax(58px,auto);align-items:center;gap:8px;padding:7px 0;border-top:1px dotted #ffffff26}
+.mt-f .mt-v{font:700 14px/1.15 var(--f-body);color:#fff} .mt-f .mt-v:last-child{text-align:right}
+.mt-f .mt-mid{text-align:center;background:none;border:0;padding:0;box-shadow:none} .mt-f .mt-mid small{display:block;font:800 11px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:#C9D6EE;margin-bottom:4px}
+.mt-tug{position:relative;display:block;height:8px;border-radius:99px;background:#ffffff1f}
+.mt-tug i{position:absolute;top:0;bottom:0;border-radius:99px}
+.mt-tug::after{content:"";position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:#ffffff66}
+/* Les emblèmes des matchs : le vrai logo dans chaque case de %, et en filigrane */
+.mc-e{position:relative;overflow:hidden}
+.mc-e > *:not(.mc-wm){position:relative;z-index:1}
+.mc-e .mc-lg{width:30px;height:30px;padding:3px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);margin-bottom:2px}
+.mc-e .mc-wm{position:absolute;right:-16px;bottom:-16px;width:66px;height:66px;opacity:.16;z-index:0;pointer-events:none}
 .mc-e i{font:800 8.5px/1 var(--f-body);font-style:normal;text-transform:uppercase;letter-spacing:.06em;opacity:.85}
 .mc-bar{display:flex;height:5px;border-radius:3px;overflow:hidden;background:var(--chip)} .mc-bar span{display:block;height:100%}
 .mc-x,.mc-s{font:600 10.5px/1.2 var(--f-body);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1022,7 +1040,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=cac3ffb8">
+<link rel="stylesheet" href="carte.css?v=a507187c">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -2495,7 +2513,8 @@ function carteMatch(g, v){
   const sc = p.lam_away != null && p.lam_home != null ? scores(p.lam_away, p.lam_home, ph).top[0] : null;
   const et = etatMatch(g);
   const hr = new Date(g.start).toLocaleTimeString(EN ? "en-CA" : "fr-CA", { hour: "numeric", minute: "2-digit", timeZone: "America/Toronto" });
-  const boite = (t, x, P, fav) => `<span class="mc-e${fav ? " fav" : ""}" style="--f:${P.f};--t:${P.t};--c:${P.c}"><b>${t}</b><big>${pct(x)}<small>%</small></big><i>${L2t("victoire", "win")}</i></span>`;
+  // Les emblèmes (20 nov. 2026) : le logo du club au-dessus de son %, et en filigrane dans le coin ; sans logo, comme avant
+  const boite = (t, x, P, fav) => `<span class="mc-e${fav ? " fav" : ""}" style="--f:${P.f};--t:${P.t};--c:${P.c}"><img class="mc-wm" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()"><img class="mc-lg" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()"><b>${t}</b><big>${pct(x)}<small>%</small></big><i>${L2t("victoire", "win")}</i></span>`;
   const o55 = p.p_over?.["5.5"], o65 = p.p_over?.["6.5"];
   return `<button type="button" class="mc ${et?.cls || ""}" data-g="${g.gameId}" data-c="${g.home}" style="--fa:${C[0].f};--fh:${C[1].f}" aria-label="${g.away} @ ${g.home}">
     <span class="mc-h"><span>${hr}${g.b2b_away || g.b2b_home ? " · B2B" : ""}</span>${et ? `<em class="${et.cls}">${et.txt}</em>` : ""}</span>
@@ -2515,7 +2534,7 @@ function popMatchHTML(){
   const C = couleursDuel(g.away, g.home), carte = carteMatch(g, v).replace('<button type="button" class="mc', '<div class="mc mc-pop').replace(/<\/button>\s*$/, "</div>");
   const o = MPOP.o;
   const corps = o === "align" ? (blocAlignement(g) || `<p class="sh-info">${L2t("L'alignement arrive plus tard dans la journée.", "The lineup comes later in the day.")}</p>`)
-    : detailMatch(g, v, "align");
+    : mtPourquoi(g, v) + detailMatch(g, v, "align");
   return `<div class="wi-carte mpop" role="dialog" aria-modal="true" aria-label="${g.away} @ ${g.home}" style="--pf:${C[1].f};--pt:${C[1].t};--pb:${C[0].f};--eq:${C[1].f}">
     <header><div class="wi-hd"><div><b>${nomEq(g.away)} @ ${nomEq(g.home)}</b><span>${new Date(g.start).toLocaleDateString(EN ? "en-CA" : "fr-CA", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Toronto" })}</span></div></div><button type="button" class="wi-x" aria-label="${L2t("Fermer", "Close")}">×</button></header>
     <div class="mpop-haut">${carte}<div class="mpop-ch">
@@ -4799,7 +4818,8 @@ const COTE = { n: 0, inv: false };
 function coteHTML(rg, n, inv){
   n = n || COTE.n; inv = inv ?? COTE.inv;
   if (!rg || !n) return "";
-  const r = inv ? n - rg + 1 : rg, c = ECHELLE_COTE.find(x => (r - 1) / n <= x[0])[1];
+  // Borné : un rang plus grand que la liste (une fiche ouverte depuis une autre section) ne plante plus
+  const r = Math.min(n, Math.max(1, inv ? n - rg + 1 : rg)), c = (ECHELLE_COTE.find(x => (r - 1) / n <= x[0]) || ECHELLE_COTE[ECHELLE_COTE.length - 1])[1];
   return `<span class="cote c${c[0]}" title="${L("Note : son rang parmi", "Grade: his rank among")} ${n}">${c}</span>`;
 }
 function wiLigne(mode, t, i, x, feq = ""){
@@ -6454,12 +6474,14 @@ async function fenMontrer(o, rendre = true){
   const id = q.id;
   if (o === "apercu"){ p.innerHTML = fenApercu(q); fenCarriereResume(q); return; }
   p.innerHTML = `<div class="vide">${L("Chargement…", "Loading…")}</div>`;
-  if (o === "car"){ await FEN_CH.wi(); if (!fenWiT(id)) await pbsFiche(q.t, id); const t = fenWiT(id); if (t) wiCarte(t, id); }
-  else if (o === "sal"){ await FEN_CH.sal(); const k = fenSalK(id); if (k) salRapport(k); }
-  else if (o === "prj"){ await FEN_CH.prj(); prjCarte(id); }
-  else if (o === "enf"){ await FEN_CH.enf(); enfCarte(id); }
-  else if (o === "gcr"){ await FEN_CH.gcr(); gcrCarte(id); }
-  else if (o === "arb"){ await FEN_CH.arb(); arbCarte(id); }
+  // La note (A+ à D-) de chaque fiche se calcule sur SA liste, pas sur celle de la section ouverte en dessous
+  const cote = (n, inv = false) => Object.assign(COTE, { n, inv });
+  if (o === "car"){ await FEN_CH.wi(); if (!fenWiT(id)) await pbsFiche(q.t, id); const t = fenWiT(id); if (t){ cote((t === "g" ? WI.n_gardiens : WI.n_joueurs) || 0); wiCarte(t, id); } }
+  else if (o === "sal"){ await FEN_CH.sal(); const k = fenSalK(id); if (k){ cote(Object.keys(SAL.joueurs).length); salRapport(k); } }
+  else if (o === "prj"){ await FEN_CH.prj(); cote(Object.keys(PRJ.joueurs).length); prjCarte(id); }
+  else if (o === "enf"){ await FEN_CH.enf(); cote(Object.keys(ENF.joueurs).length); enfCarte(id); }
+  else if (o === "gcr"){ await FEN_CH.gcr(); cote(GCR.gardiens.length); gcrCarte(id); }
+  else if (o === "arb"){ await FEN_CH.arb(); cote(ARB.joueurs.length, true); arbCarte(id); }
   if (p.querySelector(".vide") && !p.querySelector(".wi-carte")) p.innerHTML = `<div class="vide">${L("Rien pour lui ici.", "Nothing for him here.")}</div>`;
 }
 // Partager : l'image de l'onglet ouvert (le même bouton que les fiches d'avant) ; l'Aperçu partage le lien
@@ -6934,6 +6956,57 @@ document.addEventListener("click", async (e) => {
   }, 0);
 });
 const XG_T = {};
+
+// ---- Le pourquoi d'un match (Mitch, 19 nov. 2026 : « plus de pourquoi pour les probs des games » ; maquette approuvée
+// le 20 nov., ordre fixe). Deux blocs au-dessus des probs du popup : « ce qui a bougé » (le % de ce matin et ce qui a
+// changé depuis : gardiens confirmés, alignements) et « Pourquoi X % » : chaque facteur côte à côte, une barre qui penche
+// vers l'équipe avantagée. Toujours le même ordre et aucune pondération montrée : la recette reste chez nous.
+function mtPourquoi(g, v){
+  const p = g.preds?.[v]; if (!p || p.p_home == null) return "";
+  if (!GCR) chargerGcr().then(() => { if (MPOP) majPopMatch(); });          // les gardiens (une fois)
+  const a = g.away, h = g.home, ph = p.p_home, fav = ph >= 0.5 ? h : a, pf = ph >= 0.5 ? ph : 1 - ph;
+  const C = couleursDuel(a, h);
+  const sec = [];
+  // Ce qui a bougé depuis ce matin (seulement pour l'algo principal : c'est lui que le matin a gardé)
+  const pm = g.p_matin?.p_home;
+  if (v === D.principale && pm != null && Math.abs(pm - ph) >= 0.01 && !g.result){
+    const avant = fav === h ? pm : 1 - pm, R = [];
+    const gm = g.p_matin?.g || [], gn = (g.p_avant || {}).g || [], am = g.p_matin?.al || [], an = (g.p_avant || {}).al || [];
+    if (gn.some((x, i) => x && !gm[i])) R.push(L("les gardiens partants sont confirmés", "the starting goalies are confirmed"));
+    if (an.some((x, i) => x && !am[i])) R.push(L("les alignements sont sortis", "the lineups are out"));
+    const A = alignDuSoir();
+    for (const t of [a, h]){ const x = A?.gardiens?.[t], r = x && gcrDe(t, x.nom); if (x && /confirm/i.test(x.statut || "") && r?.gsax60 != null) R.push(`${t} : ${x.nom} ${L("dans les buts", "in net")} (${r.gsax60 >= 0 ? "+" : "−"}${Math.abs(r.gsax60).toFixed(2).replace(".", EN ? "." : ",")} ${L("but sauvé/60 vs prévu", "GSAx/60")})`); }
+    const hr = g.p_matin?.t ? new Date(g.p_matin.t).toLocaleTimeString(EN ? "en-CA" : "fr-CA", { hour: "numeric", minute: "2-digit", timeZone: "America/Toronto" }) : "";
+    sec.push(`<div class="mt-bouge"><b>${fav} ${pct(pf)} %</b> (${pct(avant)} % ${L("ce matin", "this morning")}${hr ? ` · ${hr}` : ""})${R.length ? " : " + R.join(" ; ") : L(" : les matchs d'hier soir et les nouvelles de la journée", " : last night's games and today's news")}.</div>`);
+  }
+  // Les facteurs, toujours dans cet ordre. pente : -1 (penche vers le visiteur) à +1 (vers l'équipe locale)
+  const F = [], borne = (x) => Math.max(-1, Math.min(1, x || 0));
+  const fo = g.forme || {};
+  if (fo.away?.n && fo.home?.n){
+    const fa = fo.away, fh = fo.home;
+    F.push([L(`Forme · ${fh.n} derniers`, `Form · last ${fh.n}`), `${fa.v}-${fa.n - fa.v}`, `${fh.v}-${fh.n - fh.v}`, borne((fh.v / fh.n - fa.v / fa.n) * 1.6)]);
+    F.push([L("Buts pour-contre", "Goals for-against"), `${fa.gf}-${fa.ga}`, `${fh.gf}-${fh.ga}`, borne(((fh.gf - fh.ga) / fh.n - (fa.gf - fa.ga) / fa.n) / 2.5)]);
+  }
+  const sA = eqSerie(eqC(a)), sH = eqSerie(eqC(h));
+  if (sA && sH) F.push([L("Série", "Streak"), L(...FEN_SERIE[sA.niv].slice(1, 3)), L(...FEN_SERIE[sH.niv].slice(1, 3)), borne((sH.niv - sA.niv) / 4)]);
+  const Al = alignDuSoir(), gA = Al?.gardiens?.[a], gH = Al?.gardiens?.[h], rA = gA && gcrDe(a, gA.nom), rH = gH && gcrDe(h, gH.nom);
+  if (rA?.sv != null && rH?.sv != null){
+    const nm = (x) => x.nom.split(" ").slice(-1)[0];
+    F.push([L("Gardien · % d'arrêts", "Goalie · save %"), `${nm(gA)} ${sv3(rA.sv)}`, `${nm(gH)} ${sv3(rH.sv)}`, borne(((rH.gsax60 || 0) - (rA.gsax60 || 0)) * 1.2)]);
+  }
+  F.push([L("Domicile", "Home ice"), "", "🏠", 0.3]);
+  if (g.b2b_away || g.b2b_home) F.push([L("Repos", "Rest"), g.b2b_away ? L("2e soir de suite", "2nd night") : L("reposé", "rested"), g.b2b_home ? L("2e soir de suite", "2nd night") : L("reposé", "rested"), (g.b2b_away ? 0.35 : 0) - (g.b2b_home ? 0.35 : 0)]);
+  const hh = g.h2h; if (hh?.gp) F.push([L(`Duels cette saison (${hh.gp})`, `Head-to-head (${hh.gp})`), `${hh.gf_away} ${L("buts", "goals")}`, `${hh.gf_home} ${L("buts", "goals")}`, borne((hh.gf_home - hh.gf_away) / (hh.gp * 3))]);
+  const eA = eqC(a), eH = eqC(h);
+  if (eA?.pj && eH?.pj) F.push([L("Classement", "Standings"), `${eA.pts} pts / ${eA.pj}`, `${eH.pts} pts / ${eH.pj}`, borne((eH.pts / eH.pj - eA.pts / eA.pj) * 1.5)]);
+  if (F.length){
+    const ligne = ([lib, va, vh, pe]) => { const w = Math.abs(pe) * 50, c = pe > 0 ? C[1].f : C[0].f;
+      return `<div class="mt-f"><div class="mt-v">${va}</div><div class="mt-mid"><small>${lib}</small><i class="mt-tug"><i style="${pe >= 0 ? "left" : "right"}:50%;width:${w.toFixed(0)}%;background:${c}"></i></i></div><div class="mt-v">${vh}</div></div>`; };
+    sec.push(`<div class="mt-pq"><h3>${L("Pourquoi", "Why")} ${fav} ${pct(pf)} %</h3><p>${L("Ce qui penche d'un bord ou de l'autre (la barre va vers l'équipe avantagée)", "What leans one way or the other (the bar points to the team it favors)")}</p>
+      <div class="mt-tete"><b>${a}</b><b>${h}</b></div>${F.map(ligne).join("")}</div>`);
+  }
+  return sec.join("");
+}
 
 // ---- La face et la fiche du joueur dans les popups (Mitch, 19 nov. 2026 : « la face du joueur à droite sur les
 // popups » ; « ajoute la grandeur, le poids, la main, l'année, la ronde, le rang et l'équipe du repêchage pour tous les
@@ -8759,8 +8832,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=cac3ffb8" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=cac3ffb8" defer></script>
+<script src="pub.js?v=a507187c" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a507187c" defer></script>
 <script src="nav.js?v=324053685e" defer></script>
 </body>
 </html>
