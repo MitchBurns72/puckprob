@@ -311,6 +311,11 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 .fen-tro b{flex:none;width:62px;font:700 24px/1 "Teko",var(--f-display)}
 .fen-tro span{flex:1;min-width:0;font:800 14px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
 .fen-tro small{flex:none;font:700 12px/1 var(--f-body);color:#4A5D78}
+.tr-emb{flex:none;display:inline-block;vertical-align:middle;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+#f-troph .chip .tr-emb{margin:-4px 6px -4px 0}
+.c3-sh #f-troph{flex-wrap:wrap;overflow:visible;margin:0;padding:0}
+.fen-tro .tr-emb{margin-right:-2px}
+.tr-men{position:absolute;left:-7px;bottom:-6px;z-index:3;line-height:0}
 .fen-jauge{flex:0 0 80px;height:8px;border-radius:99px;background:#D7E1EE;overflow:hidden;position:relative}
 .fen-jauge i{position:absolute;left:0;top:0;bottom:0;background:var(--or,#FFB81C);border-radius:99px}
 .fen-tbl{overflow-x:auto}
@@ -1040,7 +1045,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=a507187c">
+<link rel="stylesheet" href="carte.css?v=3f4faf21">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6608,7 +6613,7 @@ function fenApercu(q){
   }
   const T = fenTroph(q);
   if (T.length) sec.push(`<section class="fen-s"><h3>${L("Courses aux trophées", "Award races")}</h3><div class="fen-tro">${T.map(t =>
-    `<div><b>${pcTxt(t.p)}</b><span>${t.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, t.p * 100 / Math.max(0.01, T[0].p) * 100 / 100)).toFixed(0)}%"></i></i><small>${rangFr(t.rg)}</small></div>`).join("")}</div></section>`);
+    `<div>${trophEmb(t.k, 26)}<b>${pcTxt(t.p)}</b><span>${t.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, t.p * 100 / Math.max(0.01, T[0].p) * 100 / 100)).toFixed(0)}%"></i></i><small>${rangFr(t.rg)}</small></div>`).join("")}</div></section>`);
   sec.push(`<section class="fen-s fen-carr" hidden></section>`);
   return sec.join("");
 }
@@ -6840,11 +6845,11 @@ function eqApercu(t){
   const TE = D?.coupe?.trophees_equipe || {}, tro = [];
   for (const [k, nom] of [["presidents", L("Présidents", "Presidents'")], ["jennings", "Jennings"], ["adams", "Jack Adams"]]){
     const L_ = TE[k] || [], i = L_.findIndex(x => x.t === t); if (i < 0) continue;
-    tro.push({ nom: k === "adams" && L_[i].coach ? `${nom} · ${L_[i].coach}` : nom, p: L_[i].p || 0, rg: i + 1, mx: L_[0]?.p || 1 });
+    tro.push({ k, nom: k === "adams" && L_[i].coach ? `${nom} · ${L_[i].coach}` : nom, p: L_[i].p || 0, rg: i + 1, mx: L_[0]?.p || 1 });
   }
-  if (e?.p_presidents != null && !tro.some(x => x.nom.startsWith(L("Présidents", "Presidents'")))) tro.unshift({ nom: L("Présidents", "Presidents'"), p: e.p_presidents, rg: null, mx: 1 });
+  if (e?.p_presidents != null && !tro.some(x => x.nom.startsWith(L("Présidents", "Presidents'")))) tro.unshift({ k: "presidents", nom: L("Présidents", "Presidents'"), p: e.p_presidents, rg: null, mx: 1 });
   if (tro.length) sec.push(`<section class="fen-s"><h3>${L("Trophées d'équipe", "Team awards")}</h3><div class="fen-tro">${tro.map(x =>
-    `<div><b>${pcTxt(x.p)}</b><span>${x.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, x.p / Math.max(0.01, x.mx) * 100)).toFixed(0)}%"></i></i><small>${x.rg ? rangFr(x.rg) : ""}</small></div>`).join("")}</div></section>`);
+    `<div>${trophEmb(x.k, 26)}<b>${pcTxt(x.p)}</b><span>${x.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, x.p / Math.max(0.01, x.mx) * 100)).toFixed(0)}%"></i></i><small>${x.rg ? rangFr(x.rg) : ""}</small></div>`).join("")}</div></section>`);
   return sec.join("");
 }
 // L'alignement : les joueurs de la saison (projections.json), par position, puis les gardiens (gcr.json)
@@ -7008,6 +7013,48 @@ function mtPourquoi(g, v){
   return sec.join("");
 }
 
+// ---- Les emblèmes de trophées (Mitch, 20 nov. 2026, maquette approuvée) : un écusson PuckProb par trophée (bleu marine
+// et or, une icône simple ; pas les vraies images des trophées). Partout où un trophée apparaît : les boutons de la
+// section Coupe, les courses aux trophées des fenêtres joueur et équipe ; le n° 1 de chaque course porte un petit
+// écusson sur son emblème de joueur dans les listes. Les mêmes dessins dans les cartes des posts (src/cartes.py).
+const TROPH_ICO = {
+  art: '<path d="M-22 18 L14 -22 L20 -16 L-16 24 Z" fill="#0A2342"/><rect x="-28" y="16" width="20" height="8" rx="3" fill="#0A2342"/><path d="M16 6 V22 M8 14 H24" stroke="#0A2342" stroke-width="5"/>',
+  rocket: '<circle cx="0" cy="8" r="13" fill="#0A2342"/><path d="M-4 -6 C-14 -16 -6 -26 2 -30 C0 -22 10 -20 8 -8 Z" fill="#C8102E"/>',
+  hart: '<path d="M0 22 C-26 4 -22 -18 -8 -18 C-2 -18 0 -12 0 -10 C0 -12 2 -18 8 -18 C22 -18 26 4 0 22 Z" fill="#C8102E"/><path d="M-6 -4 L0 6 L6 -4" stroke="#fff" stroke-width="3" fill="none"/>',
+  lindsay: '<circle cx="-10" cy="-8" r="7" fill="#0A2342"/><circle cx="10" cy="-8" r="7" fill="#0A2342"/><path d="M-22 18 C-22 4 -16 0 -10 0 C-4 0 0 4 0 10 C0 4 4 0 10 0 C16 0 22 4 22 18 Z" fill="#0A2342"/>',
+  norris: '<path d="M0 -24 L20 -14 L20 4 C20 16 10 22 0 26 C-10 22 -20 16 -20 4 L-20 -14 Z" fill="#0A2342"/><path d="M-7 -6 V12 H0 C8 12 10 6 10 3 C10 0 8 -6 0 -6 Z" fill="#FFB81C"/>',
+  vezina: '<rect x="-18" y="-22" width="36" height="44" rx="6" fill="#0A2342"/><path d="M-10 -12 H10 M-10 -2 H10 M-10 8 H10" stroke="#FFB81C" stroke-width="3"/>',
+  calder: '<path d="M0 -24 L6 -6 L24 -6 L10 4 L15 22 L0 11 L-15 22 L-10 4 L-24 -6 L-6 -6 Z" fill="#0A2342"/><circle cx="0" cy="2" r="4" fill="#FFB81C"/>',
+  selke: '<path d="M-20 -8 L0 -22 L20 -8 L20 14 L0 24 L-20 14 Z" fill="none" stroke="#0A2342" stroke-width="6"/><path d="M-8 2 L-2 8 L10 -6" stroke="#0A2342" stroke-width="5" fill="none"/>',
+  byng: '<path d="M-20 4 C-20 -10 -8 -20 0 -20 C8 -20 20 -10 20 4" fill="none" stroke="#0A2342" stroke-width="5"/><circle cx="0" cy="10" r="10" fill="#0A2342"/><path d="M-4 10 L0 14 L6 6" stroke="#FFB81C" stroke-width="3" fill="none"/>',
+  presidents: '<path d="M-22 10 L-16 -14 L-6 0 L0 -20 L6 0 L16 -14 L22 10 Z" fill="#0A2342"/><rect x="-22" y="12" width="44" height="8" rx="2" fill="#0A2342"/>',
+  jennings: '<rect x="-20" y="-18" width="17" height="36" rx="4" fill="#0A2342"/><rect x="3" y="-18" width="17" height="36" rx="4" fill="#0A2342"/>',
+  adams: '<rect x="-16" y="-20" width="32" height="40" rx="3" fill="#0A2342"/><path d="M-8 -8 H8 M-8 0 H8 M-8 8 H2" stroke="#FFB81C" stroke-width="3"/><circle cx="12" cy="14" r="7" fill="#C8102E"/>',
+  coupe: '<path d="M-16 -24 H16 L12 -8 C8 2 -8 2 -12 -8 Z" fill="#0A2342"/><rect x="-10" y="2" width="20" height="6" fill="#0A2342"/><rect x="-14" y="8" width="28" height="6" fill="#0A2342"/><rect x="-18" y="14" width="36" height="10" rx="2" fill="#0A2342"/>' };
+function trophEmb(k, taille = 28){
+  const ic = TROPH_ICO[k]; if (!ic) return "";
+  return `<svg class="tr-emb" viewBox="-60 -66 120 132" width="${taille}" height="${Math.round(taille * 1.1)}" aria-hidden="true"><path d="M0 -62 L52 -36 L52 18 C52 42 26 58 0 64 C-26 58 -52 42 -52 18 L-52 -36 Z" fill="#0A2342"/><path d="M0 -54 L44 -32 L44 16 C44 36 22 50 0 56 C-22 50 -44 36 -44 16 L-44 -32 Z" fill="#FFC23A"/><g transform="translate(0,-2)">${ic}</g></svg>`;
+}
+// Les boutons de la section Coupe (écrits dans la page) : l'écusson devant le nom
+document.querySelectorAll("#f-troph .chip[data-v]").forEach(b => { if (TROPH_ICO[b.dataset.v] && !b.querySelector(".tr-emb")) b.insertAdjacentHTML("afterbegin", trophEmb(b.dataset.v, 20)); });
+// Le n° 1 de chaque course : un petit écusson sur son emblème de joueur, dans toutes les listes
+function trophMeneurs(){
+  const T = D?.trophees?.trophees || {}, m = {};
+  for (const [k, B] of Object.entries(T)){ const x = (B?.top || [])[0]; if (x?.id) (m[String(x.id)] ||= []).push(k); }
+  return m;
+}
+let TR_MEN = null;
+function trophMarquer(){
+  if (!D?.trophees) return;
+  TR_MEN ||= trophMeneurs();
+  document.querySelectorAll(".wi-l:not([data-trm]), .fen-lj:not([data-trm])").forEach(l => {
+    l.dataset.trm = "1";
+    const id = String(l.dataset.id || l.dataset.pid || l.dataset.k || "").replace(/[jg]$/, ""), K = TR_MEN[id];
+    const rond = l.querySelector(".wi-rond"); if (!K || !rond) return;
+    rond.insertAdjacentHTML("beforeend", `<span class="tr-men" title="${L("Meneur", "Leading")} : ${K.map(k => TROPH[k]?.nom || k).join(", ")}">${trophEmb(K[0], 16)}</span>`);
+  });
+}
+new MutationObserver(() => { clearTimeout(trophMarquer.t); trophMarquer.t = setTimeout(trophMarquer, 80); }).observe(document.documentElement, { childList: true, subtree: true });
 // ---- La face et la fiche du joueur dans les popups (Mitch, 19 nov. 2026 : « la face du joueur à droite sur les
 // popups » ; « ajoute la grandeur, le poids, la main, l'année, la ronde, le rang et l'équipe du repêchage pour tous les
 // popups de joueur » ; maquette approuvée). Chaque popup de joueur porte data-pid (son id) et data-ms (« saison:équipe »
@@ -8832,8 +8879,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=a507187c" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=a507187c" defer></script>
-<script src="nav.js?v=324053685e" defer></script>
+<script src="pub.js?v=3f4faf21" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=3f4faf21" defer></script>
+<script src="nav.js?v=c1ea737229" defer></script>
 </body>
 </html>

@@ -286,6 +286,11 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 .fen-tro b{flex:none;width:62px;font:700 24px/1 "Teko",var(--f-display)}
 .fen-tro span{flex:1;min-width:0;font:800 14px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
 .fen-tro small{flex:none;font:700 12px/1 var(--f-body);color:#4A5D78}
+.tr-emb{flex:none;display:inline-block;vertical-align:middle;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+#f-troph .chip .tr-emb{margin:-4px 6px -4px 0}
+.c3-sh #f-troph{flex-wrap:wrap;overflow:visible;margin:0;padding:0}
+.fen-tro .tr-emb{margin-right:-2px}
+.tr-men{position:absolute;left:-7px;bottom:-6px;z-index:3;line-height:0}
 .fen-jauge{flex:0 0 80px;height:8px;border-radius:99px;background:#D7E1EE;overflow:hidden;position:relative}
 .fen-jauge i{position:absolute;left:0;top:0;bottom:0;background:var(--or,#FFB81C);border-radius:99px}
 .fen-tbl{overflow-x:auto}
