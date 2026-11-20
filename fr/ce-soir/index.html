@@ -325,6 +325,36 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;border-top:2px solid #ffffff30} html .fen-carr tfoot td.pb{color:#FFB0A8}
 .fen-plus{display:block;width:100%;margin-top:8px;background:none;border:1px solid #ffffff33;border-radius:8px;padding:10px;font:800 14px/1.2 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer;text-align:center}
 @media (min-width:761px){ .fen-boite{box-shadow:0 0 0 1px #ffffff1a,0 20px 60px rgba(0,0,0,.6)} }
+/* La fenêtre équipe (20 nov. 2026) : le vrai logo à droite du haut, les pastilles (série, PB Power), 4 tuiles */
+#fenetre .fen-eq > header.a-logo{position:relative;min-height:170px;padding-right:150px;overflow:hidden}
+#fenetre .fen-eq > header.a-logo::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,color-mix(in srgb,var(--pt,#fff) 28%,transparent) 100%)}
+#fenetre .fen-eq > header > *{position:relative;z-index:1}
+#fenetre .fen-eq .fen-logo{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:128px;height:128px;padding:10px;border-radius:50%;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1}
+#fenetre .fen-eq header .wi-hd > div > b{font:800 italic 34px/.9 "Barlow Condensed",var(--f-display);text-transform:uppercase}
+#fenetre .fen-eq header .wi-hd > div > b small{display:block;font:700 15px/1.2 "Barlow Condensed",var(--f-body);font-style:normal;letter-spacing:.12em;color:#C9D6EE}
+#fenetre .fen-eq header .wi-hd > div > span{white-space:normal}
+#fenetre .fen-eq header .wi-hd > div > span b{font:inherit;font-weight:800;color:#fff;text-transform:none}
+.fen-chips{display:flex!important;flex-wrap:wrap;gap:5px;margin-top:6px}
+.fen-chips i{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;border-radius:4px;background:#ffffff26;color:#fff}
+#fenetre .wi-bio.eq4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fen-forme{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.fen-forme i{font:800 14px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-align:center;border-radius:6px;padding:7px 0 5px;color:#fff;min-width:0}
+.fen-forme i small{display:block;font:600 10px/1 var(--f-body);margin-top:3px;opacity:.92}
+.fen-forme .v{background:#1E9E55} .fen-forme .d{background:#C8102E} .fen-forme .dp{background:#8A97A8}
+.fen-pm{display:flex;align-items:center;gap:10px;background:#F2F5FA;color:#0A2342;border-radius:10px;padding:10px 14px}
+.fen-pm div{flex:1;display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.fen-pm b{font:800 italic 24px/1 "Barlow Condensed",var(--f-body)} .fen-pm span{font:700 30px/1 "Teko",var(--f-display)} .fen-pm sup{font-size:.5em;color:#C8102E}
+.fen-pm small{font:800 13px/1 "Barlow Condensed",var(--f-body);color:#4A5D78}
+.fen-ljs{display:flex;flex-direction:column;gap:5px}
+.fen-lj{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.fen-lj .wi-rond{flex:none;width:34px;height:40px} .fen-lj .wi-rond b{font-size:17px}
+.fen-lj .nm{flex:1;min-width:0;display:flex;flex-direction:column}
+.fen-lj .nm b{font:800 15px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fen-lj .nm small{font:600 12px/1.25 var(--f-body);color:#4A5D78}
+.fen-lj .v{flex:none;text-align:right} .fen-lj .v b{display:block;font:700 26px/.9 "Teko",var(--f-display)} .fen-lj .v small{font:800 10px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78}
+.fen-trx{display:flex;flex-direction:column;gap:6px}
+html.fen-on .wi-modal{z-index:80}
+
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
@@ -995,7 +1025,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=220412ce">
+<link rel="stylesheet" href="carte.css?v=37dd3b75">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -5686,7 +5716,7 @@ function salRapport(k){
 function salEquipe(t){
   const L2 = Object.values(SAL.joueurs).filter(x => x.eq === t).sort((a, b) => b.pj * (b.toi || 30) - a.pj * (a.toi || 30)).slice(0, SAL.regles.contrats).sort((a, b) => b.s - a.s);
   const e = SAL.equipes.find(x => x.t === t) || {};
-  const m = $("#wi-modal");
+  const m = eqCible("sal", t); if (!m) return;          // la fenêtre équipe (sinon : le popup du robot des posts)
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" style="${eqV(t)}">
     <header><div><b>${NOMS_EQ[t] || t}</b><span>${L("Masse salariale ajustée", "Adjusted payroll")} : ${mD(e.masse)} (${e.ecart >= 0 ? "+" : "−"}${mD(Math.abs(e.ecart || 0))} ${L("vs plafond", "vs cap")})</span></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl"><table class="wi-car"><tbody>${L2.map(x => `<tr class="sal-j" data-k="${x.id + x.t}"><td>${x.n}</td><td>${x.pos}</td><td>${x.pj}</td><td class="wi-w"><b>${mD(x.s)}</b></td></tr>`).join("")}</tbody></table></div>
@@ -6210,7 +6240,7 @@ const NAT_P = { CAN: ["CA", "CAN", "Canada", "Canada"], USA: ["US", "USA", "Éta
 // au lieu du popup. Le robot des réseaux sociaux (ppSocial) garde le popup : il le photographie.
 // L'onglet Aperçu : la description écrite à partir de nos chiffres (fenBref), la saison, la projection, les 10 derniers
 // matchs et la série (le thermomètre), ce soir, les courses aux trophées, le contrat, le résumé de carrière.
-const FEN = { ouvert: false, id: null, o: "apercu", robot: false, pousse: false, x: null };
+const FEN = { ouvert: false, id: null, k: null, o: "apercu", robot: false, pile: [], x: null };
 const FEN_O = [["apercu", "Aperçu", "Overview"], ["car", "Carrière", "Career"], ["sal", "Contrat", "Contract"], ["prj", "Projection", "Projection"],
                ["enf", "Physique", "Physical"], ["gcr", "Gardien", "Goalie"], ["arb", "Arbitres", "Refs"]];
 const slugJ = (n) => nrm(n).replace(/ /g, "-");
@@ -6267,7 +6297,7 @@ function fenOnglets(q){
 function fenCible(o, id){
   if (FEN.robot || document.documentElement.classList.contains("pp-capture")) return $("#wi-modal");
   const pid = String(id).replace(/[jg]$/, "");
-  if (FEN.ouvert && FEN.id === pid){
+  if (FEN.ouvert && FEN.k === "j" && FEN.id === pid){
     const p = FEN.pane(o);
     if (p){ fenMontrer(o, false); return p; }
   }
@@ -6276,40 +6306,52 @@ function fenCible(o, id){
 }
 function ouvrirJoueur(id, o = "apercu"){
   if (FEN.garder){ o = FEN.garder; FEN.garder = null; }          // glisser au joueur suivant : on reste sur le même onglet
-  const q = fenQui(id), h = fenHashDe(id, o, q?.n);
-  if (FEN.ouvert && FEN.id === String(id)){ history.replaceState(null, "", location.pathname + location.search + h); fenMontrer(o); return; }
+  const q = fenQui(id), h = fenHashDe(id, o, q?.n), cle = "j:" + id;
+  if (FEN.ouvert && FEN.k === "j" && FEN.id === String(id)){ history.replaceState(null, "", location.pathname + location.search + h); fenMontrer(o); return; }
   // Déjà ouverte sur un autre joueur (glisser au suivant, un lien) : on la remplace, Retour ferme toujours la fenêtre
-  if (FEN.ouvert){ history.replaceState(null, "", location.pathname + location.search + h); fenAfficher(String(id), o); return; }
-  if (!FEN.ouvert) FEN.pousse = true;
-  if (location.hash === h) fenAfficher(String(id), o); else location.hash = h;
+  if (FEN.ouvert && FEN.k === "j"){ fenRemplacer(cle, h); fenAfficher(String(id), o); return; }
+  fenPousser(cle, h);                                  // fermée, ou depuis une équipe : Retour revient à l'équipe
 }
+// L'historique des fenêtres : FEN.pile = les fenêtres qu'on a ajoutées à l'historique du navigateur (« j:id », « e:MTL »),
+// pour que Retour revienne d'un joueur à son équipe, et que Fermer revienne d'un coup à la page d'avant.
+function fenPousser(cle, h){ FEN.pile.push(cle); if (location.hash === h) fenHash(); else location.hash = h; }
+function fenRemplacer(cle, h){ history.replaceState(null, "", location.pathname + location.search + h); if (FEN.pile.length) FEN.pile[FEN.pile.length - 1] = cle; }
 function fenFermer(){
   if (!FEN.ouvert) return;
-  if (FEN.pousse){ FEN.pousse = false; history.back(); return; }              // le hashchange qui suit ferme
+  const n = FEN.pile.length;
+  if (n){ FEN.pile = []; history.go(-n); return; }                         // le hashchange qui suit ferme
   history.replaceState(null, "", location.pathname + location.search);
   fenCacher();
 }
 function fenCacher(){
   const f = $("#fenetre"); if (!f) return;
-  FEN.ouvert = false; FEN.id = null; f.hidden = true; f.innerHTML = "";
+  FEN.ouvert = false; FEN.id = null; FEN.k = null; f.hidden = true; f.innerHTML = "";
   document.documentElement.classList.remove("fen-on");
   if (FEN.y != null) window.scrollTo(0, FEN.y);
 }
 // Appelé par ouvrirHash : true si l'adresse est celle d'une fenêtre (elle s'ouvre), sinon on ferme celle qui est ouverte
 function fenHash(){
-  const m = FEN_RE.exec(location.hash);
+  const m = FEN_RE.exec(location.hash), me = EQF_RE.exec(location.hash);
   // Plus une adresse de fenêtre (le bouton Retour) : on ferme, et rien d'autre (sinon la section d'avant se rouvrirait
   // en haut de page au lieu de garder l'endroit où on était)
-  if (!m){ if (FEN.ouvert){ FEN.pousse = false; fenCacher(); return true; } return false; }
+  if (!m && !me){ if (FEN.ouvert){ FEN.pile = []; fenCacher(); return true; } return false; }
+  // Retour d'une fenêtre à celle d'avant : la pile recule jusqu'à elle
+  const cle = m ? "j:" + m[1] : "e:" + me[1].toUpperCase(), P = FEN.pile, i = P.lastIndexOf(cle);
+  if (i >= 0) P.length = i + 1; else if (P.length) P.pop();
+  if (me){
+    const t = me[1].toUpperCase(), o = EQF_O.some(([k]) => k === me[2]) ? me[2] : "apercu";
+    if (FEN.ouvert && FEN.k === "e" && FEN.id === t) eqMontrer(o); else eqAfficher(t, o);
+    return true;
+  }
   const o = FEN_O.some(([k]) => k === m[2]) ? m[2] : "apercu";
-  if (FEN.ouvert && FEN.id === m[1]) fenMontrer(o); else fenAfficher(m[1], o);
+  if (FEN.ouvert && FEN.k === "j" && FEN.id === m[1]) fenMontrer(o); else fenAfficher(m[1], o);
   return true;
 }
 async function fenAfficher(id, o){
   let f = $("#fenetre");
   if (!f){ f = document.createElement("div"); f.id = "fenetre"; f.hidden = true; document.body.appendChild(f); }
   if (!FEN.ouvert) FEN.y = window.scrollY;
-  FEN.ouvert = true; FEN.id = id; FEN.o = o;
+  FEN.ouvert = true; FEN.id = id; FEN.k = "j"; FEN.o = o;
   $("#wi-modal") && ($("#wi-modal").hidden = true);
   document.documentElement.classList.add("fen-on");
   f.hidden = false;
@@ -6371,6 +6413,7 @@ FEN.pane = (o) => {
 };
 // Montre un onglet ; le remplit la 1re fois (rendre = false : la fiche qui l'appelle va le remplir elle-même)
 async function fenMontrer(o, rendre = true){
+  if (FEN.k === "e") return eqMontrer(o, rendre);
   const q = FEN.x; if (!q || !$("#fenetre .fen-panes")) return;
   FEN.o = o;
   document.querySelectorAll("#fenetre .fen-ongl [data-fo]").forEach(b => b.setAttribute("aria-selected", b.dataset.fo === o));
@@ -6544,7 +6587,7 @@ document.addEventListener("click", (e) => {
 // ce qui rouvrirait la section d'avant), l'onglet PB Stats s'ouvre, puis la fiche d'avant fait le reste (la vue, le défilement)
 document.addEventListener("click", (e) => {
   if (!e.target.closest?.("#fenetre .wi-lien")) return;
-  FEN.pousse = false; FEN.y = null;
+  FEN.pile = []; FEN.y = null;
   history.replaceState(null, "", location.pathname + location.search + "#what-if");
   fenCacher();
   $("#t-whatif")?.click();
@@ -6587,6 +6630,210 @@ function fenVoisin(d){
     if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) fenVoisin(dx < 0 ? 1 : -1);
   }, { passive: true });
 })();
+
+// ==== La fenêtre équipe (Mitch, 20 nov. 2026, maquette approuvée) : même affaire que la fenêtre joueur, pour une
+// équipe (#equipe/mtl[/onglet]). Le haut : le vrai logo, la fiche, le rang de division et d'association, le coach, la
+// série et le PB Power ; les tuiles : séries, Coupe, projection, buts. Onglets : Aperçu (la description, les 10
+// derniers matchs + le thermomètre, le prochain match, les meneurs, les trophées d'équipe), Alignement (un clic = la
+// fenêtre du joueur), Contrats (la fiche Salaires d'équipe), Coach (sa fiche + sa série), Échanges, Histoire (les
+// meneurs PB Stats de la concession). La forme (l10, suite, proch) vient de src/coupe.py forme_equipes().
+const EQF_O = [["apercu", "Aperçu", "Overview"], ["ali", "Alignement", "Roster"], ["sal", "Contrats", "Contracts"], ["coach", "Coach", "Coach"],
+               ["trx", "Échanges", "Moves"], ["hist", "Histoire", "History"]];
+const EQF_RE = /^#(?:equipe|team)\/([a-z]{3})(?:\/(\w+))?$/i;
+const eqHashDe = (t, o) => `#${EN ? "team" : "equipe"}/${t.toLowerCase()}${o && o !== "apercu" ? "/" + o : ""}`;
+// « Canadiens » (le surnom) : à l'envers du dictionnaire des surnoms du coupon
+const eqSurnom = (t) => (typeof EQ_MOTS !== "undefined" ? Object.entries(EQ_MOTS).find(([, x]) => x === t)?.[0] : null) || t;
+const eqC = (t) => (D?.coupe?.equipes || []).find(e => e.t === t) || null;
+const eqCoach = (t) => { const c = CO?.par_saison?.[coSai()]?.coachs?.filter(y => y.eq === t) || []; return c.sort((a, b) => (b.pj || 0) - (a.pj || 0))[0] || null; };
+// Une fiche d'équipe d'avant (salEquipe, coachCarte) : l'onglet de la fenêtre si elle montre cette équipe ; sinon on l'ouvre
+function eqCible(o, t){
+  if (FEN.robot || document.documentElement.classList.contains("pp-capture")) return $("#wi-modal");
+  if (FEN.ouvert && FEN.k === "e" && FEN.id === t){ const p = FEN.pane(o); if (p){ eqMontrer(o, false); return p; } }
+  ouvrirEquipe(t, o);
+  return null;
+}
+function ouvrirEquipe(t, o = "apercu"){
+  if (FEN.garder){ o = FEN.garder; FEN.garder = null; }
+  t = String(t || "").toUpperCase(); if (!/^[A-Z]{3}$/.test(t)) return;
+  const h = eqHashDe(t, o), cle = "e:" + t;
+  if (FEN.ouvert && FEN.k === "e" && FEN.id === t){ history.replaceState(null, "", location.pathname + location.search + h); eqMontrer(o); return; }
+  if (FEN.ouvert && FEN.k === "e"){ fenRemplacer(cle, h); eqAfficher(t, o); return; }
+  fenPousser(cle, h);                                  // fermée, ou depuis un joueur
+}
+// La série d'une équipe (ou de son coach) : % de points des 10 derniers matchs comparé à celui de la saison
+function eqSerie(e){
+  const L_ = e?.l10 || []; if (L_.length < 5) return null;
+  const pts = L_.reduce((s, r) => s + (r[0] === "V" ? 2 : r[0] === "P" ? 1 : 0), 0), p10 = pts / (2 * L_.length);
+  const pS = e.pj ? e.pts / (2 * e.pj) : 0.5, ratio = pS > 0 ? p10 / pS : 1;
+  const niv = ratio >= 1.35 && p10 >= 0.75 ? 4 : ratio >= 1.15 && p10 >= 0.6 ? 3 : ratio <= 0.6 || p10 <= 0.25 ? 0 : ratio <= 0.85 ? 1 : 2;
+  const v = L_.filter(r => r[0] === "V").length, d = L_.filter(r => r[0] === "D").length, p = L_.length - v - d;
+  return { niv, v, d, p, n: L_.length, pos: Math.max(0.03, Math.min(0.97, (ratio - 0.4) / 1.2)) };
+}
+const eqFiche = (v, d, p) => `${v}-${d}-${p}`;
+const eqRangs = (t) => {
+  const E = D?.coupe?.equipes || [], e = E.find(x => x.t === t); if (!e) return null;
+  const rd = clsTri(E.filter(x => x.div === e.div)).findIndex(x => x.t === t) + 1, rc = clsTri(E.filter(x => x.conf === e.conf)).findIndex(x => x.t === t) + 1;
+  return { rd, rc, div: L(...(CLS_DIV[e.div] || [e.div, e.div])), conf: e.conf === "E" ? L("l'Est", "the East") : L("l'Ouest", "the West") };
+};
+async function eqAfficher(t, o){
+  let f = $("#fenetre");
+  if (!f){ f = document.createElement("div"); f.id = "fenetre"; f.hidden = true; document.body.appendChild(f); }
+  if (!FEN.ouvert) FEN.y = window.scrollY;
+  FEN.ouvert = true; FEN.id = t; FEN.k = "e"; FEN.o = o;
+  $("#wi-modal") && ($("#wi-modal").hidden = true);
+  document.documentElement.classList.add("fen-on");
+  f.hidden = false;
+  f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button><span class="fen-url"></span></div>
+    <div class="vide fen-ch">${L("Chargement de l'équipe…", "Loading team…")}</div></div>`;
+  f.querySelector(".fen-ret").onclick = fenFermer;
+  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr()]);
+  if (FEN.id !== t || FEN.k !== "e") return;
+  if (!EQF_O.some(([k]) => k === o)) o = "apercu";
+  eqBatir(t, o);
+}
+function eqBatir(t, o){
+  const f = $("#fenetre"), e = eqC(t), r = eqRangs(t), co = eqCoach(t), pw = PWR?.equipes?.find(x => x.t === t), se = eqSerie(e);
+  const [v, d, p, bp, bc] = e?.fiche || [];
+  const fiche = e ? `${v}-${d}-${p} · <b>${e.pts} pts</b> ${L("en", "in")} ${e.pj} ${L("matchs", "games")}` : "";
+  const rangs = r ? `${rangFr(r.rd)} ${L("de la division", "in the")} ${r.div}${EN ? " division" : ""} · ${rangFr(r.rc)} ${L("de", "in")} ${r.conf}` : "";
+  const N = se ? FEN_SERIE[se.niv] : null;
+  const suite = e?.suite && e.suite[1] >= 2 ? ` · ${e.suite[1]} ${e.suite[0] === "V" ? L("victoires de suite", "wins in a row") : e.suite[0] === "D" ? L("défaites de suite", "losses in a row") : L("défaites en prol. de suite", "OT losses in a row")}` : "";
+  const tuile = (k, v_) => `<div><small>${k}</small><b>${v_}</b></div>`;
+  f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button>
+      <span class="fen-url">${(location.host || "puckprob.ca") + location.pathname.replace(/index\.html$/, "")}${eqHashDe(t, "")}</span><button type="button" class="fen-pt" aria-label="${L("Partager", "Share")}">${ICO_PT}</button></div>
+    <div class="wi-carte fen fen-eq" style="${eqV(t)}">
+      <header class="a-logo"><div class="wi-hd"><div><b><small>${villeNom(t)}</small>${eqSurnom(t)}</b><span>${fiche}</span><span>${rangs}</span>${co ? `<span>${L("Coach", "Coach")} : ${co.n}</span>` : ""}
+        <span class="fen-chips">${N ? `<i style="background:${N[3]}">${se.niv >= 3 ? "▲" : se.niv <= 1 ? "▼" : "–"} ${L(N[1], N[2])} · ${eqFiche(se.v, se.d, se.p)}</i>` : ""}${pw ? `<i>PB Power ${L("n°", "#")} ${pw.rg}</i>` : ""}</span></div></div>
+        <img class="fen-logo" src="${LOGO_URL(t, false)}" alt="" onerror="this.remove()"></header>
+      ${e ? `<div class="wi-bio eq4">${tuile(L("Séries", "Playoffs"), pcTxt(e.p_series))}${tuile(L("Coupe", "Cup"), pcTxt(e.p_coupe))}${tuile("Projection", Math.round(e.proj) + " pts")}${tuile(L("Buts", "Goals"), `${bp}-${bc}`)}</div>` : ""}
+      <nav class="fen-ongl" role="tablist">${EQF_O.map(([k, fr, en]) => `<button type="button" role="tab" data-fo="${k}" aria-selected="${k === o}">${L(fr, en)}</button>`).join("")}</nav>
+      <div class="fen-panes"></div>
+    </div></div>`;
+  f.querySelector(".fen-ret").onclick = fenFermer;
+  f.querySelector(".fen-pt").onclick = fenPartager;
+  FEN.x = { n: `${villeNom(t)} ${eqSurnom(t)}`.trim() };
+  eqMontrer(o);
+}
+async function eqMontrer(o, rendre = true){
+  const t = FEN.id; if (FEN.k !== "e" || !$("#fenetre .fen-panes")) return;
+  FEN.o = o;
+  document.querySelectorAll("#fenetre .fen-ongl [data-fo]").forEach(b => b.setAttribute("aria-selected", b.dataset.fo === o));
+  document.querySelectorAll("#fenetre .fen-pane").forEach(p => p.hidden = p.dataset.o !== o);
+  const p = FEN.pane(o); p.hidden = false;
+  history.replaceState(null, "", location.pathname + location.search + eqHashDe(t, o));
+  if (!rendre || p.dataset.ok) return;
+  p.dataset.ok = "1";
+  const vide = (fr, en) => `<div class="vide">${L(fr, en)}</div>`;
+  if (o === "apercu"){ p.innerHTML = eqApercu(t); return; }
+  if (o === "ali"){ p.innerHTML = eqAlignement(t); return; }
+  p.innerHTML = vide("Chargement…", "Loading…");
+  if (o === "sal"){ await FEN_CH.sal(); salEquipe(t); if (!p.querySelector(".wi-carte")) p.innerHTML = vide("Pas de contrats pour cette équipe.", "No contracts for this team."); }
+  else if (o === "coach"){
+    await chargerCoach(); const co = eqCoach(t);
+    if (co) coachCarte(co.id);
+    if (!p.querySelector(".wi-carte")) p.innerHTML = vide("Pas encore de fiche pour son coach.", "No coach card yet.");
+    else { const se = eqSerie(eqC(t)); if (se) p.insertAdjacentHTML("afterbegin", `<section class="fen-s"><h3>${L("Sa série", "His streak")} <em>${L("10 derniers matchs", "last 10 games")} · ${eqFiche(se.v, se.d, se.p)}</em></h3>${eqThermo(se)}</section>`); }
+  }
+  else if (o === "trx"){ await chargerTrx(); p.innerHTML = eqTrx(t); }
+  else if (o === "hist"){ if (!PBS.eq[t]) PBS.eq[t] = await pbsGet(`eq/${t}.json`).catch(() => ({ j: [], g: [] })); if (FEN.id === t) p.innerHTML = eqHistoire(t); }
+}
+const eqThermo = (se) => { const N = FEN_SERIE[se.niv];
+  return `<div class="fen-serie"><small>${L("Très froid", "Ice cold")}</small><div class="fen-therm"><i style="left:${(se.pos * 100).toFixed(0)}%"></i></div><b style="color:${N[3]}">${L(N[1], N[2])}</b></div>`; };
+// Une ligne de joueur dans la fenêtre équipe : un clic ouvre sa fenêtre (Retour revient à l'équipe)
+const eqLigneJ = (id, n, no, eq, pos, sous, val, lib) => `<button type="button" class="fen-lj" data-pid="${id}" style="${eqV(eq)}">${wiRond({ n, no, pos, eqs: [[eq, 1]], eq })}
+  <span class="nm"><b>${n}</b><small>${sous}</small></span><span class="v"><b>${val}</b>${lib ? `<small>${lib}</small>` : ""}</span></button>`;
+function eqBref(t){
+  const e = eqC(t), r = eqRangs(t), se = eqSerie(e), ph = [], nom = eqSurnom(t);
+  if (!e) return "";
+  if (se && se.niv !== 2) ph.push(L(`Les ${nom} sont <b>${FEN_SERIE[se.niv][1].toLowerCase()}s</b> : ${se.v} victoires à leurs ${se.n} derniers matchs (${eqFiche(se.v, se.d, se.p)}).`,
+                                    `The ${nom} are <b>${FEN_SERIE[se.niv][2].toLowerCase()}</b>: ${se.v} wins in their last ${se.n} games (${eqFiche(se.v, se.d, se.p)}).`));
+  if (r) ph.push(L(`${rangFr(r.rd)} de la division ${r.div} avec ${e.pts} points en ${e.pj} matchs, PuckProb leur donne <b>${pcTxt(e.p_series)}</b> de chances de faire les séries et les projette à <b>${Math.round(e.proj)} points</b>.`,
+                   `${rangFr(r.rd)} in the ${r.div} with ${e.pts} points in ${e.pj} games, PuckProb gives them a <b>${pcTxt(e.p_series)}</b> chance to make the playoffs and projects them at <b>${Math.round(e.proj)} points</b>.`));
+  const J = Object.values(PRJ?.joueurs || {}).filter(x => x.eq === t).sort((a, b) => (b.c?.pts || 0) - (a.c?.pts || 0));
+  if (J[0]) ph.push(L(`${J[0].n} mène l'équipe avec ${J[0].c.pts} points.`, `${J[0].n} leads the team with ${J[0].c.pts} points.`));
+  if (e.p_coupe >= 0.05) ph.push(L(`Chances de gagner la Coupe : <b>${pcTxt(e.p_coupe)}</b>.`, `Cup chances: <b>${pcTxt(e.p_coupe)}</b>.`));
+  return ph.join(" ");
+}
+function eqApercu(t){
+  const e = eqC(t), sec = [], se = eqSerie(e);
+  sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${eqBref(t) || L("Pas encore de données cette saison.", "No data yet this season.")}</div></section>`);
+  if (e?.l10?.length){
+    const R = { V: ["V", "W", "v"], D: ["D", "L", "d"], P: ["DP", "OTL", "dp"] };
+    sec.push(`<section class="fen-s"><h3>${L(`${e.l10.length} derniers matchs`, `Last ${e.l10.length} games`)}${se ? ` <em>${eqFiche(se.v, se.d, se.p)}</em>` : ""}</h3>
+      <div class="fen-forme">${e.l10.map(([r, gf, ga, adv, dom]) => `<i class="${R[r][2]}" title="${dom ? "vs" : "@"} ${adv}">${L(R[r][0], R[r][1])}<small>${gf}-${ga}</small><small>${adv}</small></i>`).join("")}</div>
+      ${se ? eqThermo(se) : ""}</section>`);
+  }
+  // Le prochain match : ce soir avec nos %, sinon la date
+  const g = (D?.games || []).find(x => (x.home === t || x.away === t) && !x.result);
+  if (g){
+    const pr = g.preds?.[D.principale] || Object.values(g.preds || {})[0], ph = pr?.p_home;
+    const h = new Date(g.start).toLocaleTimeString(EN ? "en-CA" : "fr-CA", { hour: "numeric", minute: "2-digit" });
+    const moi = g.home === t, adv = moi ? g.away : g.home, pm = ph == null ? null : moi ? ph : 1 - ph;
+    sec.push(`<section class="fen-s"><h3>${L("Prochain match", "Next game")} <em>${L("Ce soir", "Tonight")} · ${h}</em></h3>
+      <div class="fen-pm"><div><b>${t}</b><span>${pm == null ? "" : pc1(pm) + "<sup>%</sup>"}</span></div><small>${moi ? "vs" : "@"}</small><div><b>${adv}</b><span>${pm == null ? "" : pc1(1 - pm) + "<sup>%</sup>"}</span></div></div></section>`);
+  } else if (e?.proch){
+    const [dt, adv, dom] = e.proch;
+    sec.push(`<section class="fen-s"><h3>${L("Prochain match", "Next game")} <em>${new Date(dt + "T12:00:00").toLocaleDateString(EN ? "en-CA" : "fr-CA", { weekday: "short", day: "numeric", month: "short" })}</em></h3>
+      <div class="fen-pm"><div><b>${t}</b></div><small>${dom ? "vs" : "@"}</small><div><b>${adv}</b></div></div></section>`);
+  }
+  // Ses meneurs : points, buts, le gardien (le plus de minutes)
+  const J = Object.values(PRJ?.joueurs || {}).filter(x => x.eq === t && x.c);
+  const mp = J.slice().sort((a, b) => b.c.pts - a.c.pts)[0], mb = J.slice().sort((a, b) => b.c.b - a.c.b)[0];
+  const gd = (GCR?.gardiens || []).filter(x => x.eq === t).sort((a, b) => (b.min || 0) - (a.min || 0))[0];
+  const men = [];
+  if (mp) men.push(eqLigneJ(mp.id, mp.n, mp.no, t, mp.pos, `${mp.c.b} ${L("B", "G")} · ${mp.c.a} A · ${L("projeté", "proj.")} ${mp.proj?.pts ?? "–"}`, mp.c.pts, "pts"));
+  if (mb && mb.id !== mp?.id) men.push(eqLigneJ(mb.id, mb.n, mb.no, t, mb.pos, `${L("projeté", "proj.")} ${mb.proj?.b ?? "–"} ${L("buts", "goals")}`, mb.c.b, L("buts", "goals")));
+  if (gd) men.push(eqLigneJ(gd.id, gd.n, gd.no, t, "G", `${gd.pj} ${L("PJ", "GP")} · GSAx ${gd.gsax >= 0 ? "+" : "−"}${n1(Math.abs(gd.gsax || 0))}`, sv3(gd.sv), L("% arrêts", "save %")));
+  if (men.length) sec.push(`<section class="fen-s"><h3>${L("Ses meneurs", "Team leaders")}</h3><div class="fen-ljs">${men.join("")}</div></section>`);
+  // Les trophées d'équipe (Présidents, Jennings, Jack Adams)
+  const TE = D?.coupe?.trophees_equipe || {}, tro = [];
+  for (const [k, nom] of [["presidents", L("Présidents", "Presidents'")], ["jennings", "Jennings"], ["adams", "Jack Adams"]]){
+    const L_ = TE[k] || [], i = L_.findIndex(x => x.t === t); if (i < 0) continue;
+    tro.push({ nom: k === "adams" && L_[i].coach ? `${nom} · ${L_[i].coach}` : nom, p: L_[i].p || 0, rg: i + 1, mx: L_[0]?.p || 1 });
+  }
+  if (e?.p_presidents != null && !tro.some(x => x.nom.startsWith(L("Présidents", "Presidents'")))) tro.unshift({ nom: L("Présidents", "Presidents'"), p: e.p_presidents, rg: null, mx: 1 });
+  if (tro.length) sec.push(`<section class="fen-s"><h3>${L("Trophées d'équipe", "Team awards")}</h3><div class="fen-tro">${tro.map(x =>
+    `<div><b>${pcTxt(x.p)}</b><span>${x.nom}</span><i class="fen-jauge"><i style="width:${Math.max(2, Math.min(100, x.p / Math.max(0.01, x.mx) * 100)).toFixed(0)}%"></i></i><small>${x.rg ? rangFr(x.rg) : ""}</small></div>`).join("")}</div></section>`);
+  return sec.join("");
+}
+// L'alignement : les joueurs de la saison (projections.json), par position, puis les gardiens (gcr.json)
+function eqAlignement(t){
+  const J = Object.values(PRJ?.joueurs || {}).filter(x => x.eq === t && x.c).sort((a, b) => (b.c.pts - a.c.pts) || (b.pj - a.pj));
+  const G = (GCR?.gardiens || []).filter(x => x.eq === t).sort((a, b) => (b.min || 0) - (a.min || 0));
+  const bloc = (titre, L_) => L_.length ? `<section class="fen-s"><h3>${titre} <em>${L_.length}</em></h3><div class="fen-ljs">${L_.join("")}</div></section>` : "";
+  const lj = (x) => eqLigneJ(x.id, x.n, x.no, t, x.pos, `${x.pj} ${L("PJ", "GP")} · ${x.c.b} ${L("B", "G")} · ${x.c.a} A · ${pmW(x.c.pm)}`, x.c.pts, "pts");
+  return bloc(L("Attaquants", "Forwards"), J.filter(x => x.pos !== "D").map(lj)) + bloc(L("Défenseurs", "Defensemen"), J.filter(x => x.pos === "D").map(lj))
+    + bloc(L("Gardiens", "Goalies"), G.map(g => eqLigneJ(g.id, g.n, g.no, t, "G", `${g.pj} ${L("PJ", "GP")} · ${Math.round(g.min || 0)} min · GSAx ${g.gsax >= 0 ? "+" : "−"}${n1(Math.abs(g.gsax || 0))}`, sv3(g.sv), L("% arrêts", "save %"))))
+    || `<div class="vide">${L("Pas encore de joueurs cette saison.", "No players yet this season.")}</div>`;
+}
+// Ses transactions de la saison (les mêmes cartes que la section Transactions ; un clic ouvre le détail)
+function eqTrx(t){
+  const I = (TRX?.items || []).filter(x => (x.eqs || []).includes(t));
+  if (!I.length) return `<div class="vide">${L("Aucune transaction cette saison.", "No moves this season.")}</div>`;
+  const base = TRX_L.length; TRX_L.push(...I);
+  return `<section class="fen-s"><h3>${L("Cette saison", "This season")} <em>${I.length}</em></h3><div class="fen-trx">${I.map((x, k) => trxCarte(x, base + k)).join("")}</div></section>`;
+}
+// L'histoire : les meneurs PB Stats de la concession (docs/pbstats/eq/<équipe>.json : [id, nom, pos, PJ, de, à, pts PB,
+// pts, buts PB, passes PB, buts, passes, n°] ; gardiens [id, nom, PJ, de, à, victoires PB, victoires, n°, ...])
+function eqHistoire(t){
+  const E = PBS.eq[t] || {}, J = (E.j || []).slice(0, 10), G = (E.g || []).slice(0, 3);
+  if (!J.length) return `<div class="vide">${L("Pas encore d'histoire pour cette équipe.", "No history yet for this team.")}</div>`;
+  const lj = J.map(r => eqLigneJ(r[0], r[1], r[12], t, r[2], `${r[4]}–${r[5]} · ${nW(r[3])} ${L("PJ", "GP")} · ${L("réel", "real")} ${nW(r[7])} pts`, nW(r[6]), L("pts PB", "PB pts")));
+  const lg = G.map(r => eqLigneJ(r[0], r[1], r[7], t, "G", `${r[3]}–${r[4]} · ${nW(r[2])} ${L("PJ", "GP")} · ${L("réel", "real")} ${nW(r[6])} ${L("V", "W")}`, nW(r[5]), L("V PB", "PB W")));
+  return `<section class="fen-s"><h3>${L("Les meneurs de tous les temps", "All-time leaders")} <em>PB Stats</em></h3><div class="fen-ljs">${lj.join("")}</div></section>
+    ${lg.length ? `<section class="fen-s"><h3>${L("Les gardiens", "Goalies")}</h3><div class="fen-ljs">${lg.join("")}</div></section>` : ""}
+    <section class="fen-s"><button type="button" class="fen-plus fen-pbeq" data-t="${t}">${L("Tout PB Stats de l'équipe", "All of the team's PB Stats")} ›</button></section>`;
+}
+document.addEventListener("click", (e) => {
+  const j = e.target.closest?.("#fenetre .fen-lj"); if (j){ ouvrirJoueur(j.dataset.pid); return; }
+  const b = e.target.closest?.("#fenetre .fen-pbeq");
+  if (b){ FEN.pile = []; FEN.y = null; history.replaceState(null, "", location.pathname + location.search + "#what-if"); fenCacher();
+          $("#t-whatif")?.click(); S.wiv = "eq"; S.wieq = b.dataset.t; whatif(); $("#p-whatif")?.scrollIntoView({ block: "start" }); return; }
+  // Une équipe touchée ailleurs sur le site : le classement de la Coupe, les trophées d'équipe, PB Power, le classement
+  if (e.target.closest?.("#fenetre, #wi-modal, button.peq, .ctrls")) return;
+  const r = e.target.closest?.(".pwr-e[data-c], .cp[data-c], tr[data-eqf]");
+  if (r){ const t = r.dataset.eqf || r.dataset.c; if (/^[A-Z]{3}$/.test(t || "")) ouvrirEquipe(t); }
+});
 
 // ---- La face et la fiche du joueur dans les popups (Mitch, 19 nov. 2026 : « la face du joueur à droite sur les
 // popups » ; « ajoute la grandeur, le poids, la main, l'année, la ronde, le rang et l'équipe du repêchage pour tous les
@@ -6722,7 +6969,7 @@ function clsTri(L_){
 function clsTable(L_, ligne = null, depart = 1){
   const pc3 = (x) => x.pj ? (x.pts / (2 * x.pj)).toFixed(3).replace(/^0/, "") : "–";
   const rangs = L_.map((x, i) => { const [v, d, p, bp, bc] = x.fiche || [0, 0, 0, 0, 0], df = bp - bc;
-    return `${ligne === i ? `<tr class="cls-ligne"><td colspan="11"></td></tr>` : ""}<tr style="${eqV(x.t)}">
+    return `${ligne === i ? `<tr class="cls-ligne"><td colspan="11"></td></tr>` : ""}<tr data-eqf="${x.t}" style="${eqV(x.t)}">
       <td class="cls-r">${depart + i}</td><td class="cls-e"><img src="${LOGO(x.t)}" alt="" loading="lazy"><b>${x.t}</b></td>
       <td>${x.pj}</td><td>${v}</td><td>${d}</td><td>${p}</td><td class="cls-p">${x.pts}</td><td>${pc3(x)}</td>
       <td>${bp}</td><td>${bc}</td><td class="${df > 0 ? "bon" : df < 0 ? "mauvais" : ""}">${df > 0 ? "+" : ""}${df}</td>
@@ -7140,7 +7387,7 @@ async function coachOnglet(){
 function coachCarte(id){
   const sc = coSai(), x = CO?.par_saison?.[sc]?.coachs?.find(y => y.id === id); if (!x) return;
   const [kp, kb] = coCles();
-  const m = $("#wi-modal");
+  const m = eqCible("coach", x.eq); if (!m) return;     // la fenêtre de son équipe, onglet Coach
   const J = (x.j || []).map(j => { const d = j.sans > 0 ? (j.avec / j.sans - 1) * 100 : null;
     return `<tr><td><b>${j.n}</b> <small>${j.pos === "D" ? L("Déf.", "D") : L("Av.", "F")}</small></td><td>${j.pja}</td><td>${n2(j.avec)}</td><td>${n2(j.sans)}</td><td class="${j.res > 0 ? "bon" : j.res < 0 ? "mauvais" : ""}">${d == null ? "–" : (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(Math.round(d)) + (EN ? "%" : " %")}</td></tr>`; }).join("");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}"><header><div class="wi-hd"><img class="lg" src="${LOGO(x.eq)}" alt="" style="width:46px;height:46px"><div><b>${nomP(x.n, "c")}</b><span>${NOMS_EQ[x.eq] || x.eq} · ${coSaiTxt(sc)} · ${x.pj} ${L("matchs derrière le banc", "games behind the bench")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
@@ -8401,8 +8648,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=220412ce" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=220412ce" defer></script>
+<script src="pub.js?v=37dd3b75" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=37dd3b75" defer></script>
 <script src="nav.js?v=34af59f204" defer></script>
 </body>
 </html>

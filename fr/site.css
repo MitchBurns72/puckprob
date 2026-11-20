@@ -297,6 +297,36 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;border-top:2px solid #ffffff30} html .fen-carr tfoot td.pb{color:#FFB0A8}
 .fen-plus{display:block;width:100%;margin-top:8px;background:none;border:1px solid #ffffff33;border-radius:8px;padding:10px;font:800 14px/1.2 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C);cursor:pointer;text-align:center}
 @media (min-width:761px){ .fen-boite{box-shadow:0 0 0 1px #ffffff1a,0 20px 60px rgba(0,0,0,.6)} }
+/* La fenêtre équipe (20 nov. 2026) : le vrai logo à droite du haut, les pastilles (série, PB Power), 4 tuiles */
+#fenetre .fen-eq > header.a-logo{position:relative;min-height:170px;padding-right:150px;overflow:hidden}
+#fenetre .fen-eq > header.a-logo::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(105deg,transparent 40%,color-mix(in srgb,var(--pt,#fff) 28%,transparent) 100%)}
+#fenetre .fen-eq > header > *{position:relative;z-index:1}
+#fenetre .fen-eq .fen-logo{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:128px;height:128px;padding:10px;border-radius:50%;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:1}
+#fenetre .fen-eq header .wi-hd > div > b{font:800 italic 34px/.9 "Barlow Condensed",var(--f-display);text-transform:uppercase}
+#fenetre .fen-eq header .wi-hd > div > b small{display:block;font:700 15px/1.2 "Barlow Condensed",var(--f-body);font-style:normal;letter-spacing:.12em;color:#C9D6EE}
+#fenetre .fen-eq header .wi-hd > div > span{white-space:normal}
+#fenetre .fen-eq header .wi-hd > div > span b{font:inherit;font-weight:800;color:#fff;text-transform:none}
+.fen-chips{display:flex!important;flex-wrap:wrap;gap:5px;margin-top:6px}
+.fen-chips i{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-transform:uppercase;letter-spacing:.04em;padding:5px 8px;border-radius:4px;background:#ffffff26;color:#fff}
+#fenetre .wi-bio.eq4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.fen-forme{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}
+.fen-forme i{font:800 14px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-align:center;border-radius:6px;padding:7px 0 5px;color:#fff;min-width:0}
+.fen-forme i small{display:block;font:600 10px/1 var(--f-body);margin-top:3px;opacity:.92}
+.fen-forme .v{background:#1E9E55} .fen-forme .d{background:#C8102E} .fen-forme .dp{background:#8A97A8}
+.fen-pm{display:flex;align-items:center;gap:10px;background:#F2F5FA;color:#0A2342;border-radius:10px;padding:10px 14px}
+.fen-pm div{flex:1;display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.fen-pm b{font:800 italic 24px/1 "Barlow Condensed",var(--f-body)} .fen-pm span{font:700 30px/1 "Teko",var(--f-display)} .fen-pm sup{font-size:.5em;color:#C8102E}
+.fen-pm small{font:800 13px/1 "Barlow Condensed",var(--f-body);color:#4A5D78}
+.fen-ljs{display:flex;flex-direction:column;gap:5px}
+.fen-lj{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
+.fen-lj .wi-rond{flex:none;width:34px;height:40px} .fen-lj .wi-rond b{font-size:17px}
+.fen-lj .nm{flex:1;min-width:0;display:flex;flex-direction:column}
+.fen-lj .nm b{font:800 15px/1.1 "Barlow Condensed",var(--f-body);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fen-lj .nm small{font:600 12px/1.25 var(--f-body);color:#4A5D78}
+.fen-lj .v{flex:none;text-align:right} .fen-lj .v b{display:block;font:700 26px/.9 "Teko",var(--f-display)} .fen-lj .v small{font:800 10px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:#4A5D78}
+.fen-trx{display:flex;flex-direction:column;gap:6px}
+html.fen-on .wi-modal{z-index:80}
+
 .wi-eqs i{display:grid;place-items:center;min-width:22px;height:22px;padding:0 3px;border-radius:11px;background:var(--c);color:#fff;font:800 8.5px/1 var(--f-display);font-style:normal;letter-spacing:.02em}
 .wi-l .wi-st{display:block;font:500 11.5px var(--f-body);color:var(--muted);text-transform:none;margin-top:4px}
 .wi-carte header .wi-hd{display:flex;gap:10px;align-items:center}
