@@ -2249,6 +2249,28 @@
   "publie": true,
   "quand": "2026-11-20T18:20-05:00"
  },
+ "2026-11-21-recap-story-1": {
+  "fb": "1869586574063521",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Est",
+  "publie": true,
+  "quand": "2026-11-21T08:00-05:00"
+ },
+ "2026-11-21-matin-fil": {
+  "fb": "1508565075663838_122113958859537152",
+  "fb_com": "122113958859537152_1138685962461425",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-21"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-21/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-21/",
+  "titre": "PB On The Wire · Les Rangers perdent Bjorkstrand et vont chercher Sasson",
+  "publie": true,
+  "quand": "2026-11-21T08:00-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
