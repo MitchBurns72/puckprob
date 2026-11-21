@@ -1111,7 +1111,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=d82fa788">
+<link rel="stylesheet" href="carte.css?v=2c1c1690">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6364,7 +6364,7 @@ function formeBloc(f){
   const invis = f.xga?.[0] == null || f.att?.[0] == null ? "" : L(
     `À 5 contre 5, quand il est sur la glace, l'équipe accorde <b>${pc(f.xga[0])}</b> des chances (xG). Pour ses départs en zone défensive (${pc(f.dz[0])}), ses adversaires et son équipe, on s'attendrait à ${pc(f.att[0])} : <b>${ecart(r0)}</b> que l'attendu à ses 10 derniers (${ecart(r1)} cette saison). ${f.pk?.[0] >= 5 ? `En désavantage numérique, il est sur la glace pour ${pc(f.pk[0])} des tirs adverses.` : "Il joue pas en désavantage numérique."}`,
     `At 5-on-5, while he's on the ice, the team gives up <b>${pc(f.xga[0])}</b> of the chances (xG). For his defensive-zone starts (${pc(f.dz[0])}), his opponents and his team, you'd expect ${pc(f.att[0])}: <b>${ecart(r0)}</b> than expected over his last 10 (${ecart(r1)} this season). ${f.pk?.[0] >= 5 ? `On the penalty kill, he's on the ice for ${pc(f.pk[0])} of the shots against.` : "He doesn't kill penalties."}`);
-  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PB Heat Index ${f.idx > 0 ? "+" : ""}${n1(f.idx)} · ${L(...FORME_ROLE[f.role])}</span></div>
+  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PBHI ${f.idx > 0 ? "+" : ""}${n1(f.idx)} · ${L(...FORME_ROLE[f.role])}</span></div>
     <div class="fen-therm"><i style="left:${(pos * 100).toFixed(0)}%"></i></div>
     <div class="fs-b"><small>${L("Très froid", "Ice cold")}</small><small>${L("Sa saison", "His season")}</small><small>${L("En feu", "On fire")}</small></div>
     <div class="fo-v">${formeBarre(L("Attaque", "Offense"), f.v.att)}${formeBarre(L("Défense", "Defense"), f.v.def)}${formeBarre(L("Utilisation", "Usage"), f.v.use)}</div>
@@ -6375,7 +6375,7 @@ function formeBloc(f){
 async function formeOnglet(){
   const el = $("#forme");
   if (!FORME){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerForme(); }
-  const tete = `<div class="cp-tete"><h2>PB Heat Index</h2><p>${L(
+  const tete = `<div class="cp-tete">${titrePB("PB Heat Index", (S.forme_s || "chaud") === "froid" ? L("Top 100 : les plus cold", "Top 100: the coldest") : L("Top 100 : les plus hot", "Top 100: the hottest"))}<p>${L(
     "Qui est le plus en forme par rapport à lui-même : ses 10 derniers matchs contre sa saison, en attaque, en défense (ce qui se passe à 5 contre 5 quand il est sur la glace, ajusté pour ses départs en zone défensive et ses adversaires) et dans son utilisation. Bref : qui est hot, qui est cold présentement.",
     "Who's hottest compared to himself: his last 10 games against his season, on offense, on defense (what happens at 5-on-5 while he's on the ice, adjusted for his defensive-zone starts and his opponents) and in his usage. In short: who's hot and who's cold right now.")}</p></div>`;
   if (!FORME?.joueurs){ el.innerHTML = tete + `<div class="card"><div class="vide">${L("Arrive au prochain calcul.", "Coming with the next update.")}</div></div>`; return; }
@@ -6391,7 +6391,7 @@ async function formeOnglet(){
     return `<div class="wi-l wi-r fo-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
       <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${L(...FORME_ROLE[x.role])} · ${n1(x.pts[0])} pt/${L("match", "game")} (${n1(x.pts[1])})</small>
       <span class="fo-mini">${formeBarre(L("Att.", "Off."), x.v.att)}${formeBarre(L("Déf.", "Def."), x.v.def)}${formeBarre(L("Util.", "Use"), x.v.use)}</span></span>
-      <span class="v"><b style="color:${N[3]}">${x.idx > 0 ? "+" : ""}${n1(x.idx)}</b><small>${L(N[1], N[2])}</small></span></div>`; }).join("")
+      <span class="v"><b style="color:${N[3]}">${x.idx > 0 ? "+" : ""}${n1(x.idx)}</b>${AB("PBHI")}<small>${L(N[1], N[2])}</small></span></div>`; }).join("")
     + `<p class="aide">${L(`Au moins ${12} matchs joués. Ça évalue sa forme récente, ce qui vient de se passer, pas ce qui s'en vient. Mis à jour le`,
       `At least ${12} games played. It rates his recent form, what just happened, not what comes next. Updated`)} ${dateCourte(FORME.maj)}.</p>`;
 }
@@ -8522,6 +8522,7 @@ const COR_STATS = [
   ["rythme", "Rythme actuel (pts sur 82)", "Current pace (pts over 82)", "pb", (j) => j.prj?.rythme?.pts != null ? Math.round(j.prj.rythme.pts) : null],
   ["pbcs", "PB Chemistry % (son meilleur duo)", "PB Chemistry % (his best duo)", "pb", (j) => j.chem],
   ["pbgc", "PB Goalie Confidence %", "PB Goalie Confidence %", "pb", (j) => j.gcr?.pc ?? j.gcr?.gcr],
+  ["pbhi", "PB Heat Index (forme récente)", "PB Heat Index (recent form)", "pb", (j) => j.pbhi ?? null],
   ["sv", "% d'arrêts (gardiens)", "Save % (goalies)", "base", (j) => j.sal?.t === "g" && j.sal.sv != null ? +(j.sal.sv * 100).toFixed(1) : null],
   ["pbera", "PB Stats : points en carrière (ajustés)", "PB Stats: career points (adjusted)", "pb", (j) => j.wi?.w?.[3] != null ? Math.round(j.wi.w[3]) : null],
   ["vrai", "Vrai contrat", "Real contract", "contrat", (j) => j.sal?.vrai, fM],
@@ -8614,6 +8615,8 @@ async function corDonnees(sai){
     if (BIOS?.[id]) j.bio = BIOS[id];
   }
   if (pwr) for (const x of [...(pwr.joueurs || []), ...(pwr.gardiens || [])]) if (J[String(x.id)]) J[String(x.id)].pwr = x;
+  // PBHI, la forme récente (saison en cours seulement : forme.json n'est pas archivé)
+  if (!sai){ await chargerForme(); for (const [id, f] of Object.entries(FORME?.joueurs || {})) if (J[id]) J[id].pbhi = f.idx; }
   for (const j of Object.values(J)){ const s = j.sal || j.phy || j.prj || j.gcr || {}; j.n = s.n ?? j.x_n; j.eq = s.eq ?? j.x_eq; j.no = s.no; j.pos = s.pos ?? j.x_pos; j.pj = j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj ?? j.gcr?.pj ?? j.x_pj ?? 0; }
   return (COR.cache[sai] = { J: Object.values(J).filter(j => j.n), comp, x });
 }
@@ -9181,8 +9184,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=d82fa788" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=d82fa788" defer></script>
-<script src="nav.js?v=ec219a6f1b" defer></script>
+<script src="pub.js?v=2c1c1690" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=2c1c1690" defer></script>
+<script src="nav.js?v=94d3b6ccce" defer></script>
 </body>
 </html>
