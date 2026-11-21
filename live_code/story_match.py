@@ -441,7 +441,8 @@ def duree_audio(f):
     return int(m[1]) * 3600 + int(m[2]) * 60 + float(m[3]) if m else None
 
 
-def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5, cle_fin=None, fin_s=None, fin_echelle=1.0):
+def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fondu_son=1.5, cle_fin=None, fin_s=None, fin_echelle=1.0,
+          sans_fin=False):
     """Le cadre (fixe) puis, les FIN dernières secondes, la fin PuckProb, arrivée par un flip avec le son du
     mécanisme ; la musique dessous. -> .mp4 de `duree` secondes (DUREE par défaut). Sans image de fin : le cadre tout
     le long. image=True : une image qui n'est pas en 9:16 (un post carré, un classement...) est centrée sur sa propre
@@ -451,7 +452,8 @@ def video(jpeg_cadre, sortie, jour=None, son=None, duree=None, image=False, fond
     from PIL import ImageEnhance, ImageFilter
     sortie = Path(sortie)
     sortie.parent.mkdir(parents=True, exist_ok=True)
-    fin = image_fin(cle_fin or jour)
+    # sans_fin (Mitch, 20 nov. 2026, la story de PB On The Wire : « pas d'outro ») : la carte tout le long
+    fin = None if sans_fin else image_fin(cle_fin or jour)
     D = float(duree or DUREE)
     base = Image.open(io.BytesIO(jpeg_cadre)).convert("RGB")
     if base.size != (1080, 1920):           # déjà en 9:16 (la fiche story de src/cartes.py) : plein écran, pas de fond flouté
@@ -519,16 +521,20 @@ COURTE_FIN_ECHELLE = 0.84
 DIRS_COURTES = {
     "matin": [RACINE / "assets" / "musique_matin", Path(__file__).resolve().parent / "musique_matin"],
     "match": [RACINE / "assets" / "musique_matchs", Path(__file__).resolve().parent / "musique_matchs"],
+    # La story de PB On The Wire (Mitch, 20 nov. 2026 : sa toune « Immediate Groove ») ; dans puckprob : live_code/musique_fil
+    "fil": [RACINE / "assets" / "musique_fil", Path(__file__).resolve().parent / "musique_fil"],
 }
 
 
-def video_courte(jpeg, sortie, cle=None, quoi="matin"):
+def video_courte(jpeg, sortie, cle=None, quoi="matin", sans_fin=False):
     """La story de 7 s : la carte (plein écran si déjà en 9:16, sinon centrée sur son fond flouté) 4 s, le flip, la fin.
     La toune tirée par la cle (toujours la même pour une même story), du dossier « matin » ou « match »."""
     dirs = DIRS_COURTES.get(quoi) or DIRS_COURTES["matin"]
     son = musique(cle, dirs) if any(d.is_dir() and any(d.glob("*.mp3")) for d in dirs) else musique(cle)
-    return video(jpeg, sortie, son=son, duree=COURTE_DUREE, image=True, fondu_son=0.8, cle_fin=cle,
-                 fin_s=COURTE_DUREE - COURTE_CARTE, fin_echelle=COURTE_FIN_ECHELLE)
+    # Sans la fin : la carte le temps de la toune (au moins COURTE_DUREE, au plus DUREE), pour qu'elle finisse au complet
+    d = max(COURTE_DUREE, min(DUREE, int((duree_audio(son) or COURTE_DUREE) * 10) / 10)) if sans_fin else COURTE_DUREE
+    return video(jpeg, sortie, son=son, duree=d, image=True, fondu_son=0.8, cle_fin=cle,
+                 fin_s=COURTE_DUREE - COURTE_CARTE, fin_echelle=COURTE_FIN_ECHELLE, sans_fin=sans_fin)
 
 
 def video_jingle(jpeg, sortie, cle=None):

@@ -958,6 +958,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .cp-tete::after{content:"";position:absolute;right:-30px;top:-20px;width:150px;height:150px;border-radius:50%;border:14px solid rgba(255,184,28,.18)}
 .cp-tete h2{color:#fff;font-size:30px}
 .cp-tete p{margin:6px 0 0;color:#B9C9DD;font-size:13px;max-width:60ch;position:relative;z-index:1}
+.cp-plus{position:relative;z-index:1;margin-top:10px}
+.cp-plus > summary{list-style:none;cursor:pointer;color:#FFB81C;font:600 14px/1.3 inherit;display:inline-flex;align-items:center;gap:8px;padding:4px 0}
+.cp-plus > summary::-webkit-details-marker{display:none}
+.cp-plus > summary::before{content:"";border-style:solid;border-width:5px 0 5px 8px;border-color:transparent transparent transparent #FFB81C;transition:transform .15s}
+.cp-plus[open] > summary::before{transform:rotate(90deg)}
 .cp-liste{background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;box-shadow:var(--ombre)}
 .cp{--eq:var(--muted);display:grid;grid-template-columns:26px 40px minmax(0,1fr) auto;gap:2px 10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);position:relative}
 .cp:first-child{border-top:0}
@@ -1112,7 +1117,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=881bb933">
+<link rel="stylesheet" href="carte.css?v=d54a64bc">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1130,22 +1135,22 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <div class="livestat" id="livestat" hidden></div>
 
   <nav class="tabs" role="tablist">
-    <button role="tab" id="t-joueurs" aria-selected="true" aria-controls="p-joueurs">Joueurs</button>
-    <button role="tab" id="t-matchs" aria-selected="false" aria-controls="p-matchs">Matchs</button>
+    <button role="tab" id="t-joueurs" aria-selected="true" aria-controls="p-joueurs">G.P. Joueurs</button>
+    <button role="tab" id="t-matchs" aria-selected="false" aria-controls="p-matchs">G.P. Matchs</button>
     <button role="tab" id="t-suivi" aria-selected="false" aria-controls="p-suivi">Suivi</button>
     <button role="tab" id="t-sim" aria-selected="false" aria-controls="p-sim">PB Manager PA: Season Sim</button>
-    <button role="tab" id="t-coupe" aria-selected="false" aria-controls="p-coupe">All Awards Races</button>
+    <button role="tab" id="t-coupe" aria-selected="false" aria-controls="p-coupe">PB Awards Projections</button>
     <button role="tab" id="t-whatif" aria-selected="false" aria-controls="p-whatif">PB Stats</button>
     <button role="tab" id="t-salaires" aria-selected="false" aria-controls="p-salaires">PB Market Value</button>
     <button role="tab" id="t-enf" aria-selected="false" aria-controls="p-enf">PB Intimidation %</button>
     <button role="tab" id="t-prj" aria-selected="false" aria-controls="p-prj">PB Season Projections</button>
     <button role="tab" id="t-duo" aria-selected="false" aria-controls="p-duo">PB Chemistry %</button>
     <button role="tab" id="t-gcr" aria-selected="false" aria-controls="p-gcr">PB Goalie Confidence %</button>
-    <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">PB Ref Bias</button>
+    <button role="tab" id="t-arb" aria-selected="false" aria-controls="p-arb">PB Ref Bias %</button>
     <button role="tab" id="t-coach" aria-selected="false" aria-controls="p-coach">PB Coach Boost %</button>
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
     <button role="tab" id="t-cor" aria-selected="false" aria-controls="p-cor">PB Correlation Trend</button>
-    <button role="tab" id="t-forme" aria-selected="false" aria-controls="p-forme">PB Heat Index</button>
+    <button role="tab" id="t-forme" aria-selected="false" aria-controls="p-forme">PB Heat %</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-wire" aria-selected="false" aria-controls="p-wire">PB On The Wire</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
@@ -1489,7 +1494,7 @@ Object.assign(TR, {
   "Valeur vs cote": "Value vs odds", "Copier mes bets": "Copy my bets", "Importer": "Import", "Importer ce texte": "Import this text",
   "Ajouter depuis une capture Mise-o-jeu": "Add from a Mise-o-jeu screenshot", "Marché US sans marge": "US market, no margin",
   // Onglets, filtres, boutons
-  "Joueurs": "Players", "Matchs": "Games", "Trophées": "All Awards Races", "Tirs": "Shots", "But": "Goal", "Passe": "Assist",
+  "Joueurs": "Players", "Matchs": "Games", "G.P. Joueurs": "G.P. Players", "G.P. Matchs": "G.P. Games", "Trophées": "PB Awards Projections", "Tirs": "Shots", "But": "Goal", "Passe": "Assist",
   "Points": "Points", "Au moins": "At least", "Tous": "All", "Avants": "Forwards", "Déf.": "Def.", "Trier": "Sort",
   "Probabilité": "Probability", "Coupe": "Cup", "Classement": "Standings", "Présidents": "Presidents", "Rocket": "Rocket",
   "Lindsay": "Lindsay", "Toute la ligue": "Whole league", "Est": "East", "Ouest": "West", "Séries": "Playoffs",
@@ -1853,6 +1858,16 @@ function posDetail(nom, pos){
   return x ? POS_ALIGN[x][EN ? 1 : 0] : "";
 }
 // La position affichée (plaques et images à partager) : la vraie position du soir, sinon F/D/G
+// Le rôle d'un gardien écrit au long (Mitch, 20 nov.) : SGS Starting Goalie, SGA/SGB/SGC Starting Goalie A/B/C,
+// BG Backup Goalie, 3G/4G 3rd/4th Goalie (les acronymes viennent de gcr.roles)
+function roleGLong(code){
+  if (!code) return "";
+  if (code === "SGS") return L("Gardien partant", "Starting Goalie");
+  if (/^SG[A-E]$/.test(code)) return L("Gardien partant ", "Starting Goalie ") + code[2];
+  if (code === "BG") return L("Gardien auxiliaire", "Backup Goalie");
+  const m = /^(\d+)G$/.exec(code);
+  return m ? (EN ? `${m[1]}${["th", "st", "nd", "rd"][m[1] % 10 > 3 || [11, 12, 13].includes(m[1] % 100) ? 0 : m[1] % 10]} Goalie` : `${m[1]}e gardien`) : code;
+}
 const posLab = (nom, pos) => posDetail(nom, pos) || POS_C(pos);
 const plaqueIn = (no, nom, pos) => { const lab = posLab(nom, pos);
   return `<b>${no != null && no !== "" ? no : initiales(nom)}</b>${lab ? `<i>${lab}</i>` : ""}`; };
@@ -5904,15 +5919,15 @@ async function enforcers(){
   const W = ENF.poids || {};
   const pc0 = (v) => Math.round((v || 0) * 100) + (EN ? "%" : " %");
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
-    `<p>Tiré du jeu-par-jeu de la ligue et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul) : <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
+    `<p>Tiré du jeu-par-jeu de la ligue et des présences sur la glace de chaque joueur, match par match. Cinq morceaux, chacun comparé à toute la ligue (écart à la moyenne, borné pour qu'un cas extrême ne décide pas tout seul). Chaque taux est d'abord tiré vers celui de la ligue selon l'échantillon (2 combats en 20 matchs, ça prouve moins que 8 en 80), puis passé au logarithme : les écarts entre bagarreurs restent, mais une poignée de gars à 15 combats ne tire plus la moyenne de toute la ligue. Pas de plancher : sous la moyenne, c'est négatif. <b>combats</b> par 82 matchs (${pc0(W.combats)}), <b>mises en échec données</b> par 60 minutes (${pc0(W.frappes)}), <b>pénalités qui font mal</b> par 82 matchs (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) et <b>badassness</b> (${pc0(W.badass)}) : rudesse, mise en échec par derrière ou à la tête, double-échec, coup de coude, de genou, darder, charge, cinglage, instigateur. Pas l'accrochage, pas le bâton élevé.</p>
      <p><b>Les 6 classements</b> : le PB Intimidation % (le mélange) ou un seul morceau. Tous en % PuckProb, la même règle partout : 0 % = le patineur moyen de la ligue (20 matchs et plus), 100 % = le niveau des 3 meilleurs de CE classement (le n° 1 peut dépasser). Chacun a sa petite courbe (un point par match) et ses places gagnées ou perdues.</p>
-     <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la ligue, tiré vers 0 avec peu de combats), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
+     <p><b>Badassness</b> : se battre contre plus gros que soi (40 % : l'écart de poids moyen avec ses adversaires de combat, selon les fiches de la ligue, tiré vers 0 avec peu de combats ; en bonus seulement : un poids lourd n'est pas puni d'être gros), encaisser (30 % : mises en échec reçues par 60 minutes) et bloquer des tirs (30 % : par 60 minutes).</p>
      <p><b>Chaos</b> : quand il est sur la glace, est-ce que ça brasse plus, toutes équipes confondues ? Combats, mises en échec, pénalités et mêlées (des pénalités aux deux équipes au même moment) avec lui sur la glace, contre ce qu'on attendrait au rythme de quand il est au banc, dans les mêmes matchs. Chaque écart est tiré vers 0 quand l'échantillon est petit.</p>
      <p><b>Effet peur</b> (affiché dans la fiche, plus dans le score : trop bruité, il récompensait des joueurs offensifs) : des différences directes, deux mesures, moitié-moitié. <b>Mêmes gars</b> : chaque adversaire est comparé à lui-même, ses mises en échec quand il l'affronte contre son rythme quand il affronte les autres joueurs de la même équipe, dans les mêmes matchs, à 5 contre 5 seulement. <b>Avec ou sans lui</b> : son équipe se fait-elle moins frapper les soirs où il joue que les soirs où il est rayé ou blessé ? Ajusté à l'adversaire de chaque soir, 5 matchs sans lui minimum. Ensuite, deux garde-fous : chaque mesure est tirée vers 0 quand l'échantillon est petit, et l'effet peur ne compte qu'en proportion de sa réputation physique. Un défenseur offensif que l'adversaire frappe peu parce que son équipe a la rondelle ne fait pas peur pour autant : sans réputation physique, son effet peur compte pour 0.</p>
      <p><b>Combats.</b> La ligue ne note pas qui gagne un combat ; on compte les combats.</p>`,
-    `<p>Built from the league play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone): <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
+    `<p>Built from the league play-by-play and every player's shifts, game by game. Five parts, each compared with the whole league (distance from average, capped so one extreme case can't decide alone). Each rate is first pulled toward the league's based on the sample (2 fights in 20 games proves less than 8 in 80), then put on a log scale: the gaps between fighters stay, but a handful of 15-fight guys no longer drag the whole league's average. No floor: below average is negative. <b>fights</b> per 82 games (${pc0(W.combats)}), <b>hits thrown</b> per 60 minutes (${pc0(W.frappes)}), <b>penalties that hurt</b> per 82 games (${pc0(W.penalites)}), <b>chaos</b> (${pc0(W.chaos)}) and <b>badassness</b> (${pc0(W.badass)}): roughing, checking from behind or to the head, cross-checking, elbowing, kneeing, spearing, charging, slashing, instigator. Not hooking, not high-sticking.</p>
      <p><b>The 6 rankings</b>: PB Intimidation % (the blend) or a single part. All in PuckProb %, the same rule everywhere: 0% = the league's average skater (20+ games), 100% = the level of the top 3 in THAT ranking (No. 1 can go over). Each has its little curve (one point per game) and its places gained or lost.</p>
-     <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from league bios, pulled toward 0 with few fights), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
+     <p><b>Badassness</b>: fighting bigger guys (40%: the average weight difference with his fight opponents, from league bios, pulled toward 0 with few fights; a bonus only: a heavyweight isn't punished for being big), taking punishment (30%: hits taken per 60 minutes) and blocking shots (30%: per 60 minutes).</p>
      <p><b>Chaos</b>: when he's on the ice, does it get rowdier, both teams combined? Fights, hits, penalties and scrums (penalties to both teams at the same moment) with him on the ice, against what we'd expect at the pace of when he's on the bench, in the same games. Each difference is pulled toward 0 when the sample is small.</p>
      <p><b>Fear effect</b> (shown on the card, no longer in the score: too noisy, it rewarded offensive players): direct differences, two measures, half and half. <b>Same guys</b>: every opponent is compared with himself, his hits when he faces him against his rate when he faces the other players on the same team, in the same games, at 5-on-5 only. <b>With or without him</b>: does his team get hit less on nights he plays than on nights he's scratched or hurt? Adjusted for each night's opponent, at least 5 games without him. Then two safeguards: each measure is pulled toward 0 when the sample is small, and the fear effect only counts in proportion to his physical reputation. An offensive defenseman who rarely gets hit because his team has the puck isn't scary for it: with no physical reputation, his fear effect counts for 0.</p>
      <p><b>Fights.</b> The league doesn't record who wins a fight, so we count fights.</p>`)}</details>`;
@@ -6352,8 +6367,10 @@ let FORME = null, FORME_p = null;
 const chargerForme = () => FORME_p || (FORME_p = fetch(urlSai("forme.json") + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(d => (FORME = d)).catch(() => null));
 // La courbe PBHI : un point par match joué, depuis qu'il a son indice (12e match) ; la valeur d'avant ; signée
 const spkHI = (v) => { const r = Math.round(v * 10) / 10; return (r > 0 ? "+" : r < 0 ? "−" : "") + n1(Math.abs(r)); };
-const formeSpark = (x) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis son 12e match de la saison", "Game by game, since his 12th game of the season"), spkHI) : "";
-const formeAv = (x) => x?.av != null && n1(x.av) !== n1(x.idx) ? ` · ${L("avant", "was")} ${spkHI(x.av)}` : "";
+// PB Heat % (Mitch, 20 nov.) : la même règle que les autres stats PB, 0 % = égal à lui-même, 100 % = le top 3
+const formeSpark = (x) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis son 12e match de la saison", "Game by game, since his 12th game of the season"), spkPc) : "";
+const formeAv = (x) => pbAv(x);
+const formePc = (x) => x?.pc != null ? pbN(x.pc) : spkHI(x.idx);
 const FORME_ROLE = { A: ["Avant", "Forward"], DO: ["Défenseur offensif", "Offensive D"], DD: ["Défenseur défensif", "Defensive D"] };
 // Une barre « contre sa saison » : le centre = sa moyenne, à droite = mieux, à gauche = moins bien
 const formeBarre = (lib, z) => { const v = Math.max(-2, Math.min(2, z || 0)), g = v < 0;
@@ -6369,7 +6386,7 @@ function formeBloc(f){
   const invis = f.xga?.[0] == null || f.att?.[0] == null ? "" : L(
     `À 5 contre 5, quand il est sur la glace, l'équipe accorde <b>${pc(f.xga[0])}</b> des chances (xG). Pour ses départs en zone défensive (${pc(f.dz[0])}), ses adversaires et son équipe, on s'attendrait à ${pc(f.att[0])} : <b>${ecart(r0)}</b> que l'attendu à ses 10 derniers (${ecart(r1)} cette saison). ${f.pk?.[0] >= 5 ? `En désavantage numérique, il est sur la glace pour ${pc(f.pk[0])} des tirs adverses.` : "Il joue pas en désavantage numérique."}`,
     `At 5-on-5, while he's on the ice, the team gives up <b>${pc(f.xga[0])}</b> of the chances (xG). For his defensive-zone starts (${pc(f.dz[0])}), his opponents and his team, you'd expect ${pc(f.att[0])}: <b>${ecart(r0)}</b> than expected over his last 10 (${ecart(r1)} this season). ${f.pk?.[0] >= 5 ? `On the penalty kill, he's on the ice for ${pc(f.pk[0])} of the shots against.` : "He doesn't kill penalties."}`);
-  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PBHI ${spkHI(f.idx)}${f.rg ? ` · ${L("n° ", "#")}${f.rg}` : ""}${formeAv(f)} · ${L(...FORME_ROLE[f.role])}</span></div>
+  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PBHI ${f.pc != null ? spkPc(f.pc) : spkHI(f.idx)}${f.rg ? ` · ${L("n° ", "#")}${f.rg}` : ""}${formeAv(f)} · ${L(...FORME_ROLE[f.role])}</span></div>
     <div class="fen-therm"><i style="left:${(pos * 100).toFixed(0)}%"></i></div>
     <div class="fs-b"><small>${L("Très froid", "Ice cold")}</small><small>${L("Sa saison", "His season")}</small><small>${L("En feu", "On fire")}</small></div>
     ${formeSpark(f)}
@@ -6381,9 +6398,9 @@ function formeBloc(f){
 async function formeOnglet(){
   const el = $("#forme");
   if (!FORME){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerForme(); }
-  const tete = `<div class="cp-tete">${titrePB("PB Heat Index", (S.forme_s || "chaud") === "froid" ? L("Top 100 : les plus cold", "Top 100: the coldest") : L("Top 100 : les plus hot", "Top 100: the hottest"))}<p>${L(
-    "Qui est le plus en forme par rapport à lui-même : ses 10 derniers matchs contre sa saison, en attaque, en défense (ce qui se passe à 5 contre 5 quand il est sur la glace, ajusté pour ses départs en zone défensive et ses adversaires) et dans son utilisation. Bref : qui est hot, qui est cold présentement.",
-    "Who's hottest compared to himself: his last 10 games against his season, on offense, on defense (what happens at 5-on-5 while he's on the ice, adjusted for his defensive-zone starts and his opponents) and in his usage. In short: who's hot and who's cold right now.")}</p></div>`;
+  const tete = `<div class="cp-tete">${titrePB("PB Heat %", (S.forme_s || "chaud") === "froid" ? L("Top 100 : les plus cold", "Top 100: the coldest") : L("Top 100 : les plus hot", "Top 100: the hottest"))}<p>${L(
+    "Qui est le plus en forme par rapport à lui-même : ses 10 derniers matchs contre sa saison, en attaque, en défense (ce qui se passe à 5 contre 5 quand il est sur la glace, ajusté pour ses départs en zone défensive et ses adversaires) et dans son utilisation. Bref : qui est hot, qui est cold présentement. PB Heat % : 0 % = égal à lui-même, 100 % = aussi hot que les 3 plus hot de la ligue (le n° 1 peut dépasser), négatif = cold.",
+    "Who's hottest compared to himself: his last 10 games against his season, on offense, on defense (what happens at 5-on-5 while he's on the ice, adjusted for his defensive-zone starts and his opponents) and in his usage. In short: who's hot and who's cold right now. PB Heat %: 0% = his usual self, 100% = as hot as the league's 3 hottest (No. 1 can go over), negative = cold.")}</p></div>`;
   if (!FORME?.joueurs){ el.innerHTML = tete + `<div class="card"><div class="vide">${L("Arrive au prochain calcul.", "Coming with the next update.")}</div></div>`; return; }
   const sens = S.forme_s || "chaud", pos = S.forme_pos || "";
   $("#f-forme").innerHTML = [["chaud", "Les plus chauds", "Hottest"], ["froid", "Les plus froids", "Coldest"]].map(([k, f_, e_]) => `<button class="chip big" data-forme="${k}" aria-pressed="${sens === k}">${L(f_, e_)}</button>`).join("");
@@ -6399,7 +6416,7 @@ async function formeOnglet(){
     return `<div class="wi-l wi-r fo-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}${glob ? mvtHTML(sens === "chaud" ? x.dr : -x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
       <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${L(...FORME_ROLE[x.role])} · ${n1(x.pts[0])} pt/${L("match", "game")} (${n1(x.pts[1])})</small>
       <span class="fo-mini">${formeBarre(L("Att.", "Off."), x.v.att)}${formeBarre(L("Déf.", "Def."), x.v.def)}${formeBarre(L("Util.", "Use"), x.v.use)}</span></span>
-      <span class="v"><b style="color:${N[3]}">${spkHI(x.idx)}</b>${AB("PBHI")}<small>${L(N[1], N[2])}${formeAv(x)}</small>${formeSpark(x)}</span></div>`; }).join("")
+      <span class="v">${formePc(x)}${AB("PBHI")}<small>${L(N[1], N[2])}${formeAv(x)}</small>${formeSpark(x)}</span></div>`; }).join("")
     + `<p class="aide">${L(`Au moins ${12} matchs joués. Ça évalue sa forme récente, ce qui vient de se passer, pas ce qui s'en vient. Mis à jour le`,
       `At least ${12} games played. It rates his recent form, what just happened, not what comes next. Updated`)} ${dateCourte(FORME.maj)}.</p>`;
 }
@@ -7336,6 +7353,26 @@ async function ficheDeco(c){
 }
 new MutationObserver(() => document.querySelectorAll(".wi-carte[data-pid]:not([data-deco])").forEach(ficheDeco))
   .observe(document.documentElement, { childList: true, subtree: true });
+// L'explication des sections, repliée (Mitch, 20 nov. : « on dirait que ça cache toute la page, rends ça pratique ») :
+// le titre reste, l'explication passe dans un « ▸ C'est quoi, <section> ? » qu'on ouvre au besoin, comme « Comment lire
+// cette page ». Une explication courte (une ligne) reste ouverte. Fait une fois par en-tête (data-pli).
+function cpPlier(t){
+  t.dataset.pli = "1";
+  const ps = [...t.querySelectorAll(":scope > p:not(.st-pb)")];
+  if (!ps.length || ps.reduce((n, p) => n + p.textContent.length, 0) < 140) return;
+  const nom = (t.querySelector("h2")?.textContent || "").trim();
+  const d = document.createElement("details");
+  d.className = "cp-plus";
+  d.innerHTML = `<summary>${L("C'est quoi, ", "What is ")}${nom.replace(/[<>&]/g, "")}${L(" ?", "?")}</summary>`;
+  ps.forEach(p => d.appendChild(p));
+  // Ouverte, elle le reste quand la section se redessine (un filtre, un tri)
+  if (CP_OUVERT.has(nom)) d.open = true;
+  d.addEventListener("toggle", () => d.open ? CP_OUVERT.add(nom) : CP_OUVERT.delete(nom));
+  t.appendChild(d);
+}
+const CP_OUVERT = new Set();
+new MutationObserver(() => document.querySelectorAll(".cp-tete:not([data-pli])").forEach(cpPlier))
+  .observe(document.documentElement, { childList: true, subtree: true });
 let NAT = null, NAT_p = null;
 const natCharger = () => NAT_p || (NAT_p = fetch("nat.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (NAT = x || {})));
 const natDrap = (i2) => i2 ? i2.replace(/./g, c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)) : "";
@@ -7590,7 +7627,8 @@ function trxhCarte(t, i){
 function trxhPop(t){
   const eqs = t.eqs || Object.keys(t.recoit || {}), n = t.notes;
   const vA = (a, e) => a.autre ? "" : a.v > 0 ? `${Math.round(a.v)} pts PB · ${a.sa} ${a.sa > 1 ? L("saisons", "seasons") : L("saison", "season")} · ${a.pj} ${L("matchs avec", "games with")} ${ville(e)}`
-    : a.id ? L(`n'a jamais vraiment joué pour ${ville(e)}`, `never really played for ${ville(e)}`) : a.choix && !a.n ? L("joueur repêché inconnu", "unknown pick") : L("jamais dans la ligue (ou nom introuvable)", "never in the league (or name not found)");
+    : a.re ? L(`échangé de nouveau : repêché par ${ville(a.re)}`, `traded again: drafted by ${ville(a.re)}`) : a.futur ? L("pas encore repêché", "not drafted yet")
+    : a.id ? L(`n'a jamais vraiment joué pour ${ville(e)}`, `never really played for ${ville(e)}`) : a.choix && !a.n ? L("joueur repêché introuvable", "pick not found") : L("jamais dans la ligue (ou nom introuvable)", "never in the league (or name not found)");
   const liste = (a, e) => (a || []).map(x => `<p>${trxhActif(x)}<small>${vA(x, e)}</small></p>`).join("") || `<p><small>–</small></p>`;
   const C = palette(eqs[0] || "MTL");
   const page = t.page || (t.s ? `${t.s.slice(0, 4)}–${t.s.slice(0, 4) === "1999" ? "2000" : t.s.slice(6, 8)} NHL transactions` : "");
@@ -7755,7 +7793,7 @@ async function arbOnglet(){
     : tri === "avance" || tri === "retard" ? [sg2(etat(x, tri)), tri === "avance" ? L("quand son équipe mène", "when his team leads") : L("quand son équipe tire de l'arrière", "when his team trails")]
     : [sg2(x.net), L("vs attendu, par heure", "vs expected, per hour")];
   const lg = ARB.ligue60 || {};
-  const tete = `<div class="cp-tete">${titrePB("PB Ref Bias", L("Les arbitres", "The refs"))}<p>${L(
+  const tete = `<div class="cp-tete">${titrePB("PB Ref Bias %", L("Les arbitres", "The refs"))}<p>${L(
     "Les gars que les arbitres ont dans le collimateur, et leurs chouchous. Pour chaque joueur, on compte les pénalités qu'il se fait siffler et celles qu'il fait siffler contre l'autre équipe. Puis on compare avec un joueur pareil, à la même position, avec le même temps de glace et dans les mêmes situations : les arbitres sifflent plus facilement contre l'équipe qui mène, alors un gars qui joue souvent en avance n'est pas puni pour ça. Négatif = il se fait siffler plus et obtient moins que prévu : les arbitres l'aiment pas. Positif = un chouchou. Touche un joueur pour le détail.",
     "The players the refs have their eye on, and their favorites. For each player, we count the penalties called on him and the ones he draws from the other team. Then we compare with a similar player, at the same position, with the same ice time and in the same situations: refs call penalties more easily against the team that's leading, so a guy who often plays with the lead isn't punished for it. Negative = he gets called more and draws less than expected: the refs don't like him. Positive = a favorite. Tap a player for the details.")}</p></div>${lireHTML(L("pénalités en sa faveur moins contre lui, par rapport à ce qui était attendu, par heure de jeu.", "penalties for him minus against him, compared with what was expected, per hour of play."))}`;
   const regles = `<details class="card wi-regles"><summary>${L("Comment c'est calculé", "How it's computed")}</summary>${L(
@@ -7786,7 +7824,7 @@ function arbCarte(id){
     <div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("Obt.", "Drawn")}</th><th>${L("Att.", "Exp.")}</th><th>${L("Prises", "Taken")}</th><th>${L("Att.", "Exp.")}</th></tr></thead><tbody>
     ${E.map(([k, n]) => { const v = x.etats?.[k] || []; return `<tr><td>${n}</td><td>${n1a(v[0])}</td><td>${n1a(v[1])}</td><td>${n1a(v[2])}</td><td>${n1a(v[3])}</td></tr>`; }).join("")}
     <tr><td><b>Total</b></td><td><b>${n1a(x.ob)}</b></td><td>${n1a(x.ob_att)}</td><td><b>${n1a(x.pr)}</b></td><td>${n1a(x.pr_att)}</td></tr></tbody></table></div></div>`;
-  ptCarte(m, x, sg2(x.net), "PBRB · PB Ref Bias",
+  ptCarte(m, x, sg2(x.net), "PBRB · PB Ref Bias %",
     `${L("Arbitres n° ", "Refs #")}${x.rg} ${L("sur", "of")} ${ARB.joueurs.length} ${L("(1 = le moins aimé)", "(1 = least liked)")} · ${x.eq}`);
   m.hidden = false;
 }
@@ -7895,7 +7933,7 @@ async function gcrOnglet(){
     const [val, lib] = gcrVal(x, tri);
     const fiche = x.fiche ? `${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : "";
     return `<button class="wi-l wi-r gcr-j" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${tri === "gcr" ? x.rg : i + 1}${mvtHTML(pbDr(x, tri === "gcr" ? null : tri))}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span>
-      <span class="nm">${nomP(x.n, "g")}<small>${x.eq} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
+      <span class="nm">${nomP(x.n, "g")}<small>${x.eq}${ROLES_G[nrm(x.n)] ? " · " + roleGLong(ROLES_G[nrm(x.n)]) : ""} · ${x.pj} ${L("matchs", "games")}${fiche ? " · " + fiche : ""}${x.sv != null ? " · " + sv3(x.sv) : ""}</small><span class="wi-st">GSAx ${sgn(x.gsax, 1)} · ${L("devant lui", "in front of him")} ${n2g(x.xga60_5)} xGA/60${x.conf != null ? ` · ${L("confiance", "confidence")} ${sgn(x.conf)}` : ""}</span></span>
       <span class="v">${coteHTML(x.rg, GCR.gardiens.length, false)}${tri === "gcr" ? `${x.pc != null ? pbN(x.pc) : val}${AB("PBGC")}<small>${lib}${pbAv(x)}</small>${pbSpark(x, x.h)}`
         : pbBloc(x, tri, "PBGC", L(...GCR_TRIS[tri]), `${val} ${lib}`) ?? `${val}<small>${lib}</small>`}</span></button>`; }).join("") || `<div class="card"><div class="vide">${L("Aucun gardien trouvé.", "No goalie found.")}</div></div>`;
   const eqG = Object.entries(parEq(GCR.gardiens, x => x.eq, x => tri === "gcr" ? (x.pc ?? null) : (x.pcs?.[tri] ?? null), x => x.min)).map(([t, a]) => ({ t, v: moyP(a), txt: pbTxt(moyP(a)) }));
@@ -7909,7 +7947,7 @@ function gcrCarte(id){
   const autres = GCR.gardiens.filter(g => g.eq === x.eq && g.id !== x.id).map(g => g.n);
   const m = fenCible("gcr", id); if (!m) return;          // la fenêtre joueur (sinon : le popup du robot des posts)
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" data-pid="${x.id ?? id}" data-ms="${saisonCour()}:${String(x.eq || eqPrincipale(x) || "").split(",").pop()}" style="${eqV(x.eq)}">
-    <header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span><div><b>${x.n}</b><span>PBGC ${L("n° ", "#")}${x.rg} · ${x.eq}</span><span>${x.pj} ${L("matchs", "games")} · ${x.min} min${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
+    <header><div class="wi-hd"><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(x.no, x.n, "G")}</span><div><b>${x.n}</b><span>PBGC ${L("n° ", "#")}${x.rg} · ${x.eq}${ROLES_G[nrm(x.n)] ? " · " + roleGLong(ROLES_G[nrm(x.n)]) : ""}</span><span>${x.pj} ${L("matchs", "games")} · ${x.min} min${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-txt">
       <p class="gcr-gros"><b>${x.pc != null ? pbN(x.pc) : x.gcr}</b> PBGC${x.pc != null ? ` <small>(${L("note", "rating")} ${x.gcr}${ptTxt(pbAv(x))})</small>` : ""}</p>
       <p><b>${L("Il arrête plus que prévu", "Saves above expected")} (${Math.round((P.gsax || 0) * 100)} %)</b> ${barre(x.z?.gsax)}<br>${L(`${sgn(x.gsax, 1)} buts sauvés de plus que prévu (${sgn(x.gsax60 * 60 / 60, 3)} par 60 min, ajusté). % d'arrêts ${sv3(x.sv)}, attendu ${sv3(x.xsv)}.`, `${sgn(x.gsax, 1)} goals saved above expected (${sgn(x.gsax60, 3)} per 60 min, adjusted). Save % ${sv3(x.sv)}, expected ${sv3(x.xsv)}.`)}</p>
@@ -8530,7 +8568,7 @@ const COR_STATS = [
   ["rythme", "Rythme actuel (pts sur 82)", "Current pace (pts over 82)", "pb", (j) => j.prj?.rythme?.pts != null ? Math.round(j.prj.rythme.pts) : null],
   ["pbcs", "PB Chemistry % (son meilleur duo)", "PB Chemistry % (his best duo)", "pb", (j) => j.chem],
   ["pbgc", "PB Goalie Confidence %", "PB Goalie Confidence %", "pb", (j) => j.gcr?.pc ?? j.gcr?.gcr],
-  ["pbhi", "PB Heat Index (forme récente)", "PB Heat Index (recent form)", "pb", (j) => j.pbhi ?? null],
+  ["pbhi", "PB Heat % (forme récente)", "PB Heat % (recent form)", "pb", (j) => j.pbhi ?? null],
   ["sv", "% d'arrêts (gardiens)", "Save % (goalies)", "base", (j) => j.sal?.t === "g" && j.sal.sv != null ? +(j.sal.sv * 100).toFixed(1) : null],
   ["pbera", "PB Stats : points en carrière (ajustés)", "PB Stats: career points (adjusted)", "pb", (j) => j.wi?.w?.[3] != null ? Math.round(j.wi.w[3]) : null],
   ["vrai", "Vrai contrat", "Real contract", "contrat", (j) => j.sal?.vrai, fM],
@@ -8624,7 +8662,7 @@ async function corDonnees(sai){
   }
   if (pwr) for (const x of [...(pwr.joueurs || []), ...(pwr.gardiens || [])]) if (J[String(x.id)]) J[String(x.id)].pwr = x;
   // PBHI, la forme récente (saison en cours seulement : forme.json n'est pas archivé)
-  if (!sai){ await chargerForme(); for (const [id, f] of Object.entries(FORME?.joueurs || {})) if (J[id]) J[id].pbhi = f.idx; }
+  if (!sai){ await chargerForme(); for (const [id, f] of Object.entries(FORME?.joueurs || {})) if (J[id]) J[id].pbhi = f.pc ?? null; }
   for (const j of Object.values(J)){ const s = j.sal || j.phy || j.prj || j.gcr || {}; j.n = s.n ?? j.x_n; j.eq = s.eq ?? j.x_eq; j.no = s.no; j.pos = s.pos ?? j.x_pos; j.pj = j.sal?.pj ?? j.phy?.pj ?? j.prj?.pj ?? j.gcr?.pj ?? j.x_pj ?? 0; }
   return (COR.cache[sai] = { J: Object.values(J).filter(j => j.n), comp, x });
 }
@@ -9192,8 +9230,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=881bb933" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=881bb933" defer></script>
-<script src="nav.js?v=94d3b6ccce" defer></script>
+<script src="pub.js?v=d54a64bc" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=d54a64bc" defer></script>
+<script src="nav.js?v=491137852a" defer></script>
 </body>
 </html>

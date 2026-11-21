@@ -249,7 +249,8 @@ def story(it):
         # Les stories des posts du matin (it["jingle"]) : un des 3 jingles PuckProb, pas la musique des matchs
         if it.get("courte"):
             # Les stories de 7 s (Mitch, 15 nov. 2026) : « matin » (matin et minuit) ou « match » (pre-game)
-            mp4 = story_match.video_courte((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"], it["courte"])
+            mp4 = story_match.video_courte((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"], it["courte"],
+                                           **({"sans_fin": True} if it.get("sans_fin") else {}))
         elif it.get("jingle"):
             mp4 = story_match.video_jingle((RACINE / it["cadre"]).read_bytes(), Path(tmp) / "story.mp4", it["id"])
         else:
