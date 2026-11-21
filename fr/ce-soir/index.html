@@ -375,6 +375,8 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
+.wi-palm.palm-bas{display:flex;flex-wrap:wrap;gap:8px 8px;padding:12px 16px 6px;--te:46px;position:static}
+.wi-palm.palm-bas .tr-b{flex:none}
 /* Équipe et coach : les emblèmes sous la plaque, toute la largeur (comme la fiche du joueur), jamais par-dessus le nom */
 .fen-eq header:has(.wi-palm),.fen-co header:has(.wi-palm){flex-wrap:wrap}
 .fen-eq header .wi-palm,.fen-co header .wi-palm{position:static!important;order:9;flex:0 0 100%;max-width:100%;justify-content:flex-start;margin-top:8px}
@@ -1163,7 +1165,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=394112af">
+<link rel="stylesheet" href="carte.css?v=6cf483e2">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7840,8 +7842,16 @@ async function ficheDeco(c){
     im.src = `https://assets.nhle.com/mugs/nhl/${s}/${t}/${id}.png`;
     h.appendChild(im);
   }
-  // Ses trophées gagnés, dans le vide à droite de sa plaque (Mitch, 20 nov. 2026) : un emblème par trophée remporté
-  palmCharger().then(() => { if (!h.querySelector(".wi-palm")) h.insertAdjacentHTML("beforeend", palmEmblemes(id)); });
+  // Ses bannières (Mitch, 21 nov. 2026 : « rentre-les entre Born in pis Overview ») : sous ses tuiles (grandeur, poids,
+  // repêchage, né à), juste avant les onglets, toute la largeur, sur plusieurs rangées au besoin (plus rien de coupé).
+  // Ailleurs qu'en fenêtre (pas d'onglets) : sous la fiche.
+  palmCharger().then(() => {
+    const f = c.closest("#fenetre"), nav = f?.querySelector(".fen-ongl");
+    if ((f || c).querySelector(".wi-palm")) return;
+    const html = palmEmblemes(id).replace('class="wi-palm" style="--te:40px"', 'class="wi-palm palm-bas" style="--te:46px"');
+    if (!html) return;
+    if (nav) nav.insertAdjacentHTML("beforebegin", html); else c.insertAdjacentHTML("beforeend", html);
+  });
   await biosCharger();
   const b = BIOS?.[id]; if (!b) return;
   const [po, lb, main, dy, dr, dp, dt, ville, prov, pays] = b;
@@ -9770,8 +9780,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=394112af" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=394112af" defer></script>
+<script src="pub.js?v=6cf483e2" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=6cf483e2" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>

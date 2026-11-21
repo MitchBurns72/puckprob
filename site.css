@@ -347,6 +347,8 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
+.wi-palm.palm-bas{display:flex;flex-wrap:wrap;gap:8px 8px;padding:12px 16px 6px;--te:46px;position:static}
+.wi-palm.palm-bas .tr-b{flex:none}
 /* Équipe et coach : les emblèmes sous la plaque, toute la largeur (comme la fiche du joueur), jamais par-dessus le nom */
 .fen-eq header:has(.wi-palm),.fen-co header:has(.wi-palm){flex-wrap:wrap}
 .fen-eq header .wi-palm,.fen-co header .wi-palm{position:static!important;order:9;flex:0 0 100%;max-width:100%;justify-content:flex-start;margin-top:8px}
