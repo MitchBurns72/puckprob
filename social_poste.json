@@ -2299,6 +2299,20 @@
   "publie": true,
   "quand": "2026-11-21T09:10-05:00"
  },
+ "2026-11-21-matin-fil-r2": {
+  "fb": "1508565075663838_122114011539537152",
+  "fb_com": "122114011539537152_4119561215012603",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-21"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-21/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-21/",
+  "titre": "PB On The Wire · Les Rangers perdent Bjorkstrand et vont chercher Sasson",
+  "publie": true,
+  "quand": "2026-11-21T10:30-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
