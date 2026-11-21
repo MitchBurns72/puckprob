@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-21",
- "maj": "2026-11-21T07:46-05:00",
+ "maj": "2026-11-21T10:07-05:00",
  "publier": true,
  "items": [
   {
@@ -78,6 +78,25 @@
    "lien_en": "https://puckprob.ca/",
    "titre": "Last Night's Biggest Movers",
    "diapo": null
+  },
+  {
+   "id": "2026-11-21-matin-fil-r2",
+   "quand": "2026-11-21T10:29-05:00",
+   "image": "social/fil/2026-11-21/2026-11-21-matin-fil-r2.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · Les Rangers perdent Bjorkstrand et vont chercher Sasson\n\nJournée chargée à New York : les Rangers placent Oliver Bjorkstrand sur la liste des blessés, rappellent Taylor Raddysh et vont chercher Max Sasson à Vancouver. À Toronto, ça ne s'arrange pas, et à Pittsburgh, l'agent de Crosby répond aux rumeurs.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · Rangers lose Bjorkstrand, go get Sasson\n\nBusy day in New York: the Rangers put Oliver Bjorkstrand on injured reserve, recall Taylor Raddysh and pick up Max Sasson from Vancouver. In Toronto, things aren't getting better, and in Pittsburgh, Crosby's agent responds to the rumours.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · Les Rangers perdent Bjorkstrand et vont chercher Sasson\n\nJournée chargée à New York : les Rangers placent Oliver Bjorkstrand sur la liste des blessés, rappellent Taylor Raddysh et vont chercher Max Sasson à Vancouver. À Toronto, ça ne s'arrange pas, et à Pittsburgh, l'agent de Crosby répond aux rumeurs.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · Rangers lose Bjorkstrand, go get Sasson\n\nBusy day in New York: the Rangers put Oliver Bjorkstrand on injured reserve, recall Taylor Raddysh and pick up Max Sasson from Vancouver. In Toronto, things aren't getting better, and in Pittsburgh, Crosby's agent responds to the rumours.\n\nFull article: link in bio.",
+   "com": "Les Rangers perdent Bjorkstrand et vont chercher Sasson\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-21/\n\nRangers lose Bjorkstrand, go get Sasson\nhttps://puckprob.ca/on-the-wire/2026-11-21/",
+   "com_ig": "Les Rangers perdent Bjorkstrand et vont chercher Sasson\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nRangers lose Bjorkstrand, go get Sasson",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-21"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-21/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-21/",
+   "titre": "PB On The Wire · Les Rangers perdent Bjorkstrand et vont chercher Sasson"
   },
   {
    "id": "2026-11-21-recap",
