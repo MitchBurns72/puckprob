@@ -1157,7 +1157,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=76c1680e">
+<link rel="stylesheet" href="carte.css?v=df06d590">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7414,7 +7414,7 @@ function trophEmb(k, taille = 28, s = null){
     const N = TROPH_NOM[k] || [k.toUpperCase()], lg = Math.max(...N.map(m => m.length)), fs = Math.min(N.length === 1 ? 26 : 24, Math.floor(62 / (0.56 * lg)));
     const yc = s ? 46 : 56;
     t = N.map((m, i) => ligne(m, 40, yc + (i - (N.length - 1) / 2) * fs * 0.95, fs, 62, fg)).join("");
-    if (s) t += `<rect x="12" y="70" width="56" height="1.5" fill="${bd}" opacity=".7"/><text x="40" y="86" text-anchor="middle" font-family="${F_}" font-weight="800" font-size="17" fill="${bd}">${sai2(s)}</text>`;
+    if (s) t += `<rect x="12" y="70" width="56" height="1.5" fill="${bd}" opacity=".7"/><text x="40" y="86" text-anchor="middle" font-family="${F_}" font-weight="800" font-size="${String(s).startsWith("×") ? 22 : 17}" fill="${bd}">${String(s).startsWith("×") ? s : sai2(s)}</text>`;
   } else if (taille >= 18){
     t = ligne(TROPH_INI[k] || "", 40, 54, 40, 60, fg);
   }
@@ -7490,8 +7490,11 @@ function palmEmblemes(id){
 // Tous les emblèmes, même 20 (Mitch, 20 nov. : « si y en a 20, j'en veux 20, fais ça fitter ») : plus il y en a, plus
 // ils sont petits (3 rangées au plus dans le vide à droite de la plaque)
 function palmRangee(L_, T){
-  // Tous les emblèmes, un par trophée gagné (10 = 10 emblèmes, jamais « ×10 ») : une rangée qu'on glisse du doigt
-  return `<div class="wi-palm" style="--te:40px">${L_.map(([k, s]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}">${trophEmb(k, 40, s)}</button>`).join("")}</div>`;
+  // Mitch, 21 nov. (Gretzky : 10 Art-Ross ne fittent pas sur un cell) : une bannière par trophée, « ×10 » dedans quand
+  // il l'a gagné plus d'une fois (la saison quand c'est une seule fois) ; les saisons sont dans l'étiquette
+  const G = [];
+  for (const [k, s] of L_){ const g = G.find(x => x.k === k); g ? g.s.push(s) : G.push({ k, s: [s] }); }
+  return `<div class="wi-palm" style="--te:40px">${G.map(({ k, s }) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} : ${s.map(sai2).join(", ")}">${trophEmb(k, 40, s.length > 1 ? "×" + s.length : s[0])}</button>`).join("")}</div>`;
 }
 const ouvrirTrophee = (k) => fenPousser("t:" + k, "#" + (EN ? "trophy" : "trophee") + "/" + k);
 const ouvrirCoach = (id) => fenPousser("c:" + id, "#coach/" + id);
@@ -9552,8 +9555,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=76c1680e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=76c1680e" defer></script>
+<script src="pub.js?v=df06d590" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=df06d590" defer></script>
 <script src="nav.js?v=bf0a64ecfe" defer></script>
 </body>
 </html>

@@ -1,6 +1,24 @@
 {
- "maj": "2026-11-21T01:29-05:00",
+ "maj": "2026-11-21T07:45-05:00",
  "articles": [
+  {
+   "jour": "2026-11-21",
+   "saison": "20262027",
+   "titre": {
+    "fr": "Les Rangers perdent Bjorkstrand et vont chercher Sasson",
+    "en": "Rangers lose Bjorkstrand, go get Sasson"
+   },
+   "jusqu": "2026-11-21T12:17",
+   "chapeau": {
+    "fr": "Journée chargée à New York : les Rangers placent Oliver Bjorkstrand sur la liste des blessés, rappellent Taylor Raddysh et vont chercher Max Sasson à Vancouver. À Toronto, ça ne s'arrange pas, et à Pittsburgh, l'agent de Crosby répond aux rumeurs.",
+    "en": "Busy day in New York: the Rangers put Oliver Bjorkstrand on injured reserve, recall Taylor Raddysh and pick up Max Sasson from Vancouver. In Toronto, things aren't getting better, and in Pittsburgh, Crosby's agent responds to the rumours."
+   },
+   "vedette": "Oliver Bjorkstrand",
+   "vid": "8477416",
+   "veq": "NYR",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-20",
    "saison": "20262027",

@@ -1,0 +1,123 @@
+{
+ "jour": "2026-11-21",
+ "par": "claude",
+ "titre": {
+  "fr": "Les Rangers perdent Bjorkstrand et vont chercher Sasson",
+  "en": "Rangers lose Bjorkstrand, go get Sasson"
+ },
+ "titre_court": {
+  "fr": "Bjorkstrand sort, Sasson entre",
+  "en": "Bjorkstrand out, Sasson in"
+ },
+ "chapeau": {
+  "fr": "Journée chargée à New York : les Rangers placent Oliver Bjorkstrand sur la liste des blessés, rappellent Taylor Raddysh et vont chercher Max Sasson à Vancouver. À Toronto, ça ne s'arrange pas, et à Pittsburgh, l'agent de Crosby répond aux rumeurs.",
+  "en": "Busy day in New York: the Rangers put Oliver Bjorkstrand on injured reserve, recall Taylor Raddysh and pick up Max Sasson from Vancouver. In Toronto, things aren't getting better, and in Pittsburgh, Crosby's agent responds to the rumours."
+ },
+ "corps": {
+  "fr": [
+   {
+    "p": "Les Rangers ont eu une journée occupée. D'abord, la mauvaise nouvelle : [[8477416|Oliver Bjorkstrand]] s'en va sur la liste des blessés ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/rangers-recall-taylor-raddysh-place-oliver-bjorkstrand-on-ir.html)). C'est 7 buts et 11 points en 22 matchs, et notre **PB Market Value** l'évalue à 5,7 M$, plus que les 4,5 M$ qu'il coûte. [[8479390|Taylor Raddysh]] monte de Hartford pour combler le vide, mais avec 1 point en 6 matchs, il ne remplacera pas cette production-là tout seul."
+   },
+   {
+    "p": "C'est peut-être pour ça que le DG n'a pas attendu. New York a obtenu [[8484136|Max Sasson]] des Canucks en retour de son propre choix de 4e tour en 2029 ([Daily Faceoff](https://www.dailyfaceoff.com/news/new-york-rangers-max-sasson-vancouver-canucks-nhl-trade-news-transactions), [RDS](https://www.rds.ca/hockey/lnh/article/atlnh-brendan-gallagher-mal-en-point/)). Le centre de 26 ans a 8 points en 23 matchs, et sa PB Market Value (3,3 M$) dépasse de loin son contrat (1,0 M$). Pour un 4e tour, c'est un beau petit vol. Les Rangers, 13es de nos **Power rankings** (+3 cette semaine) et 6-4-0 à leurs 10 derniers, ont 58,4 % de chances de faire les séries. À Vancouver, 31e et à 0,3 % de chances, on fait du ménage."
+   },
+   {
+    "p": "À Toronto, c'est de pire en pire. Les Leafs placent le défenseur [[8484287|Cole McWard]] sur la liste des blessés, mais le vrai problème, c'est la fiche : 1-8-1 à leurs 10 derniers matchs. Ils glissent de cinq rangs au 27e échelon de nos Power rankings, avec 3,4 % de chances de faire les séries. Il reste du temps, mais le trou est creux."
+   },
+   {
+    "p": "À Pittsburgh, l'agent de [[8471675|Sidney Crosby]] a commenté les spéculations d'échange ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/metropolitan-notes-crosby-silaev-mayhew.html)). Le capitaine a 13 points en 20 matchs, et sa PB Market Value (9,8 M$) dépasse encore son salaire (8,7 M$). Les Penguins sont 22es de nos Power rankings. Le dossier n'est pas près de se refermer."
+   },
+   {
+    "h": "En rafale"
+   },
+   {
+    "liste": [
+     "Le New Jersey renvoie le défenseur [[8484987|Anton Silaev]] dans la Ligue américaine ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/metropolitan-notes-crosby-silaev-mayhew.html)). Les Devils roulent quand même : 7-3-0 à leurs 10 derniers et 77,9 % de chances de faire les séries.",
+     "Seattle retourne le gardien Niklas Kokko à Coachella Valley. Le Kraken, 23e de nos Power rankings (-3), est à 43,0 % de chances pour les séries."
+    ]
+   },
+   {
+    "p": "Pour voir où chaque équipe se situe après cette journée-là, nos **Power rankings** sont mis à jour chaque nuit sur PuckProb."
+   }
+  ],
+  "en": [
+   {
+    "p": "The Rangers had a busy day. The bad news first: [[8477416|Oliver Bjorkstrand]] goes on injured reserve ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/rangers-recall-taylor-raddysh-place-oliver-bjorkstrand-on-ir.html)). That's 7 goals and 11 points in 22 games, and our **PB Market Value** pegs him at $5.7M, more than the $4.5M he costs. [[8479390|Taylor Raddysh]] comes up from Hartford to fill the gap, but with 1 point in 6 games, he won't replace that production on his own."
+   },
+   {
+    "p": "Maybe that's why the GM didn't wait. New York got [[8484136|Max Sasson]] from the Canucks for its own 2029 fourth-round pick ([Daily Faceoff](https://www.dailyfaceoff.com/news/new-york-rangers-max-sasson-vancouver-canucks-nhl-trade-news-transactions), [RDS](https://www.rds.ca/hockey/lnh/article/atlnh-brendan-gallagher-mal-en-point/)). The 26-year-old centre has 8 points in 23 games, and his PB Market Value ($3.3M) is way above his contract ($1.0M). For a fourth-rounder, that's a nice little steal. The Rangers, 13th in our **Power rankings** (+3 this week) and 6-4-0 in their last 10, have a 58.4% prob of making the playoffs. In Vancouver, 31st with a 0.3% prob, the cleanup is on."
+   },
+   {
+    "p": "In Toronto, it keeps getting worse. The Leafs put defenceman [[8484287|Cole McWard]] on injured reserve, but the real problem is the record: 1-8-1 in their last 10 games. They slide five spots to 27th in our Power rankings, with a 3.4% prob of making the playoffs. There's still time, but the hole is deep."
+   },
+   {
+    "p": "In Pittsburgh, [[8471675|Sidney Crosby]]'s agent commented on the trade speculation ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/metropolitan-notes-crosby-silaev-mayhew.html)). The captain has 13 points in 20 games, and his PB Market Value ($9.8M) still tops his salary ($8.7M). The Penguins are 22nd in our Power rankings. This story isn't going away anytime soon."
+   },
+   {
+    "h": "Quick hits"
+   },
+   {
+    "liste": [
+     "New Jersey sends defenceman [[8484987|Anton Silaev]] down to the AHL ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/metropolitan-notes-crosby-silaev-mayhew.html)). The Devils are rolling anyway: 7-3-0 in their last 10 and a 77.9% prob of making the playoffs.",
+     "Seattle sends goalie Niklas Kokko back to Coachella Valley. The Kraken, 23rd in our Power rankings (-3), sit at a 43.0% playoff prob."
+    ]
+   },
+   {
+    "p": "To see where every team stands after a day like this, our **Power rankings** are updated every night on PuckProb."
+   }
+  ]
+ },
+ "vedette": {
+  "id": "8477416",
+  "n": "Oliver Bjorkstrand",
+  "eq": "NYR",
+  "no": 28,
+  "etiquette": {
+   "fr": "Sur la liste des blessés",
+   "en": "On injured reserve"
+  },
+  "sous": {
+   "fr": "NY Rangers · 13e des Power rankings",
+   "en": "NY Rangers · 13th in Power rankings"
+  },
+  "cases": [
+   {
+    "v": "11",
+    "fr": "pts en 22 PJ",
+    "en": "pts in 22 GP"
+   },
+   {
+    "v": "5,7 M$",
+    "v_en": "$5.7M",
+    "fr": "PB Market Value",
+    "en": "PB Market Value"
+   }
+  ]
+ },
+ "points": {
+  "fr": [
+   "Sasson aux Rangers pour un choix de 4e tour",
+   "Toronto : 1 victoire en 10 matchs",
+   "L'agent de Crosby répond aux rumeurs"
+  ],
+  "en": [
+   "Sasson to the Rangers for a 4th-round pick",
+   "Toronto: 1 win in 10 games",
+   "Crosby's agent responds to the rumours"
+  ]
+ },
+ "ids": [
+  "n:71e1fa3031bf",
+  "47a5856bae16",
+  "n:e016c01cb08e",
+  "n:c5a0c1a67193",
+  "n:6a7c41898398",
+  "n:f0631d826dea",
+  "07857bf7902d",
+  "8f37380e1017"
+ ],
+ "depuis": "2026-11-20T22:38",
+ "jusqu": "2026-11-21T12:17",
+ "saison": "20262027",
+ "auteur": "PuckProb.ca"
+}
