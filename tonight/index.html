@@ -406,6 +406,10 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .tro-embs{display:flex;gap:2px;margin-top:3px}
 .fen-co .co-ico{flex:none;width:72px;height:72px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .fen-co .co-ico img{width:56px;height:56px;object-fit:contain}
+.fen-co .co-ico.co-ph{position:relative;overflow:visible;background:#13335E}
+.fen-co .co-ico.co-ph img{width:72px;height:72px;object-fit:cover;object-position:50% 20%;border-radius:16px}
+.fen-co .co-ico.co-ph i{position:absolute;right:-8px;bottom:-8px;width:30px;height:30px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.4);display:grid;place-items:center;overflow:hidden}
+.fen-co .co-ico.co-ph i img{width:24px!important;height:24px!important;object-fit:contain!important;border-radius:0!important}
 .co-parc{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
 .co-parc div{flex:none;width:86px;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
 .co-parc img{width:26px;height:26px;object-fit:contain} .co-parc b{font:700 21px/.9 "Teko",var(--f-display);white-space:nowrap} .co-parc small{font:800 10px/1 "Barlow Condensed",var(--f-body);color:#4A5D78}
@@ -1157,7 +1161,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=5246b540">
+<link rel="stylesheet" href="carte.css?v=a3bac982">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7601,13 +7605,17 @@ document.addEventListener("click", (e) => { const b = e.target.closest?.(".tro-l
 const COF_O = [["apercu", "Aperçu", "Overview"], ["saisons", "Saisons", "Seasons"], ["joueurs", "Joueurs", "Players"], ["recrues", "Recrues", "Rookies"]];
 async function coachAfficher(id, o = "apercu"){
   fenCadre("c", id, "#coach/" + id, `<div class="vide fen-ch">${L("Chargement…", "Loading…")}</div>`);
-  await Promise.all([chargerCoach(), FEN_CH.sal(), FEN_CH.prj(), palmCharger(), coachsCharger()]);
+  await Promise.all([chargerCoach(), FEN_CH.sal(), FEN_CH.prj(), palmCharger(), coachsCharger(), coPhotosCharger()]);
   if (FEN.k !== "c" || FEN.id !== id) return;
   const sc = CO?.saison, x = CO?.par_saison?.[sc]?.coachs?.find(y => y.id === id);
   if (!x){ fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen"><div class="vide">${L("Ce coach n'est pas actif cette saison.", "This coach isn't active this season.")}</div></div>`); return; }
   const F = COF?.coachs?.[id], tot = coachTot(F), cups = (PALM?.coachs?.[id] || []).filter(c => c[0] === "coupe").length;
   const tuile = (k, v_) => `<div><small>${k}</small><b>${v_}</b></div>`;
-  const icone = `<span class="co-ico"><img src="${LOGO(x.eq)}" alt=""></span>`;
+  // Sa photo (Wikimedia Commons, licence libre, crédit en bas de l'Aperçu) avec le logo de son équipe en pastille ;
+  // sans photo libre : le logo en grand
+  const ph = CO_PH?.[id];
+  const icone = ph ? `<span class="co-ico co-ph"><img src="/coach_photos/${id}.jpg" alt="${x.n}" onerror="this.parentNode.classList.remove('co-ph');this.src='${LOGO(x.eq)}'"><i><img src="${LOGO(x.eq)}" alt=""></i></span>`
+    : `<span class="co-ico"><img src="${LOGO(x.eq)}" alt=""></span>`;
   fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen fen-co" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${icone}<div><b>${nomP(x.n, "c")}</b><span>${L("Entraîneur-chef", "Head coach")} · ${NOMS_EQ[x.eq] || x.eq}</span><span>${x.nsai} ${L(x.nsai > 1 ? "saisons comme coach" : "saison comme coach", x.nsai > 1 ? "seasons as coach" : "season as coach")}</span>
       <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.dev ? `<i>${pbTxt(x.dev.pc)} PB Coach Dev %</i>` : ""}</span></div></div>${PALM?.coachs?.[id]?.length ? palmRangee(PALM.coachs[id], PALM.trophees) : ""}</header>
@@ -7672,6 +7680,8 @@ function coachApercu(id, x){
   if (se) sec.push(`<section class="fen-s"><h3>${L("Son équipe", "His team")} <em>${L("10 derniers matchs", "last 10 games")} · ${eqFiche(se.v, se.d, se.p)}</em></h3>${eqThermo(se)}</section>`);
   const parcours = Object.keys(CO.par_saison).sort().reverse().map(s => [s, CO.par_saison[s].coachs?.find(y => y.id === id)]).filter(([, y]) => y);
   if (parcours.length > 1) sec.push(`<section class="fen-s"><h3>${L("Son PB Coach Boost %, saison par saison", "His PB Coach Boost %, season by season")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>`);
+  const ph = CO_PH?.[id];
+  if (ph) sec.push(`<p class="aide" style="margin:6px 16px 16px">${L("Photo", "Photo")} : ${ph.auteur} · ${ph.licence} · <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(ph.fichier.replace(/ /g, "_"))}" target="_blank" rel="noopener">Wikimedia Commons</a></p>`);
   return sec.join("");
 }
 function coachJoueurs(x){
@@ -7701,6 +7711,9 @@ function coachRecrues(x){
     ${bas.length ? `<section class="fen-s"><h3>${L("En dessous de leur rang", "Below their slot")} <em>${bas.length}</em></h3><div class="fen-ljs">${bas.map(ligne).join("")}</div></section>` : ""}
     <p class="aide" style="margin:6px 16px 16px">${L("Les joueurs dont la 1re saison dans la LNH s'est jouée avec lui (depuis 2014-15), comparés aux joueurs repêchés dans la même tranche de rang, à la même position et à la même saison de carrière, en points ajustés à l'époque. Le coach ne décide pas tout seul (DG, temps de glace, blessures) : c'est ce qui s'est passé, pas une prédiction.", "Players whose first NHL season was with him (since 2014-15), compared with players drafted in the same range, at the same position and the same career season, in era-adjusted points. The coach doesn't decide everything alone (GM, ice time, injuries): this is what happened, not a prediction.")}</p>`;
 }
+// Les photos des coachs (src/coach_fiches.py photos -> /coach_photos/index.json : {slug: {auteur, licence, fichier}})
+let CO_PH = null, CO_PH_p = null;
+const coPhotosCharger = () => CO_PH_p || (CO_PH_p = fetch("/coach_photos/index.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (CO_PH = x || {})));
 // Les fiches des coachs, saison par saison (src/coach_fiches.py -> coachs.json : leurs pages Wikipédia, les 32 actifs)
 let COF = null, COF_p = null;
 const coachsCharger = () => COF_p || (COF_p = fetch("coachs.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (COF = x || {})));
@@ -9658,8 +9671,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=5246b540" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=5246b540" defer></script>
+<script src="pub.js?v=a3bac982" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a3bac982" defer></script>
 <script src="nav.js?v=bf0a64ecfe" defer></script>
 </body>
 </html>
