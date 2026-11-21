@@ -345,16 +345,20 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
-.fen-eq header .wi-palm{position:absolute;right:14px;top:12px;left:auto;max-width:58%;justify-content:flex-end;z-index:3}
-.fen-co header .wi-palm{position:absolute;right:14px;top:12px;max-width:40%;justify-content:flex-end}
+/* Équipe et coach : les emblèmes sous la plaque, toute la largeur (comme la fiche du joueur), jamais par-dessus le nom */
+.fen-eq header:has(.wi-palm),.fen-co header:has(.wi-palm){flex-wrap:wrap}
+.fen-eq header .wi-palm,.fen-co header .wi-palm{position:static!important;order:9;flex:0 0 100%;max-width:100%;justify-content:flex-start;margin-top:8px}
 .co-tab td,.co-tab th{text-align:center} .co-tab .co-tot td{font-weight:800;border-top:2px solid rgba(10,35,66,.25)}
-.wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:14px;top:16px;max-height:116px;overflow:hidden}
-.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.1)!important}
+.wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:10px;top:12px}
+.wi-carte header .wi-palm{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.wi-carte header .wi-palm::-webkit-scrollbar{display:none}
+.wi-carte header .tr-b small{color:#C9D6EE!important;font:800 11px/1 "Barlow Condensed",var(--f-body)!important;margin-top:1px}
+.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.4)!important}
 .wi-carte header .tr-b{width:auto!important;height:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
 .tr-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:#C9D6EE}
 .tr-b small{font:800 10px/1 "Barlow Condensed",var(--f-body);letter-spacing:.03em}
 .tro-h{display:flex!important;flex-direction:row!important;gap:16px;align-items:center;padding:18px 16px!important;background:linear-gradient(135deg,#0E2C52,#061529)}
-.tro-h .tro-e .tr-emb{width:86px!important;height:95px!important}
+.tro-h .tro-e .tr-emb{width:86px!important;height:120px!important}
 .tro-h .tro-e{flex:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
 .tro-t{flex:1;display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0}
 .tro-t > *{width:100%}
@@ -363,6 +367,14 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .tro-l .nm b{white-space:normal}
 .tro-t span{font:600 13px/1.2 var(--f-body);color:#9FB3CB}
 .tro-l .tro-r{flex:none;width:22px;text-align:center;font:700 22px/1 "Teko",var(--f-display);color:#4A5D78;padding-top:3px}
+.nw{display:flex;flex-direction:column;gap:6px}
+.nw-l{display:grid;grid-template-columns:1fr auto;grid-template-areas:"s f" "b f";gap:3px 10px;align-items:center;padding:10px 12px;border-radius:10px;background:#F2F5FA;color:#0A2342;text-decoration:none;border-left:5px solid #9FB3CB}
+.nw-l.nw-pb{border-left-color:var(--or,#FFB81C)}
+.nw-l .nw-s{grid-area:s;font:700 11.5px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:#4A5D78}
+.nw-l .nw-s i{font-style:normal;font-weight:600;margin-left:8px;text-transform:none;letter-spacing:0}
+.nw-l b{grid-area:b;font:700 15px/1.3 var(--f-body)}
+.nw-l .nw-f{grid-area:f;font:700 20px/1 var(--f-body);color:#4A5D78}
+.cpj-plus{display:block;width:100%;margin:8px 0 0;padding:12px;border-radius:12px;border:1px solid #2A3A57;background:rgba(255,255,255,.03);color:#DCE6F2;font:700 14px/1.2 var(--f-body);cursor:pointer}
 .tro-embs{display:flex;gap:2px;margin-top:3px}
 .fen-co .co-ico{flex:none;width:72px;height:72px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .fen-co .co-ico img{width:56px;height:56px;object-fit:contain}

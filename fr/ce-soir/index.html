@@ -373,16 +373,20 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
-.fen-eq header .wi-palm{position:absolute;right:14px;top:12px;left:auto;max-width:58%;justify-content:flex-end;z-index:3}
-.fen-co header .wi-palm{position:absolute;right:14px;top:12px;max-width:40%;justify-content:flex-end}
+/* Équipe et coach : les emblèmes sous la plaque, toute la largeur (comme la fiche du joueur), jamais par-dessus le nom */
+.fen-eq header:has(.wi-palm),.fen-co header:has(.wi-palm){flex-wrap:wrap}
+.fen-eq header .wi-palm,.fen-co header .wi-palm{position:static!important;order:9;flex:0 0 100%;max-width:100%;justify-content:flex-start;margin-top:8px}
 .co-tab td,.co-tab th{text-align:center} .co-tab .co-tot td{font-weight:800;border-top:2px solid rgba(10,35,66,.25)}
-.wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:14px;top:16px;max-height:116px;overflow:hidden}
-.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.1)!important}
+.wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:10px;top:12px}
+.wi-carte header .wi-palm{flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.wi-carte header .wi-palm::-webkit-scrollbar{display:none}
+.wi-carte header .tr-b small{color:#C9D6EE!important;font:800 11px/1 "Barlow Condensed",var(--f-body)!important;margin-top:1px}
+.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.4)!important}
 .wi-carte header .tr-b{width:auto!important;height:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
 .tr-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:#C9D6EE}
 .tr-b small{font:800 10px/1 "Barlow Condensed",var(--f-body);letter-spacing:.03em}
 .tro-h{display:flex!important;flex-direction:row!important;gap:16px;align-items:center;padding:18px 16px!important;background:linear-gradient(135deg,#0E2C52,#061529)}
-.tro-h .tro-e .tr-emb{width:86px!important;height:95px!important}
+.tro-h .tro-e .tr-emb{width:86px!important;height:120px!important}
 .tro-h .tro-e{flex:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
 .tro-t{flex:1;display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0}
 .tro-t > *{width:100%}
@@ -391,6 +395,14 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .tro-l .nm b{white-space:normal}
 .tro-t span{font:600 13px/1.2 var(--f-body);color:#9FB3CB}
 .tro-l .tro-r{flex:none;width:22px;text-align:center;font:700 22px/1 "Teko",var(--f-display);color:#4A5D78;padding-top:3px}
+.nw{display:flex;flex-direction:column;gap:6px}
+.nw-l{display:grid;grid-template-columns:1fr auto;grid-template-areas:"s f" "b f";gap:3px 10px;align-items:center;padding:10px 12px;border-radius:10px;background:#F2F5FA;color:#0A2342;text-decoration:none;border-left:5px solid #9FB3CB}
+.nw-l.nw-pb{border-left-color:var(--or,#FFB81C)}
+.nw-l .nw-s{grid-area:s;font:700 11.5px/1.2 var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:#4A5D78}
+.nw-l .nw-s i{font-style:normal;font-weight:600;margin-left:8px;text-transform:none;letter-spacing:0}
+.nw-l b{grid-area:b;font:700 15px/1.3 var(--f-body)}
+.nw-l .nw-f{grid-area:f;font:700 20px/1 var(--f-body);color:#4A5D78}
+.cpj-plus{display:block;width:100%;margin:8px 0 0;padding:12px;border-radius:12px;border:1px solid #2A3A57;background:rgba(255,255,255,.03);color:#DCE6F2;font:700 14px/1.2 var(--f-body);cursor:pointer}
 .tro-embs{display:flex;gap:2px;margin-top:3px}
 .fen-co .co-ico{flex:none;width:72px;height:72px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .fen-co .co-ico img{width:56px;height:56px;object-fit:contain}
@@ -1145,7 +1157,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=b8b3a2e9">
+<link rel="stylesheet" href="carte.css?v=76c1680e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6917,6 +6929,7 @@ function fenApercu(q){
   const p = fenPrj(q.id), s = fenSal(q.id), so = fenSoir(q.id), g = fenGcr(q.id), sec = [];
   const cas = (v, lib) => `<div><b>${v}</b><span>${lib}</span></div>`;
   sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${fenBref(q) || L("Les détails arrivent…", "Details loading…")}</div></section>`);
+  sec.push(newsBloc("j", q.id));
   if (p && !q.g){
     const c = p.c || {}, toi = p.toi ? `${Math.floor(p.toi)}:${String(Math.round((p.toi % 1) * 60)).padStart(2, "0")}` : "";
     sec.push(`<section class="fen-s"><h3>${L("Cette saison", "This season")} <em>${p.pj} ${L("PJ", "GP")}${toi ? " · " + toi : ""}</em></h3>
@@ -7161,6 +7174,7 @@ function eqBref(t){
 function eqApercu(t){
   const e = eqC(t), sec = [], se = eqSerie(e);
   sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${eqBref(t) || L("Pas encore de données cette saison.", "No data yet this season.")}</div></section>`);
+  sec.push(newsBloc("e", t));
   if (e?.l10?.length){
     const R = { V: ["V", "W", "v"], D: ["D", "L", "d"], P: ["DP", "OTL", "dp"] };
     sec.push(`<section class="fen-s"><h3>${L(`${e.l10.length} derniers matchs`, `Last ${e.l10.length} games`)}${se ? ` <em>${eqFiche(se.v, se.d, se.p)}</em>` : ""}</h3>
@@ -7381,9 +7395,30 @@ const TROPH_ICO = {
   jennings: '<rect x="-20" y="-18" width="17" height="36" rx="4" fill="#0A2342"/><rect x="3" y="-18" width="17" height="36" rx="4" fill="#0A2342"/>',
   adams: '<rect x="-16" y="-20" width="32" height="40" rx="3" fill="#0A2342"/><path d="M-8 -8 H8 M-8 0 H8 M-8 8 H2" stroke="#FFB81C" stroke-width="3"/><circle cx="12" cy="14" r="7" fill="#C8102E"/>',
   coupe: '<path d="M-16 -24 H16 L12 -8 C8 2 -8 2 -12 -8 Z" fill="#0A2342"/><rect x="-10" y="2" width="20" height="6" fill="#0A2342"/><rect x="-14" y="8" width="28" height="6" fill="#0A2342"/><rect x="-18" y="14" width="36" height="10" rx="2" fill="#0A2342"/>' };
-function trophEmb(k, taille = 28){
-  const ic = TROPH_ICO[k]; if (!ic) return "";
-  return `<svg class="tr-emb" viewBox="-60 -66 120 132" width="${taille}" height="${Math.round(taille * 1.1)}" aria-hidden="true"><path d="M0 -62 L52 -36 L52 18 C52 42 26 58 0 64 C-26 58 -52 42 -52 18 L-52 -36 Z" fill="#0A2342"/><path d="M0 -54 L44 -32 L44 16 C44 36 22 50 0 56 C-22 50 -44 36 -44 16 L-44 -32 Z" fill="#FFC23A"/><g transform="translate(0,-2)">${ic}</g></svg>`;
+// Le nom écrit DANS l'emblème (Mitch, 20 nov. : « on comprend fuck all c'est lequel ») : dès 30 px, la petite icône en
+// haut et le nom en gros dessous ; plus petit (les listes), l'icône seule (le nom est écrit à côté)
+const TROPH_NOM = { art: ["ART", "ROSS"], rocket: ["ROCKET", "RICHARD"], hart: ["HART"], lindsay: ["TED", "LINDSAY"], norris: ["NORRIS"],
+  vezina: [L("VÉZINA", "VEZINA")], calder: ["CALDER"], selke: ["SELKE"], byng: ["LADY", "BYNG"], smythe: ["CONN", "SMYTHE"], adams: ["JACK", "ADAMS"],
+  jennings: ["JEN-", "NINGS"], presidents: [L("PRÉSI-", "PRESI-"), L("DENTS", "DENTS'")], coupe: [L("COUPE", "STANLEY"), L("STANLEY", "CUP")] };
+// La bannière d'aréna (Mitch, 21 nov. : 3 maquettes, il a choisi la bannière) : le nom au long, la saison dedans ; la
+// Coupe en or, le reste en marine bordé d'or. Plus petit que 30 px : les initiales (SC, CS, AR...) ; sous 18 px, la
+// bannière seule (le nom est écrit à côté). Pas de logo ni de dessin de trophée.
+const TROPH_INI = { coupe: "SC", smythe: "CS", art: "AR", rocket: "RR", hart: "H", lindsay: "TL", norris: "N", vezina: "V", calder: "C", selke: "S", byng: "LB", adams: "JA", presidents: "PT", jennings: "WJ" };
+function trophEmb(k, taille = 28, s = null){
+  if (!TROPH_ICO[k]) return "";
+  const c = k === "coupe", bg = c ? "#FFC23A" : "#0A2342", fg = c ? "#0A2342" : "#fff", bd = c ? "#fff" : "#FFC23A";
+  const F_ = "'Barlow Condensed','Arial Narrow',Arial,sans-serif";
+  const ligne = (m, x, y, fs, w, coul) => `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-family="${F_}" font-weight="800" font-size="${fs}" fill="${coul}" textLength="${Math.min(w, m.length * fs * 0.56).toFixed(1)}" lengthAdjust="spacingAndGlyphs">${m}</text>`;
+  let t = "";
+  if (taille >= 30){
+    const N = TROPH_NOM[k] || [k.toUpperCase()], lg = Math.max(...N.map(m => m.length)), fs = Math.min(N.length === 1 ? 26 : 24, Math.floor(62 / (0.56 * lg)));
+    const yc = s ? 46 : 56;
+    t = N.map((m, i) => ligne(m, 40, yc + (i - (N.length - 1) / 2) * fs * 0.95, fs, 62, fg)).join("");
+    if (s) t += `<rect x="12" y="70" width="56" height="1.5" fill="${bd}" opacity=".7"/><text x="40" y="86" text-anchor="middle" font-family="${F_}" font-weight="800" font-size="17" fill="${bd}">${sai2(s)}</text>`;
+  } else if (taille >= 18){
+    t = ligne(TROPH_INI[k] || "", 40, 54, 40, 60, fg);
+  }
+  return `<svg class="tr-emb" viewBox="0 0 80 112" width="${taille}" height="${Math.round(taille * 1.4)}" aria-hidden="true"><path d="M4 2H76V96L40 110L4 96Z" fill="${bg}" stroke="${bd}" stroke-width="${taille >= 30 ? 3 : 5}"/><rect x="4" y="10" width="72" height="3" fill="${bd}"/>${taille >= 30 ? `<rect x="4" y="16" width="72" height="1.5" fill="${bd}"/>` : ""}${t}</svg>`;
 }
 // Les boutons de la section Coupe (écrits dans la page) : l'écusson devant le nom
 document.querySelectorAll("#f-troph .chip[data-v]").forEach(b => { if (TROPH_ICO[b.dataset.v] && !b.querySelector(".tr-emb")) b.insertAdjacentHTML("afterbegin", trophEmb(b.dataset.v, 20)); });
@@ -7418,6 +7453,31 @@ const ordFr = (n, f) => EN ? `${n}${["th", "st", "nd", "rd"][(n % 100 > 10 && n 
 // sur la page du trophée, les joueurs classés par nombre de badges ; une petite place secrète cool » ; « des pages pour
 // les entraîneurs, les actifs, accessibles par leur nom, dans le même style que joueurs et équipes »)
 let PALM = null, PALM_p = null;
+// Les news de la fiche (Mitch, 21 nov. : « ajoute les news où il est taggé ou mentionné ; les liens du site quand c'est
+// PB Wire, sinon les vrais liens des articles ») : docs/news.json (src/news.py), les plus récentes d'abord
+let NEWS = null, NEWS_p = null;
+const newsCharger = () => NEWS_p || (NEWS_p = fetch("news.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (NEWS = x || {})));
+function newsBloc(k, id){
+  setTimeout(() => newsCharger().then(newsRemplir), 0);
+  return `<section class="fen-s fen-news" data-nk="${k}" data-nid="${id}" hidden></section>`;
+}
+function newsLigne([q, t, l, src, w]){
+  const d = new Date(w ? q.slice(0, 10) + "T12:00:00" : q), titre = w ? (t?.[EN ? "en" : "fr"] || t?.fr || "") : t;
+  const quand = d.toLocaleDateString(EN ? "en-CA" : "fr-CA", { day: "numeric", month: "short" });
+  const href = w ? wirePage({ jour: l }) : l;
+  return `<a class="nw-l${w ? " nw-pb" : ""}" href="${href}"${w ? "" : ' target="_blank" rel="noopener"'}><span class="nw-s">${w ? "PB Wire" : src}<i>${quand}</i></span><b>${titre}</b><span class="nw-f">${w ? "›" : "↗"}</span></a>`;
+}
+function newsRemplir(){
+  document.querySelectorAll("#fenetre .fen-news[data-nk]").forEach(sec => {
+    const L_ = (NEWS?.[sec.dataset.nk]?.[sec.dataset.nid] || []).map(n => NEWS.i[n]).filter(Boolean);
+    if (!L_.length){ sec.hidden = true; return; }
+    const v = L_.slice(0, 5), r = L_.slice(5);
+    sec.innerHTML = `<h3>News <em>${L_.length}</em></h3><div class="nw">${v.map(newsLigne).join("")}${r.length ? `<button type="button" class="cpj-plus nw-plus">${L(`${r.length} de plus`, `${r.length} more`)} ›</button>` : ""}</div>`;
+    sec.hidden = false;
+    const b = sec.querySelector(".nw-plus"); if (b) b.onclick = () => { b.insertAdjacentHTML("beforebegin", r.map(newsLigne).join("")); b.remove(); };
+    sec.removeAttribute("data-nk");
+  });
+}
 const palmCharger = () => PALM_p || (PALM_p = fetch("palmares.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (PALM = x || {})));
 const sai2 = (s) => `${String(s).slice(2, 4)}-${String(s).slice(6, 8)}`;
 function palmEmblemes(id){
@@ -7430,8 +7490,8 @@ function palmEmblemes(id){
 // Tous les emblèmes, même 20 (Mitch, 20 nov. : « si y en a 20, j'en veux 20, fais ça fitter ») : plus il y en a, plus
 // ils sont petits (3 rangées au plus dans le vide à droite de la plaque)
 function palmRangee(L_, T){
-  const n = L_.length, t = n <= 9 ? 26 : n <= 18 ? 21 : n <= 30 ? 17 : 14;
-  return `<div class="wi-palm" style="--te:${t}px">${L_.map(([k, s]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}" title="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}">${trophEmb(k, t)}</button>`).join("")}</div>`;
+  // Tous les emblèmes, un par trophée gagné (10 = 10 emblèmes, jamais « ×10 ») : une rangée qu'on glisse du doigt
+  return `<div class="wi-palm" style="--te:40px">${L_.map(([k, s]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}">${trophEmb(k, 40, s)}</button>`).join("")}</div>`;
 }
 const ouvrirTrophee = (k) => fenPousser("t:" + k, "#" + (EN ? "trophy" : "trophee") + "/" + k);
 const ouvrirCoach = (id) => fenPousser("c:" + id, "#coach/" + id);
@@ -7504,7 +7564,30 @@ async function trophAutres(k, T){
     <header class="tro-h"><div class="tro-e">${trophEmb(k, 86)}</div><div class="tro-t"><small>${T.nom[l]}</small><b>${T.titre[l]}</b>
       <span>${sai2(T.de)} ${L("à", "to")} ${sai2(T.a)} · ${L_.length} ${k === "coupe" ? L("équipes", "teams") : L("coachs", "coaches")}</span></div></header>
     <section class="fen-s"><h3>${L("Le classement", "The ranking")} <em>${k === "coupe" ? L("par nombre de Coupes", "by number of Cups") : L("par nombre de trophées", "by number of wins")}</em></h3><div class="fen-ljs">${lignes}</div></section>
+    ${k === "coupe" ? coupeJoueurs(T) : ""}
     <p class="aide" style="margin:6px 16px 16px">${k === "coupe" ? L("Depuis la création de la ligue.", "Since the league began.") : L("Touche un coach actif pour sa fiche.", "Tap an active coach for his card.")}</p></div>`);
+  const plus = $("#fenetre .cpj-plus");
+  if (plus) plus.onclick = () => { plus.insertAdjacentHTML("beforebegin", coupeLignes(T.joueurs.filter(x => x[2].length === 1), T.joueurs.length - plus.dataset.n)); plus.remove(); };
+}
+// Les joueurs de la Coupe (Mitch, 21 nov. : les emblèmes de Coupe sur la fiche du joueur) : classés par nombre de
+// Coupes ; ceux qui en ont une seule (des centaines) attendent qu'on les demande
+function coupeLignes(J, r0){
+  let r = r0, prec = null;
+  return J.map((x, i) => {
+    const [id, n, ss, eq] = x, q = fenQui(id) || {};
+    if (ss.length !== prec){ r = r0 + i + 1; prec = ss.length; }
+    return `<button type="button" class="fen-lj tro-l" data-pid="${id}" style="${eqV(q.eq || eq)}"><span class="tro-r">${r}</span>${wiRond({ n, no: q.no, pos: q.pos || "", eqs: [[q.eq || eq, 1]], eq: q.eq || eq })}
+      <span class="nm"><b>${n}</b><small>${ss.length > 8 ? ss.slice(-8).map(sai2).join(" · ") + " …" : ss.map(sai2).join(" · ")}</small>${ss.length > 1 ? `<span class="tro-embs">${ss.map(() => trophEmb("coupe", 14)).join("")}</span>` : ""}</span>
+      <span class="v"><b>${ss.length}</b><small>${ss.length > 1 ? L("Coupes", "Cups") : L("Coupe", "Cup")}</small></span></button>`;
+  }).join("");
+}
+function coupeJoueurs(T){
+  const J = T.joueurs || [];
+  if (!J.length) return "";
+  const multi = J.filter(x => x[2].length > 1), un = J.length - multi.length;
+  return `<section class="fen-s"><h3>${L("Les joueurs", "The players")} <em>${L("par nombre de Coupes", "by number of Cups")}</em></h3><div class="fen-ljs">${coupeLignes(multi, 0)}
+    ${un ? `<button type="button" class="cpj-plus" data-n="${un}">${L(`Voir les ${un} joueurs qui en ont une`, `Show the ${un} players with one`)} ›</button>` : ""}</div>
+    <p class="aide" style="margin:6px 4px 0">${L("Un joueur nommé dans la page de la finale qui finit la saison avec l'équipe championne.", "A player named in the Final's page who finished the season with the champion.")}${T.finales != null && T.finales < (new Set(T.gagnants.filter(g => +g[0].slice(4) >= 1918).map(g => g[0]))).size ? " " + L("Les vieilles finales s'ajoutent à chaque calcul.", "Older Finals are added with each update.") : ""}</p></section>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest?.(".tro-l[data-eq]"); if (b){ e.preventDefault(); ouvrirEquipe(b.dataset.eq); } });
 // Le coach : son nom, l'icône de coach aux couleurs de son équipe (pas de photo officielle publiée), son PB Coach
@@ -7528,6 +7611,7 @@ async function coachAfficher(id){
   fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen fen-co" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${icone}<div><b>${nomP(x.n, "c")}</b><span>${L("Entraîneur-chef", "Head coach")} · ${NOMS_EQ[x.eq] || x.eq}</span><span>${x.nsai} ${L(x.nsai > 1 ? "saisons comme coach" : "saison comme coach", x.nsai > 1 ? "seasons as coach" : "season as coach")}</span>
       <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.rg ? `<i>${L("n°", "#")} ${x.rg} ${L("de la ligue", "in the league")}</i>` : ""}</span></div></div>${PALM?.coachs?.[id]?.length ? palmRangee(PALM.coachs[id], PALM.trophees) : ""}</header>
+    ${newsBloc("c", id)}
     ${coachSaisons(id)}
     <div class="wi-res">${tuile(x.monte, L("joueurs en hausse", "players up"))}${tuile(x.baisse, L("en baisse", "down"))}${tuile(x.nj, L("joueurs comparés", "players compared"))}${tuile(pts2(x.boost), L("pts/match vs attendu", "pts/game vs expected"))}</div>
     ${parcours.length > 1 ? `<section class="fen-s"><h3>${L("Son parcours", "His track record")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>` : ""}
@@ -9468,8 +9552,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=b8b3a2e9" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=b8b3a2e9" defer></script>
+<script src="pub.js?v=76c1680e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=76c1680e" defer></script>
 <script src="nav.js?v=491137852a" defer></script>
 </body>
 </html>
