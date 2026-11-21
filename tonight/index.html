@@ -1157,7 +1157,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=6646394d">
+<link rel="stylesheet" href="carte.css?v=5246b540">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1316,7 +1316,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   </section>
   <!-- PB Coach Boost % (Mitch, 14 nov. 2026 : les mêmes joueurs avec des coachs différents ; src/coach.py) -->
   <section id="p-coach" role="tabpanel" aria-labelledby="t-coach" hidden>
-    <div class="ctrls"><div class="row" id="f-coach"></div><div class="row"><input id="coach-q" type="search" autocomplete="off"></div><div id="fe-coach"></div><div class="row sai-r" id="sai-coach"></div></div>
+    <div class="ctrls"><div class="row" id="f-coach-v"></div><div class="row" id="f-coach"></div><div class="row"><input id="coach-q" type="search" autocomplete="off"></div><div id="fe-coach"></div><div class="row sai-r" id="sai-coach"></div></div>
     <div id="coach"></div>
   </section>
   <!-- PB Heat Index (Mitch, 20 nov. 2026) : la forme des 10 derniers matchs, le top 100 (src/forme.py -> docs/forme.json) -->
@@ -8251,6 +8251,11 @@ async function coachOnglet(){
     el.innerHTML = `<div class="cp-tete">${titrePB("PB Coach Boost %", L("Les coachs", "The coaches"))}</div><div class="card"><div class="vide">${L("La section se remplit : on récolte 12 saisons de coachs et de joueurs, sur quelques calculs.", "The section is filling up: we're harvesting 12 seasons of coaches and players, over a few updates.")}</div></div>`;
     return;
   }
+  // Boost ou Dev (Mitch, 21 nov. : « PB Coach Dev %, une stat de plus à voir, filtrée ») : Dev classe les coachs par
+  // leurs recrues vs leur rang de repêchage ; une mesure de carrière (la saison en cours seulement, pas de position)
+  const dev = S.coval === "dev";
+  $("#f-coach-v").innerHTML = `<span class="lbl">${L("Classer par", "Rank by")}</span>` + [["boost", "PB Coach Boost %"], ["dev", "PB Coach Dev %"]].map(([k, n]) => `<button class="chip" data-cv="${k}" aria-pressed="${(S.coval || "boost") === k}">${n}</button>`).join("");
+  if (dev) return coachDevOnglet(el);
   const sc = coSai(), pos = S.copos || "tous", [kp, kb] = coCles(), feq = S.fe_coach || "", q = nrm($("#coach-q").value);
   $("#f-coach").innerHTML = `<span class="lbl">${L("Joueurs", "Players")}</span>` + Object.entries(CO_POS).map(([k, n]) => `<button class="chip" data-cp="${k}" aria-pressed="${k === pos}">${L(...n)}</button>`).join("");
   $("#sai-coach").innerHTML = `<span class="lbl">${L("Saison", "Season")}</span>` + CO.saisons.slice().reverse().map(s_ => `<button class="chip" data-cs="${s_}" aria-pressed="${s_ === sc}">${coSaiTxt(s_)}${s_ === CO.saison ? L(" (en cours)", " (now)") : ""}</button>`).join("");
@@ -8273,11 +8278,28 @@ async function coachOnglet(){
      <p><b>The window.</b> The last ${CO.fenetre} seasons up to the chosen season; the 3 most recent count fully, older ones less. A coach fired mid-season: each stint is split by the share of games he coached.</p>`)}</details>`;
   const lignes = liste.map(x => { const r = rang[x.id];
     return `<button class="wi-l wi-r co-c" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${r}${pos === "tous" ? mvtHTML(x.dr) : ""}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
-      <span class="nm">${nomP(x.n, "c")}<small>${x.eq} · ${x.nsai} ${L(x.nsai > 1 ? "saisons" : "saison", x.nsai > 1 ? "seasons" : "season")} · ${x.nj} ${L("joueurs comparés", "players compared")}</small><span class="wi-st">${x.monte} ${L("en hausse", "up")} · ${x.baisse} ${L("en baisse", "down")} · ${pts2(x[kb])} ${L("pts/match", "pts/game")}</span></span>
+      <span class="nm">${nomP(x.n, "c")}<small>${x.eq} · ${x.nsai} ${L(x.nsai > 1 ? "saisons" : "saison", x.nsai > 1 ? "seasons" : "season")} · ${x.nj} ${L("joueurs comparés", "players compared")}</small><span class="wi-st">${x.pjm != null ? `${x.pjm} ${L("matchs au-dessus", "games above")} · ${x.pjb} ${L("en dessous", "below")}` : `${x.monte} ${L("en hausse", "up")} · ${x.baisse} ${L("en baisse", "down")}`} · ${pts2(x[kb])} ${L("pts/match", "pts/game")}</span></span>
       <span class="v">${coteHTML(r, classes.length, false)}${pbN(x[kp])}${AB("PBCB")}<small>PB Coach Boost %${pos === "tous" && x.pcav != null && x.pcav !== x.pc ? ` · ${L("saison d'avant", "season before")} ${pbTxt(x.pcav)}` : ""}</small>${pos === "tous" && x.ph?.length > 1 ? spark(x.ph, false, L("Saison par saison", "Season by season"), spkPc) : ""}</span></button>`; }).join("")
     || `<div class="card"><div class="vide">${L("Aucun coach trouvé.", "No coach found.")}</div></div>`;
   const maj = CO.maj ? new Date(CO.maj + "T12:00").toLocaleDateString(LANG, { day: "numeric", month: "long", year: "numeric" }) : "";
   el.innerHTML = tete + lignes + regles + `<p class="aide">${sc === CO.saison ? L("La saison en cours bouge encore. ", "The current season still moves. ") : ""}${L("Source : statistiques par club et feuilles de match de la ligue. Mis à jour le", "Source: league club stats and game sheets. Updated")} ${maj}.</p>`;
+  ptListeTab("p-coach");
+}
+function coachDevOnglet(el){
+  $("#f-coach").innerHTML = ""; $("#sai-coach").innerHTML = "";
+  const feq = S.fe_coach || "", q = nrm($("#coach-q").value), tous = CO.par_saison[CO.saison].coachs || [];
+  $("#fe-coach").innerHTML = filtreEqHTML("fe_coach", [...new Set(tous.map(x => x.eq))].filter(Boolean).sort());
+  const classes = tous.filter(x => x.dev).sort((a, b) => b.dev.ec - a.dev.ec);
+  const liste = classes.filter(x => (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q)));
+  const tete = `<div class="cp-tete">${titrePB("PB Coach Dev %", L("Les coachs qui développent", "The coaches who develop"))}<p>${L(
+    "Les joueurs qui ont commencé leur carrière avec un coach (depuis 2014-15) : leurs points avec lui, comparés à ceux des joueurs repêchés au même rang, à la même position et à la même saison de carrière. 0 % = exactement ce qu'on attend de leur rang, 100 % = le niveau des 3 meilleurs.",
+    "Players who started their careers with a coach (since 2014-15): their points with him, compared with players drafted at the same slot, same position and same career season. 0% = exactly what their draft slot predicts, 100% = the level of the top 3.")}</p></div>`;
+  const lignes = liste.map(x => { const d = x.dev, r = d.rg, top = (d.j || []).filter(j => j.pts > j.att)[0];
+    return `<button class="wi-l wi-r co-c" data-id="${x.id}" data-c="${x.eq}" style="${eqV(x.eq)}"><span class="rg">${r}</span><img class="lg" src="${LOGO(x.eq)}" alt="" loading="lazy">
+      <span class="nm">${nomP(x.n, "c")}<small>${x.eq} · ${d.n} ${L(d.n > 1 ? "recrues" : "recrue", d.n > 1 ? "rookies" : "rookie")} · ${d.pj} ${L("matchs avec lui", "games with him")}</small><span class="wi-st">${Math.round(d.pts)} pts · ${Math.round(d.att)} ${L("attendus", "expected")}${top ? ` · ${L("le plus beau", "best")} : ${top.n}` : ""}</span></span>
+      <span class="v">${coteHTML(r, classes.length, false)}${pbN(d.pc)}${AB("PBCD")}<small>PB Coach Dev %</small></span></button>`; }).join("")
+    || `<div class="card"><div class="vide">${L("Aucun coach trouvé.", "No coach found.")}</div></div>`;
+  el.innerHTML = tete + lignes + `<p class="aide">${L("Le coach ne décide pas tout seul (DG, temps de glace, blessures) : c'est ce qui s'est passé, pas une prédiction. Touche un coach pour ses recrues une par une.", "The coach doesn't decide everything alone (GM, ice time, injuries): this is what happened, not a prediction. Tap a coach for his rookies one by one.")}</p>`;
   ptListeTab("p-coach");
 }
 function coachCarte(id){
@@ -8299,6 +8321,7 @@ function coachCarte(id){
 }
 const n2 = (v) => v == null ? "–" : (+v).toFixed(2).replace(".", EN ? "." : ",");
 document.addEventListener("click", (e) => {
+  const v = e.target.closest?.("#f-coach-v .chip"); if (v){ S.coval = v.dataset.cv; coachOnglet(); return; }
   const p = e.target.closest?.("#f-coach .chip"); if (p){ S.copos = p.dataset.cp; coachOnglet(); return; }
   const s_ = e.target.closest?.("#sai-coach .chip"); if (s_){ S.cosai = s_.dataset.cs === CO?.saison ? "" : s_.dataset.cs; coachOnglet(); return; }
   const c = e.target.closest?.(".co-c"); if (c){ ouvrirCoach(c.dataset.id); return; }
@@ -9635,8 +9658,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=6646394d" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=6646394d" defer></script>
+<script src="pub.js?v=5246b540" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=5246b540" defer></script>
 <script src="nav.js?v=bf0a64ecfe" defer></script>
 </body>
 </html>
