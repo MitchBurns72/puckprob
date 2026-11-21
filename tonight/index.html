@@ -1157,7 +1157,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=df06d590">
+<link rel="stylesheet" href="carte.css?v=6646394d">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7593,34 +7593,113 @@ function coupeJoueurs(T){
     <p class="aide" style="margin:6px 4px 0">${L("Un joueur nommé dans la page de la finale qui finit la saison avec l'équipe championne.", "A player named in the Final's page who finished the season with the champion.")}${T.finales != null && T.finales < (new Set(T.gagnants.filter(g => +g[0].slice(4) >= 1918).map(g => g[0]))).size ? " " + L("Les vieilles finales s'ajoutent à chaque calcul.", "Older Finals are added with each update.") : ""}</p></section>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest?.(".tro-l[data-eq]"); if (b){ e.preventDefault(); ouvrirEquipe(b.dataset.eq); } });
-// Le coach : son nom, l'icône de coach aux couleurs de son équipe (pas de photo officielle publiée), son PB Coach
-// Boost %, son parcours saison par saison et les joueurs qu'il fait monter (ou baisser)
-async function coachAfficher(id){
+// Le coach (Mitch, 21 nov. 2026 : « je value les coachs comme les joueurs pis les teams ; cette page semblable à celle
+// des joueurs ») : la plaque, ses chiffres en tuiles, puis des onglets comme la fiche joueur : Aperçu (le résumé en
+// mots, ses news, son parcours), Saisons (sa fiche saison par saison), Joueurs (ce qu'ils donnent avec lui contre
+// l'attendu à leur âge) et Recrues (PB Coach Dev % : ceux qui ont commencé leur carrière avec lui vs leur rang de
+// repêchage). Pas de photo officielle des coachs dans les données de la ligue : le logo de son équipe.
+const COF_O = [["apercu", "Aperçu", "Overview"], ["saisons", "Saisons", "Seasons"], ["joueurs", "Joueurs", "Players"], ["recrues", "Recrues", "Rookies"]];
+async function coachAfficher(id, o = "apercu"){
   fenCadre("c", id, "#coach/" + id, `<div class="vide fen-ch">${L("Chargement…", "Loading…")}</div>`);
   await Promise.all([chargerCoach(), FEN_CH.sal(), FEN_CH.prj(), palmCharger(), coachsCharger()]);
   if (FEN.k !== "c" || FEN.id !== id) return;
   const sc = CO?.saison, x = CO?.par_saison?.[sc]?.coachs?.find(y => y.id === id);
   if (!x){ fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen"><div class="vide">${L("Ce coach n'est pas actif cette saison.", "This coach isn't active this season.")}</div></div>`); return; }
-  const parcours = Object.keys(CO.par_saison).sort().reverse().map(s => [s, CO.par_saison[s].coachs?.find(y => y.id === id)]).filter(([, y]) => y);
-  const tuile = (v, l_) => `<div><b>${v}</b><span>${l_}</span></div>`;
-  const J = [...(x.j || [])].sort((a, b) => (b.res ?? 0) - (a.res ?? 0));
-  const ligneJ = (j) => { const d = j.sans > 0 ? Math.round((j.avec / j.sans - 1) * 100) : null, q = fenQui(j.id) || {};
-    return eqLigneJ(j.id, j.n, q.no, q.eq || x.eq, j.pos === "D" ? "D" : (q.pos || "F"),
-      `${j.pja} ${L("matchs avec lui", "games with him")} · ${n2(j.avec)} ${L("pts/match avec lui", "pts/game with him")}, ${n2(j.sans)} ${L("ailleurs", "elsewhere")}`,
-      d == null ? "–" : `${d > 0 ? "+" : d < 0 ? "−" : ""}${Math.abs(d)}${EN ? "%" : " %"}`, L("avec lui", "with him")); };
-  const monte = J.filter(j => (j.res ?? 0) > 0).slice(0, 6), baisse = J.filter(j => (j.res ?? 0) < 0).slice(-4).reverse();
-  // Pas de photo officielle des coachs dans les données de la ligue : le logo de son équipe, en grand
+  const F = COF?.coachs?.[id], tot = coachTot(F), cups = (PALM?.coachs?.[id] || []).filter(c => c[0] === "coupe").length;
+  const tuile = (k, v_) => `<div><small>${k}</small><b>${v_}</b></div>`;
   const icone = `<span class="co-ico"><img src="${LOGO(x.eq)}" alt=""></span>`;
   fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen fen-co" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${icone}<div><b>${nomP(x.n, "c")}</b><span>${L("Entraîneur-chef", "Head coach")} · ${NOMS_EQ[x.eq] || x.eq}</span><span>${x.nsai} ${L(x.nsai > 1 ? "saisons comme coach" : "saison comme coach", x.nsai > 1 ? "seasons as coach" : "season as coach")}</span>
-      <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.rg ? `<i>${L("n°", "#")} ${x.rg} ${L("de la ligue", "in the league")}</i>` : ""}</span></div></div>${PALM?.coachs?.[id]?.length ? palmRangee(PALM.coachs[id], PALM.trophees) : ""}</header>
-    ${newsBloc("c", id)}
-    ${coachSaisons(id)}
-    <div class="wi-res">${tuile(x.monte, L("joueurs en hausse", "players up"))}${tuile(x.baisse, L("en baisse", "down"))}${tuile(x.nj, L("joueurs comparés", "players compared"))}${tuile(pts2(x.boost), L("pts/match vs attendu", "pts/game vs expected"))}</div>
-    ${parcours.length > 1 ? `<section class="fen-s"><h3>${L("Son parcours", "His track record")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>` : ""}
-    ${monte.length ? `<section class="fen-s"><h3>${L("Ceux qu'il fait monter", "The ones he lifts")} <em>${monte.length}</em></h3><div class="fen-ljs">${monte.map(ligneJ).join("")}</div></section>` : ""}
-    ${baisse.length ? `<section class="fen-s"><h3>${L("Ceux qui baissent avec lui", "The ones who drop with him")} <em>${baisse.length}</em></h3><div class="fen-ljs">${baisse.map(ligneJ).join("")}</div></section>` : ""}
-    <p class="aide" style="margin:6px 16px 16px">${L("Points par match avec lui comparés à ses autres coachs, chez les joueurs qui ont joué pour les deux.", "Points per game with him compared with his other coaches, for players who played for both.")}</p></div>`);
+      <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.dev ? `<i>${pbTxt(x.dev.pc)} PB Coach Dev %</i>` : ""}</span></div></div>${PALM?.coachs?.[id]?.length ? palmRangee(PALM.coachs[id], PALM.trophees) : ""}</header>
+    <div class="wi-bio eq4">${tuile(L("Matchs", "Games"), tot ? tot.pj : "–")}${tuile(L("Victoires", "Wins"), tot ? tot.v : "–")}${tuile(L("Séries", "Playoffs"), tot ? `${tot.sv}-${tot.sd}` : "–")}${tuile(L("Coupes", "Cups"), cups)}</div>
+    <nav class="fen-ongl" role="tablist">${COF_O.map(([k, fr, en]) => `<button type="button" role="tab" data-co="${k}" aria-selected="${k === o}">${L(fr, en)}</button>`).join("")}</nav>
+    <div class="fen-panes"></div></div>`);
+  FEN.x = { n: x.n };
+  $("#fenetre .fen-ongl").onclick = (e) => { const t = e.target.closest("[data-co]"); if (t) coachMontrer(id, t.dataset.co); };
+  coachMontrer(id, o);
+}
+function coachTot(F){
+  if (!F?.saisons?.length) return null;
+  return F.saisons.reduce((t, r) => { t.pj += r[2] || 0; t.v += r[3] || 0; t.d += r[4] || 0; t.dp += (r[5] || 0) + (r[6] || 0); t.sv += r[9] || 0; t.sd += r[10] || 0; return t; }, { pj: 0, v: 0, d: 0, dp: 0, sv: 0, sd: 0 });
+}
+function coachMontrer(id, o){
+  if (FEN.k !== "c" || FEN.id !== id) return;
+  FEN.o = o;
+  document.querySelectorAll("#fenetre .fen-ongl [data-co]").forEach(b => b.setAttribute("aria-selected", b.dataset.co === o));
+  document.querySelectorAll("#fenetre .fen-pane").forEach(p => p.hidden = p.dataset.o !== o);
+  const p = FEN.pane(o); p.hidden = false;
+  if (p.dataset.ok) return;
+  p.dataset.ok = "1";
+  const x = CO?.par_saison?.[CO?.saison]?.coachs?.find(y => y.id === id); if (!x) return;
+  p.innerHTML = o === "apercu" ? coachApercu(id, x) : o === "saisons" ? (coachSaisons(id) || `<div class="vide">${L("Sa fiche saison par saison arrive avec le prochain calcul.", "His season-by-season record comes with the next update.")}</div>`)
+    : o === "joueurs" ? coachJoueurs(x) : coachRecrues(x);
+}
+// Une ligne de joueur sous ce coach : ses points par match avec lui contre l'attendu (son niveau, SON ÂGE ces
+// saisons-là et la ligue ; Mitch, 21 nov. : « c'est pas à cause de Muse que Crosby régresse, c'est son âge »)
+function coachLigneJ(x, j){
+  const att = j.att ?? j.sans, d = att > 0 ? Math.round((j.avec / att - 1) * 100) : null, q = fenQui(j.id) || {};
+  return eqLigneJ(j.id, j.n, q.no, q.eq || x.eq, j.pos === "D" ? "D" : (q.pos || "F"),
+    `${j.pja} ${L("matchs avec lui", "games with him")} · ${n2(j.avec)} ${L("pts/match", "pts/game")}, ${L("attendu à son âge", "expected at his age")} ${n2(att)}`,
+    d == null ? "–" : `${d > 0 ? "+" : d < 0 ? "−" : ""}${Math.abs(d)}${EN ? "%" : " %"}`, L("vs attendu", "vs expected"));
+}
+function coachBref(id, x){
+  const ph = [], F = COF?.coachs?.[id], tot = coachTot(F), n_ = x.n.split(" ").slice(-1)[0];
+  const der = F?.saisons?.[F.saisons.length - 1], cups = (PALM?.coachs?.[id] || []).filter(c => c[0] === "coupe").map(c => sai2(c[1]));
+  const adams = (PALM?.coachs?.[id] || []).filter(c => c[0] === "adams").length;
+  ph.push(L(`<b>${x.nsai} saison${x.nsai > 1 ? "s" : ""}</b> derrière un banc de la LNH${tot ? `, une fiche de <b>${tot.v}-${tot.d}-${tot.dp}</b> en ${tot.pj} matchs et ${tot.sv}-${tot.sd} en séries` : ""}.`,
+            `<b>${x.nsai} season${x.nsai > 1 ? "s" : ""}</b> behind an NHL bench${tot ? `, a <b>${tot.v}-${tot.d}-${tot.dp}</b> record in ${tot.pj} games and ${tot.sv}-${tot.sd} in the playoffs` : ""}.`));
+  if (cups.length || adams) ph.push(L(`${cups.length ? `${cups.length > 1 ? `${cups.length} Coupes Stanley` : "La Coupe Stanley"} (${cups.join(", ")})` : ""}${cups.length && adams ? " et " : ""}${adams ? `${adams > 1 ? `${adams} trophées Jack-Adams` : "le trophée Jack-Adams"}` : ""} à son palmarès.`,
+                                     `${cups.length ? `${cups.length > 1 ? `${cups.length} Stanley Cups` : "The Stanley Cup"} (${cups.join(", ")})` : ""}${cups.length && adams ? " and " : ""}${adams ? `${adams > 1 ? `${adams} Jack Adams Awards` : "the Jack Adams Award"}` : ""} on his résumé.`));
+  if (der && der[0] === CO.saison) ph.push(L(`Cette saison avec ${NOMS_EQ[der[1]] || der[1]} : ${der[3]}-${der[4]}-${(der[5] || 0) + (der[6] || 0)} en ${der[2]} matchs.`, `This season with ${NOMS_EQ[der[1]] || der[1]}: ${der[3]}-${der[4]}-${(der[5] || 0) + (der[6] || 0)} in ${der[2]} games.`));
+  if (x.pc != null){
+    const p82 = Math.round(Math.abs(x.boost) * 82 * 10) / 10, sens = p82 >= 0.5 ? (x.boost > 0 ? L("de plus", "more") : L("de moins", "fewer")) : null;
+    ph.push(L(`<b>PB Coach Boost % : ${pbTxt(x.pc)}</b> (${rangFr(x.rg)} sur ${CO.par_saison[CO.saison].coachs.length}). ${sens ? `Ses joueurs produisent <b>${n1(p82)} point${p82 >= 2 ? "s" : ""} ${sens} sur 82 matchs</b> que ce qu'on attend d'eux à leur âge` : "Ses joueurs produisent à peu près ce qu'on attend d'eux à leur âge"}, sur ${(x.pjm || 0) + (x.pjb || 0)} matchs de joueurs qui ont aussi joué pour un autre coach : ${x.pjm ?? "–"} matchs au-dessus de l'attendu, ${x.pjb ?? "–"} en dessous.`,
+              `<b>PB Coach Boost %: ${pbTxt(x.pc)}</b> (${rangFr(x.rg)} of ${CO.par_saison[CO.saison].coachs.length}). ${sens ? `His players produce <b>${n1(p82)} point${p82 >= 2 ? "s" : ""} ${sens} per 82 games</b> than expected at their age` : "His players produce about what's expected at their age"}, over ${(x.pjm || 0) + (x.pjb || 0)} games by players who also played for another coach: ${x.pjm ?? "–"} games above expectation, ${x.pjb ?? "–"} below.`));
+  }
+  const dv = x.dev;
+  if (dv){
+    const top = (dv.j || []).filter(j => j.pts > j.att)[0];
+    ph.push(L(`<b>PB Coach Dev % : ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} joueur${dv.n > 1 ? "s ont commencé leur" : " a commencé sa"} carrière avec lui : ${Math.round(dv.pts)} points en ${dv.pj} matchs avec lui, quand on en attend ${Math.round(dv.att)} de joueurs repêchés à leur rang${top ? ` (le plus beau : ${top.n}, ${Math.round(top.pts)} points pour ${Math.round(top.att)} attendus)` : ""}.`,
+              `<b>PB Coach Dev %: ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} player${dv.n > 1 ? "s" : ""} started ${dv.n > 1 ? "their careers" : "his career"} with him: ${Math.round(dv.pts)} points in ${dv.pj} games with him, versus ${Math.round(dv.att)} expected from players drafted at their slot${top ? ` (best: ${top.n}, ${Math.round(top.pts)} points vs ${Math.round(top.att)} expected)` : ""}.`));
+  }
+  return ph.join(" ");
+}
+function coachApercu(id, x){
+  const sec = [];
+  sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${coachBref(id, x)}</div></section>`);
+  sec.push(newsBloc("c", id));
+  const t = x.eq, se = eqSerie(eqC(t));
+  if (se) sec.push(`<section class="fen-s"><h3>${L("Son équipe", "His team")} <em>${L("10 derniers matchs", "last 10 games")} · ${eqFiche(se.v, se.d, se.p)}</em></h3>${eqThermo(se)}</section>`);
+  const parcours = Object.keys(CO.par_saison).sort().reverse().map(s => [s, CO.par_saison[s].coachs?.find(y => y.id === id)]).filter(([, y]) => y);
+  if (parcours.length > 1) sec.push(`<section class="fen-s"><h3>${L("Son PB Coach Boost %, saison par saison", "His PB Coach Boost %, season by season")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>`);
+  return sec.join("");
+}
+function coachJoueurs(x){
+  const tuile = (v, l_) => `<div><b>${v}</b><span>${l_}</span></div>`;
+  // Triés par l'écart qu'on montre (avec lui / attendu), pour que l'ordre suive les %
+  const pc_ = (j) => { const a = j.att ?? j.sans; return a > 0 ? j.avec / a - 1 : 0; };
+  const J = [...(x.j || [])].sort((a, b) => pc_(b) - pc_(a));
+  const monte = J.filter(j => (j.res ?? 0) > 0), baisse = J.filter(j => (j.res ?? 0) < 0).reverse();
+  const p82 = (x.boost || 0) * 82;
+  return `<div class="wi-res">${tuile(x.pjm ?? "–", L("matchs au-dessus de l'attendu", "games above expected"))}${tuile(x.pjb ?? "–", L("matchs en dessous", "games below"))}${tuile(x.nj, L("joueurs comparés", "players compared"))}${tuile((p82 > 0.05 ? "+" : p82 < -0.05 ? "−" : "") + n1(Math.abs(p82)), L("pts sur 82 matchs vs attendu", "pts per 82 games vs expected"))}</div>
+    ${monte.length ? `<section class="fen-s"><h3>${L("Ceux qu'il fait monter", "The ones he lifts")} <em>${monte.length}</em></h3><div class="fen-ljs">${monte.map(j => coachLigneJ(x, j)).join("")}</div></section>` : ""}
+    ${baisse.length ? `<section class="fen-s"><h3>${L("Ceux qui baissent avec lui", "The ones who drop with him")} <em>${baisse.length}</em></h3><div class="fen-ljs">${baisse.map(j => coachLigneJ(x, j)).join("")}</div></section>` : ""}
+    <p class="aide" style="margin:6px 16px 16px">${L("Les joueurs qui ont joué pour lui ET pour un autre coach (les 10 qui ont le plus joué avec lui). L'attendu tient compte de leur âge : un vétéran qui décline n'est pas mis sur le dos du coach. La note compte les matchs, pas les têtes.", "Players who played for him AND another coach (the 10 with the most games under him). The expectation accounts for their age: a declining veteran isn't pinned on the coach. The score counts games, not heads.")}</p>`;
+}
+function coachRecrues(x){
+  const dv = x.dev;
+  if (!dv) return `<div class="vide">${L("Aucun joueur n'a commencé sa carrière avec lui depuis 2014-15.", "No player has started his career with him since 2014-15.")}</div>`;
+  const tuile = (v, l_) => `<div><b>${v}</b><span>${l_}</span></div>`;
+  const ligne = (j) => { const q = fenQui(j.id) || {}, d = j.att > 0 ? Math.round((j.pts / j.att - 1) * 100) : null;
+    const rep = j.ra ? L(`repêché ${j.an}, ${j.ra}${j.ra === 1 ? "er" : "e"} au total`, `drafted ${j.an}, ${j.ra}${["th", "st", "nd", "rd"][(j.ra % 100 > 10 && j.ra % 100 < 14) ? 0 : (j.ra % 10 < 4 ? j.ra % 10 : 0)]} overall`) : L("jamais repêché", "undrafted");
+    return eqLigneJ(j.id, j.n, q.no, q.eq || x.eq, j.pos, `${rep} · ${L("débuts", "debut")} ${sai2(j.deb)} · ${Math.round(j.pts)} pts ${L("en", "in")} ${j.pj} ${L("matchs avec lui", "games with him")}, ${Math.round(j.att)} ${L("attendus", "expected")}`,
+      d == null ? "–" : `${d > 0 ? "+" : d < 0 ? "−" : ""}${Math.abs(d)}${EN ? "%" : " %"}`, L("vs son rang", "vs his slot")); };
+  const pr = (j) => j.att > 0 ? j.pts / j.att : 1;
+  const haut = (dv.j || []).filter(j => j.pts >= j.att).sort((a, b) => pr(b) - pr(a)), bas = (dv.j || []).filter(j => j.pts < j.att).sort((a, b) => pr(b) - pr(a));
+  return `<div class="wi-res">${tuile(pbTxt(dv.pc), "PB Coach Dev %")}${tuile(dv.n, L("recrues avec lui", "rookies under him"))}${tuile(`${Math.round(dv.pts)}`, L(`points (${Math.round(dv.att)} attendus)`, `points (${Math.round(dv.att)} expected)`))}${tuile(dv.rg ? `${L("n°", "#")} ${dv.rg}` : "–", L("de la ligue", "in the league"))}</div>
+    ${haut.length ? `<section class="fen-s"><h3>${L("Au-dessus de leur rang", "Above their slot")} <em>${haut.length}</em></h3><div class="fen-ljs">${haut.map(ligne).join("")}</div></section>` : ""}
+    ${bas.length ? `<section class="fen-s"><h3>${L("En dessous de leur rang", "Below their slot")} <em>${bas.length}</em></h3><div class="fen-ljs">${bas.map(ligne).join("")}</div></section>` : ""}
+    <p class="aide" style="margin:6px 16px 16px">${L("Les joueurs dont la 1re saison dans la LNH s'est jouée avec lui (depuis 2014-15), comparés aux joueurs repêchés dans la même tranche de rang, à la même position et à la même saison de carrière, en points ajustés à l'époque. Le coach ne décide pas tout seul (DG, temps de glace, blessures) : c'est ce qui s'est passé, pas une prédiction.", "Players whose first NHL season was with him (since 2014-15), compared with players drafted in the same range, at the same position and the same career season, in era-adjusted points. The coach doesn't decide everything alone (GM, ice time, injuries): this is what happened, not a prediction.")}</p>`;
 }
 // Les fiches des coachs, saison par saison (src/coach_fiches.py -> coachs.json : leurs pages Wikipédia, les 32 actifs)
 let COF = null, COF_p = null;
@@ -8205,13 +8284,14 @@ function coachCarte(id){
   const sc = coSai(), x = CO?.par_saison?.[sc]?.coachs?.find(y => y.id === id); if (!x) return;
   const [kp, kb] = coCles();
   const m = eqCible("coach", x.eq); if (!m) return;     // la fenêtre de son équipe, onglet Coach
-  const J = (x.j || []).map(j => { const d = j.sans > 0 ? (j.avec / j.sans - 1) * 100 : null;
-    return `<tr><td><b>${j.n}</b> <small>${j.pos === "D" ? L("Déf.", "D") : L("Av.", "F")}</small></td><td>${j.pja}</td><td>${n2(j.avec)}</td><td>${n2(j.sans)}</td><td class="${j.res > 0 ? "bon" : j.res < 0 ? "mauvais" : ""}">${d == null ? "–" : (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(Math.round(d)) + (EN ? "%" : " %")}</td></tr>`; }).join("");
+  // Avec lui contre l'attendu à son âge (v2, Mitch 21 nov.), plus contre ses autres coachs bruts
+  const J = (x.j || []).map(j => { const a = j.att ?? j.sans, d = a > 0 ? (j.avec / a - 1) * 100 : null;
+    return `<tr><td><b>${j.n}</b> <small>${j.pos === "D" ? L("Déf.", "D") : L("Av.", "F")}</small></td><td>${j.pja}</td><td>${n2(j.avec)}</td><td>${n2(a)}</td><td class="${j.res > 0 ? "bon" : j.res < 0 ? "mauvais" : ""}">${d == null ? "–" : (d > 0 ? "+" : d < 0 ? "−" : "") + Math.abs(Math.round(d)) + (EN ? "%" : " %")}</td></tr>`; }).join("");
   m.innerHTML = `<div class="wi-carte" role="dialog" aria-modal="true" aria-label="${x.n}" style="${eqV(x.eq)}"><header><div class="wi-hd"><img class="lg" src="${LOGO(x.eq)}" alt="" style="width:46px;height:46px"><div><b>${nomP(x.n, "c")}</b><span>${NOMS_EQ[x.eq] || x.eq} · ${coSaiTxt(sc)} · ${x.pj} ${L("matchs derrière le banc", "games behind the bench")}</span></div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
-    <div class="wi-res"><div><b>${x.monte}</b><span>${L("joueurs en hausse", "players up")}</span></div><div><b>${x.baisse}</b><span>${L("en baisse", "down")}</span></div>
+    <div class="wi-res"><div><b>${x.pjm ?? x.monte}</b><span>${x.pjm != null ? L("matchs au-dessus de l'attendu", "games above expected") : L("joueurs en hausse", "players up")}</span></div><div><b>${x.pjb ?? x.baisse}</b><span>${x.pjb != null ? L("matchs en dessous", "games below") : L("en baisse", "down")}</span></div>
       <div><b>${pts2(x[kb])}</b><span>${L("pts/match vs attendu", "pts/game vs expected")}</span></div><div><b>${x.nsai}</b><span>${L("saisons comme coach", "seasons as coach")}</span></div></div>
-    <p class="aide" style="margin:10px 16px 4px">${L("Ceux qui ont joué pour lui et pour un autre coach : points par match avec lui, puis avec les autres (bruts ; le % de la stat enlève l'âge et la saison).", "Players who played for him and for another coach: points per game with him, then with the others (raw; the stat's % takes out age and season).")}</p>
-    ${J ? `<div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("PJ", "GP")}</th><th>${L("Avec lui", "With him")}</th><th>${L("Ailleurs", "Elsewhere")}</th><th></th></tr></thead><tbody>${J}</tbody></table></div>` : ""}
+    <p class="aide" style="margin:10px 16px 4px">${L("Ceux qui ont joué pour lui et pour un autre coach : points par match avec lui, puis ce qu'on attend d'eux à leur âge.", "Players who played for him and for another coach: points per game with him, then what's expected of them at their age.")}</p>
+    ${J ? `<div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("PJ", "GP")}</th><th>${L("Avec lui", "With him")}</th><th>${L("Attendu", "Expected")}</th><th></th></tr></thead><tbody>${J}</tbody></table></div>` : ""}
     <p class="aide" style="margin:10px 16px 14px">${x.nj >= 25 ? L(`Avec ${x.nj} joueurs comparés, l'effet est solide (pas juste un ou deux gars chanceux).`, `With ${x.nj} players compared, the effect is solid (not just one or two lucky guys).`)
       : L(`Seulement ${x.nj} joueurs comparés : le chiffre est freiné vers un coach moyen.`, `Only ${x.nj} players compared: the number is pulled toward an average coach.`)}</p></div>`;
   ptCarte(m, Object.assign({}, x, { rg: null, dr: null, h: (S.copos || "tous") === "tous" ? x.ph : null }), pbTxt(x[kp]), "PBCB · PB Coach Boost %", `${x.eq} · ${coSaiTxt(sc)}`);
@@ -9555,8 +9635,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=df06d590" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=df06d590" defer></script>
+<script src="pub.js?v=6646394d" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=6646394d" defer></script>
 <script src="nav.js?v=bf0a64ecfe" defer></script>
 </body>
 </html>
