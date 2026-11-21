@@ -373,12 +373,14 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
+.fen-eq header .wi-palm{position:absolute;right:14px;top:12px;left:auto;max-width:58%;justify-content:flex-end;z-index:3}
+.fen-co header .wi-palm{position:absolute;right:14px;top:12px;max-width:40%;justify-content:flex-end}
+.co-tab td,.co-tab th{text-align:center} .co-tab .co-tot td{font-weight:800;border-top:2px solid rgba(10,35,66,.25)}
 .wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:14px;top:16px;max-height:116px;overflow:hidden}
-.tr-b .tr-emb{width:26px!important;height:29px!important}
+.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.1)!important}
 .wi-carte header .tr-b{width:auto!important;height:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
 .tr-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:#C9D6EE}
 .tr-b small{font:800 10px/1 "Barlow Condensed",var(--f-body);letter-spacing:.03em}
-.wi-carte header .tr-b small.tr-n{font:800 12px/1 "Barlow Condensed",var(--f-body);color:#FFB81C}
 .tro-h{display:flex!important;flex-direction:row!important;gap:16px;align-items:center;padding:18px 16px!important;background:linear-gradient(135deg,#0E2C52,#061529)}
 .tro-h .tro-e .tr-emb{width:86px!important;height:95px!important}
 .tro-h .tro-e{flex:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
@@ -1143,7 +1145,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=0fe5b5f3">
+<link rel="stylesheet" href="carte.css?v=b8b3a2e9">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7082,7 +7084,7 @@ async function eqAfficher(t, o){
   f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button><span class="fen-url"></span></div>
     <div class="vide fen-ch">${L("Chargement de l'équipe…", "Loading team…")}</div></div>`;
   f.querySelector(".fen-ret").onclick = fenFermer;
-  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr()]);
+  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr(), palmCharger()]);
   if (FEN.id !== t || FEN.k !== "e") return;
   if (!EQF_O.some(([k]) => k === o)) o = "apercu";
   eqBatir(t, o);
@@ -7098,7 +7100,7 @@ function eqBatir(t, o){
   f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button>
       <span class="fen-url">${(location.host || "puckprob.ca") + location.pathname.replace(/index\.html$/, "")}${eqHashDe(t, "")}</span><button type="button" class="fen-pt" aria-label="${L("Partager", "Share")}">${ICO_PT}</button></div>
     <div class="wi-carte fen fen-eq" style="${eqV(t)}">
-      <header class="a-logo"><div class="wi-hd"><div><b><small>${villeNom(t)}</small>${eqSurnom(t)}</b><span>${fiche}</span><span>${rangs}</span>${co ? `<span>${L("Coach", "Coach")} : ${co.id ? `<a class="co-lien" href="#coach/${co.id}" data-coach="${co.id}">${co.n}</a>` : co.n}</span>` : ""}
+      <header class="a-logo">${PALM?.equipes?.[t]?.length ? palmRangee(PALM.equipes[t].map(s => ["coupe", s]), PALM.trophees) : ""}<div class="wi-hd"><div><b><small>${villeNom(t)}</small>${eqSurnom(t)}</b><span>${fiche}</span><span>${rangs}</span>${co ? `<span>${L("Coach", "Coach")} : ${co.id ? `<a class="co-lien" href="#coach/${co.id}" data-coach="${co.id}">${co.n}</a>` : co.n}</span>` : ""}
         <span class="fen-chips">${N ? `<i style="background:${N[3]}">${se.niv >= 3 ? "▲" : se.niv <= 1 ? "▼" : "–"} ${L(N[1], N[2])} · ${eqFiche(se.v, se.d, se.p)}</i>` : ""}${pw ? `<i>PB Power ranking ${L("n°", "#")} ${pw.rg}</i>` : ""}</span></div></div>
         <img class="fen-logo" src="${LOGO_URL(t, false)}" alt="" onerror="this.remove()"></header>
       ${e ? `<div class="wi-bio eq4">${tuile(L("Séries", "Playoffs"), pcTxt(e.p_series))}${tuile(L("Coupe", "Cup"), pcTxt(e.p_coupe))}${tuile("Projection", Math.round(e.proj) + " pts")}${tuile(L("Buts", "Goals"), `${bp}-${bc}`)}</div>` : ""}
@@ -7364,6 +7366,8 @@ function mtPourquoi(g, v){
 // section Coupe, les courses aux trophées des fenêtres joueur et équipe ; le n° 1 de chaque course porte un petit
 // écusson sur son emblème de joueur dans les listes. Les mêmes dessins dans les cartes des posts (src/cartes.py).
 const TROPH_ICO = {
+  // Le Conn-Smythe : une étoile sur une rondelle (le joueur des séries)
+  smythe: '<ellipse cx="0" cy="14" rx="22" ry="8" fill="#0A2342"/><path d="M0 -26 L7 -8 L26 -8 L11 3 L17 21 L0 10 L-17 21 L-11 3 L-26 -8 L-7 -8 Z" fill="#C8102E" stroke="#0A2342" stroke-width="3"/>',
   art: '<path d="M-22 18 L14 -22 L20 -16 L-16 24 Z" fill="#0A2342"/><rect x="-28" y="16" width="20" height="8" rx="3" fill="#0A2342"/><path d="M16 6 V22 M8 14 H24" stroke="#0A2342" stroke-width="5"/>',
   rocket: '<circle cx="0" cy="8" r="13" fill="#0A2342"/><path d="M-4 -6 C-14 -16 -6 -26 2 -30 C0 -22 10 -20 8 -8 Z" fill="#C8102E"/>',
   hart: '<path d="M0 22 C-26 4 -22 -18 -8 -18 C-2 -18 0 -12 0 -10 C0 -12 2 -18 8 -18 C22 -18 26 4 0 22 Z" fill="#C8102E"/><path d="M-6 -4 L0 6 L6 -4" stroke="#fff" stroke-width="3" fill="none"/>',
@@ -7421,12 +7425,13 @@ function palmEmblemes(id){
   if (!M?.length) return "";
   const ordre = Object.keys(T);
   const L_ = [...M].sort((a, b) => ordre.indexOf(a[0]) - ordre.indexOf(b[0]) || String(a[1]).localeCompare(String(b[1])));
-  // Une légende (plus de 12 trophées : Gretzky, Lemieux...) : un emblème par trophée avec son nombre, sinon ça déborde
-  if (L_.length > 12){
-    const par = {}; L_.forEach(([k]) => par[k] = (par[k] || 0) + 1);
-    return `<div class="wi-palm">${Object.entries(par).map(([k, n]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} × ${n}">${trophEmb(k, 26)}<small class="tr-n">×${n}</small></button>`).join("")}</div>`;
-  }
-  return `<div class="wi-palm">${L_.map(([k, s]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}" title="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}">${trophEmb(k, 26)}</button>`).join("")}</div>`;
+  return palmRangee(L_, T);
+}
+// Tous les emblèmes, même 20 (Mitch, 20 nov. : « si y en a 20, j'en veux 20, fais ça fitter ») : plus il y en a, plus
+// ils sont petits (3 rangées au plus dans le vide à droite de la plaque)
+function palmRangee(L_, T){
+  const n = L_.length, t = n <= 9 ? 26 : n <= 18 ? 21 : n <= 30 ? 17 : 14;
+  return `<div class="wi-palm" style="--te:${t}px">${L_.map(([k, s]) => `<button type="button" class="tr-b" data-troph="${k}" aria-label="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}" title="${T[k]?.nom?.[EN ? "en" : "fr"] || k} ${sai2(s)}">${trophEmb(k, t)}</button>`).join("")}</div>`;
 }
 const ouvrirTrophee = (k) => fenPousser("t:" + k, "#" + (EN ? "trophy" : "trophee") + "/" + k);
 const ouvrirCoach = (id) => fenPousser("c:" + id, "#coach/" + id);
@@ -7452,6 +7457,7 @@ async function trophAfficher(k){
   await Promise.all([palmCharger(), FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr()]);
   const T = PALM?.trophees?.[k]; if (!T || FEN.k !== "t" || FEN.id !== k) return;
   const l = EN ? "en" : "fr", par = new Map();
+  if (k === "coupe" || k === "adams") return trophAutres(k, T);
   for (const [s, id, n, eq] of T.gagnants){
     const c = String(id || n);
     if (!par.has(c)) par.set(c, { id, n, s: [], eq });
@@ -7474,11 +7480,38 @@ async function trophAfficher(k){
     <section class="fen-s"><h3>${L("Le classement", "The ranking")} <em>${L("par nombre de trophées", "by number of wins")}</em></h3><div class="fen-ljs">${lignes}</div></section>
     <p class="aide" style="margin:6px 16px 16px">${L("Les gagnants depuis", "Winners since")} ${sai2(T.de)}. ${L("Touche un joueur pour sa fiche.", "Tap a player for his card.")}</p></div>`);
 }
+// La Coupe (les équipes) et le Jack-Adams (les coachs) : même fenêtre, des logos au lieu des plaques
+async function trophAutres(k, T){
+  if (k === "adams") await chargerCoach();
+  const l = EN ? "en" : "fr", par = new Map(), actifs = new Set((CO?.par_saison?.[CO?.saison]?.coachs || []).map(c => c.id));
+  for (const [s, id, n, eq] of T.gagnants){
+    const c = k === "coupe" ? eq : id;
+    if (!c) continue;
+    if (!par.has(c)) par.set(c, { c, n, s: [], eq });
+    const x = par.get(c); x.s.push(s); x.eq = eq || x.eq; if (k === "coupe") x.n = NOMS_EQ[eq] || n;
+  }
+  const L_ = [...par.values()].sort((a, b) => b.s.length - a.s.length || b.s[b.s.length - 1].localeCompare(a.s[a.s.length - 1]));
+  let r = 0, prec = null;
+  const lignes = L_.map((x, i) => {
+    if (x.s.length !== prec){ r = i + 1; prec = x.s.length; }
+    const lien = k === "coupe" ? (NOMS_EQ[x.c] ? `data-eq="${x.c}"` : "") : (actifs.has(x.c) ? `data-coach="${x.c}"` : "");
+    const ans = x.s.length > 8 ? x.s.slice(-8).map(sai2).join(" · ") + " …" : x.s.map(sai2).join(" · ");
+    return `<button type="button" class="fen-lj tro-l" ${lien} style="${eqV(x.eq || "")}"><span class="tro-r">${r}</span><img class="lg" src="${LOGO(x.eq)}" alt="" style="width:38px;height:38px;object-fit:contain;flex:none">
+      <span class="nm"><b>${x.n}</b><small>${ans}</small><span class="tro-embs">${x.s.slice(0, 30).map(() => trophEmb(k, 14)).join("")}</span></span>
+      <span class="v"><b>${x.s.length}</b><small>${L("fois", x.s.length > 1 ? "times" : "time")}</small></span></button>`;
+  }).join("");
+  fenCadre("t", k, "#trophee/" + k, `<div class="wi-carte fen fen-trophee">
+    <header class="tro-h"><div class="tro-e">${trophEmb(k, 86)}</div><div class="tro-t"><small>${T.nom[l]}</small><b>${T.titre[l]}</b>
+      <span>${sai2(T.de)} ${L("à", "to")} ${sai2(T.a)} · ${L_.length} ${k === "coupe" ? L("équipes", "teams") : L("coachs", "coaches")}</span></div></header>
+    <section class="fen-s"><h3>${L("Le classement", "The ranking")} <em>${k === "coupe" ? L("par nombre de Coupes", "by number of Cups") : L("par nombre de trophées", "by number of wins")}</em></h3><div class="fen-ljs">${lignes}</div></section>
+    <p class="aide" style="margin:6px 16px 16px">${k === "coupe" ? L("Depuis la création de la ligue.", "Since the league began.") : L("Touche un coach actif pour sa fiche.", "Tap an active coach for his card.")}</p></div>`);
+}
+document.addEventListener("click", (e) => { const b = e.target.closest?.(".tro-l[data-eq]"); if (b){ e.preventDefault(); ouvrirEquipe(b.dataset.eq); } });
 // Le coach : son nom, l'icône de coach aux couleurs de son équipe (pas de photo officielle publiée), son PB Coach
 // Boost %, son parcours saison par saison et les joueurs qu'il fait monter (ou baisser)
 async function coachAfficher(id){
   fenCadre("c", id, "#coach/" + id, `<div class="vide fen-ch">${L("Chargement…", "Loading…")}</div>`);
-  await Promise.all([chargerCoach(), FEN_CH.sal(), FEN_CH.prj()]);
+  await Promise.all([chargerCoach(), FEN_CH.sal(), FEN_CH.prj(), palmCharger(), coachsCharger()]);
   if (FEN.k !== "c" || FEN.id !== id) return;
   const sc = CO?.saison, x = CO?.par_saison?.[sc]?.coachs?.find(y => y.id === id);
   if (!x){ fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen"><div class="vide">${L("Ce coach n'est pas actif cette saison.", "This coach isn't active this season.")}</div></div>`); return; }
@@ -7494,12 +7527,28 @@ async function coachAfficher(id){
   const icone = `<span class="co-ico"><img src="${LOGO(x.eq)}" alt=""></span>`;
   fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen fen-co" style="${eqV(x.eq)}">
     <header><div class="wi-hd">${icone}<div><b>${nomP(x.n, "c")}</b><span>${L("Entraîneur-chef", "Head coach")} · ${NOMS_EQ[x.eq] || x.eq}</span><span>${x.nsai} ${L(x.nsai > 1 ? "saisons comme coach" : "saison comme coach", x.nsai > 1 ? "seasons as coach" : "season as coach")}</span>
-      <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.rg ? `<i>${L("n°", "#")} ${x.rg} ${L("de la ligue", "in the league")}</i>` : ""}</span></div></div></header>
+      <span class="fen-chips"><i>${x.pc != null ? pbTxt(x.pc) : "–"} PB Coach Boost %</i>${x.rg ? `<i>${L("n°", "#")} ${x.rg} ${L("de la ligue", "in the league")}</i>` : ""}</span></div></div>${PALM?.coachs?.[id]?.length ? palmRangee(PALM.coachs[id], PALM.trophees) : ""}</header>
+    ${coachSaisons(id)}
     <div class="wi-res">${tuile(x.monte, L("joueurs en hausse", "players up"))}${tuile(x.baisse, L("en baisse", "down"))}${tuile(x.nj, L("joueurs comparés", "players compared"))}${tuile(pts2(x.boost), L("pts/match vs attendu", "pts/game vs expected"))}</div>
     ${parcours.length > 1 ? `<section class="fen-s"><h3>${L("Son parcours", "His track record")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>` : ""}
     ${monte.length ? `<section class="fen-s"><h3>${L("Ceux qu'il fait monter", "The ones he lifts")} <em>${monte.length}</em></h3><div class="fen-ljs">${monte.map(ligneJ).join("")}</div></section>` : ""}
     ${baisse.length ? `<section class="fen-s"><h3>${L("Ceux qui baissent avec lui", "The ones who drop with him")} <em>${baisse.length}</em></h3><div class="fen-ljs">${baisse.map(ligneJ).join("")}</div></section>` : ""}
     <p class="aide" style="margin:6px 16px 16px">${L("Points par match avec lui comparés à ses autres coachs, chez les joueurs qui ont joué pour les deux.", "Points per game with him compared with his other coaches, for players who played for both.")}</p></div>`);
+}
+// Les fiches des coachs, saison par saison (src/coach_fiches.py -> coachs.json : leurs pages Wikipédia, les 32 actifs)
+let COF = null, COF_p = null;
+const coachsCharger = () => COF_p || (COF_p = fetch("coachs.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (COF = x || {})));
+function coachSaisons(id){
+  const F = COF?.coachs?.[id]; if (!F?.saisons?.length) return "";
+  const S_ = [...F.saisons].reverse(), nb = (v) => v == null ? "–" : v;
+  const tot = F.saisons.reduce((t, r) => { t[0] += r[2] || 0; t[1] += r[3] || 0; t[2] += r[4] || 0; t[3] += (r[5] || 0) + (r[6] || 0); t[4] += r[9] || 0; t[5] += r[10] || 0; return t; }, [0, 0, 0, 0, 0, 0]);
+  const ser = (r) => r[9] == null ? `<small>${L("Exclu", "Missed")}</small>` : `${r[9]}-${r[10]}`;
+  const cup = (r) => /won stanley cup|stanley cup champions/i.test(r[11] || "") ? " 🏆" : "";
+  return `<section class="fen-s"><h3>${L("Saison par saison", "Season by season")} <em>${F.saisons.length} ${L("saisons", "seasons")}</em></h3>
+    <div class="tbl"><table class="serre co-tab"><thead><tr><th>${L("Saison", "Season")}</th><th></th><th>${L("PJ", "GP")}</th><th>${L("V", "W")}</th><th>${L("D", "L")}</th><th>${L("DP", "OTL")}</th><th>PTS</th><th>${L("Séries", "Playoffs")}</th></tr></thead>
+    <tbody>${S_.map(r => `<tr><td>${sai2(r[0])}</td><td><b>${r[1]}</b></td><td>${nb(r[2])}</td><td>${nb(r[3])}</td><td>${nb(r[4])}</td><td>${nb((r[5] || 0) + (r[6] || 0))}</td><td>${nb(r[7])}</td><td>${ser(r)}${cup(r)}</td></tr>`).join("")}
+    <tr class="co-tot"><td>Total</td><td></td><td>${tot[0]}</td><td>${tot[1]}</td><td>${tot[2]}</td><td>${tot[3]}</td><td></td><td>${tot[4]}-${tot[5]}</td></tr></tbody></table></div>
+    <p class="aide" style="margin:6px 4px 0">${L("Source : sa page Wikipédia", "Source: his Wikipedia page")}${F.page ? ` (<a href="https://en.wikipedia.org/wiki/${encodeURIComponent(F.page.replace(/ /g, "_"))}" target="_blank" rel="noopener">${F.page}</a>)` : ""}. ${L("DP = défaites en prolongation (et matchs nuls d'avant 2005).", "OTL = overtime losses (and ties before 2005).")}</p></section>`;
 }
 async function ficheDeco(c){
   if (c.dataset.deco) return;
@@ -9419,8 +9468,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=0fe5b5f3" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=0fe5b5f3" defer></script>
+<script src="pub.js?v=b8b3a2e9" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=b8b3a2e9" defer></script>
 <script src="nav.js?v=491137852a" defer></script>
 </body>
 </html>

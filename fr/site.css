@@ -345,12 +345,14 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
 /* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
 .wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
+.fen-eq header .wi-palm{position:absolute;right:14px;top:12px;left:auto;max-width:58%;justify-content:flex-end;z-index:3}
+.fen-co header .wi-palm{position:absolute;right:14px;top:12px;max-width:40%;justify-content:flex-end}
+.co-tab td,.co-tab th{text-align:center} .co-tab .co-tot td{font-weight:800;border-top:2px solid rgba(10,35,66,.25)}
 .wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:14px;top:16px;max-height:116px;overflow:hidden}
-.tr-b .tr-emb{width:26px!important;height:29px!important}
+.tr-b .tr-emb{width:var(--te,26px)!important;height:calc(var(--te,26px) * 1.1)!important}
 .wi-carte header .tr-b{width:auto!important;height:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
 .tr-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:#C9D6EE}
 .tr-b small{font:800 10px/1 "Barlow Condensed",var(--f-body);letter-spacing:.03em}
-.wi-carte header .tr-b small.tr-n{font:800 12px/1 "Barlow Condensed",var(--f-body);color:#FFB81C}
 .tro-h{display:flex!important;flex-direction:row!important;gap:16px;align-items:center;padding:18px 16px!important;background:linear-gradient(135deg,#0E2C52,#061529)}
 .tro-h .tro-e .tr-emb{width:86px!important;height:95px!important}
 .tro-h .tro-e{flex:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
