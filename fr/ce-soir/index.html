@@ -321,6 +321,7 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 .fo-n{font:600 12.5px/1.35 var(--f-body);color:#C9D6EE}
 .fo-i{background:#ffffff12;border-left:4px solid var(--or,#FFB81C);border-radius:6px;padding:7px 9px;font:500 12.5px/1.4 var(--f-body);color:#DCE6F2}
 .fo-i small{display:block;margin-bottom:3px;color:var(--or,#FFB81C)!important}
+.fen-serie .spk.spk{display:flex;margin:10px 0 2px}.fen-serie .spk.spk svg{flex:1;width:auto;height:34px}
 .fo-mini{display:flex;flex-direction:column;gap:2px;margin-top:4px;max-width:220px}
 .fo-mini .fo-b > span{width:40px;font-size:10.5px;color:var(--muted)}
 .fo-mini .fo-t{height:6px;background:color-mix(in srgb,currentColor 12%,transparent)}
@@ -1111,7 +1112,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=2c1c1690">
+<link rel="stylesheet" href="carte.css?v=881bb933">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6349,6 +6350,10 @@ async function rumOnglet(){
 // saison, pesés selon son rôle. Un portrait, pas une prédiction (vérifié : une série chaude ne dit rien des suivants).
 let FORME = null, FORME_p = null;
 const chargerForme = () => FORME_p || (FORME_p = fetch(urlSai("forme.json") + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(d => (FORME = d)).catch(() => null));
+// La courbe PBHI : un point par match joué, depuis qu'il a son indice (12e match) ; la valeur d'avant ; signée
+const spkHI = (v) => { const r = Math.round(v * 10) / 10; return (r > 0 ? "+" : r < 0 ? "−" : "") + n1(Math.abs(r)); };
+const formeSpark = (x) => x?.ph?.length > 1 ? spark(x.ph, false, L("Match par match, depuis son 12e match de la saison", "Game by game, since his 12th game of the season"), spkHI) : "";
+const formeAv = (x) => x?.av != null && n1(x.av) !== n1(x.idx) ? ` · ${L("avant", "was")} ${spkHI(x.av)}` : "";
 const FORME_ROLE = { A: ["Avant", "Forward"], DO: ["Défenseur offensif", "Offensive D"], DD: ["Défenseur défensif", "Defensive D"] };
 // Une barre « contre sa saison » : le centre = sa moyenne, à droite = mieux, à gauche = moins bien
 const formeBarre = (lib, z) => { const v = Math.max(-2, Math.min(2, z || 0)), g = v < 0;
@@ -6364,9 +6369,10 @@ function formeBloc(f){
   const invis = f.xga?.[0] == null || f.att?.[0] == null ? "" : L(
     `À 5 contre 5, quand il est sur la glace, l'équipe accorde <b>${pc(f.xga[0])}</b> des chances (xG). Pour ses départs en zone défensive (${pc(f.dz[0])}), ses adversaires et son équipe, on s'attendrait à ${pc(f.att[0])} : <b>${ecart(r0)}</b> que l'attendu à ses 10 derniers (${ecart(r1)} cette saison). ${f.pk?.[0] >= 5 ? `En désavantage numérique, il est sur la glace pour ${pc(f.pk[0])} des tirs adverses.` : "Il joue pas en désavantage numérique."}`,
     `At 5-on-5, while he's on the ice, the team gives up <b>${pc(f.xga[0])}</b> of the chances (xG). For his defensive-zone starts (${pc(f.dz[0])}), his opponents and his team, you'd expect ${pc(f.att[0])}: <b>${ecart(r0)}</b> than expected over his last 10 (${ecart(r1)} this season). ${f.pk?.[0] >= 5 ? `On the penalty kill, he's on the ice for ${pc(f.pk[0])} of the shots against.` : "He doesn't kill penalties."}`);
-  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PBHI ${f.idx > 0 ? "+" : ""}${n1(f.idx)} · ${L(...FORME_ROLE[f.role])}</span></div>
+  return `<div class="fen-serie"><div class="fs-v"><b style="color:${N[3]}">${L(N[1], N[2])}</b><span>PBHI ${spkHI(f.idx)}${f.rg ? ` · ${L("n° ", "#")}${f.rg}` : ""}${formeAv(f)} · ${L(...FORME_ROLE[f.role])}</span></div>
     <div class="fen-therm"><i style="left:${(pos * 100).toFixed(0)}%"></i></div>
     <div class="fs-b"><small>${L("Très froid", "Ice cold")}</small><small>${L("Sa saison", "His season")}</small><small>${L("En feu", "On fire")}</small></div>
+    ${formeSpark(f)}
     <div class="fo-v">${formeBarre(L("Attaque", "Offense"), f.v.att)}${formeBarre(L("Défense", "Defense"), f.v.def)}${formeBarre(L("Utilisation", "Usage"), f.v.use)}</div>
     <div class="fo-n">${L(`${n1(f.pts[0])} pt/match (${n1(f.pts[1])} cette saison) · ${n1(f.sog[0])} tirs (${n1(f.sog[1])}) · ${n1(f.toi[0])} min (${n1(f.toi[1])})`,
                           `${n1(f.pts[0])} pts/game (${n1(f.pts[1])} this season) · ${n1(f.sog[0])} shots (${n1(f.sog[1])}) · ${n1(f.toi[0])} min (${n1(f.toi[1])})`)}</div>
@@ -6387,11 +6393,13 @@ async function formeOnglet(){
   const J = Object.entries(FORME.joueurs).map(([id, f]) => ({ id, ...f })).filter(x => (!pos || x.pos === pos) && (!feq || x.eq === feq))
     .sort((a, b) => sens === "chaud" ? b.idx - a.idx : a.idx - b.idx).slice(0, 100);
   const no = (x) => (typeof fenPrj === "function" && fenPrj(x.id)?.no) || "";
+  // Les places gagnées depuis le dernier soir : seulement sur le classement de toute la ligue (pas filtré)
+  const glob = !pos && !feq;
   el.innerHTML = tete + J.map((x, k) => { const N = FEN_SERIE[x.niv];
-    return `<div class="wi-l wi-r fo-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
+    return `<div class="wi-l wi-r fo-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}${glob ? mvtHTML(sens === "chaud" ? x.dr : -x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
       <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${L(...FORME_ROLE[x.role])} · ${n1(x.pts[0])} pt/${L("match", "game")} (${n1(x.pts[1])})</small>
       <span class="fo-mini">${formeBarre(L("Att.", "Off."), x.v.att)}${formeBarre(L("Déf.", "Def."), x.v.def)}${formeBarre(L("Util.", "Use"), x.v.use)}</span></span>
-      <span class="v"><b style="color:${N[3]}">${x.idx > 0 ? "+" : ""}${n1(x.idx)}</b>${AB("PBHI")}<small>${L(N[1], N[2])}</small></span></div>`; }).join("")
+      <span class="v"><b style="color:${N[3]}">${spkHI(x.idx)}</b>${AB("PBHI")}<small>${L(N[1], N[2])}${formeAv(x)}</small>${formeSpark(x)}</span></div>`; }).join("")
     + `<p class="aide">${L(`Au moins ${12} matchs joués. Ça évalue sa forme récente, ce qui vient de se passer, pas ce qui s'en vient. Mis à jour le`,
       `At least ${12} games played. It rates his recent form, what just happened, not what comes next. Updated`)} ${dateCourte(FORME.maj)}.</p>`;
 }
@@ -9184,8 +9192,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=2c1c1690" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=2c1c1690" defer></script>
+<script src="pub.js?v=881bb933" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=881bb933" defer></script>
 <script src="nav.js?v=94d3b6ccce" defer></script>
 </body>
 </html>

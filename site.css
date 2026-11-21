@@ -293,6 +293,7 @@ html #fenetre .fen-pane .wi-carte > header{display:none}
 .fo-n{font:600 12.5px/1.35 var(--f-body);color:#C9D6EE}
 .fo-i{background:#ffffff12;border-left:4px solid var(--or,#FFB81C);border-radius:6px;padding:7px 9px;font:500 12.5px/1.4 var(--f-body);color:#DCE6F2}
 .fo-i small{display:block;margin-bottom:3px;color:var(--or,#FFB81C)!important}
+.fen-serie .spk.spk{display:flex;margin:10px 0 2px}.fen-serie .spk.spk svg{flex:1;width:auto;height:34px}
 .fo-mini{display:flex;flex-direction:column;gap:2px;margin-top:4px;max-width:220px}
 .fo-mini .fo-b > span{width:40px;font-size:10.5px;color:var(--muted)}
 .fo-mini .fo-t{height:6px;background:color-mix(in srgb,currentColor 12%,transparent)}
