@@ -1161,7 +1161,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=1ca65f60">
+<link rel="stylesheet" href="carte.css?v=53878a6e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1195,6 +1195,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-pwr" aria-selected="false" aria-controls="p-pwr">Power rankings</button>
     <button role="tab" id="t-cor" aria-selected="false" aria-controls="p-cor">PB Correlation Trend</button>
     <button role="tab" id="t-forme" aria-selected="false" aria-controls="p-forme">PB Heat %</button>
+    <button role="tab" id="t-dev" aria-selected="false" aria-controls="p-dev">PB Dev %</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-wire" aria-selected="false" aria-controls="p-wire">PB On The Wire</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
@@ -1325,8 +1326,13 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   </section>
   <!-- PB Heat Index (Mitch, 20 nov. 2026) : la forme des 10 derniers matchs, le top 100 (src/forme.py -> docs/forme.json) -->
   <section id="p-forme" role="tabpanel" aria-labelledby="t-forme" hidden>
-    <div class="ctrls"><div class="row" id="f-forme"></div><div class="row" id="f-forme-pos"></div><div id="fe-forme"></div></div>
+    <div class="ctrls"><div class="row" id="f-forme"></div><div class="row" id="f-forme-pos"></div><div class="row" id="f-forme-role"></div><div id="fe-forme"></div></div>
     <div id="forme"></div>
+  </section>
+  <!-- PB Dev % (Mitch, 21 nov. 2026) : les jeunes vs leur rang de repêchage, les coachs et les équipes qui développent (src/dev.py -> docs/dev.json) -->
+  <section id="p-dev" role="tabpanel" aria-labelledby="t-dev" hidden>
+    <div class="ctrls"><div class="row" id="f-dev-v"></div><div class="row" id="f-dev-t"></div><div class="row" id="f-dev-pos"></div><div class="row" id="f-dev-rep"></div><div class="row" id="f-dev-deb"></div><div class="row"><input id="dev-q" type="search" autocomplete="off"></div><div id="fe-dev"></div></div>
+    <div id="dev"></div>
   </section>
   <!-- PB On The Wire (Mitch, 20 nov. 2026) : l'article du jour, les dernières 24 h de la LNH (src/sur_le_fil.py -> docs/fil/) -->
   <section id="p-wire" role="tabpanel" aria-labelledby="t-wire" hidden>
@@ -3790,7 +3796,7 @@ document.addEventListener("click", (e) => {
   // PB Stats : plusieurs équipes à la fois (la loupe au complet)
   if (cle === "px_eq"){ const L0 = pbxListe(S.px_eq), t = b.dataset.t; S.px_eq = (L0.includes(t) ? L0.filter(x => x !== t) : [...L0, t]).join(","); S.px_n = ""; whatif(); return; }
   S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet(), fe_forme: () => formeOnglet(), fe_dev: () => devOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -6452,13 +6458,17 @@ async function formeOnglet(){
   const sens = S.forme_s || "chaud", pos = S.forme_pos || "";
   $("#f-forme").innerHTML = [["chaud", "Les plus chauds", "Hottest"], ["froid", "Les plus froids", "Coldest"]].map(([k, f_, e_]) => `<button class="chip big" data-forme="${k}" aria-pressed="${sens === k}">${L(f_, e_)}</button>`).join("");
   $("#f-forme-pos").innerHTML = [["", "Tous", "All"], ["F", "Avants", "Forwards"], ["D", "Défenseurs", "Defensemen"]].map(([k, f_, e_]) => `<button class="chip" data-formep="${k}" aria-pressed="${pos === k}">${L(f_, e_)}</button>`).join("");
-  const feq = S.fe_forme || "";
+  const feq = S.fe_forme || "", role = S.forme_role || "";
   $("#fe-forme").innerHTML = filtreEqHTML("fe_forme", [...new Set(Object.values(FORME.joueurs).map(x => x.eq))].sort());
-  const J = Object.entries(FORME.joueurs).map(([id, f]) => ({ id, ...f })).filter(x => (!pos || x.pos === pos) && (!feq || x.eq === feq))
+  // Le rôle (Mitch, 21 nov. : « séparable dans le filtre comme les autres stats », position ET rôle) : les rôles de la
+  // position choisie seulement
+  const roles = [...new Set(Object.values(FORME.joueurs).filter(x => !pos || x.pos === pos).map(x => x.role))].filter(r => FORME_ROLE[r]);
+  $("#f-forme-role").innerHTML = `<span class="lbl">${L("Rôle", "Role")}</span>` + [["", ["Tous", "All"]], ...roles.map(r => [r, FORME_ROLE[r]])].map(([k, n]) => `<button class="chip" data-former="${k}" aria-pressed="${role === k}">${L(...n)}</button>`).join("");
+  const J = Object.entries(FORME.joueurs).map(([id, f]) => ({ id, ...f })).filter(x => (!pos || x.pos === pos) && (!feq || x.eq === feq) && (!role || x.role === role))
     .sort((a, b) => sens === "chaud" ? b.idx - a.idx : a.idx - b.idx).slice(0, 100);
   const no = (x) => (typeof fenPrj === "function" && fenPrj(x.id)?.no) || "";
   // Les places gagnées depuis le dernier soir : seulement sur le classement de toute la ligue (pas filtré)
-  const glob = !pos && !feq;
+  const glob = !pos && !feq && !role;
   el.innerHTML = tete + J.map((x, k) => { const N = FEN_SERIE[x.niv];
     return `<div class="wi-l wi-r fo-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}${glob ? mvtHTML(sens === "chaud" ? x.dr : -x.dr) : ""}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
       <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${L(...FORME_ROLE[x.role])} · ${n1(x.pts[0])} pt/${L("match", "game")} (${n1(x.pts[1])})</small>
@@ -6468,11 +6478,74 @@ async function formeOnglet(){
       `At least ${12} games played. It rates his recent form, what just happened, not what comes next. Updated`)} ${dateCourte(FORME.maj)}.</p>`;
 }
 document.addEventListener("click", (e) => {
-  const c = e.target.closest?.("#p-forme [data-forme], #p-forme [data-formep]");
-  if (c){ if (c.dataset.forme) S.forme_s = c.dataset.forme; else S.forme_pos = c.dataset.formep; formeOnglet(); return; }
+  const c = e.target.closest?.("#p-forme [data-forme], #p-forme [data-formep], #p-forme [data-former]");
+  if (c){ if (c.dataset.forme) S.forme_s = c.dataset.forme; else if (c.dataset.former != null) S.forme_role = c.dataset.former; else { S.forme_pos = c.dataset.formep; S.forme_role = ""; } formeOnglet(); return; }
   const r = e.target.closest?.("#forme .fo-l[data-pid]");
   if (r){ ouvrirJoueur(r.dataset.pid); }
 });
+
+// ---- PB Dev % (Mitch, 21 nov. 2026 : « une section dans Stats pour le développement des recrues, l'offense pis la
+// défense séparées, les joueurs, les coachs et les équipes, tout dans les filtres, le graphique depuis le début de la
+// saison ») : src/dev.py -> dev.json. Offense = points vs leur rang de repêchage ; Temps de glace = minutes vs leur rang
+let DEV = null, DEV_p = null;
+const chargerDev = () => DEV_p || (DEV_p = fetch(urlSai("dev.json") + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(d => (DEV = d)).catch(() => null));
+const DEV_T = { g: ["Global", "Overall"], o: ["Offense", "Offense"], d: ["Temps de glace", "Ice time"] };
+const devRep = (x) => x.ra ? L(`repêché ${x.an}, ${x.ra}${x.ra === 1 ? "er" : "e"} au total`, `drafted ${x.an}, ${x.ra}${["th", "st", "nd", "rd"][(x.ra % 100 > 10 && x.ra % 100 < 14) ? 0 : (x.ra % 10 < 4 ? x.ra % 10 : 0)]} overall`) : L("jamais repêché", "undrafted");
+const devAn = (x) => { const n = +DEV.saison.slice(0, 4) - +x.deb.slice(0, 4) + 1; return L(`${n}${n === 1 ? "re" : "e"} saison`, `${["", "1st", "2nd", "3rd"][n] || n + "th"} season`); };
+const devSt = (x) => `${Math.round(x.pts)} pts (${Math.round(x.att)} ${L("attendus", "expected")}) · ${n1(x.toi)} min/${L("match", "game")} (${n1(x.toi_att)} ${L("attendues", "expected")})`;
+const devSpark = (x, t) => x["h" + t]?.length > 1 ? spark(x["h" + t], false, L("Soir par soir depuis le début de la saison", "Night by night since the start of the season"), spkPc) : "";
+async function devOnglet(){
+  const el = $("#dev");
+  if (!DEV){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerDev(); }
+  if (!CO_EQ){ await chargerCoach(); CO_EQ = Object.fromEntries((CO?.par_saison?.[CO.saison]?.coachs || []).map(c => [c.id, c.eq])); }
+  $("#dev-q").placeholder = L("Chercher un joueur, un coach, une équipe", "Search a player, a coach, a team");
+  const v = S.dev_v || "j", t = S.dev_t || "g", pos = S.dev_pos || "", rep = S.dev_rep || "", deb = S.dev_deb || "", feq = S.fe_dev || "", q = nrm($("#dev-q").value);
+  const chips = (id, cle, opts, cur) => { $(id).innerHTML = opts.map(([k, n]) => `<button class="chip" data-dv="${cle}" data-k="${k}" aria-pressed="${cur === k}">${L(...n)}</button>`).join(""); };
+  chips("#f-dev-v", "dev_v", [["j", ["Joueurs", "Players"]], ["c", ["Coachs", "Coaches"]], ["e", ["Équipes", "Teams"]]], v);
+  chips("#f-dev-t", "dev_t", Object.entries(DEV_T), t);
+  if (v === "j"){
+    chips("#f-dev-pos", "dev_pos", [["", ["Tous", "All"]], ["F", ["Avants", "Forwards"]], ["D", ["Défenseurs", "Defensemen"]]], pos);
+    chips("#f-dev-rep", "dev_rep", [["", ["Tous", "All"]], ["r1", ["1re ronde", "1st round"]], ["r2", ["2e ronde", "2nd round"]], ["r3", ["3e ronde et +", "3rd round +"]], ["nd", ["Jamais repêchés", "Undrafted"]]], rep);
+    chips("#f-dev-deb", "dev_deb", [["", ["Ses 5 premières saisons", "First 5 seasons"]], ["1", ["Recrues (1re saison)", "Rookies (1st season)"]], ["2", ["2 premières saisons", "First 2 seasons"]], ["3", ["3 premières saisons", "First 3 seasons"]]], deb);
+  } else { $("#f-dev-pos").innerHTML = ""; $("#f-dev-rep").innerHTML = ""; $("#f-dev-deb").innerHTML = ""; }
+  const titre = { j: L("Les jeunes vs leur rang de repêchage", "Youngsters vs their draft slot"), c: L("Les coachs qui développent", "The coaches who develop"), e: L("Les équipes qui développent", "The teams that develop") }[v];
+  const tete = `<div class="cp-tete">${titrePB("PB Dev %", titre)}<p>${L(
+    `Chaque joueur dans ses ${DEV?.n_max || 5} premières saisons comparé à ce qu'on attend d'un joueur repêché au même rang, à la même position et à la même saison de carrière, sur deux volets : l'offense (ses points, ajustés à l'époque) et le temps de glace (la confiance que son coach lui donne, désavantage numérique et fins de match compris). Les coachs et les équipes : toutes les recrues qui ont commencé leur carrière chez eux depuis 2014-15. 0 % = exactement l'attendu de leur rang, 100 % = le niveau des 3 meilleurs.`,
+    `Every player in his first ${DEV?.n_max || 5} seasons compared with what we expect from a player drafted at the same slot, same position and same career season, on two sides: offense (his points, era-adjusted) and ice time (the trust his coach gives him, penalty kill and late-game minutes included). Coaches and teams: every rookie who started his career with them since 2014-15. 0% = exactly what their draft slot predicts, 100% = the level of the top 3.`)}</p></div>`;
+  if (!DEV?.j){ el.innerHTML = tete + `<div class="card"><div class="vide">${L("Arrive au prochain calcul.", "Coming with the next update.")}</div></div>`; return; }
+  const src = DEV[v] || {};
+  $("#fe-dev").innerHTML = filtreEqHTML("fe_dev", [...new Set(Object.entries(src).map(([k, x]) => v === "e" ? k : x.eq))].filter(Boolean).sort());
+  const nDeb = (x) => +DEV.saison.slice(0, 4) - +x.deb.slice(0, 4) + 1;
+  let L_ = Object.entries(src).map(([k, x]) => ({ k, ...x }));
+  if (v === "j") L_ = L_.filter(x => (!pos || x.pos === pos) && (!rep || x.tr === rep) && (!deb || nDeb(x) <= +deb) && (!feq || x.eq === feq) && (q.length < 2 || nrm(x.n).includes(q)));
+  else if (v === "c") L_ = L_.filter(x => (!feq || CO_EQ?.[x.id] === feq) && (q.length < 2 || nrm(x.n).includes(q)));
+  else L_ = L_.filter(x => (!feq || x.k === feq) && (q.length < 2 || nrm(`${x.k} ${NOMS_EQ[x.k] || ""}`).includes(q)));
+  L_.sort((a, b) => b["p" + t] - a["p" + t]);
+  const tot = Object.keys(src).length;
+  const val = (x, r) => `<span class="v">${coteHTML(x["r" + t], tot, false)}${pbN(x["p" + t])}${AB("PBDV")}<small>PB Dev % · ${L(...DEV_T[t])}</small>${devSpark(x, t)}</span>`;
+  const lignes = L_.map((x, i) => {
+    const r = i + 1;
+    if (v === "j"){ const no = (typeof fenPrj === "function" && fenPrj(x.k)?.no) || "";
+      return `<div class="wi-l wi-r dv-l" data-pid="${x.k}" style="${eqV(x.eq)}"><span class="rg">${r}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no, x.n, x.pos)}</span>
+        <span class="nm">${nomP(x.n, "j")}<small>${x.eq} · ${devRep(x)} · ${devAn(x)}</small><span class="wi-st">${devSt(x)}</span></span>${val(x, r)}</div>`; }
+    if (v === "c"){ const eq = CO_EQ?.[x.id] || "";
+      return `<button class="wi-l wi-r co-c" data-id="${x.id}" style="${eqV(eq)}"><span class="rg">${r}</span><img class="lg" src="${LOGO(eq)}" alt="" loading="lazy">
+        <span class="nm">${nomP(x.n, "c")}<small>${x.nr} ${L(x.nr > 1 ? "recrues depuis 2014-15" : "recrue depuis 2014-15", x.nr > 1 ? "rookies since 2014-15" : "rookie since 2014-15")} · ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${devSt(x)}</span></span>${val(x, r)}</button>`; }
+    return `<button class="wi-l wi-r dv-e" data-eq="${x.k}" style="${eqV(x.k)}"><span class="rg">${r}</span><img class="lg" src="${LOGO(x.k)}" alt="" loading="lazy">
+      <span class="nm">${nomP(NOMS_EQ[x.k] || x.k, "e")}<small>${x.nr} ${L("recrues depuis 2014-15", "rookies since 2014-15")} · ${x.pj} ${L("matchs", "games")}</small><span class="wi-st">${devSt(x)}</span></span>${val(x, r)}</button>`;
+  }).join("") || `<div class="card"><div class="vide">${L("Personne pour ce filtre.", "No one for this filter.")}</div></div>`;
+  el.innerHTML = tete + lignes + `<p class="aide">${L("Ce qu'il accorde sur la glace (PBxG contre) n'est pas dans la note : on ne l'a que pour 2 saisons, trop peu pour un attendu par rang de repêchage. C'est ce qui s'est passé, pas une prédiction. Mis à jour le", "What he allows on the ice (PBxG against) isn't in the score: we only have it for 2 seasons, too few for an expectation by draft slot. This is what happened, not a prediction. Updated")} ${dateCourte(DEV.maj)}.</p>`;
+  ptListeTab("p-dev");
+}
+// Le coach -> son équipe (pour le logo et le filtre d'équipe de la vue Coachs)
+let CO_EQ = null;
+document.addEventListener("click", (e) => {
+  const c = e.target.closest?.("#p-dev [data-dv]");
+  if (c){ S[c.dataset.dv] = c.dataset.k; if (c.dataset.dv === "dev_v"){ S.fe_dev = ""; } devOnglet(); return; }
+  const r = e.target.closest?.("#dev .dv-l[data-pid]"); if (r){ ouvrirJoueur(r.dataset.pid); return; }
+  const t = e.target.closest?.("#dev .dv-e[data-eq]"); if (t){ ouvrirEquipe(t.dataset.eq); }
+});
+document.addEventListener("input", (e) => { if (e.target.id === "dev-q") devOnglet(); });
 
 // ---- PB On The Wire (Mitch, 20 nov. 2026 : « un résumé des dernières 24 h comme un article de nouvelles... une
 // section à côté de Nouvelles, un article par jour ») : docs/fil/index.json (la liste) + docs/fil/<saison>/<jour>.json.
@@ -6880,7 +6953,7 @@ let BREF_CH = null;
 function fenBrefPB(q){
   const id = String(q.id), ph = [];
   if (!BREF_CH){
-    BREF_CH = Promise.all([FEN_CH.forme(), FEN_CH.enf(), FEN_CH.arb(), FEN_CH.gcr(), chargerPwr(), palmCharger(),
+    BREF_CH = Promise.all([FEN_CH.forme(), FEN_CH.enf(), FEN_CH.arb(), FEN_CH.gcr(), chargerPwr(), palmCharger(), chargerDev(),
       DUO ? 1 : fetch("duos.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : null).then(d => { if (!DUO && d?.duos) DUO = d; }).catch(() => null)])
       .catch(() => null).then(() => { if (FEN.ouvert && FEN.k === "j" && String(FEN.id) === id) fenBrefMaj(q); });
   }
@@ -6890,6 +6963,13 @@ function fenBrefPB(q){
     const N = FEN_SERIE[f.niv];
     ph.push(L(`Côté forme, il est <b>${N[1].toLowerCase()}</b> : <b>${pbTxt(f.pc)}</b> au PB Heat % (${rangFr(f.rg)} de la ligue), ${n1(f.pts[0])} point par match à ses 10 derniers contre ${n1(f.pts[1])} sur la saison.`,
                 `Form-wise he's <b>${N[2].toLowerCase()}</b>: <b>${pbTxt(f.pc)}</b> on the PB Heat % (${rangFr(f.rg)} in the league), ${n1(f.pts[0])} points per game over his last 10 vs ${n1(f.pts[1])} on the season.`));
+  }
+  // Son développement (PB Dev %) : un jeune dans ses 5 premières saisons, vs son rang de repêchage
+  const dv = DEV?.j?.[id];
+  if (dv && dv.pg != null){
+    const sens = (a, b) => a >= b ? L("plus", "more") : L("moins", "less");
+    ph.push(L(`Pour un joueur ${devRep(dv).replace("repêché", "repêché en")}, il donne <b>${pbTxt(dv.pg)}</b> au PB Dev % (${rangFr(dv.rg)} des ${Object.keys(DEV.j).length} jeunes) : ${Math.round(dv.pts)} points pour ${Math.round(dv.att)} attendus à son rang, et ${n1(dv.toi)} minutes par match pour ${n1(dv.toi_att)} attendues.`,
+              `For a player ${devRep(dv).replace("drafted", "drafted in")}, he's at <b>${pbTxt(dv.pg)}</b> on the PB Dev % (${rangFr(dv.rg)} of ${Object.keys(DEV.j).length} youngsters): ${Math.round(dv.pts)} points vs ${Math.round(dv.att)} expected at his slot, and ${n1(dv.toi)} minutes a game vs ${n1(dv.toi_att)} expected.`));
   }
   // Le PB Power ranking de la semaine
   const pw = (q.g ? PWR?.gardiens : PWR?.joueurs)?.find(x => String(x.id) === id);
@@ -7101,7 +7181,7 @@ async function eqAfficher(t, o){
   f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button><span class="fen-url"></span></div>
     <div class="vide fen-ch">${L("Chargement de l'équipe…", "Loading team…")}</div></div>`;
   f.querySelector(".fen-ret").onclick = fenFermer;
-  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr(), palmCharger()]);
+  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr(), palmCharger(), chargerDev()]);
   if (FEN.id !== t || FEN.k !== "e") return;
   if (!EQF_O.some(([k]) => k === o)) o = "apercu";
   eqBatir(t, o);
@@ -7173,6 +7253,11 @@ function eqBref(t){
   const J = Object.values(PRJ?.joueurs || {}).filter(x => x.eq === t).sort((a, b) => (b.c?.pts || 0) - (a.c?.pts || 0));
   if (J[0]) ph.push(L(`${J[0].n} mène l'équipe avec ${J[0].c.pts} points.`, `${J[0].n} leads the team with ${J[0].c.pts} points.`));
   if (e.p_coupe >= 0.05) ph.push(L(`Chances de gagner la Coupe : <b>${pcTxt(e.p_coupe)}</b>.`, `Cup chances: <b>${pcTxt(e.p_coupe)}</b>.`));
+  // Le développement (PB Dev %) : ses recrues depuis 2014-15 vs leur rang de repêchage
+  const dv = DEV?.e?.[t];
+  if (dv?.pg != null){ const top = (dv.top || []).map(i => DEV.j?.[i]?.n).filter(Boolean)[0];
+    ph.push(L(`Côté développement : <b>${pbTxt(dv.pg)}</b> au PB Dev % (${rangFr(dv.rg)} sur 32), ${dv.nr} recrues depuis 2014-15${top ? `, dont ${top}` : ""}.`,
+              `Player development: <b>${pbTxt(dv.pg)}</b> on the PB Dev % (${rangFr(dv.rg)} of 32), ${dv.nr} rookies since 2014-15${top ? `, including ${top}` : ""}.`)); }
   return ph.join(" ");
 }
 function eqApercu(t){
@@ -7665,10 +7750,10 @@ function coachBref(id, x){
               `<b>PB Coach Boost %: ${pbTxt(x.pc)}</b> (${rangFr(x.rg)} of ${CO.par_saison[CO.saison].coachs.length}). ${sens ? `His players produce <b>${n1(p82)} point${p82 >= 2 ? "s" : ""} ${sens} per 82 games</b> than expected at their age` : "His players produce about what's expected at their age"}, over ${(x.pjm || 0) + (x.pjb || 0)} games by players who also played for another coach: ${x.pjm ?? "–"} games above expectation, ${x.pjb ?? "–"} below.`));
   }
   const dv = x.dev;
-  if (dv){
+  if (dv && dv.pc != null){
     const top = (dv.j || []).filter(j => j.pts > j.att)[0];
-    ph.push(L(`<b>PB Coach Dev % : ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} joueur${dv.n > 1 ? "s ont commencé leur" : " a commencé sa"} carrière avec lui : ${Math.round(dv.pts)} points en ${dv.pj} matchs avec lui, quand on en attend ${Math.round(dv.att)} de joueurs repêchés à leur rang${top ? ` (le plus beau : ${top.n}, ${Math.round(top.pts)} points pour ${Math.round(top.att)} attendus)` : ""}.`,
-              `<b>PB Coach Dev %: ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} player${dv.n > 1 ? "s" : ""} started ${dv.n > 1 ? "their careers" : "his career"} with him: ${Math.round(dv.pts)} points in ${dv.pj} games with him, versus ${Math.round(dv.att)} expected from players drafted at their slot${top ? ` (best: ${top.n}, ${Math.round(top.pts)} points vs ${Math.round(top.att)} expected)` : ""}.`));
+    ph.push(L(`<b>PB Coach Dev % : ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} joueur${dv.n > 1 ? "s ont commencé leur" : " a commencé sa"} carrière avec lui : ${Math.round(dv.pts)} points en ${dv.pj} matchs avec lui, quand on en attend ${Math.round(dv.att)} de joueurs repêchés à leur rang${dv.toi ? `, et ${n1(dv.toi)} minutes par match pour ${n1(dv.toi_att)} attendues` : ""}${top ? ` (le plus beau : ${top.n}, ${Math.round(top.pts)} points pour ${Math.round(top.att)} attendus)` : ""}.`,
+              `<b>PB Coach Dev %: ${pbTxt(dv.pc)}</b> (${rangFr(dv.rg)}). ${dv.n} player${dv.n > 1 ? "s" : ""} started ${dv.n > 1 ? "their careers" : "his career"} with him: ${Math.round(dv.pts)} points in ${dv.pj} games with him, versus ${Math.round(dv.att)} expected from players drafted at their slot${dv.toi ? `, and ${n1(dv.toi)} minutes a game vs ${n1(dv.toi_att)} expected` : ""}${top ? ` (best: ${top.n}, ${Math.round(top.pts)} points vs ${Math.round(top.att)} expected)` : ""}.`));
   }
   return ph.join(" ");
 }
@@ -9261,7 +9346,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "rum", "wire", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "dev", "rum", "wire", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -9276,6 +9361,7 @@ function brancher(){
     if (b.id === "t-rum") rumOnglet();
     if (b.id === "t-wire") wireOnglet();
     if (b.id === "t-forme") formeOnglet();
+    if (b.id === "t-dev") devOnglet();
     if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-cls") clsOnglet();
     if (b.id === "t-fa") faOnglet();
@@ -9442,6 +9528,7 @@ async function init(){
     else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(heat-index|forme|pb-forme)$/i.test(location.hash)){ $("#t-forme")?.click(); $("#p-forme")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(dev|pb-dev|developpement|development)$/i.test(location.hash)){ $("#t-dev")?.click(); $("#p-dev")?.scrollIntoView({ block: "start" }); }
     else if (/^#(on-the-wire|sur-le-fil|wire)(\/\d{4}-\d{2}-\d{2})?$/i.test(location.hash)){
       const j = location.hash.match(/\d{4}-\d{2}-\d{2}/); if (j) S.wire = j[0];
       $("#t-wire")?.click(); $("#p-wire")?.scrollIntoView({ block: "start" }); }
@@ -9467,7 +9554,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-dev": "#dev", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -9543,10 +9630,10 @@ init().catch(finCharge);
   // Plus de boutons au-dessus des listes (Mitch, 20 nov. 2026 : « qu'il n'y ait plus de boutons et que ça soit tout
   // dans le filtre ») : chaque section n'a plus que sa loupe ; seul le toggle Réel / PB Era de PB Stats reste dehors.
   var GARDE = { "p-joueurs": [], "p-coupe": [], "p-whatif": ["f-wir"], "p-salaires": [], "p-enf": [], "p-prj": [], "p-duo": [], "p-gcr": [], "p-arb": [],
-    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-dev": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
   // Le nom de chaque rangée dans le panneau (celles qui n'ont pas déjà leur étiquette)
   var LBL = { "f-marche": ["Marché", "Market"], "f-troph": ["Afficher", "Show"], "f-sal": ["Afficher", "Show"], "f-enf": ["Afficher", "Show"], "f-prj": ["Afficher", "Show"],
-    "f-duo": ["Afficher", "Show"], "f-cls": ["Vue", "View"], "f-fa": ["Contrat", "Contract"], "f-trx": ["Type", "Type"], "f-pwr": ["Afficher", "Show"] };
+    "f-duo": ["Afficher", "Show"], "f-cls": ["Vue", "View"], "f-dev-v": ["Vue", "View"], "f-dev-t": ["Classer par", "Rank by"], "f-dev-pos": ["Position", "Position"], "f-dev-rep": ["Repêchage", "Draft"], "f-dev-deb": ["Débuts", "Debut"], "f-fa": ["Contrat", "Contract"], "f-trx": ["Type", "Type"], "f-pwr": ["Afficher", "Show"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
   function compte(sh){
@@ -9671,8 +9758,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=1ca65f60" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=1ca65f60" defer></script>
-<script src="nav.js?v=bf0a64ecfe" defer></script>
+<script src="pub.js?v=53878a6e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=53878a6e" defer></script>
+<script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
