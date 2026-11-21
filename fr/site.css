@@ -342,6 +342,32 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .fen-pm b{font:800 italic 24px/1 "Barlow Condensed",var(--f-body)} .fen-pm span{font:700 30px/1 "Teko",var(--f-display)} .fen-pm sup{font-size:.5em;color:#C8102E}
 .fen-pm small{font:800 13px/1 "Barlow Condensed",var(--f-body);color:#4A5D78}
 .fen-ljs{display:flex;flex-direction:column;gap:5px}
+.fen-bref .fen-bref2.fen-bref2{margin:10px 0 0!important;padding:10px 0 0!important;max-width:none!important;color:#0A2342!important;font:500 15px/1.45 var(--f-body)!important;border-top:1px solid rgba(10,35,66,.14)}
+/* Le palmarès dans l'en-tête de la fiche, et les fenêtres trophée / coach (20 nov. 2026) */
+.wi-carte header .wi-palm{display:flex;flex-wrap:wrap;gap:4px 6px;z-index:2;position:relative}
+.wi-carte header.a-face .wi-palm{position:absolute;left:96px;right:14px;top:16px;max-height:116px;overflow:hidden}
+.tr-b .tr-emb{width:26px!important;height:29px!important}
+.wi-carte header .tr-b{width:auto!important;height:auto!important;background:none!important;box-shadow:none!important;border-radius:0!important;padding:0!important}
+.tr-b{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;color:#C9D6EE}
+.tr-b small{font:800 10px/1 "Barlow Condensed",var(--f-body);letter-spacing:.03em}
+.wi-carte header .tr-b small.tr-n{font:800 12px/1 "Barlow Condensed",var(--f-body);color:#FFB81C}
+.tro-h{display:flex!important;flex-direction:row!important;gap:16px;align-items:center;padding:18px 16px!important;background:linear-gradient(135deg,#0E2C52,#061529)}
+.tro-h .tro-e .tr-emb{width:86px!important;height:95px!important}
+.tro-h .tro-e{flex:none;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+.tro-t{flex:1;display:flex;flex-direction:column;align-items:stretch;gap:6px;min-width:0}
+.tro-t > *{width:100%}
+.tro-t small{font:800 13px/1 "Barlow Condensed",var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:#FFB81C}
+.tro-t b{font:700 28px/.98 "Teko",var(--f-display);text-transform:uppercase;color:#fff}
+.tro-l .nm b{white-space:normal}
+.tro-t span{font:600 13px/1.2 var(--f-body);color:#9FB3CB}
+.tro-l .tro-r{flex:none;width:22px;text-align:center;font:700 22px/1 "Teko",var(--f-display);color:#4A5D78;padding-top:3px}
+.tro-embs{display:flex;gap:2px;margin-top:3px}
+.fen-co .co-ico{flex:none;width:72px;height:72px;border-radius:16px;background:#fff;display:grid;place-items:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.fen-co .co-ico img{width:56px;height:56px;object-fit:contain}
+.co-parc{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.co-parc div{flex:none;width:86px;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px}
+.co-parc img{width:26px;height:26px;object-fit:contain} .co-parc b{font:700 21px/.9 "Teko",var(--f-display);white-space:nowrap} .co-parc small{font:800 10px/1 "Barlow Condensed",var(--f-body);color:#4A5D78}
+a.co-lien{color:inherit;text-decoration:underline;text-decoration-color:rgba(255,184,28,.7);text-underline-offset:3px}
 .fen-lj{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:#F2F5FA;color:#0A2342;border-radius:8px;padding:6px 10px;cursor:pointer;font:inherit}
 .fen-lj .wi-rond{flex:none;width:34px;height:40px} .fen-lj .wi-rond b{font-size:17px}
 .fen-lj .nm{flex:1;min-width:0;display:flex;flex-direction:column}
