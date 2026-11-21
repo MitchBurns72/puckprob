@@ -225,6 +225,8 @@ nav.menu::-webkit-scrollbar{display:none}
 .tr .ph .plaque b{font-size:20px} .tr .ph .plaque i{font-size:9.5px}
 :is(.gface,.aface) .plaque b{font-size:12px} :is(.gface,.aface) .plaque i{font-size:7px}
 .photo .ph .plaque b{font-size:22px} .photo .ph .plaque i{font-size:10px}
+.wi-rond.hof{position:relative;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 5px #A9B1BB,0 0 0 6px #4B525B}
+.wi-rond .hof-t{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#A9B1BB;color:#000;font:900 10px/1 var(--f-display,Arial);letter-spacing:.06em;padding:2px 5px 1px;border-radius:3px;border:1px solid #4B525B;text-shadow:none;font-style:normal;z-index:2}
 .wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--pf,var(--eq));color:var(--pt,#fff);text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 1px var(--pf,var(--eq))}
 .wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
@@ -1161,7 +1163,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=53878a6e">
+<link rel="stylesheet" href="carte.css?v=394112af">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4299,7 +4301,7 @@ async function pbsFiche(t, id){
 function pbsLigne(t, rg, id, n, pos, eq, no, val, unite, sous, vb = ""){
   const x = { n, pos: pos === "G" ? "" : pos, no, eqs: [[eq, 1]], eq, sv: pos === "G" ? 1 : undefined };
   const p = pos === "G" ? L("Gardien", "Goalie") : pos === "D" ? L("Déf.", "D") : L("Avant", "F");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${id}" data-c="${eq}" style="${eqV(eq)}"><span class="rg">${rg ?? "·"}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${id}" data-c="${eq}" style="${eqV(eq)}"><span class="rg">${rg ?? "·"}</span>${wiRond(x, id)}
     <span class="nm">${nomP(n, t)}<small>${p} · ${vb || villeBadge(eq, false)}</small><span class="wi-st">${sous}</span></span>
     <span class="v">${val}${AB(unite)}</span></button>`;
 }
@@ -4885,7 +4887,7 @@ function wiSaisons(mode, q, feq){
     const sous = r.enCours
       ? (mode === "sr" ? L("rythme sur 82", "82-game pace") : L("PB, rythme", "PB, pace"))
       : (mode === "sr" ? L("points réels", "real points") : L(`PB · réel ${r.p} pts`, `PB · real ${r.p} pts`));
-    return `<button class="wi-l wi-r" data-t="j" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
+    return `<button class="wi-l wi-r" data-t="j" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x, r.i)}
       <span class="nm">${nomP(r.x.n, "j")}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.b} ${L("B", "G")} · ${r.a} A · ${r.p} PTS</span></span>
       <span class="v">${coteHTML(k + 1)}${r.v}<small>${sous}</small></span></button>`;
   });
@@ -4914,7 +4916,7 @@ function wiSaisonsG(mode, q, feq){
   return tous.slice(0, pbxN()).map((r, k) => {
     const sous = r.enCours ? (mode === "gsr" ? L(`rythme sur ${n1}`, `${n1}-game pace`) : L("PB, rythme", "PB, pace"))
       : (mode === "gsr" ? L("victoires", "wins") : L(`PB · réel ${r.v} V`, `PB · real ${r.v} W`));
-    return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x)}
+    return `<button class="wi-l wi-r" data-t="g" data-id="${r.i}" data-c="${r.eq}" style="${eqV(r.eq)}"><span class="rg">${k + 1}</span>${wiRond(r.x, r.i)}
       <span class="nm">${nomP(r.x.n, "g")}<small>${saisonTxt(r.s)} · ${r.eq} · ${r.pj} ${L("matchs", "games")}${r.enCours ? ` · <b class="wi-cours">${L("EN COURS", "IN PROGRESS")}</b>` : ""}</small><span class="wi-st">${r.v} ${L("V", "W")} · ${sv3(mode === "gsw" ? r.svw : r.sv)} · ${r.mba != null ? bpg2(r.mba) + " " + L("moy.", "GAA") : "–"}</span></span>
       <span class="v">${coteHTML(k + 1)}${r.val}<small>${sous}</small></span></button>`;
   });
@@ -4926,7 +4928,13 @@ const wiEre = (t, x) => { if (!x?.ere) return null; const d = t === "g" ? 1 / x.
 // un retraité garde l'équipe où il a joué le plus de matchs.
 const eqPrincipale = (x) => x.act === false ? (x.eqs?.[0]?.[0] || x.eq) : (x.eq || x.eqs?.[0]?.[0]);
 const wiEqs = (x) => `<span class="wi-eqs">${(x.eqs || []).map(([t, n]) => `<i style="--c:${palette(t).f};--ct:${palette(t).t};--cb:${palette(t).c};--df:${palette(t).d};--dt:${palette(t).dt};--dl:${palette(t).dl}" title="${t} · ${n}"><img class="eqlg" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()">${t}</i>`).join("")}</span>`;
-const wiRond = (x) => `<span class="wi-rond" style="${eqV(eqPrincipale(x))}">${plLogos(eqPrincipale(x))}${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}</span>`;
+// Au Temple de la renommée (Mitch, 21 nov. : « le carré avec le contour gras gris et HOF écrit en noir dans le gris,
+// au milieu en haut ») : la plaque de PB Stats. PALM pas encore chargé : on le charge et on marque après coup.
+const hofDe = (id) => !!PALM?.joueurs?.[String(id)]?.some(t => t[0] === "hof");
+function hofMarquer(){ document.querySelectorAll(".wi-rond[data-hofid]:not(.hof)").forEach(e => { if (hofDe(e.dataset.hofid)) { e.classList.add("hof"); e.insertAdjacentHTML("beforeend", '<em class="hof-t">HOF</em>'); } }); }
+const wiRond = (x, id) => { if (id != null && !PALM) palmCharger().then(hofMarquer);
+  const h = id != null && hofDe(id);
+  return `<span class="wi-rond${h ? " hof" : ""}"${id != null ? ` data-hofid="${id}"` : ""} style="${eqV(eqPrincipale(x))}">${plLogos(eqPrincipale(x))}${plaqueIn(x.no, x.n, x.pos || (x.sv ? "G" : ""))}${h ? '<em class="hof-t">HOF</em>' : ""}</span>`; };
 function wiStats(t, x){
   const pj = (x.r?.[0] || 0).toLocaleString(LANG), pc = x.pct != null ? Math.round(x.pct * 100) + (EN ? "%" : " %") : "–";
   return L(`${pj} PJ · ${pc} des matchs possibles · ère ${wiEre(t, x) ?? "–"}`, `${pj} GP · ${pc} of possible games · era: ${wiEre(t, x) ?? "–"}`);
@@ -4996,7 +5004,7 @@ function wiLigne(mode, t, i, x, feq = ""){
   }
   const pos = t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   const sous = [eqPrincipale(x), pos, x.act ? L("actif", "active") : "", `${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""}`].filter(Boolean).join(" · ");
-  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x)}
+  return `<button class="wi-l wi-r" data-t="${t}" data-id="${i}" data-c="${eqPrincipale(x)}" style="${eqV(eqPrincipale(x))}"><span class="rg">${rg ?? "–"}${dr}</span>${wiRond(x, i)}
     <span class="nm">${nomP(x.n, t)}<small>${sous}</small>${wiEqs(x)}<span class="wi-st">${wiStats(t, x)}</span></span>
     <span class="v">${coteHTML(rg, t === "g" ? WI.n_gardiens : WI.n_joueurs, false)}${v}${AB(L(...M.u))}${dv}<small>${sousV}</small></span></button>`;
 }
@@ -7469,6 +7477,7 @@ function mtPourquoi(g, v){
 // section Coupe, les courses aux trophées des fenêtres joueur et équipe ; le n° 1 de chaque course porte un petit
 // écusson sur son emblème de joueur dans les listes. Les mêmes dessins dans les cartes des posts (src/cartes.py).
 const TROPH_ICO = {
+  hof: "1",                 // le Temple de la renommée : pas d'icône, « HOF » écrit dans la bannière grise
   // Le Conn-Smythe : une étoile sur une rondelle (le joueur des séries)
   smythe: '<ellipse cx="0" cy="14" rx="22" ry="8" fill="#0A2342"/><path d="M0 -26 L7 -8 L26 -8 L11 3 L17 21 L0 10 L-17 21 L-11 3 L-26 -8 L-7 -8 Z" fill="#C8102E" stroke="#0A2342" stroke-width="3"/>',
   art: '<path d="M-22 18 L14 -22 L20 -16 L-16 24 Z" fill="#0A2342"/><rect x="-28" y="16" width="20" height="8" rx="3" fill="#0A2342"/><path d="M16 6 V22 M8 14 H24" stroke="#0A2342" stroke-width="5"/>',
@@ -7488,14 +7497,15 @@ const TROPH_ICO = {
 // haut et le nom en gros dessous ; plus petit (les listes), l'icône seule (le nom est écrit à côté)
 const TROPH_NOM = { art: ["ART", "ROSS"], rocket: ["ROCKET", "RICHARD"], hart: ["HART"], lindsay: ["TED", "LINDSAY"], norris: ["NORRIS"],
   vezina: [L("VÉZINA", "VEZINA")], calder: ["CALDER"], selke: ["SELKE"], byng: ["LADY", "BYNG"], smythe: ["CONN", "SMYTHE"], adams: ["JACK", "ADAMS"],
-  jennings: ["JEN-", "NINGS"], presidents: [L("PRÉSI-", "PRESI-"), L("DENTS", "DENTS'")], coupe: [L("COUPE", "STANLEY"), L("STANLEY", "CUP")] };
+  jennings: ["JEN-", "NINGS"], hof: ["HOF"], presidents: [L("PRÉSI-", "PRESI-"), L("DENTS", "DENTS'")], coupe: [L("COUPE", "STANLEY"), L("STANLEY", "CUP")] };
 // La bannière d'aréna (Mitch, 21 nov. : 3 maquettes, il a choisi la bannière) : le nom au long, la saison dedans ; la
 // Coupe en or, le reste en marine bordé d'or. Plus petit que 30 px : les initiales (SC, CS, AR...) ; sous 18 px, la
 // bannière seule (le nom est écrit à côté). Pas de logo ni de dessin de trophée.
-const TROPH_INI = { coupe: "SC", smythe: "CS", art: "AR", rocket: "RR", hart: "H", lindsay: "TL", norris: "N", vezina: "V", calder: "C", selke: "S", byng: "LB", adams: "JA", presidents: "PT", jennings: "WJ" };
+const TROPH_INI = { hof: "HOF", coupe: "SC", smythe: "CS", art: "AR", rocket: "RR", hart: "H", lindsay: "TL", norris: "N", vezina: "V", calder: "C", selke: "S", byng: "LB", adams: "JA", presidents: "PT", jennings: "WJ" };
 function trophEmb(k, taille = 28, s = null){
   if (!TROPH_ICO[k]) return "";
-  const c = k === "coupe", bg = c ? "#FFC23A" : "#0A2342", fg = c ? "#0A2342" : "#fff", bd = c ? "#fff" : "#FFC23A";
+  const c = k === "coupe", h = k === "hof";
+  const bg = h ? "#A9B1BB" : c ? "#FFC23A" : "#0A2342", fg = h ? "#000" : c ? "#0A2342" : "#fff", bd = h ? "#4B525B" : c ? "#fff" : "#FFC23A";
   const F_ = "'Barlow Condensed','Arial Narrow',Arial,sans-serif";
   const ligne = (m, x, y, fs, w, coul) => `<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="central" font-family="${F_}" font-weight="800" font-size="${fs}" fill="${coul}" textLength="${Math.min(w, m.length * fs * 0.56).toFixed(1)}" lengthAdjust="spacingAndGlyphs">${m}</text>`;
   let t = "";
@@ -7503,7 +7513,7 @@ function trophEmb(k, taille = 28, s = null){
     const N = TROPH_NOM[k] || [k.toUpperCase()], lg = Math.max(...N.map(m => m.length)), fs = Math.min(N.length === 1 ? 26 : 24, Math.floor(62 / (0.56 * lg)));
     const yc = s ? 46 : 56;
     t = N.map((m, i) => ligne(m, 40, yc + (i - (N.length - 1) / 2) * fs * 0.95, fs, 62, fg)).join("");
-    if (s) t += `<rect x="12" y="70" width="56" height="1.5" fill="${bd}" opacity=".7"/><text x="40" y="86" text-anchor="middle" font-family="${F_}" font-weight="800" font-size="${String(s).startsWith("×") ? 22 : 17}" fill="${bd}">${String(s).startsWith("×") ? s : sai2(s)}</text>`;
+    if (s) t += `<rect x="12" y="70" width="56" height="1.5" fill="${bd}" opacity=".7"/><text x="40" y="86" text-anchor="middle" font-family="${F_}" font-weight="800" font-size="${String(s).startsWith("×") ? 22 : 17}" fill="${h ? "#000" : bd}">${String(s).startsWith("×") || String(s).length === 4 ? s : sai2(s)}</text>`;
   } else if (taille >= 18){
     t = ligne(TROPH_INI[k] || "", 40, 54, 40, 60, fg);
   }
@@ -7568,11 +7578,11 @@ function newsRemplir(){
   });
 }
 const palmCharger = () => PALM_p || (PALM_p = fetch("palmares.json?v=" + (D?.date || "")).then(r => r.ok ? r.json() : {}).catch(() => ({})).then(x => (PALM = x || {})));
-const sai2 = (s) => `${String(s).slice(2, 4)}-${String(s).slice(6, 8)}`;
+const sai2 = (s) => String(s).length === 4 ? String(s) : `${String(s).slice(2, 4)}-${String(s).slice(6, 8)}`;
 function palmEmblemes(id){
   const T = PALM?.trophees || {}, M = PALM?.joueurs?.[String(id)];
   if (!M?.length) return "";
-  const ordre = Object.keys(T);
+  const ordre = ["hof", ...Object.keys(T).filter(k => k !== "hof")];
   const L_ = [...M].sort((a, b) => ordre.indexOf(a[0]) - ordre.indexOf(b[0]) || String(a[1]).localeCompare(String(b[1])));
   return palmRangee(L_, T);
 }
@@ -7615,22 +7625,24 @@ async function trophAfficher(k){
     if (!par.has(c)) par.set(c, { id, n, s: [], eq });
     const x = par.get(c); x.s.push(s); x.eq = eq || x.eq;
   }
-  const L_ = [...par.values()].sort((a, b) => b.s.length - a.s.length || b.s[b.s.length - 1].localeCompare(a.s[a.s.length - 1]));
+  // Le Temple de la renommée : pas un classement par nombre, la liste des intronisés, les plus récents d'abord
+  const hof = k === "hof";
+  const L_ = [...par.values()].sort((a, b) => (hof ? 0 : b.s.length - a.s.length) || b.s[b.s.length - 1].localeCompare(a.s[a.s.length - 1]) || a.n.localeCompare(b.n));
   let r = 0, prec = null;
   const lignes = L_.map((x, i) => {
-    if (x.s.length !== prec){ r = i + 1; prec = x.s.length; }
+    if (hof){ r = i + 1; } else if (x.s.length !== prec){ r = i + 1; prec = x.s.length; }
     const q = (x.id && fenQui(x.id)) || {};
     const pos = q.pos || (k === "vezina" ? "G" : k === "norris" ? "D" : "");
     const embs = x.s.map(() => trophEmb(k, 16)).join("");
     return `<button type="button" class="fen-lj tro-l" ${x.id ? `data-pid="${x.id}"` : ""} style="${eqV(q.eq || x.eq || "")}"><span class="tro-r">${r}</span>${wiRond({ n: x.n, no: q.no, pos, eqs: [[q.eq || x.eq, 1]], eq: q.eq || x.eq })}
-      <span class="nm"><b>${x.n}</b><small>${x.s.map(sai2).join(" · ")}</small><span class="tro-embs">${embs}</span></span>
-      <span class="v"><b>${x.s.length}</b><small>${x.s.length > 1 ? L("fois", "times") : L("fois", "time")}</small></span></button>`;
+      <span class="nm"><b>${x.n}</b>${hof ? "" : `<small>${x.s.map(sai2).join(" · ")}</small><span class="tro-embs">${embs}</span>`}</span>
+      <span class="v">${hof ? `<b>${x.s[0]}</b><small>${L("intronisé", "inducted")}</small>` : `<b>${x.s.length}</b><small>${x.s.length > 1 ? L("fois", "times") : L("fois", "time")}</small>`}</span></button>`;
   }).join("");
   fenCadre("t", k, "#trophee/" + k, `<div class="wi-carte fen fen-trophee">
     <header class="tro-h"><div class="tro-e">${trophEmb(k, 86)}</div><div class="tro-t"><small>${T.nom[l]}</small><b>${T.titre[l]}</b>
-      <span>${sai2(T.de)} ${L("à", "to")} ${sai2(T.a)} · ${L_.length} ${L("gagnants", "winners")}</span></div></header>
-    <section class="fen-s"><h3>${L("Le classement", "The ranking")} <em>${L("par nombre de trophées", "by number of wins")}</em></h3><div class="fen-ljs">${lignes}</div></section>
-    <p class="aide" style="margin:6px 16px 16px">${L("Les gagnants depuis", "Winners since")} ${sai2(T.de)}. ${L("Touche un joueur pour sa fiche.", "Tap a player for his card.")}</p></div>`);
+      <span>${sai2(T.de)} ${L("à", "to")} ${sai2(T.a)} · ${L_.length} ${hof ? L("joueurs intronisés", "players inducted") : L("gagnants", "winners")}</span></div></header>
+    <section class="fen-s"><h3>${hof ? L("Les intronisés", "The inductees") : L("Le classement", "The ranking")} <em>${hof ? L("les plus récents d'abord", "most recent first") : L("par nombre de trophées", "by number of wins")}</em></h3><div class="fen-ljs">${lignes}</div></section>
+    <p class="aide" style="margin:6px 16px 16px">${hof ? L("Les joueurs intronisés depuis", "Players inducted since") : L("Les gagnants depuis", "Winners since")} ${sai2(T.de)}. ${L("Touche un joueur pour sa fiche.", "Tap a player for his card.")}</p></div>`);
 }
 // La Coupe (les équipes) et le Jack-Adams (les coachs) : même fenêtre, des logos au lieu des plaques
 async function trophAutres(k, T){
@@ -9758,8 +9770,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=53878a6e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=53878a6e" defer></script>
+<script src="pub.js?v=394112af" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=394112af" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>

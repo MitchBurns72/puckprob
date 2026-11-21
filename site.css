@@ -197,6 +197,8 @@ nav.menu::-webkit-scrollbar{display:none}
 .tr .ph .plaque b{font-size:20px} .tr .ph .plaque i{font-size:9.5px}
 :is(.gface,.aface) .plaque b{font-size:12px} :is(.gface,.aface) .plaque i{font-size:7px}
 .photo .ph .plaque b{font-size:22px} .photo .ph .plaque i{font-size:10px}
+.wi-rond.hof{position:relative;box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 5px #A9B1BB,0 0 0 6px #4B525B}
+.wi-rond .hof-t{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#A9B1BB;color:#000;font:900 10px/1 var(--f-display,Arial);letter-spacing:.06em;padding:2px 5px 1px;border-radius:3px;border:1px solid #4B525B;text-shadow:none;font-style:normal;z-index:2}
 .wi-rond{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:40px;height:46px;border-radius:6px;background:var(--pf,var(--eq));color:var(--pt,#fff);text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 2px var(--pb,#fff),0 0 0 1px var(--pf,var(--eq))}
 .wi-rond b{font:800 16px/1 var(--f-display)} .wi-rond i{font:700 8.5px/1 var(--f-body);font-style:normal;letter-spacing:.06em;opacity:.92}
 .wi-eqs{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}

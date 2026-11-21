@@ -107,6 +107,12 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
    (--df fond, --dt texte, --dl languette, --dlt texte de la languette, calculées dans palette()). Les tailles de chaque
    endroit (listes, fiches, duos, alignements) restent celles d'avant : seul le dessin change. ---- */
 .wi-rond.wi-rond,.plaque.plaque{position:relative;overflow:hidden;background:var(--df,var(--pf,var(--eq)));color:var(--dt,#fff);box-shadow:none;text-shadow:none;border-radius:7px;gap:0;justify-content:center}
+/* Au Temple de la renommée (Mitch, 21 nov. 2026 : « le carré avec le contour gras gris et HOF écrit en noir dans le gris,
+   au milieu en haut ») : un contour (outline : la plaque garde son overflow, la languette reste coupée net) et l'étiquette
+   HOF posée sur le contour du haut. */
+.wi-rond.wi-rond.hof{overflow:visible;outline:4px solid #A9B1BB;outline-offset:0;margin-top:4px}
+.wi-rond.wi-rond.hof > i{border-radius:0 0 7px 7px}
+.wi-rond.wi-rond.hof .hof-t{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#A9B1BB;color:#000;font:800 11px/1 "Teko",var(--f-display);letter-spacing:.08em;padding:2px 6px 0;border-radius:3px;z-index:3;text-shadow:none}
 /* Le numéro centré au-dessus de la languette, positionné par rapport à la plaque elle-même. Avant : padding-bottom:22 %,
    mais un % de padding se calcule sur la LARGEUR DU PARENT : dans une rangée large (trios complets, duos), la plaque
    s'étirait en hauteur et le numéro sortait par le haut (Mitch, 14 nov. 2026, capture des Full units). */
