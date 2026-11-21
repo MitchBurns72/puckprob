@@ -1161,7 +1161,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=a3bac982">
+<link rel="stylesheet" href="carte.css?v=1ca65f60">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7613,7 +7613,7 @@ async function coachAfficher(id, o = "apercu"){
   const tuile = (k, v_) => `<div><small>${k}</small><b>${v_}</b></div>`;
   // Sa photo (Wikimedia Commons, licence libre, crédit en bas de l'Aperçu) avec le logo de son équipe en pastille ;
   // sans photo libre : le logo en grand
-  const ph = CO_PH?.[id];
+  const ph = CO_PH?.[id]?.fichier ? CO_PH[id] : null;
   const icone = ph ? `<span class="co-ico co-ph"><img src="/coach_photos/${id}.jpg" alt="${x.n}" onerror="this.parentNode.classList.remove('co-ph');this.src='${LOGO(x.eq)}'"><i><img src="${LOGO(x.eq)}" alt=""></i></span>`
     : `<span class="co-ico"><img src="${LOGO(x.eq)}" alt=""></span>`;
   fenCadre("c", id, "#coach/" + id, `<div class="wi-carte fen fen-co" style="${eqV(x.eq)}">
@@ -7680,7 +7680,7 @@ function coachApercu(id, x){
   if (se) sec.push(`<section class="fen-s"><h3>${L("Son équipe", "His team")} <em>${L("10 derniers matchs", "last 10 games")} · ${eqFiche(se.v, se.d, se.p)}</em></h3>${eqThermo(se)}</section>`);
   const parcours = Object.keys(CO.par_saison).sort().reverse().map(s => [s, CO.par_saison[s].coachs?.find(y => y.id === id)]).filter(([, y]) => y);
   if (parcours.length > 1) sec.push(`<section class="fen-s"><h3>${L("Son PB Coach Boost %, saison par saison", "His PB Coach Boost %, season by season")}</h3><div class="co-parc">${parcours.map(([s, y]) => `<div style="${eqV(y.eq)}"><img src="${LOGO(y.eq)}" alt=""><b>${pbTxt(y.pc)}</b><small>${sai2(s)}</small></div>`).join("")}</div></section>`);
-  const ph = CO_PH?.[id];
+  const ph = CO_PH?.[id]?.fichier ? CO_PH[id] : null;
   if (ph) sec.push(`<p class="aide" style="margin:6px 16px 16px">${L("Photo", "Photo")} : ${ph.auteur} · ${ph.licence} · <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(ph.fichier.replace(/ /g, "_"))}" target="_blank" rel="noopener">Wikimedia Commons</a></p>`);
   return sec.join("");
 }
@@ -9671,8 +9671,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=a3bac982" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=a3bac982" defer></script>
+<script src="pub.js?v=1ca65f60" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=1ca65f60" defer></script>
 <script src="nav.js?v=bf0a64ecfe" defer></script>
 </body>
 </html>
