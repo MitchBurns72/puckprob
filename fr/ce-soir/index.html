@@ -1196,7 +1196,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=ba68a49f">
+<link rel="stylesheet" href="carte.css?v=95b4bb52">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -9796,10 +9796,13 @@ init().catch(finCharge);
   function maj(){
     tous.forEach(function(o){
       var a = contenu(o.sh);
-      o.b.hidden = !a;
-      var n = a ? compte(o.sh) : 0;
-      o.b.querySelector("b").textContent = n || "";
-      o.b.querySelector("b").hidden = !n;
+      if (o.b.hidden !== !a) o.b.hidden = !a;
+      var n = a ? compte(o.sh) : 0, bb = o.b.querySelector("b");
+      // Écrit seulement quand ça change : réécrire le même chiffre est quand même une mutation, l'observateur plus bas
+      // relançait maj toutes les 60 ms sans arrêt (la page ramait sur la tablette, les pastilles ne répondaient plus)
+      if (bb.textContent !== String(n || "")) bb.textContent = n || "";
+      if (bb.hidden !== !n) bb.hidden = !n;
+      if (o.sec.hidden) return;                       // une section fermée : rien à recompter
       // Réécrit seulement quand ça change (sinon l'observateur plus bas relancerait maj sans arrêt)
       var t = a ? resume(o.sh) : [], nb = a ? combien(o) : "";
       if (nb) t.unshift(nb);
@@ -9882,8 +9885,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=ba68a49f" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=ba68a49f" defer></script>
+<script src="pub.js?v=95b4bb52" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=95b4bb52" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
