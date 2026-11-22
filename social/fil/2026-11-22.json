@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-22",
- "maj": "2026-11-22T01:22-05:00",
+ "maj": "2026-11-22T07:53-05:00",
  "publier": true,
  "items": [
   {
@@ -22,6 +22,137 @@
    "avant": null,
    "type": "story",
    "titre": "Story · Fallers"
+  },
+  {
+   "id": "2026-11-22-recap-story-1",
+   "quand": "2026-11-22T08:00-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 0,
+   "cadre": "social/fil/2026-11-22/recap-story-series-e.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Est"
+  },
+  {
+   "id": "2026-11-22-recap-story-2",
+   "quand": "2026-11-22T08:01-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 1,
+   "cadre": "social/fil/2026-11-22/recap-story-series-w.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Ouest"
+  },
+  {
+   "id": "2026-11-22-recap-story-3",
+   "quand": "2026-11-22T08:02-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 2,
+   "cadre": "social/fil/2026-11-22/recap-story-buteurs.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les marqueurs d'hier"
+  },
+  {
+   "id": "2026-11-22-recap-story-4",
+   "quand": "2026-11-22T08:03-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 3,
+   "cadre": "social/fil/2026-11-22/recap-story-gardiens.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les gardiens d'hier"
+  },
+  {
+   "id": "2026-11-22-matin-fil",
+   "quand": "2026-11-22T08:09-05:00",
+   "image": "social/fil/2026-11-22/2026-11-22-matin-fil.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · MacKinnon out trois mois, le Larkin gate s'éternise à Detroit\n\nLe Colorado perd son moteur pour bien plus longtemps que prévu, Anaheim perd une recrue payée 1 M$ qui en vaut 10, et à Detroit, le feuilleton Larkin approche son premier mois. On fait la timeline.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · MacKinnon out three months as Detroit's Larkin saga drags on\n\nColorado loses its engine for a lot longer than expected, Anaheim loses a $1M player worth ten times that, and in Detroit, the Larkin saga is closing in on a month. We lay out the timeline.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · MacKinnon out trois mois, le Larkin gate s'éternise à Detroit\n\nLe Colorado perd son moteur pour bien plus longtemps que prévu, Anaheim perd une recrue payée 1 M$ qui en vaut 10, et à Detroit, le feuilleton Larkin approche son premier mois. On fait la timeline.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · MacKinnon out three months as Detroit's Larkin saga drags on\n\nColorado loses its engine for a lot longer than expected, Anaheim loses a $1M player worth ten times that, and in Detroit, the Larkin saga is closing in on a month. We lay out the timeline.\n\nFull article: link in bio.",
+   "com": "MacKinnon out trois mois, le Larkin gate s'éternise à Detroit\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-22/\n\nMacKinnon out three months as Detroit's Larkin saga drags on\nhttps://puckprob.ca/on-the-wire/2026-11-22/",
+   "com_ig": "MacKinnon out trois mois, le Larkin gate s'éternise à Detroit\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nMacKinnon out three months as Detroit's Larkin saga drags on",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-22"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-22/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-22/",
+   "titre": "PB On The Wire · MacKinnon out trois mois, le Larkin gate s'éternise à Detroit"
+  },
+  {
+   "id": "2026-11-22-matin-fil-story",
+   "quand": "2026-11-22T08:11-05:00",
+   "story": true,
+   "courte": "fil",
+   "sans_fin": true,
+   "suit": "2026-11-22-matin-fil",
+   "cadre": "social/fil/2026-11-22/2026-11-22-matin-fil-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · PB On The Wire · MacKinnon out trois mois, le Larkin gate s'éternise à Detroit"
+  },
+  {
+   "id": "2026-11-22-matin-075332-1",
+   "quand": "2026-11-22T09:22-05:00",
+   "image": "social/fil/2026-11-22/matin-1.jpg",
+   "images": [
+    "social/fil/2026-11-22/matin-1.jpg",
+    "social/fil/2026-11-22/matin-1-2.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Les plus gros mouvements d'hier soir :\n▲ Sam Bennett (FLA) : +6 pts aux PB Season Projections (53 pts) (dernier match : 3 B, 1 A · 16 pts en 24 matchs)\n▼ Brady Tkachuk (FLA) : −0,9 M$ de PB Market Value (11 B, 13 A en 24 matchs)\nTout ce qui a bougé : https://puckprob.ca/fr/\n\nLast night's biggest movers:\n▲ Sam Bennett (FLA): +6 pts in PB Season Projections (53 pts) (last game: 3 G, 1 A · 16 pts in 24 games)\n▼ Brady Tkachuk (FLA): −$0.9M in PB Market Value (11 G, 13 A in 24 games)\nEverything that moved: https://puckprob.ca/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Les plus gros mouvements d'hier soir :\n▲ Sam Bennett (FLA) : +6 pts aux PB Season Projections (53 pts) (dernier match : 3 B, 1 A · 16 pts en 24 matchs)\n▼ Brady Tkachuk (FLA) : −0,9 M$ de PB Market Value (11 B, 13 A en 24 matchs)\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLast night's biggest movers:\n▲ Sam Bennett (FLA): +6 pts in PB Season Projections (53 pts) (last game: 3 G, 1 A · 16 pts in 24 games)\n▼ Brady Tkachuk (FLA): −$0.9M in PB Market Value (11 G, 13 A in 24 games)\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout ce qui a bougé / Everything that moved: https://puckprob.ca/fr/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "movers",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/",
+   "lien_en": "https://puckprob.ca/",
+   "titre": "Last Night's Biggest Movers",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-22-recap",
+   "quand": "2026-11-22T11:41-05:00",
+   "image": "social/fil/2026-11-22/recap-series.jpg",
+   "images": [
+    "social/fil/2026-11-22/recap-series.jpg",
+    "social/fil/2026-11-22/recap-buteurs.jpg",
+    "social/fil/2026-11-22/recap-gardiens.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nTous les % : https://puckprob.ca/fr/coupe-stanley/\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\nAll the %: https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\n#LNH #NHL #hockey #PuckProb",
+   "com": "Ta surprise d'hier soir ? / Last night's surprise? https://puckprob.ca/fr/coupe-stanley/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "recap",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/coupe-stanley/",
+   "lien_en": "https://puckprob.ca/stanley-cup/",
+   "titre": "Récap · séries, marqueurs, gardiens"
+  },
+  {
+   "id": "2026-11-22-story-2026020373",
+   "quand": "2026-11-22T12:20-05:00",
+   "story": true,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-22/story-2026020373.jpg",
+   "avant": "2026-11-22T12:30-05:00",
+   "type": "story",
+   "titre": "Story · CAR @ NYR"
   }
  ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"

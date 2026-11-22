@@ -1,6 +1,24 @@
 {
- "maj": "2026-11-22T01:18-05:00",
+ "maj": "2026-11-22T07:53-05:00",
  "articles": [
+  {
+   "jour": "2026-11-22",
+   "saison": "20262027",
+   "titre": {
+    "fr": "MacKinnon out trois mois, le Larkin gate s'éternise à Detroit",
+    "en": "MacKinnon out three months as Detroit's Larkin saga drags on"
+   },
+   "jusqu": "2026-11-22T12:16",
+   "chapeau": {
+    "fr": "Le Colorado perd son moteur pour bien plus longtemps que prévu, Anaheim perd une recrue payée 1 M$ qui en vaut 10, et à Detroit, le feuilleton Larkin approche son premier mois. On fait la timeline.",
+    "en": "Colorado loses its engine for a lot longer than expected, Anaheim loses a $1M player worth ten times that, and in Detroit, the Larkin saga is closing in on a month. We lay out the timeline."
+   },
+   "vedette": "Nathan MacKinnon",
+   "vid": "8477492",
+   "veq": "COL",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-21",
    "saison": "20262027",
