@@ -378,6 +378,34 @@ html .fen-carr tr.cour td,html .fen-carr tfoot td{color:#fff;font-weight:800;bor
 .nw-l .nw-s i{font-style:normal;font-weight:600;margin-left:8px;text-transform:none;letter-spacing:0}
 .nw-l b{grid-area:b;font:700 15px/1.3 var(--f-body)}
 .nw-l .nw-f{grid-area:f;font:700 20px/1 var(--f-body);color:#4A5D78}
+.cl2-vues{display:flex;gap:6px;margin:6px 0 4px;flex-wrap:wrap}
+.cl2-leg{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0 2px;font:700 12px/1 var(--f-body);color:#DCE6F2}
+.cl2-leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.cl2-r{background:#F2F5FA;color:#0A2342;border-radius:12px;padding:10px 12px;margin:0 0 6px;border-left:5px solid var(--eq)}
+.cl2-h{display:flex;align-items:center;gap:10px}
+.cl2-h img{width:30px;height:30px;object-fit:contain;flex:none}
+.cl2-rg{flex:none;min-width:22px;text-align:center;font:800 18px/1 var(--f-display);color:#4A5D78;display:flex;flex-direction:column;align-items:center}
+.cl2-nm{flex:1;min-width:0}.cl2-nm b{display:block;font:800 16px/1.1 var(--f-display)}.cl2-nm small{display:block;font:600 12px/1.25 var(--f-body);color:#4A5D78}
+.cl2-v{flex:none;text-align:right}.cl2-v b{font:800 20px/1 var(--f-display)}.cl2-v small{display:block;font:700 10px/1 var(--f-body);color:#4A5D78;text-transform:uppercase}
+.cl2-v svg{display:block;margin:3px 0 0 auto}
+.cl2-hist{display:grid;grid-template-columns:repeat(16,1fr);gap:2px;align-items:end;height:34px;margin-top:6px;position:relative}
+.cl2-hist i{display:block;background:var(--eq);border-radius:2px 2px 0 0}
+.cl2-hist i.o{background:#9FB3CB}
+.cl2-hist::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;border-left:2px dashed #C8102E}
+.cl2-axe{display:flex;justify-content:space-between;font:700 9.5px/1 var(--f-body);color:#4A5D78;margin-top:2px}
+.cl2-z{display:flex;height:22px;border-radius:6px;overflow:hidden;margin-top:6px;font:800 11px/22px var(--f-body);text-align:center}
+.cl2-z span{white-space:nowrap;overflow:hidden}
+table.cl2-g{width:100%;border-collapse:separate;border-spacing:3px;background:#F2F5FA;border-radius:12px;padding:6px;color:#0A2342}
+table.cl2-g th{font:800 11px/1.1 var(--f-body);color:#4A5D78;text-transform:uppercase;padding:4px 2px;text-align:center}
+table.cl2-g th.eq{text-align:left}
+table.cl2-g td{text-align:center;font:800 14px/1 var(--f-display);border-radius:6px;padding:10px 2px}
+table.cl2-g td.eq{text-align:left;white-space:nowrap;padding-left:2px;font-size:15px}
+table.cl2-g td.eq .cl2-ge{display:flex;align-items:center;gap:4px}
+table.cl2-g td.eq img{width:22px;height:22px;flex:none;display:block}
+table.cl2-g td.eq .cl2-rg{min-width:16px;font-size:13px}
+table.cl2-g td.eq .cl2-ge > :last-child:not(b){transform:scale(.8);transform-origin:left center}
+table.cl2-g td.se{font-size:13px}
+table.cl2-g .cut{border-left:3px solid #C8102E}
 .cpj-plus{display:block;width:100%;margin:8px 0 0;padding:12px;border-radius:12px;border:1px solid #2A3A57;background:rgba(255,255,255,.03);color:#DCE6F2;font:700 14px/1.2 var(--f-body);cursor:pointer}
 /* Les mini-bannières d'une rangée : elles passent à la ligne quand il y en a trop (Mitch, 21 nov. : Montréal et ses
    24 Coupes poussaient la page de côté) */
