@@ -1196,7 +1196,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=0c874775">
+<link rel="stylesheet" href="carte.css?v=ba68a49f">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -9132,6 +9132,8 @@ function simSaison(vite, graine){
 document.addEventListener("click", (e) => { if (e.target.closest?.("#sv-go")){ $("#sv-go").textContent = L("Rejouer une autre saison", "Play another season"); simSaison(false); } });
 function trophees(){
   const v = S.troph || "coupe";
+  // La pastille allumée suit toujours ce qui est affiché (une adresse ou un lien qui change S.troph sans cliquer)
+  document.querySelectorAll("#f-troph .chip[data-v]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.v === v)));
   if (S.sai && !CUP0 && SAI?.saisons?.[S.sai]){ cupSai(); return; }
   if (!S.sai && CUP0) cupReset();
   $("#f-conf").hidden = v !== "coupe" && v !== "classement";
@@ -9641,7 +9643,9 @@ async function init(){
     else if (/^#(coachs?|coaches)$/i.test(location.hash)){ $("#t-coach")?.click(); $("#p-coach")?.scrollIntoView({ block: "start" }); }
     else if (/^#bets$/i.test(location.hash)){ $("#t-bets")?.click(); }
     else if (/^#(trophees|trophies)$/i.test(location.hash)){ $("#t-coupe").click(); S.troph = Object.keys(TROPH)[0]; trophees(); $("#p-coupe").scrollIntoView({ block: "start" }); }
-    else if (/^#(classement|standings)$/i.test(location.hash)){ $("#t-coupe").click(); S.troph = "classement"; trophees(); $("#p-coupe").scrollIntoView({ block: "start" }); }
+    // PB Awards Projections (le bouton du menu Saison) : ouvre sur la Coupe (Mitch, 21 nov. 2026 : « ça t'amène au
+    // classement mais c'est Coupe qui est allumé, arrange ça pour que ça t'amène à Coupe pour vrai »)
+    else if (/^#(classement|standings)$/i.test(location.hash)){ $("#t-coupe").click(); S.troph = "coupe"; trophees(); $("#p-coupe").scrollIntoView({ block: "start" }); }
     else if (/^#(pb-?)?sim(=\d+)?$/i.test(location.hash)){
       // #sim=123456 : la saison simulée partagée par quelqu'un (même graine = même saison, tant que les données du jour sont les mêmes)
       $("#t-sim").click(); $("#p-sim").scrollIntoView({ block: "start" });
@@ -9772,6 +9776,23 @@ init().catch(finCharge);
   }
   function ech(t){ return String(t).replace(/[&<>"]/g, function(c){ return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var tous = [];
+  // Combien la liste affiche, au début du résumé (Mitch, 21 nov. 2026 : « ajoute le nombre de joueurs affichés dans
+  // tous les filtres ») : les rangées visibles de la section, nommées selon ce qu'elles sont.
+  var LIGNES = {
+    "p-joueurs": [".j[data-pid]", "j"], "p-coupe": [".cp, .tr[data-pid], .cl2-r", "auto"], "p-whatif": [".wi-l", "j"], "p-salaires": [".wi-l", "j"],
+    "p-enf": [".wi-l", "j"], "p-prj": [".wi-l", "j"], "p-duo": [".wi-l", "duo"], "p-gcr": [".wi-l", "j"], "p-arb": [".wi-l", "j"],
+    "p-fa": [".wi-l", "j"], "p-forme": [".wi-l", "j"], "p-dev": [".wi-l", "j"], "p-coach": [".wi-l", "c"], "p-pwr": [".wi-l", "e"],
+    "p-cls": ["tbody tr[data-eqf]", "e"], "p-rum": ["a.card.rum", "r"], "p-trx": [".card.trx", "t"], "p-matchs": ["button.mc", "m"] };
+  var NOMS = { j: ["joueur", "joueurs", "player", "players"], e: ["équipe", "équipes", "team", "teams"], c: ["coach", "coachs", "coach", "coaches"],
+    duo: ["duo", "duos", "duo", "duos"], r: ["nouvelle", "nouvelles", "story", "stories"], t: ["transaction", "transactions", "transaction", "transactions"],
+    m: ["match", "matchs", "game", "games"] };
+  function combien(o){
+    var L = LIGNES[o.sec.id]; if (!L) return "";
+    var rs = [].filter.call(o.sec.querySelectorAll(L[0]), function(e){ return e.offsetParent !== null && !e.closest(".c3-sh"); });
+    if (!rs.length) return "";
+    var k = L[1] === "auto" ? (rs[0].hasAttribute("data-pid") ? "j" : "e") : L[1], n = NOMS[k];
+    return rs.length + " " + (EN ? n[rs.length > 1 ? 3 : 2] : n[rs.length > 1 ? 1 : 0]);
+  }
   function maj(){
     tous.forEach(function(o){
       var a = contenu(o.sh);
@@ -9780,7 +9801,9 @@ init().catch(finCharge);
       o.b.querySelector("b").textContent = n || "";
       o.b.querySelector("b").hidden = !n;
       // Réécrit seulement quand ça change (sinon l'observateur plus bas relancerait maj sans arrêt)
-      var t = a ? resume(o.sh) : [], h = t.length ? "<b>" + (EN ? "Filters" : "Filtres") + "</b> " + t.map(ech).join(" · ") : "";
+      var t = a ? resume(o.sh) : [], nb = a ? combien(o) : "";
+      if (nb) t.unshift(nb);
+      var h = t.length ? "<b>" + (EN ? "Filters" : "Filtres") + "</b> " + t.map(ech).join(" · ") : "";
       if (o.s && o.s._h !== h){ o.s._h = h; o.s.innerHTML = h; o.s.hidden = !h; }
     });
   }
@@ -9859,8 +9882,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=0c874775" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=0c874775" defer></script>
+<script src="pub.js?v=ba68a49f" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=ba68a49f" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
