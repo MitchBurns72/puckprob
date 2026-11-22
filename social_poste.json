@@ -2477,6 +2477,20 @@
   "publie": true,
   "quand": "2026-11-22T08:05-05:00"
  },
+ "2026-11-22-matin-fil": {
+  "fb": "1508565075663838_122114321799537152",
+  "fb_com": "122114321799537152_1717224993342691",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-22"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-22/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-22/",
+  "titre": "PB On The Wire · MacKinnon out trois mois, le Larkin gate s'éternise à Detroit",
+  "publie": true,
+  "quand": "2026-11-22T08:10-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
