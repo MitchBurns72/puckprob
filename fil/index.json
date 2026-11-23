@@ -1,6 +1,26 @@
 {
- "maj": "2026-11-23T13:19-05:00",
+ "maj": "2026-11-23T16:17-05:00",
  "articles": [
+  {
+   "jour": "2026-11-23",
+   "cle": "2026-11-23-diaz",
+   "special": true,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin",
+    "en": "Thank you, Raphael Diaz: how a Swiss defenseman turned into Dylan Larkin"
+   },
+   "jusqu": null,
+   "chapeau": {
+    "fr": "Tout le monde parle de Larkin. Moi, je parle de l'homme qui a rendu ça possible il y a 12 ans sans le savoir : Raphael Diaz. Cinq échanges, 12 ans, pis un trombone rouge qui finit en 2e centre. Démêlons ça.",
+    "en": "Everybody's talking about Larkin. I'm talking about the man who made it possible 12 years ago without knowing it: Raphael Diaz. Five trades, 12 years, and a red paperclip that ends up as a second-line center. Let's untangle it."
+   },
+   "vedette": "Raphael Diaz",
+   "vid": 8476244,
+   "veq": "MTL",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-23",
    "cle": "2026-11-23",

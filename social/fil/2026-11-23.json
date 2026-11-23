@@ -1,34 +1,38 @@
 {
  "jour": "2026-11-23",
- "maj": "2026-11-23T13:20-05:00",
+ "maj": "2026-11-23T16:17-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-23-tous",
-   "quand": "2026-11-23T14:17-05:00",
-   "image": "social/fil/2026-11-23/tous-1.jpg",
-   "images": [
-    "social/fil/2026-11-23/tous-1.jpg",
-    "social/fil/2026-11-23/tous-2.jpg",
-    "social/fil/2026-11-23/tous-3.jpg",
-    "social/fil/2026-11-23/tous-4.jpg",
-    "social/fil/2026-11-23/tous-5.jpg",
-    "social/fil/2026-11-23/tous-6.jpg",
-    "social/fil/2026-11-23/tous-7.jpg"
-   ],
+   "id": "2026-11-23-diaz-matin-fil",
+   "quand": "2026-11-23T16:28-05:00",
+   "image": "social/fil/2026-11-23/2026-11-23-diaz-matin-fil.jpg",
+   "images": null,
    "avant": null,
    "retard": null,
-   "texte": "Les 7 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nTous les % de chaque joueur : https://puckprob.ca/fr/ce-soir/\n\nTonight's 7 games: who wins, how many goals, who scores. Swipe through them all.\nEvery player's %: https://puckprob.ca/tonight/\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
-   "texte_ig": "Les 7 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nTonight's 7 games: who wins, how many goals, who scores. Swipe through them all.\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
-   "com": "Ton match de la soirée ? / Your game of the night? https://puckprob.ca/fr/ce-soir/",
-   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
-   "type": "tous",
+   "texte": "PB ON THE WIRE · ÉDITION SPÉCIALE · Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin\n\nTout le monde parle de Larkin. Moi, je parle de l'homme qui a rendu ça possible il y a 12 ans sans le savoir : Raphael Diaz. Cinq échanges, 12 ans, pis un trombone rouge qui finit en 2e centre. Démêlons ça.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · SPECIAL EDITION · Thank you, Raphael Diaz: how a Swiss defenseman turned into Dylan Larkin\n\nEverybody's talking about Larkin. I'm talking about the man who made it possible 12 years ago without knowing it: Raphael Diaz. Five trades, 12 years, and a red paperclip that ends up as a second-line center. Let's untangle it.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · ÉDITION SPÉCIALE · Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin\n\nTout le monde parle de Larkin. Moi, je parle de l'homme qui a rendu ça possible il y a 12 ans sans le savoir : Raphael Diaz. Cinq échanges, 12 ans, pis un trombone rouge qui finit en 2e centre. Démêlons ça.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · SPECIAL EDITION · Thank you, Raphael Diaz: how a Swiss defenseman turned into Dylan Larkin\n\nEverybody's talking about Larkin. I'm talking about the man who made it possible 12 years ago without knowing it: Raphael Diaz. Five trades, 12 years, and a red paperclip that ends up as a second-line center. Let's untangle it.\n\nFull article: link in bio.",
+   "com": "Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-23-diaz/\n\nThank you, Raphael Diaz: how a Swiss defenseman turned into Dylan Larkin\nhttps://puckprob.ca/on-the-wire/2026-11-23-diaz/",
+   "com_ig": "Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nThank you, Raphael Diaz: how a Swiss defenseman turned into Dylan Larkin",
+   "type": "fil",
    "opt": {
-    "n": 7
+    "jour": "2026-11-23"
    },
-   "lien": "https://puckprob.ca/fr/ce-soir/",
-   "lien_en": "https://puckprob.ca/tonight/",
-   "titre": "Les 7 matchs du soir · Tonight's 7 games"
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-23-diaz/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-23-diaz/",
+   "titre": "PB On The Wire · Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin"
+  },
+  {
+   "id": "2026-11-23-diaz-matin-fil-story",
+   "quand": "2026-11-23T16:30-05:00",
+   "story": true,
+   "courte": "fil",
+   "sans_fin": true,
+   "suit": "2026-11-23-diaz-matin-fil",
+   "cadre": "social/fil/2026-11-23/2026-11-23-diaz-matin-fil-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · PB On The Wire · Merci Raphael Diaz : comment un défenseur suisse s'est changé en Dylan Larkin"
   },
   {
    "id": "2026-11-23-story-2026020378",

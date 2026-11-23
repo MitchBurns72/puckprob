@@ -1197,7 +1197,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=44797347">
+<link rel="stylesheet" href="carte.css?v=0af2f2f8">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -6658,8 +6658,8 @@ async function wireOnglet(){
   const date = new Date(art.jour + "T12:00").toLocaleDateString(EN ? "en-US" : "fr-CA", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
   const corps = ((art.corps || {})[l] || []).map(b => b.p != null ? `<p>${wireTexte(b.p)}</p>` : b.h != null ? `<h3>${wireTexte(b.h)}</h3>`
     : b.liste ? `<ul>${b.liste.map(x => `<li>${wireTexte(x)}</li>`).join("")}</ul>` : "").join("");
-  const ved = v.id ? `<button type="button" class="fw-v" data-pid="${+v.id}" style="${v.eq ? eqV(v.eq) : ""}">
-      <img src="https://assets.nhle.com/mugs/nhl/${saisonCour()}/${v.photo_eq || v.eq}/${v.id}.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+  const ved = v.id ? `<button type="button" class="fw-v" ${v.photo_saison ? "" : `data-pid="${+v.id}"`} style="${v.eq ? eqV(v.eq) : ""}">
+      <img src="https://assets.nhle.com/mugs/nhl/${v.photo_saison || saisonCour()}/${v.photo_eq || v.eq}/${v.id}.png" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
       <span><small>${echapper((v.etiquette || {})[l] || "")}</small><b>${echapper(v.n || "")}</b><i>${echapper((v.sous || {})[l] || "")}</i>
       <span class="fw-c">${(v.cases || []).slice(0, 2).map(c => `<span><b>${echapper(EN && c.v_en ? c.v_en : c.v)}</b><em>${echapper(c[l] || "")}</em></span>`).join("")}</span></span></button>` : "";
   const autres = A.filter(a => wireCle(a) !== wireCle(a0)).slice(0, 14).map(a => `<button type="button" class="fw-a" data-j="${wireCle(a)}"><small>${dateCourte(a.jour)}${a.special ? " · " + L("Édition spéciale", "Special edition") : ""}</small><span>${echapper((a.titre || {})[l] || "")}</span></button>`).join("");
@@ -9899,8 +9899,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=44797347" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=44797347" defer></script>
+<script src="pub.js?v=0af2f2f8" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=0af2f2f8" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
