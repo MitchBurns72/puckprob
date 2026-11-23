@@ -1139,6 +1139,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .fw-c em{font:800 10px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-transform:uppercase;color:#4A5D78}
 .fw-t{margin:14px 16px 4px;font:800 italic 26px/1.05 "Barlow Condensed",var(--f-body);text-transform:none}
 .fw-by{margin:0 16px 10px;font:600 12.5px/1.3 var(--f-body);color:var(--muted)}
+.fw-sp{background:#C8102E;color:#fff;font:800 11px/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border-radius:3px}
 .fw-ch{margin:0 16px 12px;font:700 16px/1.5 var(--f-body)}
 .fw-corps{padding:0 16px 6px;font:500 15.5px/1.6 var(--f-body)}
 .fw-corps p{margin:0 0 12px}

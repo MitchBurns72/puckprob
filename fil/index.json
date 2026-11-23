@@ -1,8 +1,30 @@
 {
- "maj": "2026-11-22T21:06-05:00",
+ "maj": "2026-11-22T21:17-05:00",
  "articles": [
   {
    "jour": "2026-11-22",
+   "cle": "2026-11-22-larkin",
+   "special": true,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre",
+    "en": "Larkin heads to Montreal: the Habs empty the closet for a real second-line center"
+   },
+   "jusqu": null,
+   "chapeau": {
+    "fr": "Le Larkin gate est fini. Le CH envoie Kirby Dach, Samuel Montembeault, l'espoir Michael Hage et quatre choix, dont deux de 1re ronde conditionnels, à Detroit pour [[8477946|Dylan Larkin]]. Nos chiffres disent que Montréal paie cher, mais qu'il achète exactement ce qui lui manquait. Pis en prime : ce qui cloche vraiment chez Slafkovský, et Bedard sur la liste des blessés.",
+    "en": "The Larkin saga is over. Montreal sends Kirby Dach, Samuel Montembeault, prospect Michael Hage and four picks, including two conditional firsts, to Detroit for [[8477946|Dylan Larkin]]. Our numbers say the Habs pay a lot, but they buy exactly what they were missing. Plus: what's really wrong with Slafkovský, and Bedard on injured reserve."
+   },
+   "vedette": "Dylan Larkin",
+   "vid": 8477946,
+   "veq": "MTL",
+   "par": "claude",
+   "img": true
+  },
+  {
+   "jour": "2026-11-22",
+   "cle": "2026-11-22",
+   "special": false,
    "saison": "20262027",
    "titre": {
     "fr": "MacKinnon out trois mois, le Larkin gate s'éternise à Detroit",
@@ -21,6 +43,8 @@
   },
   {
    "jour": "2026-11-21",
+   "cle": "2026-11-21",
+   "special": false,
    "saison": "20262027",
    "titre": {
     "fr": "Les Rangers perdent Bjorkstrand et vont chercher Sasson",
@@ -39,6 +63,8 @@
   },
   {
    "jour": "2026-11-20",
+   "cle": "2026-11-20",
+   "special": false,
    "saison": "20262027",
    "titre": {
     "fr": "Hagel et Makar sur la touche : mauvaise journée pour les poursuivants",

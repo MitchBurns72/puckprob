@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-22",
- "maj": "2026-11-22T17:09-05:00",
+ "maj": "2026-11-22T21:18-05:00",
  "publier": true,
  "items": [
   {
@@ -32,6 +32,37 @@
    "avant": "2026-11-22T20:00-05:00",
    "type": "story",
    "titre": "Story · CHI @ VAN"
+  },
+  {
+   "id": "2026-11-22-larkin-matin-fil",
+   "quand": "2026-11-22T21:32-05:00",
+   "image": "social/fil/2026-11-22/2026-11-22-larkin-matin-fil.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · ÉDITION SPÉCIALE · Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre\n\nLe Larkin gate est fini. Le CH envoie Kirby Dach, Samuel Montembeault, l'espoir Michael Hage et quatre choix, dont deux de 1re ronde conditionnels, à Detroit pour Dylan Larkin. Nos chiffres disent que Montréal paie cher, mais qu'il achète exactement ce qui lui manquait. Pis en prime : ce qui cloche vraiment chez Slafkovský, et Bedard sur la liste des blessés.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · SPECIAL EDITION · Larkin heads to Montreal: the Habs empty the closet for a real second-line center\n\nThe Larkin saga is over. Montreal sends Kirby Dach, Samuel Montembeault, prospect Michael Hage and four picks, including two conditional firsts, to Detroit for Dylan Larkin. Our numbers say the Habs pay a lot, but they buy exactly what they were missing. Plus: what's really wrong with Slafkovský, and Bedard on injured reserve.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · ÉDITION SPÉCIALE · Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre\n\nLe Larkin gate est fini. Le CH envoie Kirby Dach, Samuel Montembeault, l'espoir Michael Hage et quatre choix, dont deux de 1re ronde conditionnels, à Detroit pour Dylan Larkin. Nos chiffres disent que Montréal paie cher, mais qu'il achète exactement ce qui lui manquait. Pis en prime : ce qui cloche vraiment chez Slafkovský, et Bedard sur la liste des blessés.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · SPECIAL EDITION · Larkin heads to Montreal: the Habs empty the closet for a real second-line center\n\nThe Larkin saga is over. Montreal sends Kirby Dach, Samuel Montembeault, prospect Michael Hage and four picks, including two conditional firsts, to Detroit for Dylan Larkin. Our numbers say the Habs pay a lot, but they buy exactly what they were missing. Plus: what's really wrong with Slafkovský, and Bedard on injured reserve.\n\nFull article: link in bio.",
+   "com": "Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-22-larkin/\n\nLarkin heads to Montreal: the Habs empty the closet for a real second-line center\nhttps://puckprob.ca/on-the-wire/2026-11-22-larkin/",
+   "com_ig": "Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLarkin heads to Montreal: the Habs empty the closet for a real second-line center",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-22"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-22-larkin/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-22-larkin/",
+   "titre": "PB On The Wire · Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre"
+  },
+  {
+   "id": "2026-11-22-larkin-matin-fil-story",
+   "quand": "2026-11-22T21:34-05:00",
+   "story": true,
+   "courte": "fil",
+   "sans_fin": true,
+   "suit": "2026-11-22-larkin-matin-fil",
+   "cadre": "social/fil/2026-11-22/2026-11-22-larkin-matin-fil-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · PB On The Wire · Larkin s'en vient à Montréal : le CH vide le garde-robe pour un vrai 2e centre"
   }
  ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"
