@@ -1197,7 +1197,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=0af2f2f8">
+<link rel="stylesheet" href="carte.css?v=6d2ff076">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -2575,8 +2575,11 @@ function matchs(){
 // Le détail d'un match (l'ancienne grande carte) : 60 min, totaux, forme, duels directs (et les cotes au premium).
 // sans = "align" : sans le bloc d'alignement (il a son propre bouton dans le popup)
 function detailMatch(g, v, sans){
-    const p = g.preds[v];
-    if (!p) return "";
+    // La version « combo » (la principale) n'a que les probs : les buts attendus, le total et le nul en 60 min
+    // viennent d'une version qui les a (sinon le clic sur un match plantait sur lam_away ; Mitch, 23 nov. 2026)
+    if (!g.preds[v]) return "";
+    const base = Object.values(g.preds).find(x => x && x.lam_home != null && x.lam_away != null && x.p_egal60 != null) || {};
+    const p = { ...base, ...g.preds[v] };
     const ph = p.p_home, pa = 1 - ph;
     const c = g.cotes || {};
     // Cote utilisée pour la valeur : Mise-o-jeu tapée > médiane US
@@ -9899,8 +9902,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=0af2f2f8" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=0af2f2f8" defer></script>
+<script src="pub.js?v=6d2ff076" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=6d2ff076" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
