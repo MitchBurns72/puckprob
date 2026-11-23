@@ -2707,6 +2707,20 @@
   "publie": true,
   "quand": "2026-11-23T12:10-05:00"
  },
+ "2026-11-23-tous": {
+  "fb": "1508565075663838_122114766051537152",
+  "fb_com": "122114766051537152_2278225349765260",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "tous",
+  "opt": {
+   "n": 7
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/",
+  "lien_en": "https://puckprob.ca/tonight/",
+  "titre": "Les 7 matchs du soir · Tonight's 7 games",
+  "publie": true,
+  "quand": "2026-11-23T14:20-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
