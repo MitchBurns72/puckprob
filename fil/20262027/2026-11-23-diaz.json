@@ -123,7 +123,7 @@
   "id": 8476244,
   "n": "Raphael Diaz",
   "eq": "MTL",
-  "photo_saison": "20132014",
+  "photo_saison": "20122013",
   "etiquette": {
    "fr": "Le trombone rouge",
    "en": "The red paperclip"
@@ -144,6 +144,11 @@
     "fr": "de 2014 à 2026",
     "en": "from 2014 to 2026"
    }
+  ],
+  "photo_saisons": [
+   "20122013",
+   "20112012",
+   "20132014"
   ]
  },
  "points": {
