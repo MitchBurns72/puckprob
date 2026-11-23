@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-23",
- "maj": "2026-11-23T01:01-05:00",
+ "maj": "2026-11-23T07:51-05:00",
  "publier": true,
  "items": [
   {
@@ -22,6 +22,167 @@
    "avant": null,
    "type": "story",
    "titre": "Story · Fallers"
+  },
+  {
+   "id": "2026-11-23-matin-fil",
+   "quand": "2026-11-23T07:57-05:00",
+   "image": "social/fil/2026-11-23/2026-11-23-matin-fil.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · Larkin au Habs : ce que ça change vraiment au centre\n\nLe lendemain de la veille : on a passé l'alignement du Habs au peigne fin. Avec Larkin, le 2e centre passe d'un comité qui perdait la bataille des chances à un gars de 72 points par saison. Suzuki respire, Danault et Evans retrouvent leur vrai rôle, pis j'ose trois prédictions.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · Larkin in Montreal: what really changes down the middle\n\nThe morning after: we went through the Habs' lineup with a fine-tooth comb. With Larkin, second-line center goes from a committee losing the chance battle to a 72-point-a-season guy. Suzuki gets relief, Danault and Evans get their real jobs back, and I'm making three predictions.\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · Larkin au Habs : ce que ça change vraiment au centre\n\nLe lendemain de la veille : on a passé l'alignement du Habs au peigne fin. Avec Larkin, le 2e centre passe d'un comité qui perdait la bataille des chances à un gars de 72 points par saison. Suzuki respire, Danault et Evans retrouvent leur vrai rôle, pis j'ose trois prédictions.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · Larkin in Montreal: what really changes down the middle\n\nThe morning after: we went through the Habs' lineup with a fine-tooth comb. With Larkin, second-line center goes from a committee losing the chance battle to a 72-point-a-season guy. Suzuki gets relief, Danault and Evans get their real jobs back, and I'm making three predictions.\n\nFull article: link in bio.",
+   "com": "Larkin au Habs : ce que ça change vraiment au centre\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-23/\n\nLarkin in Montreal: what really changes down the middle\nhttps://puckprob.ca/on-the-wire/2026-11-23/",
+   "com_ig": "Larkin au Habs : ce que ça change vraiment au centre\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLarkin in Montreal: what really changes down the middle",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-23"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-23/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-23/",
+   "titre": "PB On The Wire · Larkin au Habs : ce que ça change vraiment au centre"
+  },
+  {
+   "id": "2026-11-23-matin-fil-story",
+   "quand": "2026-11-23T07:59-05:00",
+   "story": true,
+   "courte": "fil",
+   "sans_fin": true,
+   "suit": "2026-11-23-matin-fil",
+   "cadre": "social/fil/2026-11-23/2026-11-23-matin-fil-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · PB On The Wire · Larkin au Habs : ce que ça change vraiment au centre"
+  },
+  {
+   "id": "2026-11-23-recap-story-1",
+   "quand": "2026-11-23T08:00-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 0,
+   "cadre": "social/fil/2026-11-23/recap-story-series-e.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Est"
+  },
+  {
+   "id": "2026-11-23-recap-story-2",
+   "quand": "2026-11-23T08:01-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 1,
+   "cadre": "social/fil/2026-11-23/recap-story-series-w.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · chances de séries, l'Ouest"
+  },
+  {
+   "id": "2026-11-23-recap-story-3",
+   "quand": "2026-11-23T08:02-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 2,
+   "cadre": "social/fil/2026-11-23/recap-story-buteurs.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les marqueurs d'hier"
+  },
+  {
+   "id": "2026-11-23-recap-story-4",
+   "quand": "2026-11-23T08:03-05:00",
+   "story": true,
+   "courte": "matin",
+   "a_8h": true,
+   "decal": 3,
+   "cadre": "social/fil/2026-11-23/recap-story-gardiens.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · les gardiens d'hier"
+  },
+  {
+   "id": "2026-11-23-matin-075048-1",
+   "quand": "2026-11-23T08:49-05:00",
+   "image": "social/fil/2026-11-23/matin-1.jpg",
+   "images": [
+    "social/fil/2026-11-23/matin-1.jpg",
+    "social/fil/2026-11-23/matin-1-2.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Les plus gros mouvements d'hier soir :\n▲ Roman Kantserov (CHI) : +12,4 pts au Calder (1 match : 3 B, 1 A)\n▼ Andrei Svechnikov (CAR) : −0,6 M$ de PB Market Value (13 B, 10 A en 24 matchs)\nTout ce qui a bougé : https://puckprob.ca/fr/\n\nLast night's biggest movers:\n▲ Roman Kantserov (CHI): +12.4 pts for the Calder (1 game: 3 G, 1 A)\n▼ Andrei Svechnikov (CAR): −$0.6M in PB Market Value (13 G, 10 A in 24 games)\nEverything that moved: https://puckprob.ca/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Les plus gros mouvements d'hier soir :\n▲ Roman Kantserov (CHI) : +12,4 pts au Calder (1 match : 3 B, 1 A)\n▼ Andrei Svechnikov (CAR) : −0,6 M$ de PB Market Value (13 B, 10 A en 24 matchs)\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLast night's biggest movers:\n▲ Roman Kantserov (CHI): +12.4 pts for the Calder (1 game: 3 G, 1 A)\n▼ Andrei Svechnikov (CAR): −$0.6M in PB Market Value (13 G, 10 A in 24 games)\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout ce qui a bougé / Everything that moved: https://puckprob.ca/fr/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "movers",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/",
+   "lien_en": "https://puckprob.ca/",
+   "titre": "Last Night's Biggest Movers",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-23-recap",
+   "quand": "2026-11-23T09:54-05:00",
+   "image": "social/fil/2026-11-23/recap-series.jpg",
+   "images": [
+    "social/fil/2026-11-23/recap-series.jpg",
+    "social/fil/2026-11-23/recap-buteurs.jpg",
+    "social/fil/2026-11-23/recap-gardiens.jpg"
+   ],
+   "avant": null,
+   "retard": null,
+   "texte": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nTous les % : https://puckprob.ca/fr/coupe-stanley/\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\nAll the %: https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\n#LNH #NHL #hockey #PuckProb",
+   "com": "Ta surprise d'hier soir ? / Last night's surprise? https://puckprob.ca/fr/coupe-stanley/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "recap",
+   "opt": {},
+   "lien": "https://puckprob.ca/fr/coupe-stanley/",
+   "lien_en": "https://puckprob.ca/stanley-cup/",
+   "titre": "Récap · séries, marqueurs, gardiens"
+  },
+  {
+   "id": "2026-11-23-matin-075059-8",
+   "quand": "2026-11-23T11:03-05:00",
+   "image": "social/fil/2026-11-23/matin-8.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB Dominance Rating : Équipes · En cours · Tous · Tous · Tous · Tous\n1. Caroline  CAR · indice de puissance\n2. Colorado  COL · indice de puissance\n3. Minnesota  MIN · indice de puissance\n4. Tampa Bay  TBL · indice de puissance\n5. Edmonton  EDM · indice de puissance\n6. Dallas  DAL · indice de puissance\n7. Boston  BOS · indice de puissance\n8. Vegas  VGK · indice de puissance\n9. Ottawa  OTT · indice de puissance\n10. Montréal  MTL · indice de puissance\n\nPB Dominance Rating: Teams · Current · All · All · All · All\n1. Carolina  CAR · power index\n2. Colorado  COL · power index\n3. Minnesota  MIN · power index\n4. Tampa Bay  TBL · power index\n5. Edmonton  EDM · power index\n6. Dallas  DAL · power index\n7. Boston  BOS · power index\n8. Vegas  VGK · power index\n9. Ottawa  OTT · power index\n10. Montreal  MTL · power index\n\nFR : https://puckprob.ca/fr/ce-soir/#power\nEN : https://puckprob.ca/tonight/#power\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "PB Dominance Rating : Équipes · En cours · Tous · Tous · Tous · Tous\n1. Caroline  CAR · indice de puissance\n2. Colorado  COL · indice de puissance\n3. Minnesota  MIN · indice de puissance\n4. Tampa Bay  TBL · indice de puissance\n5. Edmonton  EDM · indice de puissance\n6. Dallas  DAL · indice de puissance\n7. Boston  BOS · indice de puissance\n8. Vegas  VGK · indice de puissance\n9. Ottawa  OTT · indice de puissance\n10. Montréal  MTL · indice de puissance\n\nPB Dominance Rating: Teams · Current · All · All · All · All\n1. Carolina  CAR · power index\n2. Colorado  COL · power index\n3. Minnesota  MIN · power index\n4. Tampa Bay  TBL · power index\n5. Edmonton  EDM · power index\n6. Dallas  DAL · power index\n7. Boston  BOS · power index\n8. Vegas  VGK · power index\n9. Ottawa  OTT · power index\n10. Montreal  MTL · power index\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout le détail : https://puckprob.ca/fr/ce-soir/#power\n\nAll the details: https://puckprob.ca/tonight/#power",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens\n",
+   "type": "power",
+   "opt": {
+    "mode": "eq"
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#power",
+   "lien_en": "https://puckprob.ca/tonight/#power",
+   "titre": "PB Dominance Rating",
+   "diapo": null
+  },
+  {
+   "id": "2026-11-23-matin-075107-9",
+   "quand": "2026-11-23T12:10-05:00",
+   "image": "social/fil/2026-11-23/matin-9.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB Dominance Rating : Joueurs · En cours · Tous · Tous · Tous · Tous\n1. Kirill  MIN · indice de puissance\n2. Leon  EDM · indice de puissance\n3. Connor  EDM · indice de puissance\n4. Kyle  WPG · indice de puissance\n5. Matt  MIN · indice de puissance\n6. Macklin  SJS · indice de puissance\n7. Mark  WPG · indice de puissance\n8. Quinn  MIN · indice de puissance\n9. David  BOS · indice de puissance\n10. Cutter  ANA · indice de puissance\n\nPB Dominance Rating: Players · Current · All · All · All · All\n1. Kirill  MIN · power index\n2. Leon  EDM · power index\n3. Connor  EDM · power index\n4. Kyle  WPG · power index\n5. Matt  MIN · power index\n6. Macklin  SJS · power index\n7. Mark  WPG · power index\n8. Quinn  MIN · power index\n9. David  BOS · power index\n10. Cutter  ANA · power index\n\nFR : https://puckprob.ca/fr/ce-soir/#power\nEN : https://puckprob.ca/tonight/#power\n#LNH #NHL #hockey #PuckProb",
+   "texte_ig": "PB Dominance Rating : Joueurs · En cours · Tous · Tous · Tous · Tous\n1. Kirill  MIN · indice de puissance\n2. Leon  EDM · indice de puissance\n3. Connor  EDM · indice de puissance\n4. Kyle  WPG · indice de puissance\n5. Matt  MIN · indice de puissance\n6. Macklin  SJS · indice de puissance\n7. Mark  WPG · indice de puissance\n8. Quinn  MIN · indice de puissance\n9. David  BOS · indice de puissance\n10. Cutter  ANA · indice de puissance\n\nPB Dominance Rating: Players · Current · All · All · All · All\n1. Kirill  MIN · power index\n2. Leon  EDM · power index\n3. Connor  EDM · power index\n4. Kyle  WPG · power index\n5. Matt  MIN · power index\n6. Macklin  SJS · power index\n7. Mark  WPG · power index\n8. Quinn  MIN · power index\n9. David  BOS · power index\n10. Cutter  ANA · power index\n\nLien dans la bio · Link in bio : puckprob.ca/liens\n#LNH #NHL #hockey #PuckProb",
+   "com": "Tout le détail : https://puckprob.ca/fr/ce-soir/#power\n\nAll the details: https://puckprob.ca/tonight/#power",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens\n",
+   "type": "power",
+   "opt": {
+    "mode": "j"
+   },
+   "lien": "https://puckprob.ca/fr/ce-soir/#power",
+   "lien_en": "https://puckprob.ca/tonight/#power",
+   "titre": "PB Dominance Rating",
+   "diapo": null
   }
  ],
  "ig_pause_jusqu": "2026-11-14T00:55-05:00"

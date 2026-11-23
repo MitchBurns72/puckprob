@@ -1,6 +1,26 @@
 {
- "maj": "2026-11-23T00:57-05:00",
+ "maj": "2026-11-23T07:50-05:00",
  "articles": [
+  {
+   "jour": "2026-11-23",
+   "cle": "2026-11-23",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Larkin au Habs : ce que ça change vraiment au centre",
+    "en": "Larkin in Montreal: what really changes down the middle"
+   },
+   "jusqu": "2026-11-23T12:17",
+   "chapeau": {
+    "fr": "Le lendemain de la veille : on a passé l'alignement du Habs au peigne fin. Avec Larkin, le 2e centre passe d'un comité qui perdait la bataille des chances à un gars de 72 points par saison. Suzuki respire, Danault et Evans retrouvent leur vrai rôle, pis j'ose trois prédictions.",
+    "en": "The morning after: we went through the Habs' lineup with a fine-tooth comb. With Larkin, second-line center goes from a committee losing the chance battle to a 72-point-a-season guy. Suzuki gets relief, Danault and Evans get their real jobs back, and I'm making three predictions."
+   },
+   "vedette": "Dylan Larkin",
+   "vid": 8477946,
+   "veq": "MTL",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-22",
    "cle": "2026-11-22-larkin",
