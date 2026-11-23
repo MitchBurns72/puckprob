@@ -2601,6 +2601,28 @@
   "publie": true,
   "quand": "2026-11-23T01:10-05:00"
  },
+ "2026-11-23-recap-story-1": {
+  "fb": "1630388854710230",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Est",
+  "publie": true,
+  "quand": "2026-11-23T08:00-05:00"
+ },
+ "2026-11-23-matin-fil": {
+  "fb": "1508565075663838_122114663319537152",
+  "fb_com": "122114663319537152_1714535853597099",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-23"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-23/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-23/",
+  "titre": "PB On The Wire · Larkin au Habs : ce que ça change vraiment au centre",
+  "publie": true,
+  "quand": "2026-11-23T08:00-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
