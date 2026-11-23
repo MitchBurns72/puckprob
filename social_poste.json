@@ -2679,6 +2679,20 @@
   "publie": true,
   "quand": "2026-11-23T09:55-05:00"
  },
+ "2026-11-23-matin-075059-8": {
+  "fb": "1508565075663838_122114711805537152",
+  "fb_com": "122114711805537152_2599633407115217",
+  "ig": "sauté : Instagram en pause jusqu'à 23/11 18:20 (blocage)",
+  "type": "power",
+  "opt": {
+   "mode": "eq"
+  },
+  "lien": "https://puckprob.ca/fr/ce-soir/#power",
+  "lien_en": "https://puckprob.ca/tonight/#power",
+  "titre": "PB Dominance Rating",
+  "publie": true,
+  "quand": "2026-11-23T11:05-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
