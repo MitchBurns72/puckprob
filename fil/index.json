@@ -1,6 +1,26 @@
 {
- "maj": "2026-11-24T07:46-05:00",
+ "maj": "2026-11-24T11:23-05:00",
  "articles": [
+  {
+   "jour": "2026-11-24",
+   "cle": "2026-11-24",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm",
+    "en": "Quinn Hughes goes on injured reserve, boston signs Elias Lindholm"
+   },
+   "jusqu": "2026-11-24T16:23",
+   "chapeau": {
+    "fr": "Les dernières 24 heures dans la LNH : 1 contrat, 2 joueurs sur la liste des blessés, 2 joueurs au ballottage, 1 réclamation au ballottage, 5 rappels et renvois dans la Ligue américaine et 21 nouvelles qu'on a lues pour vous.",
+    "en": "The last 24 hours in the NHL: 1 contract, 2 players on injured reserve, 2 players on waivers, 1 waiver claim, 5 AHL call-ups and assignments and 21 stories we read for you."
+   },
+   "vedette": "Quinn Hughes",
+   "vid": "8480800",
+   "veq": "MIN",
+   "par": "regles",
+   "img": true
+  },
   {
    "jour": "2026-11-23",
    "cle": "2026-11-23-diaz",
