@@ -2751,6 +2751,38 @@
   "publie": true,
   "quand": "2026-11-23T18:50-05:00"
  },
+ "2026-11-23-story-2026020379": {
+  "fb": "2342395816581662",
+  "ig": "18033272864917637",
+  "type": "story",
+  "titre": "Story · LAK @ MTL",
+  "publie": true,
+  "quand": "2026-11-23T19:20-05:00"
+ },
+ "2026-11-23-story-2026020380": {
+  "fb": "2582532042157331",
+  "ig": "sauté : rodage après un blocage : déjà 2 stories Instagram aujourd'hui",
+  "type": "story",
+  "titre": "Story · CGY @ OTT",
+  "publie": true,
+  "quand": "2026-11-23T19:21-05:00"
+ },
+ "2026-11-23-story-2026020381": {
+  "fb": "4347769718689435",
+  "ig": "sauté : rodage après un blocage : déjà 2 stories Instagram aujourd'hui",
+  "type": "story",
+  "titre": "Story · TOR @ NYI",
+  "publie": true,
+  "quand": "2026-11-23T19:21-05:00"
+ },
+ "2026-11-23-story-2026020382": {
+  "fb": "1789240459011578",
+  "ig": "sauté : rodage après un blocage : déjà 2 stories Instagram aujourd'hui",
+  "type": "story",
+  "titre": "Story · UTA @ WPG",
+  "publie": true,
+  "quand": "2026-11-23T19:21-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
@@ -2761,6 +2793,6 @@
   "rodage_jusqu": "2026-11-26T18:20-05:00",
   "jour": "2026-11-23",
   "n": 0,
-  "n_st": 1
+  "n_st": 2
  }
 }
