@@ -1,148 +1,36 @@
 {
  "jour": "2026-11-24",
- "maj": "2026-11-24T11:24-05:00",
+ "maj": "2026-11-24T13:15-05:00",
  "publier": true,
  "items": [
   {
-   "id": "2026-11-24-nuit-story-up",
-   "quand": "2026-11-24T01:12-05:00",
-   "story": true,
-   "courte": "matin",
-   "cadre": "social/fil/2026-11-24/nuit-up.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · Gainers"
-  },
-  {
-   "id": "2026-11-24-nuit-story-down",
-   "quand": "2026-11-24T01:14-05:00",
-   "story": true,
-   "courte": "matin",
-   "cadre": "social/fil/2026-11-24/nuit-down.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · Fallers"
-  },
-  {
-   "id": "2026-11-24-recap-story-1",
-   "quand": "2026-11-24T08:00-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 0,
-   "cadre": "social/fil/2026-11-24/recap-story-series-e.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · chances de séries, l'Est"
-  },
-  {
-   "id": "2026-11-24-recap-story-2",
-   "quand": "2026-11-24T08:01-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 1,
-   "cadre": "social/fil/2026-11-24/recap-story-series-w.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · chances de séries, l'Ouest"
-  },
-  {
-   "id": "2026-11-24-recap-story-3",
-   "quand": "2026-11-24T08:02-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 2,
-   "cadre": "social/fil/2026-11-24/recap-story-buteurs.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · les marqueurs d'hier"
-  },
-  {
-   "id": "2026-11-24-recap-story-4",
-   "quand": "2026-11-24T08:03-05:00",
-   "story": true,
-   "courte": "matin",
-   "a_8h": true,
-   "decal": 3,
-   "cadre": "social/fil/2026-11-24/recap-story-gardiens.jpg",
-   "avant": null,
-   "type": "story",
-   "titre": "Story · les gardiens d'hier"
-  },
-  {
-   "id": "2026-11-24-matin-074716-1",
-   "quand": "2026-11-24T09:08-05:00",
-   "image": "social/fil/2026-11-24/matin-1.jpg",
-   "images": [
-    "social/fil/2026-11-24/matin-1.jpg",
-    "social/fil/2026-11-24/matin-1-2.jpg"
-   ],
-   "avant": null,
-   "retard": null,
-   "texte": "Les plus gros mouvements d'hier soir :\n▲ Linus Ullmark (OTT) : +1,4 M$ de PB Market Value (.941 d'efficacité, 306 tirs reçus en 13 matchs)\n▼ Kirill Kaprizov (MIN) : −4,4 pts au Rocket Richard (n'a pas joué · Cutter Gauthier monte (+2,1) : 1 match : 1 but)\nTout ce qui a bougé : https://puckprob.ca/fr/\n\nLast night's biggest movers:\n▲ Linus Ullmark (OTT): +$1.4M in PB Market Value (.941 SV%, 306 shots faced in 13 games)\n▼ Kirill Kaprizov (MIN): −4.4 pts for the Rocket Richard (didn't play · Cutter Gauthier climbs (+2.1): 1 game: 1 goal)\nEverything that moved: https://puckprob.ca/\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Les plus gros mouvements d'hier soir :\n▲ Linus Ullmark (OTT) : +1,4 M$ de PB Market Value (.941 d'efficacité, 306 tirs reçus en 13 matchs)\n▼ Kirill Kaprizov (MIN) : −4,4 pts au Rocket Richard (n'a pas joué · Cutter Gauthier monte (+2,1) : 1 match : 1 but)\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nLast night's biggest movers:\n▲ Linus Ullmark (OTT): +$1.4M in PB Market Value (.941 SV%, 306 shots faced in 13 games)\n▼ Kirill Kaprizov (MIN): −4.4 pts for the Rocket Richard (didn't play · Cutter Gauthier climbs (+2.1): 1 game: 1 goal)\n#LNH #NHL #hockey #PuckProb",
-   "com": "Tout ce qui a bougé / Everything that moved: https://puckprob.ca/fr/",
-   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
-   "type": "movers",
-   "opt": {},
-   "lien": "https://puckprob.ca/fr/",
-   "lien_en": "https://puckprob.ca/",
-   "titre": "Last Night's Biggest Movers",
-   "diapo": null
-  },
-  {
-   "id": "2026-11-24-recap",
-   "quand": "2026-11-24T11:31-05:00",
-   "image": "social/fil/2026-11-24/recap-series.jpg",
-   "images": [
-    "social/fil/2026-11-24/recap-series.jpg",
-    "social/fil/2026-11-24/recap-buteurs.jpg",
-    "social/fil/2026-11-24/recap-gardiens.jpg"
-   ],
-   "avant": null,
-   "retard": null,
-   "texte": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nTous les % : https://puckprob.ca/fr/coupe-stanley/\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\nAll the %: https://puckprob.ca/stanley-cup/\n#LNH #NHL #hockey #PuckProb",
-   "texte_ig": "Ta journée en 3 cartes : les chances de séries de chaque équipe, les marqueurs d'hier et les gardiens d'hier.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nYour day in 3 cards: every team's playoff chances, last night's top scorers and last night's goalies.\n#LNH #NHL #hockey #PuckProb",
-   "com": "Ta surprise d'hier soir ? / Last night's surprise? https://puckprob.ca/fr/coupe-stanley/",
-   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
-   "type": "recap",
-   "opt": {},
-   "lien": "https://puckprob.ca/fr/coupe-stanley/",
-   "lien_en": "https://puckprob.ca/stanley-cup/",
-   "titre": "Récap · séries, marqueurs, gardiens"
-  },
-  {
-   "id": "2026-11-24-matin-fil",
-   "quand": "2026-11-24T11:40-05:00",
-   "image": "social/fil/2026-11-24/2026-11-24-matin-fil.jpg",
+   "id": "2026-11-24-tous",
+   "quand": "2026-11-24T14:13-05:00",
+   "image": "social/fil/2026-11-24/tous-1.jpg",
    "images": null,
    "avant": null,
    "retard": null,
-   "texte": "PB ON THE WIRE · Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm\n\nLes dernières 24 heures dans la LNH : 1 contrat, 2 joueurs sur la liste des blessés, 2 joueurs au ballottage, 1 réclamation au ballottage, 5 rappels et renvois dans la Ligue américaine et 21 nouvelles qu'on a lues pour vous.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · Quinn Hughes goes on injured reserve, boston signs Elias Lindholm\n\nThe last 24 hours in the NHL: 1 contract, 2 players on injured reserve, 2 players on waivers, 1 waiver claim, 5 AHL call-ups and assignments and 21 stories we read for you.\n\nFull article: first comment.",
-   "texte_ig": "PB ON THE WIRE · Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm\n\nLes dernières 24 heures dans la LNH : 1 contrat, 2 joueurs sur la liste des blessés, 2 joueurs au ballottage, 1 réclamation au ballottage, 5 rappels et renvois dans la Ligue américaine et 21 nouvelles qu'on a lues pour vous.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · Quinn Hughes goes on injured reserve, boston signs Elias Lindholm\n\nThe last 24 hours in the NHL: 1 contract, 2 players on injured reserve, 2 players on waivers, 1 waiver claim, 5 AHL call-ups and assignments and 21 stories we read for you.\n\nFull article: link in bio.",
-   "com": "Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-24/\n\nQuinn Hughes goes on injured reserve, boston signs Elias Lindholm\nhttps://puckprob.ca/on-the-wire/2026-11-24/",
-   "com_ig": "Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nQuinn Hughes goes on injured reserve, boston signs Elias Lindholm",
-   "type": "fil",
+   "texte": "Les 1 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nTous les % de chaque joueur : https://puckprob.ca/fr/ce-soir/\n\nTonight's 1 games: who wins, how many goals, who scores. Swipe through them all.\nEvery player's %: https://puckprob.ca/tonight/\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
+   "texte_ig": "Les 1 matchs de ce soir : qui gagne, combien de buts, qui marque. Glisse pour tout voir.\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nTonight's 1 games: who wins, how many goals, who scores. Swipe through them all.\n#LNH #NHL #hockey #PuckProb\nPour le divertissement seulement. Pas un conseil de pari. 18+",
+   "com": "Ton match de la soirée ? / Your game of the night? https://puckprob.ca/fr/ce-soir/",
+   "com_ig": "Lien dans la bio · Link in bio : puckprob.ca/liens",
+   "type": "tous",
    "opt": {
-    "jour": "2026-11-24"
+    "n": 1
    },
-   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-24/",
-   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-24/",
-   "titre": "PB On The Wire · Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm"
+   "lien": "https://puckprob.ca/fr/ce-soir/",
+   "lien_en": "https://puckprob.ca/tonight/",
+   "titre": "Les 1 matchs du soir · Tonight's 1 games"
   },
   {
-   "id": "2026-11-24-matin-fil-story",
-   "quand": "2026-11-24T11:42-05:00",
+   "id": "2026-11-24-story-2026020385",
+   "quand": "2026-11-24T19:50-05:00",
    "story": true,
-   "courte": "fil",
-   "sans_fin": true,
-   "suit": "2026-11-24-matin-fil",
-   "cadre": "social/fil/2026-11-24/2026-11-24-matin-fil-story.jpg",
-   "avant": null,
+   "courte": "match",
+   "cadre": "social/fil/2026-11-24/story-2026020385.jpg",
+   "avant": "2026-11-24T20:00-05:00",
    "type": "story",
-   "titre": "Story · PB On The Wire · Quinn Hughes sur la liste des blessés, boston accorde un contrat à Elias Lindholm"
+   "titre": "Story · VGK @ EDM"
   }
  ],
  "ig_pause_jusqu": "2026-11-27T01:08-05:00"
