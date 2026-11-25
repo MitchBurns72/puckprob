@@ -1,6 +1,26 @@
 {
- "maj": "2026-11-25T00:00-05:00",
+ "maj": "2026-11-25T07:49-05:00",
  "articles": [
+  {
+   "jour": "2026-11-25",
+   "cle": "2026-11-25",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Où ira le Kuch? Le dossier Kucherov, le retour de RNH et Binnington au banc",
+    "en": "Where does the Kuch land? The Kucherov file, RNH's return and Binnington's benching"
+   },
+   "jusqu": "2026-11-25T12:17",
+   "chapeau": {
+    "fr": "Le Canadien aurait un œil sur Nikita Kucherov, 3e de notre course à l'Art Ross : on ouvre le dossier des destinations possibles. Aussi : RNH revient au jeu dans une défaite contre Vegas, et Joel Hofer a pris le filet à Binnington à St. Louis.",
+    "en": "The Habs reportedly have an eye on Nikita Kucherov, 3rd in our Art Ross race: we open the file on his possible landing spots. Also: RNH returns in a loss to Vegas, and Joel Hofer has taken the net from Binnington in St. Louis."
+   },
+   "vedette": "Nikita Kucherov",
+   "vid": "8476453",
+   "veq": "TBL",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-24",
    "cle": "2026-11-24",
