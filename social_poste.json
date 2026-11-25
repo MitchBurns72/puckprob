@@ -2939,6 +2939,36 @@
   "publie": true,
   "quand": "2026-11-25T08:01-05:00"
  },
+ "2026-11-25-recap-story-2": {
+  "fb": "1013610061146021",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Ouest",
+  "publie": true,
+  "quand": "2026-11-25T08:05-05:00"
+ },
+ "2026-11-25-recap-story-3": {
+  "fb": "4674222292904480",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "story",
+  "titre": "Story · les marqueurs d'hier",
+  "publie": true,
+  "quand": "2026-11-25T08:05-05:00"
+ },
+ "2026-11-25-matin-fil": {
+  "fb": "1508565075663838_122115351873537152",
+  "fb_com": "122115351873537152_2164472164186093",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-25"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-25/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-25/",
+  "titre": "PB On The Wire · Où ira le Kuch? Le dossier Kucherov, le retour de RNH et Binnington au banc",
+  "publie": true,
+  "quand": "2026-11-25T08:05-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
