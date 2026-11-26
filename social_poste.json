@@ -3209,6 +3209,18 @@
   "publie": true,
   "quand": "2026-11-26T09:15-05:00"
  },
+ "2026-11-26-recap": {
+  "fb": "1508565075663838_122115743337537152",
+  "fb_com": "122115743337537152_1822234642433702",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "recap",
+  "opt": {},
+  "lien": "https://puckprob.ca/fr/coupe-stanley/",
+  "lien_en": "https://puckprob.ca/stanley-cup/",
+  "titre": "Récap · séries, marqueurs, gardiens",
+  "publie": true,
+  "quand": "2026-11-26T11:20-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
