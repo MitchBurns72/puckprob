@@ -1,6 +1,26 @@
 {
- "maj": "2026-11-26T00:46-05:00",
+ "maj": "2026-11-26T07:46-05:00",
  "articles": [
+  {
+   "jour": "2026-11-26",
+   "cle": "2026-11-26",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Grandes rafales : Hagel et Makar reviennent, le cadran tourne pour Edvinsson",
+    "en": "Big quick hits: Hagel and Makar return, the clock ticks on Edvinsson"
+   },
+   "jusqu": "2026-11-26T12:19",
+   "chapeau": {
+    "fr": "Édition grandes rafales : Hagel et Makar sont de retour au jeu, le cadran tourne pour Simon Edvinsson à Detroit, et on vide le calepin d'une semaine chargée dans la LNH, chiffres PB à l'appui.",
+    "en": "Big quick-hits edition: Hagel and Makar are back in action, the clock is ticking on Simon Edvinsson in Detroit, and we empty the notebook on a busy NHL week, PB numbers in hand."
+   },
+   "vedette": "Cale Makar",
+   "vid": "8480069",
+   "veq": "COL",
+   "par": "claude",
+   "img": true
+  },
   {
    "jour": "2026-11-25",
    "cle": "2026-11-25",

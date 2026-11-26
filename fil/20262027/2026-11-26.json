@@ -1,0 +1,177 @@
+{
+ "jour": "2026-11-26",
+ "par": "claude",
+ "auteur": "Cloud Talbot",
+ "titre": {
+  "fr": "Grandes rafales : Hagel et Makar reviennent, le cadran tourne pour Edvinsson",
+  "en": "Big quick hits: Hagel and Makar return, the clock ticks on Edvinsson"
+ },
+ "titre_court": {
+  "fr": "Édition grandes rafales",
+  "en": "Big quick-hits edition"
+ },
+ "chapeau": {
+  "fr": "Édition grandes rafales : Hagel et Makar sont de retour au jeu, le cadran tourne pour Simon Edvinsson à Detroit, et on vide le calepin d'une semaine chargée dans la LNH, chiffres PB à l'appui.",
+  "en": "Big quick-hits edition: Hagel and Makar are back in action, the clock is ticking on Simon Edvinsson in Detroit, and we empty the notebook on a busy NHL week, PB numbers in hand."
+ },
+ "corps": {
+  "fr": [
+   {
+    "p": "Édition grandes rafales ce matin. Pas de grand dossier, pas de roman : on vide le calepin de la semaine, un point à la fois, court pis presque sérieux. Café en main, on y va."
+   },
+   {
+    "h": "Les deux revenants"
+   },
+   {
+    "p": "Il y a six jours, on ouvrait ce fil avec [[8479542|Brandon Hagel]] et [[8480069|Cale Makar]] sur la liste des blessés. La boucle est bouclée : Tampa a réactivé Hagel et le Colorado a fait pareil avec Makar ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/cale-makar-practices-in-regular-jersey.html)). Hagel : 24 points en 20 matchs, **PB Market Value** de 12,4 M$ pour un contrat de 6,5 M$. Makar : 23 points en 19 matchs, 11,5 M$ de valeur. Pour l'Avalanche, qui doit se passer de MacKinnon, c'est de l'oxygène pur : elle reste notre 2e favori pour la Coupe à 13,1 %. Ma prédiction : Makar remonte dans le top 5 de notre course au Norris avant Noël. Le voir 10e (1,5 %), c'est aussi naturel qu'une poutine sans fromage."
+   },
+   {
+    "h": "Edvinsson : le cadran tourne"
+   },
+   {
+    "p": "Le prochain gros feuilleton se joue encore à Detroit. Selon [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-sharks-oilers-edvinsson-rangers-matthews-11-25-2026/), San Jose pousse fort pour Simon Edvinsson, et Edmonton serait aussi dans le portrait. La Floride devrait s'y intéresser aussi, mais sans échange en vue ([The Hockey Writers](https://thehockeywriters.com/panthers-should-have-interest-in-red-wings-edvinsson-but-dont-expect-a-trade/)). Avec la date limite du 1er décembre en vue, les Wings jouent serré : 21es de nos Power rankings (+2 cette semaine), mais seulement 9,4 % de chances pour les séries. Après Larkin, perdre un autre morceau du noyau, ce serait raide en mosus. Mon avis : Detroit finit par le signer, et les Sharks (30es, 6,5 %) vont devoir magasiner ailleurs."
+   },
+   {
+    "h": "En rafale : la semaine en vrac"
+   },
+   {
+    "liste": [
+     "**Matthews** : la même chronique de [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-sharks-oilers-edvinsson-rangers-matthews-11-25-2026/) met les Rangers et [[8479318|Auston Matthews]] dans la même phrase. 34 points en 26 matchs, 6e de notre course au Rocket Richard. Les Leafs ont enfin battu les Islanders ([The Hockey Writers](https://thehockeywriters.com/maple-leafs-news-rumours-hillers-decisions-stolarzs-confidence-marlies-broadcasts/)) et rappellent le gardien Artur Akhtyamov ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/maple-leafs-recall-artur-akhtyamov-2.html)), mais à 3,5 % pour les séries, une victoire, c'est une goutte d'eau dans le lac.",
+     "**Barkov et Marchand** : la Floride réactive [[8477493|Aleksander Barkov]] et [[8473419|Brad Marchand]]. Les Panthers montent au 11e rang (+1), 69,4 % pour les séries.",
+     "**Ottawa** : [The Hockey Writers](https://thehockeywriters.com/senators-are-getting-hurricanes-comparisons-but-are-they-cup-contenders/) se demande si les Sens, qui ont survécu au départ de [[8480801|Brady Tkachuk]], sont de vrais aspirants. Nos chiffres : 10es, 7-1-2 à leurs 10 derniers, 3,3 % pour la Coupe. Aspirant poli, pas encore épeurant.",
+     "**MacKinnon** : trois mois d'absence plutôt qu'un, selon [RDS](https://www.rds.ca/hockey/lnh/article/labsence-de-mackinnon-se-prolonge-a-trois-mois/). Le pire coup de la semaine : 30 points en 20 matchs, 17,9 M$ de PB Market Value.",
+     "**Quinn Hughes** sur la liste des blessés ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/wild-recall-viking-gustafsson-nyberg.html)). Le Wild ne bronche pas : 3e, 97,8 % pour les séries. Hughes reste 2e au Norris (17,9 %), derrière [[8480803|Evan Bouchard]] (38 %).",
+     "**Bedard** blessé ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/blackhawks-recall-dominic-toninato-4.html)). Les Hawks ont gagné leurs trois derniers quand même. À 0,6 % pour les séries, on appelle ça jouer pour l'honneur.",
+     "**St. Louis** : [[8480981|Joel Hofer]] a pris le filet à [[8476412|Jordan Binnington]]. Efficacité de ,912, 4e au Vézina (6,9 %). Les Blues gagnent 6 rangs cette semaine (14es), la plus grosse remontée de la ligue.",
+     "**Kucherov** : la rumeur du Canadien a fait jaser ([The Hockey Writers](https://thehockeywriters.com/nhl-rumors-oilers-hyman-canadiens-kucherov-matthews-move-11-24-2026/)). [[8476453|Nikita Kucherov]] est 3e à l'Art Ross (11,3 %). Le Kuch reste à Tampa.",
+     "**Montréal** : [[8477946|Dylan Larkin]] est arrivé, mais le CH a perdu ses trois derniers et glisse au 12e rang (-2), 69,2 % pour les séries.",
+     "**Edmonton** : [[8476454|Ryan Nugent-Hopkins]] est revenu, mais les Oilers n'ont pas gagné à leurs quatre derniers. [[8478402|Connor McDavid]] a quand même 59 points en 27 matchs et 45,8 % à l'Art Ross. Le reste de la ligue joue pour la 2e place.",
+     "**Rangers** : [[8477416|Oliver Bjorkstrand]] blessé ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/rangers-recall-taylor-raddysh-place-oliver-bjorkstrand-on-ir.html)), [[8484136|Max Sasson]] arrive de Vancouver ([Daily Faceoff](https://www.dailyfaceoff.com/news/new-york-rangers-max-sasson-vancouver-canucks-nhl-trade-news-transactions)). 16es (-2), 46,8 % : pile sur la clôture.",
+     "**Pittsburgh** : [[8471675|Sidney Crosby]] veut rester un Penguin pour toujours ([Daily Faceoff](https://www.dailyfaceoff.com/news/sidney-crosby-wants-to-remain-pittsburgh-penguin-forever-pat-brisson)). Les Pens ont perdu leurs cinq derniers (27es, -5). Pour toujours, c'est long en maudit à 4,1 %.",
+     "**Los Angeles** : les Kings songeraient à échanger [[8474563|Drew Doughty]] ([Daily Faceoff](https://www.dailyfaceoff.com/news/could-la-kings-trade-drew-doughty)), PB Market Value de 1,6 M$ pour 11 M$. Ils rappellent Kirill Kirsanov ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/kings-recall-kirill-kirsanov.html)) et grimpent de 4 rangs.",
+     "**Rémi Poirier** : réclamé par Washington pour une 3e fois cette saison ([RDS](https://www.rds.ca/hockey/lnh/article/poirier-de-retour-a-washington-pour-combien-de-temps/)). Plus de changements d'adresse qu'un 1er juillet à Montréal.",
+     "**Calder** : [[8484803|Trevor Connelly]] (Vegas) est 2e à 18,6 %, derrière [[8484873|Cole Hutson]] (41 %). PB Market Value de 5,8 M$ pour un contrat de 1,0 M$ ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/roster-notes-warren-hodgson-connelly.html)).",
+     "**Vézina** : [[8482661|Jesper Wallstedt]] mène notre course à 40,2 %. Personne d'autre au-dessus de 12 %.",
+     "**Vancouver** : 13 points en 27 matchs, 0,2 % pour les séries. Pas de joke, juste nos sympathies."
+    ]
+   },
+   {
+    "p": "Toutes ces courses bougent chaque jour dans la section **Trophées** de PuckProb. Allez voir qui monte avant la prochaine rafale."
+   },
+   {
+    "p": "— Cloud Talbot, pour PuckProb.ca"
+   }
+  ],
+  "en": [
+   {
+    "p": "Big quick-hits edition this morning. No deep dive, no novel: we're emptying the notebook from the week, one point at a time, short and almost serious. Grab a coffee, here we go."
+   },
+   {
+    "h": "The two comebacks"
+   },
+   {
+    "p": "Six days ago, this wire opened with [[8479542|Brandon Hagel]] and [[8480069|Cale Makar]] on injured reserve. Full circle now: Tampa activated Hagel and Colorado did the same with Makar ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/cale-makar-practices-in-regular-jersey.html)). Hagel: 24 points in 20 games, **PB Market Value** of $12.4M on a $6.5M deal. Makar: 23 points in 19 games, $11.5M in value. For an Avalanche team that has to make do without MacKinnon, it's pure oxygen: they stay our 2nd Cup favourite at 13.1%. My call: Makar climbs into the top 5 of our Norris race before Christmas. Seeing him 10th (1.5%) is about as natural as poutine without cheese curds."
+   },
+   {
+    "h": "Edvinsson: the clock is ticking"
+   },
+   {
+    "p": "The next big soap opera is in Detroit again. According to [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-sharks-oilers-edvinsson-rangers-matthews-11-25-2026/), San Jose is pushing hard for Simon Edvinsson, with Edmonton also in the picture. Florida should be interested too, but don't expect a trade ([The Hockey Writers](https://thehockeywriters.com/panthers-should-have-interest-in-red-wings-edvinsson-but-dont-expect-a-trade/)). With the December 1 deadline coming, the Wings are walking a tightrope: 21st in our Power rankings (+2 this week), but only a 9.4% playoff prob. After Larkin, losing another core piece would sting like heck. My take: Detroit gets him signed, and the Sharks (30th, 6.5%) will have to shop elsewhere."
+   },
+   {
+    "h": "Quick hits: the week in a nutshell"
+   },
+   {
+    "liste": [
+     "**Matthews**: the same [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-sharks-oilers-edvinsson-rangers-matthews-11-25-2026/) rundown puts the Rangers and [[8479318|Auston Matthews]] in the same sentence. 34 points in 26 games, 6th in our Rocket Richard race. The Leafs finally beat the Islanders ([The Hockey Writers](https://thehockeywriters.com/maple-leafs-news-rumours-hillers-decisions-stolarzs-confidence-marlies-broadcasts/)) and recalled goalie Artur Akhtyamov ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/maple-leafs-recall-artur-akhtyamov-2.html)), but at a 3.5% playoff prob, one win is a drop in the lake.",
+     "**Barkov and Marchand**: Florida activates [[8477493|Aleksander Barkov]] and [[8473419|Brad Marchand]]. The Panthers move up to 11th (+1), 69.4% for the playoffs.",
+     "**Ottawa**: [The Hockey Writers](https://thehockeywriters.com/senators-are-getting-hurricanes-comparisons-but-are-they-cup-contenders/) wonders whether the Sens, who survived [[8480801|Brady Tkachuk]]'s departure, are real contenders. Our numbers: 10th, 7-1-2 in their last 10, 3.3% for the Cup. A polite contender, not a scary one yet.",
+     "**MacKinnon**: out three months instead of one, per [RDS](https://www.rds.ca/hockey/lnh/article/labsence-de-mackinnon-se-prolonge-a-trois-mois/). The worst blow of the week: 30 points in 20 games, $17.9M PB Market Value.",
+     "**Quinn Hughes** on injured reserve ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/wild-recall-viking-gustafsson-nyberg.html)). The Wild don't flinch: 3rd, 97.8% for the playoffs. Hughes stays 2nd in the Norris race (17.9%), behind [[8480803|Evan Bouchard]] (38%).",
+     "**Bedard** hurt ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/blackhawks-recall-dominic-toninato-4.html)). The Hawks won their last three anyway. At a 0.6% playoff prob, that's playing for pride.",
+     "**St. Louis**: [[8480981|Joel Hofer]] took the net from [[8476412|Jordan Binnington]]. A .912 save percentage, 4th in the Vezina race (6.9%). The Blues jumped 6 spots this week (14th), the biggest climb in the league.",
+     "**Kucherov**: the Habs rumour got people talking ([The Hockey Writers](https://thehockeywriters.com/nhl-rumors-oilers-hyman-canadiens-kucherov-matthews-move-11-24-2026/)). [[8476453|Nikita Kucherov]] is 3rd in the Art Ross race (11.3%). The Kuch stays in Tampa.",
+     "**Montreal**: [[8477946|Dylan Larkin]] has arrived, but the Habs lost their last three and slip to 12th (-2), 69.2% for the playoffs.",
+     "**Edmonton**: [[8476454|Ryan Nugent-Hopkins]] is back, but the Oilers are winless in four. [[8478402|Connor McDavid]] still has 59 points in 27 games and a 45.8% Art Ross prob. The rest of the league is playing for 2nd.",
+     "**Rangers**: [[8477416|Oliver Bjorkstrand]] hurt ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/rangers-recall-taylor-raddysh-place-oliver-bjorkstrand-on-ir.html)), [[8484136|Max Sasson]] arrives from Vancouver ([Daily Faceoff](https://www.dailyfaceoff.com/news/new-york-rangers-max-sasson-vancouver-canucks-nhl-trade-news-transactions)). 16th (-2), 46.8%: right on the fence.",
+     "**Pittsburgh**: [[8471675|Sidney Crosby]] wants to be a Penguin forever ([Daily Faceoff](https://www.dailyfaceoff.com/news/sidney-crosby-wants-to-remain-pittsburgh-penguin-forever-pat-brisson)). The Pens lost their last five (27th, -5). Forever is a heck of a long time at 4.1%.",
+     "**Los Angeles**: the Kings are reportedly mulling a [[8474563|Drew Doughty]] trade ([Daily Faceoff](https://www.dailyfaceoff.com/news/could-la-kings-trade-drew-doughty)), $1.6M PB Market Value on an $11M deal. They recall Kirill Kirsanov ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/kings-recall-kirill-kirsanov.html)) and climb 4 spots.",
+     "**Remi Poirier**: claimed by Washington for a 3rd time this season ([RDS](https://www.rds.ca/hockey/lnh/article/poirier-de-retour-a-washington-pour-combien-de-temps/)). More address changes than Montreal on July 1st.",
+     "**Calder**: [[8484803|Trevor Connelly]] (Vegas) is 2nd at 18.6%, behind [[8484873|Cole Hutson]] (41%). $5.8M PB Market Value on a $1.0M contract ([Pro Hockey Rumors](https://www.prohockeyrumors.com/2026/11/roster-notes-warren-hodgson-connelly.html)).",
+     "**Vezina**: [[8482661|Jesper Wallstedt]] leads our race at 40.2%. Nobody else is above 12%.",
+     "**Vancouver**: 13 points in 27 games, a 0.2% playoff prob. No joke, just our sympathies."
+    ]
+   },
+   {
+    "p": "All these races move every day in the **Trophies** section of PuckProb. Go see who's climbing before the next round of quick hits."
+   },
+   {
+    "p": "— Cloud Talbot, for PuckProb.ca"
+   }
+  ]
+ },
+ "vedette": {
+  "id": "8480069",
+  "n": "Cale Makar",
+  "eq": "COL",
+  "no": 8,
+  "etiquette": {
+   "fr": "De retour au jeu",
+   "en": "Back in action"
+  },
+  "sous": {
+   "fr": "Avalanche · 2e favori pour la Coupe",
+   "en": "Avalanche · 2nd Cup favourite"
+  },
+  "cases": [
+   {
+    "v": "23",
+    "fr": "pts en 19 PJ",
+    "en": "pts in 19 GP"
+   },
+   {
+    "v": "11,5 M$",
+    "v_en": "$11.5M",
+    "fr": "PB Market Value",
+    "en": "PB Market Value"
+   }
+  ]
+ },
+ "points": {
+  "fr": [
+   "Edvinsson : San Jose pousse fort.",
+   "Barkov et Marchand de retour.",
+   "Les Blues grimpent de 6 rangs."
+  ],
+  "en": [
+   "Edvinsson: San Jose pushes hard.",
+   "Barkov and Marchand are back.",
+   "The Blues climb 6 spots."
+  ]
+ },
+ "ids": [
+  "n:062c69179e6d",
+  "n:0872f833ee4c",
+  "463f0c7d6d32",
+  "7eeddc273ae2",
+  "n:4ceb3ea5a3c8",
+  "n:50efb3e46983",
+  "n:1550f788012e",
+  "n:0cd95708ce2c",
+  "n:f669c4a892f0",
+  "9280bacdae59",
+  "n:b2e7bee6b53c",
+  "n:7d0ce85c5cbb",
+  "n:112b39be8cdd",
+  "n:5840283f08bd",
+  "1019b42b541c",
+  "ca1b182e7920",
+  "dc9629929d06",
+  "dae1190a9bd6",
+  "66eb640cec4b",
+  "5450fd0a9e36"
+ ],
+ "depuis": "2026-11-25T12:17",
+ "jusqu": "2026-11-26T12:19",
+ "saison": "20262027"
+}
