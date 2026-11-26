@@ -3143,6 +3143,28 @@
   "publie": true,
   "quand": "2026-11-26T01:05-05:00"
  },
+ "2026-11-26-recap-story-1": {
+  "fb": "1619877409389562",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "story",
+  "titre": "Story · chances de séries, l'Est",
+  "publie": true,
+  "quand": "2026-11-26T08:00-05:00"
+ },
+ "2026-11-26-matin-fil": {
+  "fb": "1508565075663838_122115697095537152",
+  "fb_com": "122115697095537152_1178746138437757",
+  "ig": "sauté : Instagram en pause jusqu'à 27/11 01:08 (blocage)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-26"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-26/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-26/",
+  "titre": "PB On The Wire · Grandes rafales : Hagel et Makar reviennent, le cadran tourne pour Edvinsson",
+  "publie": true,
+  "quand": "2026-11-26T08:00-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
