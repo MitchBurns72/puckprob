@@ -1066,7 +1066,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 /* StatsDB Équipes (27 nov. 2026) */
 .px-eqcache{display:none!important}
 .eqs-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.eqs-ctl select{flex:1 1 140px;min-width:0}
-.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
+.eqs-l{cursor:pointer}.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
 .pxc b{font:800 clamp(8.5px,2.35vw,14px)/1 var(--f-display);letter-spacing:-.02em;color:#0A2342;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;max-width:100%}
 .pxc small{font:700 clamp(6.5px,1.75vw,9.5px)/1.1 var(--f-body);letter-spacing:.02em;text-transform:uppercase;color:#5B6B82;margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%}
@@ -1269,7 +1269,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=f69ddcbf">
+<link rel="stylesheet" href="carte.css?v=dccd9c99">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4478,7 +4478,10 @@ async function statsEquipes(el, jeton){
   const cases = (l, ks) => { const cs = ks.filter(k => C[k]); if (!cs.length) return "";
     return `<span class="pxs" style="--n:${cs.length}">${cs.map(k => `<span class="pxc${k === st ? " on" : ""}" data-eqst="${k}" title="${L(C[k].fr, C[k].en)}"><b>${eqsF(C[k], l[1] < C[k].depuis ? null : l[3 + C[k].i])}</b><small>${ab(k)}</small></span>`).join("")}</span>`; };
   const ks2 = EQS.cat.filter(x => x.grp === grp).map(x => x.k).slice(0, 10);
-  const lignes = L_.slice(0, nV).map((l, i) => `<div class="wi-l wi-r eqs-l" data-c="${l[0]}" data-eqso="${l[1] === sc ? l[0] : ""}" style="${eqV(l[0])}">
+  // Toucher une équipe ouvre sa page (Mitch, 27 nov. 2026 : « quand on clique sur un nom d'équipe ça nous amène à la
+  // page, partout ») ; un club disparu (Nordiques, Whalers, Maroons…) a sa page profil (eqDispBatir). « ses tirs › »
+  // ouvre directement la carte des tirs.
+  const lignes = L_.slice(0, nV).map((l, i) => `<div class="wi-l wi-r eqs-l" role="button" tabindex="0" data-c="${l[0]}" data-eqt="${l[0]}" data-eqoo="apercu" data-eqso="${l[1] === sc ? l[0] : ""}" style="${eqV(l[0])}">
       <span class="rg">${i + 1}</span><img class="lg" src="${LOGO(l[0])}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
       <span class="nm">${echapper(l[2] || nomEq(l[0]))}<small>${nomS(l[1])}${l[1] === sc ? ` · <b class="eqs-tir">${L("ses tirs ›", "shot chart ›")}</b>` : ""}</small></span>
       <span class="v"><b>${eqsF(c, v(l))}</b><small>${L(c.fr, c.en)}</small></span>
@@ -4500,8 +4503,10 @@ document.addEventListener("click", (e) => {
     if (k === (S.eqs_st || "pts")){ const cour = S.eqs_ord || (EQS_BAS.has(k) ? "asc" : "desc"); S.eqs_ord = cour === "asc" ? "desc" : "asc"; }
     else { S.eqs_st = k; S.eqs_ord = ""; }
     whatif(); return; }
-  const r = e.target.closest?.("#whatif .eqs-l[data-eqso]");
-  if (r && r.dataset.eqso && typeof ouvrirEquipe === "function") ouvrirEquipe(r.dataset.eqso, "tirs");
+  const r = e.target.closest?.("#whatif .eqs-l[data-eqt]");
+  if (!r || typeof ouvrirEquipe !== "function") return;
+  if (e.target.closest(".eqs-tir") && r.dataset.eqso) ouvrirEquipe(r.dataset.eqso, "tirs");
+  else ouvrirEquipe(r.dataset.eqt, r.dataset.eqoo || "apercu");
 }, true);
 
 // ---- PB Stats au complet (src/whatif.py, exporter ; Mitch, 12 nov. 2026) -------------------------------------
@@ -7787,9 +7792,131 @@ async function eqAfficher(t, o){
   f.querySelector(".fen-ret").onclick = fenFermer;
   await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), chargerCoach(), chargerPwr(), palmCharger(), chargerDev()]);
   if (FEN.id !== t || FEN.k !== "e") return;
+  FEN.disp = false;
+  // Un club disparu (pas dans la saison en cours, mais dans StatsDB Équipes) : sa page profil à lui
+  if (!eqC(t)){ await chargerEqs(); if (FEN.id !== t || FEN.k !== "e") return;
+    if (EQS?.lignes?.some(l => l[0] === t)){ FEN.disp = true; if (!EQD_O.some(([k]) => k === o)) o = "apercu"; eqDispBatir(t, o); return; } }
   if (!EQF_O.some(([k]) => k === o)) o = "apercu";
   eqBatir(t, o);
 }
+// ---- Les clubs disparus (Mitch, 27 nov. 2026 : « fais-en des pages profil pour les équipes disparues, on en a pour
+// les joueurs retraités ») ---------------------------------------------------------------------------------------
+// Une page comme celle d'un club d'aujourd'hui, mais au passé : ses années, sa fiche de tous les temps, ses Coupes, ce
+// qu'il est devenu (et d'où il venait), ses saisons une par une (StatsDB Équipes, pbstats/e.json) et ses meneurs
+// (l'onglet Histoire, le même que les autres). Pas d'alignement, de contrats, de coach, d'échanges ni de tirs : il ne
+// joue plus. Les faits de chaque club (déménagement, nouveau nom, fin) sont écrits à la main ci-dessous.
+// [ville fr, ville en, surnom fr, surnom en, club suivant (ou null), ce qu'il est devenu fr, en]
+const EQ_DISP = {
+  AFM: ["Atlanta", "Atlanta", "Flames", "Flames", "CGY", "A déménagé à Calgary en 1980 : ce sont les Flames de Calgary.", "Moved to Calgary in 1980: today's Calgary Flames."],
+  ARI: ["Arizona", "Arizona", "Coyotes", "Coyotes", "UTA", "Mis en veille par la LNH en 2024 : ses joueurs et son personnel sont passés au nouveau club de l'Utah.", "Deactivated by the NHL in 2024: its players and staff moved to the new Utah club."],
+  ATL: ["Atlanta", "Atlanta", "Thrashers", "Thrashers", "WPG", "A déménagé à Winnipeg en 2011 : ce sont les Jets de Winnipeg.", "Moved to Winnipeg in 2011: today's Winnipeg Jets."],
+  BRK: ["Brooklyn", "Brooklyn", "Americans", "Americans", null, "Les Americans de New York sous un nouveau nom pour une dernière saison : le club a cessé ses activités en 1942.", "The New York Americans under a new name for one last season: the club suspended operations in 1942."],
+  CGS: ["Californie", "California", "Golden Seals", "Golden Seals", "CLE", "A déménagé à Cleveland en 1976 : les Barons de Cleveland.", "Moved to Cleveland in 1976: the Cleveland Barons."],
+  CLE: ["Cleveland", "Cleveland", "Barons", "Barons", "MNS", "Fusionné avec les North Stars du Minnesota en 1978.", "Merged with the Minnesota North Stars in 1978."],
+  CLR: ["Colorado", "Colorado", "Rockies", "Rockies", "NJD", "A déménagé au New Jersey en 1982 : ce sont les Devils du New Jersey.", "Moved to New Jersey in 1982: today's New Jersey Devils."],
+  DCG: ["Détroit", "Detroit", "Cougars", "Cougars", "DFL", "Renommés Falcons en 1930, puis Red Wings en 1932 : ce sont les Red Wings de Détroit.", "Renamed the Falcons in 1930, then the Red Wings in 1932: today's Detroit Red Wings."],
+  DFL: ["Détroit", "Detroit", "Falcons", "Falcons", "DET", "Renommés Red Wings en 1932 : ce sont les Red Wings de Détroit.", "Renamed the Red Wings in 1932: today's Detroit Red Wings."],
+  HAM: ["Hamilton", "Hamilton", "Tigers", "Tigers", null, "Les Bulldogs de Québec déménagés à Hamilton en 1920 : le club a disparu en 1925.", "The Quebec Bulldogs moved to Hamilton in 1920: the club folded in 1925."],
+  HFD: ["Hartford", "Hartford", "Whalers", "Whalers", "CAR", "A déménagé en Caroline en 1997 : ce sont les Hurricanes de la Caroline.", "Moved to Carolina in 1997: today's Carolina Hurricanes."],
+  KCS: ["Kansas City", "Kansas City", "Scouts", "Scouts", "CLR", "A déménagé au Colorado en 1976 (les Rockies), puis au New Jersey en 1982 : ce sont les Devils.", "Moved to Colorado in 1976 (the Rockies), then to New Jersey in 1982: today's Devils."],
+  MMR: ["Montréal", "Montreal", "Maroons", "Maroons", null, "Le club a cessé ses activités en 1938.", "The club suspended operations in 1938."],
+  MNS: ["Minnesota", "Minnesota", "North Stars", "North Stars", "DAL", "A déménagé à Dallas en 1993 : ce sont les Stars de Dallas.", "Moved to Dallas in 1993: today's Dallas Stars."],
+  MWN: ["Montréal", "Montreal", "Wanderers", "Wanderers", null, "Leur aréna a brûlé en janvier 1918 : le club s'est retiré en pleine première saison.", "Their arena burned down in January 1918: the club withdrew in the middle of the first season."],
+  NYA: ["New York", "New York", "Americans", "Americans", "BRK", "Renommés Americans de Brooklyn en 1941, pour une dernière saison.", "Renamed the Brooklyn Americans in 1941, for one last season."],
+  OAK: ["Oakland", "Oakland", "Seals", "Seals", "CGS", "Renommés Golden Seals de la Californie en 1970.", "Renamed the California Golden Seals in 1970."],
+  PHX: ["Phoenix", "Phoenix", "Coyotes", "Coyotes", "ARI", "Renommés Coyotes de l'Arizona en 2014.", "Renamed the Arizona Coyotes in 2014."],
+  PIR: ["Pittsburgh", "Pittsburgh", "Pirates", "Pirates", "QUA", "A déménagé à Philadelphie en 1930 : les Quakers, disparus après une saison.", "Moved to Philadelphia in 1930: the Quakers, gone after one season."],
+  QBD: ["Québec", "Quebec", "Bulldogs", "Bulldogs", "HAM", "A déménagé à Hamilton en 1920 : les Tigers de Hamilton.", "Moved to Hamilton in 1920: the Hamilton Tigers."],
+  QUA: ["Philadelphie", "Philadelphia", "Quakers", "Quakers", null, "Les Pirates de Pittsburgh déménagés à Philadelphie : le club a cessé ses activités en 1931.", "The Pittsburgh Pirates moved to Philadelphia: the club suspended operations in 1931."],
+  QUE: ["Québec", "Quebec", "Nordiques", "Nordiques", "COL", "A déménagé au Colorado en 1995 : c'est l'Avalanche du Colorado.", "Moved to Colorado in 1995: today's Colorado Avalanche."],
+  SEN: ["Ottawa", "Ottawa", "Sénateurs (1917)", "Senators (1917)", "SLE", "A déménagé à St. Louis en 1934 : les Eagles, disparus après une saison. Les Sénateurs d'aujourd'hui sont un autre club, né en 1992.", "Moved to St. Louis in 1934: the Eagles, gone after one season. Today's Senators are a different club, born in 1992."],
+  SLE: ["St. Louis", "St. Louis", "Eagles", "Eagles", null, "Les Sénateurs d'Ottawa déménagés à St. Louis : le club a disparu en 1935.", "The Ottawa Senators moved to St. Louis: the club folded in 1935."],
+  TAN: ["Toronto", "Toronto", "Arenas", "Arenas", "TSP", "Renommés St. Patricks en 1919, puis Maple Leafs en 1927 : ce sont les Maple Leafs de Toronto.", "Renamed the St. Patricks in 1919, then the Maple Leafs in 1927: today's Toronto Maple Leafs."],
+  TSP: ["Toronto", "Toronto", "St. Patricks", "St. Patricks", "TOR", "Renommés Maple Leafs en 1927 : ce sont les Maple Leafs de Toronto.", "Renamed the Maple Leafs in 1927: today's Toronto Maple Leafs."],
+  WIN: ["Winnipeg", "Winnipeg", "Jets (1979)", "Jets (1979)", "PHX", "A déménagé à Phoenix en 1996 : les Coyotes. Les Jets d'aujourd'hui sont un autre club (les anciens Thrashers d'Atlanta).", "Moved to Phoenix in 1996: the Coyotes. Today's Jets are a different club (the former Atlanta Thrashers)."]
+};
+const EQD_O = [["apercu", "Aperçu", "Overview"], ["saisons", "Saisons", "Seasons"], ["hist", "Histoire", "History"]];
+// Ses Coupes : celles du palmarès sous son code ; sinon celles de son club parent pendant ses années (les Arenas et les
+// St. Patricks de Toronto, les Cougars et les Falcons de Détroit, les Sénateurs d'avant 1934 sous OTS : src/palmares.py)
+const EQD_PARENT = { TAN: "TOR", TSP: "TOR", DCG: "DET", DFL: "DET", SEN: "OTS" };
+function eqDispCoupes(t, ss){
+  const P_ = PALM?.equipes || {};
+  if (P_[t]?.length) return P_[t];
+  const par = EQD_PARENT[t]; return par && P_[par] ? P_[par].filter(x => ss.includes(x)) : [];
+}
+// Ses saisons dans StatsDB Équipes, la valeur d'une stat, ses totaux
+function eqDispDonnees(t){
+  const C = {}; (EQS?.cat || []).forEach(c => C[c.k] = c.i);
+  const S_ = (EQS?.lignes || []).filter(l => l[0] === t).sort((a, b) => a[1].localeCompare(b[1]));
+  const v = (l, k) => C[k] == null ? null : l[3 + C[k]];
+  const tot = (k) => S_.reduce((a, l) => a + (v(l, k) || 0), 0);
+  return { S_, v, tot, nom: S_[S_.length - 1]?.[2] || t };
+}
+const eqDispNom = (t) => { const x = EQ_DISP[t]; return x ? [L(x[0], x[1]), L(x[2], x[3])] : [t, ""]; };
+const eqdSai = (x) => `${x.slice(0, 4)}-${x.slice(6)}`;
+function eqDispBatir(t, o){
+  const f = $("#fenetre"), { S_, tot } = eqDispDonnees(t), [ville, surnom] = eqDispNom(t);
+  const ss = S_.map(l => l[1]), cps = eqDispCoupes(t, ss), pj = tot("pj"), pts = tot("pts");
+  const v = tot("v"), d = tot("d"), n = tot("nul"), dp = tot("dp");
+  // V-D, puis les nuls (avant 2005) et les défaites en prolongation (depuis 1999) seulement s'il y en a
+  const fiche = `${v}-${d}${n ? "-" + n : ""}${dp ? "-" + dp : ""}`;
+  const ans = !ss.length ? "" : ss.length === 1 ? `${eqdSai(ss[0])} · 1 ${L("saison", "season")}`
+    : `${eqdSai(ss[0])} ${L("à", "to")} ${eqdSai(ss[ss.length - 1])} · ${ss.length} ${L("saisons", "seasons")}`;
+  const tuile = (k, v_) => `<div><small>${k}</small><b>${v_}</b></div>`;
+  f.innerHTML = `<div class="fen-boite"><div class="fen-bar"><button type="button" class="fen-ret">‹ ${L("Retour", "Back")}</button>
+      <span class="fen-url">${(location.host || "puckprob.ca") + location.pathname.replace(/index\.html$/, "")}${eqHashDe(t, "")}</span><button type="button" class="fen-pt" aria-label="${L("Partager", "Share")}">${ICO_PT}</button></div>
+    <div class="wi-carte fen fen-eq" style="${eqV(t)}">
+      <header class="a-logo">${cps.length ? palmRangee(cps.map(x => ["coupe", x]), PALM?.trophees) : ""}<div class="wi-hd"><div><b><small>${ville}</small>${surnom}</b><span>${ans}</span><span>${L("Fiche de tous les temps", "All-time record")} : ${fiche} · <b>${pts} pts</b></span>
+        <span class="fen-chips"><i>${L("Club disparu", "Defunct club")}</i></span></div></div>
+        <img class="fen-logo" src="${LOGO_URL(t, false)}" alt="" onerror="this.remove()"></header>
+      <div class="wi-bio eq4">${tuile(L("Saisons", "Seasons"), ss.length)}${tuile(L("Matchs", "Games"), pj)}${tuile(L("% de points", "Points %"), pj ? pctP(pts / (2 * pj)) : "–")}${tuile(L("Coupes", "Cups"), cps.length)}</div>
+      <nav class="fen-ongl" role="tablist">${EQD_O.map(([k, fr, en]) => `<button type="button" role="tab" data-fo="${k}" aria-selected="${k === o}">${L(fr, en)}</button>`).join("")}</nav>
+      <div class="fen-panes"></div>
+    </div></div>`;
+  f.querySelector(".fen-ret").onclick = fenFermer;
+  f.querySelector(".fen-pt").onclick = fenPartager;
+  FEN.x = { n: `${ville} ${surnom}`.trim() };
+  eqMontrer(o);
+}
+// Le lien vers le club d'avant ou d'après (aujourd'hui ou disparu lui aussi) : il ouvre sa page
+const eqDispLien = (x) => { const nm = EQ_DISP[x] ? eqDispNom(x).join(" ") : `${villeNom(x)} ${eqSurnom(x)}`;
+  return `<button type="button" class="fen-plus" data-eqdl="${x}"><img src="${LOGO_URL(x, false)}" alt="" onerror="this.remove()" style="width:22px;height:22px;vertical-align:middle;margin-right:6px">${nm} ›</button>`; };
+// Le % de points d'une saison (pas une prob : 100 % est possible, donc pas pc1)
+const pctP = (x) => x == null ? "–" : (x * 100).toFixed(1).replace(".", EN ? "." : ",") + (EN ? "%" : " %");
+function eqDispApercu(t){
+  const x = EQ_DISP[t], { S_, v, tot } = eqDispDonnees(t), sec = [];
+  const avant = Object.keys(EQ_DISP).filter(k => EQ_DISP[k][4] === t);
+  const pc = (l) => { const p_ = v(l, "ppct"); return p_ == null ? null : p_; };
+  const avecP = S_.filter(l => pc(l) != null && (v(l, "pj") || 0) >= 10);
+  const meil = [...avecP].sort((a, b) => pc(b) - pc(a))[0], pire = [...avecP].sort((a, b) => pc(a) - pc(b))[0];
+  const att = [...S_].filter(l => v(l, "bpm") != null).sort((a, b) => v(b, "bpm") - v(a, "bpm"))[0];
+  const fic = (l) => `${v(l, "v")}-${v(l, "d")}${v(l, "nul") ? "-" + v(l, "nul") : ""}${v(l, "dp") ? "-" + v(l, "dp") : ""}`;
+  const ph = [];
+  if (x) ph.push(L(x[5], x[6]));
+  if (meil) ph.push(L(`Sa meilleure saison : ${eqdSai(meil[1])}, ${fic(meil)} et ${v(meil, "pts")} points (${pctP(pc(meil))} des points possibles).`,
+    `Best season: ${eqdSai(meil[1])}, ${fic(meil)} and ${v(meil, "pts")} points (${pctP(pc(meil))} of possible points).`));
+  if (pire && pire !== meil) ph.push(L(`Sa pire : ${eqdSai(pire[1])}, ${fic(pire)} (${pctP(pc(pire))}).`, `Worst: ${eqdSai(pire[1])}, ${fic(pire)} (${pctP(pc(pire))}).`));
+  if (att) ph.push(L(`Son attaque la plus forte : ${eqdSai(att[1])}, ${v(att, "bp")} buts (${(v(att, "bpm")).toFixed(2).replace(".", ",")} par match).`,
+    `Its best offense: ${eqdSai(att[1])}, ${v(att, "bp")} goals (${(v(att, "bpm")).toFixed(2)} per game).`));
+  const bp = tot("bp"), bc = tot("bc");
+  ph.push(L(`De tous les temps : ${bp} buts pour, ${bc} contre (${bp - bc > 0 ? "+" : bp - bc < 0 ? "−" : ""}${Math.abs(bp - bc)}).`, `All-time: ${bp} goals for, ${bc} against (${bp - bc > 0 ? "+" : bp - bc < 0 ? "−" : ""}${Math.abs(bp - bc)}).`));
+  sec.push(`<section class="fen-s"><h3>${L("En bref", "At a glance")}</h3><div class="fen-bref">${ph.join(" ")}</div></section>`);
+  if (avant.length || x?.[4]) sec.push(`<section class="fen-s"><h3>${L("Sa lignée", "Its lineage")}</h3>${avant.length ? `<p class="aide">${L("Avant", "Before")}</p>${avant.map(eqDispLien).join("")}` : ""}${x?.[4] ? `<p class="aide">${L("Après", "After")}</p>${eqDispLien(x[4])}` : ""}</section>`);
+  sec.push(`<section class="fen-s"><button type="button" class="fen-plus" data-eqdo="saisons">${L("Ses saisons une par une", "Season by season")} ›</button><button type="button" class="fen-plus" data-eqdo="hist">${L("Ses meneurs de tous les temps", "All-time leaders")} ›</button></section>`);
+  return sec.join("");
+}
+function eqDispSaisons(t){
+  const { S_, v } = eqDispDonnees(t);
+  const n_ = (x) => x == null ? "–" : x;
+  const nul = S_.some(l => v(l, "nul")), dp = S_.some(l => v(l, "dp"));
+  return `<section class="fen-s"><h3>${L("Ses saisons", "Its seasons")} <em>${L("saison régulière", "regular season")}</em></h3><div class="bx-tab"><table><thead><tr><th>${L("Saison", "Season")}</th><th>${L("PJ", "GP")}</th><th>V</th><th>D</th>${nul ? `<th>N</th>` : ""}${dp ? `<th>${L("DP", "OTL")}</th>` : ""}<th>PTS</th><th>%</th><th>${L("BP", "GF")}</th><th>${L("BC", "GA")}</th></tr></thead><tbody>${[...S_].reverse().map(l =>
+    `<tr><td>${eqdSai(l[1])}</td><td>${n_(v(l, "pj"))}</td><td>${n_(v(l, "v"))}</td><td>${n_(v(l, "d"))}</td>${nul ? `<td>${n_(v(l, "nul"))}</td>` : ""}${dp ? `<td>${n_(v(l, "dp"))}</td>` : ""}<td><b>${n_(v(l, "pts"))}</b></td><td>${v(l, "ppct") == null ? "–" : pctP(v(l, "ppct"))}</td><td>${n_(v(l, "bp"))}</td><td>${n_(v(l, "bc"))}</td></tr>`).join("")}</tbody></table></div>
+    <p class="aide">${L("Toutes ses saisons dans P.B Stats DB, Équipes.", "All its seasons in P.B Stats DB, Teams.")}</p></section>`;
+}
+document.addEventListener("click", (e) => {
+  const a = e.target.closest?.("#fenetre [data-eqdl]"); if (a){ ouvrirEquipe(a.dataset.eqdl); return; }
+  const b = e.target.closest?.("#fenetre [data-eqdo]"); if (b && FEN.k === "e") eqMontrer(b.dataset.eqdo);
+});
 function eqBatir(t, o){
   const f = $("#fenetre"), e = eqC(t), r = eqRangs(t), co = eqCoach(t), pw = PWR?.equipes?.find(x => x.t === t), se = eqSerie(e);
   const [v, d, p, bp, bc] = e?.fiche || [];
@@ -7823,6 +7950,8 @@ async function eqMontrer(o, rendre = true){
   if (!rendre || p.dataset.ok) return;
   p.dataset.ok = "1";
   const vide = (fr, en) => `<div class="vide">${L(fr, en)}</div>`;
+  if (FEN.disp && o === "apercu"){ p.innerHTML = eqDispApercu(t); return; }
+  if (FEN.disp && o === "saisons"){ p.innerHTML = eqDispSaisons(t); return; }
   if (o === "apercu"){ p.innerHTML = eqApercu(t); return; }
   if (o === "ali"){ p.innerHTML = eqAlignement(t); return; }
   p.innerHTML = vide("Chargement…", "Loading…");
@@ -10550,8 +10679,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=f69ddcbf" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=f69ddcbf" defer></script>
+<script src="pub.js?v=dccd9c99" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=dccd9c99" defer></script>
 <script src="nav.js?v=7817a1f1fc" defer></script>
 </body>
 </html>
