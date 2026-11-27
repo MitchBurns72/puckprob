@@ -987,12 +987,12 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 /* Stats additionnelles de PB Stats (Mitch, 26 nov. 2026) : jusqu'à 20 cases sous chaque joueur, 10 en haut et 10 en bas ;
    sur cell, 5 + 5 (le reste se débloque sur tablette et ordi). Toucher une case : la liste se refait sur cette stat. */
 .wi-l .pxz{grid-column:1/-1;display:flex;flex-direction:column;gap:3px;margin-top:2px;min-width:0}
-.pxs{display:grid;grid-template-columns:repeat(min(var(--n),5),minmax(0,1fr));gap:3px}
-.pxs .pxc:nth-child(n+6){display:none}
-@media (min-width:700px){.pxs{grid-template-columns:repeat(min(var(--n),10),minmax(0,1fr))}.pxs .pxc:nth-child(n+6){display:flex}}
+/* Toutes les cases choisies se voient, 10 en haut et 10 en bas, même sur cell (Mitch, 26 nov. 2026 : « mon cell, ça
+   rentre 20 ») : les chiffres rapetissent avec l'écran */
+.pxs{display:grid;grid-template-columns:repeat(min(var(--n),10),minmax(0,1fr));gap:2px}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
-.pxc b{font:800 clamp(10px,2.6vw,14px)/1 var(--f-display);color:#0A2342;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;max-width:100%}
-.pxc small{font:700 clamp(7.5px,1.9vw,9.5px)/1.1 var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:#5B6B82;margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%}
+.pxc b{font:800 clamp(8.5px,2.35vw,14px)/1 var(--f-display);letter-spacing:-.02em;color:#0A2342;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;max-width:100%}
+.pxc small{font:700 clamp(6.5px,1.75vw,9.5px)/1.1 var(--f-body);letter-spacing:.02em;text-transform:uppercase;color:#5B6B82;margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%}
 .pxc.on{background:#FFB81C}.pxc.on small{color:#14100A}
 .px-xsg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px;width:100%}
 @media (min-width:700px){.px-xsg{grid-template-columns:repeat(4,minmax(0,1fr))}}

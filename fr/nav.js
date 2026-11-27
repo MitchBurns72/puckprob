@@ -79,7 +79,7 @@
        sections de la famille visibles d'un coup, en boutons texte de même largeur (rien à glisser), le vrai nom de la stat
        (l'acronyme PB) en petit dessous ; celle où on est est jaune. 4 par rangée au max, 3 quand il y en a 6. L'accueil garde ses pastilles. */
     "section[role=tabpanel]{scroll-margin-top:var(--ppn-h,96px)}" +
-    ".ppn-chips[hidden]{display:none!important}.ppn-chips.ppn-g{display:grid;gap:6px;overflow:visible;padding:8px 2px}" +
+    ".ppn-chips[hidden]{display:none!important}.ppn-chips.ppn-g{display:grid;gap:6px;overflow:visible;padding:8px 2px;position:static}" +
     ".ppn-g a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:42px;padding:5px 4px;border-radius:10px;text-align:center;" +
       "background:var(--surface);border:1px solid rgba(255,255,255,.13);color:var(--ink);font:700 12.5px/1.1 var(--f-body);min-width:0}" +
     ".ppn-g a b{font-weight:inherit;max-width:100%;overflow-wrap:anywhere;font-size:12px;line-height:1.1}" +     /* les noms longs (PB Goalie Confidence %) passent sur 2 lignes */
