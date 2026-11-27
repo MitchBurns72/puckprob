@@ -3270,6 +3270,20 @@
   "publie": true,
   "quand": "2026-11-27T08:55-05:00"
  },
+ "2026-11-27-matin-fil": {
+  "fb": "1508565075663838_122116069401537152",
+  "fb_com": "122116069401537152_1175569554940460",
+  "ig": "sauté : Instagram coupé (config « social_instagram »)",
+  "type": "fil",
+  "opt": {
+   "jour": "2026-11-27"
+  },
+  "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-27/",
+  "lien_en": "https://puckprob.ca/on-the-wire/2026-11-27/",
+  "titre": "PB On The Wire · Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose",
+  "publie": true,
+  "quand": "2026-11-27T11:10-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
