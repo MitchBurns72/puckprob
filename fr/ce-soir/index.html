@@ -1212,7 +1212,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=41481a54">
+<link rel="stylesheet" href="carte.css?v=7d08105f">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4743,9 +4743,16 @@ async function pbxVue(el, q, jeton = WI_JETON){
   if (ag && lig !== "rec") L_ = L_.filter(x => wiAgeOk(ag, x.age));
   // Le minimum de matchs : celui choisi (Matchs), sinon automatique pour une moyenne
   const nS = lig === "rec" ? 1 : saisons.length;
-  const minAuto = !S.px_pj && ((st && pbxRate(st)) || (tri && pbxRate(tri)) || (lig === "rec" && mode === "8")) ? pbxMin(t, nS) : 0;
+  // Une saison en cours (ou courte, comme 2012-13) : au plus la moitié des matchs du joueur qui en a le plus (Mitch,
+  // 26 nov. 2026 : toucher PTS/M en 2026-27 ne montrait personne, le minimum de 41 matchs était trop haut en novembre)
+  const pjMax = Math.max(0, ...L_.map(x => x.pj || 0));
+  const minAuto = !S.px_pj && ((st && pbxRate(st)) || (tri && pbxRate(tri)) || (lig === "rec" && mode === "8")) ? Math.min(pbxMin(t, nS), Math.ceil(pjMax / 2)) : 0;
   L_ = L_.filter(x => pbxPjOk(Math.round(x.pj)) && x.pj >= minAuto);
-  const val = (x, c) => c.k === "age" ? x.v.age : x.v[c.k];
+  // Un ratio dont la LNH ne comptait pas encore le dénominateur au début de sa carrière (les tirs avant 1959-60...) :
+  // pas de valeur (sinon ses buts d'avant comptent sur ses tirs d'après : 10 750 % de réussite)
+  const PBX_DEN = { tp: "t", mjp: "mjt", p60: "tg", tbp: "tbt", tbsv: "tbr" };
+  const val = (x, c) => { if (c.k === "age") return x.v.age;
+    const d_ = PBX_DEN[c.k] && catK[PBX_DEN[c.k]]?.depuis; if (d_ && (x.de || x.s || "") < d_) return null; return x.v[c.k]; };
   L_ = L_.filter(x => val(x, tri) != null && val(x, st) != null);
   // L'ordre : choisi, sinon le plus haut d'abord (le plus bas pour la moyenne de buts accordés, les buts accordés et l'âge)
   const basBon = ["bpg", "ba", "age", "rev", "bcf"].includes(tri.k);
@@ -9996,8 +10003,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=41481a54" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=41481a54" defer></script>
+<script src="pub.js?v=7d08105f" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=7d08105f" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>

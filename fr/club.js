@@ -111,8 +111,11 @@ nav.tabs,nav.menu{background:${D}} nav.tabs button[aria-selected="true"]{color:#
     try { localStorage.setItem("pp_theme", JSON.stringify(t)); } catch (e) { /* tant pis */ }
   };
   // Tout de suite (avant de lire club.json) : le dernier thème gardé, sinon le neutre
-  try { theme(JSON.parse(localStorage.getItem("pp_theme") || "null") || NEUTRE); } catch (e) { theme(NEUTRE); }
-  const majTheme = () => { const c = club(); if (!c) return theme(NEUTRE); donnees().then(() => theme(themeDe(c))); };
+  // Le site garde toujours le thème PuckProb (Mitch, 26 nov. 2026 : « enlève le choix d'équipe pour les thèmes, garde
+  // tout pareil ») : « Mon club » sert encore au reste (son match, ses joueurs surlignés, ses nouvelles en premier).
+  // themeDe reste là au cas où on remettrait les couleurs d'un club à une place précise (les fiches, par exemple).
+  theme(NEUTRE);
+  const majTheme = () => theme(NEUTRE);
 
   // ---- Style (une seule fois) ----
   const css = document.createElement("style");
