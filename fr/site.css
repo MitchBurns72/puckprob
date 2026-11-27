@@ -1037,6 +1037,23 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .pxs{display:grid;grid-template-columns:repeat(min(var(--n),10),minmax(0,1fr));gap:2px}
 /* StatsDB Équipes (27 nov. 2026) */
 .px-eqcache{display:none!important}
+/* PB Player DNA (27 nov. 2026, maquette « les barres ») */
+.dna-big{display:flex;align-items:center;gap:14px;background:#0f2c52;border-radius:12px;padding:12px 14px;margin:8px 0 10px}
+.dna-big b{white-space:nowrap;font:800 italic 48px/1 "Barlow Condensed",var(--f-body)}
+.dna-big span{font:600 12.5px/1.35 var(--f-body);color:#C9D6E8}
+.dna-big strong{display:block;font:800 italic 19px/1.1 "Barlow Condensed",var(--f-body);color:var(--or,#FFB81C);text-transform:uppercase}
+.dna-g{font:800 12px/1 "Barlow Condensed",var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:#9FB0C8;margin:14px 0 8px}
+.dna-br{display:grid;grid-template-columns:minmax(0,118px) 1fr 34px;align-items:center;gap:4px 8px;margin:0 0 8px;font:600 13px/1.1 var(--f-body);color:#fff}
+.dna-br > span:first-child small{display:block;font:500 11px/1.2 var(--f-body);color:#9FB0C8;margin-top:2px}
+.dna-bar{position:relative;height:14px;background:#ffffff14;border-radius:7px;overflow:hidden}
+.dna-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:7px}
+.dna-bar u{position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:#ffffffaa}
+.dna-br > b{font:800 italic 19px/1 "Barlow Condensed",var(--f-body);text-align:right}
+.dna-dots{display:flex;flex-wrap:wrap;gap:4px 10px;font:600 11px/1 var(--f-body);color:#9FB0C8}
+.dna-dots b{font:800 italic 13px/1 "Barlow Condensed",var(--f-body)}
+.dna-ctx{display:flex;gap:8px}.dna-ctx div{flex:1;background:#ffffff10;border-radius:10px;padding:8px 10px;font:600 12px/1.2 var(--f-body);color:#C9D6E8}
+.dna-ctx b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body);margin-top:3px}
+.dna-s{width:100%;margin:0 0 4px}
 .eqs-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.eqs-ctl select{flex:1 1 140px;min-width:0}
 .eqs-l{cursor:pointer}.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
