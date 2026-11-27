@@ -1216,7 +1216,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=92a65a4e">
+<link rel="stylesheet" href="carte.css?v=cf97abb5">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -2743,7 +2743,7 @@ function popMatchHTML(){
   const o = MPOP.o;
   const corps = o === "align" ? (blocAlignement(g) || `<p class="sh-info">${L2t("L'alignement arrive plus tard dans la journée.", "The lineup comes later in the day.")}</p>`)
     : mtPourquoi(g, v) + detailMatch(g, v, "align");
-  return `<div class="wi-carte mpop" role="dialog" aria-modal="true" aria-label="${g.away} @ ${g.home}" style="--pf:${C[1].f};--pt:${C[1].t};--pb:${C[0].f};--eq:${C[1].f}">
+  return `<div class="wi-carte mpop" role="dialog" aria-modal="true" aria-label="${g.away} @ ${g.home}" style="--pf:${C[1].f};--pt:${C[1].t};--pb:${C[0].f};--eq:${C[1].f};--fa:${C[0].f};--fh:${C[1].f}">
     <header><div class="wi-hd"><div><b>${nomEq(g.away)} @ ${nomEq(g.home)}</b><span>${new Date(g.start).toLocaleDateString(EN ? "en-CA" : "fr-CA", { weekday: "long", day: "numeric", month: "long", timeZone: "America/Toronto" })}</span></div></div><button type="button" class="wi-x" aria-label="${L2t("Fermer", "Close")}">×</button></header>
     <div class="mpop-haut">${carte}<div class="mpop-ch">
       <button type="button" data-mo="align" aria-pressed="${o === "align"}"><i>${ICO_ALIGN}</i>${L2t("Alignement", "Roster")}</button>
@@ -10090,8 +10090,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=92a65a4e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=92a65a4e" defer></script>
+<script src="pub.js?v=cf97abb5" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=cf97abb5" defer></script>
 <script src="nav.js?v=2a4d048cc0" defer></script>
 </body>
 </html>
