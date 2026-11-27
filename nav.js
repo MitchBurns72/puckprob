@@ -227,7 +227,7 @@
     NYI: "Islanders", NYR: "Rangers", OTT: "Senators", PHI: "Flyers", PIT: "Penguins", SJS: "Sharks", SEA: "Kraken", STL: "Blues", TBL: "Lightning",
     TOR: "Maple Leafs", UTA: "Mammoth", VAN: "Canucks", VGK: "Golden Knights", WSH: "Capitals", WPG: "Jets" };
   // « Canadiens de Montréal » / « Montreal Canadiens »
-  function nomEq(x){ var s_ = SURNOM[x[0]]; if (!s_) return FR ? x[1] : x[2]; return FR ? s_ + (x[1] === "Utah" ? " de l'Utah" : " de " + x[1]) : x[2] + " " + s_; }
+  function nomEq(x){ var s_ = x[3] ? null : SURNOM[x[0]]; if (!s_) return FR ? x[1] : x[2]; return FR ? s_ + (x[1] === "Utah" ? " de l'Utah" : " de " + x[1]) : x[2] + " " + s_; }
   function slug(n){ return nrmQ(n).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
   // Tous les joueurs de l'histoire (le même index que P.B Stats DB) : chargé au 1er tap, en même temps que recherche.json
   function chargerPbi(){
@@ -284,9 +284,11 @@
     if (J.length) groupes.push([FR ? "Joueurs" : "Players", J.map(function(t){ var x = t[1];
       return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "joueur/" : "player/") + slug(x.n) + "-" + x.id) + '">' + tuileEq(x.t) + '<div class="ppf-tx"><b class="ppf-n">' + esc(x.n) + "</b><small>"
         + esc([x.t, x.pos, x.a1 >= an ? (FR ? "actif" : "active") : x.a0 + "–" + (x.a1 + 1)].filter(Boolean).join(" · ")) + "</small></div></a>"; }).join("")]);
-    var E = (IDX.e || []).filter(function(x){ return nrmQ(x[0]) === q || colle(x[1], q) || colle(x[2], q) || colle(SURNOM[x[0]] || "", q); }).slice(0, 4);
+    // Les clubs d'aujourd'hui d'abord, puis les clubs disparus (4e case : leurs années)
+    var E = (IDX.e || []).filter(function(x){ return nrmQ(x[0]) === q || colle(x[1], q) || colle(x[2], q) || (!x[3] && colle(SURNOM[x[0]] || "", q)); })
+      .sort(function(a, b){ return (a[3] ? 1 : 0) - (b[3] ? 1 : 0); }).slice(0, 6);
     if (E.length) groupes.push([FR ? "Équipes" : "Teams", E.map(function(x){
-      return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "equipe/" : "team/") + x[0].toLowerCase()) + '">' + tuileEq(x[0]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(nomEq(x)) + "</b><small>" + esc(x[0]) + "</small></div></a>"; }).join("")]);
+      return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "equipe/" : "team/") + x[0].toLowerCase()) + '">' + tuileEq(x[0]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(nomEq(x)) + "</b><small>" + esc(x[3] ? x[0] + " · " + x[3] + " · " + (FR ? "club disparu" : "defunct club") : x[0]) + "</small></div></a>"; }).join("")]);
     var C = (IDX.c || []).filter(function(x){ return colle(x[0], q); }).slice(0, 4);
     if (C.length) groupes.push([FR ? "Coachs" : "Coaches", C.map(function(x){
       return '<a class="ppf-it" href="' + vaA(APP + "#" + (FR ? "equipe/" : "team/") + String(x[1] || "").toLowerCase() + "/coach") + '">' + tuileEq(x[1]) + '<div class="ppf-tx"><b class="ppf-n">' + esc(x[0]) + "</b><small>" + esc((FR ? "Coach · " : "Coach · ") + (x[1] || "")) + "</small></div></a>"; }).join("")]);
