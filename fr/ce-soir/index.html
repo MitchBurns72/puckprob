@@ -1012,6 +1012,21 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .px-sl{margin:4px 2px 6px;font:700 11.5px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)} .px-sl small{text-transform:none;letter-spacing:0;font-weight:500;margin-left:6px}
 .px-anc summary{cursor:pointer;margin:8px 2px;font:700 12.5px var(--f-body);color:var(--muted)}
 .px-et{font:600 13px var(--f-body);color:var(--muted);margin:0 2px}
+/* Stats additionnelles de PB Stats (Mitch, 26 nov. 2026) : jusqu'à 20 cases sous chaque joueur, 10 en haut et 10 en bas ;
+   sur cell, 5 + 5 (le reste se débloque sur tablette et ordi). Toucher une case : la liste se refait sur cette stat. */
+.wi-l .pxz{grid-column:1/-1;display:flex;flex-direction:column;gap:3px;margin-top:2px;min-width:0}
+.pxs{display:grid;grid-template-columns:repeat(min(var(--n),5),minmax(0,1fr));gap:3px}
+.pxs .pxc:nth-child(n+6){display:none}
+@media (min-width:700px){.pxs{grid-template-columns:repeat(min(var(--n),10),minmax(0,1fr))}.pxs .pxc:nth-child(n+6){display:flex}}
+.pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
+.pxc b{font:800 clamp(10px,2.6vw,14px)/1 var(--f-display);color:#0A2342;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;max-width:100%}
+.pxc small{font:700 clamp(7.5px,1.9vw,9.5px)/1.1 var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:#5B6B82;margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%}
+.pxc.on{background:#FFB81C}.pxc.on small{color:#14100A}
+.px-xsg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 10px;width:100%}
+@media (min-width:700px){.px-xsg{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.px-xsg label{display:flex;align-items:center;gap:6px;min-width:0;font:700 12px var(--f-body);color:var(--muted)}
+.px-xsg select,#px-xspre,#px-xsnom{flex:1;min-width:0;padding:7px 8px;border-radius:9px;border:1px solid var(--line);font:600 13.5px var(--f-body);background:var(--surface);color:var(--ink)}
+#px-xspre{flex:0 1 auto}#px-xsnom{flex:0 1 150px}
 #px-sz,#px-trisel{padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:600 15px var(--f-body);background:var(--surface);color:var(--ink)}
 .pbx-plus{display:block;margin:14px auto 6px;border:0;cursor:pointer}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
@@ -1197,7 +1212,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=6d2ff076">
+<link rel="stylesheet" href="carte.css?v=1dbbd932">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1313,6 +1328,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <div class="px-h" id="px-h3"></div><div class="row px-sts" id="px-st"></div>
     <div class="px-h" id="px-h3b"></div><div class="row" id="px-tri"></div><div class="row" id="px-tri2"></div><div class="row" id="px-ord"></div>
     <div class="px-h" id="px-h4"></div><div class="row" id="px-lig"></div>
+    <div class="px-h" id="px-h5"></div><div class="row" id="px-xsp"></div><div class="row" id="px-xs"></div>
     <div class="row" id="f-wipos" hidden></div><div class="row" id="f-witri" hidden></div><div class="row" id="f-wiord" hidden></div></div>
     <div id="whatif"></div>
   </section>
@@ -4363,12 +4379,12 @@ async function pbsFiche(t, id){
   return !!WI[t]?.[id];
 }
 // Une ligne légère (pas encore la fiche complète) : même look que les autres, la fiche se charge au toucher
-function pbsLigne(t, rg, id, n, pos, eq, no, val, unite, sous, vb = ""){
+function pbsLigne(t, rg, id, n, pos, eq, no, val, unite, sous, vb = "", xs = ""){
   const x = { n, pos: pos === "G" ? "" : pos, no, eqs: [[eq, 1]], eq, sv: pos === "G" ? 1 : undefined };
   const p = pos === "G" ? L("Gardien", "Goalie") : pos === "D" ? L("Déf.", "D") : L("Avant", "F");
   return `<button class="wi-l wi-r" data-t="${t}" data-id="${id}" data-c="${eq}" style="${eqV(eq)}"><span class="rg">${rg ?? "·"}</span>${wiRond(x, id)}
     <span class="nm">${nomP(n, t)}<small>${p} · ${vb || villeBadge(eq, false)}</small><span class="wi-st">${sous}</span></span>
-    <span class="v">${val}${AB(unite)}</span></button>`;
+    <span class="v">${val}${AB(unite)}</span>${xs ? `<span class="pxz">${xs}</span>` : ""}</button>`;
 }
 // Ce qu'on classe selon le mode du haut : les patineurs (points, buts, passes, +/-) ou les gardiens (victoires)
 const pbsMode = (mode) => ["gv", "gsv", "gbpg", "gsr", "gsw"].includes(mode) ? "g" : ["b", "a", "pm"].includes(mode) ? mode : "p";
@@ -4498,9 +4514,51 @@ const pbxNomS = (s) => `${String(s).slice(0, 4)}-${String(s).slice(6)}`;
 // Le moteur prend la main dès que la loupe demande une chose que les vues d'avant ne font pas
 function pbxActif(){
   const t = pbxT(), st = pbxStat();
-  return !!(S.wir === "e" || S.px_ep || S.px_pos || S.px_nat || S.px_pj || S.px_eq || S.px_stat || S.px_tri || S.px_ord || S.px_n
+  return !!(pbxXs(t).some(Boolean) || S.wir === "e" || S.px_ep || S.px_pos || S.px_nat || S.px_pj || S.px_eq || S.px_stat || S.px_tri || S.px_ord || S.px_n
     || (S.px_st && !PBX_LEG[t][S.px_st]) || (pbxLig() === "rec" && !["p", "v"].includes(st)) || (S.px_t && S.px_t !== (WI_MODES[S.wi || "p"]?.j === "g" ? "g" : "j")));
 }
+// Les stats additionnelles (Mitch, 26 nov. 2026 : « jusqu'à 20 stats dans l'ordre qu'on veut, 10 en haut, 10 en bas,
+// des presets gardés dans le navigateur ; quand on clique sur une stat, la liste se refait sur elle ») : 20 cases par
+// type (patineurs / gardiens), gardées dans le navigateur ; une case vide est permise (l'ordre des cases compte).
+const PBX_AB = {
+  j: { pj: ["PJ", "GP"], b: ["B", "G"], a: ["A", "A"], p: ["PTS", "PTS"], pm: ["+/-", "+/-"], ppm: ["PTS/M", "P/GP"], pun: ["PUN", "PIM"],
+    pmin: ["MIN.", "MINOR"], pmaj: ["MAJ.", "MAJOR"], pinc: ["INC.", "MISC"], pobt: ["PROV.", "DRAWN"], bav: ["BAN", "PPG"], aav: ["AAN", "PPA"],
+    pav: ["PAN", "PPP"], bdn: ["BDN", "SHG"], adn: ["ADN", "SHA"], pdn: ["PDN", "SHP"], bfe: ["BFE", "EVG"], pfe: ["PFE", "EVP"], bg: ["BG", "GWG"],
+    bp: ["BP", "OTG"], bfd: ["BFD", "ENG"], b1: ["1ER B", "1ST G"], t: ["TIRS", "SOG"], tp: ["%T", "SH%"], tr: ["RATÉS", "MISS"], tt: ["TENT.", "ATT"],
+    mee: ["MEE", "HIT"], tb: ["TB", "BLK"], rev: ["REV", "GV"], rec: ["RÉC", "TK"], mjg: ["MJG", "FOW"], mjt: ["MJ", "FO"], mjp: ["%MJ", "FO%"],
+    tg: ["TG", "TOI"], tgfe: ["TG FE", "EV TOI"], tgav: ["TG AN", "PP TOI"], tgdn: ["TG DN", "SH TOI"], pres: ["PRÉS.", "SHIFTS"], p60: ["P/60", "P/60"],
+    tbb: ["TDB B", "SO G"], tbt: ["TDB ESS.", "SO ATT"], tbp: ["TDB %", "SO %"], tbd: ["TDB DÉC.", "SO GWG"], bpf: ["BP FE", "EV GF"], bcf: ["BC FE", "EV GA"],
+    cor: ["CF%", "CF%"], fen: ["FF%", "FF%"], zo: ["%ZO", "OZS%"] },
+  g: { pj: ["PJ", "GP"], pt: ["DÉP.", "GS"], v: ["V", "W"], d: ["D", "L"], dp: ["DP", "OTL"], n: ["N", "T"], sv: ["%ARR", "SV%"], bpg: ["MOY", "GAA"],
+    bl: ["BL", "SO"], ta: ["TIRS", "SA"], ar: ["ARR", "SV"], ba: ["BA", "GA"], gsaa: ["GSAA", "GSAA"], svfe: ["%ARR FE", "EV SV%"], svav: ["%ARR DN", "PK SV%"],
+    svdn: ["%ARR AN", "PP SV%"], dq: ["DQ", "QS"], dqp: ["%DQ", "QS%"], tbs: ["TDB ARR", "SO SV"], tbr: ["TDB TIRS", "SO SA"], tbsv: ["TDB %", "SO SV%"],
+    tbv: ["TDB V", "SO W"], gb: ["B", "G"], gp: ["PTS", "PTS"], gpun: ["PUN", "PIM"], min: ["MIN", "MIN"] } };
+const PBX_PRE = {
+  j: [["base", "La base", "Basics", "pj,b,a,p,pm,ppm,pun,t,tp,tg"], ["an", "Unités spéciales", "Special teams", "pav,bav,aav,tgav,pdn,bdn,tgdn,bg,bp,p60"],
+    ["phys", "Physique", "Physical", "mee,tb,rev,rec,pun,pmin,pmaj,pobt,tg,pres"], ["poss", "Possession", "Possession", "cor,fen,zo,bpf,bcf,mjp,mjg,tg,tgfe,p60"],
+    ["tout", "Le gros portrait", "The big picture", "pj,b,a,p,pm,ppm,pun,bav,pav,bg,t,tp,mee,tb,rev,rec,mjp,tg,p60,cor"]],
+  g: [["base", "La base", "Basics", "pj,v,d,dp,sv,bpg,bl,gsaa,ta,ba"], ["sit", "Par situation", "By situation", "sv,svfe,svav,svdn,dq,dqp,gsaa,bl,min,pt"],
+    ["tout", "Le gros portrait", "The big picture", "pj,pt,v,d,dp,sv,bpg,bl,gsaa,ta,ar,ba,svfe,svav,svdn,dq,dqp,tbsv,tbv,min"]] };
+const pbxLS = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
+const pbxXs = (t = pbxT()) => { if (S["px_xs_" + t] == null) S["px_xs_" + t] = pbxLS("pp_pxxs_" + t) || ""; return String(S["px_xs_" + t]).split(",").slice(0, 20); };
+const pbxXsSet = (t, L0) => { const v = L0.slice(0, 20).join(",").replace(/,+$/, ""); S["px_xs_" + t] = v; pbxLS("pp_pxxs_" + t, v); };
+const pbxPresets = () => { try { return JSON.parse(pbxLS("pp_pxpre") || "{}"); } catch (e) { return {}; } };
+const pbxAb = (t, c) => (PBX_AB[t][c.k] ? L(...PBX_AB[t][c.k]) : (L(c.fr, c.en) || c.k).slice(0, 6));
+// Les cases d'un joueur : 1-10 en haut, 11-20 en bas (les cases vides sautent)
+function pbxCases(t, catK, x, val, stK){
+  const xs = pbxXs(t); if (!xs.some(Boolean)) return "";
+  const rang = (L0) => { const cs = L0.filter(k => catK[k]); if (!cs.length) return "";
+    return `<span class="pxs" style="--n:${cs.length}">${cs.map(k => `<span class="pxc${k === stK ? " on" : ""}" data-pxs="${k}" title="${L(catK[k].fr, catK[k].en)}"><b>${pbxF(catK[k], val(x, catK[k]))}</b><small>${pbxAb(t, catK[k])}</small></span>`).join("")}</span>`; };
+  return rang(xs.slice(0, 10)) + rang(xs.slice(10, 20));
+}
+// Toucher une case : la liste se refait sur cette stat, affichée en gros (avant le clic du joueur, qui ouvre sa fiche)
+document.addEventListener("click", (e) => {
+  const c = e.target.closest?.("[data-pxs]"); if (!c) return;
+  e.preventDefault(); e.stopPropagation();
+  S.px_st = c.dataset.pxs; S.px_tri = ""; S.px_ord = ""; S.px_n = "";
+  whatif();
+  $("#p-whatif")?.scrollIntoView({ block: "start" });
+}, true);
 // Le format d'une valeur selon la stat
 function pbxF(c, v){
   if (v == null || Number.isNaN(v)) return "–";
@@ -4700,7 +4758,7 @@ async function pbxVue(el, q, jeton = WI_JETON){
     const sous = [st.k !== "age" && mode !== "r" ? `${et} ${pbxF(st, x.vr[st.k])}` : "",
       tri.k !== st.k ? `${tri.k === "age" ? L("âge", "age") : L(tri.fr, tri.en).toLowerCase()} ${pbxF(tri, val(x, tri))}` : "",
       pjTxt, quand, (x.v.age != null && ageOk) ? `${x.v.age} ${L("ans", "yrs")}` : ""].filter(Boolean).join(" · ");
-    return pbsLigne(t, k + 1, x.id, x.n, t === "g" ? "G" : x.pos, x.eq, x.no, pbxF(st, val(x, st)), st.f === "n" ? unite : "", sous);
+    return pbsLigne(t, k + 1, x.id, x.n, t === "g" ? "G" : x.pos, x.eq, x.no, pbxF(st, val(x, st)), st.f === "n" ? unite : "", sous, "", pbxCases(t, catK, x, val, stK));
   }).join("");
   // L'en-tête : ce qui est cherché, en mots
   const ep = S.px_ep ? (() => { const [op, v] = S.px_ep.split(":"); return op === "rg" ? `${v.split("-")[0]}-${String(+v.split("-")[1] + 1).slice(2)}` : `${WI_OPS.find(o => o[0] === op)?.[1] || ""} ${pbxNomS(v + String(+v + 1))}`; })()
@@ -4848,6 +4906,19 @@ function pbxTiroir(cat){
   $("#px-h4").innerHTML = h(4, L("Lignes", "Rows"));
   set("px-lig", ch("px_lig", "tot", L("Total sur l'époque", "Total over the era"), lig !== "rec") + ch("px_lig", "rec", L("Meilleures saisons (records)", "Best seasons (records)"), lig === "rec"));
   voir("px-lig", !une); voir("px-h4", !une);
+  // 5 Stats additionnelles : les presets (les nôtres + ceux gardés dans ton navigateur) et les 20 cases en listes
+  $("#px-h5").innerHTML = h(5, L("Stats additionnelles", "Additional stats"));
+  const xs = pbxXs(t), P0 = pbxPresets(), perso = Object.keys(P0).filter(n => P0[n].t === t);
+  const optS = (sel) => `<option value="">—</option>` + Object.entries(parG).map(([g, L0]) => `<optgroup label="${L(...(GRP[g] || [g, g]))}">${L0.filter(c => c.k !== "age").map(c => `<option value="${c.k}"${c.k === sel ? " selected" : ""}>${L(c.fr, c.en)}</option>`).join("")}</optgroup>`).join("");
+  set("px-xsp", `<select id="px-xspre" aria-label="${L("Presets", "Presets")}"><option value="">${L("Presets…", "Presets…")}</option>`
+    + `<optgroup label="PuckProb">${PBX_PRE[t].map(([k, fr, en]) => `<option value="pb:${k}">${L(fr, en)}</option>`).join("")}</optgroup>`
+    + (perso.length ? `<optgroup label="${L("Les miens", "Mine")}">${perso.map(n => `<option value="u:${echapper(n)}">${echapper(n)}</option>`).join("")}</optgroup>` : "") + `</select>`
+    + `<input id="px-xsnom" type="text" maxlength="24" placeholder="${L("Nom du preset", "Preset name")}" aria-label="${L("Nom du preset", "Preset name")}">`
+    + `<button type="button" class="chip" data-pxxs="garder">${L("Enregistrer", "Save")}</button>`
+    + (perso.length ? `<button type="button" class="chip" data-pxxs="oublier">${L("Effacer le preset", "Delete preset")}</button>` : "")
+    + `<button type="button" class="chip" data-pxxs="vider">${L("Vider", "Clear")}</button>`,
+    xs.some(Boolean) ? L(`${xs.filter(Boolean).length} stats additionnelles`, `${xs.filter(Boolean).length} additional stats`) : "");
+  set("px-xs", `<div class="px-xsg">${Array.from({ length: 20 }, (_, i) => `<label><span>${i + 1}${i < 10 ? "↑" : "↓"}</span><select data-pxxi="${i}" aria-label="${L(`Case ${i + 1}`, `Slot ${i + 1}`)}">${optS(xs[i] || "")}</select></label>`).join("")}</div>`, "");
   // Les rangées d'avant : remplacées par celles-ci
   ["f-wipos", "f-witri", "f-wiord", "fe-wi"].forEach(id => voir(id, false));
   // Les boutons du haut suivent la loupe : une stat ou une époque qu'ils n'ont pas -> aucun allumé
@@ -4901,6 +4972,27 @@ document.addEventListener("click", (e) => {
 document.addEventListener("change", (e) => {
   if (e.target.id === "px-sz"){ S.wis = e.target.value; S.wiv = "s"; whatif(); }
   if (e.target.id === "px-trisel"){ S.px_tri = e.target.value; whatif(); }
+  if (e.target.dataset?.pxxi != null){ const t = pbxT(), L0 = pbxXs(t); while (L0.length < 20) L0.push(""); L0[+e.target.dataset.pxxi] = e.target.value; pbxXsSet(t, L0); whatif(); }
+  if (e.target.id === "px-xspre" && e.target.value){
+    const t = pbxT(), [src, k] = [e.target.value.slice(0, e.target.value.indexOf(":")), e.target.value.slice(e.target.value.indexOf(":") + 1)];
+    const v = src === "pb" ? (PBX_PRE[t].find(x => x[0] === k) || [])[3] : (pbxPresets()[k] || {}).v;
+    if (v != null){ pbxXsSet(t, v.split(",")); if (src === "u") S.px_xsnom = k; whatif(); }
+  }
+});
+document.addEventListener("click", (e) => {
+  const b = e.target.closest?.("[data-pxxs]"); if (!b) return;
+  const t = pbxT(), act = b.dataset.pxxs;
+  if (act === "vider") pbxXsSet(t, []);
+  if (act === "garder"){
+    const nom = ($("#px-xsnom")?.value || "").trim() || L(`Preset ${Object.keys(pbxPresets()).length + 1}`, `Preset ${Object.keys(pbxPresets()).length + 1}`);
+    const P0 = pbxPresets(); P0[nom] = { t, v: pbxXs(t).join(",") }; pbxLS("pp_pxpre", JSON.stringify(P0)); S.px_xsnom = nom;
+  }
+  if (act === "oublier"){
+    // Le preset choisi dans la liste, sinon le dernier chargé ou enregistré
+    const sel = $("#px-xspre")?.value || "", nom = sel.startsWith("u:") ? sel.slice(2) : S.px_xsnom;
+    const P0 = pbxPresets(); if (nom && P0[nom]){ delete P0[nom]; pbxLS("pp_pxpre", JSON.stringify(P0)); S.px_xsnom = ""; }
+  }
+  whatif();
 });
 document.addEventListener("click", (e) => {
   const wr = e.target.closest?.("[data-wir]");
@@ -9902,8 +9994,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=6d2ff076" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=6d2ff076" defer></script>
+<script src="pub.js?v=1dbbd932" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=1dbbd932" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
