@@ -1035,6 +1035,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 /* Toutes les cases choisies se voient, 10 en haut et 10 en bas, même sur cell (Mitch, 26 nov. 2026 : « mon cell, ça
    rentre 20 ») : les chiffres rapetissent avec l'écran */
 .pxs{display:grid;grid-template-columns:repeat(min(var(--n),10),minmax(0,1fr));gap:2px}
+/* StatsDB Équipes (27 nov. 2026) */
+.px-eqcache{display:none!important}
+.eqs-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.eqs-ctl select{flex:1 1 140px;min-width:0}
+.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
 .pxc b{font:800 clamp(8.5px,2.35vw,14px)/1 var(--f-display);letter-spacing:-.02em;color:#0A2342;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;max-width:100%}
 .pxc small{font:700 clamp(6.5px,1.75vw,9.5px)/1.1 var(--f-body);letter-spacing:.02em;text-transform:uppercase;color:#5B6B82;margin-top:2px;white-space:nowrap;overflow:hidden;max-width:100%}
