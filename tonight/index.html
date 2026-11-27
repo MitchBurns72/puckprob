@@ -1212,7 +1212,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=1dbbd932">
+<link rel="stylesheet" href="carte.css?v=41481a54">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4540,7 +4540,9 @@ const PBX_PRE = {
   g: [["base", "La base", "Basics", "pj,v,d,dp,sv,bpg,bl,gsaa,ta,ba"], ["sit", "Par situation", "By situation", "sv,svfe,svav,svdn,dq,dqp,gsaa,bl,min,pt"],
     ["tout", "Le gros portrait", "The big picture", "pj,pt,v,d,dp,sv,bpg,bl,gsaa,ta,ar,ba,svfe,svav,svdn,dq,dqp,tbsv,tbv,min"]] };
 const pbxLS = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
-const pbxXs = (t = pbxT()) => { if (S["px_xs_" + t] == null) S["px_xs_" + t] = pbxLS("pp_pxxs_" + t) || ""; return String(S["px_xs_" + t]).split(",").slice(0, 20); };
+// Par défaut (rien de gardé dans le navigateur) : le preset « La base » (Mitch, 26 nov. 2026 : « mets des stats par
+// défaut ») ; « Vider » garde une liste vide, respectée ensuite
+const pbxXs = (t = pbxT()) => { if (S["px_xs_" + t] == null){ const g_ = pbxLS("pp_pxxs_" + t); S["px_xs_" + t] = g_ != null ? g_ : PBX_PRE[t][0][3]; } return String(S["px_xs_" + t]).split(",").slice(0, 20); };
 const pbxXsSet = (t, L0) => { const v = L0.slice(0, 20).join(",").replace(/,+$/, ""); S["px_xs_" + t] = v; pbxLS("pp_pxxs_" + t, v); };
 const pbxPresets = () => { try { return JSON.parse(pbxLS("pp_pxpre") || "{}"); } catch (e) { return {}; } };
 const pbxAb = (t, c) => (PBX_AB[t][c.k] ? L(...PBX_AB[t][c.k]) : (L(c.fr, c.en) || c.k).slice(0, 6));
@@ -9994,8 +9996,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=1dbbd932" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=1dbbd932" defer></script>
+<script src="pub.js?v=41481a54" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=41481a54" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>
