@@ -1265,7 +1265,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=89adb877">
+<link rel="stylesheet" href="carte.css?v=7cf6c9dc">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -2697,8 +2697,11 @@ function detailMatch(g, v, sans){
       return rangee("o" + k, "Plus", po, tl?.over) + rangee("u" + k, "Moins", pu, tl?.under);
     };
     // ---- Victoire en 60 min (3 issues) ----
-    const r60 = regl(p.lam_home, p.lam_away);
-    const ligne60 = [["a3", `${g.away}`, r60.a], ["x3", "Nul", r60.x], ["h3", `${g.home}`, r60.h]].map(([k, nom, prob]) => {
+    // Le site public n'a que la version principale (les probs) : pas de buts attendus -> pas de bloc 60 min, pas de
+    // « buts att. » ni de total projeté (avant : le clic sur un match plantait sur lam_away ; Mitch, 27 nov. 2026)
+    const aLam = p.lam_home != null && p.lam_away != null;
+    const r60 = aLam ? regl(p.lam_home, p.lam_away) : null;
+    const ligne60 = (aLam ? [["a3", `${g.away}`, r60.a], ["x3", "Nul", r60.x], ["h3", `${g.home}`, r60.h]] : []).map(([k, nom, prob]) => {
       const moj = lireCote(cle("m", g.gameId, k)), us60 = c[k] || null;
       const cm = moj || us60;   // ta cote MOJ a priorité sur la cote US
       const L60 = L;
@@ -2718,21 +2721,21 @@ function detailMatch(g, v, sans){
           ${offre({ type: "match", date: D.date, gameId: g.gameId, k, p: prob, cote: cm, version: v,
                     label: `${g.away} @ ${g.home} · ${k === "x3" ? "Nul après 60 min" : nom + " gagne en 60 min"}`, sous: `${heure(g.start)} · 3 issues, sans prolongation` }, "+")}`}</div>`;
     }).join("");
-    const ligneTot = `<span class="lbl" style="margin-top:4px">Victoire en 60 min · 3 issues</span>${ligne60}
+    const ligneTot = `${ligne60 ? `<span class="lbl" style="margin-top:4px">Victoire en 60 min · 3 issues</span>${ligne60}` : ""}
       <span class="lbl" style="margin-top:4px">Total de buts${c.ligne != null && COTES ? ` · ligne US ${c.ligne}` : ""}</span>
       ${ligneTotal("5.5")}${ligneTotal("6.5")}
       ${COTES && c.ligne != null && !["5.5", "6.5"].includes(String(c.ligne)) ? `<div class="mcote"><span class="us">US ${c.ligne} · plus ${c.over?.toFixed(2)} / moins ${c.under?.toFixed(2)}</span></div>` : ""}`;
     return `<div class="m ${cls}" style="--ca:${coul(g.away)};--ch:${coul(g.home)}">
       <div class="m-top"><span class="lbl">${heure(g.start)}${g.retro ? " · rétro" : ""}${g.b2b_away ? ` · ${g.away} B2B` : ""}${g.b2b_home ? ` · ${g.home} B2B` : ""}</span>${res}</div>
       <div class="duel">
-        <div class="eq"><span class="ligne"><img class="logo" src="${LOGO(g.away)}" alt="" loading="lazy" onerror="this.remove()"><span class="ab">${g.away}</span></span><span class="wp ${pa > ph ? "fav" : ""}">${pct(pa)} %</span><span class="xg">${p.lam_away.toFixed(1)} buts att.</span>${robHTML(g.phys?.away)}</div>
+        <div class="eq"><span class="ligne"><img class="logo" src="${LOGO(g.away)}" alt="" loading="lazy" onerror="this.remove()"><span class="ab">${g.away}</span></span><span class="wp ${pa > ph ? "fav" : ""}">${pct(pa)} %</span>${p.lam_away != null ? `<span class="xg">${p.lam_away.toFixed(1)} buts att.</span>` : ""}${robHTML(g.phys?.away)}</div>
         <span class="vs">@</span>
-        <div class="eq d"><span class="ligne"><img class="logo" src="${LOGO(g.home)}" alt="" loading="lazy" onerror="this.remove()"><span class="ab">${g.home}</span></span><span class="wp ${ph >= pa ? "fav" : ""}">${pct(ph)} %</span><span class="xg">${p.lam_home.toFixed(1)} buts att.</span>${robHTML(g.phys?.home)}</div>
+        <div class="eq d"><span class="ligne"><img class="logo" src="${LOGO(g.home)}" alt="" loading="lazy" onerror="this.remove()"><span class="ab">${g.home}</span></span><span class="wp ${ph >= pa ? "fav" : ""}">${pct(ph)} %</span>${p.lam_home != null ? `<span class="xg">${p.lam_home.toFixed(1)} buts att.</span>` : ""}${robHTML(g.phys?.home)}</div>
       </div>
       <div class="wbar" aria-hidden="true"><span class="a" style="width:${pct(pa)}%"></span><span class="h" style="width:${pct(ph)}%"></span></div>
       ${sans === "align" ? "" : blocAlignement(g)}
       <div class="kv3">
-        <div><span class="lbl">Total projeté</span><b>${p.total.toFixed(1)}</b></div>
+        ${p.total != null ? `<div><span class="lbl">Total projeté</span><b>${p.total.toFixed(1)}</b></div>` : ""}
         <div><span class="lbl">Plus de 5.5</span><b>${pct(p.p_over["5.5"])} %</b></div>
         <div><span class="lbl">Plus de 6.5</span><b>${pct(p.p_over["6.5"])} %</b></div>
       </div>
@@ -10439,8 +10442,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=89adb877" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=89adb877" defer></script>
-<script src="nav.js?v=ee76ea6fd2" defer></script>
+<script src="pub.js?v=7cf6c9dc" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=7cf6c9dc" defer></script>
+<script src="nav.js?v=7817a1f1fc" defer></script>
 </body>
 </html>
