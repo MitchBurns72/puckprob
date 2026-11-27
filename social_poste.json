@@ -3292,6 +3292,31 @@
   "publie": true,
   "quand": "2026-11-27T11:15-05:00"
  },
+ "2026-11-27-recap": {
+  "fb": "1508565075663838_122116072101537152",
+  "fb_com": "122116072101537152_1122137804149691",
+  "ig": "sauté : Instagram coupé (config « social_instagram »)",
+  "type": "recap",
+  "opt": {},
+  "lien": "https://puckprob.ca/fr/coupe-stanley/",
+  "lien_en": "https://puckprob.ca/stanley-cup/",
+  "titre": "Récap · séries, marqueurs, gardiens",
+  "publie": true,
+  "quand": "2026-11-27T11:25-05:00"
+ },
+ "2026-11-27-vitrine-reel-en": {
+  "fb": "1911950833295505",
+  "video": true,
+  "fb_com": null,
+  "ig": "sauté : Instagram coupé (config « social_instagram »)",
+  "type": "vitrine",
+  "opt": null,
+  "lien": "https://puckprob.ca",
+  "lien_en": "https://puckprob.ca",
+  "titre": "PuckProb · Reel vitrine EN",
+  "publie": true,
+  "quand": "2026-11-27T11:25-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
