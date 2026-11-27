@@ -155,10 +155,14 @@
       var der = lu(f[0]), x = dispo.filter(function(y){ return y[0] === f[0] && y[1] === der; })[0] || dispo.filter(function(y){ return y[0] === f[0]; })[0];
       return '<a href="' + (x ? lien(x) : racine) + '"' + (f[0] === fam && id ? ' aria-current="page"' : "") + ' aria-label="' + f[1][K] + '"><i>' + f[2] + '</i><b class="c">' + f[3][K] + '</b><b class="l">' + f[1][K] + "</b></a>"; }).join("")
       + '<button type="button" class="ppn-tout"' + (fam === "plus" ? ' aria-current="page"' : "") + ' aria-label="' + (FR ? "Tout" : "All") + '"><i><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"4\" width=\"6.5\" height=\"6.5\" rx=\"1.6\"/><rect x=\"13.5\" y=\"4\" width=\"6.5\" height=\"6.5\" rx=\"1.6\"/><rect x=\"4\" y=\"13.5\" width=\"6.5\" height=\"6.5\" rx=\"1.6\"/><rect x=\"13.5\" y=\"13.5\" width=\"6.5\" height=\"6.5\" rx=\"1.6\"/></svg></i><b class="c">' + (FR ? "Tout" : "All") + '</b><b class="l">' + (FR ? "Tout" : "All") + "</b></button>";
-    // Une section ouverte par son adresse (#projections) ne glisse plus sous la grille collée en haut
-    document.documentElement.style.setProperty("--ppn-h", (chips.hidden ? 8 : chips.offsetHeight + 10) + "px");
+    // Une section ouverte par son adresse (#projections) ne glisse plus sous la grille collée en haut. La grille des
+    // sections (.ppn-g) ne suit plus au défilement (Mitch, 26 nov. 2026) : elle ne compte plus, sinon la rangée
+    // Saison/filtres (.ctrls.c3) restait collée au milieu de l'écran, à la hauteur d'une grille partie (27 nov.)
+    document.documentElement.style.setProperty("--ppn-h", hautPpn() + "px");
     var a = !accueil ? null : chips.querySelector("[aria-current]"); if (a && a.scrollIntoView) a.scrollIntoView({ block: "nearest", inline: "center" });
   }
+  // La hauteur qui reste collée en haut : la rangée de pastilles (sticky) compte, la grille (.ppn-g, statique) non
+  function hautPpn(){ return chips.hidden || chips.classList.contains("ppn-g") ? 8 : chips.offsetHeight + 10; }
   // Mon équipe (demande de Mitch, 10 nov. 2026) : choisie dans « Tout », gardée sur cet appareil ; ses joueurs et son
   // équipe sont encadrés en jaune avec une étoile dans toutes les listes (les lignes portent data-c = l'équipe)
   var EQS = ["ANA","BOS","BUF","CAR","CBJ","CGY","CHI","COL","DAL","DET","EDM","FLA","LAK","MIN","MTL","NJD","NSH","NYI","NYR","OTT","PHI","PIT","SEA","SJS","STL","TBL","TOR","UTA","VAN","VGK","WPG","WSH"];
@@ -206,7 +210,7 @@
     // La grille change de hauteur toute seule (rotation de l'écran, polices chargées après coup) : --ppn-h suit, pour
     // que les menus de section collés juste dessous (docs/carte.css, .ctrls.c3) ne glissent pas en dessous d'elle
     if (window.ResizeObserver) new ResizeObserver(function(){
-      document.documentElement.style.setProperty("--ppn-h", (chips.hidden ? 8 : chips.offsetHeight + 10) + "px"); }).observe(chips);
+      document.documentElement.style.setProperty("--ppn-h", hautPpn() + "px"); }).observe(chips);
     var tabs = document.querySelector("nav.tabs");
     if (tabs && window.MutationObserver) new MutationObserver(function(){ rendre(); }).observe(tabs, { attributes: true, subtree: true, attributeFilter: ["aria-selected"] });
   }

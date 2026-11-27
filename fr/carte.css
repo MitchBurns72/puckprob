@@ -143,6 +143,7 @@ html body .chip.chip.chip.chip.chip[aria-pressed="true"],html body .chip.chip.ch
 .spk.spk path{stroke:var(--eq,var(--ice));stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round;fill:none}
 .spk.spk path.spk-0,.spk.spk path.spk-1{stroke-linecap:round;stroke-width:5}
 .spk.spk path.spk-1{stroke-width:7}
+.spk.spk rect.spk-m{fill:#E5484D;fill-opacity:.2}.spk.spk path.spk-ab{stroke:#E5484D;stroke-dasharray:3 2.5}   /* matchs manqués (27 nov. 2026) */
 .spk-a,.spk-b{font:700 11px/1 "Barlow",var(--f-body);font-style:normal;color:var(--muted);white-space:nowrap;letter-spacing:0}
 .spk-b{color:var(--ink);font-weight:800}
 /* sur fond foncé (cartes de match, fiches) : le texte pâle */

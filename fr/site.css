@@ -169,6 +169,7 @@ nav.menu::-webkit-scrollbar{display:none}
 .prj-leg{font:500 12px/1.5 var(--f-body);color:var(--muted);margin:4px 0 10px}
 .prj-leg span{display:inline-block;width:18px;height:0;border-top:3px solid var(--c);vertical-align:middle;margin-right:6px}
 .prj-leg span.pt{border-top:2px dashed var(--ink)}
+.prj-leg span.mq{width:14px;height:10px;border:0;background:#E5484D33;border-bottom:2px dashed #E5484D;border-radius:2px}
 .wi-l .v .bon{color:var(--good)} .wi-l .v .mauvais{color:var(--bad)}
 /* Filtre par équipe : une pastille par équipe ; toucher = seulement elle, retoucher = toutes */
 .eq-filtre{display:flex;gap:4px;overflow-x:auto;padding:4px 0 6px;scrollbar-width:none}
@@ -1065,6 +1066,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .spk svg{width:74px;height:22px;display:inline-block;overflow:visible}
 /* La couleur de l'équipe, éclaircie : les équipes marine (TBL, TOR, CBJ...) disparaissaient sur le fond foncé */
 .spk path{fill:none;stroke:var(--eq, var(--ice));stroke:color-mix(in srgb,var(--eq, var(--ice)) 68%,#fff);stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round}
+/* Les matchs manqués (Mitch, 27 nov. 2026) : bande rouge pâle + trait pointillé rouge à travers */
+.spk rect.spk-m{fill:#E5484D;fill-opacity:.2}.spk path.spk-ab{stroke:#E5484D;stroke-dasharray:3 2.5}
 .cl .spk{display:inline-block;margin:0 0 0 6px;vertical-align:middle}
 .cl .spk svg{width:44px;height:14px}
 .cp-test td .lgp{width:20px;height:20px;vertical-align:-5px;margin-right:4px}

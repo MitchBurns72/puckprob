@@ -1,11 +1,21 @@
 {
  "jour": "2026-11-27",
- "maj": "2026-11-27T00:25-05:00",
+ "maj": "2026-11-27T01:01-05:00",
  "publier": true,
  "items": [
   {
+   "id": "2026-11-27-nuit-story-up",
+   "quand": "2026-11-27T01:05-05:00",
+   "story": true,
+   "courte": "matin",
+   "cadre": "social/fil/2026-11-27/nuit-up.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · Gainers"
+  },
+  {
    "id": "2026-11-27-vitrine-reel",
-   "quand": "2026-11-27T00:52-05:00",
+   "quand": "2026-11-27T08:45-05:00",
    "avant": null,
    "retard": null,
    "texte": "Le hockey, comme tu l'as jamais vu.\n\nPuckProb, c'est des chiffres sur chaque joueur, chaque équipe, chaque soir :\n· PB Stats : Gretzky dans la LNH d'aujourd'hui\n· Les trophées : un % sur chaque joueur, chaque jour\n· Power rankings, PB Market Value, PB Heat %\n· PB On The Wire : les nouvelles chaque matin, avec nos chiffres\n\nGratuit, en français et en anglais.\nhttps://puckprob.ca\n\nÉcris ton joueur en commentaire : on te sort ses chiffres.\n\nHockey, like you've never seen it.\n\nPuckProb puts numbers on every player, every team, every night:\n· PB Stats: Gretzky in today's NHL\n· Awards: a % on every player, every day\n· Power rankings, PB Market Value, PB Heat %\n· PB On The Wire: the news every morning, with our numbers\n\nFree, in English and French.\nhttps://puckprob.ca\n\nDrop your player in the comments: we'll pull his numbers.",
@@ -22,5 +32,6 @@
    "titre": "PuckProb · Reel vitrine (à épingler)"
   }
  ],
+ "ig_pause_jusqu": "2026-11-27T01:08-05:00",
  "instagram": false
 }
