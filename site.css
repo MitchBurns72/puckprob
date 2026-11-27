@@ -1054,6 +1054,9 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .dna-ctx{display:flex;gap:8px}.dna-ctx div{flex:1;background:#ffffff10;border-radius:10px;padding:8px 10px;font:600 12px/1.2 var(--f-body);color:#C9D6E8}
 .dna-ctx b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body);margin-top:3px}
 .dna-s{width:100%;margin:0 0 4px}
+.dna-minis{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.dna-mini{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap;padding:3px 7px;border-radius:6px;border-left:4px solid;background:rgba(10,35,66,.07);font:700 10px/1 var(--f-body);color:var(--muted,#5B6B82)}
+.dna-mini b{font:800 italic 14px/1 "Barlow Condensed",var(--f-body);color:inherit}
 .eqs-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.eqs-ctl select{flex:1 1 140px;min-width:0}
 .eqs-l{cursor:pointer}.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}

@@ -1082,6 +1082,9 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .dna-ctx{display:flex;gap:8px}.dna-ctx div{flex:1;background:#ffffff10;border-radius:10px;padding:8px 10px;font:600 12px/1.2 var(--f-body);color:#C9D6E8}
 .dna-ctx b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body);margin-top:3px}
 .dna-s{width:100%;margin:0 0 4px}
+.dna-minis{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.dna-mini{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap;padding:3px 7px;border-radius:6px;border-left:4px solid;background:rgba(10,35,66,.07);font:700 10px/1 var(--f-body);color:var(--muted,#5B6B82)}
+.dna-mini b{font:800 italic 14px/1 "Barlow Condensed",var(--f-body);color:inherit}
 .eqs-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}.eqs-ctl select{flex:1 1 140px;min-width:0}
 .eqs-l{cursor:pointer}.eqs-l .eqs-tir{color:var(--or,#FFB81C);font-weight:800}
 .pxc{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--pc,#eef2f8);border-radius:5px;padding:3px 1px 2px;min-width:0;cursor:pointer}
@@ -1286,7 +1289,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=9f390cda">
+<link rel="stylesheet" href="carte.css?v=50f99358">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1321,6 +1324,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-cor" aria-selected="false" aria-controls="p-cor">PB Correlation Trend</button>
     <button role="tab" id="t-forme" aria-selected="false" aria-controls="p-forme">PB Heat %</button>
     <button role="tab" id="t-dev" aria-selected="false" aria-controls="p-dev">PB Dev %</button>
+    <button role="tab" id="t-dna" aria-selected="false" aria-controls="p-dna">PB Player DNA</button>
     <button role="tab" id="t-rum" aria-selected="false" aria-controls="p-rum">Nouvelles</button>
     <button role="tab" id="t-wire" aria-selected="false" aria-controls="p-wire">PB On The Wire</button>
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
@@ -1455,6 +1459,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
   <section id="p-forme" role="tabpanel" aria-labelledby="t-forme" hidden>
     <div class="ctrls"><div class="row" id="f-forme"></div><div class="row" id="f-forme-pos"></div><div class="row" id="f-forme-role"></div><div id="fe-forme"></div></div>
     <div id="forme"></div>
+  </section>
+  <!-- PB Player DNA (Mitch, 27 nov. 2026 : « dans nos In House, avec les graphs et les changements de jour en jour ») -->
+  <section id="p-dna" role="tabpanel" aria-labelledby="t-dna" hidden>
+    <div class="ctrls"><div class="row" id="f-dna"></div><div class="row" id="f-dna-pos"></div><div id="fe-dna"></div></div>
+    <div id="dna"></div>
   </section>
   <!-- PB Dev % (Mitch, 21 nov. 2026) : les jeunes vs leur rang de repêchage, les coachs et les équipes qui développent (src/dev.py -> docs/dev.json) -->
   <section id="p-dev" role="tabpanel" aria-labelledby="t-dev" hidden>
@@ -4020,7 +4029,7 @@ document.addEventListener("click", (e) => {
   // PB Stats : plusieurs équipes à la fois (la loupe au complet)
   if (cle === "px_eq"){ const L0 = pbxListe(S.px_eq), t = b.dataset.t; S.px_eq = (L0.includes(t) ? L0.filter(x => x !== t) : [...L0, t]).join(","); S.px_n = ""; whatif(); return; }
   S[cle] = S[cle] === b.dataset.t ? "" : b.dataset.t;
-  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet(), fe_forme: () => formeOnglet(), fe_dev: () => devOnglet() })[cle]?.();
+  ({ fe_rum: () => rumOnglet(), fe_trx: () => trxOnglet(), fe_fa: () => faOnglet(), fe_wi: () => whatif(), fe_sal: () => salaires(), fe_enf: () => enforcers(), fe_prj: () => projections(), fe_duo: () => duos(), fe_gcr: () => gcrOnglet(), fe_arb: () => arbOnglet(), fe_coach: () => coachOnglet(), fe_pwr: () => pwrOnglet(), fe_forme: () => formeOnglet(), fe_dev: () => devOnglet(), fe_dna: () => dnaOnglet() })[cle]?.();
   // Garder la pastille choisie visible dans la rangée (sans faire sauter la page)
   const choisie = document.querySelector(`.peq[data-fe="${cle}"][aria-pressed="true"]`);
   if (choisie) choisie.parentElement.scrollLeft = choisie.offsetLeft - choisie.parentElement.clientWidth / 2;
@@ -4479,6 +4488,8 @@ async function dnaJoueur(id, p){
   const SS = (ix?.saisons || []).slice();
   const D = {}; await Promise.all(SS.map(async sa => { D[sa] = await chargerDna(sa); }));
   if (FEN.x?.id !== id) return;
+  // Un gardien : ses rangs parmi les gardiens (Mitch, 27 nov. 2026 : « dans leur profil aussi, les goalies »)
+  if (SS.some(sa => D[sa]?.g?.[id]) && !SS.some(sa => D[sa]?.j?.[id])) return dnaGardien(id, p, ix, SS, D);
   const ses = SS.filter(sa => D[sa]?.j?.[id]);
   if (!ses.length){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de matchs dans nos données depuis 2023-24.", "Not enough games in our data since 2023-24.")}</p></section>`; return; }
   const sa = ses.includes(FEN.dnaS) ? FEN.dnaS : ses[ses.length - 1];
@@ -4507,14 +4518,82 @@ async function dnaJoueur(id, p){
   p.querySelector(".dna-s")?.addEventListener("change", (e) => { FEN.dnaS = e.target.value; dnaJoueur(id, p); });
 }
 
+function dnaGardien(id, p, ix, SS, D){
+  const ses = SS.filter(sa => D[sa]?.g?.[id]);
+  const sa = ses.includes(FEN.dnaS) ? FEN.dnaS : ses[ses.length - 1];
+  const d = D[sa], r = d.g[id], C = d.gcat, I = {}; C.forEach((c, i) => I[c.k] = i);
+  const G = d.ggroupes || {}, dna = r[6];
+  const v = (k) => r[4][I[k]], pc = (k) => r[5][I[k]], nomC = (k) => L(C[I[k]].fr, C[I[k]].en);
+  const autres = (k) => ses.length > 1 ? ses.map(s_ => [s_, D[s_].g[id][5][I[k]]]) : null;
+  // Les buts sauvés vs attendu sont tirés de notre PBxG : le rang seulement, comme les stats de glace des patineurs
+  const SANS_BRUT = new Set(["gsax60", "gsax5", "gpk", "qxg"]);
+  const barre = (k, dots = true) => dnaBarre(nomC(k), SANS_BRUT.has(k) ? "" : dnaVal(C[I[k]], v(k)), pc(k), dots ? autres(k) : null);
+  const top = dna == null ? "" : dna >= 50 ? L(`Top ${Math.max(1, 100 - dna)} % des gardiens`, `Top ${Math.max(1, 100 - dna)}% of goalies`) : L(`${dna}e rang centile des gardiens`, `${dna}th percentile among goalies`);
+  const sel = `<select class="c3-m dna-s">${ses.map(s_ => `<option value="${s_}"${s_ === sa ? " selected" : ""}>${L("Saison", "Season")} ${s_.slice(0, 4)}-${s_.slice(6)}${s_ === ix.courante ? L(" (en cours)", " (current)") : ""}</option>`).join("")}</select>`;
+  const grp = (g, ks, dots = true) => `<div class="dna-g">${L(G[g][0], G[g][1])}</div>` + ks.map(k => barre(k, dots)).join("");
+  const ctx = ["charge", "qxg"].map(k => `<div><small>${nomC(k)}</small><b style="color:#fff">${pc(k) ?? "–"}</b></div>`).join("");
+  p.innerHTML = `<section class="fen-s"><h3>PB Player DNA <em>${L("saison", "season")} ${dnaSai(sa)} · ${r[3]} ${L("PJ", "GP")}</em></h3>${ses.length > 1 ? sel : ""}
+      <div class="dna-big"><b style="color:${dnaCoul(dna)}">${dna ?? "–"}</b><span><strong>PB Player DNA</strong>${top}<br>${L("Rang centile : 100 = le meilleur, la ligne blanche = la médiane.", "Percentile rank: 100 = the best, the white line = the median.")}</span></div>
+      ${grp("arr", ["gsax60", "gsax5", "gpk"])}${grp("dang", ["svd", "svm", "svl"])}${grp("const", ["qs", "reb"])}
+      <div class="dna-g">${L(G.ctx[0], G.ctx[1])}</div><div class="dna-ctx">${ctx}</div>
+      <p class="aide">${L("Contexte : combien de tirs il reçoit et leur danger moyen (100 = le plus). Pas bon ou mauvais en soi : ça dit la défense devant lui.",
+        "Context: how many shots he faces and their average danger (100 = the most). Not good or bad by itself: it describes the defense in front of him.")}</p></section>`;
+  p.querySelector(".dna-s")?.addEventListener("change", (e) => { FEN.dnaS = e.target.value; dnaJoueur(id, p); });
+}
+
+// La section In House « PB Player DNA » (docs/dna.json, src/pbdna.py inhouse ; la courbe : src/courbes.py « dna ») :
+// les meilleurs, ou PB's Biggest Gainers / Biggest Fallers (les plus gros changements depuis hier), par position et
+// par équipe, avec la courbe jour après jour comme les autres sections
+let DNAJ = null, DNAJ_p = null;
+const chargerDnaJ = () => DNAJ_p || (DNAJ_p = fetch(urlSai("dna.json") + "?v=" + (D?.date || Date.now())).then(r => r.ok ? r.json() : null).then(d => (DNAJ = d)).catch(() => null));
+const DNA_RES = { F: [["ATT 5", "ATT 5"], ["DÉF 5", "DEF 5"], ["BUTS", "GOALS"]], D: [["ATT 5", "ATT 5"], ["DÉF 5", "DEF 5"], ["A1", "A1"]], G: [["SVA", "GSAX"], ["%DANG", "SV%HD"], ["DQ", "QS"]] };
+const dnaEcart = (x) => x.h?.length > 1 && x.h[x.h.length - 2] != null ? x.dna - x.h[x.h.length - 2] : null;
+async function dnaOnglet(){
+  const el = $("#dna");
+  if (!DNAJ){ el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`; await chargerDnaJ(); }
+  const v = S.dna_v || "top", pos = S.dna_pos || "F", feq = S.fe_dna || "";
+  const tete = `<div class="cp-tete">${titrePB("PB Player DNA", v === "up" ? "PB's Biggest Gainers" : v === "down" ? "PB's Biggest Fallers" : L("Top 100", "Top 100"))}<p>${L(
+    "Le profil complet de chaque joueur en une note : son rang parmi les joueurs de sa position (100 = le meilleur), à partir de tout ce qu'il fait sur la glace cette saison. Touche un joueur pour voir son profil au complet.",
+    "Every player's full profile in one score: his rank among players at his position (100 = the best), from everything he does on the ice this season. Tap a player for his full profile.")}</p></div>`;
+  if (!DNAJ?.joueurs){ el.innerHTML = tete + `<div class="card"><div class="vide">${L("Arrive au prochain calcul.", "Coming with the next update.")}</div></div>`; return; }
+  $("#f-dna").innerHTML = [["top", ["Les meilleurs", "The best"]], ["up", ["Biggest Gainers", "Biggest Gainers"]], ["down", ["Biggest Fallers", "Biggest Fallers"]]]
+    .map(([k, n]) => `<button class="chip big" data-dnav="${k}" aria-pressed="${v === k}">${L(...n)}</button>`).join("");
+  $("#f-dna-pos").innerHTML = [["F", ["Attaquants", "Forwards"]], ["D", ["Défenseurs", "Defensemen"]], ["G", ["Gardiens", "Goalies"]]]
+    .map(([k, n]) => `<button class="chip" data-dnap="${k}" aria-pressed="${pos === k}">${L(...n)}</button>`).join("");
+  const tous = Object.values(DNAJ.joueurs).filter(x => x.pos === pos);
+  $("#fe-dna").innerHTML = filtreEqHTML("fe_dna", [...new Set(tous.map(x => x.eq))].sort());
+  let J = tous.filter(x => !feq || x.eq === feq);
+  if (v === "top") J = J.sort((a, b) => b.dna - a.dna);
+  else J = J.filter(x => dnaEcart(x)).sort((a, b) => v === "up" ? dnaEcart(b) - dnaEcart(a) : dnaEcart(a) - dnaEcart(b));
+  J = J.slice(0, 100);
+  // Les places gagnées depuis hier : sur le classement complet de la position (pas filtré par équipe)
+  const mv = v === "top" && !feq ? mvtListe(J, x => x.id, x => x.dna, dnaEcart) : {};
+  const no = (x) => (typeof fenPrj === "function" && fenPrj(x.id)?.no) || "";
+  const R_ = DNA_RES[pos];
+  const mini = (x) => x.m.map((p_, i) => `<span class="dna-mini" style="border-color:${dnaCoul(p_)}"><small>${L(...R_[i])}</small><b>${p_ ?? "–"}</b></span>`).join("");
+  const ec = (x) => { const e_ = dnaEcart(x); return e_ ? `<span class="ecart ${e_ > 0 ? "up" : "down"}">${e_ > 0 ? "▲" : "▼"} ${Math.abs(e_)}</span>` : ""; };
+  el.innerHTML = tete + (J.length ? J.map((x, k) => `<div class="wi-l wi-r dna-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}${mvtHTML(mv[x.id])}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
+      <span class="nm">${nomP(x.n, x.pos === "G" ? "g" : "j")}<small>${x.eq} · ${x.pj} ${L("PJ", "GP")}</small><span class="dna-minis">${mini(x)}</span></span>
+      <span class="v"><b style="color:${dnaCoul(x.dna)}">${x.dna}</b><small>PB Player DNA ${ec(x)}</small>${x.h?.length > 1 ? spark(x.h, false, L("Jour après jour", "Day by day"), (z) => String(Math.round(z)), x.hm) : ""}</span></div>`).join("")
+    : `<div class="card"><div class="vide">${v === "top" ? L("Personne ici.", "Nobody here.") : L("Pas encore de changement depuis hier : la courbe commence aujourd'hui.", "No change since yesterday yet: the curve starts today.")}</div></div>`)
+    + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(DNAJ.maj)}. ${L("Tous les rangs, toutes les saisons : P.B Stats DB, PB Analytics.", "Every rank, every season: P.B Stats DB, PB Analytics.")}</p>`;
+}
+document.addEventListener("click", (e) => {
+  const c = e.target.closest?.("#p-dna [data-dnav], #p-dna [data-dnap]");
+  if (c){ if (c.dataset.dnav) S.dna_v = c.dataset.dnav; else { S.dna_pos = c.dataset.dnap; S.fe_dna = ""; } dnaOnglet(); return; }
+  const r = e.target.closest?.("#dna .dna-l[data-pid]");
+  if (r) ouvrirJoueur(r.dataset.pid, "dna");
+});
+
 // StatsDB, PB Analytics : les mêmes rangs pour toute la ligue, joueurs ou équipes, triables (comme StatsDB Équipes)
 // Les abréviations des cases (fr, en)
 const AN_AB = { _dna: ["DNA"], att5: ["ATT 5"], def5: ["DÉF 5", "DEF 5"], an: ["AN", "PP"], dn: ["DN", "PK"], fin: ["FIN"], b60: ["B/60", "G/60"],
   a160: ["A1/60"], a260: ["A2/60"], ch60: ["CH/60"], t60: ["T/60", "S/60"], tan60: ["TAN/60", "PPS/60"], rec60: ["REC", "TK"], tb60: ["TB", "BLK"],
   mee60: ["MÉ", "HIT"], rev60: ["REV", "GV"], pp60: ["PPROV", "PD"], pt60: ["PPRISES", "PT"], disc: ["DISC"], mj: ["MJ", "FO"], qoc: ["ADV", "QOC"],
   qot: ["COÉQ", "QOT"], xgf5: ["XGF"], xga5: ["XGA"], xgp5: ["XG%"], chf60: ["CHF"], cha60: ["CHA"], xgan: ["AN", "PP"], xgdn: ["DN", "PK"],
-  gard: ["GARD", "GOAL"], rec: ["REC", "TK"], tb: ["TB", "BLK"], mee: ["MÉ", "HIT"], rev: ["REV", "GV"], ppm: ["PPROV", "PD"], ptm: ["PPRISES", "PT"] };
-const AN_PREM = { j: ["_dna", "att5", "def5", "an", "dn", "fin", "b60", "a160", "ch60", "disc"], e: ["xgp5", "xgf5", "xga5", "chf60", "cha60", "xgan", "xgdn", "fin", "gard"] };
+  gard: ["GARD", "GOAL"], gsax60: ["SVA/60", "GSAX/60"], gsax5: ["SVA 5", "GSAX 5"], gpk: ["SVA DN", "GSAX PK"], svd: ["%DANG", "SV%HD"],
+  svm: ["%MOY", "SV%MD"], svl: ["%FAIB", "SV%LD"], qs: ["DQ", "QS"], reb: ["REB"], charge: ["T/60", "SA/60"], qxg: ["DANGER"], rec: ["REC", "TK"], tb: ["TB", "BLK"], mee: ["MÉ", "HIT"], rev: ["REV", "GV"], ppm: ["PPROV", "PD"], ptm: ["PPRISES", "PT"] };
+const AN_PREM = { j: ["_dna", "att5", "def5", "an", "dn", "fin", "b60", "a160", "ch60", "disc"], g: ["_dna", "gsax60", "gsax5", "gpk", "svd", "svm", "svl", "qs", "reb"], e: ["xgp5", "xgf5", "xga5", "chf60", "cha60", "xgan", "xgdn", "fin", "gard"] };
 VP_R.an = () => whatif();
 async function statsAnalytics(el, jeton){
   const ix = await chargerDnaIdx();
@@ -4523,36 +4602,36 @@ async function statsAnalytics(el, jeton){
   const sa = ix.saisons.includes(S.an_s) ? S.an_s : ix.courante || ix.saisons[ix.saisons.length - 1];
   const d = await chargerDna(sa);
   if (jeton !== WI_JETON || !d) return;
-  const q = S.an_q === "e" ? "e" : "j", pos = S.an_p === "D" ? "D" : "F";
-  const C = q === "e" ? d.ecat : d.cat, I = {}; C.forEach((c, i) => I[c.k] = i);
-  const G = d.groupes || {};
+  const q = ["e", "g"].includes(S.an_q) ? S.an_q : "j", pos = S.an_p === "D" ? "D" : "F";
+  const C = q === "e" ? d.ecat : q === "g" ? d.gcat : d.cat, I = {}; C.forEach((c, i) => I[c.k] = i);
+  const G = (q === "g" ? d.ggroupes : d.groupes) || {};
   const grpOk = Object.keys(G).filter(g => C.some(c => c.grp === g));
   const grp = grpOk.includes(S.an_g) ? S.an_g : "";
   const ks = grp ? C.filter(c => c.grp === grp).map(c => c.k) : AN_PREM[q];
-  const st = (S.an_st && (S.an_st === "_dna" ? q === "j" : I[S.an_st] != null)) ? S.an_st : q === "j" ? "_dna" : "xgp5";
+  const st = (S.an_st && (S.an_st === "_dna" ? q !== "e" : I[S.an_st] != null)) ? S.an_st : q !== "e" ? "_dna" : "xgp5";
   const ord = S.an_ord || "desc";
-  const rows = q === "j" ? Object.entries(d.j).filter(([, r]) => r[1] === pos).map(([id, r]) => ({ id, n: r[0], t: r[2], gp: r[3], v: r[4], p: r[5], dna: r[6] }))
+  const rows = q !== "e" ? Object.entries(q === "g" ? (d.g || {}) : d.j).filter(([, r]) => q === "g" || r[1] === pos).map(([id, r]) => ({ id, n: r[0], t: r[2], gp: r[3], v: r[4], p: r[5], dna: r[6] }))
     : Object.entries(d.e).map(([t, r]) => ({ id: t, n: `${villeNom(t)} ${eqSurnom(t)}`.trim(), t, gp: r[0], v: r[1], p: r[2] }));
   const pcR = (x, k) => k === "_dna" ? x.dna : x.p[I[k]];
   const L_ = rows.filter(x => pcR(x, st) != null).sort((a, b) => ord === "asc" ? pcR(a, st) - pcR(b, st) : pcR(b, st) - pcR(a, st)).concat(rows.filter(x => pcR(x, st) == null));
   const nV = vpN("an", 50, L_.length);
   const sel = (id_, opts, cur) => `<select id="${id_}" class="c3-m">${opts.map(([k, t]) => `<option value="${k}"${k === cur ? " selected" : ""}>${t}</option>`).join("")}</select>`;
-  const ctl = `<div class="eqs-ctl">${sel("an-q", [["j", L("Joueurs", "Players")], ["e", L("Équipes", "Teams")]], q)}
+  const ctl = `<div class="eqs-ctl">${sel("an-q", [["j", L("Patineurs", "Skaters")], ["g", L("Gardiens", "Goalies")], ["e", L("Équipes", "Teams")]], q)}
     ${sel("an-s", ix.saisons.slice().reverse().map(x => [x, `${x.slice(0, 4)}-${x.slice(6)}`]), sa)}
     ${q === "j" ? sel("an-p", [["F", L("Attaquants", "Forwards")], ["D", L("Défenseurs", "Defensemen")]], pos) : ""}
-    ${sel("an-g", [["", q === "j" ? "PB Player DNA" : L("L'essentiel", "The essentials")], ...grpOk.map(g => [g, L(G[g][0], G[g][1])])], grp)}</div>`;
+    ${sel("an-g", [["", q !== "e" ? "PB Player DNA" : L("L'essentiel", "The essentials")], ...grpOk.map(g => [g, L(G[g][0], G[g][1])])], grp)}</div>`;
   const nomK = (k) => k === "_dna" ? "PB Player DNA" : L(C[I[k]].fr, C[I[k]].en);
   const AB = (k) => { const x = AN_AB[k]; return x ? L(x[0], x[1] || x[0]) : k.toUpperCase(); };
   const cases = (x) => `<span class="pxs" style="--n:${Math.min(ks.length, 10)}">${ks.slice(0, 10).map(k => { const p_ = pcR(x, k);
     return `<span class="pxc${k === st ? " on" : ""}" data-anst="${k}" title="${nomK(k)}"><b style="color:${dnaCoul(p_)}">${p_ ?? "–"}</b><small>${AB(k)}</small></span>`; }).join("")}</span>`;
   const big = (x) => { const p_ = pcR(x, st); const raw = st === "_dna" ? "" : dnaVal(C[I[st]], x.v[I[st]]);
     return `<span class="v"><b style="color:${dnaCoul(p_)}">${p_ ?? "–"}</b><small>${raw ? raw + " · " : ""}${nomK(st)}</small></span>`; };
-  const lignes = L_.slice(0, nV).map((x, i) => `<div class="wi-l wi-r eqs-l an-l" role="button" tabindex="0" data-c="${x.t}" ${q === "j" ? `data-anj="${x.id}"` : `data-ane="${x.t}"`} style="${eqV(x.t)}">
+  const lignes = L_.slice(0, nV).map((x, i) => `<div class="wi-l wi-r eqs-l an-l" role="button" tabindex="0" data-c="${x.t}" ${q !== "e" ? `data-anj="${x.id}"` : `data-ane="${x.t}"`} style="${eqV(x.t)}">
       <span class="rg">${i + 1}</span><img class="lg" src="${LOGO(x.t)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
       <span class="nm">${echapper(x.n)}<small>${x.t} · ${x.gp} ${L("PJ", "GP")}</small></span>${big(x)}<span class="pxz">${cases(x)}</span></div>`).join("") + vpBtn("an", nV, L_.length);
   el.innerHTML = `<div class="cp-tete">${titrePB("P.B Stats DB", `PB Analytics · ${nomK(st)}`)}<p>${L(
-    `Rangs centiles de la saison ${sa.slice(0, 4)}-${sa.slice(6)} : 100 = le meilleur${q === "j" ? ` parmi les ${pos === "D" ? "défenseurs" : "attaquants"}` : " des 32 équipes"}. Touche une case pour classer sur cette stat, une 2e fois pour l'ordre inverse.${q === "j" ? " Touche un joueur pour son PB Player DNA." : ""}`,
-    `Percentile ranks for ${sa.slice(0, 4)}-${sa.slice(6)}: 100 = the best${q === "j" ? ` among ${pos === "D" ? "defensemen" : "forwards"}` : " of the 32 teams"}. Tap a box to rank on that stat, again to flip the order.${q === "j" ? " Tap a player for his PB Player DNA." : ""}`)}</p></div>${ctl}`
+    `Rangs centiles de la saison ${sa.slice(0, 4)}-${sa.slice(6)} : 100 = le meilleur${q === "j" ? ` parmi les ${pos === "D" ? "défenseurs" : "attaquants"}` : q === "g" ? " parmi les gardiens" : " des 32 équipes"}. Touche une case pour classer sur cette stat, une 2e fois pour l'ordre inverse.${q !== "e" ? " Touche un joueur pour son PB Player DNA." : ""}`,
+    `Percentile ranks for ${sa.slice(0, 4)}-${sa.slice(6)}: 100 = the best${q === "j" ? ` among ${pos === "D" ? "defensemen" : "forwards"}` : q === "g" ? " among goalies" : " of the 32 teams"}. Tap a box to rank on that stat, again to flip the order.${q !== "e" ? " Tap a player for his PB Player DNA." : ""}`)}</p></div>${ctl}`
     + (lignes || `<div class="card"><div class="vide">${L("Rien ici.", "Nothing here.")}</div></div>`);
 }
 document.addEventListener("change", (e) => {
@@ -10342,6 +10421,7 @@ function brancher(){
     if (b.id === "t-wire") wireOnglet();
     if (b.id === "t-forme") formeOnglet();
     if (b.id === "t-dev") devOnglet();
+    if (b.id === "t-dna") dnaOnglet();
     if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-cls") clsOnglet();
     if (b.id === "t-fa") faOnglet();
@@ -10508,6 +10588,7 @@ async function init(){
     else if (/^#(joueurs|players)$/i.test(location.hash)){ $("#t-joueurs").click(); }
     else if (/^#(suivi|tracking)$/i.test(location.hash)){ $("#t-suivi")?.click(); }
     else if (/^#(heat-index|forme|pb-forme)$/i.test(location.hash)){ $("#t-forme")?.click(); $("#p-forme")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(player-dna|dna|pb-player-dna)$/i.test(location.hash)){ $("#t-dna")?.click(); $("#p-dna")?.scrollIntoView({ block: "start" }); }
     else if (/^#(dev|pb-dev|developpement|development)$/i.test(location.hash)){ $("#t-dev")?.click(); $("#p-dev")?.scrollIntoView({ block: "start" }); }
     else if (/^#(on-the-wire|sur-le-fil|wire)(\/\d{4}-\d{2}-\d{2}(-[a-z0-9-]+)?)?$/i.test(location.hash)){
       const j = location.hash.match(/\d{4}-\d{2}-\d{2}(-[a-z0-9-]+)?/i); if (j) S.wire = j[0];
@@ -10536,7 +10617,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-dev": "#dev", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-dev": "#dev", "t-dna": "#player-dna", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -10823,8 +10904,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=9f390cda" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=9f390cda" defer></script>
-<script src="nav.js?v=66cab91a00" defer></script>
+<script src="pub.js?v=50f99358" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=50f99358" defer></script>
+<script src="nav.js?v=b6d6edc2aa" defer></script>
 </body>
 </html>
