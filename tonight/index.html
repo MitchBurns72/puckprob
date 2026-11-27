@@ -1289,7 +1289,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=50f99358">
+<link rel="stylesheet" href="carte.css?v=1c94a75e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -10390,11 +10390,10 @@ function brancher(){
   });
   $("#f-match").addEventListener("change", (e) => { S.match = e.target.value; liste(); slate(); });
   $("#slate").addEventListener("click", (e) => {
+    // Un match de la bande des pointages ouvre la même fenêtre que les matchs de Gameday Probs (Mitch, 27 nov.
+    // 2026) : probs, alignements, box score en direct. Avant : ça filtrait la liste des joueurs sur ce match.
     const b = e.target.closest(".sb"); if (!b) return;
-    S.match = S.match === b.dataset.gid ? "all" : b.dataset.gid;
-    $("#f-match").value = S.match;
-    if ($("#p-joueurs").hidden) $("#t-joueurs").click();
-    liste(); slate();
+    ouvrirMatch(b.dataset.gid);
   });
   // Recalcul à la sortie du champ (pas à chaque touche) pour ne pas
   // réordonner la liste pendant que tu tapes.
@@ -10405,7 +10404,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "dev", "rum", "wire", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "dev", "dna", "rum", "wire", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -10904,8 +10903,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=50f99358" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=50f99358" defer></script>
+<script src="pub.js?v=1c94a75e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=1c94a75e" defer></script>
 <script src="nav.js?v=b6d6edc2aa" defer></script>
 </body>
 </html>
