@@ -38,6 +38,82 @@ def jour_soiree():
     return maintenant.date().isoformat()
 
 
+def _sec(t):
+    """« 18:42 » -> 1122 secondes (0 si illisible)."""
+    try:
+        m, s_ = str(t).split(":")
+        return int(m) * 60 + int(s_)
+    except (ValueError, AttributeError):
+        return 0
+
+
+def _toi(t):
+    """« 18:42 » -> « 18:42 » ; rien -> « » (le temps de glace tel que la LNH l'écrit)."""
+    return str(t or "")
+
+
+def detail_box(box):
+    """Le box score du match (Mitch, 26 nov. 2026 : « box score des matchs en direct ») : les totaux de chaque équipe,
+    chaque patineur et chaque gardien, tirés de la même feuille de match (boxscore) que l'état. Compact (des listes,
+    pas des objets) : live.json est relu aux 30 s par la page.
+      eq : {"a"|"h": [équipe, tirs, mises en échec, tirs bloqués, minutes de pénalité, buts en avantage numérique]}
+      j  : {"a"|"h": [[id, nom, pos, B, A, +/-, tirs, MÉ, TB, PUN, temps de glace], ...]}  (par points, puis temps)
+      g  : {"a"|"h": [[id, nom, "arrêts/tirs", % arrêts, buts accordés, temps de glace], ...]}"""
+    pb = box.get("playerByGameStats", {}) or {}
+    eq, J, G = {}, {}, {}
+    for k_, cote in (("a", "awayTeam"), ("h", "homeTeam")):
+        t = (box.get(cote) or {}).get("abbrev") or ""
+        L, tot = [], [t, 0, 0, 0, 0, 0]
+        for grp in ("forwards", "defense"):
+            for j in pb.get(cote, {}).get(grp, []) or []:
+                r = [j.get("playerId"), (j.get("name") or {}).get("default") or "", j.get("position") or "",
+                     j.get("goals", 0), j.get("assists", 0), j.get("plusMinus", 0), j.get("sog", 0), j.get("hits", 0),
+                     j.get("blockedShots", 0), j.get("pim", 0), _toi(j.get("toi"))]
+                L.append(r)
+                for i_, v in ((1, r[6]), (2, r[7]), (3, r[8]), (4, r[9]), (5, j.get("powerPlayGoals", 0))):
+                    tot[i_] += v or 0
+        # Le tir officiel de l'équipe quand la feuille l'a (les tirs des joueurs peuvent traîner d'une minute)
+        tot[1] = (box.get(cote) or {}).get("sog", tot[1]) or tot[1]
+        L.sort(key=lambda r: (-((r[3] or 0) + (r[4] or 0)), -(r[3] or 0), -_sec(r[10])))
+        J[k_], eq[k_] = L, tot
+        G[k_] = [[g.get("playerId"), (g.get("name") or {}).get("default") or "", g.get("saveShotsAgainst") or "",
+                  g.get("savePctg"), g.get("goalsAgainst", 0), _toi(g.get("toi"))]
+                 for g in pb.get(cote, {}).get("goalies", []) or [] if g.get("toi") not in (None, "00:00")]
+    return {"eq": eq, "j": J, "g": G}
+
+
+def buts_match(pbp, box):
+    """Le sommaire des buts, tiré du jeu-par-jeu (/gamecenter/<id>/play-by-play, les événements « goal ») :
+    [[période, temps, équipe, buteur, [passeurs], force, pointage visiteur, pointage local], ...]. Les noms viennent
+    de la feuille de match (mêmes « C. Caufield » que le box). force : "AN" (avantage numérique), "DN" (désavantage),
+    "FD" (filet désert) ou "". Un champ qui manque : le but est gardé avec ce qu'on a (jamais de plantage)."""
+    pb = box.get("playerByGameStats", {}) or {}
+    noms = {}
+    for cote in ("awayTeam", "homeTeam"):
+        for grp in ("forwards", "defense", "goalies"):
+            for j in pb.get(cote, {}).get(grp, []) or []:
+                noms[j.get("playerId")] = (j.get("name") or {}).get("default") or ""
+    ids = {(box.get(c) or {}).get("id"): (box.get(c) or {}).get("abbrev") for c in ("awayTeam", "homeTeam")}
+    a_id = (box.get("awayTeam") or {}).get("id")
+    out = []
+    for jeu in (pbp or {}).get("plays") or []:
+        if jeu.get("typeDescKey") != "goal":
+            continue
+        d = jeu.get("details") or {}
+        t = ids.get(d.get("eventOwnerTeamId")) or ""
+        force, sc = "", str(jeu.get("situationCode") or "")
+        if len(sc) == 4 and sc.isdigit():
+            # situationCode : gardien visiteur, patineurs visiteurs, patineurs locaux, gardien local
+            g_a, p_a, p_h, g_h = (int(c) for c in sc)
+            vis = d.get("eventOwnerTeamId") == a_id
+            moi, eux, g_eux = (p_a, p_h, g_h) if vis else (p_h, p_a, g_a)
+            force = "FD" if g_eux == 0 else "AN" if moi > eux else "DN" if moi < eux else ""
+        passes = [noms.get(d.get(k)) or "" for k in ("assist1PlayerId", "assist2PlayerId") if d.get(k)]
+        out.append([(jeu.get("periodDescriptor") or {}).get("number"), jeu.get("timeInPeriod") or "", t,
+                    noms.get(d.get("scoringPlayerId")) or "", passes, force, d.get("awayScore"), d.get("homeScore")])
+    return out
+
+
 def etat_match(box):
     pd = box.get("periodDescriptor", {}) or {}
     clock = box.get("clock", {}) or {}
@@ -95,7 +171,19 @@ def main():
     for g in commences:
         box = api.boxscore(g["id"])
         if box:
-            games[str(g["id"])] = etat_match(box)
+            e_ = etat_match(box)
+            # Le box score (détail) + le sommaire des buts. Le jeu-par-jeu est gros : on le redemande seulement quand
+            # le pointage a bougé (sinon on garde les buts d'avant).
+            try:
+                e_["box"] = detail_box(box)
+                av = (ancien.get("games") or {}).get(str(g["id"])) or {}
+                if av.get("buts") is not None and (av.get("hs"), av.get("as")) == (e_["hs"], e_["as"]):
+                    e_["buts"] = av["buts"]
+                else:
+                    e_["buts"] = buts_match(api.get_json(f"/gamecenter/{g['id']}/play-by-play") or {}, box)
+            except Exception as ex:  # noqa: BLE001  (un ajout : le pointage passe quand même)
+                print(f"  box {g['id']} : {str(ex)[:120]}")
+            games[str(g["id"])] = e_
 
     if not games and not nouvel_align:
         print(f"{jour}: aucun match commencé, alignements à jour")

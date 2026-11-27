@@ -257,6 +257,22 @@ html #fenetre .fen-pane .wi-carte{width:auto;max-height:none;overflow:visible;bo
 html #fenetre .fen-pane .wi-carte > header{display:none}
 /* L'Aperçu */
 .fen-s{padding:12px 14px 4px}
+/* PBxG et la carte des tirs (27 nov. 2026) */
+.pbx{background:#fff;color:#0A2342;border-radius:12px;padding:12px;display:grid;gap:8px}
+.pbx-tu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.pbx-tu div{background:#F2F5FA;border-radius:9px;padding:8px 4px;text-align:center;border-top:4px solid var(--df,var(--eq,#0A2342))}
+.pbx-tu b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body)}.pbx-tu small{font:700 10px/1.2 var(--f-body);text-transform:uppercase;color:#5B6B86}
+.pbx-tu .plus b{color:#1E8E3E}.pbx-tu .moins b{color:#C8102E}
+.pbx-r{display:block;width:100%;height:auto}
+.pbx-leg{display:flex;gap:6px 12px;flex-wrap:wrap;font-size:12px;color:#5B6B86}
+.pbx-leg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+.pbx-leg i.b{background:#FFB81C;box-shadow:0 0 0 2px #0A2342}.pbx-leg i.c{background:#0A234280}.pbx-leg i.r{border:1.3px solid #5B6B86}
+.pbx h4{margin:6px 0 0;font:800 italic 17px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase}
+.pbx-z{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;align-items:center;font-size:13px}.pbx-z span{color:#5B6B86;text-align:right}
+.pbx-z i{grid-column:1/3;display:block;height:7px;background:#E3E9F2;border-radius:4px;overflow:hidden}.pbx-z em{display:block;height:100%;background:var(--df,#AF1E2D)}
+.pbx .aide{margin:4px 0 0;color:#5B6B86}
+.pbx-res{margin:0 0 8px;font-size:14px}
+.pbx-l .v b{font:800 italic 26px/1 "Barlow Condensed",var(--f-body)}.pbx-p{color:#1E8E3E}.pbx-m{color:#E5484D}
 .fen-s[hidden]{display:none}
 .fen-s h3{margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font:800 italic 19px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;color:var(--or,#FFB81C)}
 .fen-s h3 em{font:800 12px/1 "Barlow Condensed",var(--f-body);font-style:normal;background:#ffffff1f;color:#fff;padding:4px 7px;border-radius:4px;letter-spacing:.04em}
@@ -474,6 +490,11 @@ html.fen-on .wi-modal{z-index:80}
 .wi-carte tr.et .wi-w{font-weight:800;color:#FF7A82}
 .wi-carte tfoot td{font-weight:800;border-top:2px solid #ffffff40;border-bottom:0;color:var(--pv,#fff)}
 .wi-carte .wi-tbl{overflow-x:auto;padding:0 6px}
+/* La Carrière au complet : la saison et l'équipe restent collées à gauche quand on glisse le tableau */
+.car-tout{margin-top:8px;border-top:1px solid #ffffff26;padding-top:10px} .car-tout h3{margin:0 14px 8px;font:800 16px var(--f-display);text-transform:uppercase}
+.car-tout h3 em{font:600 12px var(--f-body);text-transform:none;color:#A9B8C9;margin-left:6px} .car-tout .row{margin:0 14px 8px}
+.car-tbl table{font-size:12.5px;border-collapse:separate;border-spacing:0}
+.car-tbl th:first-child,.car-tbl td:first-child{position:sticky;left:0;z-index:1;background:var(--carte-bg,#0F1B2E);padding-right:8px}
 .wi-carte p{font:500 12px/1.4 var(--f-body);margin:10px 14px 14px;color:#A9B8C9}
 .wi-carte table.wi-car{width:auto;min-width:100%;margin:10px 0 2px;font-size:13px}
 .wi-carte table.wi-car td:first-child{font:800 12px var(--f-body);text-transform:uppercase}
@@ -878,6 +899,26 @@ body::before{background:var(--bande)}
 .mpop .mpop-haut{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px;padding:12px 12px 6px}
 .mpop .mc-pop{cursor:default;aspect-ratio:auto}.mpop .mc-pop .mc-duo{min-height:86px}
 .mpop-ch{display:flex;flex-direction:column;gap:8px}
+/* Le box score (27 nov. 2026) */
+.bx{display:grid;gap:10px}
+.bx-sco{display:flex;align-items:center;justify-content:space-between;gap:8px;background:color-mix(in srgb,currentColor 8%,transparent);border-radius:12px;padding:10px 12px}
+.bx-sco b{font:800 italic 26px/1 "Barlow Condensed",var(--f-body);border-bottom:4px solid var(--c)}
+.bx-sco span{font:700 12.5px/1.2 var(--f-body);text-align:center;opacity:.85}
+.bx-h{margin:6px 0 0;font:800 italic 18px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;border-left:5px solid var(--c,#FFB81C);padding-left:8px}
+.bx-p h4{margin:4px 0;font:800 12px/1 var(--f-body);text-transform:uppercase;letter-spacing:.06em;opacity:.7}
+.bx-b{display:grid;grid-template-columns:44px 38px minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:6px 8px;border-left:4px solid var(--c);background:color-mix(in srgb,currentColor 5%,transparent);border-radius:6px;margin-bottom:4px;font-size:13.5px}
+.bx-b .bx-t{font-variant-numeric:tabular-nums;opacity:.8}.bx-b small{opacity:.75}
+.bx-b i{font:800 10.5px/1 var(--f-body);font-style:normal;background:#FFB81C;color:#0A2342;border-radius:4px;padding:3px 5px}
+.bx-b .bx-sc{font-weight:800;font-variant-numeric:tabular-nums}
+.bx-eq{display:grid;gap:6px}.bx-eh{display:flex;justify-content:space-between;font:800 italic 18px "Barlow Condensed",var(--f-body)}
+.bx-eh b{border-bottom:3px solid var(--c)}
+.bx-l{display:grid;grid-template-columns:34px 1fr 34px;gap:8px;align-items:center;font-variant-numeric:tabular-nums}
+.bx-l > b:last-child{text-align:right}.bx-l span{font-size:12.5px;text-align:center;display:grid;gap:3px}
+.bx-l span i{display:flex;height:6px;border-radius:3px;overflow:hidden;background:color-mix(in srgb,currentColor 12%,transparent)}
+.bx-tab{overflow-x:auto}.bx-tab table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.bx-tab th,.bx-tab td{padding:6px 5px;text-align:center;border-bottom:1px solid color-mix(in srgb,currentColor 12%,transparent);white-space:nowrap}
+.bx-tab th:first-child,.bx-tab td:first-child{text-align:left}.bx-tab th{font:800 11px var(--f-body);text-transform:uppercase;opacity:.7}
+.bx-tab td a{color:inherit;font-weight:700;text-decoration:none}.bx-tab td small{opacity:.6}.bx-tab tr.bx-pt td{font-weight:700}
 .mpop-ch button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:12px;cursor:pointer;color:#fff;font:800 13.5px/1.1 var(--f-body);
   background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02)),#14243D;border:1px solid rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 4px 10px rgba(0,0,0,.35)}
 .mpop-ch button i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
@@ -972,6 +1013,9 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .wir-3{display:inline-flex;gap:2px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line)}
 .wir-3 button{border:0;background:none;color:var(--muted);font:700 13px var(--f-body);padding:7px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
 .wir-3 button[aria-pressed="true"]{background:var(--or,#FFB81C);color:#0B1220}
+/* Saison régulière / Séries / Total (27 nov. 2026) : un menu déroulant à côté de Réel / PB Era */
+.wi-typ button[disabled]{opacity:.4;cursor:default}
+.fen-typ{margin:0 0 10px}
 /* La loupe au complet de PB Stats (les étapes 1, 2, 3, 3b, 4) */
 .px-h{display:flex;align-items:center;gap:8px;margin:16px 0 8px;font:800 12.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--goal)}
 .px-h:empty,.px-h[hidden]{display:none}
@@ -1158,6 +1202,11 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .fw-c em{font:800 10px/1 "Barlow Condensed",var(--f-body);font-style:normal;text-transform:uppercase;color:#4A5D78}
 .fw-t{margin:14px 16px 4px;font:800 italic 26px/1.05 "Barlow Condensed",var(--f-body);text-transform:none}
 .fw-by{margin:0 16px 10px;font:600 12.5px/1.3 var(--f-body);color:var(--muted)}
+/* Habs On The Wire (27 nov. 2026) : les deux pastilles du haut, et l'étiquette bleu-blanc-rouge de la section */
+.fw-sec{display:flex;gap:6px;margin:0 0 10px;flex-wrap:wrap}
+.fw-sec button{border:0;cursor:pointer;font:800 italic 16px/1 "Barlow Condensed",var(--f-body);text-transform:uppercase;padding:9px 13px;border-radius:999px;background:color-mix(in srgb,currentColor 12%,transparent);color:inherit}
+.fw-sec button[aria-selected="true"]{background:#FFB81C;color:#0A2342}
+.fw-sp.fw-hb{background:#192168;box-shadow:inset 0 -3px 0 #AF1E2D}
 .fw-sp{background:#C8102E;color:#fff;font:800 11px/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase;padding:3px 6px;border-radius:3px}
 .fw-ch{margin:0 16px 12px;font:700 16px/1.5 var(--f-body)}
 .fw-corps{padding:0 16px 6px;font:500 15.5px/1.6 var(--f-body)}

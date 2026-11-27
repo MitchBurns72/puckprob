@@ -1,6 +1,28 @@
 {
- "maj": "2026-11-27T07:18-05:00",
+ "maj": "2026-11-27T10:54-05:00",
  "articles": [
+  {
+   "jour": "2026-11-27",
+   "cle": "2026-11-27",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose",
+    "en": "Perreault goes down, the Rangers teeter, and Edvinsson looks to San Jose"
+   },
+   "jusqu": "2026-11-27T12:17",
+   "chapeau": {
+    "fr": "Les Rangers perdent Gabe Perreault, une aubaine à 0,9 M$ qui en vaut 5,2 selon notre PB Market Value, et glissent à 46,8 % pour les séries. À Detroit, le dossier Edvinsson passe par San Jose, et Jeannot et Bauer ont eu la seule vraie « transaction » de la journée.",
+    "en": "The Rangers lose Gabe Perreault, a $0.9M bargain worth $5.2M by our PB Market Value, and slide to a 46.8% playoff prob. In Detroit, the Edvinsson file runs through San Jose, and Jeannot and Bauer pulled off the day's only real \"trade.\""
+   },
+   "vedette": "Gabe Perreault",
+   "vid": "8484210",
+   "veq": "NYR",
+   "par": "claude",
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
+  },
   {
    "jour": "2026-11-26",
    "cle": "2026-11-26",
@@ -19,7 +41,9 @@
    "vid": "8480069",
    "veq": "COL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "Cloud Talbot",
+   "section": ""
   },
   {
    "jour": "2026-11-25",
@@ -39,7 +63,9 @@
    "vid": "8476453",
    "veq": "TBL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "Artii Fishalsen",
+   "section": ""
   },
   {
    "jour": "2026-11-24",
@@ -59,7 +85,9 @@
    "vid": "8480800",
    "veq": "MIN",
    "par": "regles",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-23",
@@ -79,7 +107,9 @@
    "vid": 8476244,
    "veq": "MTL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-23",
@@ -99,7 +129,9 @@
    "vid": 8477946,
    "veq": "MTL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-22",
@@ -119,7 +151,9 @@
    "vid": 8477946,
    "veq": "MTL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-22",
@@ -139,7 +173,9 @@
    "vid": "8477492",
    "veq": "COL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-21",
@@ -159,7 +195,9 @@
    "vid": "8477416",
    "veq": "NYR",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   },
   {
    "jour": "2026-11-20",
@@ -179,7 +217,9 @@
    "vid": "8479542",
    "veq": "TBL",
    "par": "claude",
-   "img": true
+   "img": true,
+   "auteur": "PuckProb.ca",
+   "section": ""
   }
  ]
 }

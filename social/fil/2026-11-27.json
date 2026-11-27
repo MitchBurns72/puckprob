@@ -1,6 +1,6 @@
 {
  "jour": "2026-11-27",
- "maj": "2026-11-27T07:18-05:00",
+ "maj": "2026-11-27T10:54-05:00",
  "publier": true,
  "items": [
   {
@@ -75,6 +75,37 @@
    "lien_en": "https://puckprob.ca/",
    "titre": "Last Night's Biggest Movers",
    "diapo": null
+  },
+  {
+   "id": "2026-11-27-matin-fil",
+   "quand": "2026-11-27T11:08-05:00",
+   "image": "social/fil/2026-11-27/2026-11-27-matin-fil.jpg",
+   "images": null,
+   "avant": null,
+   "retard": null,
+   "texte": "PB ON THE WIRE · Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose\n\nLes Rangers perdent Gabe Perreault, une aubaine à 0,9 M$ qui en vaut 5,2 selon notre PB Market Value, et glissent à 46,8 % pour les séries. À Detroit, le dossier Edvinsson passe par San Jose, et Jeannot et Bauer ont eu la seule vraie « transaction » de la journée.\n\nL'article complet : 1er commentaire.\n\nPB ON THE WIRE · Perreault goes down, the Rangers teeter, and Edvinsson looks to San Jose\n\nThe Rangers lose Gabe Perreault, a $0.9M bargain worth $5.2M by our PB Market Value, and slide to a 46.8% playoff prob. In Detroit, the Edvinsson file runs through San Jose, and Jeannot and Bauer pulled off the day's only real \"trade.\"\n\nFull article: first comment.",
+   "texte_ig": "PB ON THE WIRE · Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose\n\nLes Rangers perdent Gabe Perreault, une aubaine à 0,9 M$ qui en vaut 5,2 selon notre PB Market Value, et glissent à 46,8 % pour les séries. À Detroit, le dossier Edvinsson passe par San Jose, et Jeannot et Bauer ont eu la seule vraie « transaction » de la journée.\n\nL'article complet : lien dans la bio.\n\nPB ON THE WIRE · Perreault goes down, the Rangers teeter, and Edvinsson looks to San Jose\n\nThe Rangers lose Gabe Perreault, a $0.9M bargain worth $5.2M by our PB Market Value, and slide to a 46.8% playoff prob. In Detroit, the Edvinsson file runs through San Jose, and Jeannot and Bauer pulled off the day's only real \"trade.\"\n\nFull article: link in bio.",
+   "com": "Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose\nhttps://puckprob.ca/fr/sur-le-fil/2026-11-27/\n\nPerreault goes down, the Rangers teeter, and Edvinsson looks to San Jose\nhttps://puckprob.ca/on-the-wire/2026-11-27/",
+   "com_ig": "Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose\nLien dans la bio · Link in bio : puckprob.ca/liens\n\nPerreault goes down, the Rangers teeter, and Edvinsson looks to San Jose",
+   "type": "fil",
+   "opt": {
+    "jour": "2026-11-27"
+   },
+   "lien": "https://puckprob.ca/fr/sur-le-fil/2026-11-27/",
+   "lien_en": "https://puckprob.ca/on-the-wire/2026-11-27/",
+   "titre": "PB On The Wire · Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose"
+  },
+  {
+   "id": "2026-11-27-matin-fil-story",
+   "quand": "2026-11-27T11:10-05:00",
+   "story": true,
+   "courte": "fil",
+   "sans_fin": true,
+   "suit": "2026-11-27-matin-fil",
+   "cadre": "social/fil/2026-11-27/2026-11-27-matin-fil-story.jpg",
+   "avant": null,
+   "type": "story",
+   "titre": "Story · PB On The Wire · Perreault tombe, les Rangers sur la clôture, et Edvinsson regarde vers San Jose"
   },
   {
    "id": "2026-11-27-recap",
