@@ -87,6 +87,10 @@ IG_COMMENTAIRE = False
 # L'état est gardé sous la clé « _ig » du fichier : ici social_poste.json (le job live le pousse déjà ; un fichier à part
 # serait perdu à chaque relance du job). Côté Tirs-nhl : data/social/ig_garde.json.
 MAINTENANT = None          # l'heure simulée des tests (main(maintenant)) ; sinon l'heure réelle
+# Instagram coupé au complet (Mitch, 27 nov. 2026 : « mets Insta sur pause, on va se concentrer sur stabiliser nos
+# affaires sur Facebook ») : config.json « social_instagram » à false. Le calcul le lit (social._ig_ok) et le passe au
+# job live dans le fil (clé « instagram ») ; ig_ok() dit alors non à tout (posts ET stories), Facebook continue.
+IG_COUPE = False
 
 
 def _json(f):
@@ -105,6 +109,8 @@ def ig_ok(f=None, max_jour=None, ecart_min=None, story=False):
     f : le fichier d'état (par défaut social_poste.json du job live)."""
     max_jour = IG_MAX_JOUR if max_jour is None else max_jour
     ecart_min = IG_ECART_MIN if ecart_min is None else ecart_min
+    if IG_COUPE:
+        return False, "Instagram coupé (config « social_instagram »)"
     g, n = _ig_lire(f or POSTE), MAINTENANT or datetime.now(TZ)
     for p_ in (g.get("pause_jusqu"), PAUSE_EXTERNE):
         try:
@@ -307,8 +313,6 @@ def publier_diapo(it):
     photo (la vidéo a peut-être passé : pas de doublon)."""
     import tempfile
     import story_match
-    page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
-    out = {}
     with tempfile.TemporaryDirectory() as tmp:
         try:
             mp4 = story_match.video_diapo([(RACINE / f).read_bytes() for f in it["diapo"]], Path(tmp) / "post.mp4", it["id"])
@@ -316,47 +320,72 @@ def publier_diapo(it):
         except Exception as ex:  # noqa: BLE001
             print(f"  vidéo du mod pas faite ({str(ex)[:160]}) : la photo à la place")
             return None
-        try:
-            r = _graph(f"{page}/videos", {"description": it["texte"]}, fichier=donnees, mime="video/mp4", nom_fichier="puckprob.mp4", hote="graph-video")
-        except Exception as ex:  # noqa: BLE001
-            if "timed out" in str(ex).lower():
-                print(f"  vidéo envoyée mais pas de réponse de Meta ({str(ex)[:100]}) : on ne republie pas en photo")
-                return {"fb": "incertain (pas de réponse de Meta)", "video": True}
-            print(f"  vidéo Facebook ratée ({str(ex)[:160]}) : la photo à la place")
-            return None
-        out["fb"], out["video"] = r.get("post_id") or r.get("id"), True
-        print(f"  Facebook OK, vidéo du mod ({out['fb']})")
-        out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
-        if not ig:
-            return out
-        ok, raison = ig_ok()
-        if not ok:
-            out["ig"] = f"sauté : {raison}"
-            print(f"  Instagram {out['ig']}")
-            return out
-        try:
-            c = _graph(f"{ig}/media", {"media_type": "REELS", "upload_type": "resumable", "caption": it.get("texte_ig") or it["texte"], "share_to_feed": "true"})
-            _rupload(c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{API}/{c['id']}", donnees)
-            for _ in range(60):                       # une vidéo : jusqu'à 3 min de traitement chez Meta
-                st = _graph(str(c["id"]), {"fields": "status_code"}, methode="GET").get("status_code")
-                if st in ("FINISHED", None):
-                    break
-                if st == "ERROR":
-                    raise RuntimeError("Instagram n'a pas pu lire la vidéo")
-                time.sleep(3)
-            out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
-            print(f"  Instagram OK, Reel du mod ({out['ig']})")
-            if IG_COMMENTAIRE:
-                out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
-        except Exception as ex:  # noqa: BLE001
-            out["ig"] = f"erreur : {str(ex)[:200]}"
-            print(f"  Instagram {out['ig']}")
-        ig_noter(out.get("ig"))
+        return _video_fb_ig(it, donnees, "vidéo du mod")
+
+
+def publier_video(it):
+    """Une vidéo déjà montée, poussée telle quelle par le calcul (it["video"], un .mp4 vertical : le reel vitrine de
+    PuckProb, Mitch, 27 nov. 2026). Même chemin que la vidéo du mod : vidéo Facebook, puis Reel Instagram. On ne refait
+    pas la vidéo ici (elle est montée sur le rythme de la toune : la refaire la décalerait). -> comme publier_diapo()."""
+    try:
+        donnees = (RACINE / it["video"]).read_bytes()
+    except OSError as ex:
+        print(f"  vidéo introuvable ({str(ex)[:160]}) : la photo à la place")
+        return None
+    return _video_fb_ig(it, donnees, "reel")
+
+
+def _video_fb_ig(it, donnees, quoi):
+    """Le téléversement commun des vidéos : Facebook (vidéo de la Page), puis Instagram (Reel, partagé dans le fil).
+    None si Facebook refuse (publier() sort la photo à la place) ; Facebook sans réponse : on ne republie pas en photo
+    (la vidéo a peut-être passé : pas de doublon)."""
+    page, ig = os.environ.get("META_PAGE_ID", "").strip(), os.environ.get("META_IG_ID", "").strip()
+    out = {}
+    try:
+        r = _graph(f"{page}/videos", {"description": it["texte"]}, fichier=donnees, mime="video/mp4", nom_fichier="puckprob.mp4", hote="graph-video")
+    except Exception as ex:  # noqa: BLE001
+        if "timed out" in str(ex).lower():
+            print(f"  vidéo envoyée mais pas de réponse de Meta ({str(ex)[:100]}) : on ne republie pas en photo")
+            return {"fb": "incertain (pas de réponse de Meta)", "video": True}
+        print(f"  vidéo Facebook ratée ({str(ex)[:160]}) : la photo à la place")
+        return None
+    out["fb"], out["video"] = r.get("post_id") or r.get("id"), True
+    print(f"  Facebook OK, {quoi} ({out['fb']})")
+    out["fb_com"] = _commenter(out["fb"], it.get("com"), "Facebook")
+    if not ig:
+        return out
+    ok, raison = ig_ok()
+    if not ok:
+        out["ig"] = f"sauté : {raison}"
+        print(f"  Instagram {out['ig']}")
+        return out
+    try:
+        c = _graph(f"{ig}/media", {"media_type": "REELS", "upload_type": "resumable", "caption": it.get("texte_ig") or it["texte"], "share_to_feed": "true"})
+        _rupload(c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{API}/{c['id']}", donnees)
+        for _ in range(60):                       # une vidéo : jusqu'à 3 min de traitement chez Meta
+            st = _graph(str(c["id"]), {"fields": "status_code"}, methode="GET").get("status_code")
+            if st in ("FINISHED", None):
+                break
+            if st == "ERROR":
+                raise RuntimeError("Instagram n'a pas pu lire la vidéo")
+            time.sleep(3)
+        out["ig"] = _graph(f"{ig}/media_publish", {"creation_id": c["id"]}).get("id")
+        print(f"  Instagram OK, Reel ({quoi}) ({out['ig']})")
+        if IG_COMMENTAIRE:
+            out["ig_com"] = _commenter(out["ig"], it.get("com_ig") or it.get("com"), "Instagram")
+    except Exception as ex:  # noqa: BLE001
+        out["ig"] = f"erreur : {str(ex)[:200]}"
+        print(f"  Instagram {out['ig']}")
+    ig_noter(out.get("ig"))
     return out
 
 
 def publier(it):
     """Facebook (fichier), puis Instagram (adresse de la photo Facebook). Même recette que social.publier()."""
+    if it.get("video"):
+        out = publier_video(it)
+        if out:
+            return out
     if it.get("diapo"):
         out = publier_diapo(it)
         if out:
@@ -440,6 +469,8 @@ def main(maintenant=None):
         return 0
     global PAUSE_EXTERNE
     PAUSE_EXTERNE = F.get("ig_pause_jusqu")          # la pause Instagram du calcul (s'il s'est fait bloquer de son bord)
+    global IG_COUPE
+    IG_COUPE = F.get("instagram") is False           # Instagram coupé au complet (config du calcul)
     poste = _lire(POSTE, {})
     # (un vieil item « effacer », laissé dans le fil par le code d'avant le 19 nov. 2026 : sauté, jamais publié comme
     # un post ; les stories s'enlèvent seules après 24 h)
