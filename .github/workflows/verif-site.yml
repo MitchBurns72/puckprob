@@ -1,0 +1,58 @@
+name: Check du site
+
+# Après chaque publication du calcul de Tirs-nhl (un push qui change le site, pas le live.json ni le fil social du
+# job Live), un navigateur ouvre puckprob.ca et touche chaque section (.github/verif/verif.mjs). Une erreur = X rouge
+# ici, avec le détail dans le résumé. Dépôt public : minutes de calcul gratuites.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "live.json"
+      - "live/**"
+      - "social/**"
+      - "social_poste.json"
+      - "live_code/**"
+      - ".github/workflows/live.yml"
+  schedule:
+    - cron: "23 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: read
+
+concurrency:
+  group: verif-site
+  cancel-in-progress: true
+
+jobs:
+  verif:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/verif
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Attendre que GitHub Pages ait publié ce push
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 30); do
+            s=$(gh api repos/${{ github.repository }}/pages/builds/latest --jq '.status + " " + .commit' 2>/dev/null || echo "?")
+            echo "Pages : $s"
+            case "$s" in built\ ${{ github.sha }}*) break;; esac
+            sleep 20
+          done
+          sleep 30
+      - name: Installer le navigateur
+        working-directory: .github/verif
+        run: |
+          npm init -y >/dev/null
+          npm i playwright@1.49.1 >/dev/null
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Toucher chaque section du site
+        working-directory: .github/verif
+        run: node verif.mjs
