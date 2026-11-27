@@ -1027,6 +1027,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .px-xsg label{display:flex;align-items:center;gap:6px;min-width:0;font:700 12px var(--f-body);color:var(--muted)}
 .px-xsg select,#px-xspre,#px-xsnom{flex:1;min-width:0;padding:7px 8px;border-radius:9px;border:1px solid var(--line);font:600 13.5px var(--f-body);background:var(--surface);color:var(--ink)}
 #px-xspre{flex:0 1 auto}#px-xsnom{flex:0 1 150px}
+.st-dep{font-weight:600;opacity:.75;text-transform:none;letter-spacing:0}
 #px-sz,#px-trisel{padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:600 15px var(--f-body);background:var(--surface);color:var(--ink)}
 .pbx-plus{display:block;margin:14px auto 6px;border:0;cursor:pointer}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
@@ -1212,7 +1213,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=7d08105f">
+<link rel="stylesheet" href="carte.css?v=8e2c32df">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4557,7 +4558,15 @@ function pbxCases(t, catK, x, val, stK){
 document.addEventListener("click", (e) => {
   const c = e.target.closest?.("[data-pxs]"); if (!c) return;
   e.preventDefault(); e.stopPropagation();
-  S.px_st = c.dataset.pxs; S.px_tri = ""; S.px_ord = ""; S.px_n = "";
+  // La stat déjà affichée : l'ordre s'inverse (Mitch, 26 nov. 2026 : « quand on pèse une 2e fois, ça la ressort dans
+  // l'autre sens ») ; une autre stat : elle s'affiche, dans son ordre normal
+  const k = c.dataset.pxs;
+  if (k === pbxStat() && !S.px_tri){
+    const basBon = ["bpg", "ba", "age", "rev", "bcf"].includes(k);
+    const cour = S.px_ord || (basBon ? "asc" : "desc");
+    S.px_ord = cour === "asc" ? "desc" : "asc";
+  } else { S.px_st = k; S.px_ord = ""; }
+  S.px_tri = ""; S.px_n = "";
   whatif();
   $("#p-whatif")?.scrollIntoView({ block: "start" });
 }, true);
@@ -4775,7 +4784,11 @@ async function pbxVue(el, q, jeton = WI_JETON){
   const modeTxt = mode === "r" ? L("réel", "real") : mode === "e" ? "PB Era · " + L("PJ réels", "real GP") : "PB Era · 82 PJ";
   const depuis = st.depuis && saisons[0] < st.depuis ? L(` La ligue compte cette stat depuis ${pbxNomS(st.depuis)}.`, ` The league has counted this stat since ${pbxNomS(st.depuis)}.`) : "";
   const minTxt = minAuto ? L(` Minimum ${minAuto} matchs (change-le dans Matchs).`, ` Minimum ${minAuto} games (change it in Games).`) : "";
-  const tete = `<div class="cp-tete">${titrePB("PB Stats", L(st.fr || "Âge", st.en || "Age"))}<p>${L(`${t === "g" ? "Gardiens" : "Patineurs"}, ${ep}${lig === "rec" ? ", meilleures saisons" : ""}, ${modeTxt}. ${total.toLocaleString(LANG)} ${lig === "rec" ? "saisons" : "joueurs"}.`,
+  // Depuis quand la LNH compte la stat affichée, à côté de son nom (Mitch, 26 nov. 2026) ; un ratio : depuis son
+  // dénominateur (le % de réussite : depuis qu'on compte les tirs)
+  const depSt = st.k === "age" ? null : (PBX_DEN[st.k] && catK[PBX_DEN[st.k]]?.depuis) || st.depuis;
+  const nomSt = L(st.fr || "Âge", st.en || "Age") + (depSt ? ` <span class="st-dep">· ${L("comptée depuis", "counted since")} ${pbxNomS(depSt)}</span>` : "");
+  const tete = `<div class="cp-tete">${titrePB("PB Stats", nomSt)}<p>${L(`${t === "g" ? "Gardiens" : "Patineurs"}, ${ep}${lig === "rec" ? ", meilleures saisons" : ""}, ${modeTxt}. ${total.toLocaleString(LANG)} ${lig === "rec" ? "saisons" : "joueurs"}.`,
     `${t === "g" ? "Goalies" : "Skaters"}, ${ep}${lig === "rec" ? ", best seasons" : ""}, ${modeTxt}. ${total.toLocaleString(LANG)} ${lig === "rec" ? "seasons" : "players"}.`)}${depuis}${minTxt}</p></div>`;
   const plus = total > N ? `<button class="lien-plus pbx-plus" data-pxplus="${N * 2}">${L(`Voir plus : +${Math.min(N, total - N).toLocaleString(LANG)}`, `Show more: +${Math.min(N, total - N).toLocaleString(LANG)}`)}</button>` : "";
   const rec = st.rec ? `<p class="aide">${pbxRecette(st)}</p>` : "";
@@ -10003,8 +10016,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=7d08105f" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=7d08105f" defer></script>
+<script src="pub.js?v=8e2c32df" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=8e2c32df" defer></script>
 <script src="nav.js?v=0a6e39caf4" defer></script>
 </body>
 </html>

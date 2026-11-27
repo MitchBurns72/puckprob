@@ -999,6 +999,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .px-xsg label{display:flex;align-items:center;gap:6px;min-width:0;font:700 12px var(--f-body);color:var(--muted)}
 .px-xsg select,#px-xspre,#px-xsnom{flex:1;min-width:0;padding:7px 8px;border-radius:9px;border:1px solid var(--line);font:600 13.5px var(--f-body);background:var(--surface);color:var(--ink)}
 #px-xspre{flex:0 1 auto}#px-xsnom{flex:0 1 150px}
+.st-dep{font-weight:600;opacity:.75;text-transform:none;letter-spacing:0}
 #px-sz,#px-trisel{padding:8px 10px;border-radius:10px;border:1px solid var(--line);font:600 15px var(--f-body);background:var(--surface);color:var(--ink)}
 .pbx-plus{display:block;margin:14px auto 6px;border:0;cursor:pointer}
 .wi-lien{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
