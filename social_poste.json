@@ -3221,6 +3221,19 @@
   "publie": true,
   "quand": "2026-11-26T11:20-05:00"
  },
+ "2026-11-27-vitrine-reel": {
+  "fb": "948565074860112",
+  "video": true,
+  "fb_com": "948565074860112_1884974892525151",
+  "ig": "sauté : Instagram coupé (config « social_instagram »)",
+  "type": "vitrine",
+  "opt": null,
+  "lien": "https://puckprob.ca",
+  "lien_en": "https://puckprob.ca",
+  "titre": "PuckProb · Reel vitrine (à épingler)",
+  "publie": true,
+  "quand": "2026-11-27T00:55-05:00"
+ },
  "_efface": {
   "jour": "2026-11-19",
   "n": 7,
