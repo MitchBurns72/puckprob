@@ -1213,7 +1213,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=716ad39e">
+<link rel="stylesheet" href="carte.css?v=985adc98">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -5229,43 +5229,55 @@ function wiParEq(t, x){
     ? `<td>${n(v[0])}</td><td>${n(v[1])}</td><td>${n(v[2])}</td><td>${n(v[3])}</td><td>${pmW(Math.round(v[4]))}</td><td class="wi-w">${n(v[5])}</td><td class="wi-w">${n(v[6])}</td><td class="wi-w">${n(v[7])}</td><td class="wi-w">${pmW(Math.round(v[8]))}</td>`
     : `<td>${n(v[0])}</td><td>${n(v[1])}</td><td></td><td></td><td class="wi-w">${n(v[2])}</td><td class="wi-w">${n(v[3])}</td><td class="wi-w"></td><td class="wi-w"></td>`) + "</tr>").join("");
 }
+// PB Era avec ses vrais matchs (Mitch, 26 nov. 2026 : « dans les profils, au lieu de sur 82, mets le PB Era Real ») :
+// une saison étirée à 82 se ramène à ses matchs joués (même rythme, ses vrais matchs). x.we / x.rge : les totaux et les
+// rangs (src/whatif.py) ; avant le prochain calcul, les totaux se refont ici et les rangs attendent.
+const wiEr = (v, pj, wpj) => v == null ? v : Math.round(wpj ? v * pj / wpj : v);
+function wiWe(t, x){
+  if (x.we) return x.we;
+  if (t === "j"){ const o = [0, 0, 0, 0, 0]; for (const r of x.s){ o[0] += r[2]; [8, 9, 10, 11].forEach((k, j) => { o[j + 1] += wiEr(r[k] || 0, r[2], r[7]); }); } return o; }
+  const o = [0, 0]; for (const r of x.s){ o[0] += r[2]; o[1] += wiEr(r[6] || 0, r[2], r[5]); } return o;
+}
 function wiCarte(t, id){
   const x = WI?.[t]?.[id]; if (!x) return;
+  const we = wiWe(t, x);
   const sz = (s) => `${s.slice(2, 4)}-${s.slice(6)}`, eqC = (e) => { const l = e.split(","); return l.length > 1 ? l.pop() + "*" : e; };
   const cours = (s) => s === WI.saison ? "†" : "";
   let tete, table, note;
   if (t === "j"){
     const C = [["b", 1, 0, L("Buts", "Goals")], ["a", 2, 2, L("Passes", "Assists")], ["p", 3, 4, L("Points", "Points")], ["pm", 4, 6, "+/-"]];
     tete = `<table class="wi-car"><thead><tr><th></th><th>${L("Réel", "Real")}</th><th>${L("Rang", "Rank")}</th><th class="wi-w">PB</th><th class="wi-w">${L("Rang", "Rank")}</th></tr></thead><tbody>${C.map(([, k, r, n]) => {
-      const f = k === 4 ? pmW : nW; return `<tr><td>${n}</td><td>${f(x.r[k])}</td><td>${rangFr(x.rg[r])}</td><td class="wi-w">${f(x.w[k])}</td><td class="wi-w">${rangFr(x.rg[r + 1])}</td></tr>`; }).join("")}
+      const f = k === 4 ? pmW : nW; return `<tr><td>${n}</td><td>${f(x.r[k])}</td><td>${rangFr(x.rg[r])}</td><td class="wi-w">${f(we[k])}</td><td class="wi-w">${x.rge ? rangFr(x.rge[r / 2]) : "–"}</td></tr>`; }).join("")}
       <tr><td>${L("Pts/match", "Pts/game")}</td><td>${ppg2(x.ppg?.[0])}</td><td>${rangFr(x.rg[8])}</td><td class="wi-w">${ppg2(x.ppg?.[1])}</td><td class="wi-w">${rangFr(x.rg[9])}</td></tr></tbody></table>`;
     // Une saison partagée (échangé) : la ligne de la saison, puis une sous-ligne par équipe (x.sp, src/whatif.py
     // scissions ; Mitch, 14 nov. 2026)
     const sousJ = (s) => (x.sp?.[s] || []).map(([e, pj, b, a, p, pm, wpj, wb, wa, wp, wpm]) =>
       `<tr class="wi-sp"><td></td><td><button class="wi-lien" data-wieq="${e}" data-wiss="${s}">↳ ${e}</button></td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td><td>${pmW(pm)}</td>
-        <td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td><td class="wi-w">${pmW(wpm)}</td></tr>`).join("");
-    const lignes = x.s.map(r => { const [s, eq, pj, b, a, p, pm, wpj, wb, wa, wp, wpm] = r;
-      return `<tr class="${wpj !== pj ? "et" : ""}"><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td><td>${pmW(pm)}</td>
+        <td class="wi-w">${wiEr(wb, pj, wpj)}</td><td class="wi-w">${wiEr(wa, pj, wpj)}</td><td class="wi-w">${wiEr(wp, pj, wpj)}</td><td class="wi-w">${pmW(wiEr(wpm, pj, wpj))}</td></tr>`).join("");
+    const lignes = x.s.map(r => { const [s, eq, pj, b, a, p, pm, wpj, wb_, wa_, wp_, wpm_] = r;
+      const wb = wiEr(wb_, pj, wpj), wa = wiEr(wa_, pj, wpj), wp = wiEr(wp_, pj, wpj), wpm = wiEr(wpm_, pj, wpj);
+      return `<tr><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${b}</td><td>${a}</td><td>${p}</td><td>${pmW(pm)}</td>
         <td class="wi-w">${wb}</td><td class="wi-w">${wa}</td><td class="wi-w">${wp}</td><td class="wi-w">${pmW(wpm)}</td></tr>${sousJ(s)}`; }).join("");
-    table = `<table><thead><tr><th></th><th></th><th class="g" colspan="5">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB (${WI.regles?.matchs || 82} ${L("m.", "g.")})</th></tr>
+    table = `<table><thead><tr><th></th><th></th><th class="g" colspan="5">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB Era · ${L("PJ réels", "real GP")}</th></tr>
       <tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th><th>${L("B", "G")}</th><th>A</th><th>PTS</th><th>+/-</th><th class="wi-w">${L("B", "G")}</th><th class="wi-w">A</th><th class="wi-w">PTS</th><th class="wi-w">+/-</th></tr></thead>
-      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${nW(x.r[2])}</td><td>${nW(x.r[3])}</td><td>${pmW(x.r[4])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${nW(x.w[2])}</td><td class="wi-w">${nW(x.w[3])}</td><td class="wi-w">${pmW(x.w[4])}</td></tr>${wiParEq("j", x)}</tfoot></table>`;
-    note = L(`PB Stats = ramené à l'ère d'aujourd'hui et à ${WI.regles?.matchs} matchs. En rouge : saisons étirées (matchs manqués remplacés par son rythme). Sous ${WI.regles?.min_pj} matchs : l'ère seulement.`,
-             `PB Stats = brought to today's era and ${WI.regles?.matchs} games. In red: stretched seasons (missed games replaced by his pace). Under ${WI.regles?.min_pj} games: era only.`);
+      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${nW(x.r[2])}</td><td>${nW(x.r[3])}</td><td>${pmW(x.r[4])}</td><td class="wi-w">${nW(we[1])}</td><td class="wi-w">${nW(we[2])}</td><td class="wi-w">${nW(we[3])}</td><td class="wi-w">${pmW(x.w[4])}</td></tr>${wiParEq("j", x)}</tfoot></table>`;
+    note = L(`PB Era · PJ réels = ses stats ramenées à l'ère d'aujourd'hui, avec ses vrais matchs (sans les étirer à ${WI.regles?.matchs || 82} ; la version à ${WI.regles?.matchs || 82} reste dans PB Stats).`,
+             `PB Era · real GP = his stats brought to today's era, with his real games (not stretched to ${WI.regles?.matchs || 82}; the ${WI.regles?.matchs || 82}-game version stays in PB Stats).`);
   } else {
     tete = `<table class="wi-car"><thead><tr><th></th><th>${L("Réel", "Real")}</th><th>${L("Rang", "Rank")}</th><th class="wi-w">PB</th><th class="wi-w">${L("Rang", "Rank")}</th></tr></thead><tbody>
-      <tr><td>${L("Victoires", "Wins")}</td><td>${nW(x.r[1])}</td><td>${rangFr(x.rg[0])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${rangFr(x.rg[1])}</td></tr>
+      <tr><td>${L("Victoires", "Wins")}</td><td>${nW(x.r[1])}</td><td>${rangFr(x.rg[0])}</td><td class="wi-w">${nW(we[1])}</td><td class="wi-w">${x.rge ? rangFr(x.rge[0]) : "–"}</td></tr>
       <tr><td>${L("% arrêts", "Save %")}</td><td>${sv3(x.sv[0])}</td><td>${rangFr(x.rg[2])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${rangFr(x.rg[3])}</td></tr>
       <tr><td>${L("Moyenne", "GAA")}</td><td>${bpg2(x.bpg[0])}</td><td>${rangFr(x.rg[4])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td><td class="wi-w">${rangFr(x.rg[5])}</td></tr></tbody></table>`;
     const sousG = (s) => (x.sp?.[s] || []).map(([e, pj, v, sv, gaa, wpj, wv]) =>
       `<tr class="wi-sp"><td></td><td><button class="wi-lien" data-wieq="${e}" data-wiss="${s}">↳ ${e}</button></td><td>${pj}</td><td>${v}</td><td>${sv3(sv)}</td><td>${bpg2(gaa)}</td>
-        <td class="wi-w">${wpj}</td><td class="wi-w">${wv}</td><td class="wi-w"></td><td class="wi-w"></td></tr>`).join("");
-    const lignes = x.s.map(r => { const [s, eq, pj, v, sv, wpj, wv, wsv, bp, wbp] = r;
-      return `<tr class="${wpj !== pj ? "et" : ""}"><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${v}</td><td>${sv3(sv)}</td><td>${bpg2(bp)}</td>
+        <td class="wi-w">${pj}</td><td class="wi-w">${wiEr(wv, pj, wpj)}</td><td class="wi-w"></td><td class="wi-w"></td></tr>`).join("");
+    const lignes = x.s.map(r => { const [s, eq, pj, v, sv, wpj_, wv_, wsv, bp, wbp] = r;
+      const wpj = pj, wv = wiEr(wv_, pj, wpj_);
+      return `<tr><td><button class="wi-lien" data-wis="${s}">${sz(s)}</button>${cours(s)}</td><td><button class="wi-lien" data-wieq="${eq.split(",").pop()}" data-wiss="${s}">${eqC(eq)}</button></td><td>${pj}</td><td>${v}</td><td>${sv3(sv)}</td><td>${bpg2(bp)}</td>
         <td class="wi-w">${wpj}</td><td class="wi-w">${wv}</td><td class="wi-w">${sv3(wsv)}</td><td class="wi-w">${bpg2(wbp)}</td></tr>${sousG(s)}`; }).join("");
-    table = `<table><thead><tr><th></th><th></th><th class="g" colspan="4">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB</th></tr>
+    table = `<table><thead><tr><th></th><th></th><th class="g" colspan="4">${L("Réel", "Real")}</th><th class="g wi-w" colspan="4">PB Era · ${L("PJ réels", "real GP")}</th></tr>
       <tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th><th>${L("V", "W")}</th><th>${L("Arr%", "Sv%")}</th><th>${L("Moy.", "GAA")}</th><th class="wi-w">${L("PJ", "GP")}</th><th class="wi-w">${L("V", "W")}</th><th class="wi-w">${L("Arr%", "Sv%")}</th><th class="wi-w">${L("Moy.", "GAA")}</th></tr></thead>
-      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${sv3(x.sv[0])}</td><td>${bpg2(x.bpg[0])}</td><td class="wi-w">${nW(x.w[0])}</td><td class="wi-w">${nW(x.w[1])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td></tr>${wiParEq("g", x)}</tfoot></table>`;
+      <tbody>${lignes}</tbody><tfoot><tr><td>Total</td><td></td><td>${nW(x.r[0])}</td><td>${nW(x.r[1])}</td><td>${sv3(x.sv[0])}</td><td>${bpg2(x.bpg[0])}</td><td class="wi-w">${nW(we[0])}</td><td class="wi-w">${nW(we[1])}</td><td class="wi-w">${sv3(x.sv[1])}</td><td class="wi-w">${bpg2(x.bpg[1])}</td></tr>${wiParEq("g", x)}</tfoot></table>`;
     const G = WI.regles?.g || [62, 24, 25, 5];
     note = L(`PB Stats = ${G[0]} matchs par saison (${G[2]}+ joués) ou ${G[1]} (moins de ${G[2]}), victoires, % d'arrêts et moyenne ramenés à l'ère d'aujourd'hui. « – » = pas de tirs ou de temps de jeu comptés cette saison-là.`,
              `PB Stats = ${G[0]} games per season (${G[2]}+ played) or ${G[1]} (fewer than ${G[2]}), wins, save % and GAA brought to today's era. "–" = no shots or ice time counted that season.`);
@@ -5275,7 +5287,7 @@ function wiCarte(t, id){
     <header><div class="wi-hd">${wiRond(x)}<div><b>${nomP(x.n, t)}</b><span>${t === "g" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward")} · ${x.s.length} ${L("saison", "season")}${x.s.length > 1 ? "s" : ""} · ${x.act ? L("actif", "active") : L("retraité", "retired")}</span><span>${wiStats(t, x)}</span>${wiEqs(x)}</div></div><button type="button" class="wi-x" aria-label="${L("Fermer", "Close")}">×</button></header>
     <div class="wi-tbl">${tete}</div><div class="wi-tbl">${table}</div>
     <p>${note}${x.s.some(r => r[0] === WI.saison) ? L(" † Saison en cours : son rythme actuel.", " † Current season: his current pace.") : ""}${x.s.some(r => r[1].includes(",")) ? L(" * Échangé en cours de saison (dernière équipe) ; ↳ ses chiffres avec chaque équipe. ≈ : saison partagée pas encore séparée, comptée à parts égales.", " * Traded during the season (last team); ↳ his numbers with each team. ≈: split season not separated yet, counted in equal parts.") : ""}</p></div>`;
-  ptCarte(m, x, t === "j" ? nW(x.w[3]) : nW(x.w[1]), t === "j" ? L("points PB Stats en carrière", "PB Stats career points") : L("victoires PB Stats en carrière", "PB Stats career wins"),
+  ptCarte(m, x, t === "j" ? nW(we[3]) : nW(we[1]), t === "j" ? L("points PB Era en carrière", "PB Era career points") : L("victoires PB Era en carrière", "PB Era career wins"),
     t === "j" ? L(`Réels : ${nW(x.r[3])} · n° ${x.rg[5]} de tous les temps`, `Real: ${nW(x.r[3])} · #${x.rg[5]} all-time`)
               : L(`Réelles : ${nW(x.r[1])} · n° ${x.rg[1]} de tous les temps`, `Real: ${nW(x.r[1])} · #${x.rg[1]} all-time`));
   m.hidden = false;
@@ -7250,11 +7262,11 @@ function fenCarriereResume(q){
   const el = $('#fenetre .fen-pane[data-o="apercu"] .fen-carr'), t = fenWiT(q.id); if (!el || !t) return;
   const w = WI[t][q.id];
   const lignes = w.s.slice(-6).map(r => t === "g"
-    ? `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${sv3(r[4])}</td><td class="pb">${r[6]}</td></tr>`
-    : `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td class="pb">${r[10]}</td></tr>`).join("");
-  el.innerHTML = `<h3>${L("Carrière", "Career")} <em>${L("Réel · PB Era", "Real · PB Era")}</em></h3><div class="fen-tbl"><table>
+    ? `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${sv3(r[4])}</td><td class="pb">${wiEr(r[6], r[2], r[5])}</td></tr>`
+    : `<tr${r[0] === WI.saison ? ' class="cour"' : ""}><td>${r[0].slice(2, 4)}-${r[0].slice(6)}</td><td>${String(r[1]).split(",").pop()}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td class="pb">${wiEr(r[10], r[2], r[7])}</td></tr>`).join("");
+  el.innerHTML = `<h3>${L("Carrière", "Career")} <em>${L("Réel · PB Era (PJ réels)", "Real · PB Era (real GP)")}</em></h3><div class="fen-tbl"><table>
     <thead><tr><th>${L("Saison", "Season")}</th><th>${L("Éq.", "Team")}</th><th>${L("PJ", "GP")}</th>${t === "g" ? `<th>${L("V", "W")}</th><th>${L("Arr%", "Sv%")}</th><th class="pb">${L("V PB", "PB W")}</th>` : `<th>${L("B", "G")}</th><th>A</th><th>PTS</th><th class="pb">PTS PB</th>`}</tr></thead>
-    <tbody>${lignes}</tbody><tfoot><tr><td>${L("Carrière", "Career")}</td><td></td><td>${nW(w.r[0])}</td>${t === "g" ? `<td>${nW(w.r[1])}</td><td>${sv3(w.sv[0])}</td><td class="pb">${nW(w.w[1])}</td>` : `<td>${nW(w.r[1])}</td><td>${nW(w.r[2])}</td><td>${nW(w.r[3])}</td><td class="pb">${nW(w.w[3])}</td>`}</tr></tfoot></table></div>
+    <tbody>${lignes}</tbody><tfoot><tr><td>${L("Carrière", "Career")}</td><td></td><td>${nW(w.r[0])}</td>${t === "g" ? `<td>${nW(w.r[1])}</td><td>${sv3(w.sv[0])}</td><td class="pb">${nW(wiWe(t, w)[1])}</td>` : `<td>${nW(w.r[1])}</td><td>${nW(w.r[2])}</td><td>${nW(w.r[3])}</td><td class="pb">${nW(wiWe(t, w)[3])}</td>`}</tr></tfoot></table></div>
     <button type="button" class="fen-plus" data-fo="car">${w.s.length > 6 ? L(`Les ${w.s.length} saisons, par équipe, les rangs de tous les temps`, `All ${w.s.length} seasons, by team, all-time ranks`) : L("Les rangs de tous les temps et le détail par équipe", "All-time ranks and the by-team detail")} ›</button>`;
   el.hidden = false;
   // Sa saison n° (« Montréal · 8e saison ») et son rang PB Stats dans le haut
@@ -10025,8 +10037,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=716ad39e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=716ad39e" defer></script>
+<script src="pub.js?v=985adc98" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=985adc98" defer></script>
 <script src="nav.js?v=194ea38415" defer></script>
 </body>
 </html>
