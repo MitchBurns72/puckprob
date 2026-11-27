@@ -1269,7 +1269,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=dccd9c99">
+<link rel="stylesheet" href="carte.css?v=a2b891be">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1956,7 +1956,10 @@ const persIco = (k) => `<span class="pers pers-${k === "g" ? "g" : k === "c" ? "
 // sur les emblèmes ; I'll deal with it if there's a problem, everyone is doing it anyway »). Avant : la pastille maison
 // dans la version publique. Un logo qui ne charge pas (une vieille équipe que la LNH n'a pas) : la pastille maison à sa
 // place (plus bas, l'écouteur « error »), sauf les petits logos des emblèmes, qui s'enlèvent.
-const LOGO_URL = (t, fonce) => `https://assets.nhle.com/logos/nhl/svg/${t}_${fonce ? "dark" : "light"}.svg`;
+// Un club disparu : son logo daté de la ligue (pbstats/e.json « logos », src/pbstats_equipes.py), en version foncée
+// au besoin (même nom de fichier, _dark au lieu de _light) ; les clubs d'aujourd'hui : leur logo actuel
+const LOGO_URL = (t, fonce) => { let u = ""; try { u = EQS?.logos?.[t] || ""; } catch (_){ /* EQS pas encore déclaré */ }
+  return u ? (fonce ? u.replace(/_light\.svg$/, "_dark.svg") : u) : `https://assets.nhle.com/logos/nhl/svg/${t}_${fonce ? "dark" : "light"}.svg`; };
 const LOGO = (t) => LOGO_URL(t, sombre());
 // Les logos d'un emblème de joueur (« les deux », Mitch 19 nov. 2026) : en filigrane derrière le numéro + en rond dans le coin
 const plLogos = (t) => { t = String(t || "").split(",").pop(); return /^[A-Z]{2,3}$/.test(t) ? `<img class="pl-wm" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()"><img class="pl-lg" src="${LOGO_URL(t, false)}" alt="" loading="lazy" onerror="this.remove()">` : ""; };
@@ -10679,8 +10682,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=dccd9c99" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=dccd9c99" defer></script>
+<script src="pub.js?v=a2b891be" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a2b891be" defer></script>
 <script src="nav.js?v=66cab91a00" defer></script>
 </body>
 </html>
