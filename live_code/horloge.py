@@ -26,10 +26,27 @@ DEPOT, FLUX = "MitchBurns72/Tirs-nhl", "quotidien.yml"
 ETAT = Path(os.environ.get("RUNNER_TEMP") or "/tmp") / "horloge.json"
 
 
+# La phase de la saison (docs/phase.json de Tirs-nhl, copié à la racine du site) : l'été, les plages qui ne roulent pas
+# ne partent même pas (src/garde.py les arrêterait de toute façon, mais chaque départ coûte une minute de GitHub)
+PLAGES_PHASE = {"mouvement": {"matin", "fil", "soir"}, "off": {"matin", "fil"}, "pre": {"matin", "fil"}}
+
+
+def _phase():
+    for f in (Path(__file__).resolve().parent.parent / "phase.json", Path("phase.json")):
+        try:
+            return json.loads(f.read_text(encoding="utf-8")).get("phase")
+        except (OSError, ValueError):
+            continue
+    return None
+
+
 def a_partir(maintenant, faits):
     """Les plages dont l'heure est passée, pas encore finies et pas encore parties."""
     out = []
+    ok = PLAGES_PHASE.get(_phase())
     for nom, h, m in CRENEAUX:
+        if ok is not None and nom not in ok:
+            continue
         t = maintenant.replace(hour=h, minute=m, second=0, microsecond=0)
         fin = maintenant.replace(hour=FIN[nom][0], minute=FIN[nom][1], second=0, microsecond=0)
         cle = f"{t.date().isoformat()}-{nom}"

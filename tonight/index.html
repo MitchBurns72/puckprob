@@ -186,6 +186,10 @@ nav.menu::-webkit-scrollbar{display:none}
 .dr-l .dr-n{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 .dr-l .t{display:flex;flex-direction:column;align-items:center;gap:2px;font:800 11px/1 var(--f-display);color:var(--muted)}
 .dr-l .t img{width:28px;height:28px}
+.gmd-l{grid-template-columns:28px 44px minmax(0,1fr);color:var(--ink)}
+.gmd-l.gmd-se{grid-template-columns:28px minmax(0,1fr);border-left-color:var(--line)}
+.gmd-mot{display:block;font-style:italic;font-weight:500;font-size:12.5px;color:var(--ink);opacity:.85;margin-top:3px;line-height:1.35}
+.gmd-avis{background:var(--surface);color:var(--ink);border:1px dashed var(--line);border-radius:8px;padding:9px 11px;font-size:13px;margin:0 0 10px}
 .dr-l .dr-j{font:700 15px/1.15 var(--f-body);min-width:0}
 .dr-l .dr-j small{display:block;font:500 11.5px var(--f-body);color:var(--muted);margin-top:2px}
 .dr-l .dr-m b{font:800 12px/1 var(--f-display);padding:2px 4px;border-radius:4px}
@@ -1289,7 +1293,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=f1a18f97">
+<link rel="stylesheet" href="carte.css?v=367a763e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -1330,6 +1334,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
     <button role="tab" id="t-trx" aria-selected="false" aria-controls="p-trx">Transactions</button>
     <button role="tab" id="t-cls" aria-selected="false" aria-controls="p-cls">Classement</button>
     <button role="tab" id="t-fa" aria-selected="false" aria-controls="p-fa">Upcoming FA</button>
+    <button role="tab" id="t-gmd" aria-selected="false" aria-controls="p-gmd">Gerry's Mock Draft</button>
     <button role="tab" id="t-bets" aria-selected="false" aria-controls="p-bets">Bets</button>
   </nav>
 
@@ -1489,6 +1494,10 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
       <input id="fa-q" type="search" placeholder="Chercher un joueur" aria-label="Chercher un joueur" autocomplete="off">
     </div><div id="fe-fa"></div><div id="xg-fa" class="xg"></div><div class="row" id="f-fa-pos"></div></div>
     <div id="fa"></div>
+  </section>
+  <!-- Gerry's Mock Draft (Mitch, 27 nov. 2026) : l'opinion de notre observateur, pas un algo (docs/draft.json, src/draft.py) -->
+  <section id="p-gmd" role="tabpanel" aria-labelledby="t-gmd" hidden>
+    <div id="gmd"></div>
   </section>
   <section id="p-trx" role="tabpanel" aria-labelledby="t-trx" hidden>
     <div class="ctrls"><div class="row" id="f-trx"></div><div id="fe-trx"></div></div>
@@ -9026,7 +9035,9 @@ async function faOnglet(){
     `Les joueurs dont le contrat finit cet été. UFA : libre de signer où il veut le 1er juillet. RFA : son équipe garde un droit de match. Pour chacun : ce qu'il vaut cette saison en PB Market Value (PBMV), son vrai salaire, et son bargain % (PBMV ÷ vrai salaire : 150 % = il vaut une fois et demie ce qu'il coûte). Touche un joueur pour son rapport.`,
     `Players whose contract ends this summer. UFA: free to sign anywhere on July 1. RFA: his team keeps matching rights. For each: what he's worth this season in PB Market Value (PBMV), his real salary, and his bargain % (PBMV ÷ real salary: 150% = he's worth one and a half times what he costs). Tap a player for his report.`)}</p></div>`;
   if (!FA?.joueurs?.length){
-    el.innerHTML = tete + `<div class="card"><div class="vide">${L("La liste arrive au prochain calcul.", "The list arrives with the next update.")}</div></div>`;
+    el.innerHTML = tete + `<div class="card"><div class="vide">${FA?.attente
+      ? L(`La liste des agents libres ${an} sort pendant l'hiver d'avant : elle arrive ici dès qu'elle est publiée.`, `The ${an} free agent list comes out the winter before: it shows up here as soon as it's published.`)
+      : L("La liste arrive au prochain calcul.", "The list arrives with the next update.")}</div></div>`;
     $("#fe-fa").innerHTML = ""; return;
   }
   $("#fe-fa").innerHTML = filtreEqHTML("fe_fa", [...new Set(FA.joueurs.map(x => x.eq))].filter(e => e && VILLES[e]).sort()); xgMaj("fa");
@@ -9046,6 +9057,37 @@ async function faOnglet(){
   };
   el.innerHTML = tete + (L_.map(ligne).join("") || `<div class="card"><div class="vide">${L("Aucun joueur pour ce filtre.", "No player for this filter.")}</div></div>`)
     + `<p class="aide">${L("Liste : Pro Hockey Rumors", "List: Pro Hockey Rumors")}${FA.source_maj ? ` (${L("à jour au", "updated")} ${FA.source_maj})` : ""}. ${L("Chiffres : PB Market Value, mis à jour le", "Numbers: PB Market Value, updated")} ${dateCourte(FA.maj)}.</p>`;
+}
+// ---- Gerry's Mock Draft (Mitch, 27 nov. 2026 : « tu marques que c'est les prévisions de Gerry, que c'est pas basé sur un
+// algo, seulement les opinions personnelles de notre observateur ») : 3 versions par année (mi-janvier, après la loterie,
+// la semaine du repêchage), la même liste que PB SIM prend pour son repêchage. Rien ici ne sort d'un modèle.
+async function gmdOnglet(){
+  const el = $("#gmd");
+  el.innerHTML = `<div class="card"><div class="vide">${L("Chargement…", "Loading…")}</div></div>`;
+  const DR = await chargerDraft();
+  const an = DR?.annee || "";
+  const G = DR?.source === "gerry" ? DR.gerry || {} : null;
+  const avis = `<p class="gmd-avis">${L("Ce mock n'est pas un algo : ce sont les opinions personnelles de Gerry Mitchell, notre observateur. Il lit les mocks publics et le classement de la Centrale, puis il prend position. À prendre lightly.",
+    "This mock isn't an algorithm: it's the personal opinion of Gerry Mitchell, our observer. He reads the public mocks and Central Scouting's rankings, then takes his own stand. Take it lightly.")}</p>`;
+  const tete = `<div class="cp-tete"><h2>Gerry's Mock Draft ${an}</h2><p>${L(
+    "Trois versions par année : à la mi-saison, après la loterie (le vrai ordre des choix) et la semaine du repêchage, avec son article dans PB On The Wire. C'est aussi la liste que PB SIM prend pour son repêchage.",
+    "Three versions a year: midseason, after the lottery (the real pick order) and draft week, with his column in PB On The Wire. It's also the list PB SIM uses for its draft.")}</p></div>`;
+  if (!G || !DR?.liste?.length){
+    el.innerHTML = tete + avis + `<div class="card"><div class="vide">${L(`Le premier mock ${an} de Gerry sort à la mi-janvier.`, `Gerry's first ${an} mock comes out in mid-January.`)}</div></div>`;
+    return;
+  }
+  const ver = { 1: L("version de mi-saison", "midseason version"), 2: L("après la loterie", "after the lottery"), 3: L("la semaine du repêchage", "draft week") }[G.version] || "";
+  const titre = G.titre ? L(G.titre.fr, G.titre.en) : "";
+  const ligne = (c, i) => {
+    const eq = c.eq && VILLES?.[c.eq] ? c.eq : "";
+    const mot = c.mot ? L(c.mot.fr, c.mot.en) : "";
+    return `<div class="dr-l gmd-l${eq ? "" : " gmd-se"}"${eq ? ` style="${eqV(eq)}"` : ""}><span class="dr-n">${i + 1}</span>${eq ? `<span class="t"><img src="${LOGO(eq)}" alt="" loading="lazy">${eq}</span>` : ""}
+      <span class="dr-j">${c.n}<small>${[c.pos, c.club].filter(Boolean).join(" · ")}</small>${mot ? `<em class="gmd-mot">${mot}</em>` : ""}</span></div>`;
+  };
+  el.innerHTML = tete + avis + `<p class="aide">${titre ? `<b>${titre}</b> · ` : ""}${ver}${G.date ? ` · ${dateCourte(G.date)}` : ""}</p>`
+    + `<div class="dr">${DR.liste.slice(0, 32).map(ligne).join("")}</div>`
+    + (DR.liste.length > 32 ? `<details class="sv-po"><summary>${L("La suite de sa liste", "The rest of his list")}</summary><div class="dr">${DR.liste.slice(32).map((c, i) => ligne(c, i + 32)).join("")}</div></details>` : "")
+    + `<p class="aide">${L("Les ordres de choix avant la loterie suivent le classement du jour où Gerry a écrit.", "Pick orders before the lottery follow the standings on the day Gerry wrote.")}</p>`;
 }
 // Le rapport PBMV d'un joueur (toucher une ligne) a besoin de salaires.json : chargé une fois, en silence
 let SAL_fa = null;
@@ -9854,7 +9896,10 @@ function svDraft(R, DR){
     <div class="drv-fin" hidden><p class="aide" style="margin:0 0 8px">${loto}</p>
     <div class="dr">${C.slice(0, 16).map(ligne).join("")}</div></div>
     <details class="sv-po"><summary>${L("Choix 17 à 32", "Picks 17 to 32")}</summary><div class="dr">${C.slice(16).map(ligne).join("")}</div></details>
-    <p class="aide">${DR.source === "centrale"
+    <p class="aide">${DR.source === "gerry"
+      ? L("Les espoirs : le mock draft de Gerry Mitchell, notre observateur (League News, Gerry's Mock Draft). Pas un algo : ses opinions personnelles, à prendre lightly. Le 1er choix de ta loterie prend son 1er espoir, et ainsi de suite.",
+          "Prospects: the mock draft of Gerry Mitchell, our observer (League News, Gerry's Mock Draft). Not an algorithm: his personal opinions, take them lightly. Pick #1 of your lottery takes his #1 prospect, and so on.")
+      : DR.source === "centrale"
       ? L("Les espoirs : le classement de la Centrale de recrutement de la LNH (Nord-Américains et internationaux fusionnés). Le 1er choix prend le 1er espoir, et ainsi de suite.",
           "Prospects: NHL Central Scouting's rankings (North American and International lists merged). Pick #1 takes prospect #1, and so on.")
       : L("Les espoirs : classement préliminaire (top 10 de The Hockey News, puis des joueurs cotés A par la Centrale de recrutement, dans un ordre à titre indicatif). La Centrale publie son classement en janvier : il prendra la place tout seul. Le 1er choix prend le 1er espoir, et ainsi de suite.",
@@ -9867,8 +9912,8 @@ function simOnglet(){
   const V = (CUP0?.c || D.coupe)?.sim_vis;          // (CUP0 : une saison passée ouverte ailleurs ; la SIM reste sur l'actuelle)
   if (!V?.reste){ el.innerHTML = `<div class="card"><div class="vide">${L("PB Manager PA: Season Sim arrive avec le prochain calcul de la Coupe.", "PB Manager PA: Season Sim arrives with the next Cup update.")}</div></div>`; return; }
   el.innerHTML = `<div class="cp-tete"><h2>PB Manager PA: Season Sim</h2><p>${L(
-    `Joue le reste de la saison devant tes yeux, match par match, puis les séries jusqu'à la Coupe. Chaque fois, une autre saison possible : c'est une des milliers que PuckProb simule chaque jour, pas une prédiction. Coche les équipes à suivre dans le graphique, puis partage ta saison (le lien rejoue exactement la même aujourd'hui).`,
-    `Play the rest of the season in front of you, game by game, then the playoffs all the way to the Cup. Every time, another possible season: one of the thousands PuckProb simulates every day, not a prediction. Check the teams to follow on the chart, then share your season (the link replays the exact same one today).`)}</p></div>
+    `Joue le reste de la saison devant tes yeux, match par match, puis les séries jusqu'à la Coupe. Chaque fois, une autre saison possible : c'est une des milliers que PuckProb simule chaque jour, pas une prédiction. À prendre lightly : ça reste des probabilités. Coche les équipes à suivre dans le graphique, puis partage ta saison (le lien rejoue exactement la même aujourd'hui).`,
+    `Play the rest of the season in front of you, game by game, then the playoffs all the way to the Cup. Every time, another possible season: one of the thousands PuckProb simulates every day, not a prediction. Take it lightly: it's still probabilities. Check the teams to follow on the chart, then share your season (the link replays the exact same one today).`)}</p></div>
     <details class="card wi-regles"><summary>${L("Comment ça marche", "How it works")}</summary>${L(
     `<p><b>La force des équipes.</b> Chaque équipe part de sa cote Elo d'aujourd'hui (calculée match par match depuis 2008), plus un petit coup de hasard pour toute la saison (±${V.sigma} Elo en moyenne) : personne ne sait exactement à quel point une équipe est bonne.</p>
      <p><b>Chaque match.</b> La chance de gagner vient de l'écart d'Elo, plus l'avantage de la glace (${V.hfa} Elo). ${Math.round(V.p_ot * 100)} % des matchs vont en prolongation (le perdant prend 1 point). Le pointage : le perdant marque autour de 2 buts, l'écart suit celui de la ligue (1 but : 45 % des fois, 2 : 27 %, 3 : 15 %...).</p>
@@ -10404,7 +10449,7 @@ function brancher(){
   });
   document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
-    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "dev", "dna", "rum", "wire", "trx", "cls", "fa", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
+    for (const id of ["joueurs", "matchs", "suivi", "sim", "coupe", "whatif", "salaires", "enf", "prj", "duo", "gcr", "arb", "coach", "pwr", "cor", "forme", "dev", "dna", "rum", "wire", "trx", "cls", "fa", "gmd", "bets"]) { const p_ = $("#p-" + id); if (p_) p_.hidden = b.id !== "t-" + id; }
     if (b.id === "t-whatif") whatif();
     if (b.id === "t-salaires") salaires();
     if (b.id === "t-enf") enforcers();
@@ -10424,6 +10469,7 @@ function brancher(){
     if (b.id === "t-trx") trxOnglet();
     if (b.id === "t-cls") clsOnglet();
     if (b.id === "t-fa") faOnglet();
+    if (b.id === "t-gmd") gmdOnglet();
     if (b.id === "t-sim") simOnglet();
   }));
 }
@@ -10595,6 +10641,7 @@ async function init(){
     else if (/^#(nouvelles|news|rumeurs|rumou?rs)$/i.test(location.hash)){ $("#t-rum")?.click(); $("#p-rum")?.scrollIntoView({ block: "start" }); }
     else if (/^#(transactions|echanges|trades)$/i.test(location.hash)){ $("#t-trx")?.click(); $("#p-trx")?.scrollIntoView({ block: "start" }); }
     else if (/^#(agents-libres|free-agents|upcoming-fa)$/i.test(location.hash)){ $("#t-fa")?.click(); $("#p-fa")?.scrollIntoView({ block: "start" }); }
+    else if (/^#(mock-draft|gerry)$/i.test(location.hash)){ $("#t-gmd")?.click(); $("#p-gmd")?.scrollIntoView({ block: "start" }); }
     else if (/^#(classement-lnh|league-standings)$/i.test(location.hash)){ $("#t-cls")?.click(); $("#p-cls")?.scrollIntoView({ block: "start" }); }
     else if (/^#(correlations?|correlation-trend)$/i.test(location.hash)){ $("#t-cor")?.click(); $("#p-cor")?.scrollIntoView({ block: "start" }); }
     else if (/^#(power|power-?rankings?)$/i.test(location.hash)){ $("#t-pwr")?.click(); $("#p-pwr")?.scrollIntoView({ block: "start" }); }
@@ -10616,7 +10663,7 @@ async function init(){
   // PB SIM du menu ne faisait plus rien, car l'adresse ne changeait pas, donc pas de hashchange)
   const HASH_DE = { "t-matchs": EN ? "#games" : "#matchs", "t-sim": "#sim", "t-whatif": "#what-if", "t-salaires": EN ? "#salaries" : "#salaires", "t-enf": "#enforcers",
                     "t-prj": "#projections", "t-duo": "#duos", "t-gcr": "#gcr", "t-joueurs": EN ? "#players" : "#joueurs", "t-suivi": EN ? "#tracking" : "#suivi",
-                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-dev": "#dev", "t-dna": "#player-dna", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
+                    "t-arb": EN ? "#refs" : "#arbitres", "t-coach": "#coach", "t-pwr": "#power", "t-cor": "#correlation", "t-rum": EN ? "#news" : "#nouvelles", "t-wire": EN ? "#on-the-wire" : "#sur-le-fil", "t-dev": "#dev", "t-dna": "#player-dna", "t-forme": EN ? "#heat-index" : "#forme", "t-trx": "#transactions", "t-cls": EN ? "#league-standings" : "#classement-lnh", "t-fa": EN ? "#free-agents" : "#agents-libres", "t-gmd": "#mock-draft", "t-bets": "#bets", "t-coupe": EN ? "#standings" : "#classement" };
   document.querySelectorAll('nav.tabs [role="tab"]').forEach(b => b.addEventListener("click", (ev) => {
     if (!ev.isTrusted) return;                       // clic fait par ouvrirHash : l'adresse est déjà la bonne (#sim=123...)
     const h = HASH_DE[b.id] || "";
@@ -10702,7 +10749,7 @@ init().catch(finCharge);
   // Plus de boutons au-dessus des listes (Mitch, 20 nov. 2026 : « qu'il n'y ait plus de boutons et que ça soit tout
   // dans le filtre ») : chaque section n'a plus que sa loupe ; seul le toggle Réel / PB Era de PB Stats reste dehors.
   var GARDE = { "p-joueurs": [], "p-coupe": [], "p-whatif": ["f-wir", "f-wityp"], "p-salaires": [], "p-enf": [], "p-prj": [], "p-duo": [], "p-gcr": [], "p-arb": [],
-    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-dev": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-dev": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-gmd": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
   // Le nom de chaque rangée dans le panneau (celles qui n'ont pas déjà leur étiquette)
   var LBL = { "f-marche": ["Marché", "Market"], "f-troph": ["Afficher", "Show"], "f-sal": ["Afficher", "Show"], "f-enf": ["Afficher", "Show"], "f-prj": ["Afficher", "Show"],
     "f-duo": ["Afficher", "Show"], "f-cls": ["Vue", "View"], "f-dev-v": ["Vue", "View"], "f-dev-t": ["Classer par", "Rank by"], "f-dev-pos": ["Position", "Position"], "f-dev-rep": ["Repêchage", "Draft"], "f-dev-deb": ["Débuts", "Debut"], "f-fa": ["Contrat", "Contract"], "f-trx": ["Type", "Type"], "f-pwr": ["Afficher", "Show"] };
@@ -10903,8 +10950,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=f1a18f97" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=f1a18f97" defer></script>
-<script src="nav.js?v=b6d6edc2aa" defer></script>
+<script src="pub.js?v=367a763e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=367a763e" defer></script>
+<script src="nav.js?v=8175729e5e" defer></script>
 </body>
 </html>

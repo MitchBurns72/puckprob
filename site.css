@@ -158,6 +158,10 @@ nav.menu::-webkit-scrollbar{display:none}
 .dr-l .dr-n{font:italic 800 18px/1 var(--f-display);color:var(--muted);text-align:center}
 .dr-l .t{display:flex;flex-direction:column;align-items:center;gap:2px;font:800 11px/1 var(--f-display);color:var(--muted)}
 .dr-l .t img{width:28px;height:28px}
+.gmd-l{grid-template-columns:28px 44px minmax(0,1fr);color:var(--ink)}
+.gmd-l.gmd-se{grid-template-columns:28px minmax(0,1fr);border-left-color:var(--line)}
+.gmd-mot{display:block;font-style:italic;font-weight:500;font-size:12.5px;color:var(--ink);opacity:.85;margin-top:3px;line-height:1.35}
+.gmd-avis{background:var(--surface);color:var(--ink);border:1px dashed var(--line);border-radius:8px;padding:9px 11px;font-size:13px;margin:0 0 10px}
 .dr-l .dr-j{font:700 15px/1.15 var(--f-body);min-width:0}
 .dr-l .dr-j small{display:block;font:500 11.5px var(--f-body);color:var(--muted);margin-top:2px}
 .dr-l .dr-m b{font:800 12px/1 var(--f-display);padding:2px 4px;border-radius:4px}
