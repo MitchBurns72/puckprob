@@ -1295,7 +1295,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=42b76cef">
+<link rel="stylesheet" href="carte.css?v=3a552c85">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7872,7 +7872,7 @@ async function fenMontrer(o, rendre = true){
   else if (o === "sal"){ await FEN_CH.sal(); const k = fenSalK(id); if (k){ cote(Object.keys(SAL.joueurs).length); salRapport(k); } }
   else if (o === "prj"){ await FEN_CH.prj(); cote(Object.keys(PRJ.joueurs).length); prjCarte(id); }
   else if (o === "enf"){ await FEN_CH.enf(); await enfDna(id, p); return; }
-  else if (o === "gcr"){ await FEN_CH.gcr(); cote(GCR.gardiens.length); gcrCarte(id); }
+  else if (o === "gcr"){ await FEN_CH.gcr(); gcrDna(id, p); return; }
   else if (o === "arb"){ await FEN_CH.arb(); await arbDna(id, p); return; }
   else if (o === "forme"){ await FEN_CH.forme(); formeDna(id, p); return; }
   else if (o === "pwr"){ await chargerPwr(); pwrDna(id, p); return; }
@@ -9771,6 +9771,39 @@ async function gcrOnglet(){
   el.innerHTML = saiBandeau("gcr") + tete + eqClassementHTML(eqG, (tri === "gcr" ? "PBGC" : L(...GCR_TRIS[tri])) + " · " + L("ses gardiens, selon leurs minutes", "its goalies, by minutes")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et présences de la ligue, notre PBxG.", "Source: league play-by-play and shifts, our PBxG.")} ${GCR.matchs} ${L("matchs. Mis à jour le", "games. Updated")} ${GCR.maj}.</p>`;
   ptListeTab("p-gcr");
 }
+// L'onglet Gardien de la fenêtre joueur, façon PB Player DNA (Mitch, 28 nov. 2026 : « oui, refais-le »). Le popup
+// gcrCarte (liste PBGC, robot des posts) reste comme il était.
+function gcrDna(id, p){
+  const x = fenGcr(id);
+  if (!x){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de minutes devant le filet cette saison.", "Not enough minutes in net this season.")}</p></section>`; return; }
+  const G = GCR.gardiens, N = G.length, moy = GCR.moy_xga60_5;
+  const RG = rangsCentiles(G, { gsax: (g) => g.z?.gsax, conf: (g) => g.conf == null ? null : g.z?.conf, coach: (g) => g.z?.coach });
+  const m = RG[String(x.id)] || {};
+  // Le gros chiffre : son rang PBGC en rang centile (n° 1 = 100)
+  const g = N > 1 ? Math.round(100 * (1 - (x.rg - 1) / (N - 1))) : null;
+  const top = g == null ? "" : g >= 50 ? L(`Devant ${g} % des gardiens`, `Ahead of ${g}% of goalies`) : L(`Derrière ${100 - g} % des gardiens`, `Behind ${100 - g}% of goalies`);
+  const autres = G.filter(y => y.eq === x.eq && y.id !== x.id).map(y => y.n.split(" ").slice(-1)[0]);
+  const role = ROLES_G[nrm(x.n)];
+  const sp = x.ph?.length > 1 ? spark(x.ph, false, L("Son PBGC au fil de la saison", "His PBGC through the season"), spkPc) : "";
+  p.innerHTML = `<section class="fen-s">${dnaHaut("PB Goalie Confidence %", `${L("n°", "#")} ${x.rg} ${L("sur", "of")} ${N} ${L("gardiens", "goalies")} · ${x.pj} ${L("PJ", "GP")}${x.fiche ? ` · ${x.fiche[0]}-${x.fiche[1]}-${x.fiche[2]}` : ""}`, g,
+      `PBGC : ${x.pc != null ? `${x.pc < 0 ? "−" : ""}${Math.abs(x.pc)}${EN ? "%" : " %"}` : x.gcr}`,
+      `${top}${x.pcav != null && x.pcav !== x.pc ? L(` · avant ${x.pcav} %`, ` · was ${x.pcav}%`) : ""}`,
+      L("Rang centile parmi les gardiens : 100 = celui en qui on a le plus confiance, la ligne blanche = la médiane.", "Percentile among goalies: 100 = the one we trust most, the white line = the median."))}
+      ${dnaCourbe(L("Son PB % au fil de la saison", "His PB % through the season"), sp)}
+      <div class="dna-g">${L("Les trois morceaux", "The three parts")}</div>
+      ${dnaBarre(L("Il arrête plus que prévu", "Saves above expected"), L(`${sgn(x.gsax, 1)} buts sauvés · ${sv3(x.sv)} (attendu ${sv3(x.xsv)})`, `${sgn(x.gsax, 1)} goals saved · ${sv3(x.sv)} (expected ${sv3(x.xsv)})`), m.gsax, null)}
+      ${dnaBarre(L("Confiance devant lui", "Confidence in front of him"), x.conf == null ? L("seul gardien de son équipe : rien à comparer", "only goalie on his team: nothing to compare")
+        : L(`${n2g(Math.abs(x.conf))} PBxG/60 de ${x.conf >= 0 ? "moins" : "plus"} que devant ${autres.join(", ") || "l'autre"}`, `${n2g(Math.abs(x.conf))} ${x.conf >= 0 ? "fewer" : "more"} PBxG/60 than in front of ${autres.join(", ") || "the other"}`), m.conf, null)}
+      ${dnaBarre(L("Confiance du coach", "Coach's trust"), L(`${pc0(x.coach)} du temps de ${x.eq} devant le filet${role ? " · " + roleGLong(role) : ""}`, `${pc0(x.coach)} of ${x.eq}'s time in net${role ? " · " + roleGLong(role) : ""}`), m.coach, null)}
+      ${dnaCases([[L("% d'arrêts", "Save %"), sv3(x.sv), `${L("attendu", "expected")} ${sv3(x.xsv)}`], ["GSAx", sgn(x.gsax, 1), `${sgn(x.gsax60, 2)} / 60`],
+        [L("PBxG/60 devant lui", "PBxG/60 in front"), n2g(x.xga60_5), `${L("5 c. 5 · moyenne", "5-on-5 · average")} ${n2g(moy)}`], [L("Minutes", "Minutes"), x.min, `${x.pj} ${L("matchs", "games")}`]])}
+      <p class="aide">${L("Buts sauvés : comparés à nos buts attendus (PBxG) sur les tirs qu'il a reçus. Confiance devant lui : les mêmes coéquipiers accordent-ils moins de chances devant lui que devant l'autre gardien de l'équipe ?",
+        "Goals saved: against our expected goals (PBxG) on the shots he faced. Confidence in front of him: do the same teammates allow fewer chances in front of him than in front of the team's other goalie?")}</p></section>
+    ${x.det?.length ? `<section class="fen-s"><h3>${L("Les mêmes joueurs", "The same skaters")} <em>${L("PBxG accordés / 60, devant lui et devant l'autre", "PBxG allowed / 60, in front of him and the other")}</em></h3>
+      <div class="tbl"><table class="serre"><thead><tr><th></th><th>${L("Lui", "Him")}</th><th>${L("L'autre", "Other")}</th></tr></thead><tbody>${
+      x.det.map(d => `<tr><td>${d[1]}</td><td><b style="color:${d[3] <= d[4] ? "var(--ok, #2fbf71)" : "var(--mal, #e5484d)"}">${n2g(d[3])}</b></td><td>${n2g(d[4])}</td></tr>`).join("")}</tbody></table></div>
+      <p class="aide">${L("Toute la ligue dans PB Goalie Confidence % (In House Stats).", "The whole league in PB Goalie Confidence % (In House Stats).")}</p></section>` : ""}`;
+}
 function gcrCarte(id){
   const x = GCR?.gardiens.find(g => String(g.id) === String(id)); if (!x) return;
   const P = GCR.poids || {}, moy = GCR.moy_xga60_5;
@@ -11187,8 +11220,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=42b76cef" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=42b76cef" defer></script>
+<script src="pub.js?v=3a552c85" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=3a552c85" defer></script>
 <script src="nav.js?v=8175729e5e" defer></script>
 </body>
 </html>
