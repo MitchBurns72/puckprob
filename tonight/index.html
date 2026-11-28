@@ -1086,6 +1086,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .dna-ctx{display:flex;gap:8px}.dna-ctx div{flex:1;background:#ffffff10;border-radius:10px;padding:8px 10px;font:600 12px/1.2 var(--f-body);color:#C9D6E8}
 .dna-ctx b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body);margin-top:3px}
 .dna-s{width:100%;margin:0 0 4px}
+.dna-spk{margin:0 0 6px}.dna-spk .spk{max-width:none;width:100%}
+.dna-ctx div > small + b + small{display:block;margin-top:2px}
 .dna-minis{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .dna-mini{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap;padding:3px 7px;border-radius:6px;border-left:4px solid;background:rgba(10,35,66,.07);font:700 10px/1 var(--f-body);color:var(--muted,#5B6B82)}
 .dna-mini b{font:800 italic 14px/1 "Barlow Condensed",var(--f-body);color:inherit}
@@ -1293,7 +1295,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=4ecbc84e">
+<link rel="stylesheet" href="carte.css?v=42b76cef">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -4579,11 +4581,15 @@ async function dnaOnglet(){
   const mv = v === "top" && !feq ? mvtListe(J, x => x.id, x => x.dna, dnaEcart) : {};
   const no = (x) => (typeof fenPrj === "function" && fenPrj(x.id)?.no) || "";
   const R_ = DNA_RES[pos];
-  const mini = (x) => x.m.map((p_, i) => `<span class="dna-mini" style="border-color:${dnaCoul(p_)}"><small>${L(...R_[i])}</small><b>${p_ ?? "–"}</b></span>`).join("");
-  const ec = (x) => { const e_ = dnaEcart(x); return e_ ? `<span class="ecart ${e_ > 0 ? "up" : "down"}">${e_ > 0 ? "▲" : "▼"} ${Math.abs(e_)}</span>` : ""; };
+  // (Mitch, 28 nov. 2026 : « les emblèmes, tout est différent des autres sections » : le même gabarit que PB Heat %,
+  // les mini-barres centrées sur la médiane de sa position, le gros chiffre et son abréviation, « avant », la courbe)
+  const mini = (x) => `<span class="fo-mini">${x.m.map((p_, i) => formeBarre(L(...R_[i]), p_ == null ? 0 : (p_ - 50) / 25)).join("")}</span>`;
+  const posTxt = (x) => x.pos === "G" ? L("Gardien", "Goalie") : x.pos === "D" ? L("Défenseur", "Defenseman") : L("Attaquant", "Forward");
+  const av = (x) => { const e_ = dnaEcart(x); return e_ ? ` · ${L("avant", "was")} ${x.dna - e_}` : ""; };
+  const spk = (x) => x.h?.length > 1 ? spark(x.h, false, L("Jour après jour depuis le début de la saison", "Day by day since the start of the season"), (z) => String(Math.round(z)), x.hm) : "";
   el.innerHTML = tete + (J.length ? J.map((x, k) => `<div class="wi-l wi-r dna-l" data-pid="${x.id}" style="${eqV(x.eq)}"><span class="rg">${k + 1}${mvtHTML(mv[x.id])}</span><span class="wi-rond" style="${eqV(x.eq)}">${plaqueIn(no(x), x.n, x.pos)}</span>
-      <span class="nm">${nomP(x.n, x.pos === "G" ? "g" : "j")}<small>${x.eq} · ${x.pj} ${L("PJ", "GP")}</small><span class="dna-minis">${mini(x)}</span></span>
-      <span class="v"><b style="color:${dnaCoul(x.dna)}">${x.dna}</b><small>PB Player DNA ${ec(x)}</small>${x.h?.length > 1 ? spark(x.h, false, L("Jour après jour", "Day by day"), (z) => String(Math.round(z)), x.hm) : ""}</span></div>`).join("")
+      <span class="nm">${nomP(x.n, x.pos === "G" ? "g" : "j")}<small>${x.eq} · ${posTxt(x)} · ${x.pj} ${L("matchs", "games")}</small>${mini(x)}</span>
+      <span class="v"><span class="pbp">${x.dna}</span>${AB("DNA")}<small>PB Player DNA${av(x)}</small>${spk(x)}</span></div>`).join("")
     : `<div class="card"><div class="vide">${v === "top" ? L("Personne ici.", "Nobody here.") : L("Pas encore de changement depuis hier : la courbe commence aujourd'hui.", "No change since yesterday yet: the curve starts today.")}</div></div>`)
     + `<p class="aide">${L("Mis à jour le", "Updated")} ${dateCourte(DNAJ.maj)}. ${L("Tous les rangs, toutes les saisons : P.B Stats DB, PB Analytics.", "Every rank, every season: P.B Stats DB, PB Analytics.")}</p>`;
 }
@@ -6727,6 +6733,162 @@ function enfLigne(x, mode = "score"){
     <span class="v">${coteHTML(rg, Object.keys(ENF.joueurs).length, false)}${glob ? (x.pc != null ? pbN(x.pc) : x.pct == null ? "–" : Math.round(x.pct * 100)) + AB("PBIR") + `<small>PB Intimidation %${pbAv(x)}${x.pc != null ? "" : ecartHTML(x.dpct != null ? x.dpct * 100 : null, (v) => Math.round(v) + (EN ? "%" : " %"), 1, 0.5)}</small>` + pbSpark(x, x.h)
       : pbBloc(x, mode, "PBIR", L(...ENF_MODES[mode])) ?? `${pcIdx(x.r?.[mode])}<small>${L(...ENF_MODES[mode]).toLowerCase()}</small>`}</span></button>`;
 }
+// ---- Les stats PB qui manquaient dans la fiche, façon PB Player DNA (Mitch, 28 nov. 2026) : Heat, Power, Dev, Chimie.
+// Même gabarit que PB Player DNA, Physique et Arbitres : le gros rang centile en haut, des barres (100 = le mieux, la
+// ligne blanche = la médiane), le détail en cases.
+function rangsCentiles(L_, fns, idf = (x) => String(x.id)){
+  const out = {};
+  for (const [k, f] of Object.entries(fns)){
+    const v = L_.map(x => [idf(x), f(x)]).filter(z => z[1] != null && isFinite(z[1])).sort((a, b) => a[1] - b[1]);
+    const n = v.length;
+    v.forEach(([i], r) => { (out[i] = out[i] || {})[k] = n > 1 ? Math.round(100 * r / (n - 1)) : 50; });
+  }
+  return out;
+}
+const dnaHaut = (titre, em, g, nom, top, legende) => `<h3>${titre} <em>${em}</em></h3>
+  <div class="dna-big"><b style="color:${dnaCoul(g)}">${g ?? "–"}</b><span><strong>${nom}</strong>${top}<br>${legende}</span></div>`;
+const dnaCases = (L_) => `<div class="dna-ctx">${L_.map(([n, v, sous]) => `<div><small>${n}</small><b>${v}</b>${sous ? `<small>${sous}</small>` : ""}</div>`).join("")}</div>`;
+const dnaCourbe = (txt, sp) => sp ? `<div class="dna-g">${txt}</div><div class="dna-spk">${sp}</div>` : "";
+
+// PB Heat % : sa forme des 10 derniers matchs contre sa propre saison
+function formeDna(id, p){
+  const x = FORME?.joueurs?.[id]; if (!x){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de matchs.", "Not enough games.")}</p></section>`; return; }
+  const RG = rangsCentiles(Object.entries(FORME.joueurs).map(([i, f]) => ({ id: i, ...f })), { idx: (f) => f.idx, att: (f) => f.v?.att, def: (f) => f.v?.def, use: (f) => f.v?.use });
+  const m = RG[String(id)] || {}, N = FEN_SERIE[x.niv] || FEN_SERIE[2];
+  const g = m.idx;
+  const top = g == null ? "" : g >= 50 ? L(`Plus en feu que ${g} % des joueurs`, `Hotter than ${g}% of players`) : L(`Plus froid que ${100 - g} % des joueurs`, `Colder than ${100 - g}% of players`);
+  const zTxt = (z) => z == null ? "" : z > 0.15 ? L("mieux que sa saison", "better than his season") : z < -0.15 ? L("moins bien que sa saison", "worse than his season") : L("comme sa saison", "like his season");
+  const b = (k, n) => dnaBarre(n, zTxt(x.v?.[k]), m[k], null);
+  const deux = (a) => a ? `${n1(a[0])}` : "–", sous = (a) => a ? `${L("saison", "season")} ${n1(a[1])}` : "";
+  p.innerHTML = `<section class="fen-s">${dnaHaut("PB Heat %", `${L(N[1], N[2])} · ${x.pj} ${L("PJ", "GP")}`, g, `PB Heat % : ${x.pc != null ? `${x.pc < 0 ? "−" : ""}${Math.abs(x.pc)}${EN ? "%" : " %"}` : "–"}`, top,
+      L("Ses 10 derniers matchs contre sa propre saison. 100 = le plus en feu de la ligue, la ligne blanche = la médiane.", "His last 10 games against his own season. 100 = the hottest in the league, the white line = the median."))}
+      ${dnaCourbe(L("Match par match", "Game by game"), formeSpark(x))}
+      <div class="dna-g">${L("Ses 10 derniers matchs", "His last 10 games")}</div>${b("att", L("En attaque", "On offense"))}${b("def", L("En défense", "On defense"))}${b("use", L("Son utilisation", "His usage"))}
+      <div class="dna-g">${L("10 derniers matchs · sa saison", "Last 10 games · his season")}</div>
+      ${dnaCases([[L("Points / match", "Points / game"), deux(x.pts), sous(x.pts)], [L("PBxG / match", "PBxG / game"), deux(x.ixg), sous(x.ixg)], [L("Tirs / match", "Shots / game"), deux(x.sog), sous(x.sog)], [L("Minutes / match", "Minutes / game"), deux(x.toi), sous(x.toi)]])}
+      <p class="aide">${L("Défense : ce qui se passe à 5 contre 5 quand il est sur la glace, ajusté pour ses départs en zone défensive et ses adversaires. Ça décrit sa forme récente, pas ce qui s'en vient. Toute la ligue dans PB Heat % (In House Stats).",
+        "Defense: what happens at 5-on-5 while he's on the ice, adjusted for his defensive-zone starts and his opponents. It describes his recent form, not what comes next. The whole league in PB Heat % (In House Stats).")}</p></section>`;
+}
+
+// PB Dominance Rating : les power rankings des joueurs (sa saison, sa forme, sa projection)
+function pwrDna(id, p){
+  const f = fenPwr(id); if (!f){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas dans les power rankings cette semaine.", "Not in this week's power rankings.")}</p></section>`; return; }
+  const { x, t } = f, gard = t === "g";
+  const n = gard ? (PWR.gardiens || []).length : t === "r" ? (PWR.recrues || []).length : PWR.n_classes;
+  const qui = gard ? L("gardiens", "goalies") : t === "r" ? L("recrues", "rookies") : L("joueurs", "players");
+  // Le gros chiffre : son rang centile tiré de son rang (n° 1 = 100), pas le score brut
+  const g = n > 1 && x.rg ? Math.round(100 * (1 - (x.rg - 1) / (n - 1))) : null;
+  const pc = (v) => v == null ? null : Math.round(v * 100);
+  const noms = gard ? [L("Sa saison (PBGC)", "His season (PBGC)"), L("Sa forme", "His form"), L("Ses victoires", "His wins")] : [L("Sa saison", "His season"), L("Sa forme", "His form"), L("Où il s'en va", "Where he's headed")];
+  const vals = gard ? [`PBGC ${x.gcr ?? "–"}`, `${x.sv5 != null ? (x.sv5).toFixed(3).replace(/^0/, "") : "–"} ${L(`sur ses ${x.n5 || PWR.n_forme} derniers départs`, `over his last ${x.n5 || PWR.n_forme} starts`)}`, `${x.v ?? "–"} ${L("victoires", "wins")} · ${x.v5 ?? "–"} ${L("sur ses derniers départs", "in his last starts")}`]
+    : [`${x.c?.pts ?? "–"} pts ${L("en", "in")} ${x.pj} ${L("matchs", "games")}`, `${(x.forme || [])[0] ?? "–"} B, ${(x.forme || [])[1] ?? "–"} A ${L(`dans ses ${(x.forme || [])[2] ?? PWR.n_forme} derniers`, `in his last ${(x.forme || [])[2] ?? PWR.n_forme}`)}`, `${x.proj ?? "–"} pts ${L("projetés", "projected")}`];
+  const sp = x.ph?.length > 1 ? spark(x.ph, false, L("Semaine après semaine", "Week by week"), spkPc) : "";
+  const cases = gard ? [[L("% d'arrêts", "Save %"), x.sv != null ? x.sv.toFixed(3).replace(/^0/, "") : "–"], [L("Moyenne", "GAA"), n1(x.mba)], [L("Victoires", "Wins"), x.v ?? "–"]]
+    : [[L("Buts", "Goals"), x.c?.b ?? "–"], [L("Passes", "Assists"), x.c?.a ?? "–"], ["+/-", x.c?.pm != null ? (x.c.pm > 0 ? "+" : "") + x.c.pm : "–"], [L("Projection", "Projection"), `${x.proj ?? "–"} pts`]];
+  p.innerHTML = `<section class="fen-s">${dnaHaut("PB Dominance Rating", `${L("n°", "#")} ${x.rg} ${L("sur", "of")} ${n} ${qui}`, g, "PB Dominance Rating",
+      L(`PB % : ${x.pc ?? "–"} %${x.pcav != null && x.pcav !== x.pc ? ` · avant ${x.pcav} %` : ""}`, `PB %: ${x.pc ?? "–"}%${x.pcav != null && x.pcav !== x.pc ? ` · was ${x.pcav}%` : ""}`),
+      L(`Rang centile parmi les ${qui} classés : 100 = le plus dominant en ce moment.`, `Percentile among ranked ${qui}: 100 = the most dominant right now.`))}
+      ${dnaCourbe(L("Son PB % semaine après semaine", "His PB % week by week"), sp)}
+      <div class="dna-g">${L("Les trois morceaux", "The three parts")}</div>${(x.parts || []).map((v, i) => dnaBarre(noms[i], vals[i], pc(v), null)).join("")}
+      ${dnaCases(cases)}
+      <p class="aide">${L("Les power rankings de la semaine (PB Dominance Rating, In House Stats).", "This week's power rankings (PB Dominance Rating, In House Stats).")}</p></section>`;
+}
+
+// PB Dev % : le jeune contre ce qu'on attend de son rang de repêchage
+function devDna(id, p){
+  const x = DEV?.j?.[id]; if (!x){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Seulement les joueurs dans leurs 5 premières saisons.", "Only players in their first 5 seasons.")}</p></section>`; return; }
+  const tot = Object.keys(DEV.j).length;
+  const pr = (r) => r == null || tot < 2 ? null : Math.round(100 * (1 - (r - 1) / (tot - 1)));
+  const g = pr(x.rg);
+  const top = g == null ? "" : g >= 50 ? L(`Mieux que ${g} % des jeunes`, `Better than ${g}% of young players`) : L(`Moins bien que ${100 - g} % des jeunes`, `Below ${100 - g}% of young players`);
+  const sp = devSpark(x, "g");
+  p.innerHTML = `<section class="fen-s">${dnaHaut("PB Dev %", `${devRep(x)} · ${devAn(x)}`, g, `PB Dev % · ${L("global", "overall")}`, top,
+      L(`Rang centile parmi les ${tot} joueurs dans leurs 5 premières saisons : 100 = celui qui dépasse le plus ce qu'on attend de son rang de repêchage.`, `Percentile among the ${tot} players in their first 5 seasons: 100 = the one who beats his draft slot the most.`))}
+      ${dnaCourbe(L("Soir par soir depuis le début de la saison", "Night by night since the start of the season"), sp)}
+      <div class="dna-g">${L("Contre son rang de repêchage", "Against his draft slot")}</div>
+      ${dnaBarre(L("Offense", "Offense"), `${Math.round(x.pts)} pts · ${Math.round(x.att)} ${L("attendus", "expected")}`, pr(x.ro), null)}
+      ${dnaBarre(L("Temps de glace", "Ice time"), `${n1(x.toi)} min · ${n1(x.toi_att)} ${L("attendues", "expected")}`, pr(x.rd), null)}
+      ${dnaCases([[L("Matchs en carrière", "Career games"), x.pj], [L("Points", "Points"), Math.round(x.pts)], [L("Attendus", "Expected"), Math.round(x.att)]])}
+      <p class="aide">${L("Comparé à un joueur repêché au même rang, à la même position et à la même saison de carrière ; les points ajustés à l'époque. Toute la ligue dans PB Dev % (In House Stats).",
+        "Compared with a player drafted at the same slot, same position and same career season; points era-adjusted. The whole league in PB Dev % (In House Stats).")}</p></section>`;
+}
+
+// PB Chemistry % : ses meilleurs duos et trios à 5 contre 5
+function duoDna(id, p){
+  const L0 = fenDuos(id); if (!L0.length){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de minutes avec un même coéquipier.", "Not enough minutes with the same teammate.")}</p></section>`; return; }
+  const RD = rangsCentiles(DUO.duos || [], { ch: (x) => x.ch }), RT = rangsCentiles(DUO.trios || [], { ch: (x) => x.ch });
+  const rg = (x) => (x.j.length === 2 ? RD : RT)[String(x.id)]?.ch;
+  const duos_ = L0.filter(x => x.j.length === 2).sort((a, b) => b.ch - a.ch).slice(0, 6);
+  const trios_ = L0.filter(x => x.j.length === 3).sort((a, b) => b.ch - a.ch).slice(0, 4);
+  const avec = (x) => x.j.filter(j => String(j[0]) !== String(id)).map(j => j[1].split(" ").slice(-1)[0]).join(" + ");
+  const val = (x) => `${Math.round(x.min)} min · ${L("buts", "goals")} ${x.gf}-${x.ga}`;
+  const meilleur = duos_[0] || trios_[0];
+  const g = rg(meilleur);
+  p.innerHTML = `<section class="fen-s">${dnaHaut("PB Chemistry %", `${L0.length} ${L("combinaisons", "combinations")}`, g, `${L("Avec", "With")} ${avec(meilleur)}`,
+      L("Sa meilleure chimie à 5 contre 5", "His best chemistry at 5-on-5"),
+      L("Rang centile parmi tous les duos (ou trios) de la ligue : 100 = la meilleure chimie, la ligne blanche = la médiane.", "Percentile among all the league's duos (or lines): 100 = the best chemistry, the white line = the median."))}
+      ${duos_.length ? `<div class="dna-g">${L("Ses duos", "His duos")}</div>` + duos_.map(x => dnaBarre(avec(x), val(x), rg(x), null)).join("") : ""}
+      ${trios_.length ? `<div class="dna-g">${L("Ses trios", "His lines")}</div>` + trios_.map(x => dnaBarre(avec(x), val(x), rg(x), null)).join("") : ""}
+      <p class="aide">${L("Meilleurs ENSEMBLE que chacun de leur bord : qui contrôle le jeu quand ils sont sur la glace en même temps, comparé à quand chacun joue sans l'autre. Toute la ligue dans PB Chemistry % (In House Stats).",
+        "Better TOGETHER than apart: who controls the play when they're on the ice at the same time, compared with when each plays without the other. The whole league in PB Chemistry % (In House Stats).")}</p></section>`;
+}
+// ---- L'onglet Physique de la fenêtre joueur, façon PB Player DNA (Mitch, 28 nov. 2026 : « même chose pour physical ») :
+// le rang centile PB Intimidation et chacun de ses morceaux parmi tous les patineurs de la saison (100 = le plus
+// physique, la ligne blanche = la médiane), ses saisons passées en points (les saisons complètes de la machine), puis
+// ce qu'il encaisse et le chaos quand il est sur la glace. La carte de partage (enfCarte, plus bas) reste celle des posts.
+const ENF_PASSE = {};
+const chargerEnfPasse = (sa) => ENF_PASSE[sa] || (ENF_PASSE[sa] = fetch(new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${sa}/complete/physique.json?v=` + (D?.date || Date.now()))
+  .then(r => r.ok ? r.json() : null).catch(() => null));
+const ENF_M = { score: (x) => x.score, combats: (x) => x.z?.combats, frappes: (x) => x.z?.frappes, penalites: (x) => x.z?.penalites,
+  chaos: (x) => x.z?.chaos, badass: (x) => x.z?.badass, recu: (x) => x.recu60, blocs: (x) => x.blocs60 };
+function enfRangs(J){
+  const out = {}, L_ = Object.values(J || {});
+  for (const [k, f] of Object.entries(ENF_M)){
+    const v = L_.map(x => [String(x.id), f(x)]).filter(z => z[1] != null && isFinite(z[1])).sort((a, b) => a[1] - b[1]);
+    const n = v.length;
+    v.forEach(([i], r) => { (out[i] = out[i] || {})[k] = n > 1 ? Math.round(100 * r / (n - 1)) : 50; });
+  }
+  return out;
+}
+async function enfDna(id, p){
+  const x = ENF?.joueurs?.[id];
+  if (!x){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de matchs cette saison pour le mesurer.", "Not enough games this season to measure it.")}</p></section>`; return; }
+  const sc = saisonCour();
+  const passees = ["20232024", "20242025", "20252026"].filter(sa => sa < sc);
+  const PA = {}; await Promise.all(passees.map(async sa => { PA[sa] = await chargerEnfPasse(sa); }));
+  if (FEN.x?.id !== id) return;
+  const RG = { [sc]: enfRangs(ENF.joueurs) };
+  for (const sa of passees) if (PA[sa]?.joueurs && Object.keys(PA[sa].joueurs).length) RG[sa] = enfRangs(PA[sa].joueurs);
+  const moi = RG[sc][String(id)] || {};
+  const ses = Object.keys(RG).filter(sa => RG[sa][String(id)]).sort();
+  const autres = (k) => ses.length > 1 ? ses.map(sa => [sa, RG[sa][String(id)]?.[k]]) : null;
+  const pc0 = () => "";
+  const val = {
+    combats: `${x.comb} · ${n1(x.comb82)}/82`, frappes: `${n1(x.fr60)}/60 min`,
+    penalites: `${x.pen ?? 0} · ${n1(x.pen82)}/82`, chaos: `${pcS(x.chaos)}`,
+    badass: `${x.padv > 0 ? "+" : ""}${n1(x.padv || 0)} lb`,
+    recu: `${n1(x.recu60)}/60 min`, blocs: `${n1(x.blocs60)}/60 min` };
+  const nom = { combats: L("Combats", "Fights"), frappes: L("Mises en échec", "Hits"), penalites: L("Pénalités qui font mal", "Painful penalties"),
+    chaos: "Chaos", badass: "Badassness", recu: L("Mises en échec encaissées", "Hits taken"), blocs: L("Tirs bloqués", "Blocked shots") };
+  const barre = (k) => dnaBarre(nom[k], val[k], moi[k], autres(k));
+  const g = moi.score;
+  const posN = x.pos === "D" ? L("défenseur", "defenseman") : L("attaquant", "forward");
+  const top = g == null ? "" : g >= 50 ? L(`Plus physique que ${g} % des patineurs`, `More physical than ${g}% of skaters`) : L(`Moins physique que ${100 - g} % des patineurs`, `Less physical than ${100 - g}% of skaters`);
+  const ch = [L("Combats", "Fights"), L("Mises en échec", "Hits"), L("Pénalités", "Penalties"), L("Mêlées", "Scrums")]
+    .map((n, k) => `<div><small>${n}</small><b>${x.ch?.[k]?.[0] ?? "–"}</b><small>${L("attendu", "expected")} ${x.ch?.[k]?.[1] != null ? Math.round(x.ch[k][1]) : "–"}</small></div>`).join("");
+  p.innerHTML = `<section class="fen-s"><h3>PB Intimidation <em>${L("saison", "season")} ${dnaSai(sc)} · ${x.pj} ${L("PJ", "GP")} · ${n1(x.toi)} ${L("min par match", "min per game")}</em></h3>
+      <div class="dna-big"><b style="color:${dnaCoul(g)}">${g ?? "–"}</b><span><strong>PB Intimidation</strong>${top}<br>${L("Rang centile : 100 = le patineur le plus physique, la ligne blanche = la médiane.", "Percentile rank: 100 = the most physical skater, the white line = the median.")}</span></div>
+      ${ses.length > 1 ? `<div class="dna-dots" style="margin:-2px 0 8px">${ses.map(sa => `<span>${dnaSai(sa)} <b style="color:${dnaCoul(RG[sa][String(id)]?.score)}">${RG[sa][String(id)]?.score ?? "–"}</b></span>`).join("")}</div>` : ""}
+      <div class="dna-g">${L("Ce qu'il donne", "What he dishes out")}</div>${barre("combats")}${barre("frappes")}${barre("penalites")}
+      <div class="dna-g">${L("L'effet sur la glace", "His effect on the ice")}</div>${barre("chaos")}${barre("badass")}
+      <div class="dna-g">${L("Ce qu'il encaisse", "What he takes")}</div>${barre("recu")}${barre("blocs")}
+      <p class="aide">${L("Badassness : le poids de ses adversaires dans ses combats, contre le sien. Chaos : ce qui se passe quand il est sur la glace (les deux équipes) contre quand il est au banc.",
+        "Badassness: the weight of his fight opponents against his own. Chaos: what happens while he's on the ice (both teams) against when he's on the bench.")}</p></section>
+    <section class="fen-s"><h3>${L("Le chaos", "The chaos")} <em>${L("avec lui / attendu", "with him / expected")}</em></h3>
+      <div class="dna-ctx">${ch}</div>
+      <p class="aide">${L(`Effet peur (à titre d'info, pas dans le score) : ${pcS(x.peur)}. PB Intimidation % n° ${x.rg} (${posN}). Tous les patineurs dans PB Intimidation % (In House Stats).`,
+        `Fear effect (for info, not in the score): ${pcS(x.peur)}. PB Intimidation % #${x.rg} (${posN}). Every skater in PB Intimidation % (In House Stats).`)}</p></section>`;
+}
 function enfCarte(id){
   const x = ENF?.joueurs?.[id]; if (!x) return;
   const un = ENF.joueurs[ENF.ordres.score[0]];
@@ -7399,7 +7561,11 @@ const NAT_P = { CAN: ["CA", "CAN", "Canada", "Canada"], USA: ["US", "USA", "Éta
 // matchs et la série (le thermomètre), ce soir, les courses aux trophées, le contrat, le résumé de carrière.
 const FEN = { ouvert: false, id: null, k: null, o: "apercu", robot: false, pile: [], x: null };
 const FEN_O = [["apercu", "Aperçu", "Overview"], ["car", "Carrière", "Career"], ["sal", "Contrat", "Contract"], ["prj", "Projection", "Projection"],
-               ["enf", "Physique", "Physical"], ["tirs", "Tirs", "Shots"], ["dna", "PB Player DNA", "PB Player DNA"], ["gcr", "Gardien", "Goalie"], ["arb", "Arbitres", "Refs"]];
+               ["enf", "Physique", "Physical"], ["tirs", "Tirs", "Shots"], ["dna", "PB Player DNA", "PB Player DNA"],
+               // Les stats PB qui manquaient dans la fiche (Mitch, 28 nov. 2026 : « ajoute les onglets des stats PB qui
+               // manquent dans les profils, avec ce même style »)
+               ["forme", "Heat", "Heat"], ["pwr", "Power", "Power"], ["dev", "Dev", "Dev"], ["duo", "Chimie", "Chemistry"],
+               ["gcr", "Gardien", "Goalie"], ["arb", "Arbitres", "Refs"]];
 const slugJ = (n) => nrm(n).replace(/ /g, "-");
 const villeNom = (t) => (EN ? { CAR: "Carolina", DET: "Detroit", FLA: "Florida", PHI: "Philadelphia" }[t] : null) || NOMS_EQ[t] || t || "";
 const fenHashDe = (id, o, n) => `#${EN ? "player" : "joueur"}/${n ? slugJ(n) + "-" : ""}${id}${o && o !== "apercu" ? "/" + o : ""}`;
@@ -7517,7 +7683,7 @@ const FEN_CH = {
   sal: () => SAL ? 1 : fenJ("salaires.json").then(d => { if (!SAL && d?.joueurs) SAL = d; }),
   prj: () => PRJ ? 1 : fenJ("projections.json").then(d => { if (!PRJ && d?.joueurs) PRJ = d; }),
   enf: () => ENF ? 1 : fenJ("physique.json").then(d => { if (!ENF && d?.joueurs && d.ordres) ENF = d; }),
-  gcr: () => chargerGcr(), arb: () => chargerArb(), wi: () => chargerWI(), nat: () => natCharger(), bios: () => biosCharger(), forme: () => chargerForme(),
+  gcr: () => chargerGcr(), arb: () => chargerArb(), duo: () => DUO ? 1 : fenJ("duos.json").then(d => { if (!DUO && d?.duos) DUO = d; }), wi: () => chargerWI(), nat: () => natCharger(), bios: () => biosCharger(), forme: () => chargerForme(),
   nais: async () => { if (!PBS.nais) PBS.nais = await pbsGet("naissances.json").catch(() => ({ j: {}, g: {} })); } };
 // Ce que chaque source sait de ce joueur
 const fenSal = (id) => SAL?.joueurs?.[id + "j"] || SAL?.joueurs?.[id + "g"] || SAL?.joueurs?.[id] || null;
@@ -7526,6 +7692,8 @@ const fenPrj = (id) => PRJ?.joueurs?.[id] || null;
 const fenEnf = (id) => ENF?.joueurs?.[id] || null;
 const fenGcr = (id) => GCR?.gardiens?.find(g => String(g.id) === String(id)) || null;
 const fenArb = (id) => ARB?.joueurs?.find(y => String(y.id) === String(id)) || null;
+const fenPwr = (id) => { for (const [k, t] of [["joueurs", "j"], ["gardiens", "g"], ["recrues", "r"]]){ const x = (PWR?.[k] || []).find(y => String(y.id) === String(id)); if (x) return { x, t }; } return null; };
+const fenDuos = (id) => [...(DUO?.duos || []), ...(DUO?.trios || [])].filter(x => x.j.some(j => String(j[0]) === String(id)));
 const fenWiT = (id) => WI?.j?.[id] ? "j" : WI?.g?.[id] ? "g" : null;
 const fenSoir = (id) => (D?.joueurs || []).find(j => String(j.pid) === String(id)) || null;
 // Qui il est : le nom, le numéro, l'équipe, la position, de la 1re source qui le connaît
@@ -7543,7 +7711,8 @@ function fenOnglets(q){
   const id = q.id;
   return FEN_O.filter(([o]) => o === "apercu" || (o === "car" && fenWiT(id)) || (o === "sal" && fenSalK(id)) || (o === "prj" && fenPrj(id))
     || (o === "enf" && fenEnf(id)) || (o === "tirs" && (PBXG.idx?.j?.[id] || PBXG.idx?.g?.[id])) || (o === "dna" && DNA_IDS?.has(String(id)))
-    || (o === "gcr" && fenGcr(id)) || (o === "arb" && fenArb(id)));
+    || (o === "gcr" && fenGcr(id)) || (o === "arb" && fenArb(id))
+    || (o === "forme" && FORME?.joueurs?.[id]) || (o === "pwr" && fenPwr(id)) || (o === "dev" && DEV?.j?.[id]) || (o === "duo" && fenDuos(id).length));
 }
 // L'onglet à remplir par une fiche d'avant (salRapport, prjCarte...) : la fenêtre si elle montre ce joueur ; sinon on
 // l'ouvre sur cet onglet (et la fiche sera rappelée). Le robot des posts photographie le popup : il le garde.
@@ -7623,7 +7792,9 @@ async function fenAfficher(id, o){
     <div class="vide fen-ch">${L("Chargement du joueur…", "Loading player…")}</div></div>`;
   f.querySelector(".fen-ret").onclick = fenFermer;
   // Ce qu'il faut pour le haut et l'Aperçu ; les carrières (whatif.json) seulement si on ne le trouve pas ailleurs
-  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), FEN_CH.nat(), FEN_CH.bios(), FEN_CH.nais(), FEN_CH.forme(), o === "tirs" ? chargerPbxg() : 0, chargerDnaIdx()]);
+  await Promise.all([FEN_CH.sal(), FEN_CH.prj(), FEN_CH.gcr(), FEN_CH.nat(), FEN_CH.bios(), FEN_CH.nais(), FEN_CH.forme(), o === "tirs" ? chargerPbxg() : 0, chargerDnaIdx(),
+    // Un lien direct vers un onglet (#joueur/.../pwr) : ses données avant de choisir l'onglet, sinon on tombait sur Aperçu
+    ({ enf: FEN_CH.enf, arb: FEN_CH.arb, pwr: chargerPwr, dev: chargerDev, duo: FEN_CH.duo })[o]?.()]);
   if (FEN.id !== id) return;
   if (!fenQui(id) || o === "car") await FEN_CH.wi();
   if (!fenQui(id) && WI){ await pbsFiche("j", id); if (!WI.j[id]) await pbsFiche("g", id); }
@@ -7635,7 +7806,7 @@ async function fenAfficher(id, o){
   history.replaceState(null, "", location.pathname + location.search + fenHashDe(id, o, q.n));
   fenBatir(q, o);
   // Le reste en arrière-plan : les onglets apparaissent quand leurs données arrivent ; la carrière complète l'Aperçu
-  Promise.all([FEN_CH.enf(), FEN_CH.arb(), FEN_CH.wi(), chargerPbxg()]).then(async () => {
+  Promise.all([FEN_CH.enf(), FEN_CH.arb(), FEN_CH.wi(), chargerPbxg(), chargerPwr(), chargerDev(), FEN_CH.duo()]).then(async () => {
     if (FEN.id !== id) return;
     if (!fenWiT(id)){ await pbsFiche(q.t, id); if (FEN.id !== id) return; }
     fenOngletsMaj(q); fenCarriereResume(q); fenBrefMaj(q);
@@ -7700,9 +7871,13 @@ async function fenMontrer(o, rendre = true){
       p.insertAdjacentHTML("afterbegin", `<div class="row fen-typ">${wiTypSel()}</div>`); } }
   else if (o === "sal"){ await FEN_CH.sal(); const k = fenSalK(id); if (k){ cote(Object.keys(SAL.joueurs).length); salRapport(k); } }
   else if (o === "prj"){ await FEN_CH.prj(); cote(Object.keys(PRJ.joueurs).length); prjCarte(id); }
-  else if (o === "enf"){ await FEN_CH.enf(); cote(Object.keys(ENF.joueurs).length); enfCarte(id); }
+  else if (o === "enf"){ await FEN_CH.enf(); await enfDna(id, p); return; }
   else if (o === "gcr"){ await FEN_CH.gcr(); cote(GCR.gardiens.length); gcrCarte(id); }
   else if (o === "arb"){ await FEN_CH.arb(); await arbDna(id, p); return; }
+  else if (o === "forme"){ await FEN_CH.forme(); formeDna(id, p); return; }
+  else if (o === "pwr"){ await chargerPwr(); pwrDna(id, p); return; }
+  else if (o === "dev"){ await chargerDev(); devDna(id, p); return; }
+  else if (o === "duo"){ await FEN_CH.duo(); duoDna(id, p); return; }
   else if (o === "tirs"){ await pbxgJoueur(id, p); return; }
   else if (o === "dna"){ await dnaJoueur(id, p); return; }
   if (p.querySelector(".vide") && !p.querySelector(".wi-carte")) p.innerHTML = `<div class="vide">${L("Rien pour lui ici.", "Nothing for him here.")}</div>`;
@@ -10811,10 +10986,10 @@ init().catch(finCharge);
   // Plus de boutons au-dessus des listes (Mitch, 20 nov. 2026 : « qu'il n'y ait plus de boutons et que ça soit tout
   // dans le filtre ») : chaque section n'a plus que sa loupe ; seul le toggle Réel / PB Era de PB Stats reste dehors.
   var GARDE = { "p-joueurs": [], "p-coupe": [], "p-whatif": ["f-wir", "f-wityp"], "p-salaires": [], "p-enf": [], "p-prj": [], "p-duo": [], "p-gcr": [], "p-arb": [],
-    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-dev": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-gmd": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
+    "p-coach": [], "p-rum": [], "p-wire": [], "p-forme": [], "p-dev": [], "p-trx": [], "p-cls": [], "p-fa": [], "p-gmd": [], "p-dna": [], "p-pwr": [], "p-matchs": [], "p-bets": ["f-bets"] };
   // Le nom de chaque rangée dans le panneau (celles qui n'ont pas déjà leur étiquette)
   var LBL = { "f-marche": ["Marché", "Market"], "f-troph": ["Afficher", "Show"], "f-sal": ["Afficher", "Show"], "f-enf": ["Afficher", "Show"], "f-prj": ["Afficher", "Show"],
-    "f-duo": ["Afficher", "Show"], "f-cls": ["Vue", "View"], "f-dev-v": ["Vue", "View"], "f-dev-t": ["Classer par", "Rank by"], "f-dev-pos": ["Position", "Position"], "f-dev-rep": ["Repêchage", "Draft"], "f-dev-deb": ["Débuts", "Debut"], "f-fa": ["Contrat", "Contract"], "f-trx": ["Type", "Type"], "f-pwr": ["Afficher", "Show"] };
+    "f-duo": ["Afficher", "Show"], "f-cls": ["Vue", "View"], "f-dev-v": ["Vue", "View"], "f-dev-t": ["Classer par", "Rank by"], "f-dev-pos": ["Position", "Position"], "f-dev-rep": ["Repêchage", "Draft"], "f-dev-deb": ["Débuts", "Debut"], "f-fa": ["Contrat", "Contract"], "f-dna": ["Afficher", "Show"], "f-dna-pos": ["Position", "Position"], "f-trx": ["Type", "Type"], "f-pwr": ["Afficher", "Show"] };
   function contenu(sh){ return !!sh.querySelector("input,select,button.chip,.peq,[id^='fe-']:not(:empty)"); }
   // Combien de filtres actifs dans le panneau : texte cherché, équipe choisie, menu changé, pastille autre que la 1re
   function compte(sh){
@@ -10859,7 +11034,7 @@ init().catch(finCharge);
   var LIGNES = {
     "p-joueurs": [".j[data-pid]", "j"], "p-coupe": [".cp, .tr[data-pid], .cl2-r", "auto"], "p-whatif": [".wi-l", "j"], "p-salaires": [".wi-l", "j"],
     "p-enf": [".wi-l", "j"], "p-prj": [".wi-l", "j"], "p-duo": [".wi-l", "duo"], "p-gcr": [".wi-l", "j"], "p-arb": [".wi-l", "j"],
-    "p-fa": [".wi-l", "j"], "p-forme": [".wi-l", "j"], "p-dev": [".wi-l", "j"], "p-coach": [".wi-l", "c"], "p-pwr": [".wi-l", "auto"],
+    "p-fa": [".wi-l", "j"], "p-dna": [".wi-l", "j"], "p-forme": [".wi-l", "j"], "p-dev": [".wi-l", "j"], "p-coach": [".wi-l", "c"], "p-pwr": [".wi-l", "auto"],
     "p-cls": ["tbody tr[data-eqf]", "e"], "p-rum": ["a.card.rum", "r"], "p-trx": [".card.trx", "t"], "p-matchs": ["button.mc", "m"] };
   var NOMS = { se: ["saison d'équipe", "saisons d'équipe", "team season", "team seasons"], j: ["joueur", "joueurs", "player", "players"], e: ["équipe", "équipes", "team", "teams"], c: ["coach", "coachs", "coach", "coaches"],
     duo: ["duo", "duos", "duo", "duos"], r: ["nouvelle", "nouvelles", "story", "stories"], t: ["transaction", "transactions", "transaction", "transactions"],
@@ -11012,8 +11187,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=4ecbc84e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=4ecbc84e" defer></script>
+<script src="pub.js?v=42b76cef" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=42b76cef" defer></script>
 <script src="nav.js?v=8175729e5e" defer></script>
 </body>
 </html>

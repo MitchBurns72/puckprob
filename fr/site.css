@@ -1058,6 +1058,8 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .dna-ctx{display:flex;gap:8px}.dna-ctx div{flex:1;background:#ffffff10;border-radius:10px;padding:8px 10px;font:600 12px/1.2 var(--f-body);color:#C9D6E8}
 .dna-ctx b{display:block;font:800 italic 24px/1 "Barlow Condensed",var(--f-body);margin-top:3px}
 .dna-s{width:100%;margin:0 0 4px}
+.dna-spk{margin:0 0 6px}.dna-spk .spk{max-width:none;width:100%}
+.dna-ctx div > small + b + small{display:block;margin-top:2px}
 .dna-minis{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .dna-mini{display:inline-flex;align-items:baseline;gap:4px;white-space:nowrap;padding:3px 7px;border-radius:6px;border-left:4px solid;background:rgba(10,35,66,.07);font:700 10px/1 var(--f-body);color:var(--muted,#5B6B82)}
 .dna-mini b{font:800 italic 14px/1 "Barlow Condensed",var(--f-body);color:inherit}
