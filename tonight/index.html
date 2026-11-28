@@ -1293,7 +1293,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=367a763e">
+<link rel="stylesheet" href="carte.css?v=a359a4da">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7328,7 +7328,7 @@ async function wireOnglet(){
   const autres = A.filter(a => wireCle(a) !== wireCle(a0)).slice(0, 14).map(a => `<button type="button" class="fw-a" data-j="${wireCle(a)}"><small>${dateCourte(a.jour)}${a.special ? " · " + L("Édition spéciale", "Special edition") : ""}</small><span>${echapper((a.titre || {})[l] || "")}</span></button>`).join("");
   el.innerHTML = tete + sec + `<article class="card fw">${ved}
     <h2 class="fw-t">${echapper((art.titre || {})[l] || "")}</h2>
-    <div class="fw-by">${art.special ? `<b class="fw-sp">${L("Édition spéciale", "Special edition")}</b> · ` : ""}${art.section === "habs" ? `<b class="fw-sp fw-hb">Habs On The Wire</b> · ` : ""}${L("Par", "By")} ${echapper(art.auteur || "PuckProb.ca")} · ${date}</div>
+    <div class="fw-by">${art.special ? `<b class="fw-sp">${L("Édition spéciale", "Special edition")}</b> · ` : ""}${art.section === "habs" ? `<b class="fw-sp fw-hb">Habs On The Wire</b> · ` : ""}${art.section === "draft" ? `<b class="fw-sp">Gerry's Mock Draft</b> · ` : ""}${L("Par", "By")} ${echapper(art.auteur || "PuckProb.ca")} · ${date}</div>
     <p class="fw-ch">${wireTexte((art.chapeau || {})[l])}</p>
     <div class="fw-corps">${corps}</div>
     <div class="fw-act"><button type="button" class="fw-sh">${L("Partager l'article", "Share the article")}</button></div>
@@ -9067,8 +9067,8 @@ async function gmdOnglet(){
   const DR = await chargerDraft();
   const an = DR?.annee || "";
   const G = DR?.source === "gerry" ? DR.gerry || {} : null;
-  const avis = `<p class="gmd-avis">${L("Ce mock n'est pas un algo : ce sont les opinions personnelles de Gerry Mitchell, notre observateur. Il lit les mocks publics et le classement de la Centrale, puis il prend position. À prendre lightly.",
-    "This mock isn't an algorithm: it's the personal opinion of Gerry Mitchell, our observer. He reads the public mocks and Central Scouting's rankings, then takes his own stand. Take it lightly.")}</p>`;
+  const avis = `<p class="gmd-avis">${L("Ce mock n'a pas de %. Nos probabilités viennent de nos modèles ; celui-ci, c'est l'avis de Gerry Mitchell, notre observateur. Il lit les mocks publics et le classement de la Centrale de recrutement, puis il prend position.",
+    "This mock has no %. Our probabilities come from our models; this one is the take of Gerry Mitchell, our observer. He reads the public mocks and Central Scouting's rankings, then takes his own stand.")}</p>`;
   const tete = `<div class="cp-tete"><h2>Gerry's Mock Draft ${an}</h2><p>${L(
     "Trois versions par année : à la mi-saison, après la loterie (le vrai ordre des choix) et la semaine du repêchage, avec son article dans PB On The Wire. C'est aussi la liste que PB SIM prend pour son repêchage.",
     "Three versions a year: midseason, after the lottery (the real pick order) and draft week, with his column in PB On The Wire. It's also the list PB SIM uses for its draft.")}</p></div>`;
@@ -9897,8 +9897,8 @@ function svDraft(R, DR){
     <div class="dr">${C.slice(0, 16).map(ligne).join("")}</div></div>
     <details class="sv-po"><summary>${L("Choix 17 à 32", "Picks 17 to 32")}</summary><div class="dr">${C.slice(16).map(ligne).join("")}</div></details>
     <p class="aide">${DR.source === "gerry"
-      ? L("Les espoirs : le mock draft de Gerry Mitchell, notre observateur (League News, Gerry's Mock Draft). Pas un algo : ses opinions personnelles, à prendre lightly. Le 1er choix de ta loterie prend son 1er espoir, et ainsi de suite.",
-          "Prospects: the mock draft of Gerry Mitchell, our observer (League News, Gerry's Mock Draft). Not an algorithm: his personal opinions, take them lightly. Pick #1 of your lottery takes his #1 prospect, and so on.")
+      ? L("Les espoirs : le mock draft de Gerry Mitchell, notre observateur (League News, Gerry's Mock Draft). C'est son avis, pas un calcul. Le 1er choix de ta loterie prend son 1er espoir, et ainsi de suite.",
+          "Prospects: the mock draft of Gerry Mitchell, our observer (League News, Gerry's Mock Draft). It's his take, not a calculation. Pick #1 of your lottery takes his #1 prospect, and so on.")
       : DR.source === "centrale"
       ? L("Les espoirs : le classement de la Centrale de recrutement de la LNH (Nord-Américains et internationaux fusionnés). Le 1er choix prend le 1er espoir, et ainsi de suite.",
           "Prospects: NHL Central Scouting's rankings (North American and International lists merged). Pick #1 takes prospect #1, and so on.")
@@ -9912,8 +9912,8 @@ function simOnglet(){
   const V = (CUP0?.c || D.coupe)?.sim_vis;          // (CUP0 : une saison passée ouverte ailleurs ; la SIM reste sur l'actuelle)
   if (!V?.reste){ el.innerHTML = `<div class="card"><div class="vide">${L("PB Manager PA: Season Sim arrive avec le prochain calcul de la Coupe.", "PB Manager PA: Season Sim arrives with the next Cup update.")}</div></div>`; return; }
   el.innerHTML = `<div class="cp-tete"><h2>PB Manager PA: Season Sim</h2><p>${L(
-    `Joue le reste de la saison devant tes yeux, match par match, puis les séries jusqu'à la Coupe. Chaque fois, une autre saison possible : c'est une des milliers que PuckProb simule chaque jour, pas une prédiction. À prendre lightly : ça reste des probabilités. Coche les équipes à suivre dans le graphique, puis partage ta saison (le lien rejoue exactement la même aujourd'hui).`,
-    `Play the rest of the season in front of you, game by game, then the playoffs all the way to the Cup. Every time, another possible season: one of the thousands PuckProb simulates every day, not a prediction. Take it lightly: it's still probabilities. Check the teams to follow on the chart, then share your season (the link replays the exact same one today).`)}</p></div>
+    `Joue le reste de la saison devant tes yeux, match par match, puis les séries jusqu'à la Coupe. Chaque fois, une autre saison possible : c'est une des milliers que PuckProb simule chaque jour, pas une prédiction. Coche les équipes à suivre dans le graphique, puis partage ta saison (le lien rejoue exactement la même aujourd'hui).`,
+    `Play the rest of the season in front of you, game by game, then the playoffs all the way to the Cup. Every time, another possible season: one of the thousands PuckProb simulates every day, not a prediction. Check the teams to follow on the chart, then share your season (the link replays the exact same one today).`)}</p></div>
     <details class="card wi-regles"><summary>${L("Comment ça marche", "How it works")}</summary>${L(
     `<p><b>La force des équipes.</b> Chaque équipe part de sa cote Elo d'aujourd'hui (calculée match par match depuis 2008), plus un petit coup de hasard pour toute la saison (±${V.sigma} Elo en moyenne) : personne ne sait exactement à quel point une équipe est bonne.</p>
      <p><b>Chaque match.</b> La chance de gagner vient de l'écart d'Elo, plus l'avantage de la glace (${V.hfa} Elo). ${Math.round(V.p_ot * 100)} % des matchs vont en prolongation (le perdant prend 1 point). Le pointage : le perdant marque autour de 2 buts, l'écart suit celui de la ligue (1 but : 45 % des fois, 2 : 27 %, 3 : 15 %...).</p>
@@ -10950,8 +10950,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=367a763e" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=367a763e" defer></script>
+<script src="pub.js?v=a359a4da" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=a359a4da" defer></script>
 <script src="nav.js?v=8175729e5e" defer></script>
 </body>
 </html>
