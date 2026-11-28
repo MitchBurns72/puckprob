@@ -1,0 +1,131 @@
+{
+ "jour": "2026-11-28",
+ "cle": "2026-11-28-habs",
+ "section": "habs",
+ "par": "claude",
+ "auteur": "Gerry Mitchell",
+ "titre": {
+  "fr": "Le dossier Kucherov frappe un os, et le CH glisse au 12e rang",
+  "en": "The Kucherov file hits a snag as the Habs slide to 12th"
+ },
+ "titre_court": {
+  "fr": "Kucherov : un os pour le CH",
+  "en": "Kucherov: a snag for Montreal"
+ },
+ "chapeau": {
+  "fr": "Le rêve Kucherov frappe un obstacle selon The Hockey Writers. Pendant ce temps, notre club recule de deux rangs au Power ranking, mais garde 71,5 % de chances de faire les séries.",
+  "en": "The Kucherov dream runs into an obstacle, according to The Hockey Writers. Meanwhile, our club drops two spots in the Power rankings but keeps a 71.5% prob of making the playoffs."
+ },
+ "corps": {
+  "fr": [
+   {
+    "h": "Le pouls du CH"
+   },
+   {
+    "p": "Le Canadien est 12e de nos **Power rankings** (-2 cette semaine), avec 32 points en 26 matchs, une projection de 99,5 points et 71,5 % de chances de faire les séries. Pour la Coupe : 2,9 %, 11e favori. La fiche de 4-5-1 à nos 10 derniers, par contre, c'est pas de quoi sortir les drapeaux sur le balcon."
+   },
+   {
+    "h": "Le Kuch, version obstacle"
+   },
+   {
+    "p": "La revue des rumeurs de [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-maple-leafs-edvinsson-oilers-lose-hyman-kucherov-canadiens-11-27-2026/) parle maintenant d'un os dans le dossier [[8476453|Nikita Kucherov]] à Montréal. On ne sait pas encore la forme exacte de l'os, alors je ne vous en inventerai pas un. Mais je sais ce qu'on magasine : 33 points en 25 matchs, 23 passes, une projection de 112 points, 3e de notre course à l'Art Ross (10,5 %). Sa **PB Market Value** est de 17,0 M$ pour un contrat de 9,5 M$. Pis Tampa est 4e de nos Power rankings, avec 89,0 % de chances de faire les séries."
+   },
+   {
+    "p": "Mon avis, de partisan lucide : j'en rêve, mais un club qui joue pour la Coupe ne donne pas son meilleur joueur à un rival de division pour nous faire plaisir. Pis si le Canadien veut vraiment jouer dans cette ligue-là, il faudrait d'abord nous sortir de ce 4-5-1. On a déjà fait un gros coup avec [[8477946|Dylan Larkin]] (7 points en 12 matchs). Laissons-le s'installer avant de vider le reste du garde-robe."
+   },
+   {
+    "h": "En rafale"
+   },
+   {
+    "liste": [
+     "William Trudeau, échangé par le Canadien aux Rangers en juin puis réclamé par Nashville, se retrouve au ballottage ([RDS](https://www.rds.ca/hockey/lnh/article/william-trudeau-se-retrouve-au-ballottage/)). Bonne chance au jeune, on lui souhaite de trouver une place.",
+     "[[8483457|Lane Hutson]] reste 6e de notre course au Norris (3,7 %) avec 24 points en 26 matchs. [[8480018|Nick Suzuki]] est 5e au Selke (3,8 %)."
+    ]
+   },
+   {
+    "p": "Ma prédiction de la semaine : pas de Kucherov à Montréal avant les Fêtes, mais le CH reste au-dessus de 70 % pour les séries. Suivez ça au jour le jour dans la section **Séries** de PuckProb."
+   },
+   {
+    "p": "— Gerry Mitchell, Habs On The Wire, pour PuckProb.ca"
+   }
+  ],
+  "en": [
+   {
+    "h": "The Habs pulse"
+   },
+   {
+    "p": "The Canadiens are 12th in our **Power rankings** (-2 this week), with 32 points in 26 games, a 99.5-point projection and a 71.5% prob of making the playoffs. For the Cup: 2.9%, 11th favourite. The 4-5-1 record over our last 10, though, is no reason to hang the flags on the balcony."
+   },
+   {
+    "h": "The Kuch, obstacle edition"
+   },
+   {
+    "p": "The rumour rundown from [The Hockey Writers](https://thehockeywriters.com/nhl-rumors-maple-leafs-edvinsson-oilers-lose-hyman-kucherov-canadiens-11-27-2026/) now talks about a snag in Montreal's [[8476453|Nikita Kucherov]] file. We don't know the exact shape of that snag yet, so I won't make one up. But I know what we're shopping for: 33 points in 25 games, 23 assists, a 112-point projection, 3rd in our Art Ross race (10.5%). His **PB Market Value** is $17.0M on a $9.5M contract. And Tampa is 4th in our Power rankings, with an 89.0% prob of making the playoffs."
+   },
+   {
+    "p": "My take, as a clear-eyed fan: I dream about it, but a Cup contender doesn't hand its best player to a division rival to make us happy. And if Montreal really wants to play in that league, it first needs to dig out of this 4-5-1. We already made a big move with [[8477946|Dylan Larkin]] (7 points in 12 games). Let him settle in before emptying the rest of the closet."
+   },
+   {
+    "h": "Quick hits"
+   },
+   {
+    "liste": [
+     "William Trudeau, traded by Montreal to the Rangers in June and then claimed by Nashville, is on waivers ([RDS](https://www.rds.ca/hockey/lnh/article/william-trudeau-se-retrouve-au-ballottage/)). Good luck to the kid, hope he finds a spot.",
+     "[[8483457|Lane Hutson]] stays 6th in our Norris race (3.7%) with 24 points in 26 games. [[8480018|Nick Suzuki]] is 5th in the Selke race (3.8%)."
+    ]
+   },
+   {
+    "p": "My prediction for the week: no Kucherov in Montreal before the holidays, but the Habs stay above 70% for the playoffs. Follow it day by day in PuckProb's **Playoffs** section."
+   },
+   {
+    "p": "— Gerry Mitchell, Habs On The Wire, for PuckProb.ca"
+   }
+  ]
+ },
+ "vedette": {
+  "id": "8476453",
+  "n": "Nikita Kucherov",
+  "eq": "TBL",
+  "no": 86,
+  "etiquette": {
+   "fr": "Dans la mire du CH",
+   "en": "On the Habs' radar"
+  },
+  "sous": {
+   "fr": "Tampa Bay · 3e de la course à l'Art Ross",
+   "en": "Tampa Bay · 3rd in the Art Ross race"
+  },
+  "cases": [
+   {
+    "v": "33",
+    "fr": "pts en 25 PJ",
+    "en": "pts in 25 GP"
+   },
+   {
+    "v": "17,0 M$",
+    "v_en": "$17.0M",
+    "fr": "PB Market Value",
+    "en": "PB Market Value"
+   }
+  ]
+ },
+ "points": {
+  "fr": [
+   "CH 12e au Power ranking (-2)",
+   "71,5 % de chances de séries",
+   "Trudeau, ex-espoir du CH, au ballottage"
+  ],
+  "en": [
+   "Habs 12th in Power rankings (-2)",
+   "71.5% playoff prob",
+   "Trudeau, ex-Habs prospect, on waivers"
+  ]
+ },
+ "ids": [
+  "n:af64aebcc911",
+  "73987319506e"
+ ],
+ "depuis": "2026-11-27T12:17",
+ "jusqu": "2026-11-28T12:17",
+ "saison": "20262027"
+}

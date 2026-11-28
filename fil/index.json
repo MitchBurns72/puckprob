@@ -1,6 +1,50 @@
 {
- "maj": "2026-11-28T03:06-05:00",
+ "maj": "2026-11-28T07:50-05:00",
  "articles": [
+  {
+   "jour": "2026-11-28",
+   "cle": "2026-11-28-habs",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "Le dossier Kucherov frappe un os, et le CH glisse au 12e rang",
+    "en": "The Kucherov file hits a snag as the Habs slide to 12th"
+   },
+   "jusqu": "2026-11-28T12:17",
+   "chapeau": {
+    "fr": "Le rêve Kucherov frappe un obstacle selon The Hockey Writers. Pendant ce temps, notre club recule de deux rangs au Power ranking, mais garde 71,5 % de chances de faire les séries.",
+    "en": "The Kucherov dream runs into an obstacle, according to The Hockey Writers. Meanwhile, our club drops two spots in the Power rankings but keeps a 71.5% prob of making the playoffs."
+   },
+   "vedette": "Nikita Kucherov",
+   "vid": "8476453",
+   "veq": "TBL",
+   "par": "claude",
+   "img": true,
+   "auteur": "Gerry Mitchell",
+   "section": "habs"
+  },
+  {
+   "jour": "2026-11-28",
+   "cle": "2026-11-28",
+   "special": false,
+   "saison": "20262027",
+   "titre": {
+    "fr": "L'infirmerie déborde : Carlsson, Snuggerud et Kane tombent, Marchenko revient",
+    "en": "The infirmary overflows: Carlsson, Snuggerud and Kane go down, Marchenko returns"
+   },
+   "jusqu": "2026-11-28T12:17",
+   "chapeau": {
+    "fr": "Anaheim perd Leo Carlsson, St. Louis perd sa meilleure aubaine en Jimmy Snuggerud, et Patrick Kane, 38 ans, prend une pause forcée à Chicago. À Toronto, Marchenko et Sissons reviennent au jeu. Grosse journée de calepin, pis c'est mon rayon.",
+    "en": "Anaheim loses Leo Carlsson, St. Louis loses its best bargain in Jimmy Snuggerud, and 38-year-old Patrick Kane gets a forced break in Chicago. In Toronto, Marchenko and Sissons are back. A big notebook day, and that's my department."
+   },
+   "vedette": "Leo Carlsson",
+   "vid": "8484153",
+   "veq": "ANA",
+   "par": "claude",
+   "img": true,
+   "auteur": "Bubba Lentir",
+   "section": ""
+  },
   {
    "jour": "2026-11-27",
    "cle": "2026-11-27",
