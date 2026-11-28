@@ -1293,7 +1293,7 @@ a.fiche:hover{text-decoration:underline;text-decoration-color:var(--goal);text-u
 .ab{font:700 11px var(--f-body,system-ui);font-style:normal;color:var(--muted);margin-left:4px;letter-spacing:.04em;vertical-align:baseline}.st-pb{margin:-2px 0 6px!important;font:700 13px var(--f-body,system-ui)!important;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
 </style>
 <!-- Le style « carte » de PuckProb (fond marine, rangées pâles, titres Teko) : docs/carte.css, après le style de base -->
-<link rel="stylesheet" href="carte.css?v=a359a4da">
+<link rel="stylesheet" href="carte.css?v=4ecbc84e">
 <meta name="google-adsense-account" content="ca-pub-1129267228196054">
 <script data-goatcounter="https://puckprob.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
@@ -7702,7 +7702,7 @@ async function fenMontrer(o, rendre = true){
   else if (o === "prj"){ await FEN_CH.prj(); cote(Object.keys(PRJ.joueurs).length); prjCarte(id); }
   else if (o === "enf"){ await FEN_CH.enf(); cote(Object.keys(ENF.joueurs).length); enfCarte(id); }
   else if (o === "gcr"){ await FEN_CH.gcr(); cote(GCR.gardiens.length); gcrCarte(id); }
-  else if (o === "arb"){ await FEN_CH.arb(); cote(ARB.joueurs.length, true); arbCarte(id); }
+  else if (o === "arb"){ await FEN_CH.arb(); await arbDna(id, p); return; }
   else if (o === "tirs"){ await pbxgJoueur(id, p); return; }
   else if (o === "dna"){ await dnaJoueur(id, p); return; }
   if (p.querySelector(".vide") && !p.querySelector(".wi-carte")) p.innerHTML = `<div class="vide">${L("Rien pour lui ici.", "Nothing for him here.")}</div>`;
@@ -9385,6 +9385,68 @@ async function arbOnglet(){
   el.innerHTML = saiBandeau("arb") + tete + eqClassementHTML(eqA, L("les mieux traités par les arbitres", "best treated by the refs")) + lignes + regles + `<p class="aide">${L("Source : jeu-par-jeu et feuilles de match de la ligue.", "Source: league play-by-play and game sheets.")} ${ARB.matchs} ${L("matchs cette saison. Mis à jour le", "games this season. Updated")} ${ARB.maj || ""}.</p>`;
   ptListeTab("p-arb");
 }
+// ---- L'onglet Arbitres de la fenêtre joueur, façon PB Player DNA (Mitch, 28 nov. 2026 : « j'aime beaucoup comment
+// l'onglet PB Analytics est fait dans les profils, fais pareil pour les refs ») : des barres de rang centile parmi tous
+// les joueurs de la saison (100 = celui que les arbitres traitent le mieux, la ligne blanche = la médiane), le détail
+// par situation, et ses saisons passées en points sous chaque barre (les saisons complètes de la machine à remonter le
+// temps). La carte de partage (arbCarte, plus bas) reste celle des posts.
+const ARB_PASSE = {};
+const chargerArbPasse = (sa) => ARB_PASSE[sa] || (ARB_PASSE[sa] = fetch(new URL(EN ? "./" : "../", document.baseURI).href + `saisons/${sa}/complete/arbitres.json?v=` + (D?.date || Date.now()))
+  .then(r => r.ok ? r.json() : null).catch(() => null));
+// Les mesures (une fonction par barre ; plus haut = mieux traité par les arbitres)
+const ARB_M = {
+  net: (x) => x.net,
+  ob: (x) => x.h ? (x.ob - x.ob_att) / x.h : null,           // obtient plus que prévu
+  pr: (x) => x.h ? -(x.pr - x.pr_att) / x.h : null,          // prend MOINS que prévu
+  avance: (x) => x.etats?.avance?.[4], egal: (x) => x.etats?.egal?.[4], retard: (x) => x.etats?.retard?.[4],
+};
+function arbRangs(J){
+  // Le rang centile de chaque joueur pour chaque mesure (0 = le pire, 100 = le mieux traité)
+  const out = {};
+  for (const [k, f] of Object.entries(ARB_M)){
+    const v = J.map(x => [String(x.id), f(x)]).filter(z => z[1] != null && isFinite(z[1])).sort((a, b) => a[1] - b[1]);
+    const n = v.length;
+    v.forEach(([i], r) => { (out[i] = out[i] || {})[k] = n > 1 ? Math.round(100 * r / (n - 1)) : 50; });
+  }
+  return out;
+}
+async function arbDna(id, p){
+  const x = ARB?.joueurs?.find(y => String(y.id) === String(id));
+  if (!x){ p.innerHTML = `<section class="fen-s"><p class="aide">${L("Pas assez de minutes cette saison pour juger les arbitres.", "Not enough minutes this season to judge the refs.")}</p></section>`; return; }
+  const sc = ARB.saison || saisonCour();
+  const passees = (SAI?.saisons ? Object.keys(SAI.saisons) : ["20232024", "20242025", "20252026"]).filter(sa => sa < String(sc)).sort();
+  const PA = {}; await Promise.all(passees.map(async sa => { PA[sa] = await chargerArbPasse(sa); }));
+  if (FEN.x?.id !== id) return;
+  const RG = { [sc]: arbRangs(ARB.joueurs) };
+  for (const sa of passees) if (PA[sa]?.joueurs?.length) RG[sa] = arbRangs(PA[sa].joueurs);
+  const moi = RG[sc][String(id)] || {};
+  const ses = Object.keys(RG).filter(sa => RG[sa][String(id)]).sort();
+  const autres = (k) => ses.length > 1 ? ses.map(sa => [sa, RG[sa][String(id)]?.[k]]) : null;
+  const n1 = (v) => v == null ? "–" : n1a(v);
+  const e_ = (k) => x.etats?.[k] || [];
+  const val = {
+    ob: L(`${n1(x.ob)} obtenues · ${n1(x.ob_att)} attendues`, `${n1(x.ob)} drawn · ${n1(x.ob_att)} expected`),
+    pr: L(`${n1(x.pr)} prises · ${n1(x.pr_att)} attendues`, `${n1(x.pr)} taken · ${n1(x.pr_att)} expected`),
+  };
+  for (const k of ["avance", "egal", "retard"]){ const v = e_(k);
+    val[k] = L(`obt. ${n1(v[0])} (att. ${n1(v[1])}) · prises ${n1(v[2])} (att. ${n1(v[3])})`, `drawn ${n1(v[0])} (exp. ${n1(v[1])}) · taken ${n1(v[2])} (exp. ${n1(v[3])})`); }
+  const nom = { ob: L("Pénalités obtenues", "Penalties drawn"), pr: L("Pénalités prises", "Penalties taken"),
+    avance: L("Son équipe mène", "His team leads"), egal: L("Égalité", "Tied"), retard: L("Son équipe tire de l'arrière", "His team trails") };
+  const barre = (k) => dnaBarre(nom[k], val[k], moi[k], autres(k));
+  const g = moi.net;
+  const top = g == null ? "" : g >= 50 ? L(`Mieux traité que ${g} % des joueurs`, `Treated better than ${g}% of players`) : L(`Moins bien traité que ${100 - g} % des joueurs`, `Treated worse than ${100 - g}% of players`);
+  p.innerHTML = `<section class="fen-s"><h3>PB Ref Bias <em>${L("saison", "season")} ${dnaSai(String(sc))} · ${x.pj} ${L("PJ", "GP")} · ${n1a(x.h)} ${L("h de glace", "h of ice")}</em></h3>
+      <div class="dna-big"><b style="color:${dnaCoul(g)}">${g ?? "–"}</b><span><strong>PB Ref Bias</strong>${top}<br>${L("Rang centile : 100 = le joueur que les arbitres traitent le mieux, la ligne blanche = la médiane.", "Percentile rank: 100 = the player the refs treat best, the white line = the median.")}</span></div>
+      ${ses.length > 1 ? `<div class="dna-dots" style="margin:-2px 0 8px">${ses.map(sa => `<span>${dnaSai(sa)} <b style="color:${dnaCoul(RG[sa][String(id)]?.net)}">${RG[sa][String(id)]?.net ?? "–"}</b></span>`).join("")}</div>` : ""}
+      <div class="dna-g">${L("Les pénalités", "The penalties")}</div>${barre("ob")}${barre("pr")}
+      <div class="dna-g">${L("Selon le pointage", "By the score")}</div>${barre("avance")}${barre("egal")}${barre("retard")}
+      <p class="aide">${L("Comparé à un joueur pareil (même position, même temps de glace) dans les mêmes situations : quand son équipe mène, à égalité, quand elle tire de l'arrière. Pénalités obtenues : plus que prévu = bon. Prises : moins que prévu = bon.",
+        "Compared with a similar player (same position, same ice time) in the same situations: when his team leads, tied, when it trails. Penalties drawn: more than expected = good. Taken: fewer than expected = good.")}</p></section>
+    <section class="fen-s"><h3>${L("Sa place", "His rank")} <em>${L("parmi", "among")} ${ARB.joueurs.length} ${L("joueurs", "players")}</em></h3>
+      <div class="dna-ctx"><div><small>${L("Rang PB Ref Bias", "PB Ref Bias rank")}</small><b>${ARB.joueurs.length - x.rg + 1}<small> / ${ARB.joueurs.length}</small></b></div>
+      <div><small>${L("Obtenues / 60 min", "Drawn / 60 min")}</small><b>${n1(x.ob60)}</b></div><div><small>${L("Prises / 60 min", "Taken / 60 min")}</small><b>${n1(x.pr60)}</b></div></div>
+      <p class="aide">${L("Tous les joueurs dans PB Ref Bias % (In House Stats).", "Every player in PB Ref Bias % (In House Stats).")}</p></section>`;
+}
 function arbCarte(id){
   const x = ARB?.joueurs?.find(y => String(y.id) === String(id)); if (!x) return;
   const E = [["avance", L("Son équipe mène", "His team leads")], ["egal", L("Égalité", "Tied")], ["retard", L("Son équipe tire de l'arrière", "His team trails")]];
@@ -10950,8 +11012,8 @@ init().catch(finCharge);
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", function(){ setTimeout(poser, 0); }) : setTimeout(poser, 0);
 })();
 </script>
-<script src="pub.js?v=a359a4da" data-client="ca-pub-1129267228196054" defer></script>
-<script src="club.js?v=a359a4da" defer></script>
+<script src="pub.js?v=4ecbc84e" data-client="ca-pub-1129267228196054" defer></script>
+<script src="club.js?v=4ecbc84e" defer></script>
 <script src="nav.js?v=8175729e5e" defer></script>
 </body>
 </html>
