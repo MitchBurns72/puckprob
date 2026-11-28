@@ -264,6 +264,23 @@ def story(it):
         return publier_story_video(mp4)
 
 
+def lien_en_commentaire(texte, com):
+    """Les liens : en commentaire seulement (Mitch, 27 nov. 2026, « I trust you bro go » ; Meta, T2 2026 : 98,9 % des
+    vues sur Facebook vont à des posts sans lien). Si le 1er commentaire a déjà le lien, les lignes de la légende qui en
+    ont un sont remplacées par une seule mention. Sans commentaire avec le lien : la légende reste telle quelle."""
+    if not texte or not com or "https://puckprob.ca" not in com:
+        return texte
+    L, mis = [], False
+    for x in texte.split("\n"):
+        if "https://puckprob.ca" in x:
+            if not mis:
+                L.append("Le lien est en commentaire · Link in the comments")
+                mis = True
+            continue
+        L.append(x)
+    return "\n".join(L)
+
+
 def publier_plusieurs(it):
     """2 photos et plus (l'image habituelle + le popup d'un joueur) : un post Facebook qui attache des photos pas
     publiées, et un carrousel Instagram. Même recette que social.publier_plusieurs()."""
@@ -382,6 +399,7 @@ def _video_fb_ig(it, donnees, quoi):
 
 def publier(it):
     """Facebook (fichier), puis Instagram (adresse de la photo Facebook). Même recette que social.publier()."""
+    it = dict(it, texte=lien_en_commentaire(it.get("texte"), it.get("com")))
     if it.get("video"):
         out = publier_video(it)
         if out:
